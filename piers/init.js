@@ -297,6 +297,14 @@
 			copy (deep=false) {
 				return deep ? JSON.parse(JSON.stringify(this.O)) : this.assign({}, this.O);
 			}
+			join (no) {
+				for (let k in no) {
+					if (k in this.O && 'object' === typeof(this.O[k]))
+						Piers.OBJ(this.O[k]).join(no[k]);
+					else this.O[k] = no[k];
+				}
+				return this.O;
+			}
 			methodCall (func) {
 				return func.apply(this.O, arguments);
 			}
@@ -365,7 +373,6 @@
 					: await Piers.URL(src).request();
 				Piers.X("DOM.load").assert(dom, "Parameter Error");
 				return (function(rt){
-					console.log(this,rt);
 					if(rt)
 						return (new _C_(rt)).reduce(function(r,e){
 							if (e.nodeType==1) r.add(e, reverse);
@@ -415,7 +422,7 @@
 								r=rr===undefined ? r : rr;
 							}
 				} catch( x ) {
-					console.log("Error",this,x);
+					console.log("Error",x);
 				}
 				return r;
 			}
@@ -534,6 +541,14 @@
 				p = this.E.parentNode;
 				p.removeChild(this.E);
 				DOM({"T":"script","V":{"text":this.E.text}}).join(p);
+			}
+			async resolve (htm, js, jsa={}) {
+				let self = this;
+				await self.clear().load(htm);
+				if (js)
+					return await Promise.resolve(
+						(await Piers.import(js))(self.E, jsa)
+					);
 			}
 		}
 		switch (t) {
