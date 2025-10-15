@@ -32,9 +32,11 @@
 	.subtitle { font-size: clamp(1rem, 2.4vw, 1.25rem); color:var(--muted); margin:0; }
 	.meta { margin-top:0.625rem; font-size:0.875rem; color:var(--muted); }
 
-	.reduced>.detail { display:none }
+	body.reduced .supplement { display:none }
 
 	main { display:flex; flex:1 1 auto; min-height: 0; }
+
+	#content { background:#f0f0f0; }
 	
 	.wrap { flex:1; padding: 1.5rem; overflow-y:auto; }
 	section { 
@@ -129,8 +131,8 @@
 
 <header>
 	<div class="header-content">
-		<h1 class="title" onclick="this.parentNode.classList.toggle('reduced')">Python 基本輸入輸出與格式化</h1>
-		<div class="detail">
+		<h1 class="title" onclick="body.classList.toggle('reduced')">Python 基本輸入輸出與格式化</h1>
+		<div class="supplement">
 			<p class="subtitle">財金系一年級 · Console 模式、終端機輸入與格式化輸出</p>
 			<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
 		</div>
@@ -140,7 +142,10 @@
 
 <aside id="operationsPanel">
 	<div class="panel-header">
-		<h3>導覽與設定</h3>
+		<h3>
+			導覽與設定
+			<button style="float:right" onclick="document.getElementById('content').requestFullscreen();">「」</button>
+		</h3>
 	</div>
 	<nav id="toc">
 		<ol id="tocList"></ol>
@@ -160,7 +165,7 @@
 			<button class="btn" id="nextBtn" title="下一節 Next (→)">→</button>
 		</div>
 		<div style="text-align: center; margin-top: 8px;">
-				<span id="counter" class="help"></span>
+			<span id="counter" class="help"></span>
 		</div>
 	</div>
 </aside>
@@ -415,7 +420,7 @@ bal = P
 </div>
 </main>
 
-<footer>
+<footer class="supplement">
 	© 2025 Porshen Lai · Teaching material (HTML). 完整離線單檔 · Single-file Offline
 </footer>
 
@@ -531,7 +536,7 @@ bal = P
 	const fontDisplay = document.getElementById('fontDisplay');
 	const root = document.documentElement;
 
-	const FONT_STEP = 0.05, MAX_FONT_SCALE = 1.3, MIN_FONT_SCALE = 0.8, DEFAULT_FONT_SIZE = 16;
+	const FONT_STEP = 0.05, MAX_FONT_SCALE = 1.5, MIN_FONT_SCALE = 0.8, DEFAULT_FONT_SIZE = 24;
 	let currentFontScale = 1.0;
 
 	function applyFontSize(scale) {
