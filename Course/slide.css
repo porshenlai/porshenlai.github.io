@@ -23,7 +23,7 @@ main { display:flex; flex:1 1 auto; min-height: 0; }
 
 #content { background:#f0f0f0; }
 
-.wrap { flex:1; padding: 1.5rem; overflow-y:auto; }
+.wrap { flex:1; padding: 1.5rem; overflow:hidden auto; }
 section { 
 	margin: 1.75rem 0 2.25rem 0; padding: 1.25rem; border:2px solid #e6e6e6; border-radius:14px; 
 	box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
@@ -94,4 +94,32 @@ body.panel-open #panel-overlay { opacity: 1; visibility: visible; }
 @media (max-width: 960px) {
 	main { display:block; }
 	.wrap { padding: 1rem; }
+}
+
+/* --- Mobile Controls --- */
+#mobileControls {
+	display: none; /* 預設隱藏 */
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 0.75rem;
+	background: rgba(255, 255, 255, 0.95);
+	border-top: 1px solid #ddd;
+	box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+	z-index: 50; /* 確保在內容之上，但在彈出面板之下 */
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+/* 當 body 具有 .is-mobile class 時，才顯示控制面板 */
+body.is-mobile #mobileControls {
+	display: flex;
+}
+
+#mobileControls .btn {
+	flex: 1; /* 讓三個按鈕平分寬度 */
+	padding: 0.75rem 0.5rem;
+	font-size: 0.9rem;
+	font-weight: bold;
 }

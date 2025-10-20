@@ -6,7 +6,6 @@
 	 */
 	function initializePresentation() {
 		// --- Element Selectors ---
-		// 元素現在可以安全地被選取
 		const content = document.getElementById('content');
 		const sections = Array.from(content.querySelectorAll('section'));
 		const tocList = document.getElementById('tocList');
@@ -14,7 +13,12 @@
 		const nextBtn = document.getElementById('nextBtn');
 		const counter = document.getElementById('counter');
 		const panelOverlay = document.getElementById('panel-overlay'); 
-		const operationsPanel = document.getElementById('operationsPanel'); 
+		const operationsPanel = document.getElementById('operationsPanel');
+		
+		// NEW: Mobile control selectors
+		const mobilePrevBtn = document.getElementById('mobilePrevBtn');
+		const mobileNextBtn = document.getElementById('mobileNextBtn');
+		const mobileEscBtn = document.getElementById('mobileEscBtn');
 		
 		let currentActiveIndex = -1;
 
@@ -53,6 +57,11 @@
 			// 2. Update button states
 			prevBtn.disabled = (index === 0);
 			nextBtn.disabled = (index === sections.length - 1);
+			// NEW: Also update mobile buttons
+			if (mobilePrevBtn) {
+				mobilePrevBtn.disabled = (index === 0);
+				mobileNextBtn.disabled = (index === sections.length - 1);
+			}
 			
 			// 3. Highlight active section and TOC link
 			sections.forEach((sec, i) => {
@@ -70,6 +79,13 @@
 				location.hash = '#' + section.id;
 			}
 			section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+		}
+
+		// --- Panel Logic ---
+		function openPanel() { document.body.classList.add('panel-open'); }
+		function closePanel() { document.body.classList.remove('panel-open'); }
+		function togglePanel() {
+			document.body.classList.contains('panel-open') ? closePanel() : openPanel();
 		}
 
 		// --- Event Listeners ---
@@ -91,7 +107,7 @@
 			
 			if (e.key === 'Escape') {
 				e.preventDefault(); // Stop default browser action (like exiting fullscreen)
-				document.body.classList.contains('panel-open') ? closePanel() : openPanel();
+				togglePanel();
 			}
 		});
 		
@@ -102,15 +118,18 @@
 			});
 		});
 
-		// --- Panel Logic ---
-		function openPanel() { document.body.classList.add('panel-open'); }
-		function closePanel() { document.body.classList.remove('panel-open'); }
-
 		panelOverlay.addEventListener('click', closePanel);
 		
 		operationsPanel.addEventListener('click', (e) => {
 			e.stopPropagation();
 		});
+
+		// NEW: Mobile control listeners
+		if (document.body.classList.contains('is-mobile')) {
+			mobilePrevBtn.addEventListener('click', () => activateSection(currentActiveIndex - 1));
+			mobileNextBtn.addEventListener('click', () => activateSection(currentActiveIndex + 1));
+			mobileEscBtn.addEventListener('click', () => togglePanel());
+		}
 
 		// --- Font Size Controls ---
 		const fontIncreaseBtn = document.getElementById('fontIncreaseBtn');
@@ -156,6 +175,14 @@
 	// -----------------------------------------------------------------
 	// MODIFIED: 啟動邏輯
 	// -----------------------------------------------------------------
+
+	// NEW: Mobile Detection
+	function isMobile() {
+		return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	}
+	if (isMobile()) {
+		document.body.classList.add('is-mobile');
+	}
 	
 	// 1. 將 <aside> 面板的 HTML 內容定義為字串
 	const asideHTMLString = `
@@ -201,10 +228,21 @@
 	const doc = parser.parseFromString(asideHTMLString, 'text/html');
 	const asideElement = doc.getElementById('operationsPanel'); // 從解析的文檔中取得元素
 
+	// NEW: 4. 建立並附加 mobile controls
+	const mobileControls = document.createElement('div');
+	mobileControls.id = 'mobileControls';
+	mobileControls.innerHTML = `
+		<button id="mobilePrevBtn" class="btn">← 上一頁</button>
+		<button id="mobileEscBtn" class="btn">☰ 導覽</button>
+		<button id="mobileNextBtn" class="btn">下一頁 →</button>
+	`;
+	document.body.appendChild(mobileControls); // 無條件附加，CSS 會根據 .is-mobile 決定是否顯示
+
+	// 5. 附加 aside 並啟動主腳本
 	if (asideElement) {
 		document.body.appendChild(asideElement);
 		
-		// 4. *** 成功附加後，呼叫主函式來綁定事件 ***
+		// 6. *** 成功附加後，呼叫主函式來綁定事件 ***
 		initializePresentation();
 	} else {
 		console.error('從 HTML 字串解析 <aside> 面板失敗。');
