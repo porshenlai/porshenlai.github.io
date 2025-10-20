@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 技術選擇地圖：從財金應用出發</title>
+<style>
+	:root {
+		--blue:#1E88E5;
+		--green:#26A69A;
+		--text:#222;
+		--muted:#666;
+		--bg:#ffffff;
+		--base-font-size: 16px; /* Font size control */
+	}
+	* { box-sizing: border-box; }
+	html { font-size: var(--base-font-size); scroll-behavior: smooth; }
+	html, body { height: 100%; }
+	body {
+		margin:0; font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, Segoe UI, Arial;
+		color:var(--text); background:var(--bg); line-height:1.6;
+		display: flex; flex-direction: column;
+	}
+	header {
+		padding: 1rem 1.5rem; border-bottom:4px solid var(--blue);
+		background: linear-gradient(90deg, rgba(30,136,229,0.08), rgba(38,166,154,0.08));
+		display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+		position: sticky; top: 0; z-index: 10;
+	}
+	.header-content { flex: 1; }
+	.title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; margin: 0 0 0.375rem 0; color:var(--blue); }
+	.subtitle { font-size: clamp(1rem, 2.4vw, 1.25rem); color:var(--muted); margin:0; }
+	.meta { margin-top:0.625rem; font-size:0.875rem; color:var(--muted); }
+
+	body.reduced .supplement { display:none }
+
+	main { display:flex; flex:1 1 auto; min-height: 0; }
+
+	#content { background:#f0f0f0; }
+	
+	.wrap { flex:1; padding: 1.5rem; overflow-y:auto; }
+	section { 
+		margin: 1.75rem 0 2.25rem 0; padding: 1.25rem; border:2px solid #e6e6e6; border-radius:14px; 
+		box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+		transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+		cursor: pointer;
+		scroll-margin-top: 1.5rem; /* THIS IS THE NEW LINE FOR SCROLL OFFSET */
+	}
+	section:hover {
+		border-color: #ccc;
+	}
+	section.current-section {
+		border-color: var(--green);
+		background-color: #f6fffd;
+		box-shadow: 0 4px 16px rgba(38, 166, 154, 0.2);
+		cursor: default;
+	}
+	
+	h2 { margin:0 0 0.625rem 0; font-size: 1.375rem; color:var(--blue); }
+	h3 { margin:0.625rem 0; font-size: 1.125rem; color:#0d5ea8; }
+	ul, ol { margin: 8px 0 8px 22px; }
+	.kpi-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px; }
+	.pill { display:inline-block; padding:4px 10px; border-radius:999px; background:#eef6ff; color:#0d5ea8; font-size:0.75rem; margin-right:8px; }
+	table { width:100%; border-collapse: collapse; margin-top:10px; font-size: 0.95rem; }
+	th, td { border:1px solid #e6e6e6; padding:10px; text-align:left; vertical-align: top; }
+	th { background:#f7fbff; color:#0d5ea8; }
+	footer { color:var(--muted); font-size: 0.75rem; padding: 1rem 1.5rem; border-top:1px solid #eee; }
+	.badge { background: #e8f5e9; color:#2e7d32; padding:2px 8px; border-radius:999px; font-size:0.75rem; }
+	.callout { border-left:4px solid var(--green); padding: 0.75rem; background:#f6fffd; margin: 1rem 0;}
+
+	/* --- Right-side Operations Panel --- */
+	#operationsPanel {
+		position: fixed; top: 0; right: 0; bottom: 0;
+		width: 320px; max-width: 80vw;
+		background: #fff;
+		border-left: 1px solid #eee;
+		box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+		z-index: 100;
+		transform: translateX(100%);
+		transition: transform 0.3s ease;
+		display: flex; flex-direction: column;
+	}
+	body.panel-open #operationsPanel { transform: translateX(0); }
+	
+	.panel-header { padding: 1rem; border-bottom: 1px solid #eee; }
+	.panel-header h3 { margin: 0; color: #0d5ea8; }
+
+	#toc { flex: 1; overflow-y: auto; padding: 1rem; }
+	#toc ol { list-style: none; padding: 0; margin: 0; }
+	#toc li { margin: 4px 0; }
+	#toc a { color:#0d5ea8; text-decoration: none; display: block; padding: 6px 10px; border-radius: 6px; font-size: 0.9rem; }
+	#toc a:hover { background-color: #f0f5fa; }
+	#toc a.active { font-weight:700; background-color: #e3f2fd; }
+
+	.panel-footer { padding: 1rem; border-top: 1px solid #eee; background: #fcfcfc; }
+	.setting-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+	.setting-item label { color: var(--text); font-size: 0.9rem; }
+	.setting-item .zoom-controls { display: flex; align-items: center; gap: 0.5rem; }
+	.zoom-controls button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ccc; background-color: #f9f9f9; cursor: pointer;}
+	
+	.nav-controls { display: flex; align-items: center; gap: 10px; }
+	.btn { appearance:none; border:1px solid #cfd8dc; background:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; }
+	.btn:hover { border-color:#90a4ae; }
+	.progress { flex: 1; height: 8px; background:#eef2f7; border-radius:999px; overflow:hidden; }
+	.progress > i { display:block; height:100%; width:0%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 0.3s ease; }
+	.help { font-size: 0.8rem; color: var(--muted); }
+
+	#panel-overlay {
+		position: fixed; top:0; left:0; right:0; bottom:0;
+		background: rgba(0,0,0,0.4); z-index: 99;
+		opacity: 0; visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s;
+	}
+	body.panel-open #panel-overlay { opacity: 1; visibility: visible; }
+	
+	.icon-btn {
+		font-size: 1.5rem; background: transparent; border: none; cursor: pointer;
+		color: var(--muted); padding: 0 0.5rem;
+	}
+	.icon-btn:hover { color: var(--blue); }
+
+	@media (max-width: 960px) {
+		main { display:block; }
+		.wrap { padding: 1rem; }
+	}
+</style>
+</head>
+<body>
+
+<div id="panel-overlay"></div>
+
+<header>
+	<div class="header-content">
+		<h1 class="title" onclick="body.classList.toggle('reduced')">Git/GitHub 與 LLM 協作：程式碼的敏捷微調</h1>
+		<div class="supplement">
+			<p class="subtitle">將提示詞（Prompt）納入版本控制，實現 AI 輔助開發的團隊協作</p>
+			<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
+		</div>
+	</div>
+	<button id="panelToggleBtn" class="icon-btn" title="開啟操作面板">☰</button>
+</header>
+
+<aside id="operationsPanel">
+	<div class="panel-header">
+		<h3>
+			導覽與設定
+			<button style="float:right" onclick="document.getElementById('content').requestFullscreen();">「」</button>
+		</h3>
+	</div>
+	<nav id="toc">
+		<ol id="tocList"></ol>
+	</nav>
+	<div class="panel-footer">
+		<div class="setting-item">
+			<label>字型大小</label>
+			<div class="zoom-controls">
+				<button id="fontDecreaseBtn" title="縮小字型">-</button>
+				<span id="fontDisplay">100%</span>
+				<button id="fontIncreaseBtn" title="放大字型">+</button>
+			</div>
+		</div>
+		<div class="nav-controls">
+			<button class="btn" id="prevBtn" title="上一節 Prev (←)">←</button>
+			<div class="progress"><i id="progressBar"></i></div>
+			<button class="btn" id="nextBtn" title="下一節 Next (→)">→</button>
+		</div>
+		<div style="text-align: center; margin-top: 8px;">
+			<span id="counter" class="help"></span>
+		</div>
+	</div>
+</aside>
+
+<main>
+	<div class="wrap" id="content">
+
+<section data-index="0">
+	<h2>I. 課程啟動與目標 (15 min)</h2>
+	<h3>課程目標與核心概念</h3>
+	<ul>
+		<li>學會將 **Prompt (提示詞)** 視為專案的 **「設計資產」**，納入 Git 版本控制。</li>
+		<li>掌握利用 Git/GitHub 功能 (Log, Diff, Blame, Code Review) 來追蹤 LLM 程式碼的生成與迭代。</li>
+		<li>建立團隊協作模式：**Prompt-Code-Review-New Prompt** 的敏捷循環。</li>
+	</ul>
+	<div class="callout">
+		**傳統開發：** 程式碼是核心。<br>
+		**AI 輔助開發：** **提示詞 (Prompt)** 是核心，程式碼是產物。
+	</div>
+</section>
+
+<section data-index="1">
+	<h2>II. 核心方法論：Prompt-Driven Development (20 min)</h2>
+	<h3>Prompt 即 Commit Log 的重要性</h3>
+	<ul>
+		<li>**可追溯性 (Traceability):** 每次 Commit 的程式碼修改，都必須對應到產生它的 Prompt。</li>
+		<li>**協作基礎:** 隊友檢視程式碼時，可以立即從 Log 了解**「最初的設計意圖」**。</li>
+		<li>**未來優化:** 累積的 Prompt 歷史是未來訓練或微調 LLM 的寶貴資料集。</li>
+	</ul>
+
+	<h3>Commit Log 格式建議</h3>
+	<table>
+		<thead>
+			<tr><th>欄位</th><th>內容</th><th>目的</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>**標題 (Subject)**</td><td>`[Prompt]: <核心提示詞>`</td><td>快速了解本次修改的驅動指令。</td></tr>
+			<tr><td>**內文 (Body)**</td><td>*可選*，詳細說明本次人工微調/測試結果。</td><td>提供額外的脈絡與驗證細節。</td></tr>
+		</tbody>
+	</table>
+	<p class="badge">💡 範例：`[Prompt]: 請寫一個計算斐波那契數列的 Python 函式，並加上型別註記。`</p>
+</section>
+
+<section data-index="2">
+	<h2>III. 實戰演練：首次生成與團隊協作 (30 min)</h2>
+	<h3>步驟一：初版程式碼生成與上傳</h3>
+	<ol>
+		<li>**設計 Prompt:** 撰寫第一個清晰、明確的提示詞 (例如：`[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。`)。</li>
+		<li>**LLM 生成:** 將 Prompt 輸入給 LLM，取得程式碼。</li>
+		<li>**Git 提交:** 將程式碼檔案加入 Git，並使用**完整的 Prompt** 作為 Commit Log 提交。
+			<pre><code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。"</code></pre>
+		</li>
+		<li>**推送到 GitHub:** `git push origin <branch>`。</li>
+	</ol>
+
+	<h3>步驟二：團隊 Code Review 與缺陷標記</h3>
+	<ul>
+		<li>**GitHub Pull Request (PR):** 提交 PR 進行審核。</li>
+		<li>**Code Review:** 隊友閱讀程式碼，並在 PR 介面中留下具體修改建議。</li>
+		<li class="callout">
+			**使用 `git blame`：** 在 GitHub 介面上，點擊 `blame` 鍵，每一行程式碼都會指向**第一個 Prompt Commit**，證明其來源。
+		</li>
+	</ul>
+</section>
+
+<section data-index="3">
+	<h2>IV. 程式碼微調與 Prompt 迭代 (45 min)</h2>
+	<h3>步驟三：設計新的 Prompt 進行修正</h3>
+	<ul>
+		<li>**意見收斂:** 根據 Code Review 的建議，設計出一個新的、更精確的 Prompt。</li>
+		<li>**新 Prompt 範例:**
+			<pre><code>[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。</code></pre>
+		</li>
+		<li>**LLM 修正:** 將**舊程式碼 + 新 Prompt** 傳給 LLM，要求其修正。</li>
+	</ul>
+
+	<h3>步驟四：檢視差異與版本更新</h3>
+	<ol>
+		<li>**檢視差異 (Diff):** 在本地使用 `git diff` 仔細比較 LLM 做了哪些修改。</li>
+		<li>**提交修正:** 使用**新的 Prompt** 作為 Commit Log 提交。
+			<pre><code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。"</code></pre>
+		</li>
+		<li>**推送到 GitHub:** 進行第二次 `push`。</li>
+	</ol>
+	<div class="callout">
+		**思考：** 如果 LLM 的修正不完整或引入新錯誤，你該怎麼辦？ (答：設計第三版 Prompt)
+	</div>
+</section>
+
+<section data-index="4">
+	<h2>V. 總結：Log, Diff, Blame 的威力 (10 min)</h2>
+	<h3>Git 核心功能如何服務於 LLM 開發</h3>
+	<ul>
+		<li>**`git log` 追蹤歷史:** 執行 `git log --oneline`，你看到的是**完整的 Prompt 演化歷史**，而非單純的程式碼修改。</li>
+		<li>**`git diff` 驗證修正:** 確保 LLM 的修改範圍和內容是可控且符合預期的，避免「黑箱」修正。</li>
+		<li>**`git blame` 溯源責任:** 任何一行程式碼，都能追溯到是**哪一個 Prompt** 驅動了它的生成，提升問題排除效率。</li>
+	</ul>
+	<h3>課程總結與 Q&A</h3>
+	<div class="kpi-grid">
+		<div>
+			<h3>核心 Takeaway</h3>
+			<p>1. Prompt 必須版本化。<br>2. Commit Log = Prompt 歷史。<br>3. 協作基於 Log 與 Review。</p>
+		</div>
+		<div>
+			<h3>延伸挑戰</h3>
+			<p>1. 如何管理過長的 Prompt？<br>2. 結合 GitHub Actions 自動化 Prompt 提交流程。<br>3. 跨語言模型生成程式碼的適應性。</p>
+		</div>
+	</div>
+</section>
+
+	</div>
+</main>
+
+<footer class="supplement">
+	© 2025 Porshen Lai · Teaching material (HTML). 完整離線單檔 · Single-file Offline
+</footer>
+
+<script>
+(function(){
+	// --- Element Selectors ---
+	const content = document.getElementById('content');
+	const sections = Array.from(content.querySelectorAll('section'));
+	const tocList = document.getElementById('tocList');
+	const prevBtn = document.getElementById('prevBtn');
+	const nextBtn = document.getElementById('nextBtn');
+	const progressBar = document.getElementById('progressBar');
+	const counter = document.getElementById('counter');
+	const panelToggleBtn = document.getElementById('panelToggleBtn');
+	const panelOverlay = document.getElementById('panel-overlay');
+	const operationsPanel = document.getElementById('operationsPanel');
+	
+	let currentActiveIndex = -1;
+
+	// --- Build TOC ---
+	sections.forEach((sec, idx) => {
+		sec.id = 's' + (idx + 1);
+		const h = sec.querySelector('h2');
+		const title = h ? h.textContent.trim() : 'Section ' + (idx + 1);
+		const li = document.createElement('li');
+		const a = document.createElement('a');
+		a.href = '#' + sec.id;
+		a.textContent = title;
+		a.dataset.index = idx;
+		li.appendChild(a);
+		tocList.appendChild(li);
+	});
+	const tocLinks = Array.from(tocList.querySelectorAll('a'));
+
+	// --- Core UI Update & Navigation Function ---
+	function activateSection(index, smooth = true) {
+		if (index < 0 || index >= sections.length || index === currentActiveIndex) {
+				return; // Prevent invalid or redundant calls
+		}
+		currentActiveIndex = index;
+
+		// 1. Update progress bar and counter
+		const progressPercentage = ((index + 1) / sections.length * 100).toFixed(2);
+		progressBar.style.width = progressPercentage + '%';
+		counter.textContent = (index + 1) + ' / ' + sections.length;
+		
+		// 2. Update button states
+		prevBtn.disabled = (index === 0);
+		nextBtn.disabled = (index === sections.length - 1);
+		
+		// 3. Highlight active section and TOC link
+		sections.forEach((sec, i) => {
+			sec.classList.toggle('current-section', i === index);
+		});
+		tocLinks.forEach((link, i) => {
+			link.classList.toggle('active', i === index);
+		});
+		
+		// 4. Update URL hash and scroll into view
+		const section = sections[index];
+		if (history.replaceState) {
+			history.replaceState(null, null, '#' + section.id);
+		} else {
+			location.hash = '#' + section.id;
+		}
+		section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+	}
+
+	// --- Event Listeners ---
+	prevBtn.addEventListener('click', () => activateSection(currentActiveIndex - 1));
+	nextBtn.addEventListener('click', () => activateSection(currentActiveIndex + 1));
+	
+	tocLinks.forEach(link => {
+		link.addEventListener('click', (e) => {
+			e.preventDefault();
+			const index = parseInt(e.currentTarget.dataset.index, 10);
+			activateSection(index);
+			closePanel();
+		});
+	});
+
+	window.addEventListener('keydown', (e) => {
+		if (e.key === 'ArrowLeft') activateSection(currentActiveIndex - 1);
+		if (e.key === 'ArrowRight') activateSection(currentActiveIndex + 1);
+	});
+	
+	sections.forEach(section => {
+		section.addEventListener('click', function() {
+			// 'this' refers to the clicked section element
+			const index = parseInt(this.dataset.index, 10);
+			activateSection(index);
+		});
+	});
+
+	// --- Panel Logic ---
+	function openPanel() { document.body.classList.add('panel-open'); }
+	function closePanel() { document.body.classList.remove('panel-open'); }
+
+	panelToggleBtn.addEventListener('click', e => {
+		e.stopPropagation();
+		document.body.classList.contains('panel-open') ? closePanel() : openPanel();
+	});
+	
+	panelOverlay.addEventListener('click', closePanel);
+	
+	operationsPanel.addEventListener('click', (e) => {
+		e.stopPropagation();
+	});
+
+	// --- Font Size Controls ---
+	const fontIncreaseBtn = document.getElementById('fontIncreaseBtn');
+	const fontDecreaseBtn = document.getElementById('fontDecreaseBtn');
+	const fontDisplay = document.getElementById('fontDisplay');
+	const root = document.documentElement;
+
+	const FONT_STEP = 0.05, MAX_FONT_SCALE = 1.5, MIN_FONT_SCALE = 0.8, DEFAULT_FONT_SIZE = 16; /* Changed DEFAULT_FONT_SIZE from 24 to 16 to match CSS base */
+	let currentFontScale = 1.0;
+
+	function applyFontSize(scale) {
+		currentFontScale = Math.max(MIN_FONT_SCALE, Math.min(MAX_FONT_SCALE, scale));
+		// Calculate the new base font size in px
+		const newBaseFontSize = 16 * currentFontScale; // Assuming 16px is the original base font size (100%)
+		root.style.setProperty('--base-font-size', `${newBaseFontSize}px`);
+		fontDisplay.textContent = `${Math.round(currentFontScale * 100)}%`;
+		localStorage.setItem('fontScale', currentFontScale);
+	}
+
+	fontIncreaseBtn.addEventListener('click', () => applyFontSize(currentFontScale + FONT_STEP));
+	fontDecreaseBtn.addEventListener('click', () => applyFontSize(currentFontScale - FONT_STEP));
+
+	// --- Initialization ---
+	function init() {
+		// Load font size setting
+		const savedScale = localStorage.getItem('fontScale');
+		applyFontSize(savedScale ? parseFloat(savedScale) : 1.0);
+		
+		// Set initial section based on URL hash or default to first
+		let initialIndex = 0;
+		if (location.hash) {
+			const matchingSection = sections.find(s => '#' + s.id === location.hash);
+			if (matchingSection) {
+				initialIndex = parseInt(matchingSection.dataset.index, 10);
+			}
+		}
+		activateSection(initialIndex, false); // Initial activation without smooth scroll
+	}
+	init();
+})();
+</script>
+</body>
+</html>
