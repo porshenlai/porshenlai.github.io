@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>對比配色動態五週捲動日曆</title>
+    <style>
+        /* CSS 樣式 */
+        :root {
+            /* === 重新定義配色變數 === */
+            /* 奇數月 (米黃/淺橘) */
+            --odd-month-color: #fff8e1; 
+            /* 偶數月 (淺灰/淺藍灰) */
+            --even-month-color: #eceff1; 
+            
+            --today-bg: #ffcc80; /* 今日背景 (溫暖的淺橘) */
+            --weekend-border-sat: #4caf50; /* 星期六邊框 (綠) */
+            --weekend-border-sun: #e57373; /* 星期日邊框 (較柔和的紅) */
+            --day-border-color: #bdbdbd; /* 日期邊框 */
+            --main-text-color: #212121;
+            --header-bg: #3949ab; /* 頂部導航欄背景 */
+            --month-label-color: #3f51b5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: var(--main-text-color);
+        }
+
+        .calendar-container {
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden; 
+            background-color: #fff;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--header-bg);
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .nav-controls button {
+            background: #5c6bc0;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-controls button:hover {
+            background-color: #7986cb;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: bold;
+            padding: 10px 0;
+            background-color: #cfd8dc; /* 淺灰色背景 */
+            border-bottom: 1px solid #9e9e9e;
+        }
+        
+        /* 週末標記顏色 */
+        .weekdays .day-0 { color: var(--weekend-border-sun); } /* 星期日 */
+        .weekdays .day-6 { color: var(--weekend-border-sat); } /* 星期六 */
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            width: 100%;
+        }
+        
+        .day-cell {
+            border: 1px solid var(--day-border-color);
+            border-collapse: collapse;
+            min-height: 100px; 
+            padding: 5px;
+            position: relative;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+
+        /* 週末邊框顏色標記 */
+        .day-cell:nth-child(7n+1) { border-left: 3px solid var(--weekend-border-sun); } /* 星期日 */
+        .day-cell:nth-child(7n) { border-right: 3px solid var(--weekend-border-sat); } /* 星期六 */
+
+        /* 奇數月 (淺橘) */
+        .odd-month { background-color: var(--odd-month-color); }
+        /* 偶數月 (淺藍灰) */
+        .even-month { background-color: var(--even-month-color); }
+
+        /* 今日標記 */
+        .is-today {
+            background-color: var(--today-bg) !important;
+            border: 3px solid var(--main-text-color) !important;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 1; 
+        }
+
+        .day-date {
+            font-size: 1.6em;
+            font-weight: 700;
+            text-align: right;
+            margin-bottom: 5px;
+        }
+
+        .month-label {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 0.9em;
+            font-weight: normal;
+            color: var(--month-label-color); 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calendar-container">
+        <div class="header">
+            <span id="current-display-month"></span>
+            <div class="nav-controls">
+                <button onclick="changeWeek(-5)">▲ 捲動五週</button>
+                <button onclick="changeWeek(-1)">↑ 捲動一週</button>
+                <button onclick="changeWeek(1)">↓ 捲動一週</button>
+                <button onclick="changeWeek(5)">▼ 捲動五週</button>
+            </div>
+        </div>
+
+        <div class="weekdays">
+            <div class="day-0">日</div>
+            <div class="day-1">一</div>
+            <div class="day-2">二</div>
+            <div class="day-3">三</div>
+            <div class="day-4">四</div>
+            <div class="day-5">五</div>
+            <div class="day-6">六</div>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid">
+            </div>
+    </div>
+
+    <script>
+        const CALENDAR_GRID = document.getElementById('calendarGrid');
+        const WEEKS_TO_SHOW = 5;
+        const DAYS_TO_SHOW = WEEKS_TO_SHOW * 7;
+        const TODAY = new Date();
+        TODAY.setHours(0, 0, 0, 0);
+
+        let currentStartDate = new Date(); 
+        
+        // 取得指定日期所在週的起始日 (星期日)
+        function getStartOfWeek(date) {
+            const start = new Date(date);
+            const day = start.getDay(); // 0 (Sun) to 6 (Sat)
+            start.setDate(start.getDate() - day);
+            start.setHours(0, 0, 0, 0);
+            return start;
+        }
+
+        // 取得日曆顯示範圍的起始日 (確保本週居中)
+        function getInitialStartDate() {
+            const todayStartOfWeek = getStartOfWeek(new Date());
+            const startDate = new Date(todayStartOfWeek);
+            // 往前推兩週，讓本週位於五週顯示區塊的中央 (第三週)
+            startDate.setDate(startDate.getDate() - (2 * 7));
+            return startDate;
+        }
+
+        // 渲染日曆
+        function renderCalendar() {
+            CALENDAR_GRID.innerHTML = ''; // 清空舊內容
+            
+            let gridContent = '';
+            let tempDate = new Date(currentStartDate);
+
+            for (let i = 0; i < DAYS_TO_SHOW; i++) {
+                const currentDate = new Date(tempDate);
+                currentDate.setDate(tempDate.getDate() + i);
+
+                const day = currentDate.getDate();
+                const month = currentDate.getMonth() + 1; // 1-12
+                
+                // 需求 4: 每月第一天顯示月份
+                const monthLabel = (day === 1) ? `<div class="month-label">${month}月</div>` : '';
+                
+                // 需求 2: 今日標記
+                const isToday = (currentDate.getTime() === TODAY.getTime()) ? ' is-today' : '';
+                
+                // 需求 5: 基數/偶數月配色
+                // 奇數月 (1, 3, 5, ...) 淺橘色
+                // 偶數月 (2, 4, 6, ...) 淺藍灰色
+                const monthClass = (month % 2 !== 0) ? 'odd-month' : 'even-month';
+
+                gridContent += `
+                    <div class="day-cell ${monthClass}${isToday}">
+                        ${monthLabel}
+                        <div class="day-date">${day}</div>
+                        <div class="day-info">
+                            </div>
+                    </div>
+                `;
+            }
+            
+            CALENDAR_GRID.innerHTML = gridContent;
+            updateHeader();
+        }
+
+        // 捲動控制 (動態改變起始日期並重新渲染)
+        function changeWeek(weeks) {
+            // 移動起始日期 (weeks * 7 天)
+            currentStartDate.setDate(currentStartDate.getDate() + (weeks * 7));
+            renderCalendar();
+        }
+
+        // 更新頂部顯示的月份範圍
+        function updateHeader() {
+            const endDate = new Date(currentStartDate);
+            endDate.setDate(currentStartDate.getDate() + DAYS_TO_SHOW - 1);
+            
+            const startMonth = currentStartDate.getMonth() + 1;
+            const endMonth = endDate.getMonth() + 1;
+            const startYear = currentStartDate.getFullYear();
+            const endYear = endDate.getFullYear();
+
+            let headerText;
+            if (startYear === endYear) {
+                if (startMonth === endMonth) {
+                    headerText = `${startYear}年 ${startMonth}月`;
+                } else {
+                    headerText = `${startYear}年 ${startMonth}月 - ${endMonth}月`;
+                }
+            } else {
+                headerText = `${startYear}年${startMonth}月 - ${endYear}年${endMonth}月`;
+            }
+
+            document.getElementById('current-display-month').textContent = headerText;
+        }
+
+        // 初始化日曆並調整高度
+        function initCalendar() {
+            // 1. 設定起始日期 (本週居中)
+            currentStartDate = getInitialStartDate();
+            
+            // 2. 渲染日曆
+            renderCalendar();
+            
+            // 3. 調整日曆格的高度，讓 5 週剛好填滿
+            // 必須等待 DOM 渲染完成後才能取得正確的高度
+            setTimeout(() => {
+                // 取得單個日期的計算高度 (假設 min-height 100px)
+                const singleCell = CALENDAR_GRID.children[0];
+                if (singleCell) {
+                    // 使用 getBoundingClientRect().height 取得包含邊框的準確高度
+                    const weekHeight = singleCell.getBoundingClientRect().height;
+                    
+                    // 設定日曆容器的高度為 5 週的高度
+                    CALENDAR_GRID.style.height = `${weekHeight * WEEKS_TO_SHOW}px`;
+                }
+            }, 0);
+        }
+
+        // 頁面載入後執行
+        window.onload = initCalendar;
+
+    </script>
+</body>
+</html>

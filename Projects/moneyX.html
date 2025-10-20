@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跨幣別匯率換算與紀錄</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .conversion-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 0.5fr;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .conversion-form label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .conversion-form input[type="number"], .conversion-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        #convertBtn {
+            grid-column: 4 / 5;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+            align-self: end;
+        }
+        #convertBtn:hover {
+            background-color: #1e7e34;
+        }
+        #result-area {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #e6f7ff;
+            border-radius: 8px;
+            border-left: 5px solid #007bff;
+        }
+        .twd-equivalent {
+            display: block;
+            font-size: 0.7em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        /* 歷史紀錄表格樣式 */
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .history-header h2 {
+            margin: 0;
+            color: #007bff;
+        }
+        #statisticBtn {
+            padding: 8px 15px;
+            background-color: #ffc107;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        #statisticBtn:hover {
+            background-color: #e0a800;
+        }
+
+        #historyTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        #historyTable th, #historyTable td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        #historyTable th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        #historyTable tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .remark-input {
+            width: 90%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .conversion-form {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .form-group-amount, .form-group-from, .form-group-to {
+                grid-column: span 2;
+            }
+            #convertBtn {
+                grid-column: span 2;
+                margin-top: 10px;
+            }
+            /* 在小螢幕隱藏時間戳欄位 */
+            #historyTable th:nth-child(1), #historyTable td:nth-child(1) { display: none; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>跨幣別匯率換算</h1>
+
+        <div class="conversion-form">
+            <div class="form-group form-group-amount">
+                <label for="fromAmount">金額</label>
+                <input type="number" id="fromAmount" value="1234" min="0.01" step="0.01">
+            </div>
+            
+            <div class="form-group form-group-from">
+                <label for="fromCurrency">自幣別</label>
+                <select id="fromCurrency">
+                    </select>
+            </div>
+
+            <div class="form-group form-group-to">
+                <label for="toCurrency">換成</label>
+                <select id="toCurrency">
+                    </select>
+            </div>
+            
+            <button id="convertBtn">換算</button>
+        </div>
+
+        <div id="result-area">
+            請輸入金額並點擊「換算」開始。
+        </div>
+
+        <div class="history-header">
+            <h2>換算紀錄 (存於 LocalStorage)</h2>
+            <button id="statisticBtn">統計總額</button>
+        </div>
+        
+        <table id="historyTable">
+            <thead>
+                <tr>
+                    <th>時間戳</th>
+                    <th>原始金額</th>
+                    <th>換算結果</th>
+                    <th>相當於新台幣</th>
+                    <th>備註</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="historyTableBody">
+                </tbody>
+        </table>
+
+    </div>
+
+    <script>
+        // ------------------------------------
+        // 1. 模擬匯率資料與核心換算邏輯
+        // ------------------------------------
+
+        // 模擬的匯率資料（基於 1 USD）
+        const MOCK_RATES = {
+            'USD': 1.00,
+            'EUR': 0.92, // 1 USD = 0.92 EUR
+            'CHF': 0.90, // 1 USD = 0.90 CHF
+            'JPY': 150.00, // 1 USD = 150.00 JPY
+            'GBP': 0.80, // 1 USD = 0.80 GBP
+            'TWD': 32.00 // 1 USD = 32.00 TWD
+        };
+
+        /**
+         * 模擬取得匯率的函式。
+         * @param {string} currency - 幣別代碼 (e.g., 'EUR')
+         * @returns {number | null} - 1 單位該幣別相當於多少 USD。
+         */
+        function getRate(currency) {
+            const ratePerUSD = MOCK_RATES[currency.toUpperCase()];
+            if (ratePerUSD) {
+                // 公式: 1 該幣別 = (1 / 該幣別兌 USD 匯率) USD
+                return MOCK_RATES['USD'] / ratePerUSD; 
+            }
+            return null; 
+        }
+        
+        // 取得 1 TWD 相當於多少 EUR 的比例
+        function getTWDToEURRate() {
+            // TWD 兌 USD 比例: 1 TWD = (1 / 32) USD
+            const twdToUsd = getRate('TWD');
+            // EUR 兌 USD 比例: 1 EUR = (1 / 0.92) USD
+            const eurToUsd = getRate('EUR');
+
+            // 1 TWD = X EUR -> X = (TWD/USD) / (EUR/USD)
+            if (twdToUsd && eurToUsd) {
+                return twdToUsd / eurToUsd;
+            }
+            return null;
+        }
+
+        // ------------------------------------
+        // 2. 應用程式主邏輯
+        // ------------------------------------
+        class CurrencyConverter {
+            constructor() {
+                this.history = [];
+                this.initApp();
+            }
+
+            initApp() {
+                this.populateCurrencyOptions();
+                this.loadHistory();
+                this.renderHistoryTable();
+                
+                document.getElementById('convertBtn').addEventListener('click', () => this.convertCurrency());
+                document.getElementById('statisticBtn').addEventListener('click', () => this.showStatistics()); // 新增統計按鈕事件
+            }
+            
+            // 填充下拉選單的選項
+            populateCurrencyOptions() {
+                const fromSelect = document.getElementById('fromCurrency');
+                const toSelect = document.getElementById('toCurrency');
+                
+                // 這次納入所有幣別，包括 TWD
+                const currencies = Object.keys(MOCK_RATES); 
+
+                currencies.forEach(currency => {
+                    const optionFrom = new Option(currency, currency);
+                    const optionTo = new Option(currency, currency);
+                    fromSelect.add(optionFrom);
+                    toSelect.add(optionTo);
+                });
+                
+                // 設定預設值: 來源歐元(EUR)，目標新台幣(TWD)
+                fromSelect.value = 'EUR';
+                toSelect.value = 'TWD';
+            }
+
+            /**
+             * 執行實際的匯率換算邏輯。
+             */
+            convertCurrency() {
+                const amount = parseFloat(document.getElementById('fromAmount').value);
+                const fromCurrency = document.getElementById('fromCurrency').value;
+                const toCurrency = document.getElementById('toCurrency').value;
+
+                if (isNaN(amount) || amount <= 0) {
+                    alert('請輸入有效的金額。');
+                    return;
+                }
+
+                const fromRateUSD = getRate(fromCurrency); 
+                const toRateUSD = getRate(toCurrency);   
+
+                if (!fromRateUSD || !toRateUSD) {
+                    alert('無效的幣別選擇或找不到匯率數據。');
+                    return;
+                }
+
+                // 1. 將原始金額換算成 USD
+                const amountUSD = amount * fromRateUSD;
+
+                // 2. 將 USD 換算成目標幣別
+                const resultAmount = amountUSD / toRateUSD;
+
+                // 3. 計算新台幣 (TWD) 等值
+                const twdRatePerUSD = MOCK_RATES['TWD']; 
+                const twdEquivalent = amountUSD * twdRatePerUSD;
+
+                // 4. 更新結果顯示區
+                document.getElementById('result-area').innerHTML = `
+                    <span style="font-size: 1.2em;">**${amount.toFixed(2)} ${fromCurrency}**</span> 
+                    <span style="font-size: 1.5em; font-weight: bold; color: #dc3545;"> = </span> 
+                    <span style="font-size: 1.5em; font-weight: bold; color: #007bff;">${resultAmount.toFixed(2)} ${toCurrency}</span>
+                    <br>
+                    <span class="twd-equivalent">
+                        (相當於 **${twdEquivalent.toFixed(2)} TWD**)
+                    </span>
+                `;
+
+                // 5. 紀錄歷史
+                this.addHistory({
+                    timestamp: new Date().toLocaleString('zh-TW', { hour12: false }),
+                    fromAmount: amount.toFixed(2),
+                    fromCurrency: fromCurrency,
+                    toAmount: resultAmount.toFixed(2),
+                    toCurrency: toCurrency,
+                    twdEquivalent: twdEquivalent.toFixed(2), // 確保紀錄 TWD 等值
+                    remark: ''
+                });
+            }
+
+            // ------------------------------------
+            // 3. 統計功能
+            // ------------------------------------
+            showStatistics() {
+                if (this.history.length === 0) {
+                    alert('目前沒有換算紀錄，無法進行統計。');
+                    return;
+                }
+                
+                let totalTWD = 0;
+                let totalEUR = 0;
+                
+                const twdToEurRate = getTWDToEURRate();
+                if (!twdToEurRate) {
+                    alert('無法取得 TWD 到 EUR 的匯率，統計中止。');
+                    return;
+                }
+
+                this.history.forEach(record => {
+                    const twdEquiv = parseFloat(record.twdEquivalent);
+                    
+                    // a. 計算新台幣總額 (直接加總紀錄中的 twdEquivalent)
+                    if (!isNaN(twdEquiv)) {
+                        totalTWD += twdEquiv;
+                    }
+
+                    // b. 計算歐元總額 (將 twdEquivalent 換算成 EUR)
+                    // 總額 EUR = 總額 TWD * (1 TWD 兌 EUR 的比例)
+                    if (!isNaN(twdEquiv)) {
+                         totalEUR += (twdEquiv * twdToEurRate);
+                    }
+                });
+
+                const statsMessage = `
+--- 總額統計 ---
+所有紀錄總計相當於：
+新台幣總額 (TWD): ${totalTWD.toFixed(2)}
+歐元總額 (EUR): ${totalEUR.toFixed(2)}
+                `;
+
+                alert(statsMessage);
+            }
+
+
+            // ------------------------------------
+            // 4. Local Storage 與歷史紀錄管理
+            // ------------------------------------
+
+            loadHistory() {
+                const historyJSON = localStorage.getItem('currencyConversionHistory');
+                this.history = historyJSON ? JSON.parse(historyJSON) : [];
+            }
+
+            saveHistory() {
+                localStorage.setItem('currencyConversionHistory', JSON.stringify(this.history));
+            }
+
+            addHistory(record) {
+                this.history.unshift(record); // 新紀錄放在最前面
+                this.saveHistory();
+                this.renderHistoryTable();
+            }
+
+            updateRemark(index, newRemark) {
+                // 由於表格是從 history 陣列渲染的，當陣列內容被刪除，index 會改變，所以我們需要檢查
+                if (index >= 0 && index < this.history.length) {
+                     this.history[index].remark = newRemark;
+                     this.saveHistory();
+                }
+            }
+
+            deleteHistory(index) {
+                if (confirm('確定要刪除這筆紀錄嗎？')) {
+                    this.history.splice(index, 1);
+                    this.saveHistory();
+                    this.renderHistoryTable(); // 刪除後需重新渲染，確保 index 正確
+                }
+            }
+
+            renderHistoryTable() {
+                const tableBody = document.getElementById('historyTableBody');
+                tableBody.innerHTML = '';
+
+                if (this.history.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">尚無換算紀錄</td></tr>';
+                    return;
+                }
+
+                this.history.forEach((record, index) => {
+                    const row = tableBody.insertRow();
+                    row.dataset.index = index;
+
+                    row.insertCell().textContent = record.timestamp;
+                    row.insertCell().textContent = `${record.fromAmount} ${record.fromCurrency}`;
+                    row.insertCell().textContent = `${record.toAmount} ${record.toCurrency}`;
+                    row.insertCell().textContent = `${record.twdEquivalent} TWD`;
+
+                    const remarkCell = row.insertCell();
+                    const remarkInput = document.createElement('input');
+                    remarkInput.type = 'text';
+                    remarkInput.value = record.remark || '';
+                    remarkInput.placeholder = '新增備註';
+                    remarkInput.classList.add('remark-input');
+                    
+                    // 使用 'change' 事件來儲存備註，並確保 index 變動時仍能正確儲存
+                    remarkInput.addEventListener('change', (e) => this.updateRemark(parseInt(row.dataset.index), e.target.value));
+                    
+                    remarkCell.appendChild(remarkInput);
+
+                    const deleteCell = row.insertCell();
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = '刪除';
+                    deleteBtn.classList.add('delete-btn');
+                    // 確保點擊時刪除對應的紀錄
+                    deleteBtn.onclick = this.deleteHistory.bind(this, index); 
+                    deleteCell.appendChild(deleteBtn);
+                });
+            }
+        }
+
+        // 啟動應用程式
+        window.addEventListener('load', () => {
+            window.app = new CurrencyConverter();
+        });
+    </script>
+
+</body>
+</html>
