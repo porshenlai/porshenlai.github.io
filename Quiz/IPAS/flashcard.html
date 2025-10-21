@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 專有名詞閃卡 (擴充版 - 含 Tag 過濾)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Tag 過濾區樣式 */
+        .tag-filter-container {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 90%;
+            overflow-x: auto;
+            white-space: nowrap; /* 確保按鈕在同一行 */
+        }
+
+        .tag-filter-container span {
+            font-weight: bold;
+            color: #34495e;
+            margin-right: 10px;
+            vertical-align: top;
+            display: inline-block;
+            padding-top: 8px;
+        }
+
+        /* 頂部過濾按鈕的樣式 */
+        .tag-button {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 15px;
+            border: 1px solid #3498db;
+            border-radius: 20px;
+            cursor: pointer;
+            background-color: #ffffff;
+            color: #3498db;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+
+        .tag-button:hover {
+            background-color: #3498db;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .tag-button.active {
+            background-color: #2980b9;
+            color: white;
+            border-color: #2980b9;
+        }
+
+        /* 卡片容器 */
+        .flashcard-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            max-width: 1400px;
+        }
+
+        /* 卡片本體 - 尺寸再次加大 */
+        .flashcard {
+            background-color: transparent;
+            width: 400px; /* 寬度 400px */
+            height: 300px; /* 高度 300px */
+            perspective: 1000px;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        /* 隱藏/顯示效果 */
+        .flashcard.hidden {
+            display: none;
+        }
+        
+        /* 翻轉內部容器 */
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+        }
+
+        /* 翻轉效果 */
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* 卡片正面和背面 */
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 25px; /* 增加內距 */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* 正面樣式 */
+        .flashcard-front {
+            background-color: #3498db; /* 藍色 */
+            color: white;
+            font-weight: bold;
+        }
+
+        .flashcard-front .term-name {
+            font-size: 1.8em; /* 中文名詞大字體 */
+            word-break: break-all;
+            line-height: 1.2;
+            max-height: 100px; 
+            overflow: hidden;
+        }
+        
+        /* 新增：原文標示樣式 */
+        .flashcard-front .original-term {
+            margin-top: 5px;
+            margin-bottom: 20px; /* 與 Tags 列表的間距 */
+            font-size: 1.0em; /* 略小字體 */
+            font-style: italic;
+            opacity: 0.8;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.2;
+            max-height: 50px;
+            overflow: hidden;
+        }
+
+        /* 卡片上的 Tags 列表容器 */
+        .flashcard-front .tags-list {
+            font-size: 0.8em; 
+            padding: 5px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 15px;
+            max-height: 80px; 
+            overflow: auto;
+            opacity: 0.9;
+            line-height: 1.4;
+            white-space: normal;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 卡片上的單個 Tag 樣式 */
+        .card-tag {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 8px; 
+            margin: 3px; 
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.1s;
+        }
+
+        .card-tag:hover {
+            background-color: rgba(255, 255, 255, 0.4); 
+        }
+
+        /* 背面樣式 */
+        .flashcard-back {
+            background-color: black; /* #2ecc71; 綠色 */
+            color: white;
+            transform: rotateY(180deg);
+            text-align: left;
+            font-size: 1em; /* 解釋文字略為縮小 */
+            line-height: 1.5; 
+            display: block;
+            overflow-y: auto;
+        }
+
+        .flashcard-back .explanation {
+            font-size: 1em;
+            text-align: left;
+            width: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>iPAS AI 應用規劃師專有名詞閃卡 (擴充版)</h1>
+
+    <div class="tag-filter-container">
+        <span>過濾標籤:</span>
+        <div id="tagButtons">
+            </div>
+    </div>
+
+    <div class="flashcard-container" id="flashcardContainer">
+        </div>
+
+    <script src="keywords.js" id="keywords-data"></script>
+
+    <script>
+        // 2. 透過 document.currentScript.value 機制讀取外部資料
+        const keywordsScript = document.getElementById('keywords-data');
+        let rawData = {};
+        
+        if (keywordsScript && keywordsScript.value) {
+            try {
+                // 嘗試解析 JSON 字串
+                rawData = JSON.parse(keywordsScript.value);
+            } catch (e) {
+                // 如果解析失敗，則假設 value 屬性直接包含了 JSON 物件
+                rawData = keywordsScript.value;
+            }
+        }
+
+        // 3. 調整資料結構以匹配後續邏輯
+        const jsonData = {
+          "專有名詞分析": (rawData && rawData["專有名詞分析_調整後"]) ? rawData["專有名詞分析_調整後"] : []
+        };
+        
+        const cardContainer = document.getElementById('flashcardContainer');
+        const tagButtonsContainer = document.getElementById('tagButtons');
+        let activeTags = new Set();
+        let allTags = new Set();
+        
+        // 1. 收集所有獨特的 Tags
+        jsonData['專有名詞分析'].forEach(item => {
+            if (item.Tags) {
+                item.Tags.forEach(tag => allTags.add(tag));
+            }
+        });
+
+        // 2. 創建 Tag 過濾按鈕 (頂部)
+        function createTagButtons() {
+            // 創建 "全部" 按鈕
+            const allButton = document.createElement('div');
+            allButton.className = 'tag-button active';
+            allButton.textContent = '全部';
+            allButton.dataset.tag = 'all';
+            allButton.addEventListener('click', toggleTagFilter);
+            tagButtonsContainer.appendChild(allButton);
+
+            // 創建其他 Tag 按鈕
+            Array.from(allTags).sort().forEach(tag => {
+                const button = document.createElement('div');
+                button.className = 'tag-button';
+                button.textContent = tag;
+                button.dataset.tag = tag;
+                button.addEventListener('click', toggleTagFilter);
+                tagButtonsContainer.appendChild(button);
+            });
+        }
+
+        // 3. 處理 Tag 按鈕點擊事件 (通用於頂部和卡片)
+        function toggleTagFilter(eventOrTag) {
+            let tag;
+            let clickedButton;
+
+            if (typeof eventOrTag === 'string') {
+                tag = eventOrTag;
+                clickedButton = tagButtonsContainer.querySelector(`[data-tag="${tag}"]`);
+                if (!clickedButton) return; 
+            } else {
+                clickedButton = eventOrTag.target;
+                tag = clickedButton.dataset.tag;
+            }
+            
+            const allButton = tagButtonsContainer.querySelector('[data-tag="all"]');
+
+            if (tag === 'all') {
+                if (allButton.classList.contains('active')) return;
+
+                activeTags.clear();
+                tagButtonsContainer.querySelectorAll('.tag-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                allButton.classList.add('active');
+            } else {
+                if (activeTags.has(tag)) {
+                    activeTags.delete(tag);
+                    if (clickedButton) clickedButton.classList.remove('active');
+                } else {
+                    activeTags.add(tag);
+                    if (clickedButton) clickedButton.classList.add('active');
+                }
+
+                if (activeTags.size > 0) {
+                    allButton.classList.remove('active');
+                } else if (activeTags.size === 0) {
+                    allButton.classList.add('active');
+                }
+            }
+
+            filterCards();
+        }
+
+        // 4. 根據當前選中的 Tag 過濾卡片
+        function filterCards() {
+            const cards = cardContainer.querySelectorAll('.flashcard');
+            const showAll = activeTags.size === 0 || tagButtonsContainer.querySelector('[data-tag="all"]').classList.contains('active');
+
+            cards.forEach(card => {
+                const cardTags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+                let shouldShow = showAll;
+
+                if (!showAll) {
+                    shouldShow = cardTags.some(tag => activeTags.has(tag));
+                }
+
+                if (shouldShow) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                    card.classList.remove('flipped'); 
+                }
+            });
+        }
+
+        // 5. 創建卡片 HTML
+        function createFlashcards() {
+            jsonData['專有名詞分析'].forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'flashcard';
+                card.dataset.tags = item.Tags ? item.Tags.join(',') : ''; 
+
+                card.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('card-tag')) {
+                        return; 
+                    }
+                    card.classList.toggle('flipped');
+                });
+
+                const inner = document.createElement('div');
+                inner.className = 'flashcard-inner';
+
+                // 創建正面 (名詞 + 原文標示 + Tags)
+                const front = document.createElement('div');
+                front.className = 'flashcard-face flashcard-front';
+                
+                // 簡潔的中文名稱
+                const termName = document.createElement('div');
+                termName.className = 'term-name';
+                termName.textContent = item['名稱'];
+                front.appendChild(termName);
+
+                // 新增：原文標示
+                if (item.OriginalTerm) {
+                    const originalTerm = document.createElement('div');
+                    originalTerm.className = 'original-term';
+                    originalTerm.textContent = item['OriginalTerm'];
+                    front.appendChild(originalTerm);
+                }
+
+                const tagsList = document.createElement('div');
+                tagsList.className = 'tags-list';
+                
+                if (item.Tags && item.Tags.length > 0) {
+                    item.Tags.forEach(tag => {
+                        const tagSpan = document.createElement('span');
+                        tagSpan.className = 'card-tag';
+                        tagSpan.textContent = tag;
+                        tagSpan.dataset.tag = tag; 
+                        tagSpan.addEventListener('click', (e) => {
+                            e.stopPropagation(); 
+                            toggleTagFilter(tag); 
+                        });
+                        tagsList.appendChild(tagSpan);
+                    });
+                } else {
+                    tagsList.textContent = '無標籤';
+                }
+                
+                front.appendChild(tagsList);
+
+
+                // 創建背面 (解釋)
+                const back = document.createElement('div');
+                back.className = 'flashcard-face flashcard-back';
+                
+                const explanation = document.createElement('p');
+                explanation.className = 'explanation';
+                explanation.innerHTML = item['解釋']; 
+                back.appendChild(explanation);
+
+                // 組合元素
+                inner.appendChild(front);
+                inner.appendChild(back);
+                card.appendChild(inner);
+                cardContainer.appendChild(card);
+            });
+        }
+
+        // 初始化
+        createTagButtons();
+        createFlashcards();
+    </script>
+</body>
+</html>
