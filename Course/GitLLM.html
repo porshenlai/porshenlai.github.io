@@ -11,98 +11,185 @@
 <main>
 	<div class="wrap" id="content">
 
-<section data-index="0">
+		<style>
+		.B { font-weight:bolder; color:darkblue; }
+		.C { color:darkgreen; }
+		</style>
+
+		<section class="slide">
+			<h1 class="title">Git-LLM</h1>
+			<div>
+				<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
+			</div>
+		</section>
+
+<section>
 	<h2>I. 課程啟動與目標 (15 min)</h2>
 	<h3>課程目標與核心概念</h3>
 	<ul>
-		<li>學會將 **Prompt (提示詞)** 視為專案的 **「設計資產」**，納入 Git 版本控制。</li>
+		<li>學會將 <span class="B">Prompt (提示詞)</span> 視為專案的 <span class="B">「設計資產」</span>，納入 Git 版本控制。</li>
 		<li>掌握利用 Git/GitHub 功能 (Log, Diff, Blame, Code Review) 來追蹤 LLM 程式碼的生成與迭代。</li>
-		<li>建立團隊協作模式：**Prompt-Code-Review-New Prompt** 的敏捷循環。</li>
+		<li>建立團隊協作模式：<span class="B">Prompt-Code-Review-New Prompt</span> 的敏捷循環。</li>
 	</ul>
 	<div class="callout">
-		**傳統開發：** 程式碼是核心。<br>
-		**AI 輔助開發：** **提示詞 (Prompt)** 是核心，程式碼是產物。
+		<span class="B">傳統開發：</span> 程式碼是核心。<br>
+		<span class="B">AI 輔助開發：</span> <span class="B">提示詞 (Prompt)</span> 是核心，程式碼是產物。
 	</div>
 </section>
 
-<section data-index="1">
+<section>
 	<h2>II. 核心方法論：Prompt-Driven Development (20 min)</h2>
 	<h3>Prompt 即 Commit Log 的重要性</h3>
 	<ul>
-		<li>**可追溯性 (Traceability):** 每次 Commit 的程式碼修改，都必須對應到產生它的 Prompt。</li>
-		<li>**協作基礎:** 隊友檢視程式碼時，可以立即從 Log 了解**「最初的設計意圖」**。</li>
-		<li>**未來優化:** 累積的 Prompt 歷史是未來訓練或微調 LLM 的寶貴資料集。</li>
+		<li><span class="B">可追溯性 (Traceability):</span> 每次 Commit 的程式碼修改，都必須對應到產生它的 Prompt。</li>
+		<li><span class="B">協作基礎:</span> 隊友檢視程式碼時，可以立即從 Log 了解<span class="B">「最初的設計意圖」</span>。</li>
+		<li><span class="B">未來優化:</span> 累積的 Prompt 歷史是未來訓練或微調 LLM 的寶貴資料集。</li>
 	</ul>
 
 	<h3>Commit Log 格式建議</h3>
-	<table>
+	<table border='1' cellpadding='3' cellspacing='0'>
 		<thead>
 			<tr><th>欄位</th><th>內容</th><th>目的</th></tr>
 		</thead>
 		<tbody>
-			<tr><td>**標題 (Subject)**</td><td>`[Prompt]: <核心提示詞>`</td><td>快速了解本次修改的驅動指令。</td></tr>
-			<tr><td>**內文 (Body)**</td><td>*可選*，詳細說明本次人工微調/測試結果。</td><td>提供額外的脈絡與驗證細節。</td></tr>
+			<tr><td><span class="B">標題 (Subject)</span></td><td><span class="C">[Prompt]: <核心提示詞></span></td><td>快速了解本次修改的驅動指令。</td></tr>
+			<tr><td><span class="B">內文 (Body)</span></td><td>*可選*，詳細說明本次人工微調/測試結果。</td><td>提供額外的脈絡與驗證細節。</td></tr>
 		</tbody>
 	</table>
-	<p class="badge">💡 範例：`[Prompt]: 請寫一個計算斐波那契數列的 Python 函式，並加上型別註記。`</p>
+	<p class="badge">💡 範例：<span class="C">[Prompt]: 請寫一個計算斐波那契數列的 Python 函式，並加上型別註記。</span></p>
 </section>
 
-<section data-index="2">
+<section>
 	<h2>III. 實戰演練：首次生成與團隊協作 (30 min)</h2>
 	<h3>步驟一：初版程式碼生成與上傳</h3>
 	<ol>
-		<li>**設計 Prompt:** 撰寫第一個清晰、明確的提示詞 (例如：`[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。`)。</li>
-		<li>**LLM 生成:** 將 Prompt 輸入給 LLM，取得程式碼。</li>
-		<li>**Git 提交:** 將程式碼檔案加入 Git，並使用**完整的 Prompt** 作為 Commit Log 提交。
-			<pre><code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。"</code></pre>
+			<li><span class="B">設計 Prompt:</span> 撰寫第一個清晰、明確的提示詞 (例如：<span class="C">[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。</span>)。</li>
+		<li><span class="B">LLM 生成:</span> 將 Prompt 輸入給 LLM，取得程式碼。</li>
+		<li><span class="B">Git 提交:</span> 將程式碼檔案加入 Git，並使用<span class="B">完整的 Prompt</span> 作為 Commit Log 提交。
+			<pre class="C"><code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。"</code></pre>
 		</li>
-		<li>**推送到 GitHub:** `git push origin <branch>`。</li>
+		<li><span class="B">推送到 GitHub:</span> <span class="C">git push origin &lt;branch&gt;</span>。</li>
 	</ol>
 
 	<h3>步驟二：團隊 Code Review 與缺陷標記</h3>
 	<ul>
-		<li>**GitHub Pull Request (PR):** 提交 PR 進行審核。</li>
-		<li>**Code Review:** 隊友閱讀程式碼，並在 PR 介面中留下具體修改建議。</li>
+		<li><span class="B">GitHub Pull Request (PR):</span> 提交 PR 進行審核。</li>
+		<li><span class="B">Code Review:</span> 隊友閱讀程式碼，並在 PR 介面中留下具體修改建議。</li>
 		<li class="callout">
-			**使用 `git blame`：** 在 GitHub 介面上，點擊 `blame` 鍵，每一行程式碼都會指向**第一個 Prompt Commit**，證明其來源。
+			<span class="B">使用 <span class="C">git blame</span>：</span> 在 GitHub 介面上，點擊 <span class="C">blame</span> 鍵，每一行程式碼都會指向<span class="B">第一個 Prompt Commit</span>，證明其來源。
 		</li>
 	</ul>
 </section>
+<section>
+	<h2>X. 補充說明：何謂 Pull Request (PR)</h2>
+	<p>在 GitHub 中，<b>Pull Request (PR)</b>，通常譯為「<b>提取請求</b>」或「<b>拉取請求</b>」，是協同合作的核心機制之一。</p>
+	<h3>什麼是 Pull Request (PR)？</h3>
+	<p>Pull Request 是一種<b>提案</b>，目的是將一個分支（通常是包含你的修改的分支，稱為「<b>來源分支</b>」或 <b>head branch</b>）的變更合併到另一個分支（通常是專案的主要分支，如 <code>main</code> 或 <code>master</code>，稱為「<b>目標分支</b>」或 <b>base branch</b>）。</p>
+	<p>簡單來說，它就是<b>請求專案的維護者</b>「<b>拉取</b>」<b>你的程式碼變更</b>到他們的主程式碼庫中。</p>
+	<h4>PR 的主要作用：</h4>
+	<ol start="1">
+		<li><p><b>代碼審查 (Code Review)</b>：PR 提供了一個集中的平台，讓團隊成員或專案維護者可以查看、討論、評論和審核你所提出的所有變更內容（文件的差異比較/diffs）。</p></li>
+		<li><p><b>協作與討論</b>：在正式合併之前，團隊可以針對變更提出建議、要求修改，或確保代碼品質、一致性和專案標準。</p></li>
+		<li><p><b>安全性</b>：確保變更在經過充分審查和測試之後，才能被合併到主分支，避免未完成或有問題的代碼破壞專案的穩定性。</p></li>
+	</ol>
+	<h3>如何進行 Pull Request？</h3>
+	<p>無論你是貢獻給自己的專案還是其他人的開源專案，Pull Request 的基本流程通常包含以下步驟：</p>
+	<h4>1. 準備變更 (在本地)</h4>
+	<ul>
+		<li>
+			<p><b>建立新分支 (Branch)</b>：始終在一個新的、具有描述性的分支上進行工作（例如：<code>feature/add-login</code> 或 <code>fix/bug-on-homepage</code>），而不是直接在 <code>main</code> 或 <code>master</code> 分支上。</p>
+			Bash <pre _ngcontent-ng-c2097180190=""><code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git checkout -b your-new-branch-name</code></pre>
+		</li>
+		<li>
+			<p><b>進行修改</b>：在你的新分支上進行代碼編寫、新增功能或修復錯誤。</p>
+		</li>
+		<li>
+			<p><b>提交變更 (Commit)</b>：將你的變更提交到本地 Git 歷史中。</p>
+			Bash <pre _ngcontent-ng-c2097180190=""><code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git commit -m &quot;Descriptive commit message&quot;</code></pre>
+		</li>
+	</ul>
+	<h4>2. 推送變更到遠端倉庫 (Push)</h4>
+	<ul>
+		<li>
+			<p><b>推送到 GitHub</b>：將你本地的新分支推送到你的 GitHub 遠端倉庫。</p>
+			Bash <pre _ngcontent-ng-c2097180190=""><code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git push origin your-new-branch-name</code></pre>
+			<p><i>如果你是貢獻給<b>別人的專案</b>，通常你需要先 <b>Fork</b> (複製) 該專案到你的 GitHub 帳號下，然後將你的變更推送到你的 Forked 倉庫。</i></p>
+		</li>
+	</ul>
+	<h4>3. 建立 Pull Request (在 GitHub 網站)</h4>
+	<ul>
+		<li>
+			<p><b>發起 PR</b>：</p>
+			<ul>
+				<li><p><b>方法一 (GitHub 介面提示)</b>：推送完成後，GitHub 網頁通常會在你的倉庫頁面出現一個黃色的橫幅或提示，讓你「<b>Compare &amp; pull request</b>」（比較並發起提取請求），點擊它。</p></li>
+				<li><p><b>方法二 (手動)</b>：導航到 GitHub 倉庫的 <b><code>Pull requests</code></b> 頁籤，點擊綠色的 <b><code>New pull request</code></b> 按鈕。</p></li>
+			</ul>
+		</li>
+		<li>
+			<p><b>選擇分支</b>：</p>
+			<ul>
+				<li><p><b>Base branch (目標分支)</b>：選擇你希望變更合併到的目標分支（例如 <code>main</code> 或 <code>master</code>）。</p></li>
+				<li><p><b>Compare branch (來源分支)</b>：選擇你剛才推送變更的新分支。</p></li>
+			</ul>
+		</li>
+		<li>
+			<p><b>填寫標題和描述</b>：</p>
+			<ul>
+				<li><p><b>標題 (Title)</b>：簡潔明瞭地說明你的 PR 目的。</p></li>
+				<li><p><b>描述 (Description)</b>：詳細說明你做了哪些變更、為什麼要做這些變更，以及它解決了什麼問題（可以連結相關的 Issue）。</p></li>
+			</ul>
+		</li>
+		<li>
+			<p><b>送出 PR</b>：點擊 <b><code>Create pull request</code></b> (或 <b><code>Create draft pull request</code></b> 如果你還沒準備好審核)。</p>
+		</li>
+	</ul>
+	<h4>4. 審查與討論 (Review &amp; Discussion)</h4>
+	<ul>
+		<li><p>PR 建立後，專案維護者或協作者會被通知進行審查。</p></li>
+		<li><p>他們會在你的 PR 頁面上留下評論，可能會要求你進行額外的修改。</p></li>
+		<li><p><b>如果你需要修改</b>：回到本地分支進行修改、Commit，然後<b>再次 Push</b> 到你的遠端分支。所有新的 Commits 都會自動新增到你現有的 PR 中。</p></li>
+	</ul>
+	<h4>5. 合併 (Merge)</h4>
+	<ul>
+		<li><p>一旦所有審查意見都已解決，並且代碼通過了必要的測試（例如 CI/CD 檢查），專案維護者就會點擊 <b><code>Merge pull request</code></b> 按鈕，將你的變更合併到目標分支。</p></li>
+		<li><p>合併完成後，該 PR 就會被關閉 (Closed)，你的變更正式成為專案的一部分。</p></li>
+	</ul>
+</section>
 
-<section data-index="3">
+<section>
 	<h2>IV. 程式碼微調與 Prompt 迭代 (45 min)</h2>
 	<h3>步驟三：設計新的 Prompt 進行修正</h3>
 	<ul>
-		<li>**意見收斂:** 根據 Code Review 的建議，設計出一個新的、更精確的 Prompt。</li>
-		<li>**新 Prompt 範例:**
-			<pre><code>[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。</code></pre>
+		<li><span class="B">意見收斂:</span> 根據 Code Review 的建議，設計出一個新的、更精確的 Prompt。</li>
+		<li><span class="B">新 Prompt 範例:</span>
+			<pre class="C"><code>[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。</code></pre>
 		</li>
-		<li>**LLM 修正:** 將**舊程式碼 + 新 Prompt** 傳給 LLM，要求其修正。</li>
+		<li><span class="B">LLM 修正:</span> 將<span class="B">舊程式碼 + 新 Prompt</span> 傳給 LLM，要求其修正。</li>
 	</ul>
 
 	<h3>步驟四：檢視差異與版本更新</h3>
 	<ol>
-		<li>**檢視差異 (Diff):** 在本地使用 `git diff` 仔細比較 LLM 做了哪些修改。</li>
-		<li>**提交修正:** 使用**新的 Prompt** 作為 Commit Log 提交。
-			<pre><code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。"</code></pre>
+		<li><span class="B">檢視差異 (Diff):</span> 在本地使用 <span class="C">git diff</span> 仔細比較 LLM 做了哪些修改。</li>
+		<li><span class="B">提交修正:</span> 使用<span class="B">新的 Prompt</span> 作為 Commit Log 提交。
+			<pre class="C"><code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。"</code></pre>
 		</li>
-		<li>**推送到 GitHub:** 進行第二次 `push`。</li>
+		<li><span class="B">推送到 GitHub:</span> 進行第二次 <span class="C">push</span>。</li>
 	</ol>
 	<div class="callout">
-		**思考：** 如果 LLM 的修正不完整或引入新錯誤，你該怎麼辦？ (答：設計第三版 Prompt)
+		<span class="B">思考：</span> 如果 LLM 的修正不完整或引入新錯誤，你該怎麼辦？ (答：設計第三版 Prompt)
 	</div>
 </section>
 
-<section data-index="4">
+<section>
 	<h2>V. 總結：Log, Diff, Blame 的威力 (10 min)</h2>
 	<h3>Git 核心功能如何服務於 LLM 開發</h3>
 	<ul>
-		<li>**`git log` 追蹤歷史:** 執行 `git log --oneline`，你看到的是**完整的 Prompt 演化歷史**，而非單純的程式碼修改。</li>
-		<li>**`git diff` 驗證修正:** 確保 LLM 的修改範圍和內容是可控且符合預期的，避免「黑箱」修正。</li>
-		<li>**`git blame` 溯源責任:** 任何一行程式碼，都能追溯到是**哪一個 Prompt** 驅動了它的生成，提升問題排除效率。</li>
+		<li><span class="B"><span class="C">git log</span> 追蹤歷史:</span> 執行 <span class="C">git log --oneline</span>，你看到的是<span class="B">完整的 Prompt 演化歷史</span>，而非單純的程式碼修改。</li>
+		<li><span class="B"><span class="C">git diff</span> 驗證修正:</span> 確保 LLM 的修改範圍和內容是可控且符合預期的，避免「黑箱」修正。</li>
+		<li><span class="B"><span class="C">git blame</span> 溯源責任:</span> 任何一行程式碼，都能追溯到是<span class="B">哪一個 Prompt</span> 驅動了它的生成，提升問題排除效率。</li>
 	</ul>
 	<h3>課程總結與 Q&A</h3>
-	<div class="kpi-grid">
+	<div>
 		<div>
 			<h3>核心 Takeaway</h3>
 			<p>1. Prompt 必須版本化。<br>2. Commit Log = Prompt 歷史。<br>3. 協作基於 Log 與 Review。</p>
