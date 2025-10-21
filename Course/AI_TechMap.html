@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<link rel="stylesheet" href="https://porshenlai.github.io/Course/slide.css">
+</head>
+<body>
+
+<main>
+	<div class="wrap" id="content">
+
+<section class="slide">
+	<h1 class="title">人工智慧技術地圖</h1>
+	<div>
+		<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
+	</div>
+</section>
+
+<section>
+	<h2>導入：AI 正在改變金融世界</h2>
+	<ul>
+		<li>金融業 AI 應用：投資、風控、客服、自動化報告。</li>
+		<li class="callout">思考：此應用背後可能使用什麼 AI 技術？</li>
+	</ul>
+</section>
+
+<section>
+	<h2>任務導向思維：先釐清「目標」再談技術</h2>
+	<div class="kpi-grid">
+		<div><span class="pill">分類</span> 信用卡詐欺偵測</div>
+		<div><span class="pill">預測</span> 股價/風險預測</div>
+		<div><span class="pill">聚類</span> 客戶分群</div>
+		<div><span class="pill">生成</span> 財報摘要、客服回覆</div>
+		<div><span class="pill">決策</span> 投資組合調整</div>
+	</div>
+</section>
+
+<section>
+	<h2>資料導向思維：根據輸入資料特性選擇方法</h2>
+	<table border='1' cellpadding='3' cellspacing='0' width='95%'>
+		<tr><th>資料型態</th><th>常見方法</th><th>財金應用</th></tr>
+		<tr><td>結構化（表格）</td><td>迴歸、樹模型、XGBoost</td><td>信用評分、風險預測</td></tr>
+		<tr><td>非結構化（文字）</td><td>NLP、Transformer/LLM</td><td>新聞/財報情緒分析、生成摘要</td></tr>
+		<tr><td>時間序列</td><td>RNN、LSTM、Prophet/ARIMA</td><td>股價與需求預測</td></tr>
+		<tr><td>影像/掃描</td><td>CNN、OCR</td><td>支票驗證、文件辨識</td></tr>
+	</table>
+</section>
+
+<section>
+	<h2>技術分類四象限（概念圖）</h2>
+	<table border='1' cellpadding='3' cellspacing='0' width='95%'>
+		<tbody>
+			<tr>
+				<td><b>監督式學習：</b><br/>有標籤，做分類/回歸（例：違約預測）。</td>
+				<td><b>非監督式學習：</b><br/>無標籤，做分群/異常偵測（例：交易異常）。</td>
+			</tr>
+			<tr>
+				<td><b>強化學習：</b><br/>連續決策最佳化（例：資產配置動態調整）。</td>
+				<td><b>生成式 AI：</b><br/>文本/圖像生成（例：財報摘要、客服回覆）。</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section>
+	<h2>分組活動：AI 技術配對挑戰</h2>
+	<p class="badge">課堂活動</p>
+	<ol>
+		<li>判斷任務目標</li>
+		<li>確認資料型態</li>
+		<li>選擇合適 AI 技術</li>
+	</ol>
+	<table border='1' cellpadding='3' cellspacing='0' width='95%'>
+		<tr><th>案例</th><th>目標類型</th><th>資料型態</th><th>適合技術</th><th>理由</th></tr>
+		<tr><td>信用卡詐欺偵測</td><td>分類/異常</td><td>結構化 + 時間序列</td><td>監督式 + 非監督式</td><td>已標記詐欺 + 非監督找新型態</td></tr>
+		<tr><td>ETF 推薦</td><td>推薦</td><td>交易表格 + 文字偏好</td><td>協同過濾 + NLP</td><td>個人化與冷啟動整合</td></tr>
+	</table>
+</section>
+
+<section>
+	<h2>小組分享與教師補充</h2>
+	<ul>
+		<li>資料量與標註成本對模型表現的影響。</li>
+		<li>避免誤區：把 NLP 全當監督式、混淆強化學習與自動化。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>總結：AI 技術選擇三步法</h2>
+	<ol>
+		<li>明確任務目標（分類/預測/生成/決策）。</li>
+		<li>確認資料型態與品質（結構化/非結構化/時間序列）。</li>
+		<li>對應到合適技術（監督/非監督/強化/生成）。</li>
+	</ol>
+</section>
+
+<section>
+	<h2>延伸作業與閱讀</h2>
+	<ul>
+		<li>作業：選一個財金 AI 案例，分析其目標、資料與技術選擇。</li>
+		<li>推薦：McKinsey《AI in Finance》、Kaggle Financial Forecasting Datasets。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄：常見 AI 技術簡介</h2>
+	<p class="callout">以下章節將簡要介紹課程中提到的各種 AI 技術，提供基礎概念與金融應用實例。這些是建構現代金融 AI 應用的核心工具。</p>
+</section>
+
+<section>
+	<h2>附錄 A-1：迴歸 (Regression)</h2>
+	<ul>
+		<li><b>核心概念：</b>監督式學習的一種，用於預測一個「連續性」的數值輸出。模型會學習輸入特徵與輸出數值之間的關係。</li>
+		<li><b>財金應用：</b>房價預測、股價預測、客戶終身價值 (CLV) 預測。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-2：樹模型 (Tree Models)</h2>
+	<ul>
+		<li><b>核心概念：</b>一種監督式學習模型，透過一系列「是/否」問題來對資料進行切割，最終做出決策，結構像一棵倒過來的樹。</li>
+		<li><b>財金應用：</b>信用評分、貸款違約預測。<b>隨機森林</b> 和 <b>梯度提升樹</b> 是其強大的進階版。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-3：XGBoost</h2>
+	<ul>
+		<li><b>核心概念：</b>eXtreme Gradient Boosting 的縮寫，是樹模型中「梯度提升」演算法的高效能實作版本。</li>
+		<li><b>財金應用：</b>高準確度的詐欺偵測、量化交易模型、客戶流失預測。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-4：NLP (自然語言處理)</h2>
+	<ul>
+		<li><b>核心概念：</b>讓電腦能夠「理解」和「處理」人類語言的技術，涉及文本的分析、理解、生成等。</li>
+		<li><b>財金應用：</b>新聞情緒分析、智能客服 (Chatbot)、財報關鍵資訊提取。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-5：Transformer / LLM</h2>
+	<ul>
+		<li><b>核心概念：</b>Transformer 是一種先進的深度學習架構，特別擅長處理文字。大型語言模型 (LLM)，如 GPT 系列，就是基於此架構建立。</li>
+		<li><b>財金應用：</b>財報自動摘要、市場分析報告生成、金融知識問答系統。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-6：RNN (循環神經網路)</h2>
+	<ul>
+		<li><b>核心概念：</b>一種為處理「序列資料」而設計的神經網路，其內部具有「記憶」功能，能將前一個時間點的資訊傳遞到下一個時間點。</li>
+		<li><b>財金應用：</b>時間序列預測（股價、匯率）、基於客戶連續行為的信用風險分析。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-7：LSTM (長短期記憶網路)</h2>
+	<ul>
+		<li><b>核心概念：</b>RNN 的一種改良版，專門用來解決傳統 RNN 的「長期依賴」問題（即容易忘記很久以前的資訊）。</li>
+		<li><b>財金應用：</b>更長期的股價趨勢預測、總體經濟指標預測。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-8：Prophet / ARIMA</h2>
+	<ul>
+		<li><b>核心概念：</b>兩者都是經典的「統計學」時間序列預測模型。ARIMA 較傳統；Prophet 能自動處理季節性與節假日效應。</li>
+		<li><b>財金應用：</b>公司銷售預測、金融服務需求預測。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-9：CNN (卷積神經網路)</h2>
+	<ul>
+		<li><b>核心概念：</b>一種特別擅長處理網格狀資料（如圖片）的深度學習模型。</li>
+		<li><b>財金應用：</b>支票辨識、分析衛星圖像（另類數據）、K 線圖表模式識別。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>附錄 A-10：OCR (光學字元辨識)</h2>
+	<ul>
+		<li><b>核心概念：</b>將圖片或掃描文件中的文字轉換為可編輯和搜尋的機器編碼文本的技術。</li>
+		<li><b>財金應用：</b>身分證/財力證明等文件自動化處理、發票與收據辨識、合約數位化。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Q&A</h2>
+	<p class="callout">思考：AI 將取代哪些財金工作？又會創造哪些新角色？</p>
+</section>
+
+	</div>
+</main>
+
+<script src="https://porshenlai.github.io/Course/slide.js"></script>
+</body>
+</html>
