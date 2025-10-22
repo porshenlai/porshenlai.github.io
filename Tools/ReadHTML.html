@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>CKEditor 貼上內容與 HTML 輸出範例</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .editor-wrapper { margin-bottom: 20px; }
+        textarea { width: 100%; height: 300px; padding: 10px; border: 1px solid #ccc; box-sizing: border-box; resize: vertical; }
+        h3 { margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CKEditor 內容即時轉換 HTML</h1>
+
+    <h2>步驟：</h2>
+    <ol>
+        <li>在下方 CKEditor 區域貼上 (Ctrl+V) 任何帶有格式的文字（例如：從 Word 文件或網頁複製粗體、列表或標題）。</li>
+        <li>下方的 "對應 HTML 程式碼" 區域會**即時**顯示 CKEditor 清理與轉換後的 HTML 程式碼。</li>
+    </ol>
+
+    <div class="editor-wrapper">
+        <h3>輸入區 (CKEditor 編輯器)</h3>
+        <div id="editor">
+            <p>請在此貼上格式化內容 (Ctrl+V)...</p>
+            <ul>
+                <li>測試列表項目</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>對應 HTML 程式碼 (自動更新)</h3>
+    <textarea id="htmlOutput" readonly></textarea>
+
+</div>
+
+<script>
+    let editorInstance; // 用於儲存編輯器實例
+
+    // 1. 初始化 CKEditor 5
+    ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+            // 您可以在此設定 CKEditor 的選項，例如工具列
+            toolbar: {
+                items: [
+                    'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'undo', 'redo'
+                ]
+            }
+        } )
+        .then( editor => {
+            console.log( 'CKEditor 實例已成功建立!', editor );
+            editorInstance = editor;
+
+            // 2. 監聽編輯器的「內容變更」事件
+            // 當使用者進行任何操作（包括貼上）導致內容變更時，這個事件會被觸發。
+            editor.model.document.on( 'change:data', () => {
+                // 3. 獲取編輯器內容的 HTML 格式
+                const htmlData = editor.getData();
+                
+                // 4. 將獲取的 HTML 程式碼填入到下方的 textarea
+                document.getElementById('htmlOutput').value = htmlData;
+            } );
+
+            // 首次載入時，將初始內容填入 textarea
+            document.getElementById('htmlOutput').value = editor.getData();
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+</script>
+
+</body>
+</html>

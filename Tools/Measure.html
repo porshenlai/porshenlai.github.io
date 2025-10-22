@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC 影像測距工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h3 {
+            color: #333;
+        }
+        #video-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        video {
+            background-color: #000;
+            border: 2px solid #555;
+            border-radius: 8px;
+        }
+        canvas {
+            display: none; /* 擷取後才顯示 */
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            cursor: crosshair;
+        }
+        #snapButton {
+            font-size: 16px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        #snapButton:hover {
+            background-color: #218838;
+        }
+        #controls {
+            display: none; /* 擷取後才顯示 */
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #controls div {
+            margin-bottom: 10px;
+        }
+        #instructions {
+            font-size: 1.1em;
+            color: #d9534f;
+            font-weight: bold;
+            min-height: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        #result {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0275d8;
+        }
+        input[type="number"] {
+            padding: 5px;
+            font-size: 14px;
+        }
+        #setRefButton {
+            font-size: 14px;
+            padding: 5px 10px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #setRefButton:hover {
+            background-color: #025aa5;
+        }
+        #setRefButton:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>WebRTC 影像測距工具</h1>
+
+    <div id="instructions">正在啟動攝像頭...</div>
+
+    <div id="video-container">
+        <video id="video" width="640" height="480" autoplay playsinline></video>
+        <canvas id="canvas" width="640" height="480"></canvas>
+    </div>
+
+    <button id="snapButton">擷取畫面</button>
+
+    <div id="controls">
+        <h3>第一階段：設定參考線</h3>
+        <div>
+            <label for="refDist">P1 到 P2 的實際距離：</label>
+            <input type="number" id="refDist" placeholder="例如：100 (公分)">
+            <button id="setRefButton" disabled>鎖定參考線 (進入第二階段)</button>
+        </div>
+        <hr>
+        <h3>第二階段：實際丈量</h3>
+        <div id="result">丈量結果：-</div>
+    </div>
+
+    <script>
+        // DOM 元素
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const snapButton = document.getElementById('snapButton');
+        const controls = document.getElementById('controls');
+        const instructions = document.getElementById('instructions');
+        const refDistInput = document.getElementById('refDist');
+        const setRefButton = document.getElementById('setRefButton');
+        const resultDisplay = document.getElementById('result');
+
+        // 狀態變數
+        let state = 'INIT'; // INIT -> CAPTURING -> STAGE1_P1 -> STAGE1_P2 -> STAGE2_P1 -> STAGE2_P2
+        let points = { p1: null, p2: null, p3: null, p4: null };
+        let projectedPoints = { p3: null, p4: null };
+        let snapshot = null;
+        let scaleFactor = 1;
+
+        // --- 1. 啟動攝像頭 ---
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } // 優先使用後置鏡頭
+                });
+                video.srcObject = stream;
+                video.onloadedmetadata = () => {
+                    // 調整 video 和 canvas 尺寸以符合影像實際大小
+                    video.width = video.videoWidth;
+                    video.height = video.videoHeight;
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    state = 'CAPTURING';
+                    updateInstructions();
+                };
+            } catch (err) {
+                console.error("無法存取攝像頭: ", err);
+                instructions.textContent = '錯誤：無法存取攝像頭。請檢查權限。';
+                if (err.name === 'NotAllowedError') {
+                    instructions.textContent = '您拒絕了攝像頭權限。';
+                } else if (err.name === 'NotFoundError') {
+                    instructions.textContent = '找不到攝像頭設備。';
+                }
+            }
+        }
+
+        // --- 2. 擷取畫面 ---
+        snapButton.addEventListener('click', () => {
+            if (state !== 'CAPTURING') return;
+
+            // 繪製影像到 canvas
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // 儲存快照
+            snapshot = new Image();
+            snapshot.src = canvas.toDataURL();
+
+            // 停止
+            video.srcObject.getTracks().forEach(track => track.stop());
+            
+            // 切換 UI
+            video.style.display = 'none';
+            snapButton.style.display = 'none';
+            canvas.style.display = 'block';
+            controls.style.display = 'block';
+
+            state = 'STAGE1_P1';
+            updateInstructions();
+        });
+
+        // --- 3. Canvas 點擊處理 ---
+        canvas.addEventListener('click', (e) => {
+            const pos = getMousePos(canvas, e);
+            
+            switch (state) {
+                case 'STAGE1_P1':
+                    // 設定 P1
+                    points.p1 = pos;
+                    points.p2 = null; // 允許重設
+                    setRefButton.disabled = true; // 尚未有P2
+                    state = 'STAGE1_P2';
+                    break;
+                
+                case 'STAGE1_P2':
+                    // 設定 P2，完成參考線
+                    points.p2 = pos;
+                    setRefButton.disabled = false; // P1 和 P2 都有了
+                    state = 'STAGE1_P1'; // 允許使用者重新點選 P1 (反覆修正)
+                    break;
+
+                case 'STAGE2_P1':
+                    // 鎖定參考線後，設定 P3
+                    points.p3 = pos;
+                    points.p4 = null;
+                    projectedPoints.p3 = projectPointOnLine(pos, points.p1, points.p2);
+                    state = 'STAGE2_P2';
+                    resultDisplay.textContent = '丈量結果：-'; // 重設結果
+                    break;
+
+                case 'STAGE2_P2':
+                    // 設定 P4 並計算
+                    points.p4 = pos;
+                    projectedPoints.p4 = projectPointOnLine(pos, points.p1, points.p2);
+                    calculateDistance();
+                    state = 'STAGE2_P1'; // 準備下一次 P3 點選
+                    break;
+            }
+            redrawCanvas();
+        });
+
+        // --- 4. 鎖定參考線 ---
+        setRefButton.addEventListener('click', () => {
+            const realDist = parseFloat(refDistInput.value);
+            
+            if (isNaN(realDist) || realDist <= 0) {
+                alert('請輸入一個有效的實際距離（大於 0）。');
+                return;
+            }
+
+            if (points.p1 && points.p2) {
+                const pixelDist = getDistance(points.p1, points.p2);
+                if (pixelDist === 0) {
+                    alert('P1 和 P2 不能在同一個位置。');
+                    return;
+                }
+                
+                scaleFactor = realDist / pixelDist;
+                
+                // 鎖定第一階段
+                state = 'STAGE2_P1';
+                refDistInput.disabled = true;
+                setRefButton.disabled = true;
+                setRefButton.textContent = '參考線已鎖定';
+                
+                // 清除第二階段的點
+                points.p3 = null;
+                points.p4 = null;
+                projectedPoints.p3 = null;
+                projectedPoints.p4 = null;
+                
+                updateInstructions();
+                redrawCanvas();
+            }
+        });
+
+        // --- 5. 繪圖與計算輔助函式 ---
+
+        function redrawCanvas() {
+            if (!snapshot) return;
+            
+            // 1. 恢復快照
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(snapshot, 0, 0);
+
+            // 2. 繪製參考線 (Stage 1)
+            if (points.p1) {
+                drawPoint(points.p1, 'red', 'P1');
+            }
+            if (points.p2) {
+                drawPoint(points.p2, 'red', 'P2');
+                drawLine(points.p1, points.p2, 'red', 2);
+            }
+            
+            // 3. 繪製丈量線 (Stage 2)
+            if (state.startsWith('STAGE2') || state === 'STAGE1_P1') { // 鎖定後也要持續顯示
+                if (projectedPoints.p3) {
+                    drawPoint(projectedPoints.p3, 'blue', "P3'");
+                    // 繪製原始點到投影點的虛線
+                    drawLine(points.p3, projectedPoints.p3, 'rgba(0, 0, 255, 0.5)', 1, true);
+                    drawPoint(points.p3, 'rgba(0, 0, 255, 0.5)', 'P3');
+                }
+                if (projectedPoints.p4) {
+                    drawPoint(projectedPoints.p4, 'blue', "P4'");
+                    // 繪製原始點到投影點的虛線
+                    drawLine(points.p4, projectedPoints.p4, 'rgba(0, 0, 255, 0.5)', 1, true);
+                    drawPoint(points.p4, 'rgba(0, 0, 255, 0.5)', 'P4');
+
+                    // 繪製校正後的丈量線
+                    drawLine(projectedPoints.p3, projectedPoints.p4, 'blue', 3);
+                }
+            }
+        }
+
+        function calculateDistance() {
+            if (projectedPoints.p3 && projectedPoints.p4 && scaleFactor > 0) {
+                const measurePixelDist = getDistance(projectedPoints.p3, projectedPoints.p4);
+                const realMeasure = measurePixelDist * scaleFactor;
+                
+                resultDisplay.textContent = `丈量結果：${realMeasure.toFixed(2)} (單位同參考距離)`;
+                updateInstructions();
+            }
+        }
+
+        /**
+         * 將一個點 P 投影到由 A 和 B 定義的直線上
+         * @returns {object} {x, y} - 投影點的座標
+         */
+        function projectPointOnLine(p, a, b) {
+            const vAP = { x: p.x - a.x, y: p.y - a.y };
+            const vAB = { x: b.x - a.x, y: b.y - a.y };
+            
+            const magAB_sq = vAB.x * vAB.x + vAB.y * vAB.y;
+            
+            // 如果 A 和 B 是同一個點，無法投影，返回 A
+            if (magAB_sq === 0) return { x: a.x, y: a.y };
+            
+            const dot = vAP.x * vAB.x + vAP.y * vAB.y;
+            const t = dot / magAB_sq;
+
+            // 這裡是外插，所以 t 可以大於 1 或小於 0
+            const projX = a.x + t * vAB.x;
+            const projY = a.y + t * vAB.y;
+            
+            return { x: projX, y: projY };
+        }
+        
+        // --- 6. UI 與工具函式 ---
+
+        function updateInstructions() {
+            switch (state) {
+                case 'INIT':
+                    instructions.textContent = '正在啟動攝像頭...';
+                    break;
+                case 'CAPTURING':
+                    instructions.textContent = '請將攝像頭對準目標，然後按 [擷取畫面]';
+                    break;
+                case 'STAGE1_P1':
+                    instructions.textContent = '【階段1】請點擊參考線的 起點 (P1)';
+                    break;
+                case 'STAGE1_P2':
+                    instructions.textContent = '【階段1】請點擊參考線的 終點 (P2)';
+                    break;
+                case 'STAGE2_P1':
+                    instructions.textContent = '【階段2】參考線已鎖定。請點擊丈量線的 起點 (P3)';
+                    break;
+                case 'STAGE2_P2':
+                    instructions.textContent = '【階段2】請點擊丈量線的 終點 (P4) 以計算距離';
+                    break;
+            }
+        }
+
+        function getMousePos(canvasEl, evt) {
+            const rect = canvasEl.getBoundingClientRect();
+            const scaleX = canvasEl.width / rect.width;
+            const scaleY = canvasEl.height / rect.height;
+            return {
+                x: (evt.clientX - rect.left) * scaleX,
+                y: (evt.clientY - rect.top) * scaleY
+            };
+        }
+
+        function getDistance(pA, pB) {
+            return Math.sqrt(Math.pow(pB.x - pA.x, 2) + Math.pow(pB.y - pA.y, 2));
+        }
+
+        function drawPoint(p, color, label) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            
+            ctx.fillStyle = color;
+            ctx.font = '16px Arial';
+            ctx.shadowColor = 'white';
+            ctx.shadowBlur = 3;
+            ctx.fillText(label, p.x + 8, p.y + 5);
+            ctx.shadowBlur = 0;
+        }
+
+        function drawLine(pA, pB, color, lineWidth = 2, dashed = false) {
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth;
+            if (dashed) {
+                ctx.setLineDash([5, 5]);
+            }
+            ctx.moveTo(pA.x, pA.y);
+            ctx.lineTo(pB.x, pB.y);
+            ctx.stroke();
+            if (dashed) {
+                ctx.setLineDash([]); // 重置
+            }
+        }
+
+        // --- 程式進入點 ---
+        startCamera();
+
+    </script>
+</body>
+</html>
