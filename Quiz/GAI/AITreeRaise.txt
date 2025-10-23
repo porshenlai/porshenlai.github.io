@@ -1,0 +1,120 @@
+CoT 的主要特性是什麼？
+x 隨機回答
+o 分步推理
+x 加速訓練
+x 即時翻譯
+
+哪一個優化器最常用於小型數據集與固定學習率的訓練？
+x Adam
+o SGD
+x AdaBoost
+x Transformer
+
+哪一個生成式AI平台具備整合文字、圖片與語音的能力？
+x ChatGPT
+x Claude
+o Gemini
+x DALL·E
+
+AdaGrad 優化器的缺點是？
+x 需要大量GPU
+o 學習率衰減過快
+x 不支援小數據集
+x 參數無法更新
+
+GPT 與 BERT 的基礎架構是？
+x 卷積神經網路
+x 長短期記憶網路
+o Transformer
+x 隨機森林
+
+下列哪一項任務最適合使用 CoT？
+x 圖片風格轉換
+x 語音辨識
+o 數學與邏輯推理
+x 自動翻譯
+
+ROUGE 指標最常用於下列哪一任務？
+x 文意分析
+o 摘要生成
+x 圖像分類
+x 語音合成
+
+在 Transformer 模型中，Self-Attention 的功能是？
+x 減少運算量
+x 加入圖像資訊
+o 理解語境與詞間關係
+x 排序輸出順序
+
+在人工智慧中，CoT 是什麼的縮寫？
+o 思維鏈（Chain-of-Thought）
+x 文本計算技術（Compute on Text）
+x 知識轉移（Conversion of Tokens）
+x 最佳化策略（Control of Training）
+
+哪一種優化器適合處理長序列資料，如語音辨識？
+o RMSProp
+x SGD
+x AdamW
+x NaiveBayes
+
+哪一種評估指標適用於文字翻譯品質檢驗？
+x F1 分數
+o BLEU
+x MSE
+x IoU
+
+下列哪一個元件負責語言模型的生成輸出？
+x 編碼器
+o 解碼器
+x 優化器
+x 數據集
+
+若要評估分類任務的表現，應使用下列哪一項指標？
+x BLEU
+o F1 分數
+x MSE
+x Top-K 精度
+
+哪一個平台可讓使用者在雲端免費使用 GPU 進行 AI 實驗？
+o Google Colab
+x Kaggle Forum
+x Hugging Face
+x Jupyter Lab
+
+哪一種提示語能有效觸發思維鏈（CoT）能力？
+x 請簡要說明
+o 請一步一步思考
+x 請直接作答
+x 請寫一首詩
+
+哪一個研究機構在 2022 年正式提出 CoT 技術？
+x OpenAI
+o Google Research
+x Anthropic
+x Meta AI
+
+哪一個教學策略最能引導學生觀察 AI 的推理過程？
+x 直接給答案
+o 使用 CoT 提示語
+x 讓學生查資料
+x 讓AI總結全文
+
+哪一個模型僅使用 Decoder 結構？
+x BERT
+x T5
+o GPT
+x ERNIE
+
+下列哪一種優化器能動態調整學習率並結合動量？
+x SGD
+x AdaGrad
+o Adam
+x MomentumBoost
+
+MSE 是用於哪種類型的任務？
+x 圖像標註
+x 分類預測
+o 回歸預測
+x 摘要生成
+
