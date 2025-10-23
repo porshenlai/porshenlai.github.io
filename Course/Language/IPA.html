@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA 國際音標學習表 (完整核心版 - 特殊音標高亮)</title>
+    <style>
+        /* 基礎樣式與RWD優化 (與前版保持一致) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+            padding-top: 20px;
+        }
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 8px;
+            font-size: 1.5em;
+        }
+        .controls {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .controls label {
+            font-weight: bold;
+            color: #495057;
+            font-size: 0.9em;
+        }
+        #languageSelector {
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* **** 修正重點區域 **** */
+        table {
+            width: 100%; /* 確保表格填滿容器 */
+            border-collapse: collapse;
+            margin-top: 15px;
+            
+            /* 移除 display: block; 讓表格回歸正常布局 */
+            /* 確保水平滾動在窄螢幕上有效 */
+            overflow-x: auto; 
+            display: table; /* 確保在寬螢幕上正常顯示為表格 */
+        }
+        
+        /* 移除 thead, tbody, tr 的 display: table-row 覆蓋 */
+        
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+            white-space: normal;
+            min-width: 120px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        /* 核心特殊樣式：顯目標記 */
+        .ipa-special-highlight td {
+            border: 3px solid #ff7b00 !important; /* 橙色粗邊框 */
+            box-shadow: 0 0 5px rgba(255, 123, 0, 0.5); /* 輕微陰影強調 */
+            background-color: #fff8f2; /* 輕微底色提示 */
+        }
+        
+        .ipa-symbol {
+            display: block;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #dc3545;
+            margin-bottom: 3px;
+        }
+        .ipa-description {
+            display: block;
+            font-size: 0.85em;
+            color: #495057;
+        }
+
+        /* 例字樣式 */
+        .example-word-group {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .example-word {
+            cursor: pointer;
+            text-decoration: underline;
+            color: #28a745;
+            margin-right: 12px;
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 0.9em;
+            padding: 2px 0;
+        }
+        .example-word:hover {
+            color: #1e7e34;
+        }
+        .section-title {
+            background-color: #ffc107;
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>IPA 國際音標學習表</h1>
+
+    <div class="controls">
+        <label for="languageSelector">選擇欲檢視語言：</label>
+        <select id="languageSelector" onchange="filterIPA()">
+            <option value="all">所有核心語言音標 (ALL)</option>
+            <option value="en">英文 (English)</option>
+            <option value="fr">法文 (Français)</option>
+            <option value="de">德文 (Deutsch)</option>
+            <option value="es">西班牙文 (Español)</option>
+            <option value="it">義大利文 (Italiano)</option>
+            <option value="jp">日文 (日本語)</option>
+            <option value="kr">韓文 (한국어)</option>
+        </select>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">音標與發音說明</th>
+                <th style="width: 65%;">例字 (點擊發音)</th>
+            </tr>
+        </thead>
+        <tbody id="ipaTableBody">
+            <tr><td colspan="2" class="section-title">核心輔音：塞音與鼻音</td></tr>
+            
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-es lang-it lang-jp lang-kr">
+                <td><span class="ipa-symbol">[p] / [b]</span><span class="ipa-description">清/濁雙唇塞音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('pit', 'en-US')">pit (p)</span><span class="example-word" onclick="speakText('buy', 'en-US')">buy (b)</span><span class="example-word" onclick="speakText('spin', 'en-US')">spin (p)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('papa', 'fr-FR')">papa (p)</span><span class="example-word" onclick="speakText('but', 'fr-FR')">but (b)</span><span class="example-word" onclick="speakText('poisson', 'fr-FR')">poisson (p)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('Pass', 'de-DE')">Pass (p)</span><span class="example-word" onclick="speakText('Bus', 'de-DE')">Bus (b)</span><span class="example-word" onclick="speakText('Pause', 'de-DE')">Pause (p)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('pan', 'es-ES')">pan (p)</span><span class="example-word" onclick="speakText('banco', 'es-ES')">banco (b)</span><span class="example-word" onclick="speakText('beber', 'es-ES')">beber (b)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('pane', 'it-IT')">pane (p)</span><span class="example-word" onclick="speakText('bambino', 'it-IT')">bambino (b)</span><span class="example-word" onclick="speakText('posto', 'it-IT')">posto (p)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('ピーナッツ', 'ja-JP')">ピーナッツ (pī)</span><span class="example-word" onclick="speakText('バンド', 'ja-JP')">バンド (bando)</span><span class="example-word" onclick="speakText('パワー', 'ja-JP')">パワー (pawa)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('바다', 'ko-KR')">바다 (bada)</span><span class="example-word" onclick="speakText('빵', 'ko-KR')">빵 (ppang)</span><span class="example-word" onclick="speakText('비누', 'ko-KR')">비누 (binu)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-es lang-it lang-jp lang-kr">
+                <td><span class="ipa-symbol">[t] / [d]</span><span class="ipa-description">清/濁齒齦塞音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('top', 'en-US')">top (t)</span><span class="example-word" onclick="speakText('dog', 'en-US')">dog (d)</span><span class="example-word" onclick="speakText('ten', 'en-US')">ten (t)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('table', 'fr-FR')">table (t)</span><span class="example-word" onclick="speakText('dans', 'fr-FR')">dans (d)</span><span class="example-word" onclick="speakText('douze', 'fr-FR')">douze (d)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('Tag', 'de-DE')">Tag (t)</span><span class="example-word" onclick="speakText('danke', 'de-DE')">danke (d)</span><span class="example-word" onclick="speakText('Tisch', 'de-DE')">Tisch (t)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('todo', 'es-ES')">todo (t/d)</span><span class="example-word" onclick="speakText('dato', 'es-ES')">dato (d)</span><span class="example-word" onclick="speakText('tres', 'es-ES')">tres (t)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('treno', 'it-IT')">treno (t)</span><span class="example-word" onclick="speakText('donna', 'it-IT')">donna (d)</span><span class="example-word" onclick="speakText('tutto', 'it-IT')">tutto (t)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('たこ', 'ja-JP')">たこ (tako)</span><span class="example-word" onclick="speakText('時計', 'ja-JP')">時計 (tokei)</span><span class="example-word" onclick="speakText('でんわ', 'ja-JP')">でんわ (denwa)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('두다', 'ko-KR')">두다 (duda)</span><span class="example-word" onclick="speakText('따다', 'ko-KR')">따다 (ttada)</span><span class="example-word" onclick="speakText('티비', 'ko-KR')">티비 (tibi)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-es lang-it lang-jp lang-kr">
+                <td><span class="ipa-symbol">[k] / [g]</span><span class="ipa-description">清/濁軟腭塞音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('cat', 'en-US')">cat (k)</span><span class="example-word" onclick="speakText('go', 'en-US')">go (g)</span><span class="example-word" onclick="speakText('kiss', 'en-US')">kiss (k)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('carré', 'fr-FR')">carré (k)</span><span class="example-word" onclick="speakText('gomme', 'fr-FR')">gomme (g)</span><span class="example-word" onclick="speakText('kilo', 'fr-FR')">kilo (k)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('Klasse', 'de-DE')">Klasse (k)</span><span class="example-word" onclick="speakText('gut', 'de-DE')">gut (g)</span><span class="example-word" onclick="speakText('kein', 'de-DE')">kein (k)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('casa', 'es-ES')">casa (k)</span><span class="example-word" onclick="speakText('gato', 'es-ES')">gato (g)</span><span class="example-word" onclick="speakText('coche', 'es-ES')">coche (k)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('cosa', 'it-IT')">cosa (k)</span><span class="example-word" onclick="speakText('gomma', 'it-IT')">gomma (g)</span><span class="example-word" onclick="speakText('campo', 'it-IT')">campo (k)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('かさ', 'ja-JP')">かさ (kasa)</span><span class="example-word" onclick="speakText('ぎん', 'ja-JP')">ぎん (gin)</span><span class="example-word" onclick="speakText('くま', 'ja-JP')">くま (kuma)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('갈비', 'ko-KR')">갈비 (galbi)</span><span class="example-word" onclick="speakText('코', 'ko-KR')">코 (ko)</span><span class="example-word" onclick="speakText('가게', 'ko-KR')">가게 (gage)</span></span>
+                </td>
+            </tr>
+
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-es lang-it lang-jp lang-kr">
+                <td><span class="ipa-symbol">[m] / [n]</span><span class="ipa-description">雙唇鼻音 / 齒齦鼻音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('man', 'en-US')">man (m)</span><span class="example-word" onclick="speakText('no', 'en-US')">no (n)</span><span class="example-word" onclick="speakText('name', 'en-US')">name (m/n)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('mère', 'fr-FR')">mère (m)</span><span class="example-word" onclick="speakText('non', 'fr-FR')">non (n)</span><span class="example-word" onclick="speakText('nom', 'fr-FR')">nom (m)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('Maus', 'de-DE')">Maus (m)</span><span class="example-word" onclick="speakText('Name', 'de-DE')">Name (n/m)</span><span class="example-word" onclick="speakText('nein', 'de-DE')">nein (n)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('mano', 'es-ES')">mano (m/n)</span><span class="example-word" onclick="speakText('nada', 'es-ES')">nada (n)</span><span class="example-word" onclick="speakText('mesa', 'es-ES')">mesa (m)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('mano', 'it-IT')">mano (m/n)</span><span class="example-word" onclick="speakText('nascere', 'it-IT')">nascere (n)</span><span class="example-word" onclick="speakText('madre', 'it-IT')">madre (m)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('名前', 'ja-JP')">名前 (namae)</span><span class="example-word" onclick="speakText('みず', 'ja-JP')">みず (mizu)</span><span class="example-word" onclick="speakText('ねこ', 'ja-JP')">ねこ (neko)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('나무', 'ko-KR')">나무 (namu)</span><span class="example-word" onclick="speakText('엄마', 'ko-KR')">엄마 (eomma)</span><span class="example-word" onclick="speakText('누나', 'ko-KR')">누나 (nuna)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-de lang-kr lang-es ipa-special-highlight">
+                <td><span class="ipa-symbol">[ŋ]</span><span class="ipa-description">軟腭鼻音 (如英文 -ing)</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('singing', 'en-US')">singing</span><span class="example-word" onclick="speakText('ring', 'en-US')">ring</span><span class="example-word" onclick="speakText('language', 'en-US')">language (ng)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('Bang', 'de-DE')">Bang</span><span class="example-word" onclick="speakText('singen', 'de-DE')">singen</span><span class="example-word" onclick="speakText('lange', 'de-DE')">lange</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('cinco', 'es-ES')">cinco (n)</span><span class="example-word" onclick="speakText('tango', 'es-ES')">tango (n)</span><span class="example-word" onclick="speakText('nunca', 'es-ES')">nunca (n)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('강', 'ko-KR')">강 (gang)</span><span class="example-word" onclick="speakText('은행', 'ko-KR')">은행 (eunhaeng)</span><span class="example-word" onclick="speakText('종', 'ko-KR')">종 (jong)</span></span>
+                </td>
+            </tr>
+
+            <tr><td colspan="2" class="section-title">核心輔音：摩擦音與顫音</td></tr>
+            
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-it">
+                <td><span class="ipa-symbol">[f] / [v]</span><span class="ipa-description">清/濁唇齒擦音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('fork', 'en-US')">fork (f)</span><span class="example-word" onclick="speakText('value', 'en-US')">value (v)</span><span class="example-word" onclick="speakText('five', 'en-US')">five (f/v)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('vache', 'fr-FR')">vache (v)</span><span class="example-word" onclick="speakText('fleur', 'fr-FR')">fleur (f)</span><span class="example-word" onclick="speakText('ville', 'fr-FR')">ville (v)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('Vater', 'de-DE')">Vater (f)</span><span class="example-word" onclick="speakText('vier', 'de-DE')">vier (f)</span><span class="example-word" onclick="speakText('Wechsel', 'de-DE')">Wechsel (v)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('vino', 'it-IT')">vino (v)</span><span class="example-word" onclick="speakText('fumo', 'it-IT')">fumo (f)</span><span class="example-word" onclick="speakText('fare', 'it-IT')">fare (f)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-es lang-it lang-kr">
+                <td><span class="ipa-symbol">[s] / [z]</span><span class="ipa-description">清/濁齒齦擦音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('city', 'en-US')">city (s)</span><span class="example-word" onclick="speakText('zero', 'en-US')">zero (z)</span><span class="example-word" onclick="speakText('bus', 'en-US')">bus (s)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('musique', 'fr-FR')">musique (z)</span><span class="example-word" onclick="speakText('soleil', 'fr-FR')">soleil (s)</span><span class="example-word" onclick="speakText('chose', 'fr-FR')">chose (z)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('Sonne', 'de-DE')">Sonne (z)</span><span class="example-word" onclick="speakText('Straße', 'de-DE')">Straße (s)</span><span class="example-word" onclick="speakText('Zeitung', 'de-DE')">Zeitung (ts/s)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('salsa', 'es-ES')">salsa (s)</span><span class="example-word" onclick="speakText('casa', 'es-ES')">casa (s)</span><span class="example-word" onclick="speakText('ser', 'es-ES')">ser (s)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('casa', 'it-IT')">casa (z)</span><span class="example-word" onclick="speakText('sale', 'it-IT')">sale (s)</span><span class="example-word" onclick="speakText('zero', 'it-IT')">zero (dz/ts)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('쓰다', 'ko-KR')">쓰다 (sseu)</span><span class="example-word" onclick="speakText('사자', 'ko-KR')">사자 (saja)</span><span class="example-word" onclick="speakText('치즈', 'ko-KR')">치즈 (chizeu)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-es ipa-special-highlight">
+                <td><span class="ipa-symbol">[θ] / [ð]</span><span class="ipa-description">清/濁齒擦音 (如英文 th)</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('think', 'en-US')">think (θ)</span><span class="example-word" onclick="speakText('that', 'en-US')">that (ð)</span><span class="example-word" onclick="speakText('mother', 'en-US')">mother (ð)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('cien', 'es-ES')">cien (θ)</span><span class="example-word" onclick="speakText('zapato', 'es-ES')">zapato (θ)</span><span class="example-word" onclick="speakText('ceder', 'es-ES')">ceder (θ)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-fr lang-de ipa-special-highlight">
+                <td><span class="ipa-symbol">[ʁ]</span><span class="ipa-description">濁小舌擦音/顫音 (Uvular R)</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('Paris', 'fr-FR')">Paris (R)</span><span class="example-word" onclick="speakText('trois', 'fr-FR')">trois (R)</span><span class="example-word" onclick="speakText('rêve', 'fr-FR')">rêve (R)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('rot', 'de-DE')">rot (R)</span><span class="example-word" onclick="speakText('reden', 'de-DE')">reden (R)</span><span class="example-word" onclick="speakText('Hund', 'de-DE')">Hund (R)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-es lang-it lang-jp lang-kr ipa-special-highlight">
+                <td><span class="ipa-symbol">[r] / [ɾ]</span><span class="ipa-description">齒齦顫音 / 閃音 (Trill/Flap)</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('perro', 'es-ES')">perro (rr)</span><span class="example-word" onclick="speakText('caro', 'es-ES')">caro (r)</span><span class="example-word" onclick="speakText('río', 'es-ES')">río (r)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('ricco', 'it-IT')">ricco (r)</span><span class="example-word" onclick="speakText('torre', 'it-IT')">torre (rr)</span><span class="example-word" onclick="speakText('aria', 'it-IT')">aria (r)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('ラーメン', 'ja-JP')">ラーメン (ra)</span><span class="example-word" onclick="speakText('さくら', 'ja-JP')">さくら (ra)</span><span class="example-word" onclick="speakText('りゆう', 'ja-JP')">りゆう (ri)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('빨리', 'ko-KR')">빨리 (r/l)</span><span class="example-word" onclick="speakText('라면', 'ko-KR')">라면 (ramyeon)</span><span class="example-word" onclick="speakText('우리', 'ko-KR')">우리 (uri)</span></span>
+                </td>
+            </tr>
+
+            <tr><td colspan="2" class="section-title">核心母音</td></tr>
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-es lang-it lang-jp lang-kr">
+                <td><span class="ipa-symbol">[i] / [u]</span><span class="ipa-description">閉前不圓唇 / 閉後圓唇</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('see', 'en-US')">see (i)</span><span class="example-word" onclick="speakText('boot', 'en-US')">boot (u)</span><span class="example-word" onclick="speakText('key', 'en-US')">key (i)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('livre', 'fr-FR')">livre (i)</span><span class="example-word" onclick="speakText('vous', 'fr-FR')">vous (u)</span><span class="example-word" onclick="speakText('fini', 'fr-FR')">fini (i)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('liegen', 'de-DE')">liegen (i)</span><span class="example-word" onclick="speakText('nur', 'de-DE')">nur (u)</span><span class="example-word" onclick="speakText('wir', 'de-DE')">wir (i)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('libro', 'es-ES')">libro (i)</span><span class="example-word" onclick="speakText('luna', 'es-ES')">luna (u)</span><span class="example-word" onclick="speakText('mi', 'es-ES')">mi (i)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('libro', 'it-IT')">libro (i)</span><span class="example-word" onclick="speakText('uso', 'it-IT')">uso (u)</span><span class="example-word" onclick="speakText('fino', 'it-IT')">fino (i)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('いき', 'ja-JP')">いき (iki)</span><span class="example-word" onclick="speakText('くうき', 'ja-JP')">くうき (kūki)</span><span class="example-word" onclick="speakText('ふね', 'ja-JP')">ふね (fune)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('이유', 'ko-KR')">이유 (iyu)</span><span class="example-word" onclick="speakText('우리', 'ko-KR')">우리 (uri)</span><span class="example-word" onclick="speakText('지구', 'ko-KR')">지구 (jigu)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-es lang-it lang-jp lang-kr">
+                <td><span class="ipa-symbol">[e] / [o]</span><span class="ipa-description">半閉前/後母音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('say', 'en-US')">say (eɪ)</span><span class="example-word" onclick="speakText('go', 'en-US')">go (oʊ)</span><span class="example-word" onclick="speakText('bed', 'en-US')">bed (ɛ)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('été', 'fr-FR')">été (e)</span><span class="example-word" onclick="speakText('eau', 'fr-FR')">eau (o)</span><span class="example-word" onclick="speakText('nez', 'fr-FR')">nez (e)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('sehen', 'de-DE')">sehen (e)</span><span class="example-word" onclick="speakText('Mond', 'de-DE')">Mond (o)</span><span class="example-word" onclick="speakText('Ohr', 'de-DE')">Ohr (o)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('mesa', 'es-ES')">mesa (e)</span><span class="example-word" onclick="speakText('solo', 'es-ES')">solo (o)</span><span class="example-word" onclick="speakText('de', 'es-ES')">de (e)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('cena', 'it-IT')">cena (e)</span><span class="example-word" onclick="speakText('sole', 'it-IT')">sole (o)</span><span class="example-word" onclick="speakText('otto', 'it-IT')">otto (o)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('とけい', 'ja-JP')">とけい (e)</span><span class="example-word" onclick="speakText('おとこ', 'ja-JP')">おとこ (o)</span><span class="example-word" onclick="speakText('えき', 'ja-JP')">えき (eki)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('오후', 'ko-KR')">오후 (o)</span><span class="example-word" onclick="speakText('메다', 'ko-KR')">메다 (e)</span><span class="example-word" onclick="speakText('오늘', 'ko-KR')">오늘 (o)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de lang-es lang-it lang-kr lang-jp">
+                <td><span class="ipa-symbol">[a] / [ɑ]</span><span class="ipa-description">開母音 (常規/後移)</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('father', 'en-US')">father (ɑ)</span><span class="example-word" onclick="speakText('cat', 'en-US')">cat (æ/a)</span><span class="example-word" onclick="speakText('start', 'en-US')">start (ɑ)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('là', 'fr-FR')">là (ɑ)</span><span class="example-word" onclick="speakText('patte', 'fr-FR')">patte (a)</span><span class="example-word" onclick="speakText('bas', 'fr-FR')">bas (ɑ)</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('Vater', 'de-DE')">Vater (a)</span><span class="example-word" onclick="speakText('haben', 'de-DE')">haben (a)</span><span class="example-word" onclick="speakText('Mann', 'de-DE')">Mann (a)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('casa', 'es-ES')">casa (a)</span><span class="example-word" onclick="speakText('mamá', 'es-ES')">mamá (a)</span><span class="example-word" onclick="speakText('agua', 'es-ES')">agua (a)</span></span>
+                    <span class="example-word-group" data-lang="it"><span class="example-word" onclick="speakText('andare', 'it-IT')">andare (a)</span><span class="example-word" onclick="speakText('acqua', 'it-IT')">acqua (a)</span><span class="example-word" onclick="speakText('alto', 'it-IT')">alto (a)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('あか', 'ja-JP')">あか (aka)</span><span class="example-word" onclick="speakText('あめ', 'ja-JP')">あめ (ame)</span><span class="example-word" onclick="speakText('かた', 'ja-JP')">かた (kata)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('아기', 'ko-KR')">아기 (agi)</span><span class="example-word" onclick="speakText('하나', 'ko-KR')">하나 (hana)</span><span class="example-word" onclick="speakText('가다', 'ko-KR')">가다 (gada)</span></span>
+                </td>
+            </tr>
+
+            <tr class="ipa-row lang-all lang-fr lang-de lang-kr ipa-special-highlight">
+                <td><span class="ipa-symbol">[y]</span><span class="ipa-description">閉前圓唇母音 (法文 u / 德文 ü)</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('tu', 'fr-FR')">tu</span><span class="example-word" onclick="speakText('sûr', 'fr-FR')">sûr</span><span class="example-word" onclick="speakText('rue', 'fr-FR')">rue</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('München', 'de-DE')">München</span><span class="example-word" onclick="speakText('üben', 'de-DE')">üben</span><span class="example-word" onclick="speakText('fünf', 'de-DE')">fünf</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('위', 'ko-KR')">위 (wi)</span><span class="example-word" onclick="speakText('쥐', 'ko-KR')">쥐 (jwi)</span><span class="example-word" onclick="speakText('귀', 'ko-KR')">귀 (gwi)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-fr lang-de ipa-special-highlight">
+                <td><span class="ipa-symbol">[ə]</span><span class="ipa-description">中央母音 (Schwa)</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('about', 'en-US')">about</span><span class="example-word" onclick="speakText('sofa', 'en-US')">sofa</span><span class="example-word" onclick="speakText('America', 'en-US')">America (a)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('le', 'fr-FR')">le</span><span class="example-word" onclick="speakText('petit', 'fr-FR')">petit</span><span class="example-word" onclick="speakText('refaire', 'fr-FR')">refaire</span></span>
+                    <span class="example-word-group" data-lang="de"><span class="example-word" onclick="speakText('bitte', 'de-DE')">bitte</span><span class="example-word" onclick="speakText('genommen', 'de-DE')">genommen</span><span class="example-word" onclick="speakText('eine', 'de-DE')">eine</span></span>
+                </td>
+            </tr>
+            
+            <tr><td colspan="2" class="section-title">特殊鼻音與半母音</td></tr>
+            <tr class="ipa-row lang-all lang-fr ipa-special-highlight">
+                <td><span class="ipa-symbol">[ɑ̃] / [ɛ̃] / [ɔ̃]</span><span class="ipa-description">法文鼻化母音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('dans', 'fr-FR')">dans (ɑ̃)</span><span class="example-word" onclick="speakText('vin', 'fr-FR')">vin (ɛ̃)</span><span class="example-word" onclick="speakText('bon', 'fr-FR')">bon (ɔ̃)</span><span class="example-word" onclick="speakText('chambre', 'fr-FR')">chambre (ɑ̃)</span><span class="example-word" onclick="speakText('parfum', 'fr-FR')">parfum (ɛ̃)</span><span class="example-word" onclick="speakText('onze', 'fr-FR')">onze (ɔ̃)</span></span>
+                </td>
+            </tr>
+            <tr class="ipa-row lang-all lang-en lang-fr lang-es lang-jp lang-kr">
+                <td><span class="ipa-symbol">[j] / [w]</span><span class="ipa-description">硬腭近音 / 唇軟腭近音</span></td>
+                <td>
+                    <span class="example-word-group" data-lang="en"><span class="example-word" onclick="speakText('yes', 'en-US')">yes (j)</span><span class="example-word" onclick="speakText('we', 'en-US')">we (w)</span><span class="example-word" onclick="speakText('yellow', 'en-US')">yellow (j)</span></span>
+                    <span class="example-word-group" data-lang="fr"><span class="example-word" onclick="speakText('huit', 'fr-FR')">huit (ɥ/w)</span><span class="example-word" onclick="speakText('oui', 'fr-FR')">oui (w)</span><span class="example-word" onclick="speakText('yeux', 'fr-FR')">yeux (j)</span></span>
+                    <span class="example-word-group" data-lang="es"><span class="example-word" onclick="speakText('hielo', 'es-ES')">hielo (j)</span><span class="example-word" onclick="speakText('agua', 'es-ES')">agua (w)</span><span class="example-word" onclick="speakText('yo', 'es-ES')">yo (j)</span></span>
+                    <span class="example-word-group" data-lang="jp"><span class="example-word" onclick="speakText('やすい', 'ja-JP')">やすい (yasui)</span><span class="example-word" onclick="speakText('わいん', 'ja-JP')">わいん (wain)</span><span class="example-word" onclick="speakText('ゆめ', 'ja-JP')">ゆめ (yume)</span></span>
+                    <span class="example-word-group" data-lang="kr"><span class="example-word" onclick="speakText('왜', 'ko-KR')">왜 (wae)</span><span class="example-word" onclick="speakText('여자', 'ko-KR')">여자 (yeoja)</span><span class="example-word" onclick="speakText('왔다', 'ko-KR')">왔다 (watta)</span></span>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // 瀏覽器發音 API 函數
+    function speakText(text, lang) {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            // 根據語言代碼設定發音引擎
+            utterance.lang = lang; 
+            
+            if (lang.startsWith('ko') || lang.startsWith('ja')) {
+                utterance.rate = 1.0; 
+            } else {
+                utterance.rate = 0.8; 
+            }
+
+            speechSynthesis.speak(utterance);
+        } else {
+            alert('您的瀏覽器不支援 Speech Synthesis API。');
+        }
+    }
+
+    // 根據選擇的語言過濾表格行和例字
+    function filterIPA() {
+        const selectedLang = document.getElementById('languageSelector').value;
+        const rows = document.querySelectorAll('.ipa-row');
+
+        rows.forEach(row => {
+            // 1. 過濾行顯示 (只顯示包含目標語言音標的行)
+            const rowClassList = row.classList;
+            
+            if (selectedLang === 'all' || rowClassList.contains(`lang-${selectedLang}`)) {
+                row.style.display = ''; // 顯示行
+                
+                // 2. 過濾行內的例字 (只顯示目標語言的例字群組)
+                const exampleGroups = row.querySelectorAll('.example-word-group');
+                exampleGroups.forEach(group => {
+                    const groupLang = group.getAttribute('data-lang');
+                    
+                    if (selectedLang === 'all' || groupLang === selectedLang) {
+                        group.style.display = 'block'; // 顯示例字群組
+                    } else {
+                        group.style.display = 'none'; // 隱藏例字群組
+                    }
+                });
+
+            } else {
+                row.style.display = 'none'; // 隱藏行
+            }
+        });
+    }
+
+    // 初始化：載入頁面後執行一次過濾
+    document.addEventListener('DOMContentLoaded', filterIPA);
+</script>
+
+</body>
+</html>
