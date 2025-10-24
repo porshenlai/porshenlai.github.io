@@ -21,11 +21,13 @@ body {
 
 main { display:flex; flex:1 1 auto; min-height: 0; }
 
-#content { background:#f0f0f0; }
+#content {
+	flex:1; padding: 1.5rem; overflow:hidden auto;
+	background:#f0f0f0;
+}
 
-.wrap { flex:1; padding: 1.5rem; overflow:hidden auto; }
 section { 
-	margin: 1.75rem .25rem 2.25rem .25rem; padding: 1.25rem; border:2px solid #e6e6e6; border-radius:14px; 
+	margin: 1.75rem 0 2.25rem 0; padding: 1.25rem; border:2px solid #e6e6e6; border-radius:14px; 
 	box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
 	transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
 	cursor: pointer;
@@ -93,7 +95,7 @@ body.panel-open #panel-overlay { opacity: 1; visibility: visible; }
 
 @media (max-width: 960px) {
 	main { display:block; }
-	.wrap { padding: 1rem; }
+	#content { padding: 1rem; }
 }
 
 /* --- Mobile Controls --- */

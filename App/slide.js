@@ -216,9 +216,9 @@
 		<span id="counter" class="help"></span>
 		<button class="btn" id="nextBtn" title="下一節 Next (→)">→</button>
 	</div>
-	<footer>
+	<!--footer>
 	© 2025 Porshen Lai
-	</footer>
+	</footer-->
 </div>
 `;
 				return asideElement;
