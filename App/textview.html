@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Reader</title>
+	<base></base>
+    <style>
+        /* CSS 樣式來實現佈局和浮動視窗 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header {
+            height: 40px; /* 固定一行的高度 */
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* 將選單按鈕放在最右側 */
+            padding: 0 10px;
+            box-sizing: border-box;
+            flex-shrink: 0; /* 不壓縮 header */
+        }
+
+        #menuButton {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        #content {
+            flex-grow: 1; /* 填滿 header 下方的剩餘空間 */
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            padding: 10px;
+            resize: none; /* 防止用戶調整大小 */
+            font-size: 16px;
+        }
+
+        #dialog {
+            display: none; /* 預設隱藏 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明灰色遮罩 */
+            z-index: 1000; /* 確保浮動覆蓋其他元素 */
+            align-items: flex-start; /* 將內容對齊頂部 */
+            justify-content: flex-end; /* 將按鈕對齊右側 */
+        }
+        
+        #dialog.open {
+            display: flex;
+        }
+
+        #hideDialog {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+    </style>
+	<script>
+	async function readtext (url,options) {
+		const response=await fetch(url,options);
+        // 檢查響應是否成功
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const reader=response.body.getReader();
+		let s="";
+		while (true) {
+            const c=await reader.read();
+            if (c.done) break; // 讀取完成時跳出循環
+			s += new TextDecoder("utf-8").decode(c.value); // 確保 await 在 async 函式中
+        }
+		return s;
+	}
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        const contentArea = document.getElementById('content');
+        const menuButton = document.getElementById('menuButton');
+        const dialog = document.getElementById('dialog');
+        const hideDialogButton = document.getElementById('hideDialog');
+
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+			const baseUrl = urlParams.get('base');
+            const targetUrl = urlParams.get('url'); // 假設使用 ?url=... 來指定目標
+
+			if (baseUrl) {
+				document.head.querySelector("base").setAttribute("href",baseUrl);
+			}
+
+            if (targetUrl) {
+                contentArea.value = '正在讀取文字...';
+                const textContent = await readtext(targetUrl);
+                contentArea.value = textContent;
+            } else {
+                contentArea.value = '請在 URL search string 中指定目標檔案 (例如: ?url=somefile.txt)。';
+            }
+        } catch (error) {
+            console.error('讀取文字失敗:', error);
+            contentArea.value = `讀取文字失敗: ${error.message}`;
+        }
+
+        // 處理選單按鈕的點擊事件
+        if (menuButton) {
+            menuButton.addEventListener('click', () => {
+                dialog.classList.add('open');
+            });
+        }
+        
+        // 處理關閉按鈕的點擊事件
+        if (hideDialogButton) {
+            hideDialogButton.addEventListener('click', () => {
+                dialog.classList.remove('open');
+            });
+        }
+
+        // 處理點擊遮罩關閉對話框
+        if (dialog) {
+             dialog.addEventListener('click', (event) => {
+                // 如果點擊的目標是 #dialog 本身，則關閉
+                if (event.target === dialog) {
+                    dialog.classList.remove('open');
+                }
+            });
+        }
+    });
+	</script>
+</head>
+<body>
+	<div id="header">
+        <button id="menuButton">選單</button>
+    </div>
+	<textarea id="content"></textarea>
+	<div id="dialog">
+        <div style="background-color: white; padding: 20px; margin: 50px; border-radius: 5px;">
+            <h2>設定/選單內容</h2>
+            <p>這裡是用來放置選單項目的空間。</p>
+        </div>
+        <button id="hideDialog">X 關閉</button>
+    </div>
+</body>
+</html>

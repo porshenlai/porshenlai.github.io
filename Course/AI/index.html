@@ -4,6 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
+<style>
+	li[onclick] { cursor:pointer;color:blue;text-decoration:underline; }
+</style>
+<script>
+	function op(url,type) {
+		if (!type)
+			type=url.endsWith(".txt") ? "txt" : "unknown";
+		switch (type) {
+		case "txt":
+			url="/App/textview.html?url="+url+"&base="+location;
+			window.open(url);
+			break;
+		}
+	}
+</script>
 </head>
 <body>
 <h1>人工智慧</h1>
@@ -25,16 +40,16 @@
 	<li>
 		IPAS 人工智慧規劃師 例題
 		<ul>
-			<li><a href="Quiz_IPAS/人工智慧例題_11409.txt">114/09 人工智慧例題</a></li>
-			<li><a href="Quiz_IPAS/生成式AI例題_11409.txt">114/09 生成式AI例題</a></li>
+			<li onclick='op("Quiz_IPAS/人工智慧例題_11409.txt")'>114/09 人工智慧例題</li>
+			<li onclick='op("Quiz_IPAS/生成式AI例題_11409.txt")'>114/09 生成式AI例題</li>
 		</ul>
 	</li>
 	<li>
 		工研院生成式AI證照 例題
 		<ul>
-			<li><a href="Quiz_GAI/GAI.txt">生成式 AI</a></li>
-			<li><a href="Quiz_GAI/AITreeRaise.txt">人工智慧素養</a></li>
-			<li><a href="Quiz_GAI/PromptEngineering.txt">提示工程</a></li>
+			<li onclick='op("Quiz_GAI/GAI.txt")'>生成式 AI</a></li>
+			<li onclick='op("Quiz_GAI/AITreeRaise.txt")'>人工智慧素養</a></li>
+			<li onclick='op("Quiz_GAI/PromptEngineering.txt")'>提示工程</a></li>
 		</ul>
 	</li>
 </ul>
