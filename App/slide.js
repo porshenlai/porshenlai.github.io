@@ -1,12 +1,9 @@
 (function(){
-	
-	/**
-	 * 原始的投影片主腳本
-	 * 只有在 <aside> 成功載入後才會被呼叫
-	 */
+
 	function initializePresentation() {
 		// --- Element Selectors ---
 		const content = document.getElementById('content');
+		console.assert(content,'請將投影片 <section> 置於 id="content" 元素之下。');
 		const sections = Array.from(content.querySelectorAll('section'));
 		const tocList = document.getElementById('tocList');
 		const prevBtn = document.getElementById('prevBtn');
@@ -171,81 +168,76 @@
 		init();
 	} // --- 結束 initializePresentation 函式 ---
 
+	document.head.appendChild((
+		(e)=>{
+			e.setAttribute("rel","stylesheet");
+			const u=/(.*\/)[^\/]+(\?.*)?/.exec(document.currentScript.getAttribute("src"));
+			console.assert(u,"無法判定 CSS 所在路徑");
+			e.setAttribute("href",u[1]+"/slide.css");
+			return e;
+		}
+	)(document.createElement("link")));
 
-	// -----------------------------------------------------------------
-	// MODIFIED: 啟動邏輯
-	// -----------------------------------------------------------------
+	document.addEventListener('DOMContentLoaded', () => {
+		if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+			document.body.classList.add('is-mobile');
+		}
+		// 建立並附加 panel-overlay
+		const overlay = document.createElement('div');
+		overlay.id = 'panel-overlay';
+		document.body.appendChild(overlay);
 
-	// NEW: Mobile Detection
-	function isMobile() {
-		return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-	}
-	if (isMobile()) {
-		document.body.classList.add('is-mobile');
-	}
-	
-	// 1. 將 <aside> 面板的 HTML 內容定義為字串
-	const asideHTMLString = `
-	<aside id="operationsPanel">
-		<div class="panel-header">
-			<h3>
-				<span onclick="document.getElementById('operationsPanel').classList.toggle('show-settings');" style="cursor:pointer">🛞</span>
-				導覽與設定
-				<span onclick="document.getElementById('content').requestFullscreen();" style="cursor:pointer">「」</span>
-			</h3>
-			<div class="setting-item">
-				<label>字型大小</label>
-				<div class="zoom-controls">
-					<button id="fontDecreaseBtn" title="縮小字型">-</button>
-					<span id="fontDisplay">100%</span>
-					<button id="fontIncreaseBtn" title="放大字型">+</button>
-				</div>
-			</div>
+		// 建立並附加 <aside>
+		document.body.appendChild(
+			((asideElement)=>{
+				asideElement.id = "operationsPanel";
+				asideElement.innerHTML=`
+<div class="panel-header">
+	<h3>
+		<span onclick="document.getElementById('operationsPanel').classList.toggle('show-settings');" style="cursor:pointer">🛞</span>
+		導覽與設定
+		<span onclick="document.getElementById('content').requestFullscreen();" style="cursor:pointer">「」</span>
+	</h3>
+	<div class="setting-item">
+		<label>字型大小</label>
+		<div class="zoom-controls">
+			<button id="fontDecreaseBtn" title="縮小字型">-</button>
+			<span id="fontDisplay">100%</span>
+			<button id="fontIncreaseBtn" title="放大字型">+</button>
 		</div>
-		<nav id="toc">
-			<ol id="tocList"></ol>
-		</nav>
-		<div class="panel-footer">
-			<div class="nav-controls">
-				<button class="btn" id="prevBtn" title="上一節 Prev (←)">←</button>
-				<span id="counter" class="help"></span>
-				<button class="btn" id="nextBtn" title="下一節 Next (→)">→</button>
-			</div>
-			<footer>
-			© 2025 Porshen Lai
-			</footer>
-		</div>
-	</aside>
-	`;
+	</div>
+</div>
+<nav id="toc">
+	<ol id="tocList"></ol>
+</nav>
+<div class="panel-footer">
+	<div class="nav-controls">
+		<button class="btn" id="prevBtn" title="上一節 Prev (←)">←</button>
+		<span id="counter" class="help"></span>
+		<button class="btn" id="nextBtn" title="下一節 Next (→)">→</button>
+	</div>
+	<footer>
+	© 2025 Porshen Lai
+	</footer>
+</div>
+`;
+				return asideElement;
+			})(document.createElement("aside"))
+		);
 
-	// 2. 建立並附加 panel-overlay
-	const overlay = document.createElement('div');
-	overlay.id = 'panel-overlay';
-	document.body.appendChild(overlay);
+		// 建立並附加 mobile controls, 無條件附加，CSS 會根據 .is-mobile 決定是否顯示
+		document.body.appendChild(
+			((mobileControls)=>{
+				mobileControls.id = 'mobileControls';
+				mobileControls.innerHTML = `
+<button id="mobilePrevBtn" class="btn">← 上一頁</button>
+<button id="mobileEscBtn" class="btn">☰ 導覽</button>
+<button id="mobileNextBtn" class="btn">下一頁 →</button>
+`;
+				return mobileControls;
+			})(document.createElement('div'))
+		);
 
-	// 3. 使用 DOMParser 解析字串並附加 <aside>
-	const parser = new DOMParser();
-	const doc = parser.parseFromString(asideHTMLString, 'text/html');
-	const asideElement = doc.getElementById('operationsPanel'); // 從解析的文檔中取得元素
-
-	// NEW: 4. 建立並附加 mobile controls
-	const mobileControls = document.createElement('div');
-	mobileControls.id = 'mobileControls';
-	mobileControls.innerHTML = `
-		<button id="mobilePrevBtn" class="btn">← 上一頁</button>
-		<button id="mobileEscBtn" class="btn">☰ 導覽</button>
-		<button id="mobileNextBtn" class="btn">下一頁 →</button>
-	`;
-	document.body.appendChild(mobileControls); // 無條件附加，CSS 會根據 .is-mobile 決定是否顯示
-
-	// 5. 附加 aside 並啟動主腳本
-	if (asideElement) {
-		document.body.appendChild(asideElement);
-		
-		// 6. *** 成功附加後，呼叫主函式來綁定事件 ***
 		initializePresentation();
-	} else {
-		console.error('從 HTML 字串解析 <aside> 面板失敗。');
-	}
-
+	});
 })();
