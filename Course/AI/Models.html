@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<script src="https://porshenlai.github.io/App/slide.js"></script>
+</head>
+<body>
+
+<div id="content">
+<section>
+	<h1 class="title">學習模型</h1>
+	<div>
+		<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
+	</div>
+</section>
+
+<section>
+	<h2>擴散模型<br/>Diffusion Model</h2>
+	<ul>
+		<li><strong>基本原理</strong><ul>
+			<li><b>去噪過程</b>：模型學習一個<b>逆向的馬爾可夫鏈</b>（Reverse&nbsp;Markov&nbsp;Chain），從隨機雜訊（如高斯雜訊）中逐步去噪，以恢復出清晰的資料樣本。訓練過程是將資料逐步加噪，然後訓練模型學習如何將雜訊移除。</li>
+		</ul></li>
+		<li><strong>訓練穩定性</strong><ul>
+			<li><b>穩定</b>：通常訓練過程較為穩定，損失函數（Loss&nbsp;function）收斂性良好。</li>
+		</ul></li>
+		<li><strong>生成多樣性</strong><ul>
+			<li><b>高</b>：擅長捕捉複雜的資料分佈，能生成具有<b>高度多樣性</b>的樣本。</li>
+		</ul></li>
+		<li><strong>生成品質</strong><ul>
+			<li><b>高</b>：能產生高保真度、細節豐富的圖像，在許多任務中已達到最先進的表現。</li>
+		</ul></li>
+		<li><strong>生成速度</strong><ul>
+			<td><b>慢</b>：生成過程是<strong>疊代式（Iterative）</strong>的，需要多個步驟逐步去噪，因此生成一個樣本所需時間較長。</td>
+		</ul></li>
+		<li><strong>計算資源</strong><ul>
+			<li><b>高</b>：由於疊代式生成和複雜的模型結構（如&nbsp;U-Net），通常需要較多的計算資源和時間進行訓練和生成。</li>
+		</ul></li>
+		<li><strong>可控性</strong><ul>
+			<li><b>好</b>：通過調整中間步驟的雜訊或整合條件資訊（例如文字描述），模型在生成時的<b>可控性</b>通常較高。</li>
+		</ul></li>
+		<li><b>Diffusion Model</b> 以其<b>訓練穩定性</b>、<b>樣本多樣性</b>和<b>優異的生成品質</b>脫穎而出，儘管它的主要缺點是<b>生成速度較慢</b>且<b>計算成本較高</b>。</li>
+		<li>近年來，擴散模型已成為圖像生成領域的領先技術，例如 Stable Diffusion 和 DALL-E 3 等模型的核心就是擴散模型。</p></li>
+	</ul>
+</section>
+
+<section>
+<h2>生成對抗網路<br/>GAN: Generative Adversarial Network</h2>
+	<ul>
+		<li><strong>基本原理</strong><ul>
+			<li><b>對抗訓練</b>：由兩個網路組成：一個<b>生成器（Generator）<b>和一個</b>判別器（Discriminator）</b>。生成器試圖產生逼真的資料來欺騙判別器；判別器則試圖區分真實資料和生成器產生的假資料。兩個網路進行一場「零和遊戲」。</li>
+		</ul></li>
+		<li><strong>訓練穩定性</strong><ul>
+			<li><b>不穩定</b>：訓練過程較難掌握，容易出現訓練震盪或<strong>模式崩潰（Mode&nbsp;Collapse）</strong>問題（生成器只產生有限種類的樣本）。</li>
+		</ul></li>
+		<li><strong>生成多樣性</strong><ul>
+			<li><b>可能受限</b>：容易出現模式崩潰，導致生成的樣本多樣性較差。</li>
+		</ul></li>
+		<li><strong>生成品質</strong><ul>
+			<li><b>高</b>：能夠生成非常逼真的圖像，但在捕捉整個資料分佈方面可能不如擴散模型。</li>
+		</ul></li>
+		<li><strong>生成速度</strong><ul>
+			<td><b>快</b>：一旦訓練完成，生成器可以<strong>一次性（One-step）</strong>快速生成一個樣本。</td>
+		</ul></li>
+		<li><strong>計算資源</strong><ul>
+			<li><b>較低</b>：訓練計算量通常比擴散模型少，生成階段計算量很低。</li>
+		</ul></li>
+		<li><strong>可控性</strong><ul>
+			<li><b>較直接</b>：可以透過操縱生成器的潛在空間（latent&nbsp;space）來控制生成內容，但這種控制有時較為抽象。</li>
+		</ul></li>
+		<li><b>GAN</b>&nbsp;以其<b>快速生成</b>和<b>高逼真度</b>而聞名，但在訓練穩定性和生成多樣性方面存在挑戰。</li>
+	</ul>
+</section>
+
+</div>
+
+</body>
+</html>
