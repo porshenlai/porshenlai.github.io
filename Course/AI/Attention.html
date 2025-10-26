@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://porshenlai.github.io/App/slide.js"></script>
+</head>
+<body>
+
+<div id="content">
+	<section>
+		<h1 class="title">Attention Mechanism<br/>注意力機制</h1>
+		<div>
+			<p class="subtitle">生成式人工智慧</p>
+			<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
+		</div>
+	</section>
+	<section>
+		<h2>注意力機制</h2>
+		<p>在深度學習中，特別是像 Transformer 這樣的模型，注意力機制（Attention Mechanism）扮演著核心角色。它允許模型在處理序列資料時，能夠「關注」到序列中最重要的部分。其中，自注意力（<strong>Self-Attention</strong>）和交叉注意力（<strong>Cross-Attention<strong>）是兩種主要的機制，它們在編碼器（Encoder）和解碼器（Decoder）中的作用和順序有所不同。</p>
+	</section>
+	<section>
+		<h2>自注意力機制 (Self-Attention)</h2>
+		<p>自注意力機制讓模型在處理一個序列時，能將序列中的每一個元素都與同一個序列中的所有其他元素進行關聯，從而為該元素產生一個更豐富的表示。</p>
+		<ul>
+			<li><strong>定義與功能：</strong><ul>
+				<li><strong>查詢向量（Query, $Q$）：</strong> 來自於當前需要被關注的元素。它代表了我們正在尋找的「資訊」。</li>
+				<li><strong>鍵向量（Key, $K$）：</strong> 來自於序列中的所有元素。它代表了其他元素所「提供」的資訊。</li>
+				<li><strong>值向量（Value, $V$）：</strong> 來自於序列中的所有元素。它包含了我們想要「提取」的實際資訊。</li>
+			</ul></li>
+			<li><strong>運作過程：</strong><ol>
+				<li>對於序列中的每個元素，我們將其輸入向量分別轉換為 $Q$、$K$ 和 $V$ 三個向量。</li>
+				<li>計算每個 $Q$ 與所有 $K$ 的點積（Dot Product），這會得到一個相似度分數。這個分數代表了當前元素與序列中所有其他元素之間的關聯程度。</li>
+				<li>將這些分數進行縮放（Scaled）後，再使用 <strong>Softmax</strong> 函數將其轉換為權重，這些權重的總和為 1。</li>
+				<li>最後，將這些權重與對應的 $V$ 向量進行加權求和，得到該元素的最終輸出向量。這個輸出向量融合了整個序列中所有元素的信息，但會更側重於與當前元素關聯度高的部分。</li>
+			</ol></li>
+			<li><strong>在編碼器中的應用：</strong><ul>
+				<li>編碼器中的每一層都包含一個自注意力層。</li>
+				<li>輸入的序列，例如一個句子 "I am a student"，每個詞都會與句子中的所有詞進行自注意力運算。</li>
+				<li>在這個過程中，$Q$、$K$、$V$ 都來自於編碼器前一層的輸出（或第一層的輸入嵌入向量）。</li>
+				<li>其目的是讓編碼器能夠理解句子中詞彙間的內部關係和上下文。</li>
+			</ul></li>
+		</ul>
+	</section>
+	<section>
+		<h2>交叉注意力機制 (Cross-Attention)</h2>
+		<p>交叉注意力機制，也稱為編碼器-解碼器注意力（Encoder-Decoder Attention），允許解碼器在生成輸出序列時，能夠「關注」到輸入序列（由編碼器處理的序列）。</p>
+		<ul>
+			<li><strong>定義與功能：</strong><ul>
+				<li><strong>查詢向量（Query, $Q$）：</strong> 來自於解碼器當前正在處理的單個元素（例如，正在生成的詞）。</li>
+				<li><strong>鍵向量（Key, $K$）：</strong> 來自於<strong>編碼器<strong>輸出的整個序列。</li>
+				<li><strong>值向量（Value, $V$）：</strong> 來自於<strong>編碼器<strong>輸出的整個序列。</li>
+			</ul></li>
+			<li><strong>運作過程：</strong><ol>
+				<li>解碼器在每個解碼步驟中，將當前生成的詞向量轉換為 $Q$ 向量。</li>
+				<li>來自於<strong>編碼器最終輸出</strong>的整個序列被轉換為 $K$ 和 $V$ 向量。</li>
+				<li>計算來自解碼器的 $Q$ 與來自編碼器的所有 $K$ 的點積，得到相似度分數。</li>
+				<li>將分數進行縮放並通過 Softmax 函數轉換為權重。</li>
+				<li>將這些權重與來自編碼器的 $V$ 向量進行加權求和，得到一個新的上下文向量。這個向量捕捉了輸入序列中與當前解碼步驟最相關的資訊。</li>
+			</ol></li>
+			<li><strong>在解碼器中的應用與前傳順序：</strong><ul>
+				<li>解碼器中的每一層通常包含兩個注意力子層：<ol>
+					<li><strong>遮罩自注意力（Masked Self-Attention）：</strong><ul>
+						<li>位於解碼器最底層。</li>
+						<li>功能是讓解碼器在生成第 $i$ 個詞時，只能「看見」並關注到已經生成的第 1 到 $i-1$ 個詞。這是一種因果關係的約束，防止模型在生成時偷看未來的信息。</li>
+						<li>在這裡，$Q$、$K$、$V$ 都來自於解碼器前一層的輸出（或第一層的輸入嵌入向量）。</li>
+					</ul></li>
+					<li><strong>交叉注意力（Cross-Attention）：</strong></ul>
+						<li>位於遮罩自注意力之後。</li>
+						<li>功能是讓解碼器能夠將當前生成的詞（$Q$）與編碼器處理過的<strong>輸入序列</strong>（$K$、$V$）進行關聯。</li>
+						<li><strong>$K$ 和 $V$ 向量</strong>在整個解碼過程中保持不變，它們都是由<strong>編碼器最後一層的輸出<strong>所產生的。</li>
+						<li><strong>$Q$ 向量</strong>則是在每個解碼步驟中，由解碼器<strong>當前層的遮罩自注意力輸出</strong>所產生。</li>
+						<li>這個機制是實現機器翻譯等任務的關鍵，它允許解碼器在生成翻譯時參考原始句子的內容。</li>
+					</ul></li>
+				</ol></li>
+			</ul></li>
+		</ul>
+	</section>
+	<section>
+		<h2>總結</h2>
+		<ul>
+			<li><strong>編碼器</strong>主要使用<strong>自注意力<strong>，目的是深入理解<strong>輸入序列<strong>的內部上下文和關係。</li>
+			<li><strong>解碼器</strong>則同時使用<strong>遮罩自注意力<strong>和<strong>交叉注意力<strong>。</li>
+			<li><strong>遮罩自注意力</strong>用於理解<strong>輸出序列<strong>自身已生成部分之間的上下文。</li>
+			<li><strong>交叉注意力</strong>則負責將<strong>解碼器的輸出（$Q$）<strong>與<strong>編碼器的輸出（$K$, $V$）<strong>進行連接，實現跨序列的資訊傳遞和對齊。</li>
+		</ul>
+		<p>這種前後順序的設計讓 Transformer 模型能有效地在編碼器中捕捉輸入的豐富語義，並在解碼器中利用這些語義來逐步生成準確的輸出序列。</p>
+	</section>
+</div>
+
+</body>
+</html>
