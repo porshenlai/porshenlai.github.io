@@ -1,0 +1,33 @@
+請幫我生成下列專案所需的 server.py 與 index.html 檔案。專案描述如下:
+
+檔案結構如下:
+
+root
+- server.py
+- docs/index.html 
+- db/
+- etc/profile.json
+- etc/server.pid
+- log/
+
+1. Python 執行 server.py 啟動後，自動載入所在目錄 root 下的 profile.json, profile.json 的內容如下:
+{
+	"host":"0.0.0.0",
+	"port":8080,
+	"name":"localhost",
+	"ssl_cert":"etc/ssl.cert",
+	"ssl_key":"etc/ssl.key",
+	"f_docs":"docs/",
+	"f_db":"db/",
+	"f_log":"log/",
+	"f_etc":"etc/"
+}
+
+2. 檢查 profile.json 指定的資料夾如果不存在便自動建立
+3. 建立 aiohttp 的網頁伺服器
+4. 設定 HTTP Get 的路由為利用 aiofiles 回傳 f_docs 目錄下對應的檔案
+5. 設定 HTTP Post /_api_/gts 為回傳主機目前時間的 ISO 格式字串
+6. 如果設定擋有指定 ssl_cert 與 ssl_key ，則設定 HTTPS 的功能
+7. 啟動網頁服務後，將 process ID 寫入到 /etc/server.pid 裡
+
+9. 另外請協助我建立一個讓我放在 f_docs/index.html 位置的 html 測試程式，該頁面會每隔十秒去跟 /_api_/gts 要一次時間資料，並將時間顯示在畫面上

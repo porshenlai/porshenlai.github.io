@@ -4,6 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
+<style>
+	li[onclick] { cursor:pointer;color:blue;text-decoration:underline; }
+</style>
+<script>
+	function op(url,type) {
+		if (!type)
+			type=url.endsWith(".txt") ? "txt" : "unknown";
+		switch (type) {
+		case "txt":
+			url="/App/textview.html?url="+url+"&base="+location;
+			window.open(url);
+			break;
+		}
+	}
+</script>
 </head>
 <body>
 <h1>系統整合開發</h1>
@@ -14,6 +29,7 @@
 	<li><a href="HTTP.html">HTTP: 超文件傳輸協定</a></li>
 	<li><a href="HTTPS.html">HTPS: 超文件傳輸安全協定</a></li>
 	<li><a href="Security.html">系統安全</a></li>
+	<li onclick='op("WebServer-prompt.txt")'>請 Gemini 幫忙寫個 Web Server</li>
 </ul>
 </body>
 </html>
