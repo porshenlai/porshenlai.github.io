@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
 <script src="https://porshenlai.github.io/App/slide.js"></script>
+<style>
+	li[onclick] { cursor:pointer;color:blue;text-decoration:underline; }
+</style>
+<script>
+	function op(url,type) {
+		if (!type)
+			type=url.endsWith(".txt") ? "txt" : "unknown";
+		switch (type) {
+		case "txt":
+			url="/App/textview.html?url="+url+"&base="+location;
+			window.open(url);
+			break;
+		}
+	}
+</script>
 </head>
 <body><div id="content">
 
@@ -18,6 +33,20 @@
 	<div>
 		<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
 	</div>
+</section>
+
+<section>
+	<h2>利用 LLM 來寫程式</h2>
+	<textarea rows="10" style='width:100%'>
+生成單一 html 檔案(css, 與 javascript 內嵌)，功能如下:
+1. 上中下三切版, 電腦版上下根據內容固定高度，中段填滿。手機板上下自動隱藏，中段填滿。
+2. 上方 &lt;div id="Head"/&gt; 頁首，左側顯示頁面標題與圖示，右側顯示使用者資訊與開啟浮動選單的按鈕。
+3. 下方 &lt;div id="Tail"/&gt; 頁尾，顯示版權與頁面更新資訊。
+4. 中間 &lt;div id="Content"/&gt; 工作區，包含多個任務區塊 &lt;div&gt;，一次只顯示一個，浮動選單或 javascript 程式切換工作區塊。</textarea>
+	<ul>
+		<li><a href="samples/TriDividePage.html" target="_blank">產出頁面</a></li>
+		<li onclick='op("samples/TriDividePage.html","html")'>程式碼</a></li>
+	</ul>
 </section>
 
 <section>

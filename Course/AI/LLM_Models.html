@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<script src="https://porshenlai.github.io/App/slide.js"></script>
+<style>
+table.compare td {
+	vertical-align:top;
+} 
+table.compare td.name div,
+table.compare td.desc div,
+.Hint {
+	font-size:72%; font-weight:bold; color:darkblue; background:#FFFFF0;
+	border:solid 1px silver;border-bottom-width:3px;padding:4px 16px;
+}
+strong { white-space:nowrap; }
+</style>
+</head>
+<body>
+
+<div id="content">
+	<section>
+		<h1 class="title">LLM: 模型介紹</h1>
+		<div>
+			<p class="subtitle">ChatGPD, Gemini, Claude, ...</p>
+			<div class="meta" style="background-image:linear-gradient(white 0%,#E0F0FF 50%,white 100%)">
+				<b>Lecturer:</b> <a href="mailto:porshenlai@gm.chihlee.edu.tw">✉</a> Porshen Lai
+				<div><b>Department of Finance, Chihlee University of Technology</b></div>
+				<div><i>2025, Winter</i></div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<h2>主要的大語言模型服務</h2>
+		<table class="compare" border='1' cellpadding='8' cellspacing='0' width='100%'><thead>
+			<tr><th>名稱<div>營運者</div></th><th >特色<div>版本</div></th><th>商業模式</th></tr>
+		</thead><tbody>
+			<tr>
+				<td class="name">GPT 系列<div>OpenAI</div></td>
+				<td class="desc">
+					領先的通用大型語言模型，多模態能力（文字、圖像、音訊）、強化推理／編碼能力。 <a href="https://zapier.com/blog/openai-models/?utm_source=chatgpt.com">Zapier+2OpenAI Platform+2</a>
+					<div >GPT-5（2025年8月推出）<a href="https://en.wikipedia.org/wiki/GPT-4.5?utm_source=chatgpt.com">Wikipedia+2CBS News+2</a></div>
+				</td>
+				<td>API 收費、訂閱制（如 ChatGPT Plus／Business／Enterprise）、按 token／用途計費。 <a href="https://platform.openai.com/docs/models?utm_source=chatgpt.com">OpenAI Platform+1</a></td>
+			</tr>
+			<tr>
+				<td class="name">Claude 系列<div>Anthropic</div></td>
+				<td class="desc">
+					強調「安全、可控、企業／專業用途」的大型語言模型；在長流程任務、編碼、理論推理上提升明顯。 <a href="https://www.anthropic.com/claude/sonnet?utm_source=chatgpt.com">Anthropic+1</a>
+					<div>Claude Sonnet 4.5（2025年9月推出）<a href="https://www.anthropic.com/news/claude-sonnet-4-5?utm_source=chatgpt.com">Anthropic+1</a></div>
+				</td>
+				<td>API ／ 企業方案；按 token 計費；可打造 agent、整合工具。 <a href="https://www.anthropic.com/claude/sonnet?utm_source=chatgpt.com">Anthropic+1</a></td>
+			</tr>
+			<tr>
+				<td class="name">Gemini 系列<div>Google</div></td>
+				<td class="desc">
+					面向企業級應用的通用 AI 平台，結合多模態、長上下文、雲端整合（與 Google Cloud／Workspace 等）。 <a href="https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise?utm_source=chatgpt.com">Google Cloud+1</a>
+				<div>Gemini 2.5 Pro（或以 "2.5" 版本為目前主力）<a href="https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-pro?utm_source=chatgpt.com">Google Cloud Documentation+1</a></div>
+				</td>
+				<td>雲端平台模式（如 Google Cloud 的「Generative AI on Vertex AI」）、訂閱制／企業合約。 <a href="https://cloud.google.com/ai/llms?utm_source=chatgpt.com">Google Cloud+1</a></td>
+			</tr>
+			<tr>
+				<td class="name">Azure OpenAI 服務<div>Microsoft</div></td>
+				<td class="desc">
+					將 OpenAI 模型整合至 Azure 雲端服務，為企業提供雲端部署、監控、安全合規環境。 <a href="https://botpenguin.com/blogs/top-best-llm-as-a-service-providers?utm_source=chatgpt.com">BotPenguin+1</a>
+					<div>同 OpenAI 最新版本（如 GPT-5）視授權而定</div>
+				</td>
+				<td>雲服務／訂閱模式＋按使用量付費；企業合約為主。</td>
+			</tr>
+			<tr>
+				<td class="name">Hugging Face Inference Providers<div>Hugging Face（美國/全球）</div></td>
+				<td class="desc">
+					提供統一入口整合多家推理服務，支援多模型切換。<a href="https://huggingface.co/inference/get-started?utm_source=chatgpt.com">Hugging Face+1</a>
+					<div>主力為其平台上各模型，例如開放社群模型＋商用端點 “Inference Endpoints”。<a href="https://huggingface.co/docs/inference-endpoints/en/index?utm_source=chatgpt.com">Hugging Face</a></div>
+				</td>
+				<td>模型託管＋API存取＋可自部署（云端或自地端）付費模式。<a href="https://huggingface.co/pricing?utm_source=chatgpt.com">Hugging Face+1</a></td>
+			</tr>
+			<tr>
+				<td class="name">Mistral AI<div>Mistral AI<br/>（法國）</div></td>
+				<td class="desc">
+					歐洲本地化強、主打法規遵從與數據主權，提供開源與商用模型。<a href="https://mistral.ai/?utm_source=chatgpt.com">promptfoo.dev+3Mistral AI+3Wikipedia+3</a>
+					<div>主力模型如 “Mistral Small 3.1”、“Mistral Medium 3”、推理專用 “Magistral Small／Medium”。<a href="https://en.wikipedia.org/wiki/Mistral_AI?utm_source=chatgpt.com">Wikipedia+1</a></div>
+				</td>
+				<td>提供 API／模型訂閱、企業版定制、可部署於雲或內部系統。<a href="https://mistral.ai/?utm_source=chatgpt.com">Mistral AI+1</a></td>
+			</tr>
+			<tr>
+				<td class="name">OpenEuroLLM Initiative<div>OpenEuroLLM<br/>（歐洲）</div></td>
+				<td class="desc">
+					歐洲語言／文化多樣性、大規模開源模型倡議；強調透明、合規。<a href="https://openeurollm.eu/?utm_source=chatgpt.com">openeurollm.eu+1</a>
+					<div>主力為開源系列模型，用於歐洲語言與場景（版本未明確商用號）</div>
+				</td>
+				<td>模型／資料開放，可能以研究／商業授權形式轉為服務。</td>
+			</tr>
+			<tr>
+				<td class="name">DeepSeek<div>DeepSeek AI<br/>（中國）</td>
+				<td class="desc">
+					中國本土大型語言模型開放／商用雙路並進；競爭力強、價格激烈。<a href="https://www.secondtalent.com/resources/chinese-open-source-llms-ai-leaders/?utm_source=chatgpt.com">Le Monde.fr+3Second Talent+3Medium+3</a>
+					<div>主要模型如 “DeepSeek-V3” 系列。<a href="https://www.secondtalent.com/resources/chinese-open-source-llms-ai-leaders/?utm_source=chatgpt.com">Second Talent+1</a></div>
+				</td>
+				<td>API 付費模式、開源權重＋商用授權。<a href="https://www.lemonde.fr/pixels/article/2025/01/28/deepseek-la-reponse-chinoise-a-chatgpt-expliquee-en-six-questions_6520488_4408996.html?utm_source=chatgpt.com">Le Monde.fr+1</a></td>
+			</tr>
+			<tr>
+				<td class="name">智谱 AI<div>智谱 AI<br/>（中國）</div></td>
+				<td class="desc">
+					面向中國通用大模型平台，支援多模態與行業場景。<a href="https://bigmodel.cn/?utm_source=chatgpt.com">bigmodel.cn</a></td><td>提供大模型平台服務、API 接入、行業定制。
+					<div>最新模型未明確公開版本號（平台自研多款模型）</div>
+				</td>
+			</tr>
+		</tbody></table>
+		<p><strong>備註說明</strong></p>
+		<ul>
+			<li>上述版本資訊為「目前最新可公開知曉」版本，實際企業授權或產品版本可能略有差異。</li>
+			<li>商業模式主要為「API＋雲服務＋訂閱／按使用量計費」是主流走向。</li>
+			<li>在選用時，建議關注：上下文視窗長度、模型多模態能力（文字＋圖像＋音訊）、自訂化／工具整合能力、合規與資料安全、成本結構。</li>
+			<li>在選服務時，請特別留意「資料主權／地區法規合規性」（如歐盟 GDPR、中國資料安全法）——例如歐洲的 OpenEuroLLM 就強調合規性。</li>
+			<li>若需求為「可切換模型／開源模型導入」可考慮 Hugging Face Inference Providers 或 Together AI 這類平台。</li>
+			<li>若企業級、需要內部部署或高安全／高延展性，歐洲或本地模型提供者（如 Mistral AI）或可部署於私有雲／內網是優選。</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Chat GPT Models</h2>
+		<!-- https://chatgpt.com/
+		: 請問 chatgpt 模型版本的演進流程與功能特色。請以表格呈現
+		: 各版本間是否有 branch 的關係存在，例如 4.1 是由 ?.? 版修改而來。有的話表格可以幫我多加一個欄位嗎 ?
+		-->
+		<ul>
+			<li><a href="https://chatgpt.com">https://chatgpt.com</a></li>
+		</ul>
+		<table class="compare" border='1' cellpadding='8' cellspacing='0' width='100%'><thead>
+			<tr>
+				<th>版本</th><th>發布時間／版本重點</th><th>主要功能／特色</th><th>來源／分支關係</th>
+			</tr>
+		</thead><tbody>
+			<tr>
+				<td>GPT-1</td>
+				<td>約 2018 年</td>
+				<td>首次大規模使用 Transformer 作為語言模型，預訓練 + 微調</td><td>—（無公開早期前身）</td>
+			</tr>
+			<tr>
+				<td>GPT-2</td>
+				<td>約 2019 年</td>
+				<td>模型規模大幅提升、文本生成能力強化</td>
+				<td>改進自 GPT-1</td>
+			</tr>
+			<tr>
+				<td>GPT-3</td>
+				<td>約 2020 年</td>
+				<td>更大規模參數、支援 few-shot 學習</td>
+				<td>改進自 GPT-2</td>
+			</tr>
+			<tr>
+				<td>GPT-3.5 (“ChatGPT 初期版本”)</td>
+				<td>約 2022 年底／2023 初</td>
+				<td>在 GPT-3 基礎上透過人類反饋（RLHF）改善對話體驗</td>
+				<td>改進自 GPT-3</td>
+			</tr>
+			<tr>
+				<td>GPT-4</td>
+				<td>發布於 2023 03月</td>
+				<td>在語言理解、推理、多模態（圖像+文字）上跳躍</td>
+				<td>改進自 GPT-3.5</td>
+			</tr>
+			<tr>
+				<td>GPT-4o (“Omni”)</td>
+				<td>發布於 2024 05月</td>
+				<td>全模態（文字、圖像、音頻）支援，更強交互能力</td>
+				<td>分支自 GPT-4 系列（即為 GPT-4 的更新/變體） <a href="https://en.wikipedia.org/wiki/GPT-4o?utm_source=chatgpt.com">Wikipedia+2Wikipedia+2</a></td>
+			</tr>
+			<tr>
+				<td>GPT-4.5</td>
+				<td>發布於 2025 02月（研究預覽）</td>
+				<td>更大規模與知識庫擴充、偏向「大而通用」</td>
+				<td>擴展自 GPT-4 （並行於 4o／4.1） <a href="https://en.wikipedia.org/wiki/GPT-4.5?utm_source=chatgpt.com">Wikipedia+1</a></td>
+			</tr>
+			<tr>
+				<td>GPT-4.1</td>
+				<td>發布於 2025 04月</td>
+				<td>聚焦於編碼、長上下文處理（最多 1 百萬 token）與指令遵從能力</td>
+				<td>改進自 GPT-4o ／替代 GPT-4.5 API 版本 <a href="https://openai.com/index/gpt-4-1/?utm_source=chatgpt.com">OpenAI+2Medium+2</a></td>
+			</tr>
+			<tr>
+				<td>GPT-5</td>
+				<td>發布於 2025 08月</td>
+				<td>最新旗艦版本，整合跨模態、多任務、個性化與工具鏈接能力</td>
+				<td>改進自 此前 所有 （繼承 4.1／4.5／4o） <a href="https://en.wikipedia.org/wiki/GPT-5?utm_source=chatgpt.com">Wikipedia+1</a></td>
+			</tr>
+		</tbody></table>
+		<h3>說明</h3>
+		<ul>
+			<li>「來源／分支關係」欄中，「改進自」意指該版本是直接由前一版本演變／升級而來。</li>
+			<li>若看起來並非簡單線性，而是「平行分支」或「替代」的情況（如 4.1 與 4.5／4o 同時存在），則以「並行／替代」或「分支自」來標示。</li>
+			<li>例如 GPT-4.1 官方指出其設計是為了替代 GPT-4.5 在 API 中的角色，同時是從 GPT-4o 系列中進化出來。 <a href="https://www.scrumlaunch.com/blog/openai-gpt-models-differences?utm_source=chatgpt.com">ScrumLaunch+1</a></li>
+			<li>因為 OpenAI 沒有完全公開每個模型內部「哪些參數變了／哪些分支被 fork」的技術細節，所以此表格中的「來源／分支關係」有一定推測成分，供參考。</li>
+		</ul>
+	</section>
+	<section>
+		<h2>🚀 Gemini 模型版本演進與特色</h2>
+		<!-- 請問 gemini 模型版本的演進流程，承繼自哪個版本與功能特色。請以表格呈現 -->
+		<p>Gemini 模型承繼自 Google 的 <strong>PaLM 2</strong> 模型，並在技術上實現了多模態（Multimodality）、更高效率的架構以及超長上下文窗口等重大突破。</p>
+		<table class="compare" border='1' cellpadding='8' cellspacing='0' width='100%'><thead>
+			<tr>
+				<th>
+					<strong>版本系列</strong>
+					<div class="Hint"><strong>前繼模型</strong></div>
+				</th>
+				<th><strong>關鍵功能特色</strong></th>
+			</tr>
+		</thead><tbody>
+			<tr>
+				<td>
+					<strong>Gemini 1.0</strong>
+					<div style="text-align:right"><select><option>Ultra</option><option>Pro</option><option>Nano</option></select></div>
+					<div class="Hint" style="color:red">PaLM 2</div>
+				</td>
+				<td><strong>原生多模態</strong>：首次「從頭開始」設計的多模態模型，能理解並處理文本、圖片、音訊、影片和程式碼。 <strong>三種規模</strong>：Ultra (最大/最強)、Pro (中型/通用)、Nano (最小/設備端)。</td>
+			</tr>
+			<tr>
+				<td>
+					<strong>Gemini 1.5</strong>
+					<div style="text-align:right"><select><option>Pro</option><option>Flash</option></select></div>
+					<div class="Hint">Gemini 1.0</div>
+				</td>
+				<td><strong>超大上下文窗口</strong>：上下文長度可達 100 萬 tokens (百萬 token)，能處理數百頁文件或數萬行程式碼。 <strong>Mixture-of-Experts (MoE) 架構</strong>：提高模型的效率、速度和效能。</td>
+			</tr>
+			<tr>
+				<td>
+					<strong>Gemini 2.0</strong>
+					<div style="text-align:right"><select><option>Pro</option><option>Flash</option><option>Flash-Lite</option></select></div>
+					<div class="Hint">Gemini 1.5</div>
+				</td>
+				<td><strong>進化為 Agentic AI</strong> (代理式智慧)：不只是回答問題，還能執行任務、調用工具、進行圖像與語音生成。 <strong>強化多模態推理</strong>：更深入的跨模態理解與生成能力。</td>
+			</tr>
+			<tr>
+				<td>
+					<strong>Gemini 2.5</strong>
+					<div style="text-align:right"><select><option>Pro</option><option>Flash</option><option>Flash-Lite</option></select></div>
+					<div class="Hint">Gemini 2.0</div>
+				</td>
+				<td>
+					<div class="Hint">當前活躍版本</div>
+					<strong>內建思考流程與多步推理</strong>：推理能力和程式邏輯更強，能夠「先想一想再回答」，邏輯更縝密。 <strong>跨模態整合更成熟</strong>：更精準地理解與回應各種輸入，圖像解讀能力提升。
+				</td>
+			</tr>
+		</tbody></table>
+		<p><strong>備註：</strong></p>
+		<ul>
+			<li><strong>多模態 (Multimodality)</strong>：指模型可以同時理解、操作和結合不同類型的資料，例如文字、圖像、音訊和影片。</li>
+			<li><strong>上下文窗口 (Context Window)</strong>：指模型在單次對話或任務中可以「記住」和處理的資訊量，長度以 tokens (詞元) 計算。</li>
+			<li><strong>Agentic AI (代理式智慧)</strong>：指 AI 不僅僅是問答工具，更能作為一個智能代理人，主動規劃、執行複雜的任務並調用外部工具。</li>
+		</ul>
+	</section>
+</div>
+
+</body>
+</html>

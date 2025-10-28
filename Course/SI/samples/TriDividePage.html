@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三切版網頁應用</title>
+    
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 內嵌 CSS -->
+    <style>
+        /* 載入 Inter 字體 */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            /* 防止內容溢出 */
+            overflow: hidden;
+        }
+
+        /* 工作區塊的基本樣式 */
+        .task-block {
+            /* 基礎樣式，可以自行擴充 */
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* 簡單的淡入動畫 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen bg-gray-100">
+
+    <!-- 1. 上方頁首 -->
+    <!-- hidden: 預設隱藏 (手機) -->
+    <!-- md:flex: 在中等螢幕 (電腦版) 以上時顯示為 flex -->
+    <div id="Head" class="hidden md:flex w-full bg-white shadow-md items-center justify-between px-6 py-3 shrink-0">
+        <!-- 左側: 標題與圖示 (移除 lucide, 使用 emoji) -->
+        <div class="flex items-center space-x-3">
+            <span class="text-blue-600 text-xl">📊</span>
+            <h1 class="text-xl font-bold text-gray-800">應用程式標題</h1>
+        </div>
+        
+        <!-- 右側: 使用者資訊與選單 (移除 lucide, 使用 ☰) -->
+        <div class="flex items-center space-x-4">
+            <span class="text-sm text-gray-600">你好, 使用者</span>
+            <button id="menu-toggle-button" class="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" title="開啟選單">
+                <span class="text-xl text-gray-700 leading-none">☰</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. 中間工作區 -->
+    <!-- flex-grow: 填滿剩餘空間 -->
+    <!-- overflow-y-auto: 內容過多時僅此區塊滾動 -->
+    <div id="Content" class="flex-grow overflow-y-auto p-4 md:p-8">
+        
+        <!-- 任務區塊 1 (預設顯示) -->
+        <div id="task-1" class="task-block bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-2xl font-semibold mb-4">任務區塊 1: 儀表板</h2>
+            <p>這裏是儀表板的內容。在電腦版上，您會看到頁首和頁尾。在手機版上，它們會自動隱藏，此區塊將填滿整個畫面。</p>
+            <div class="mt-6 h-64 bg-gray-200 rounded-lg flex items-center justify-center">
+                <p class="text-gray-500">[圖表或內容區域]</p>
+            </div>
+        </div>
+
+        <!-- 任務區塊 2 (預設隱藏) -->
+        <div id="task-2" class="task-block bg-white p-6 rounded-lg shadow-sm hidden">
+            <h2 class="text-2xl font-semibold mb-4">任務區塊 2: 設定</h2>
+            <p>這裏是設定頁面的內容。</p>
+            <div class="space-y-4 mt-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">使用者名稱</label>
+                    <input type="text" id="username" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" value="使用者">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">電子郵件</label>
+                    <input type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" value="user@example.com">
+                </div>
+            </div>
+        </div>
+
+        <!-- 任務區塊 3 (預設隱藏) -->
+        <div id="task-3" class="task-block bg-white p-6 rounded-lg shadow-sm hidden">
+            <h2 class="text-2xl font-semibold mb-4">任務區塊 3: 關於</h2>
+            <p>關於此應用程式的說明資訊。</p>
+        </div>
+
+    </div>
+
+    <!-- 3. 下方頁尾 -->
+    <!-- hidden: 預設隱藏 (手機) -->
+    <!-- md:block: 在中等螢幕 (電腦版) 以上時顯示 -->
+    <div id="Tail" class="hidden md:block w-full bg-gray-200 text-gray-600 text-xs px-6 py-2 shrink-0">
+        <div class="flex justify-between items-center">
+            <span>&copy; 2025 您的公司. 版權所有.</span>
+            <span>頁面最後更新: 2025-10-28</span>
+        </div>
+    </div>
+
+
+    <!-- 4. 浮動選單 (預設隱藏) -->
+    <div id="FloatingMenu" class="hidden fixed top-16 right-6 bg-white w-56 rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+        <div class="p-2">
+            <!-- 移除 lucide, 使用 emoji -->
+            <button data-task="task-1" class="task-switcher w-full text-left px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                <span class="w-4 h-4 inline-flex items-center justify-center text-base">📊</span>
+                <span>儀表板</span>
+            </button>
+            <button data-task="task-2" class="task-switcher w-full text-left px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                <span class="w-4 h-4 inline-flex items-center justify-center text-base">⚙️</span>
+                <span>設定</span>
+            </button>
+            <button data-task="task-3" class="task-switcher w-full text-left px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                <span class="w-4 h-4 inline-flex items-center justify-center text-base">ℹ️</span>
+                <span>關於</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 
+      *** 修正 ***
+      已移除 lucide.min.js
+    -->
+
+    <!-- 
+      *** 修正 ***
+      已移除 lucide.createIcons() 相關的 script 標籤
+    -->
+
+    <!-- 5. 內嵌 JavaScript (事件監聽) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 圖示渲染已移除
+
+            const menuToggleButton = document.getElementById('menu-toggle-button');
+            const floatingMenu = document.getElementById('FloatingMenu');
+            const taskSwitchers = document.querySelectorAll('.task-switcher');
+            const allTaskBlocks = document.querySelectorAll('.task-block');
+
+            // 處理選單按鈕點擊
+            if (menuToggleButton) {
+                menuToggleButton.addEventListener('click', (e) => {
+                    e.stopPropagation(); // 防止觸發 window 的點擊事件
+                    floatingMenu.classList.toggle('hidden');
+                });
+            }
+
+            // 處理工作區塊切換
+            taskSwitchers.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTaskId = button.dataset.task;
+                    
+                    // 隱藏所有區塊
+                    allTaskBlocks.forEach(block => {
+                        block.classList.add('hidden');
+                    });
+                    
+                    // 顯示目標區塊
+                    const targetBlock = document.getElementById(targetTaskId);
+                    if (targetBlock) {
+                        targetBlock.classList.remove('hidden');
+                    }
+                    
+                    // 點擊後關閉選單
+                    floatingMenu.classList.add('hidden');
+                });
+            });
+
+            // 點擊空白處關閉選單
+            window.addEventListener('click', (e) => {
+                if (floatingMenu && !floatingMenu.classList.contains('hidden')) {
+                    // 檢查點擊是否在選單或切換按鈕之外
+                    if (!floatingMenu.contains(e.target) && !menuToggleButton.contains(e.target)) {
+                        floatingMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

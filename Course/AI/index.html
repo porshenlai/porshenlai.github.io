@@ -12,7 +12,7 @@
 		if (!type)
 			type=url.endsWith(".txt") ? "txt" : "unknown";
 		switch (type) {
-		case "txt":
+		case "txt": case "html":
 			url="/App/textview.html?url="+url+"&base="+location;
 			window.open(url);
 			break;
