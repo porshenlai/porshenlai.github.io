@@ -24,6 +24,35 @@ main { display:flex; flex:1 1 auto; min-height: 0; }
 #content {
 	flex:1; padding: 1.5rem; overflow:hidden auto;
 	background:#f0f0f0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 1.5rem;
+}
+
+#content section {
+	margin: 1.75rem 0 2.25rem 0; 
+	scroll-snap-align: none;
+}
+
+#content[playmode="page"] {
+	padding: 0; 
+	scroll-snap-type: y mandatory;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#content[playmode="page"] section {
+	margin: 0.5rem;
+	height: calc(100% - 1rem);
+	min-height: calc(100% - 1rem);
+	padding: 1.25rem; 
+	scroll-snap-align: start; 
+	overflow-y: auto;
+	scroll-margin-top: 0.5rem; 
+}
+
+#content[playmode="page"] section.current-section {
+	scroll-margin-top: 0.5rem;
 }
 
 section { 
@@ -49,7 +78,7 @@ ul, ol { margin: 8px 0 8px 22px; }
 footer { color:var(--muted); font-size: 0.75rem; padding: 1rem 1.5rem; border-top:1px solid #eee; }
 .callout { border-left:4px solid var(--green); padding: 0.75rem; background:#f6fffd; margin: 1rem 0;}
 
-/* --- Right-side Operations Panel --- */
+/* --- Right-side Operations Panel (略) --- */
 #operationsPanel {
 	position: fixed; top: 0; right: 0; bottom: 0;
 	width: 320px; max-width: 80vw;
@@ -118,7 +147,6 @@ body.panel-open #panel-overlay { opacity: 1; visibility: visible; }
 body.is-mobile #mobileControls {
 	display: flex;
 }
-
 #mobileControls .btn {
 	flex: 1; /* 讓三個按鈕平分寬度 */
 	padding: 0.75rem 0.5rem;

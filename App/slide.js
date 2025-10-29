@@ -172,11 +172,21 @@
 		(e)=>{
 			e.setAttribute("rel","stylesheet");
 			const u=/(.*\/)[^\/]+(\?.*)?/.exec(document.currentScript.getAttribute("src"));
-			console.assert(u,"無法判定 CSS 所在路徑");
-			e.setAttribute("href",u[1]+"/slide.css");
+			e.setAttribute("href",u ? (u[1]+"/slide.css") : "slide.css");
 			return e;
 		}
 	)(document.createElement("link")));
+
+	document.addEventListener('fullscreenchange', function() {
+    	const isFullscreen = document.fullscreenElement;
+    	if (isFullscreen) {
+        	console.log('The browser has ENTERED fullscreen mode.');
+			document.getElementById("content").setAttribute("playmode","page");
+    	} else {
+        	console.log('The browser has QUIT fullscreen mode.');
+			document.getElementById("content").setAttribute("playmode","continuous");
+    	}
+	});
 
 	document.addEventListener('DOMContentLoaded', () => {
 		if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
