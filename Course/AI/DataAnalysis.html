@@ -28,6 +28,16 @@
 
 <div id="content">
 <section>
+	<h1 class="title">資料分析<br/>Data Analysis</h1>
+	<div>
+		<p class="meta">
+			<div>Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a>Porshen Lai</div>
+			<div>Department of Finance, Chihlee University of Technology</div>
+			<div>2025, Winter</div>
+		</p>
+	</div>
+</section>
+<section>
 	<h2>資料分析類型</h2>
 	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead>
 		<tr><th>類型</th><th align="left">
@@ -137,6 +147,159 @@
 			<li><strong>偏差檢測</strong>是找**「公平」**的瑕疵 (Is the output fair to everyone?)。</li>
 		</ul></li>
 	</ul>
+</section>
+
+<section>
+	<h2>假設 Hypothesis</h2>
+	<figure class="table">
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead>
+		<tr>
+			<th><strong>特徵</strong></th>
+			<th><strong>虛無假設 (H0​) - Null Hypothesis</strong></th>
+			<th><strong>對立假設 (H1​) - Alternative Hypothesis</strong></th>
+		</tr>
+	</thead><tbody style="vertical-align:top">
+		<tr>
+			<td><strong>核心觀點</strong></td>
+			<td><strong>沒有效應、沒有差異、沒有關係。</strong> 代表<strong>現狀 (Status Quo)</strong> 或<strong>預設假設</strong>。</td>
+			<td><strong>有顯著效應、有差異、有關係。</strong> 代表<strong>研究者想要證明的主張</strong>。</td>
+		</tr><tr>
+			<td><strong>符號表示</strong></td>
+			<td>永遠包含等號：$=$, $\le$ (小於或等於), 或 $\ge$ (大於或等於)。</td>
+			<td>永遠不包含等號：$\ne$ (不等於), $&gt;$ (大於), 或 $&lt;$ (小於)。</td>
+		</tr><tr>
+			<td><strong>研究目的</strong></td>
+			<td>研究者通常<strong>試圖拒絕</strong> $H_0$。</td>
+			<td>研究者通常<strong>試圖證明或支持</strong> $H_1$。</td>
+		</tr><tr>
+			<td><strong>檢定結論</strong></td>
+			<td>只有當有<strong>足夠證據</strong>反對 $H_0$ 時，才拒絕 $H_0$。</td>
+			<td>只有當 $H_0$ 被拒絕時，才能<strong>接受</strong> $H_1$。</td>
+		</tr><tr>
+			<td><strong>錯誤類型</strong></td>
+			<td><strong>型一錯誤 (Type I Error)：</strong> $H_0$ 為真，但我們卻拒絕了 $H_0$ (誤判)。</td>
+			<td><strong>型二錯誤 (Type II Error)：</strong> $H_0$ 為假，但我們卻沒有拒絕 $H_0$ (遺漏)。</td>
+		</tr><tr>
+			<td><strong>決策基礎</strong></td>
+			<td><strong>$p$ 值</strong>大於顯著水準 ($\alpha$) 時，<strong>不拒絕</strong> $H_0$。</td>
+			<td><strong>$p$ 值</strong>小於顯著水準 ($\alpha$) 時，<strong>拒絕</strong> $H_0$，從而<strong>支持</strong> $H_1$。</td>
+		</tr>
+	</tbody></table>
+
+	<h3>1. 虛無假設 ($H_0$)</h3>
+	<p>$H_0$ 是進行統計檢定的起點。它假設所觀察到的數據結果是<strong>由隨機機會 (Chance) 造成</strong>，而非由任何真實的效應所引起。</p>
+	<ul>
+		<li><strong>實務意義：</strong> 假設處理組與控制組之間沒有差異，新藥與舊藥療效相同，或變量之間沒有關聯。</li>
+		<li><strong>例子：</strong><ul>
+			<li><strong>聲明：</strong> 新教學法的成績與舊教學法<strong>沒有不同</strong>。</li>
+			<li><strong>符號：</strong> $\mu_{\text{新}} = \mu_{\text{舊}}$</li>
+		</ul></li>
+	</ul>
+
+	<h3>2. 對立假設 ($H_1$ 或 $H_a$)</h3>
+	<p>$H_1$ 是研究者真正希望證明的聲明。它直接<strong>反駁 $H_0$</strong>，主張存在一個<strong>顯著的效應、差異或關係</strong>，且這種觀察結果並非隨機造成。</p>
+	<ul>
+		<li><strong>實務意義：</strong> 假設處理組與控制組有差異，新藥比舊藥療效更好，或變量之間存在關聯。</li>
+		<li><strong>例子 (對應 $H_0$ 的三種可能形式)：</strong><ul>
+			<li><strong>雙尾檢定：</strong> 新教學法的成績與舊教學法<strong>有不同</strong>。<ul>
+				<li><strong>符號：</strong> $\mu_{\text{新}} \ne \mu_{\text{舊}}$</li>
+			</ul></li>
+			<li><strong>單尾檢定 (右尾)：</strong> 新教學法的成績<strong>優於</strong>舊教學法。<ul>
+				<li><strong>符號：</strong> $\mu_{\text{新}} &gt; \mu_{\text{舊}}$</li>
+			</ul></li>
+			<li><strong>單尾檢定 (左尾)：</strong> 新教學法的成績<strong>差於</strong>舊教學法。<ul>
+				<li><strong>符號：</strong> $\mu_{\text{新}} &lt; \mu_{\text{舊}}$</li>
+			</ul></li>
+		</ul></li>
+	</ul>
+	<p>在假設檢定中，我們<strong>無法「證明」 $H_0$ 為真</strong>，我們只能根據數據決定是**「拒絕 $H_0$」<strong>還是</strong>「不拒絕 $H_0$」**。</p>
+	<ol>
+		<li><strong>拒絕 $H_0$：</strong> 表示樣本數據提供了足夠的統計證據來支持 $H_1$（研究者希望看到的情況）。</li>
+		<li><strong>不拒絕 $H_0$：</strong> 表示樣本數據不足以證明 $H_1$ 是真的，因此我們維持現狀的 $H_0$ 假設（<strong>這並不等於證明 $H_0$ 是絕對正確的</strong>）。</li>
+	</ol>
+</section>
+
+<section>
+	<h2>檢定 Test</h2>
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead>
+		<tr>
+			<th><strong>T 檢定 (t-test)</strong></th>
+			<th><strong>Z 檢定 (Z-test)</strong></th>
+			<th><strong>卡方檢定 (χ2 Test)</strong></th>
+		</tr>
+	</thead><tbody>
+		<tr><th colspan='3'>主要目的</th></tr>
+		<tr>
+			<td>比較<strong>兩組</strong>或<strong>單組</strong>的<strong>平均數</strong>是否有顯著差異。</td>
+			<td>比較<strong>單組</strong>或<strong>兩組</strong>的<strong>平均數</strong>是否有顯著差異。</td>
+			<td>檢驗<strong>類別變數</strong>之間的<strong>關聯性</strong>或<strong>實際觀察值與理論期望值</strong>是否一致。</td>
+		</tr>
+		<tr><hd colspan='3'>資料類型</th></tr>
+		<tr>
+			<td><strong>連續型 (Continuous)</strong> / 數值型資料（例如：身高、分數、平均數）。</td>
+			<td><strong>連續型 (Continuous)</strong> / 數值型資料。</td>
+			<td><strong>類別型 (Categorical)</strong> / 計數型資料（例如：性別、偏好、頻率）。</td>
+		</tr>
+		<tr><th colspan='3'>適用時機</th></tr>
+		<tr>
+			<td>總體<strong>標準差 ($\sigma$) 未知</strong>，或<strong>樣本數 ($n$) 較小</strong> ($n &lt; 30$)。</td>
+			<td>總體<strong>標準差 ($\sigma$) 已知</strong>，或<strong>樣本數 ($n$) 很大</strong> ($n \ge 30$)。</td>
+			<td>處理<strong>列聯表 (Contingency Table)</strong> 或<strong>單一類別的頻率分佈</strong>。</td>
+		</tr>
+		<tr><th colspan='3'>基本假設</th></tr>
+		<tr>
+			<td>樣本來自<strong>常態分佈</strong>；資料為獨立或配對。</td>
+			<td>樣本來自<strong>常態分佈</strong>。</td>
+			<td>樣本為<strong>隨機獨立</strong>；<strong>期望頻率</strong>足夠大 (通常 $\ge 5$)。</td>
+		</tr>
+		<tr><th colspan='3'>分配基礎</th></tr>
+		<tr>
+			<td><strong>t 分佈 (t-distribution)</strong>，自由度 ($df$) 影響分佈形狀。</td>
+			<td><strong>標準常態分佈 (Standard Normal Distribution)</strong>，形狀固定。</td>
+			<td><strong>卡方分佈 ($\chi^2$ distribution)</strong>，自由度 ($df$) 影響分佈形狀。</td>
+		</tr>
+		<tr><th colspan='3'>核心問題</th></tr>
+		<tr>
+			<td>兩組平均數 $\mu_1$ 和 $\mu_2$ 是否相等？</td>
+			<td>樣本平均數 $\bar{x}$ 是否等於總體平均數 $\mu_0$？</td>
+			<td>變數 A 與變數 B 是否<strong>獨立</strong>？或實際比例是否符合理論比例？</td>
+		</tr>
+	</tbody></table>
+
+	<h3>1. T 檢定 (t-test) 與 Z 檢定 (Z-test)</h3>
+	<p>T 檢定和 Z 檢定在本質上都是<strong>參數檢定 (Parametric Test)</strong>，用於比較平均數。它們之間的關鍵區別在於：</p>
+	<ul>
+		<li><strong>總體標準差的知情程度：</strong><ul>
+			<li><strong>Z 檢定：</strong> 必須<strong>已知</strong>總體標準差 ($\sigma$)。在現實研究中，$\sigma$ 很少已知，所以 Z 檢定主要用於大樣本數 ($n \ge 30$)，此時可以用樣本標準差 ($s$) 來<strong>近似</strong> $\sigma$，且 $t$ 分佈會近似於 $Z$ 分佈。</li>
+			<li><strong>T 檢定：</strong> 適用於總體標準差<strong>未知</strong>的情況，通常使用樣本標準差 ($s$) 來估計。對於小樣本數，<strong>T 檢定</strong>更準確。</li>
+		</ul></li>
+		<li><strong>分佈差異：</strong><ul>
+			<li>$Z$ 分佈是一個單一的、固定的常態分佈。</li>
+			<li>$t$ 分佈是一個<strong>家族分佈</strong>，其形狀由<strong>自由度 (degrees of freedom, $df$)</strong> 決定。自由度越小（樣本越少），分佈尾部越「肥厚」；隨著自由度增加，t 分佈會收斂到 Z 分佈。</li>
+		</ul></li>
+	</ul>
+	<h3>2. 卡方檢定 ($\chi^2$ Test)</h3>
+	<p>卡方檢定是一種<strong>無母數檢定 (Non-parametric Test)</strong>，用於分析<strong>類別資料</strong>（例如頻率、計數或比例）。它不對數據的底層分佈（如常態性）做出強烈假設。</p>
+	<p>卡方檢定主要有兩種常見用途：</p>
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead>
+		<tr>
+			<th><strong>用途</strong></th>
+			<th><strong>說明</strong></th>
+			<th><strong>範例</strong></th>
+		</tr>
+	</thead><tbody>
+		<tr>
+			<td><strong>獨立性檢定 (Test of Independence)</strong></td>
+			<td>檢驗<strong>兩個類別變數</strong>之間是否<strong>獨立</strong>（即沒有關聯）。</td>
+			<td>變數 A（性別）與變數 B（對某產品的偏好）之間是否有關聯？</td>
+		</tr>
+		<tr>
+			<td><strong>適合度檢定 (Goodness-of-Fit Test)</strong></td>
+			<td>檢驗<strong>單一類別變數</strong>的<strong>實際觀察頻率</strong>是否與某個<strong>理論分佈</strong>（例如：每個類別的比例都是均等的）相符。</td>
+			<td>某個骰子的六面出現的頻率是否與理論上的 1/6 期望值一致？</td>
+		</tr>
+	</tbody></table>
+	<p><strong>核心概念：</strong> 卡方檢定通過比較<strong>觀察到的頻率 ($O$)</strong> 和<strong>期望的頻率 ($E$)</strong> 之間的差異程度來計算檢定統計量。如果兩者差異很大，卡方值就大，可能導致拒絕 $H_0$（獨立或適合）。</p>
 </section>
 
 </body>
