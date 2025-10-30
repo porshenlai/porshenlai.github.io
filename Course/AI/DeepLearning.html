@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!--script src="https://porshenlai.github.io/App/slide.js"></script-->
+<script src="../../App/slide.js"></script>
+<style>
+	.quiz { border:2px solid red; padding:8px; border-radius:8px; }
+	.answer { background:lightgrey; border:2px solid silver; border-radius:8px; padding:8px; display:none; }
+	.correct>.answer { display:block; }
+	.note { border:2px solid blue; }
+	th[colspan] { background:lightgrey; color:darkblue; font-weight:bold; }
+	img { max-width:90vw; max-height:90vh; }
+</style>
+</head>
+<body>
+
+<div id="content">
+<section>
+	<h2>Hyper Parameters</h2>
+	<table border='1' cellspacing='0' cellpadding='8' align='center'>
+		<tr style="background:lightblue"><th>超參數</th><th><div>說明</div><div class='note'>欲解決的問題</div></th></tr>
+		<tr><th>層數<br/>Layers</th><td>
+			<div>模型中堆疊的層的數量（如卷積層、注意力層）。</div>
+			<div class='note'>欠擬合（Underfitting）、模型學習複雜特徵的能力不足。</div>
+		</td></tr>
+		<tr><th>隱藏單元數<br/>Hidden Units/Neurons</th><td>
+			<div>每個隱藏層中的神經元數量或特徵維度。</div>
+			<div class='note'>欠擬合、模型表達能力不足、計算資源利用率。</div>
+		</td></tr>
+		<tr><th colspan='2'>卷積網路</th></tr>
+		<tr><th>卷積核大小<br/>Kernel Size</th><td>
+			<div>卷積層中濾波器的大小 (3x3)。</div>
+			<div class='note'>捕捉局部特徵的範圍（大 Kernel 捕捉大範圍，小 Kernel 捕捉細節）。</div>
+		</td></tr>
+		<tr><th colspan='2'>Transformer</th></tr>
+		<tr><th>注意力頭數<br/>Attention Heads</th><td>
+			<div>多頭注意力機制中，並行執行的獨立注意力機制的數量。</div>
+			<div class='note'>捕捉多種不同類型/子空間的相關性、提升模型理解多元資訊的能力。</div>
+		</td></tr>	
+		<tr><th>嵌入維度<br/>Embedding Dimension</th><td>
+			<div>詞彙或特徵向量在嵌入空間中的維度。</div>
+			<div class='note'>模型表達複雜語義和上下文的能力、資訊瓶頸。</div>
+		</td></tr>
+		<tr><th colspan='2'>訓練核心</th></tr>
+		<tr><th>批次大小<br/>Batch Size</th><td>
+			<div>每次權重更新前所使用的樣本數量。</div>
+			<div class='note'>梯度統計穩定性、訓練時間、硬體記憶體限制。</div>
+		</td></tr>
+		<tr><th>週期數<br/>Epochs</th><td>
+			<div>完整掃描整個訓練數據集的總次數。</div>
+			<div class='note'>欠擬合（Epoch 數太少）、過度擬合（Overfitting，Epoch 數太多）。</div>
+		</td></tr>
+		<tr><th>損失函數<br/>Loss Function</th><td>
+			<div>用於衡量模型預測與真實標籤之間差距的函數。</div>
+			<div class='note'>訓練目標偏差（例如：用 MSE 處理分類問題）、類別不平衡問題。</div>
+		</td></tr>
+		<tr><th colspan='2'>正規化</th></tr>
+		<tr><th>Dropout 機率<br/>Dropout Rate</th><td>
+			<div>在訓練期間隨機關閉神經元的比例。</div>
+			<div class='note'>過度擬合 (Overfitting)、權重對單一特徵的過度依賴。</div>
+		</td></tr>
+		<tr><th>權重衰減係數<br/>Weight Decay<br/>L2 Regularization</th><td>
+			<div>對模型權重的大小進行懲罰的係數。</div>
+			<div class='note'>過度擬合、權重值過大導致模型複雜度過高。</div>
+		</td></tr>
+		<tr><th colspan="2">優化器</th></tr>
+		<tr><th>學習率排程<br/>Learning Rate Scheduler</th><td>
+			<div>在訓練過程中動態調整學習率的策略。</div>
+			<div class='note'>訓練初期震盪、訓練後期收斂速度慢、陷入局部最小值。</div>
+		</td></tr>
+		<tr><th colspan="2">SGD, Adam, RMSprop 等</th></tr>
+		<tr><th>學習率<br/>Learning Rate</th><td>
+			<div>決定了模型權重每次更新的步長。</div>
+			<div class='note'>學習率過高導致訓練發散（Divergence）、學習率過低導致訓練收斂速度慢。</div>
+		</td></tr>
+		<tr><th colspan="2">SGD 變體 : SGD</th></tr>
+		<tr><th>動量<br/>Momentum</th><td>
+			<div>用來加速 SGD 在相關方向的移動並抑制震盪的係數。</div>
+			<div class='note'>訓練過程中的震盪、梯度的噪音、陷入淺層局部最小值。</div>
+		</td></tr>
+		<tr><th colspan="2">Adam 變體 : Adam, AdamW</th></tr>
+		<tr><th>beta 1</th><td>
+			<div>用於計算梯度的一階動量的指數衰減率。</div>
+			<div class='note'>梯度更新的平滑程度、歷史梯度資訊的保留時間。</div>
+		</td></tr>
+		<tr><th>beta 2</th><td>
+			<div>用於計算梯度的二階動量的指數衰減率。</div>
+			<div class='note'>梯度更新的平滑程度、歷史梯度資訊的保留時間。</div>
+		</td></tr>
+		<tr><th colspan="2">生成式模型</th></tr>
+		<tr><th>Temperature<br/>(溫度)</th><td>
+			<div>控制生成內容的<strong>隨機性</strong>和<strong>創造性</strong>。它通過調整輸出詞彙機率分佈的形狀來實現。</div>
+			<div class='note'>
+				<strong>範圍：</strong> 通常是 0.0 到 2.0 (或更高)。<br/>
+				<strong>問題：</strong> 輸出過於單調、缺乏變化或像背誦。<br/>
+				<strong>目的：</strong> 增加內容多樣性 (高 T)；確保準確和一致性 (低 T，例如 0.2)。
+			</div>
+		</td></tr>
+		<tr><th>Top-P<br/>(Nucleus Sampling)</th><td>
+			<div>根據累積機率閾值來決定模型在採樣時考慮的詞彙集合大小。</div>
+			<div class='note'>
+				<strong>範圍：</strong> 0.0 到 1.0。<br/>
+				<strong>問題：</strong> 某些高機率詞彙被頻繁重複，或低機率的「怪詞」被選中。<br/>
+				<strong>目的：</strong> 動態地限制採樣空間，在保持多樣性的同時排除極低機率的詞彙 (例如 $P=0.9$ 確保只考慮累積機率達 90% 的詞彙)。
+			</div>
+		</td></tr>
+		<tr><th>Top-K Sampling</th><td>
+			<div>限制模型在採樣時只考慮<strong>機率最高</strong>的 $K$ 個詞彙。</div>
+			<div class='note'>
+				<strong>範圍：</strong> 1 到詞彙表大小 (Vocabulary Size)。<br/>
+				<strong>問題：</strong> 輸出的隨機性過高，內容可能不連貫。<br/>
+				<strong>目的：</strong> 固定地限制採樣空間，強制模型選擇較為合理的詞彙。
+			</div>
+		</td></tr>
+		<tr><th>Max Tokens<br/>(最大代幣數)</th><td>
+			<div>設定模型生成<strong>最大長度</strong>（包含提示詞以外的新生成內容）。</div>
+			<div class='note'>
+				<strong>範圍：</strong> 1 到模型限制的最大值。<br/>
+				<strong>問題：</strong> 模型在產生足夠內容前過早停止，或生成內容過長。<br/>
+				<strong>目的：</strong> 確保回答完整 (調高)；防止輸出失控或超時 (調低)。
+			</div>
+		</td></tr>
+		<tr><th>Frequency Penalty<br/>(頻率懲罰)</th><td>
+			<div>根據一個詞彙在<strong>目前已生成內容中出現的頻率</strong>來懲罰模型再次選擇該詞彙的傾向。</div>
+			<div class='note'>
+				<strong>範圍：</strong> 通常是 -2.0 到 2.0。<br/>
+				<strong>問題：</strong> 模型輸出口頭禪、重複短語或產生迴圈。<br/>
+				<strong>目的：</strong> 減少重複性，提高文本的多樣性和流暢性 (調高)。
+			</div>
+		</td></tr>
+		<tr><th>Presence Penalty<br/>(存在懲罰)</th><td>
+			<div>根據一個詞彙在<strong>目前已生成內容中是否出現過</strong>來懲罰模型選擇該詞彙的傾向。</div>
+			<div class='note'>
+				<strong>範圍：</strong> 通常是 -2.0 到 2.0。<br/>
+				<strong>問題：</strong> 模型卡在單一主題或詞彙集裡，缺乏新的想法。<br/>
+				<strong>目的：</strong> 鼓勵模型探索新詞彙和新主題，增加內容豐富度 (調高)。
+			</div>
+		</td></tr>
+		<tr><th>Stop Sequences<br/>(停止序列)</th><td>
+			<div>定義一個或多個文本序列，一旦模型生成了這些序列，<strong>生成過程將立即停止</strong>。</div>
+			<div class='note'>
+				<strong>範例：</strong> \nHuman:, ## End。<br/>
+				<strong>問題：</strong> 模型生成內容超出所需的結構 (例如，聊天機器人開始自行發言)。<br/>
+				<strong>目的：</strong> 確保內容結構完整或符合對話流程，例如在多輪對話中明確界定模型回答的結束。
+			</div>
+		</td></tr>
+	</table>
+</section>
+</body>
+</html>
