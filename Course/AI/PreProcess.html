@@ -210,9 +210,7 @@
 		<ol>
 			<li>數值尺度調整 (Scaling Numerical Features)</li>
 			<li>類別數據編碼 🏷️</li>
-			<li>處理序數型類別 (Ordinal Encoding)🔢</li>
 			<li>特徵工程 (Feature Engineering) 🛠️</li>
-			<li>數學函數轉換 (Mathematical Transformation) 📐</h2>
 		</ol>
 	</section>
 	<section>
@@ -277,9 +275,7 @@
 				<p><strong>解決方法：</strong>&nbsp;<strong>目標編碼 (Target Encoding)</strong>，用該類別的目標變數平均值來代替。</p>
 			</li>
 		</ol></div>
-	</section>
-	<section>
-		<h2>(3-3) 處理序數型類別 (Ordinal Encoding)🔢</h2>
+
 		<p>現在，讓我們來看看另一種情況：<strong>序數型類別 (Ordinal Categories)</strong>。</p>
 		<p>假設您的資料中有一個&nbsp;滿意度 欄位，只有三個值：<strong>很不滿意</strong>、<strong>滿意</strong>、<strong>非常滿意</strong>。這個欄位有明確的等級關係（$\text{非常滿意} &gt; \text{滿意} &gt; \text{很不滿意}$）。</p>
 		<p>對於這種序數型類別，我們應該採用什麼樣的編碼策略，才能<strong>保留它們的順序性</strong>，而又不至於像獨熱編碼那樣增加大量欄位？</p>
@@ -296,7 +292,7 @@
 		</ol></div>
 	</section>
 	<section>
-		<h2>(3-4) 特徵工程 (Feature Engineering) 🛠️</h2>
+		<h2>(3-3) 特徵工程 (Feature Engineering) 🛠️</h2>
 		<p>數據轉換的最後一個關鍵步驟是<strong>特徵工程</strong>。我們的目標是<strong>從現有特徵中創造新的、更有用的特徵</strong>，以提高模型的預測能力。</p>
 		<p>假設您的資料中有一個&nbsp;交易時間戳 (Timestamp) 欄位，精確到秒。雖然模型可以直接使用這個時間戳，但通常效果不佳。</p>
 		<p>請問，為了更好地捕捉客戶的<strong>購買習慣</strong>或<strong>週期性模式</strong>，我們可以從這個&nbsp;交易時間戳 欄位中提取出哪些新的、獨立的<strong>時間相關特徵</strong>？（請從以下選項中選出兩個最能體現「週期性模式」的特徵）</p>
@@ -320,9 +316,8 @@
 			</li>
 			<li><strong>交易發生的秒數 (Seconds of Transaction)</strong></li>
 		</ol></div>
-	</section>
-	<section>
-		<h2>(3-5) 數學函數轉換 (Mathematical Transformation) 📐</h2>
+
+		<h3>數學函數轉換 (Mathematical Transformation) 📐</h3>
 		<p>現在我們進入數據轉換的最後一個關鍵挑戰：當數值型數據的分佈極度<strong>扭曲 (Skewed)</strong> 或<strong>偏態</strong>時，對模型訓練會非常不利。</p>
 		<p>假設「年收入」欄位中，有極少數的人收入非常高（數據分佈向右側拉伸）。這種極度偏態的數據進入模型後，可能會：</p>
 		<ol>
