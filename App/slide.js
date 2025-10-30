@@ -203,10 +203,10 @@
 				asideElement.id = "operationsPanel";
 				asideElement.innerHTML=`
 <div class="panel-header">
-	<h3>
-		<span onclick="document.getElementById('operationsPanel').classList.toggle('show-settings');" style="cursor:pointer">🛞</span>
-		導覽與設定
-		<span onclick="document.getElementById('content').requestFullscreen();" style="cursor:pointer">「」</span>
+	<h3 style="white-space:nowrap">
+		<span onclick="document.getElementById('content').requestFullscreen();" style="cursor:pointer">⤡</span>
+		導覽
+		<span onclick="document.getElementById('operationsPanel').classList.toggle('show-settings');" style="cursor:pointer">↕</span>
 	</h3>
 	<div class="setting-item">
 		<label>字型大小</label>
