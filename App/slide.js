@@ -204,7 +204,7 @@
 				asideElement.innerHTML=`
 <div class="panel-header">
 	<h3 style="white-space:nowrap">
-		<span onclick="document.getElementById('content').requestFullscreen();" style="cursor:pointer">⤡</span>
+		<span onclick="document.getElementById('content').requestFullscreen();" style="cursor:pointer">🗖</span>
 		導覽
 		<span onclick="document.getElementById('operationsPanel').classList.toggle('show-settings');" style="cursor:pointer">↕</span>
 	</h3>
