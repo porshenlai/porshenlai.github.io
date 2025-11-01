@@ -1,16 +1,59 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+	<title>porshenlai.github.io</title>
+	<!--link rel="icon" type="image/png" href="/images/favicon.png"/-->
+	<!--link rel="stylesheet" href="style.css"/-->
+	<script>
+		document.onload=() => {
+			document.onload=()=>undefined;
+			let SS=new Piers.Session.MSHome();
+			console.log(SS, Piers.Widget);
+		}
+	</script>
+	<script src="/piers/init.js"
+			PierEntrance="document.onload"
+			PierXMods="Widget,Session"></script>
+	<style>
+		html, body {
+			width:100%; height:100%; border:0; margin:0; padding:0; overflow:hidden;
+		}
+		body { 
+			overflow-y:auto;
+			background:black url('/Resources/Cyberpiers/20251025.jpg') no-repeat center center/cover;
+			color:white;
+		}
+		#MainMenu td {
+			background:rgba(0,0,0,0.5);
+			vertical-align:middle;
+			text-align:center;
+			font-size:6vmin;
+			text-shadow:2px 1px lightblue;
+		}
+		#MainMenu a, #MainMenu a:hover { color:blue; }
+	</style>
 </head>
 <body>
-<ul>
-	<li><a href="AI/index.html">AI 人工智慧</a></li>
-	<li><a href="Python/index.html">程式語言: Python</a></li>
-	<li><a href="SI/index.html">系統整合開發</a></li>
-	<li><a href="Language/index.html">自然語言</a></li>
-</ul>
+	<div style="position:absolute;top:0;right:0;">porshenlai.github.io</div>
+	<table id='MainMenu' border='0' cellspacing='32', cellpadding='32' width='100%' height='100%'><tbody>
+		<tr>
+			<td width='50%' height='50%'><a href="AI/index.html">
+				<div>人工智慧<br/>Artificial Intelligent</div>
+			</a></td>
+			<td width='50%' height='50%'><a href="Language/index.html">
+				<div>語言<br/>Language</div>
+			</a></td>
+		</tr>
+		<tr>
+			<td width='50%' height='50%'><a href="Finance/index.html">
+				<div>財務金融<br/>Finance</div>
+			</a></td>
+			<td width='50%' height='50%'><a href="Project/index.html">
+				<div>專案工程<br/>Project Engineering</div>
+			</a></td>
+		</tr>
+	</tbody></table>
 </body>
 </html>
