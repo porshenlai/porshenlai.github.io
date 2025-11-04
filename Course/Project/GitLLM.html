@@ -29,10 +29,18 @@
 .C { color:darkgreen; }
 </style>
 
-<section class="slide">
-	<h1 class="title">Git-LLM</h1>
+<section class="slide" style="display:flex;flex-flow:column;justify-content:space-between;">
+	<div></div>
 	<div>
-		<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
+		<h1 class="title">Git-LLM</h1>
+		<div class="subtitle">How to use Git-Hub to manage the programs created by LLM</div>
+	</div>
+	<div>
+		<p class="meta" style="border:1px solid silver;border-radius:8px;padding:16px;">
+			<b>Lecturer:</b> <i>Porshen Lai</i> <a href="mailto:porshenlai@gm.chihlee.edu.tw">✉</a>
+			<i style="float:right">2025, Winter</i><br/>
+			Department of Finance, Chihlee University of Technology
+		</p>
 	</div>
 </section>
 
@@ -46,7 +54,33 @@
 4. 中間 &lt;div id="Content"/&gt; 工作區，包含多個任務區塊 &lt;div&gt;，一次只顯示一個，浮動選單或 javascript 程式切換工作區塊。</textarea>
 	<ul>
 		<li><a href="samples/3PLayout.html" target="_blank">產出頁面</a></li>
-		<li onclick='op("samples/3PLayout.html","html")'>程式碼</a></li>
+		<li onclick='op("samples/3PLayout.html","html")'>程式碼</li>
+	</ul>
+</section>
+
+<section>
+	<h2>利用 LLM 來完成開發</h2>
+	<textarea rows="10" style='width:100%'>
+根據以請幫我開頭的註解，請幫我完成這個 html 程式。程式如下:
+
+&lt;--請幫我填補 &lt;head&gt; 與html擋頭--&gt;
+&lt;body&gt;
+	&lt;table&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				&lt;--請幫我在這邊置入CCD擷取視訊的視窗，與視訊的控制面板--&gt;
+			&lt;/td&gt;
+			&lt;td&gt;
+				&lt;--請幫我在這邊置入可以顯示多種資訊的 三 tab 切換介面，準備來顯示各式資訊&gt;
+			&lt;/td&gt;
+		&lt;/tr&gt;
+	&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </textarea>
+	<ul>
+		<li><a href="samples/Camera.html" target="_blank">產出頁面</a></li>
+		<li onclick='op("samples/Camera.html","html")'>程式碼</li>
 	</ul>
 </section>
 
