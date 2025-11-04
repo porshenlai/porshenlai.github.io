@@ -10,10 +10,11 @@
 </style>
 <script>
 	function op(url,type) {
+		console.log(url,type);
 		if (!type)
 			type=url.endsWith(".txt") ? "txt" : "unknown";
 		switch (type) {
-		case "txt":
+		case "txt": case "html":
 			url="/App/textview.html?url="+url+"&base="+location;
 			window.open(url);
 			break;
@@ -44,8 +45,8 @@
 3. 下方 &lt;div id="Tail"/&gt; 頁尾，顯示版權與頁面更新資訊。
 4. 中間 &lt;div id="Content"/&gt; 工作區，包含多個任務區塊 &lt;div&gt;，一次只顯示一個，浮動選單或 javascript 程式切換工作區塊。</textarea>
 	<ul>
-		<li><a href="samples/TriDividePage.html" target="_blank">產出頁面</a></li>
-		<li onclick='op("samples/TriDividePage.html","html")'>程式碼</a></li>
+		<li><a href="samples/3PLayout.html" target="_blank">產出頁面</a></li>
+		<li onclick='op("samples/3PLayout.html","html")'>程式碼</a></li>
 	</ul>
 </section>
 

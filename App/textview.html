@@ -1,227 +1,360 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Text Reader - Highlighted</title>
-	<base></base>
-	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor - Final Sync Version</title>
+    <base></base>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/all.min.js"></script> 
 
-	<style>
-		/* CSS 樣式來實現佈局和浮動視窗 */
-		html, body {
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			display: flex;
-			flex-direction: column;
-		}
+    <style>
+        /* 基礎佈局樣式 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* 確保主視窗不出現捲軸 */
+        }
 
-		#header {
-			height: 40px; /* 固定一行的高度 */
-			background-color: #f0f0f0;
-			display: flex;
-			align-items: center;
-			justify-content: flex-end; /* 將選單按鈕放在最右側 */
-			padding: 0 10px;
-			box-sizing: border-box;
-			flex-shrink: 0; /* 不壓縮 header */
-		}
+        /* 儲存/訊息顯示區 */
+        #saveMessage {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 50;
+            font-weight: bold;
+            color: #007bff;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: opacity 0.5s;
+            opacity: 0;
+        }
+        
+        #saveMessage.visible {
+            opacity: 1;
+        }
 
-		#menuButton {
-			padding: 5px 10px;
-			cursor: pointer;
-		}
+        /* 內容容器 (編輯區) */
+        #content-container {
+            flex-grow: 1; 
+            width: 100%;
+            padding: 0; 
+            position: relative; 
+            background-color: #f6f8fa;
+        }
+        
+        /* 統一兩層的尺寸和定位 (絕對定位疊加) */
+        #highlighted-content, #content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            
+            /* 精確的 Padding 設定 */
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 30px; 
+            
+            box-sizing: border-box;
+            
+            /* 必須完全相同的字體與行高，使用絕對像素值確保精確對齊 */
+            font-size: 16px; 
+            font-family: Consolas, Monaco, 'Courier New', monospace; 
+            line-height: 20px; 
 
-		/* 新增一個容器來取代原本的 #content 空間 */
-		#content-container {
-			flex-grow: 1; /* 填滿 header 下方的剩餘空間 */
-			width: 100%;
-			box-sizing: border-box;
-			padding: 10px;
-			overflow: auto; /* 確保內容可以滾動 */
-			background-color: #f6f8fa; /* 程式碼背景色，與 default.min.css 協調 */
-		}
+            /* 強制內容不換行 (解決選取時的位移) */
+            white-space: pre !important; 
+            word-wrap: normal;
+            word-break: normal;
+            
+            overflow: hidden; /* 預設關閉內部捲軸 */
+        }
 
-		/* 隱藏 textarea，讓 pre/code 顯示內容 */
-		#content {
-			display: none; 
-		}
+        /* 1. 高亮顯示區塊 (底部) */
+        #highlighted-content {
+            z-index: 1; 
+            user-select: none;
+        }
+        
+        /* 2. 可編輯區塊 (頂部) */
+        #content {
+            z-index: 2; 
+            color: transparent; 
+            background-color: transparent; 
+            border: none; 
+            outline: none;
+            resize: none; 
+            caret-color: black; /* 游標顏色 */
+            
+            overflow: auto; /* 只有 textarea 顯示捲軸 */
+        }
 
-		/* 高亮內容的樣式 */
-		#highlighted-content {
-			font-size: 16px;
-			margin: 0; /* 移除 pre 預設的外邊距 */
-		}
-		
-		/* 確保程式碼區塊填滿容器 */
-		#highlighted-content code {
-			 display: block; /* 讓 code 佔滿 pre 的寬度 */
-		}
-		
-		/* 修正 highlight.js 的預設 padding，確保與容器 padding 一致 */
-		#content-container pre {
-			padding: 0;
-			margin: 0;
-			border: none;
-			background-color: transparent; /* 使用容器的背景色 */
-		}
+        /* 確保高亮區塊的內部元素也同步 CSS */
+        #highlighted-content pre {
+            background-color: transparent !important;
+            margin: 0;
+            padding: 0;
+            border: none;
+            white-space: pre !important; 
+            line-height: 20px;
+        }
 
-		#dialog {
-			display: none; /* 預設隱藏 */
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5); /* 半透明灰色遮罩 */
-			z-index: 1000; /* 確保浮動覆蓋其他元素 */
-			align-items: flex-start; /* 將內容對齊頂部 */
-			justify-content: flex-end; /* 將按鈕對齊右側 */
-		}
-		
-		#dialog.open {
-			display: flex;
-		}
+        /* 浮動選單按鈕 */
+        #menuButton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 100; 
+            padding: 8px 15px;
+            background-color: #4CAF50; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            font-size: 16px;
+        }
 
-		#hideDialog {
-			position: absolute;
-			top: 10px;
-			right: 10px;
-			padding: 10px;
-			cursor: pointer;
-			background-color: white;
-			border: 1px solid #ccc;
-		}
-	</style>
-	<script>
-	async function readtext (url,options) {
-		const response=await fetch(url,options);
-		// 檢查響應是否成功
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
-		
-		const reader=response.body.getReader();
-		let s="";
-		while (true) {
-			const c=await reader.read();
-			if (c.done) break; // 讀取完成時跳出循環
-			s += new TextDecoder("utf-8").decode(c.value); // 確保 await 在 async 函式中
-		}
-		return s;
-	}
+        /* 浮動視窗 (Dialog) 樣式 */
+        #dialog {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 1000;
+            align-items: center; 
+            justify-content: center;
+        }
+        
+        #dialog.open {
+            display: flex;
+        }
 
-	document.addEventListener('DOMContentLoaded', async () => {
-		const contentArea = document.getElementById('content'); // 隱藏的 textarea
-		const highlightedContent = document.getElementById('highlighted-code'); // code 元素
-		const menuButton = document.getElementById('menuButton');
-		const dialog = document.getElementById('dialog');
-		const hideDialogButton = document.getElementById('hideDialog');
+        #dialogContent {
+            background-color: white; 
+            padding: 30px; 
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            min-width: 300px;
+        }
+        
+        /* 關閉按鈕 */
+        #hideDialog {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        /* 選單內的下載按鈕樣式 */
+        #dialogDownloadButton {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+    </style>
+    <script>
+    
+    let currentFilename = 'edited_file.txt'; 
 
-		try {
-			const urlParams = new URLSearchParams(window.location.search);
-			const baseUrl = urlParams.get('base');
-			const targetUrl = urlParams.get('url'); 
-			const syntaxParam = urlParams.get('syntax'); // 新增：讀取 syntax 參數
+    // 1. 讀取檔案內容的函式
+    async function readtext (url, options) {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const reader = response.body.getReader();
+        let s = "";
+        while (true) {
+            const c = await reader.read();
+            if (c.done) break;
+            s += new TextDecoder("utf-8").decode(c.value);
+        }
+        return s;
+    }
+    
+    // 2. 下載檔案內容的函式
+    function downloadFile(filename, content, mimeType = 'text/plain') {
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    
+    // 3. 顯示訊息
+    function showMessage(text) {
+        const msg = document.getElementById('saveMessage');
+        msg.textContent = text;
+        msg.classList.add('visible');
+        setTimeout(() => {
+            msg.classList.remove('visible');
+        }, 3000);
+    }
 
-			// 1. 設置 Base URL
-			if (baseUrl) {
-				document.head.querySelector("base").setAttribute("href",baseUrl);
-			}
 
-			// 2. 處理 Syntax 參數
-			let languageClass = '';
-			if (syntaxParam) {
-				switch (syntaxParam.toLowerCase()) {
-					case 'py':
-						languageClass = 'language-python';
-						break;
-					case 'js':
-						languageClass = 'language-javascript';
-						break;
-					case 'html':
-						languageClass = 'language-xml'; // highlight.js 用 'xml' 處理 HTML
-						break;
-					default:
-						// 不支援的語法，不添加語言類別
-						break;
-				}
-				if (languageClass) {
-					highlightedContent.classList.add(languageClass);
-				}
-			}
+    // 4. 核心函式：同步內容並重新高亮顯示
+    function updateHighlighting(textareaElement, codeElement) {
+        let text = textareaElement.value;
+        
+        // 關鍵修正：動態新增多個換行符，解決捲動至頁尾時的高度位移問題。
+        // 這會強制高亮層擁有足夠的空間向下延伸。
+        text += '\n\n\n\n\n\n\n\n\n\n'; 
+
+        codeElement.textContent = text;
+        
+        hljs.highlightElement(codeElement);
+    }
 
 
-			// 3. 讀取並顯示內容
-			if (targetUrl) {
-				// 顯示讀取中訊息在 code 元素中
-				highlightedContent.textContent = '正在讀取文字...';
-				
-				const textContent = await readtext(targetUrl);
-				
-				// 將內容同時放入 textarea 和 code 區塊
-				contentArea.value = textContent;
-				highlightedContent.textContent = textContent;
+    document.addEventListener('DOMContentLoaded', async () => {
+        const contentArea = document.getElementById('content'); 
+        const highlightedContent = document.getElementById('highlighted-content');
+        const menuButton = document.getElementById('menuButton');
+        const dialogDownloadButton = document.getElementById('dialogDownloadButton'); 
+        const dialog = document.getElementById('dialog');
+        const hideDialogButton = document.getElementById('hideDialog');
+        const filenameDisplay = document.getElementById('currentFilenameDisplay');
 
-				// 執行程式碼高亮
-				if (languageClass) {
-					hljs.highlightElement(highlightedContent);
-				}
-				
-			} else {
-				highlightedContent.textContent = '請在 URL search string 中指定目標檔案 (例如: ?url=somefile.txt)。';
-			}
-		} catch (error) {
-			console.error('讀取文字失敗:', error);
-			highlightedContent.textContent = `讀取文字失敗: ${error.message}`;
-		}
+        const urlParams = new URLSearchParams(window.location.search);
+        const baseUrl = urlParams.get('base');
+        const targetUrl = urlParams.get('url'); 
 
-		// 處理選單按鈕的點擊事件
-		if (menuButton) {
-			menuButton.addEventListener('click', () => {
-				dialog.classList.add('open');
-			});
-		}
-		
-		// 處理關閉按鈕的點擊事件
-		if (hideDialogButton) {
-			hideDialogButton.addEventListener('click', () => {
-				dialog.classList.remove('open');
-			});
-		}
+        // 1. 設置 Base URL
+        if (baseUrl) {
+            document.head.querySelector("base").setAttribute("href", baseUrl);
+        }
+        
+        // 2. 讀取內容
+        if (targetUrl) {
+            try {
+                contentArea.value = '正在讀取文字...';
+                
+                const urlParts = targetUrl.split('/');
+                currentFilename = urlParts[urlParts.length - 1] || 'edited_file.txt'; 
+                filenameDisplay.textContent = currentFilename; 
 
-		// 處理點擊遮罩關閉對話框
-		if (dialog) {
-			 dialog.addEventListener('click', (event) => {
-				// 如果點擊的目標是 #dialog 本身，則關閉
-				if (event.target === dialog) {
-					dialog.classList.remove('open');
-				}
-			});
-		}
-	});
-	</script>
+                const textContent = await readtext(targetUrl);
+                
+                contentArea.value = textContent;
+                
+                // 讀取內容後執行初次高亮
+                updateHighlighting(contentArea, highlightedContent);
+
+            } catch (error) {
+                console.error('讀取文字失敗:', error);
+                contentArea.value = `讀取文字失敗: ${error.message}`;
+                showMessage(`檔案讀取失敗，將使用預設檔名：${currentFilename}`);
+                filenameDisplay.textContent = '(錯誤，無法讀取)';
+            }
+        } else {
+            contentArea.value = '請在 URL search string 中指定目標檔案 (例如: ?url=somefile.txt)。';
+            showMessage(`未指定檔案，將使用預設檔名：${currentFilename}`);
+            filenameDisplay.textContent = currentFilename;
+        }
+        
+        // 3. 綁定輸入事件 (核心)
+        contentArea.addEventListener('input', () => {
+            updateHighlighting(contentArea, highlightedContent);
+        });
+        
+        // 4. 綁定滾動事件 (同步滾動位置)
+        contentArea.addEventListener('scroll', () => {
+             highlightedContent.scrollTop = contentArea.scrollTop;
+             highlightedContent.scrollLeft = contentArea.scrollLeft;
+        });
+
+
+        // 5. 處理下載按鈕點擊事件 (在選單內)
+        if (dialogDownloadButton) {
+            dialogDownloadButton.addEventListener('click', () => {
+                const contentToDownload = contentArea.value; 
+                downloadFile(currentFilename, contentToDownload);
+                
+                dialog.classList.remove('open'); 
+                showMessage(`已下載檔案：${currentFilename}`);
+            });
+        } 
+
+        // 6. 處理選單/對話框事件
+        if (menuButton) {
+            menuButton.addEventListener('click', () => {
+                dialog.classList.add('open');
+            });
+        }
+        
+        if (hideDialogButton) {
+            hideDialogButton.addEventListener('click', () => {
+                dialog.classList.remove('open');
+            });
+        }
+
+        // 點擊遮罩關閉對話框
+        if (dialog) {
+             dialog.addEventListener('click', (event) => {
+                if (event.target === dialog) {
+                    dialog.classList.remove('open');
+                }
+            });
+        }
+    });
+    </script>
 </head>
 <body>
-	<div id="header">
-		<button id="menuButton">選單</button>
-	</div>
-	
-	<div id="content-container">
-		<textarea id="content"></textarea> <pre id="highlighted-content"><code id="highlighted-code"></code></pre> </div>
-	
-	<div id="dialog">
-		<div style="background-color: white; padding: 20px; margin: 50px; border-radius: 5px;">
-			<h2>設定/選單內容</h2>
-			<p>這裡是用來放置選單項目的空間。</p>
-		</div>
-		<button id="hideDialog">X 關閉</button>
-	</div>
+    
+    <button id="menuButton">⚙️ 選單</button>
+    
+    <span id="saveMessage"></span>
+
+    <div id="content-container">
+        <pre><code id="highlighted-content" class="hljs"></code></pre>
+        
+        <textarea 
+            id="content" 
+            spellcheck="false"
+            autocapitalize="off"
+            autocomplete="off"
+        ></textarea> 
+    </div>
+    
+    <div id="dialog">
+        <div id="dialogContent">
+            <h2>編輯器選項</h2>
+            <p>目前編輯中的檔案：<span id="currentFilenameDisplay" style="font-weight: bold;">(載入中...)</span></p>
+            
+            <hr style="margin: 15px 0;">
+            
+            <button id="dialogDownloadButton">💾 下載編輯後的檔案</button>
+        </div>
+        <button id="hideDialog">X 關閉</button>
+    </div>
 </body>
 </html>
