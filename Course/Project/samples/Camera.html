@@ -96,6 +96,21 @@
         .tab-content.active {
             display: block; /* 僅顯示 active 的內容 */
         }
+				#snapshot-gallery {
+            max-height: 320px; /* 限制一個最大高度 */
+            overflow-y: auto;  /* 超過高度時顯示捲軸 */
+            border-top: 1px solid #eee;
+            margin-top: 15px;
+            padding-top: 15px;
+            display: flex; /* 使用 flex 排版 */
+            flex-direction: column-reverse; /* 讓新圖片顯示在最上方 */
+        }
+        #snapshot-gallery img {
+            width: 100%; /* 讓快照圖片填滿容器 */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px; /* 圖片間距 */
+        }
     </style>
 </head>
 
@@ -127,8 +142,7 @@
 
                     <div id="Info1" class="tab-content active">
                         <h3>資訊一：即時數據</h3>
-                        <p>這裡是顯示即時數據的地方...</p>
-                        <p>例如：溫度、壓力、流量等。</p>
+												<div id="snapshot-gallery"></div>
                     </div>
 
                     <div id="Info2" class="tab-content">
@@ -158,30 +172,6 @@
             </td>
         </tr>
     </table>
-
-    <script>
-        function openTab(evt, tabName) {
-            // 宣告所有需要的變數
-            var i, tabcontent, tablinks;
-
-            // 1. 取得所有 class="tab-content" 的元素，並隱藏它們
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove("active");
-            }
-
-            // 2. 取得所有 class="tab-link" 的元素，並移除 "active" class
-            tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-
-            // 3. 顯示當前點擊的 tab 內容，並將該按鈕設為 "active"
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-    </script>
+		<script src="Camera.js"></script>
 </body>
 </html>

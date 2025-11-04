@@ -14,7 +14,7 @@
 		if (!type)
 			type=url.endsWith(".txt") ? "txt" : "unknown";
 		switch (type) {
-		case "txt": case "html":
+		case "txt": case "html": case "js": case "py":
 			url="/App/textview.html?url="+url+"&base="+location;
 			window.open(url);
 			break;
@@ -80,7 +80,8 @@
     </textarea>
 	<ul>
 		<li><a href="samples/Camera.html" target="_blank">產出頁面</a></li>
-		<li onclick='op("samples/Camera.html","html")'>程式碼</li>
+		<li onclick='op("samples/Camera.html","html")'>程式碼(HTML)</li>
+		<li onclick='op("samples/Camera.js","js")'>程式碼(JS)</li>
 	</ul>
 </section>
 
