@@ -27,6 +27,7 @@
 <style>
 .B { font-weight:bolder; color:darkblue; }
 .C { color:darkgreen; }
+.F { overflow:auto; }
 </style>
 
 <section class="slide" style="display:flex;flex-flow:column;justify-content:space-between;">
@@ -45,6 +46,21 @@
 </section>
 
 <section>
+	<h2>課程目標與核心概念</h2>
+	<ul>
+		<li>學會利用 <span class="B">Prompt (提示詞)</span> 請求語言模型<span class="B">產出</span>，<span class="B">修正</span>，<span class="B">增刪</span>程式碼。</li>
+		<li>學會如何利用<span class="B">模組化</span>的設計，讓語言模型專注在需要處理的任務上面。</li>
+		<li>學會將 <span class="B">Prompt (提示詞)</span> 視為專案的 <span class="B">「設計資產」</span>，納入 Git 版本控制。</li>
+		<li>掌握利用 Git/GitHub 功能 (Log, Diff, Blame, Code Review) 來追蹤 LLM 程式碼的<span class="B">生成</span>與<span class="B">迭代</span>。</li>
+		<li>建立團隊協作模式：<span class="B">Prompt-Code-Review-New Prompt</span> 的敏捷循環。</li>
+	</ul>
+	<div class="callout">
+		<span class="B">傳統開發：</span> 程式碼是核心。<br>
+		<span class="B">AI 輔助開發：</span> <span class="B">提示詞 (Prompt)</span> 是核心，程式碼是產物。
+	</div>
+</section>
+
+<section>
 	<h2>利用 LLM 來寫程式</h2>
 	<textarea rows="10" style='width:100%'>
 生成單一 html 檔案(css, 與 javascript 內嵌)，功能如下:
@@ -59,7 +75,7 @@
 </section>
 
 <section>
-	<h2>利用 LLM 來完成開發</h2>
+	<h2>利用 LLM 來修改與增刪程式</h2>
 	<textarea rows="10" style='width:100%'>
 根據以請幫我開頭的註解，請幫我完成這個 html 程式。程式如下:
 
@@ -86,29 +102,110 @@
 </section>
 
 <section>
-	<h2>I. 課程啟動與目標 (15 min)</h2>
-	<h3>課程目標與核心概念</h3>
+	<h2>💡 模組化設計簡介 (Modular Design) [1/3]</h2>
+	<h3>🎯 什麼是模組化設計？</h3>
 	<ul>
-		<li>學會將 <span class="B">Prompt (提示詞)</span> 視為專案的 <span class="B">「設計資產」</span>，納入 Git 版本控制。</li>
-		<li>掌握利用 Git/GitHub 功能 (Log, Diff, Blame, Code Review) 來追蹤 LLM 程式碼的生成與迭代。</li>
-		<li>建立團隊協作模式：<span class="B">Prompt-Code-Review-New Prompt</span> 的敏捷循環。</li>
+		<li><strong>定義：</strong> 將一個複雜的系統分解成數個<strong>獨立、可替換、標準化</strong>的組件（即<strong>模組</strong>），每個模組負責系統中的特定功能。</li>
+		<li><strong>目標：</strong> 提高系統的<strong>靈活性、可維護性、可重用性</strong>和<strong>效率</strong>。</li>
 	</ul>
-	<div class="callout">
-		<span class="B">傳統開發：</span> 程式碼是核心。<br>
-		<span class="B">AI 輔助開發：</span> <span class="B">提示詞 (Prompt)</span> 是核心，程式碼是產物。
-	</div>
+	<h3>🌟 1) 核心好處 (Key Benefits)</h3>
+	<table border='1' cellspacing='0' cellpadding='8'><thead>
+		<tr>
+			<th><strong>類別</strong></th>
+			<th><strong>好處說明</strong></th>
+			<th><strong>效益</strong></th>
+		</tr>
+	</thead><tbody>
+		<tr>
+			<td><strong>🛠️ 管理與維護 (Management &amp; Maintenance)</strong></td>
+			<td>獨立的模組更容易<strong>單獨測試、除錯和更新</strong>。</td>
+			<td><strong>降低</strong>整體系統的<strong>複雜度</strong>和<strong>維護成本</strong>。</td>
+		</tr>
+		<tr>
+			<td><strong>🛡️ 安全與風險控制 (Security &amp; Risk Control)</strong></td>
+			<td>故障或安全漏洞可<strong>隔離在單一模組</strong>，不會影響整個系統。</td>
+			<td><strong>限制</strong>錯誤的<strong>擴散範圍</strong>，<strong>提升</strong>系統的<strong>穩定性</strong>和<strong>彈性</strong>。</td>
+		</tr>
+		<tr>
+			<td><strong>🚀 效率與重用性 (Efficiency &amp; Reusability)</strong></td>
+			<td>設計好的模組可<strong>重複使用</strong>於多個專案或系統的不同部分。</td>
+			<td><strong>縮短開發時間</strong>，<strong>提高</strong>資源<strong>利用率</strong>，<strong>降低</strong>重複<strong>開發成本</strong>。</td>
+		</tr>
+		<tr>
+			<td><strong>🔄 擴展與彈性 (Scalability &amp; Flexibility)</strong></td>
+			<td>系統功能可透過<strong>增加或替換模組</strong>來實現快速擴展和調整。</td>
+			<td><strong>滿足</strong>未來<strong>業務成長</strong>和<strong>需求變化</strong>。</td>
+		</tr>
+	</tbody></table>
 </section>
 
 <section>
-	<h2>II. 核心方法論：Prompt-Driven Development (20 min)</h2>
-	<h3>Prompt 即 Commit Log 的重要性</h3>
+	<h2>💡 模組化設計簡介 (Modular Design) [2/3]</h2>
+	<h3>📝 2) 重點工作 (Key Tasks)</h3>
+	<ul>
+		<li><strong>系統分析與功能劃分 (System Analysis &amp; Functional Decomposition):</strong><ul>
+			<li><strong>識別</strong>並<strong>定義</strong>系統的<strong>主要功能</strong>。</li>
+			<li>將功能<strong>拆解</strong>為獨立的<strong>模組邊界</strong>。</li>
+		</ul></li>
+		<li><strong>資源規劃與標準化 (Resource Planning &amp; Standardization):</strong><ul>
+			<li><strong>規劃</strong>模組所需的<strong>資源</strong>（人力、技術、時間）。</li>
+			<li><strong>制定</strong>模組間<strong>一致的介面和標準</strong>。</li>
+		</ul></li>
+		<li><strong>協定與介面設計 (Protocol &amp; Interface Design):</strong><ul>
+			<li><strong>定義</strong>模組間<strong>溝通</strong>的<strong>方式</strong>和<strong>資料格式</strong>（API, 協定）。</li>
+			<li>確保模組具備<strong>高內聚力</strong>（Cohesion）和<strong>低耦合度</strong>（Coupling）。</li>
+		</ul></li>
+		<li><strong>說明文件與知識庫建立 (Documentation &amp; Knowledge Base):</strong><ul>
+			<li>為每個模組<strong>撰寫清晰</strong>的<strong>規格書</strong>和<strong>使用手冊</strong>。</li>
+			<li>建立<strong>中央知識庫</strong>以便團隊成員<strong>理解和重用</strong>。</li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>💡 模組化設計簡介 (Modular Design) [3/3]</h2>
+	<h3>⚙️ 3) 常見模組設計方法與工具 (Common Methods &amp; Tools)</h3>
+	<table border='1' cellspacing='0' cellpadding='8'><thead>
+		<tr>
+			<th><strong>類別</strong></th>
+			<th><strong>方法/概念</strong></th>
+			<th><strong>說明/工具範例</strong></th>
+		</tr>
+	</thead><tbody>
+		<tr>
+			<td><strong>軟體架構 (Software Architecture)</strong></td>
+			<td><strong>微服務 (Microservices)</strong></td>
+			<td>將應用程式設計為一組獨立部署、各自運行的小型服務。</td>
+		</tr>
+		<tr>
+			<td><strong>設計原則 (Design Principles)</strong></td>
+			<td><strong>單一職責原則 (SRP)</strong></td>
+			<td>每個模組只負責系統中的一個單一功能或職責。</td>
+		</tr>
+		<tr>
+			<td><strong>設計模式 (Design Patterns)</strong></td>
+			<td><strong>工廠模式 (Factory Pattern)</strong></td>
+			<td>提供建立物件的介面，讓子類別決定要實例化哪個類別。</td>
+		</tr>
+		<tr>
+			<td><strong>建模與視覺化 (Modeling &amp; Visualization)</strong></td>
+			<td><strong>UML 圖 (Unified Modeling Language)</strong></td>
+			<td>用於對系統架構和模組關係進行視覺化建模 (如：元件圖, 類別圖)。</td>
+		</tr>
+	</tbody></table>
+</section>
+
+<section>
+	<h2>Prompt 即 Commit Log 的重要性</h2>
 	<ul>
 		<li><span class="B">可追溯性 (Traceability):</span> 每次 Commit 的程式碼修改，都必須對應到產生它的 Prompt。</li>
 		<li><span class="B">協作基礎:</span> 隊友檢視程式碼時，可以立即從 Log 了解<span class="B">「最初的設計意圖」</span>。</li>
 		<li><span class="B">未來優化:</span> 累積的 Prompt 歷史是未來訓練或微調 LLM 的寶貴資料集。</li>
 	</ul>
+</section>
 
-	<h3>Commit Log 格式建議</h3>
+<section>
+	<h2>Commit Log 格式建議</h2>
 	<table border='1' cellpadding='3' cellspacing='0'>
 		<thead>
 			<tr><th>欄位</th><th>內容</th><th>目的</th></tr>
@@ -122,20 +219,25 @@
 </section>
 
 <section>
-	<h2>III. 實戰演練：首次生成與團隊協作 (30 min)</h2>
-	<h3>步驟一：初版程式碼生成與上傳</h3>
+	<h2>實戰演練：步驟一：初版程式碼生成與上傳</h3>
 	<ol>
 		<li><span class="B">設計 Prompt:</span> 撰寫第一個清晰、明確的提示詞 (例如：<span class="C">[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。</span>)。</li>
 		<li><span class="B">LLM 生成:</span> 將 Prompt 輸入給 LLM，取得程式碼。</li>
 		<li><span class="B">Git 提交:</span> 將程式碼檔案加入 Git，並使用<span class="B">完整的 Prompt</span> 作為 Commit Log 提交。
-			<div style="overflow-x:auto"><pre class="C">
-				<code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。"</code>
-			</pre></div>
+			<div class="F"><pre class="C">
+<code>git add &lt;檔案名&gt;</code>
+<code>git commit -m "[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。"</code>
+</pre></div>
 		</li>
-		<li><span class="B">推送到 GitHub:</span> <span class="C">git push origin &lt;branch&gt;</span>。</li>
+		<li><span class="B">推送到 GitHub:</span><div class="F"><pre>
+<span class="C">git push origin &lt;branch&gt;</span>。
+</pre></div>
+		</li>
 	</ol>
+</section>
 
-	<h3>步驟二：團隊 Code Review 與缺陷標記</h3>
+<section>
+	<h2>實戰演練：步驟二：團隊 Code Review 與缺陷標記</h2>
 	<ul>
 		<li><span class="B">GitHub Pull Request (PR):</span> 提交 PR 進行審核。</li>
 		<li><span class="B">Code Review:</span> 隊友閱讀程式碼，並在 PR 介面中留下具體修改建議。</li>
@@ -145,7 +247,7 @@
 	</ul>
 </section>
 <section>
-	<h2>X. 補充說明：何謂 Pull Request (PR)</h2>
+	<h2>何謂 Pull Request (PR) [1/2]</h2>
 	<p>在 GitHub 中，<b>Pull Request (PR)</b>，通常譯為「<b>提取請求</b>」或「<b>拉取請求</b>」，是協同合作的核心機制之一。</p>
 	<h3>什麼是 Pull Request (PR)？</h3>
 	<p>Pull Request 是一種<b>提案</b>，目的是將一個分支（通常是包含你的修改的分支，稱為「<b>來源分支</b>」或 <b>head branch</b>）的變更合併到另一個分支（通常是專案的主要分支，如 <code>main</code> 或 <code>master</code>，稱為「<b>目標分支</b>」或 <b>base branch</b>）。</p>
@@ -156,6 +258,10 @@
 		<li><p><b>協作與討論</b>：在正式合併之前，團隊可以針對變更提出建議、要求修改，或確保代碼品質、一致性和專案標準。</p></li>
 		<li><p><b>安全性</b>：確保變更在經過充分審查和測試之後，才能被合併到主分支，避免未完成或有問題的代碼破壞專案的穩定性。</p></li>
 	</ol>
+</section>
+
+<section>
+	<h2>何謂 Pull Request (PR) [2/2]</h2>
 	<h3>如何進行 Pull Request？</h3>
 	<p>無論你是貢獻給自己的專案還是其他人的開源專案，Pull Request 的基本流程通常包含以下步驟：</p>
 	<h4>1. 準備變更 (在本地)</h4>
@@ -163,9 +269,9 @@
 		<li>
 			<p><b>建立新分支 (Branch)</b>：始終在一個新的、具有描述性的分支上進行工作（例如：<code>feature/add-login</code> 或 <code>fix/bug-on-homepage</code>），而不是直接在 <code>main</code> 或 <code>master</code> 分支上。</p>
 			Bash
-			<div style="overflow-x:auto"><pre _ngcontent-ng-c2097180190="">
-				<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git checkout -b your-new-branch-name</code>
-			</pre></div>
+			<div class="F"><pre _ngcontent-ng-c2097180190="">
+<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git checkout -b your-new-branch-name</code>
+</pre></div>
 		</li>
 		<li>
 			<p><b>進行修改</b>：在你的新分支上進行代碼編寫、新增功能或修復錯誤。</p>
@@ -173,9 +279,9 @@
 		<li>
 			<p><b>提交變更 (Commit)</b>：將你的變更提交到本地 Git 歷史中。</p>
 			Bash
-			<div style="overflow-x:auto"><pre _ngcontent-ng-c2097180190="">
-				<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git commit -m &quot;Descriptive commit message&quot;</code>
-			</pre></div>
+			<div class="F"><pre _ngcontent-ng-c2097180190="">
+<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git commit -m &quot;Descriptive commit message&quot;</code>
+</pre></div>
 		</li>
 	</ul>
 	<h4>2. 推送變更到遠端倉庫 (Push)</h4>
@@ -183,9 +289,9 @@
 		<li>
 			<p><b>推送到 GitHub</b>：將你本地的新分支推送到你的 GitHub 遠端倉庫。</p>
 			Bash
-			<div style="overflow-x:auto"><pre _ngcontent-ng-c2097180190="">
-				<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git push origin your-new-branch-name</code>
-			</pre></div>
+			<div class="F"><pre _ngcontent-ng-c2097180190="">
+<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git push origin your-new-branch-name</code>
+</pre></div>
 			<p><i>如果你是貢獻給<b>別人的專案</b>，通常你需要先 <b>Fork</b> (複製) 該專案到你的 GitHub 帳號下，然後將你的變更推送到你的 Forked 倉庫。</i></p>
 		</li>
 	</ul>
@@ -230,25 +336,26 @@
 </section>
 
 <section>
-	<h2>IV. 程式碼微調與 Prompt 迭代 (45 min)</h2>
-	<h3>步驟三：設計新的 Prompt 進行修正</h3>
+	<h2>實戰演練：步驟三：設計新的 Prompt 進行修正</h2>
 	<ul>
 		<li><span class="B">意見收斂:</span> 根據 Code Review 的建議，設計出一個新的、更精確的 Prompt。</li>
 		<li><span class="B">新 Prompt 範例:</span>
-			<div style="overflow-x:auto"><pre class="C">
-				<code>[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。</code>
-			</pre></div>
+			<div class="F"><pre class="C">
+<code>[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。</code>
+</pre></div>
 		</li>
 		<li><span class="B">LLM 修正:</span> 將<span class="B">舊程式碼 + 新 Prompt</span> 傳給 LLM，要求其修正。</li>
 	</ul>
+</section>
 
-	<h3>步驟四：檢視差異與版本更新</h3>
+<section>
+	<h2>實戰演練：步驟四：檢視差異與版本更新</h2>
 	<ol>
 		<li><span class="B">檢視差異 (Diff):</span> 在本地使用 <span class="C">git diff</span> 仔細比較 LLM 做了哪些修改。</li>
 		<li><span class="B">提交修正:</span> 使用<span class="B">新的 Prompt</span> 作為 Commit Log 提交。
-			<div style="overflow-x:auto"><pre class="C">
-				<code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。"</code>
-			</pre></div>
+			<div class="F"><pre class="C">
+<code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。"</code>
+</pre></div>
 		</li>
 		<li><span class="B">推送到 GitHub:</span> 進行第二次 <span class="C">push</span>。</li>
 	</ol>
@@ -258,7 +365,7 @@
 </section>
 
 <section>
-	<h2>V. 總結：Log, Diff, Blame 的威力 (10 min)</h2>
+	<h2>總結：Log, Diff, Blame 的威力</h2>
 	<h3>Git 核心功能如何服務於 LLM 開發</h3>
 	<ul>
 		<li><span class="B"><span class="C">git log</span> 追蹤歷史:</span> 執行 <span class="C">git log --oneline</span>，你看到的是<span class="B">完整的 Prompt 演化歷史</span>，而非單純的程式碼修改。</li>
