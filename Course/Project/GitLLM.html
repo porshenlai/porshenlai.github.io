@@ -125,10 +125,12 @@
 	<h2>III. 實戰演練：首次生成與團隊協作 (30 min)</h2>
 	<h3>步驟一：初版程式碼生成與上傳</h3>
 	<ol>
-			<li><span class="B">設計 Prompt:</span> 撰寫第一個清晰、明確的提示詞 (例如：<span class="C">[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。</span>)。</li>
+		<li><span class="B">設計 Prompt:</span> 撰寫第一個清晰、明確的提示詞 (例如：<span class="C">[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。</span>)。</li>
 		<li><span class="B">LLM 生成:</span> 將 Prompt 輸入給 LLM，取得程式碼。</li>
 		<li><span class="B">Git 提交:</span> 將程式碼檔案加入 Git，並使用<span class="B">完整的 Prompt</span> 作為 Commit Log 提交。
-			<pre class="C"><code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。"</code></pre>
+			<div style="overflow-x:auto"><pre class="C">
+				<code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請用 C++ 寫一個計算質數的函式，並包含測試用例。"</code>
+			</pre></div>
 		</li>
 		<li><span class="B">推送到 GitHub:</span> <span class="C">git push origin &lt;branch&gt;</span>。</li>
 	</ol>
@@ -160,21 +162,30 @@
 	<ul>
 		<li>
 			<p><b>建立新分支 (Branch)</b>：始終在一個新的、具有描述性的分支上進行工作（例如：<code>feature/add-login</code> 或 <code>fix/bug-on-homepage</code>），而不是直接在 <code>main</code> 或 <code>master</code> 分支上。</p>
-			Bash <pre _ngcontent-ng-c2097180190=""><code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git checkout -b your-new-branch-name</code></pre>
+			Bash
+			<div style="overflow-x:auto"><pre _ngcontent-ng-c2097180190="">
+				<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git checkout -b your-new-branch-name</code>
+			</pre></div>
 		</li>
 		<li>
 			<p><b>進行修改</b>：在你的新分支上進行代碼編寫、新增功能或修復錯誤。</p>
 		</li>
 		<li>
 			<p><b>提交變更 (Commit)</b>：將你的變更提交到本地 Git 歷史中。</p>
-			Bash <pre _ngcontent-ng-c2097180190=""><code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git commit -m &quot;Descriptive commit message&quot;</code></pre>
+			Bash
+			<div style="overflow-x:auto"><pre _ngcontent-ng-c2097180190="">
+				<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git commit -m &quot;Descriptive commit message&quot;</code>
+			</pre></div>
 		</li>
 	</ul>
 	<h4>2. 推送變更到遠端倉庫 (Push)</h4>
 	<ul>
 		<li>
 			<p><b>推送到 GitHub</b>：將你本地的新分支推送到你的 GitHub 遠端倉庫。</p>
-			Bash <pre _ngcontent-ng-c2097180190=""><code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git push origin your-new-branch-name</code></pre>
+			Bash
+			<div style="overflow-x:auto"><pre _ngcontent-ng-c2097180190="">
+				<code _ngcontent-ng-c2097180190="" data-test-id="code-content" role="text">git push origin your-new-branch-name</code>
+			</pre></div>
 			<p><i>如果你是貢獻給<b>別人的專案</b>，通常你需要先 <b>Fork</b> (複製) 該專案到你的 GitHub 帳號下，然後將你的變更推送到你的 Forked 倉庫。</i></p>
 		</li>
 	</ul>
@@ -224,7 +235,9 @@
 	<ul>
 		<li><span class="B">意見收斂:</span> 根據 Code Review 的建議，設計出一個新的、更精確的 Prompt。</li>
 		<li><span class="B">新 Prompt 範例:</span>
-			<pre class="C"><code>[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。</code></pre>
+			<div style="overflow-x:auto"><pre class="C">
+				<code>[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。</code>
+			</pre></div>
 		</li>
 		<li><span class="B">LLM 修正:</span> 將<span class="B">舊程式碼 + 新 Prompt</span> 傳給 LLM，要求其修正。</li>
 	</ul>
@@ -233,7 +246,9 @@
 	<ol>
 		<li><span class="B">檢視差異 (Diff):</span> 在本地使用 <span class="C">git diff</span> 仔細比較 LLM 做了哪些修改。</li>
 		<li><span class="B">提交修正:</span> 使用<span class="B">新的 Prompt</span> 作為 Commit Log 提交。
-			<pre class="C"><code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。"</code></pre>
+			<div style="overflow-x:auto"><pre class="C">
+				<code>git add &lt;檔案名&gt;<br>git commit -m "[Prompt]: 請修正函式中對偶數的錯誤判斷，並將 C++ 的測試用例改用 Catch2 框架實現。"</code>
+			</pre></div>
 		</li>
 		<li><span class="B">推送到 GitHub:</span> 進行第二次 <span class="C">push</span>。</li>
 	</ol>
