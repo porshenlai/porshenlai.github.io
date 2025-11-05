@@ -76,6 +76,7 @@
 				location.hash = '#' + section.id;
 			}
 			section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+			sections[index].scrollTop=0;
 		}
 
 		// --- Panel Logic ---
