@@ -1,0 +1,33 @@
+AppRoot=$(git --exec-path) && AppRoot=${AppRoot%%mingw*} && AppRoot=${AppRoot%/*/}/
+command_not_found_handle() {
+	A=$(cat << DB | grep ^$1:
+audacity:audacity/Audacity.exe
+avidemux:avidemux/avidemux.exe
+chrome:GoogleChromePortable/GoogleChromePortable.exe
+foxit:FoxitReaderPortable/FoxitReaderPortable.exe
+gimp:GIMPPortable/GIMPPortable.exe
+krita:KritaPortable/KritaPortable.exe
+nginx:nginx-1.26.2/nginx.exe
+node:node-v22/node.exe
+notepad:Notepad++/notepad++.exe
+obs:OBSPortable/OBSPortable.exe
+python:Python/python.exe
+thonny:thonny/thonny.exe
+vlc:VLC/vlc.exe
+vim:Vim/gvim.exe
+xnview:XnViewMPPortable/XnViewMPPortable.exe
+waterfox:waterfox/waterfox-portable.exe
+DB
+)
+	rc=127
+	if test "$A"; then
+		shift
+		echo $R${A#*:} $@
+		msg="Call: $A"
+		rc=0
+	else
+		msg="Error: no such application $1"
+	fi
+	echo $msg >&2
+	return $rc
+}
