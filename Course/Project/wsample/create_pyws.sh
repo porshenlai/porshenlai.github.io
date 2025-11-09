@@ -6,13 +6,29 @@
 # /__api__/echo POST api,  which read JSON and response the same JSON back.  #
 ##############################################################################
 
-python='/c/Apps/Python/python.exe'
+set -e
+PYTHON_VERSION="3.14.0"
+ZIP_FILE="python-${PYTHON_VERSION}-embed-amd64.zip"
+ZIP_URL="https://www.python.org/ftp/python/${PYTHON_VERSION}/${ZIP_FILE}"
+PIP_SCRIPT_URL="https://bootstrap.pypa.io/get-pip.py"
+PIP_SCRIPT_FILE="get-pip.py"
+MAJOR_MINOR=$(echo $PYTHON_VERSION | cut -d. -f1-2 | sed 's/\.//')
 
 # Create and enter a new folder
 mkdir PythonWebServer
 cd PythonWebServer
 
-$python -m pip install aiohttp
+mkdir "pyenv"
+cd "pyenv"
+curl -L "$ZIP_URL" -o "$ZIP_FILE"
+unzip -q "$ZIP_FILE"
+sed -i -E 's/^[.# ]*(import site)/\1/' "python${MAJOR_MINOR}._pth"
+curl -L "$PIP_SCRIPT_URL" -o "$PIP_SCRIPT_FILE"
+./python.exe "$PIP_SCRIPT_FILE"
+./python.exe -m pip install aiohttp
+rm "$ZIP_FILE"
+rm "$PIP_SCRIPT_FILE"
+cd ..
 
 mkdir public
 cat << HTML > public/index.html
@@ -72,4 +88,4 @@ curl "http://localhost:3388/index.html"
 curl -X POST -H "Content-Type: application/json" -d "{\"user\":\"porshenlai\", \"value\": 123}" "http://localhost:3388/__api__/echo"
 TEST
 
-$python server.py
+pyenv/python.exe server.py
