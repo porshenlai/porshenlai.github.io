@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網址轉 QR Code 產生器</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        #qrcode {
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            display: inline-block;
+            background-color: #fff;
+        }
+
+        #url-display {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            word-break: break-all;
+            font-size: 1.1em;
+            text-align: left;
+        }
+
+        #url-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        #url-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .message {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1></h1>
+    
+    <div id="qrcode"></div>
+    
+    <div id="url-display">
+        <strong>目前網址:</strong> <br>
+        <a id="url-link" href="#" target="_blank"></a>
+    </div>
+
+    <div id="message" class="message" style="display: none;"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. 取得 URL search 參數
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // 2. 從 'url' 參數中獲取網址
+        const targetUrl = urlParams.get('url');
+		document.body.querySelector('h1').textContent=urlParams.get('title')||'網誌 QR Code 顯示';
+
+        const qrcodeDiv = document.getElementById('qrcode');
+        const urlLink = document.getElementById('url-link');
+        const messageDiv = document.getElementById('message');
+
+        // *** 確保 QRCode 函式在 window.onload/DOMContentLoaded 時已經被載入 ***
+        if (typeof QRCode === 'undefined') {
+            messageDiv.textContent = "錯誤：QRCode 函式庫載入失敗。請檢查網路連線或 CDN 連結。";
+            messageDiv.style.display = 'block';
+            return; 
+        }
+
+        if (targetUrl) {
+            // 解碼 URL (確保中文或其他特殊字元能正確顯示)
+            const decodedUrl = decodeURIComponent(targetUrl);
+
+            // 3. 顯示網址和設定連結
+            urlLink.href = decodedUrl; // 設定點擊後新頁面開啟的連結
+            urlLink.textContent = decodedUrl; // 顯示網址文字
+
+            // 4. 生成 QR Code
+            try {
+                // 使用穩定的 QRCode(大寫) 函式
+                new QRCode(qrcodeDiv, { 
+                    text: decodedUrl,
+                    width: 256,
+                    height: 256,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } catch (e) {
+                // 處理 QR Code 生成失敗的情況
+                qrcodeDiv.style.display = 'none'; 
+                urlLink.textContent = "錯誤: 無法生成 QR Code";
+                urlLink.href = "#";
+                messageDiv.textContent = "錯誤: QR Code 產生失敗，請檢查網址格式。";
+                messageDiv.style.display = 'block';
+            }
+
+        } else {
+            // 5. 如果缺少 'url' 參數，顯示錯誤訊息
+            qrcodeDiv.style.display = 'none'; 
+            urlLink.textContent = "N/A";
+            urlLink.href = "#";
+            messageDiv.textContent = "請在 URL 中傳入 'url' 參數，例如: ?url=https://your-blog.com";
+            messageDiv.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>
