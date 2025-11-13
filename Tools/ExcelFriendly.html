@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel 友好表格複製器</title>
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 使用 Inter 字體以獲得更好的顯示效果 */
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-6 md:p-10 rounded-xl shadow-2xl w-full max-w-2xl">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">
+            數據複製到 Excel 示範
+        </h1>
+
+        <!-- 範例數據表格 -->
+        <table id="dataTable" class="min-w-full divide-y divide-gray-200 border border-gray-300 rounded-lg overflow-hidden">
+            <thead class="bg-indigo-600 text-white">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">產品名稱</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">庫存量</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">單價 (TWD)</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">狀態</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
+                <tr class="hover:bg-indigo-50 transition duration-150">
+                    <td class="px-6 py-4 whitespace-nowrap">筆記型電腦 Alpha</td>
+                    <td class="px-6 py-4 whitespace-nowrap">45</td>
+                    <td class="px-6 py-4 whitespace-nowrap">32000</td>
+                    <td class="px-6 py-4 whitespace-nowrap">有庫存</td>
+                </tr>
+                <tr class="hover:bg-indigo-50 transition duration-150">
+                    <td class="px-6 py-4 whitespace-nowrap">機械鍵盤 Pro</td>
+                    <td class="px-6 py-4 whitespace-nowrap">120</td>
+                    <td class="px-6 py-4 whitespace-nowrap">2500</td>
+                    <td class="px-6 py-4 whitespace-nowrap">有庫存</td>
+                </tr>
+                <tr class="hover:bg-indigo-50 transition duration-150">
+                    <td class="px-6 py-4 whitespace-nowrap">無線滑鼠 Max</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">980</td>
+                    <td class="px-6 py-4 whitespace-nowrap">缺貨</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 複製按鈕 -->
+        <div class="mt-6 flex items-center justify-between">
+            <button 
+                id="copyButton" 
+                class="flex items-center space-x-2 px-5 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 11-1.293 2.573l1.838 1.837A.25.25 0 0014.25 7H5.75a.25.25 0 00-.177.427l1.838-1.837A3 3 0 116 3z" />
+                </svg>
+                <span id="copyButtonText">複製表格數據</span>
+            </button>
+
+            <!-- 狀態訊息 -->
+            <span id="statusMessage" class="text-sm text-gray-500 opacity-0 transition-opacity duration-300"></span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('copyButton').addEventListener('click', async () => {
+            const table = document.getElementById('dataTable');
+            const statusMessage = document.getElementById('statusMessage');
+            const buttonText = document.getElementById('copyButtonText');
+            
+            // 步驟 1: 遍歷表格並格式化為 TSV (Tab-Separated Values)
+            let csv = [];
+            const rows = table.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const rowData = [];
+                // 遍歷當前行的所有標頭單元格 (th) 和數據單元格 (td)
+                row.querySelectorAll('th, td').forEach(cell => {
+                    // 使用 trim() 移除前後空白，並確保沒有換行符
+                    rowData.push(cell.innerText.trim().replace(/\n/g, ' '));
+                });
+                // 使用 Tab (\t) 分隔單元格
+                csv.push(rowData.join('\t'));
+            });
+
+            // 使用換行符 (\n) 分隔行
+            const tsvString = csv.join('\n');
+
+            // 步驟 2: 複製到剪貼簿
+            try {
+                // 使用現代 Clipboard API
+                await navigator.clipboard.writeText(tsvString);
+                
+                // 步驟 3: 更新 UI 狀態
+                buttonText.textContent = '複製成功！';
+                statusMessage.textContent = '已複製到剪貼簿 (TSV 格式)';
+                statusMessage.classList.remove('opacity-0', 'text-gray-500');
+                statusMessage.classList.add('opacity-100', 'text-green-600');
+                
+                // 3 秒後恢復按鈕狀態
+                setTimeout(() => {
+                    buttonText.textContent = '複製表格數據';
+                    statusMessage.classList.remove('opacity-100', 'text-green-600');
+                    statusMessage.classList.add('opacity-0', 'text-gray-500');
+                }, 3000);
+
+            } catch (err) {
+                // 處理複製失敗的情況
+                console.error('無法複製到剪貼簿:', err);
+                statusMessage.textContent = '複製失敗，請手動複製！';
+                statusMessage.classList.remove('opacity-0', 'text-gray-500');
+                statusMessage.classList.add('opacity-100', 'text-red-600');
+            }
+        });
+    </script>
+</body>
+</html>gg

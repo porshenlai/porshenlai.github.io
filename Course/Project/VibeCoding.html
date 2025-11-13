@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe Coding 入門：給商管人的 AI 程式設計第一堂課</title>
+<script src="https://porshenlai.github.io/App/slide.js"></script>
+<script>
+	function op(url,type) {
+		console.log(url,type);
+		if (!type)
+			type=url.endsWith(".txt") ? "txt" : "unknown";
+		switch (type) {
+		case "txt": case "html": case "js": case "py":
+			url="/App/textview.html?url="+url+"&base="+location;
+			window.open(url);
+			break;
+		}
+	}
+</script>
+</head>
+<body>
+
+<div id="content">
+
+	<!-- Slide 1：封面 -->
+	<section>
+		<div>
+			<h1 class="title">Vibe Coding 入門：</h1>
+			<p class="subtitle">給商管人的 AI 程式設計第一堂課</p>
+		</div>
+		<div>
+			<p class="meta" style="border:1px solid silver;border-radius:8px;padding:16px;">
+				<b>Lecturer:</b> <i>Porshen Lai</i> <a href="mailto:porshenlai@gm.chihlee.edu.tw">✉</a>
+				<i style="float:right">2025, Winter</i><br/>
+				Department of Finance, Chihlee University of Technology
+			</p>
+		</div>
+	</section>
+
+	<!-- Slide 2：課程地圖 -->
+	<section>
+		<h2>今天的一小時，我們要做什麼？</h2>
+		<ul>
+			<li>認識什麼是 Vibe Coding（氛圍式程式設計）</li>
+			<li>了解：為什麼商管背景也需要懂 Vibe Coding</li>
+			<li>拆解 Vibe Coding 的基本流程與心態</li>
+			<li>用 AI 做兩個前端小應用：
+				<ul>
+					<li>範例 1：咖啡店簡單 Landing Page</li>
+					<li>範例 2：營運 KPI Dashboard 小卡片</li>
+				</ul>
+			</li>
+			<li class="callout">最後：風險、限制與未來學習方向</li>
+		</ul>
+	</section>
+
+	<!-- Slide 3：什麼是 Vibe Coding -->
+	<section>
+		<h2>什麼是 Vibe Coding？</h2>
+		<ul>
+			<li>用自然語言（中文或英文）跟 AI 說明你想要的系統或頁面</li>
+			<li>AI 依照你的描述，自動產生可執行的程式碼</li>
+			<li>你不一定要讀得懂程式碼，而是專注在：
+				<ul>
+					<li>結果符不符合需求？</li>
+					<li>操作體驗好不好？</li>
+					<li>有沒有要再調整的地方？</li>
+				</ul>
+			</li>
+			<li class="callout">關鍵：你不是工程師，而是「會下指令的產品 / 商業策劃者」。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 4：為什麼現在大家都在談 Vibe Coding -->
+	<section>
+		<h2>為什麼現在大家都在談 Vibe Coding？</h2>
+		<ul>
+			<li><a href="https://www.sonarsource.com/resources/library/llm-code-generation/" target="_blank">LLM（大型語言模型）讓「用文字描述需求」就能產生程式碼變成可能</a></li>
+			<li><a href="https://www.theguardian.com/technology/2025/nov/06/vibe-coding-collins-dictionary-word-of-the-year-2025" target="_blank">2025 年「Vibe coding」被字典選為年度代表字，象徵 AI 參與開發已成主流</a></li>
+			<li><a href="https://www.digitalocean.com/resources/articles/vibe-coding-tools" target="_blank">科技公司、大型雲端平台紛紛推出 Vibe Coding 工具與服務</a></li>
+			<li class="callout">重點不是「會不會寫程式」，而是「會不會跟 AI 合作做產品」。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 5：為什麼商管同學要學？ -->
+	<section>
+		<h2>為什麼商管背景也要學 Vibe Coding？</h2>
+		<ul>
+			<li>快速做出「可以點來玩」的原型網頁，比 PPT 更有說服力</li>
+			<li>行銷活動、問卷蒐集、報表儀表板，都可以自己先做 MVP</li>
+			<li>跟工程師溝通時，可以用實際頁面示範，而不是只用文字形容</li>
+			<li>未來職場：
+				<ul>
+					<li>產品經理、營運分析、行銷企劃，都被期待會一點 AI + 原型製作</li>
+				</ul>
+			</li>
+			<li class="callout">你不一定要成為工程師，但能自己「把想法變成可以點的畫面」，很關鍵。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 6：Vibe Coding vs 傳統學程式 -->
+	<section>
+		<h2>Vibe Coding 與傳統「學寫程式」的差別</h2>
+		<ul>
+			<li>傳統：
+				<ul>
+					<li>先學語法（HTML / CSS / JS…）</li>
+					<li>自己慢慢敲每一行程式碼</li>
+					<li>Debug 可能佔掉大部分時間</li>
+				</ul>
+			</li>
+			<li>Vibe Coding：
+				<ul>
+					<li>先講清楚「你想做什麼」</li>
+					<li>AI 幫你產生一份可以執行的初版程式碼</li>
+					<li>你透過「修改指令」一步步把結果修到可用</li>
+				</ul>
+			</li>
+			<li class="callout">對商管學生來說：這比較像「寫企劃書 + 指揮團隊」，而不是「自己寫程式細節」。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 7：Vibe Coding 的基本流程 -->
+	<section>
+		<h2>Vibe Coding 的基本流程（以前端網頁為例）</h2>
+		<ul>
+			<li>Step 1：描述需求
+				<ul>
+					<li>「我要一個單頁網站，介紹 XX 產品，含標題、特色三點、行動呼籲按鈕。」</li>
+				</ul>
+			</li>
+			<li>Step 2：AI 產生 HTML / CSS / JavaScript 程式碼</li>
+			<li>Step 3：你在瀏覽器打開，實際點一點、看感覺</li>
+			<li>Step 4：再用自然語言微調
+				<ul>
+					<li>「把主色改成深藍」、「加上一個顧客推薦區塊」…</li>
+				</ul>
+			</li>
+			<li class="callout">重點不是一次講完所有細節，而是「先動手做，再慢慢修」。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 8：範例 1 說明：咖啡店 Landing Page -->
+	<section>
+		<h2>範例一：咖啡店 Landing Page（示範用）</h2>
+		<ul>
+			<li>情境：你要為一間「校園旁精品咖啡店」做一頁式網站</li>
+			<li>Vibe Coding 的指令範例：
+				<ul>
+					<li>「幫我用 HTML + CSS 做一個咖啡店的單頁網站。」</li>
+					<li>「畫面要有：標題區、三個產品特色、小小的菜單區塊、底部聯絡資訊。」</li>
+					<li>「風格溫暖、淺棕色、適合手機瀏覽。」</li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+
+	<!-- Slide 9：範例 1：程式碼片段展示 -->
+	<section>
+		<h2>範例一：AI 產生的 HTML（部分節錄）</h2>
+		<ul>
+			<li><a href="samples/demo-coffee.html" target="_blank">Demo</a></li>
+			<li onclick='op("samples/demo-coffee.html","html")'>程式碼</a></li>
+		</ul>
+		<pre><code>&lt;section class="hero"&gt;
+  &lt;h1&gt;Campus Brew Café&lt;/h1&gt;
+  &lt;p&gt;一杯好咖啡，陪你度過每個專題夜晚。&lt;/p&gt;
+  &lt;a href="#menu" class="btn"&gt;看菜單&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+		<p class="callout">說明重點：你不需要自己手寫 &lt;section&gt;，但要會「看得出結構」，方便之後溝通修改。</p>
+	</section>
+
+	<!-- Slide 10：範例 2：營運 KPI Dashboard 卡片 -->
+	<section>
+		<h2>範例二：營運 KPI Dashboard 卡片</h2>
+		<ul>
+			<li>情境：你是營運 / 行銷人員，想快速做一個「本月數字看板」</li>
+			<li>Vibe Coding 指令示例：
+				<ul>
+					<li>「幫我做一個商業儀表板風格的網頁。」</li>
+					<li>「包含三個 KPI 卡片：本月營收、活躍用戶數、新客數。」</li>
+					<li>「每張卡片顯示數字與上月比較的％變化，使用綠 / 紅顏色表示。」</li>
+				</ul>
+			</li>
+			<li class="callout">這種頁面很適合 demo「商業分析 + AI + 前端」的結合。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 11：範例 2：結構示意 -->
+	<section>
+		<h2>範例二：Dashboard HTML 結構示意</h2>
+		<ul>
+			<li><a href="samples/demo-kpi-dashboard.html" target="_blank">Demo</a></li>
+			<li onclick='op("samples/demo-kpi-dashboard.html","html")'>程式碼</a></li>
+		</ul>
+		<pre><code>&lt;div class="kpi-grid"&gt;
+  &lt;div class="kpi-card"&gt;
+    &lt;h3&gt;本月營收&lt;/h3&gt;
+    &lt;p class="kpi-value"&gt;$1,200,000&lt;/p&gt;
+    &lt;p class="kpi-change positive"&gt;+12% vs. 上月&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;!-- 其他 KPI 卡片 --&gt;
+&lt;/div&gt;</code></pre>
+		<p class="callout">說明：同學將來可以把 Excel / BI 的數據接上這樣的前端畫面。</p>
+	</section>
+
+	<!-- Slide 12：如何寫出「AI 聽得懂」的指令 -->
+	<section>
+		<h2>寫給 AI 的指令：幾個小技巧</h2>
+		<ul>
+			<li>明確說出「用途」：
+				<ul>
+					<li>例如「給大學生看的活動頁」、「給老闆看的管理儀表板」</li>
+				</ul>
+			</li>
+			<li>描述版面結構：
+				<ul>
+					<li>有幾個區塊？每個區塊要放什麼？</li>
+				</ul>
+			</li>
+			<li>講清楚風格：
+				<ul>
+					<li>顏色、感覺（專業、活潑、科技感…）</li>
+				</ul>
+			</li>
+			<li>從簡單開始，再一步步加功能，而不是一次要求太多</li>
+			<li class="callout">把 AI 當作「前端設計實習生」，你是給 brief 的主管。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 13：Vibe Coding 的限制與風險 -->
+	<section>
+		<h2>Vibe Coding 的限制與風險</h2>
+		<ul>
+			<li>AI 產生的程式碼不一定最有效率或最安全 :contentReference[oaicite:4]{index=4}</li>
+			<li>如果完全不看程式碼，只看結果，可能埋下：
+				<ul>
+					<li>錯誤邏輯、資料隱私問題</li>
+					<li>未來維護困難（別人看不懂、自己也忘記）</li>
+				</ul>
+			</li>
+			<li>商業上要思考：
+				<ul>
+					<li>這個原型是只給內部測試，還是要真正上線？</li>
+					<li>什麼時候要請專業工程師重新實作？</li>
+				</ul>
+			</li>
+			<li class="callout">結論：Vibe Coding 很適合做原型與實驗，但正式系統要更謹慎。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 14：未來如何自學與延伸 -->
+	<section>
+		<h2>課後可以怎麼持續練習？</h2>
+		<ul>
+			<li>找一個自己有興趣的主題：
+				<ul>
+					<li>個人品牌頁面、社團活動頁、投資紀錄 Dashboard…</li>
+				</ul>
+			</li>
+			<li>用今天的流程，再做 1～2 個小專案</li>
+			<li>刻意練習：
+				<ul>
+					<li>每次改 prompt 時，多說明一點「為什麼要這樣改」</li>
+					<li>慢慢學會看懂常見的 HTML / CSS 結構</li>
+				</ul>
+			</li>
+			<li>若有興趣，可以再往：
+				<ul>
+					<li>互動式 JavaScript、API 串接、資料視覺化 延伸</li>
+				</ul>
+			</li>
+			<li class="callout">目標不是變成工程師，而是成為「會用 AI 做數位產品」的商管人才。</li>
+		</ul>
+	</section>
+
+	<!-- Slide 15：總結與 Q&A -->
+	<section>
+		<h2>總結：Vibe Coding 帶給商管人的 3 件事</h2>
+		<ul>
+			<li>1️⃣ 你可以用自然語言，讓 AI 幫你完成前端原型</li>
+			<li>2️⃣ 你可以用「可以點來玩」的網站溝通商業點子，而不是只有文字與簡報</li>
+			<li>3️⃣ 你會開始用「指揮 AI 做事」的角度，重新思考自己在組織裡的角色</li>
+			<li class="callout">接下來時間留給大家提問 & 討論，也歡迎一起想想你想做的第一個 Vibe Coding 專題。</li>
+		</ul>
+	</section>
+
+</div>
+
+</body>
+</html>

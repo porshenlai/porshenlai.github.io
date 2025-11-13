@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>營運 KPI Dashboard 示範</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #111827;
+      --card-soft: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,.12);
+      --positive: #22c55e;
+      --negative: #f97316;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1d283a, #020617 55%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .shell {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+    .subtitle {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-top: .35rem;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      align-items: center;
+    }
+    .select, .button {
+      background: rgba(15,23,42,.9);
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.4);
+      color: var(--text);
+      padding: .45rem .9rem;
+      font-size: .8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      cursor: pointer;
+    }
+    .button-primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+    }
+    .button-primary:hover {
+      filter: brightness(1.05);
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kpi-card {
+      background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(15,23,42,.96));
+      border-radius: 1rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(148,163,184,.25);
+      box-shadow: 0 18px 40px rgba(15,23,42,.75);
+    }
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .6rem;
+    }
+    .kpi-label {
+      font-size: .8rem;
+      color: var(--muted);
+    }
+    .kpi-tag {
+      font-size: .7rem;
+      padding: .2rem .5rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,.9);
+      border: 1px solid rgba(148,163,184,.3);
+      color: var(--muted);
+    }
+    .kpi-value {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      margin-bottom: .15rem;
+    }
+    .kpi-change {
+      font-size: .8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+    }
+    .kpi-change.positive {
+      color: var(--positive);
+    }
+    .kpi-change.negative {
+      color: var(--negative);
+    }
+    .kpi-change span.badge {
+      padding: .05rem .4rem;
+      border-radius: 999px;
+      background: rgba(148,163,184,.12);
+      font-size: .7rem;
+      color: var(--muted);
+    }
+    .kpi-footnote {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: .35rem;
+    }
+    .chart-card {
+      background: radial-gradient(circle at top left, rgba(56,189,248,.15), rgba(15,23,42,1));
+      border-radius: 1.1rem;
+      padding: 1.1rem 1.2rem;
+      border: 1px solid rgba(56,189,248,.35);
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.3fr);
+      gap: 1rem;
+    }
+    .chart-title {
+      font-size: .95rem;
+      margin-bottom: .3rem;
+    }
+    .chart-subtitle {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: .6rem;
+    }
+    .chart-bars {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0,1fr));
+      gap: .4rem;
+      align-items: flex-end;
+      height: 130px;
+    }
+    .bar {
+      background: var(--card-soft);
+      border-radius: .45rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(56,189,248,.95), rgba(37,99,235,1));
+    }
+    .bar-label {
+      font-size: .65rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: .3rem;
+    }
+    .chart-legend {
+      font-size: .8rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+    .legend-dot {
+      width: .55rem;
+      height: .55rem;
+      border-radius: 999px;
+      background: var(--accent);
+      display: inline-block;
+      margin-right: .3rem;
+    }
+    .hint {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+    @media (max-width: 800px) {
+      body {
+        padding: 1rem;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .chart-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div>
+      <div class="title">營運 KPI Dashboard · Demo</div>
+      <div class="subtitle">示範用前端頁面，顯示本月核心營運指標，資料為假資料。</div>
+    </div>
+    <div class="controls">
+      <div class="select">
+        報表期間：
+        <select id="period" style="background:transparent;border:none;color:inherit;font-size:.8rem;">
+          <option>本月 vs. 上月</option>
+        </select>
+      </div>
+      <button class="button" onclick="randomizeKpi()">模擬更新數字</button>
+      <button class="button button-primary" onclick="alert('在真實系統中可以在這裡接 API 或匯入檔案。');">
+        匯入資料（示意）
+      </button>
+    </div>
+  </header>
+
+  <section class="kpi-grid">
+    <article class="kpi-card" data-kpi="revenue">
+      <div class="kpi-header">
+        <div class="kpi-label">本月營收</div>
+        <div class="kpi-tag">NTD</div>
+      </div>
+      <div class="kpi-value" id="revValue">$1,200,000</div>
+      <div class="kpi-change positive" id="revChange">
+        ▲ +12.3% <span class="badge">vs. 上月</span>
+      </div>
+      <div class="kpi-footnote">主力來自線上廣告與回流老客。</div>
+    </article>
+
+    <article class="kpi-card" data-kpi="active-users">
+      <div class="kpi-header">
+        <div class="kpi-label">活躍用戶數（MAU）</div>
+        <div class="kpi-tag">人數</div>
+      </div>
+      <div class="kpi-value" id="mauValue">8,420</div>
+      <div class="kpi-change positive" id="mauChange">
+        ▲ +7.8% <span class="badge">vs. 上月</span>
+      </div>
+      <div class="kpi-footnote">新推出的會員任務提升登入頻率。</div>
+    </article>
+
+    <article class="kpi-card" data-kpi="new-customers">
+      <div class="kpi-header">
+        <div class="kpi-label">本月新客數</div>
+        <div class="kpi-tag">人數</div>
+      </div>
+      <div class="kpi-value" id="newValue">1,036</div>
+      <div class="kpi-change negative" id="newChange">
+        ▼ -3.1% <span class="badge">vs. 上月</span>
+      </div>
+      <div class="kpi-footnote">需要檢視廣告投放與推薦機制是否下滑。</div>
+    </article>
+  </section>
+
+  <section class="chart-card">
+    <div>
+      <div class="chart-title">近六個月營收走勢 · 假資料示意</div>
+      <div class="chart-subtitle">條狀高度代表每月營收相對大小，可用來說明「趨勢」的概念。</div>
+      <div class="chart-bars" id="chartBars">
+        <!-- JavaScript 會根據資料動態生成長條 -->
+      </div>
+    </div>
+    <div class="chart-legend">
+      <div><span class="legend-dot"></span>長條高度：當月營收相對大小</div>
+      <div>滑鼠移到 KPI 卡片上，可以口頭和同學討論：這些數字在商業上代表什麼意義。</div>
+      <div>此 Demo 只有前端，不連接任何真實資料庫。</div>
+    </div>
+  </section>
+
+  <p class="hint">
+    教學建議：可以請學生口頭說出「如果我是產品經理，看到這個儀表板會問什麼問題？」，
+    再用 Vibe Coding 的方式請 AI 幫忙調整版面或增加新的 KPI 卡片。
+  </p>
+</div>
+
+<script>
+  const monthLabels = ["5月","6月","7月","8月","9月","10月"];
+  let chartData = [72, 80, 65, 90, 102, 96]; // 假資料
+
+  function renderBars() {
+    const container = document.getElementById("chartBars");
+    container.innerHTML = "";
+    const max = Math.max(...chartData);
+    chartData.forEach((v, idx) => {
+      const bar = document.createElement("div");
+      bar.className = "bar";
+      const fill = document.createElement("div");
+      fill.className = "bar-fill";
+      fill.style.height = (v / max * 100).toFixed(1) + "%";
+      bar.appendChild(fill);
+      const wrap = document.createElement("div");
+      wrap.appendChild(bar);
+      const label = document.createElement("div");
+      label.className = "bar-label";
+      label.textContent = monthLabels[idx];
+      wrap.appendChild(label);
+      container.appendChild(wrap);
+    });
+  }
+
+  function randomizeKpi() {
+    function rand(base, spread) {
+      const delta = (Math.random() - 0.5) * spread * 2;
+      return Math.round(base + delta);
+    }
+    const revBase = 1200000;
+    const rev = rand(revBase, 150000);
+    const revDiff = (Math.random() * 18 - 5).toFixed(1); // -5% ~ +13%
+    const mauBase = 8400;
+    const mau = rand(mauBase, 900);
+    const mauDiff = (Math.random() * 14 - 4).toFixed(1);
+    const newBase = 1036;
+    const newVal = rand(newBase, 180);
+    const newDiff = (Math.random() * 14 - 7).toFixed(1);
+
+    updateKpi("rev", rev, revDiff);
+    updateKpi("mau", mau, mauDiff);
+    updateKpi("new", newVal, newDiff);
+
+    chartData = chartData.map(v => rand(v, 18));
+    renderBars();
+  }
+
+  function updateKpi(key, value, diff) {
+    if (key === "rev") {
+      document.getElementById("revValue").textContent = 
+        "￥" + value.toLocaleString();
+      const el = document.getElementById("revChange");
+      setChangeText(el, diff);
+    } else if (key === "mau") {
+      document.getElementById("mauValue").textContent = 
+        value.toLocaleString();
+      const el = document.getElementById("mauChange");
+      setChangeText(el, diff);
+    } else if (key === "new") {
+      document.getElementById("newValue").textContent = 
+        value.toLocaleString();
+      const el = document.getElementById("newChange");
+      setChangeText(el, diff);
+    }
+  }
+
+  function setChangeText(el, diff) {
+    const num = parseFloat(diff);
+    const positive = num >= 0;
+    el.classList.toggle("positive", positive);
+    el.classList.toggle("negative", !positive);
+    const arrow = positive ? "▲" : "▼";
+    el.innerHTML = `${arrow} ${num > 0 ? "+" + diff : diff}% <span class="badge">vs. 上月</span>`;
+  }
+
+  // 初始化圖表
+  renderBars();
+</script>
+</body>
+</html>

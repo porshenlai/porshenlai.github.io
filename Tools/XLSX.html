@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XLSX 數據編輯與生成工具</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SheetJS CDN (XLSX Library) -->
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <style>
+        /* 自定義滾動條樣式 */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background-color: #9ca3af;
+            border-radius: 4px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 sm:p-8 font-sans">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-6 md:p-10">
+        <h1 class="text-3xl font-extrabold text-indigo-700 mb-6 border-b pb-2">
+            XLSX 數據編輯器
+        </h1>
+
+        <!-- 狀態與錯誤訊息 -->
+        <div id="message" class="mb-4 p-3 rounded-lg text-sm transition duration-300 hidden"></div>
+
+        <!-- 1. 檔案上傳區 -->
+        <div class="mb-8 p-4 border border-indigo-200 rounded-lg bg-indigo-50">
+            <h2 class="text-xl font-semibold text-indigo-800 mb-3">步驟 1: 讀取 XLSX 檔案</h2>
+            <input 
+                type="file" 
+                id="file-input" 
+                accept=".xlsx, .xls" 
+                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-200"
+            >
+            <p class="mt-2 text-xs text-gray-500">
+                請選擇一個 XLSX 檔案。程式將讀取第一個工作表。
+            </p>
+        </div>
+
+        <!-- 2. 數據編輯區 -->
+        <div class="mb-8 p-4 border border-gray-300 rounded-lg">
+            <h2 class="text-xl font-semibold text-gray-700 mb-3">步驟 2: 編輯數據 (2D Array JSON 格式)</h2>
+            <textarea 
+                id="data-editor" 
+                class="w-full h-80 p-3 border border-gray-300 rounded-lg font-mono text-sm bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 resize-y" 
+                placeholder='在此處編輯您的 2D 陣列 JSON 數據，例如：\n[ ["Header 1", "Header 2"], ["Data A1", "Data A2"], ["Data B1", "Data B2"] ]'
+                disabled
+            ></textarea>
+            <p class="mt-2 text-xs text-red-500">
+                ⚠️ **重要：** 數據必須是有效的 2D Array JSON 格式，且在此處編輯會覆蓋原始數據。
+            </p>
+        </div>
+
+        <!-- 3. 檔案生成區 -->
+        <div class="p-4 border border-green-400 rounded-lg bg-green-50 text-right">
+            <h2 class="text-xl font-semibold text-green-800 mb-4 text-left">步驟 3: 生成新的 XLSX 檔案</h2>
+            <button 
+                id="generate-button" 
+                class="px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-700 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled
+                onclick="generateXLSX()"
+            >
+                生成 XLSX 並下載
+            </button>
+        </div>
+
+        <!-- 樣式保留說明 -->
+        <p class="mt-6 text-sm text-gray-600 p-3 border-t">
+            **💡 樣式保留說明：** 此工具將保留原始檔案的**結構 (Sheet 名稱)** 和 **數值格式 (如日期、貨幣)**。但由於技術限制，視覺樣式（顏色、字體等）在免費的 SheetJS 版本中無法讀取和寫入。
+        </p>
+    </div>
+
+    <script>
+        // 存放原始 Workbook 物件，用於保留結構和格式
+        let originalWorkbook = null;
+        let activeSheetName = null;
+        const fileInput = document.getElementById('file-input');
+        const dataEditor = document.getElementById('data-editor');
+        const generateButton = document.getElementById('generate-button');
+        const messageDiv = document.getElementById('message');
+
+        /**
+         * 顯示訊息
+         * @param {string} text - 訊息內容
+         * @param {string} type - 訊息類型: 'success', 'error', 'info'
+         */
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `mb-4 p-3 rounded-lg text-sm transition duration-300 block`;
+            
+            switch (type) {
+                case 'success':
+                    messageDiv.classList.add('bg-green-100', 'text-green-800');
+                    break;
+                case 'error':
+                    messageDiv.classList.add('bg-red-100', 'text-red-800');
+                    break;
+                default:
+                    messageDiv.classList.add('bg-blue-100', 'text-blue-800');
+            }
+        }
+
+        /**
+         * 處理文件上傳
+         */
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    
+                    // 1. 讀取 XLSX 檔案 (含樣式、格式等原始數據)
+                    const workbook = XLSX.read(data, { 
+                        type: 'array', 
+                        cellStyles: true, // 嘗試讀取樣式 (雖然社群版不完全支援)
+                        cellDates: true   // 啟用日期解析
+                    });
+                    
+                    originalWorkbook = workbook;
+                    
+                    // 取得第一個工作表的名稱和數據
+                    activeSheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[activeSheetName];
+                    
+                    // 2. 將工作表轉換為 2D Array (AoA - Array of Arrays)
+                    // {header: 1} ensures output is a 2D array of values
+                    const aoaData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false }); 
+                    
+                    // 顯示為 JSON 字串供編輯
+                    dataEditor.value = JSON.stringify(aoaData, null, 2);
+                    dataEditor.disabled = false;
+                    generateButton.disabled = false;
+
+                    showMessage(`檔案 "${file.name}" 讀取成功。工作表: ${activeSheetName}。您現在可以編輯數據。`, 'success');
+
+                } catch (error) {
+                    console.error("讀取或解析 XLSX 錯誤:", error);
+                    showMessage(`錯誤: 讀取或解析 XLSX 檔案失敗。`, 'error');
+                    dataEditor.value = "";
+                    dataEditor.disabled = true;
+                    generateButton.disabled = true;
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        /**
+         * 3. 使用修改後的數據生成新的 XLSX 檔案
+         */
+        function generateXLSX() {
+            if (!originalWorkbook || !activeSheetName) {
+                showMessage("錯誤：請先成功讀取 XLSX 檔案。", 'error');
+                return;
+            }
+
+            try {
+                // 從編輯器中獲取並解析修改後的 2D 陣列數據
+                const modifiedData = JSON.parse(dataEditor.value);
+
+                if (!Array.isArray(modifiedData) || modifiedData.length === 0 || !Array.isArray(modifiedData[0])) {
+                    throw new Error("數據格式錯誤：編輯器內容不是一個有效的 2D 陣列。");
+                }
+
+                // 將 2D Array 數據轉換回新的 Sheet
+                const newWorksheet = XLSX.utils.aoa_to_sheet(modifiedData);
+
+                // *** 樣式和格式保留機制 ***
+                // 替換原始 Workbook 中的數據 (保留 Sheet 名稱、順序和其他元數據)
+                originalWorkbook.Sheets[activeSheetName] = newWorksheet;
+                
+                // 寫入並下載檔案
+                const outputFileName = `modified_${fileInput.files[0].name}`;
+                XLSX.writeFile(originalWorkbook, outputFileName);
+                
+                showMessage(`新檔案 "${outputFileName}" 已成功生成並下載。`, 'success');
+
+            } catch (error) {
+                console.error("生成 XLSX 錯誤:", error);
+                showMessage(`錯誤: 生成 XLSX 檔案失敗。請檢查編輯區的 JSON 格式是否正確。`, 'error');
+            }
+        }
+    </script>
+
+</body>
+</html>
