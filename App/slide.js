@@ -297,7 +297,7 @@ class Slides
 			(e)=>{
 				e.setAttribute("rel","stylesheet");
 				const u=/(.*\/)[^\/]+(\?.*)?/.exec(currentScript.getAttribute("src"));
-				e.setAttribute("href",u ? (u[1]+"/slide_new.css") : "slide_new.css");
+				e.setAttribute("href",u ? (u[1]+"/slide.css") : "slide.css");
 				return e;
 			}
 		)(document.createElement("link")));
