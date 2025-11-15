@@ -54,16 +54,16 @@ async function processLineByLine() {
 					ans=row.O.reduce((r,v,i)=>{ if(v[1]) r.push(i); return r; },[]);
 				if (ans.length>1) {
 				} else {
-					O="<div qi='"+(i+1)+"' qt='s' qc='"+row.C.join(",")+"'>"
+					O="<section>\n<div qi='"+(i+1)+"' qt='s' qc='"+row.C.join(",")+"'>"
 					O+="\n	"+row.Q+"\n";
-					O+=row.O.map((v,i)=>"	<div qo='"+(i+1)+"'>"+(i+1)+"."+v[0]+"</div>\n").join("");
-					O+="</div>";
+					O+=row.O.map((v,i)=>"	<div qo='"+(i+1)+"'>"+v[0]+"</div>\n").join("");
+					O+="</div>\n</section>\n";
 					Answer[(i+1).toString()]=(1+ans[0]);
 				}
 				r.push(O);
 				return r;
 			},[]);
-			console.log("<section AID='"+btoa(JSON.stringify(Answer))+"'>\n"+HTML.join("\n")+"\n</section>\n");
+			console.log("<div id='content' AID='"+btoa(JSON.stringify(Answer))+"'>\n"+HTML.join("\n")+"\n</div>\n");
 		});
 
 	} catch (err) {
