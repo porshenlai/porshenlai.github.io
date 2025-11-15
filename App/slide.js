@@ -187,15 +187,14 @@ class Quiz
 			if (SE) return;
 			SE=document.createElement("style");
 			SE.innerHTML=`
-.QS { font-weight:bold; text-decoration:underline; }
 .QI { display:flex;align-items:center; }
-[qr="x"] { color:red; }
-[qr="o"] { color:green; }
-[qi] { border:2px solid silver;padding:1px 4px;margin:4px 1px; }
-[qo]:hover { background:lightgrey; }
+[qi] { border:2px solid blue;padding:1px 4px;margin:4px 1px; }
+[qo] { padding:4px; margin:4px; border:2px solid lightgrey;background-image: linear-gradient(white 60%,lightgrey); }
+[qo]:hover { border-color:grey;background-image: linear-gradient(white 60%,grey); }
+[qr="x"] [qo] { border-color:red;background-image: linear-gradient(white 60%,red); }
+[qr="o"] [qo] { border-color:green;background-image: linear-gradient(white 60%,green); }
 [qt="s"][qa] [qo] { display:none; }
 [qt="s"][qa] .QS[qo] { display:block; }
-section { margin:4px; padding:16px 4px; border:2px solid blue; border-radius:12px; }
 `;
 			document.head.appendChild(SE);
 		})(document.head.querySelector('style[STYID="Quiz"]'));
@@ -207,10 +206,9 @@ section { margin:4px; padding:16px 4px; border:2px solid blue; border-radius:12p
 			return JSON.parse(atob(ans));
 		})(document.head.getAttribute("AID"));
 		this.E.addEventListener('click',(evt)=>{
-			if (evt.target.hasAttribute('qo')) {
-				this.answer(evt.target);
-				evt.stopPropagation();
-			}
+			evt.stopPropagation();
+			for(let e=evt.target;e&&e.hasAttribute;e=e.parentNode)
+				if(e.hasAttribute('qo')) { this.answer(e); break; }
 		});
 	}
 	answer (e)
@@ -230,7 +228,6 @@ section { margin:4px; padding:16px 4px; border:2px solid blue; border-radius:12p
 					p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
 				p.setAttribute("qa",ans);
 			}
-			console.log("DONE");
 			break;
 		case 'm':
 			e.classList.toggle('QS');
@@ -339,9 +336,8 @@ class Slides
 }	// }}}
 
 document.addEventListener('DOMContentLoaded', () => {
-	if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+	if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
 		document.body.classList.add('is-mobile');
-	}
 
 	let MS=new Slides(document.body);
 
