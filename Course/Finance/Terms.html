@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>金融數據分析前哨站：讀懂市場的語言</title>
+<style>
+	:root {
+		--blue:#1E88E5;
+		--green:#26A69A;
+		--text:#222;
+		--muted:#666;
+		--bg:#ffffff;
+		--base-font-size: 16px; /* Font size control */
+	}
+	* { box-sizing: border-box; }
+	html { font-size: var(--base-font-size); scroll-behavior: smooth; }
+	html, body { height: 100%; }
+	body {
+		margin:0; font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, Segoe UI, Arial;
+		color:var(--text); background:var(--bg); line-height:1.6;
+		display: flex; flex-direction: column;
+	}
+	header {
+		padding: 1rem 1.5rem; border-bottom:4px solid var(--blue);
+		background: linear-gradient(90deg, rgba(30,136,229,0.08), rgba(38,166,154,0.08));
+		display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+		position: sticky; top: 0; z-index: 10;
+	}
+	.header-content { flex: 1; }
+	.title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; margin: 0 0 0.375rem 0; color:var(--blue); }
+	.subtitle { font-size: clamp(1rem, 2.4vw, 1.25rem); color:var(--muted); margin:0; }
+	.meta { margin-top:0.625rem; font-size:0.875rem; color:var(--muted); }
+
+	body.reduced .supplement { display:none }
+
+	main { display:flex; flex:1 1 auto; min-height: 0; }
+
+	#content { background:#f0f0f0; }
+	
+	.wrap { flex:1; padding: 1.5rem; overflow-y:auto; }
+	section { 
+		margin: 1.75rem 0 2.25rem 0; padding: 1.25rem; border:2px solid #e6e6e6; border-radius:14px; 
+		box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+		transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+		cursor: pointer;
+		scroll-margin-top: 1.5rem; /* <<< THIS IS THE NEW LINE FOR SCROLL OFFSET */
+	}
+	section:hover {
+		border-color: #ccc;
+	}
+	section.current-section {
+		border-color: var(--green);
+		background-color: #f6fffd;
+		box-shadow: 0 4px 16px rgba(38, 166, 154, 0.2);
+		cursor: default;
+	}
+	
+	h2 { margin:0 0 0.625rem 0; font-size: 1.375rem; color:var(--blue); }
+	h3 { margin:0.625rem 0; font-size: 1.125rem; color:#0d5ea8; }
+	ul, ol { margin: 8px 0 8px 22px; }
+	.kpi-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px; }
+	.pill { display:inline-block; padding:4px 10px; border-radius:999px; background:#eef6ff; color:#0d5ea8; font-size:0.75rem; margin-right:8px; }
+	table { width:100%; border-collapse: collapse; margin-top:10px; font-size: 0.95rem; }
+	th, td { border:1px solid #e6e6e6; padding:10px; text-align:left; vertical-align: top; }
+	th { background:#f7fbff; color:#0d5ea8; }
+	footer { color:var(--muted); font-size: 0.75rem; padding: 1rem 1.5rem; border-top:1px solid #eee; }
+	.badge { background: #e8f5e9; color:#2e7d32; padding:2px 8px; border-radius:999px; font-size:0.75rem; }
+	.callout { border-left:4px solid var(--green); padding: 0.75rem; background:#f6fffd; margin: 1rem 0;}
+
+	/* --- Right-side Operations Panel --- */
+	#operationsPanel {
+		position: fixed; top: 0; right: 0; bottom: 0;
+		width: 320px; max-width: 80vw;
+		background: #fff;
+		border-left: 1px solid #eee;
+		box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+		z-index: 100;
+		transform: translateX(100%);
+		transition: transform 0.3s ease;
+		display: flex; flex-direction: column;
+	}
+	body.panel-open #operationsPanel { transform: translateX(0); }
+	
+	.panel-header { padding: 1rem; border-bottom: 1px solid #eee; }
+	.panel-header h3 { margin: 0; color: #0d5ea8; }
+
+	#toc { flex: 1; overflow-y: auto; padding: 1rem; }
+	#toc ol { list-style: none; padding: 0; margin: 0; }
+	#toc li { margin: 4px 0; }
+	#toc a { color:#0d5ea8; text-decoration: none; display: block; padding: 6px 10px; border-radius: 6px; font-size: 0.9rem; }
+	#toc a:hover { background-color: #f0f5fa; }
+	#toc a.active { font-weight:700; background-color: #e3f2fd; }
+
+	.panel-footer { padding: 1rem; border-top: 1px solid #eee; background: #fcfcfc; }
+	.setting-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+	.setting-item label { color: var(--text); font-size: 0.9rem; }
+	.setting-item .zoom-controls { display: flex; align-items: center; gap: 0.5rem; }
+	.zoom-controls button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ccc; background-color: #f9f9f9; cursor: pointer;}
+	
+	.nav-controls { display: flex; align-items: center; gap: 10px; }
+	.btn { appearance:none; border:1px solid #cfd8dc; background:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; }
+	.btn:hover { border-color:#90a4ae; }
+	.progress { flex: 1; height: 8px; background:#eef2f7; border-radius:999px; overflow:hidden; }
+	.progress > i { display:block; height:100%; width:0%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 0.3s ease; }
+	.help { font-size: 0.8rem; color: var(--muted); }
+
+	#panel-overlay {
+		position: fixed; top:0; left:0; right:0; bottom:0;
+		background: rgba(0,0,0,0.4); z-index: 99;
+		opacity: 0; visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s;
+	}
+	body.panel-open #panel-overlay { opacity: 1; visibility: visible; }
+	
+	.icon-btn {
+		font-size: 1.5rem; background: transparent; border: none; cursor: pointer;
+		color: var(--muted); padding: 0 0.5rem;
+	}
+	.icon-btn:hover { color: var(--blue); }
+
+	@media (max-width: 960px) {
+		main { display:block; }
+		.wrap { padding: 1rem; }
+	}
+</style>
+</head>
+<body>
+
+<div id="panel-overlay"></div>
+
+<header>
+	<div class="header-content">
+		<h1 class="title" onclick="body.classList.toggle('reduced')">金融數據分析前哨站</h1>
+		<div class="supplement">
+			<p class="subtitle">讀懂市場的語言：從交易數據到財務報表</p>
+			<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
+		</div>
+	</div>
+	<button id="panelToggleBtn" class="icon-btn" title="開啟操作面板">☰</button>
+</header>
+
+<aside id="operationsPanel">
+	<div class="panel-header">
+		<h3>
+			導覽與設定
+			<button style="float:right" onclick="document.getElementById('content').requestFullscreen();">「」</button>
+		</h3>
+	</div>
+	<nav id="toc">
+		<ol id="tocList"></ol>
+	</nav>
+	<div class="panel-footer">
+		<div class="setting-item">
+			<label>字型大小</label>
+			<div class="zoom-controls">
+				<button id="fontDecreaseBtn" title="縮小字型">-</button>
+				<span id="fontDisplay">100%</span>
+				<button id="fontIncreaseBtn" title="放大字型">+</button>
+			</div>
+		</div>
+		<div class="nav-controls">
+			<button class="btn" id="prevBtn" title="上一節 Prev (←)">←</button>
+			<div class="progress"><i id="progressBar"></i></div>
+			<button class="btn" id="nextBtn" title="下一節 Next (→)">→</button>
+		</div>
+		<div style="text-align: center; margin-top: 8px;">
+			<span id="counter" class="help"></span>
+		</div>
+	</div>
+</aside>
+
+<main>
+	<div class="wrap" id="content">
+
+<section data-index="0">
+	<h2>課程目標：為何要學習金融術語？</h2>
+	<p>在我們深入探討更複雜的 AI 模型與 Python 技巧之前，我們需要先學會「市場的語言」。</p>
+	<ul>
+		<li><b>數據是 AI 的燃料</b>：所有金融 AI 模型的基礎，都源自於我們即將介紹的這些數據。</li>
+		<li><b>連結理論與實務</b>：理解這些術語，能幫助你將課堂上學到的財金理論，與程式碼抓取到的真實數據連結起來。</li>
+		<li><b>提升分析深度</b>：看不懂數據，再厲害的工具也無法發揮作用。這是從「會寫程式」到「能解決問題」的關鍵一步。</li>
+	</ul>
+	<div class="callout">
+		接下來的內容，我們會將每一個金融術語，都視為一個你可以在 Python 中獲取的「資料欄位」。
+	</div>
+</section>
+
+<section data-index="1">
+	<h2>市場的脈動：每日交易數據 (OHLCV)</h2>
+	<p>這些數據告訴我們一支股票<b>在一天之內的價格故事</b>和<b>市場對它的熱度</b>。它們是繪製 K 線圖 (Candlestick Chart) 的基礎。</p>
+	<table>
+		<thead>
+			<tr>
+				<th>術語</th>
+				<th>英文</th>
+				<th>「白話文」解釋</th>
+				<th>資料分析上的意義</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><b>開盤價</b></td>
+				<td>Open</td>
+				<td>早上股市開門第一筆交易的價格。反映了市場對昨晚所有新聞的初步情緒。</td>
+				<td>情緒指標，常與前一天收盤價比較，形成「跳空」。</td>
+			</tr>
+			<tr>
+				<td><b>最高價</b></td>
+				<td>High</td>
+				<td>今天交易中出現過的最高價格，代表當日買方（多頭）力量的極限。</td>
+				<td>當日的價格天花板，是重要的壓力參考點。</td>
+			</tr>
+			<tr>
+				<td><b>最低價</b></td>
+				<td>Low</td>
+				<td>今天交易中出現過的最低價格，代表當日賣方（空頭）力量的極限。</td>
+				<td>當日的價格地板，是重要的支撐參考點。</td>
+			</tr>
+			<tr>
+				<td><b>收盤價</b></td>
+				<td>Close</td>
+				<td>今天股市關門前最後一筆交易的價格。總結了一整天的多空角力結果。</td>
+				<td><span class="badge">最重要的價格</span> 絕大多數技術指標（如均線）都基於收盤價計算。</td>
+			</tr>
+			<tr>
+				<td><b>成交量</b></td>
+				<td>Volume</td>
+				<td>今天總共有多少「股」被買賣。把它想像成市場的「音量」或「人氣」。</td>
+				<td><span class="badge">趨勢的確認信號</span> 價格變動若有成交量支持，趨勢通常更可靠。</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section data-index="2">
+	<h2>視覺化(1): 標準 K 線 (Standard Candlestick)</h2>
+	<p>這是最基本、最常見的 K 線圖，專注於「<b>當天的開盤價 vs. 收盤價</b>」來決定顏色。</p>
+	<ul>
+		<li><b>實體 (Body)</b>: 表示開盤與收盤之間的價格區間。實體越長，代表當日漲跌力道越強。</li>
+		<li><b>影線 (Wicks/Shadows)</b>: 頂點是最高價，底點是最低價。影線越長，代表盤中價格拉鋸越劇烈。</li>
+		<li><b>顏色 (Color)</b>:
+			<ul>
+				<li><b>上漲 K 棒 (陽線)</b>: 收盤價 > 開盤價。</li>
+				<li><b>下跌 K 棒 (陰線)</b>: 收盤價 < 開盤價。</li>
+			</ul>
+		</li>
+	</ul>
+	<div class="callout">
+		<h3>⚠️ 地區慣例差異！</h3>
+		<p>在您的分析或報告中，務必註明您使用的顏色慣例：</p>
+		<ul>
+			<li><b>台灣、日本、中國</b>: <strong style="color:red;">紅色 = 漲</strong>；<strong style="color:green;">綠色 = 跌</strong>。</li>
+			<li><b>歐美市場</b>: <strong style="color:green;">綠色 = 漲</strong>；<strong style="color:red;">紅色 = 跌</strong>。</li>
+		</ul>
+		<p>本課程將以<b>台股「紅漲綠跌」</b>慣例進行說明。</p>
+	</div>
+</section>
+
+<section data-index="3">
+	<h2>視覺化(2): 空心 K 線 (Hollow Candlestick)</h2>
+	<p>這種 K 線加入了「與前一天的比較」，能提供更豐富的市場動能資訊。</p>
+	<h3>核心思想</h3>
+	<ul>
+		<li>顏色由「<b>今天的收盤價 vs. 昨天的收盤價</b>」決定。</li>
+		<li>實體是「空心」或「實心」由「<b>今天的開盤價 vs. 收盤價</b>」決定。</li>
+	</ul>
+	<h3>四種組合解讀 (以台股為例)</h3>
+	<ol>
+		<li><b>紅色空心 (最強勢)</b>: 今天上漲 (收盤 > 開盤)，且比昨天漲 (收盤 > 昨日收盤)。</li>
+		<li><b>紅色實心 (漲中帶弱)</b>: 今天下跌 (收盤 < 開盤)，但還是比昨天漲 (開高走低)。</li>
+		<li><b>綠色空心 (跌中帶強)</b>: 今天上漲 (收盤 > 開盤)，但還是比昨天跌 (開低走高，有抄底盤)。</li>
+		<li><b>綠色實心 (最弱勢)</b>: 今天下跌 (收盤 < 開盤)，且比昨天跌。</li>
+	</ol>
+	<p><b>優點</b>: 能更好地呈現趨勢的連續性與潛在的轉折信號。</p>
+</section>
+
+<section data-index="4">
+	<h2>視覺化(3): 成交量 K 線 (Volume Candle)</h2>
+	<p>這種 K 線非常直觀，直接將「成交量」整合進 K 線的樣子裡。</p>
+	<h3>核心思想</h3>
+	<p>K 線的<b>高度</b>代表價格 (OHLC)，<b>寬度</b>則代表<b>成交量</b>的大小。</p>
+	
+	<h3>如何解讀</h3>
+	<ul>
+		<li><b>高瘦的 K 棒</b>: 價格波動大，但成交量小 (價漲量縮 or 價跌量縮)。趨勢可能不穩定。</li>
+		<li><b>矮胖的 K 棒</b>: 價格波動小，但成交量大。多空激烈換手，可能準備變盤。</li>
+		<li><b>高胖的 K 棒</b>: 價格波動大，成交量也大 (價漲量增 or 價跌量增)。市場對趨勢有<b>高度共識</b>，信號可靠。</li>
+	</ul>
+	<div class="callout">
+		<b>優點</b>: 將價、量兩個最重要的資訊結合在一個圖上，一眼就能看出「有共識的趨勢」和「沒人氣的波動」。
+	</div>
+</section>
+
+<section data-index="5">
+	<h2>企業的體檢報告：三大財務報表</h2>
+	<p>如果說每日交易數據是公司的「市場情緒」，那財務報表就是公司長期的「身體狀況」。財報提供了公司的基本面資訊，是價值投資與長期分析的基礎。</p>
+	<div class="kpi-grid">
+		<div>
+			<h3>1. 損益表 (Income Statement)</h3>
+			<p>一段時間內，公司賺不賺錢的<b>成績單</b>。</p>
+		</div>
+		<div>
+			<h3>2. 資產負債表 (Balance Sheet)</h3>
+			<p>某個時間點，公司有多少家底的<b>財務快照</b>。</p>
+		</div>
+		<div>
+			<h3>3. 現金流量表 (Cash Flow Statement)</h3>
+			<p>公司銀行戶頭的<b>資金流水帳</b>，追蹤真實的現金進出。</p>
+		</div>
+	</div>
+</section>
+
+<section data-index="6">
+	<h2>背景知識(1): 何謂 IFRS (國際財務報導準則)?</h2>
+	<p><b>International Financial Reporting Standards</b>，簡稱 IFRS。您可以把它想像成是全球通用的「<b>會計界的通用語言</b>」。</p>
+	<ul>
+		<li><b>過去</b>：各國有自己的會計準則 (GAAP)，就像各地方言，彼此溝通困難。</li>
+		<li><b>現在</b>：全球超過140個國家/地區採用 IFRS，讓跨國企業的財務報表可以直接比較。</li>
+	</ul>
+	<h3>對財金分析的重要性</h3>
+	<ul>
+		<li><span class="pill">可比較性</span> 讓我們可以直接比較台積電和蘋果(Apple)的財報，因為它們都說同一種「會計語言」。</li>
+		<li><span class="pill">透明度</span> IFRS 對於許多會計科目的認列更嚴格，有助於提高財報品質，減少公司作帳空間。</li>
+		<li><span class="pill">全球接軌</span> 這是現代財金從業人員必備的基礎知識。</li>
+	</ul>
+	<div class="callout">
+		台灣的上市櫃公司已全面採用 IFRS，因此我們在公開資訊觀測站或任何財金軟體上看到的財報，都是依據 IFRS 編製的。
+	</div>
+</section>
+
+<section data-index="7">
+	<h2>背景知識(2): 誰是三大法人？市場的巨鯨</h2>
+	<p>在台灣股市，新聞每天都會報導「三大法人買賣超」，他們是市場上資金最雄厚、最能影響股價走向的三大參與者。</p>
+	<table>
+		<thead>
+			<tr><th>法人類型</th><th>英文</th><th>「白話文」解釋</th><th>特性</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><b>外資</b></td>
+				<td>Foreign Institutional Investors</td>
+				<td>外國的專業投資機構，例如：退休基金、共同基金、投資銀行 (高盛、摩根士丹利等)。</td>
+				<td><span class="badge">資金最大</span> 通常進行長期佈局，注重基本面與產業趨勢。</td>
+			</tr>
+			<tr>
+				<td><b>投信</b></td>
+				<td>Securities Investment Trust</td>
+				<td>國內的證券投資信託公司，也就是大家熟知的「基金公司」(元大、國泰、富邦等)。</td>
+				<td><span class="badge">操作靈活</span> 為追求基金績效，操作較為積極，對股價影響快速。</td>
+			</tr>
+			<tr>
+				<td><b>自營商</b></td>
+				<td>Dealers</td>
+				<td>證券公司用「自己的錢」進行投資買賣的部門。</td>
+				<td><span class="badge">操作最短期</span> 交易策略多元，包含長期投資和短期避險、套利。</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="callout">
+		<b>為什麼要關注三大法人？</b> 因為他們擁有龐大的資金和專業的研究團隊，其買賣動向往往被視為市場的風向球。在 Python 數據分析中，「法人買賣超」是預測股價一個非常關鍵的特徵！
+	</div>
+</section>
+
+<section data-index="8">
+	<h2>財報(1): 損益表 (Income Statement)</h2>
+	<p>記錄<b>一段時間內 (例如一季或一年)</b>，公司的收入、成本和最終利潤。告訴我們公司「有沒有賺錢」。</p>
+	<table>
+		<thead>
+			<tr><th>術語</th><th>英文</th><th>學生需要知道的「白話文」解釋</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><b>營業收入 (營收)</b></td>
+				<td>Revenue</td>
+				<td>公司賣產品或服務賺到的所有錢，也稱為 "Top Line"。</td>
+			</tr>
+			<tr>
+				<td><b>毛利</b></td>
+				<td>Gross Profit</td>
+				<td>營收扣掉「直接成本」（如原料）後剩下的錢，代表產品本身的賺錢能力。</td>
+			</tr>
+			<tr>
+				<td><b>稅後淨利</b></td>
+				<td>Net Income</td>
+				<td>扣掉所有成本、費用和稅金後，公司<b>真正賺到口袋裡的錢</b>，也稱為 "Bottom Line"。</td>
+			</tr>
+			<tr>
+				<td><b>每股盈餘 (EPS)</b></td>
+				<td>Earnings Per Share</td>
+				<td>(稅後淨利 ÷ 在外流通股數)。將淨利平攤到每一股上，是衡量獲利能力的關鍵指標。</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section data-index="9">
+	<h2>財報(2): 資產負債表 (Balance Sheet)</h2>
+	<p>記錄在<b>某一個時間點 (例如年底)</b>，公司擁有什麼、欠別人什麼。告訴我們公司「體質穩不穩」。</p>
+	<div class="callout">
+		<h3>核心恆等式</h3>
+		<p style="font-size: 1.25rem; text-align: center; font-weight: bold;">資產 (Assets) = 負債 (Liabilities) + 股東權益 (Equity)</p>
+	</div>
+	<table>
+		<thead>
+			<tr><th>術語</th><th>英文</th><th>學生需要知道的「白話文」解釋</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><b>總資產</b></td>
+				<td>Total Assets</td>
+				<td>公司擁有的所有東西，包括現金、廠房、設備、庫存等。</td>
+			</tr>
+			<tr>
+				<td><b>總負債</b></td>
+				<td>Total Liabilities</td>
+				<td>公司欠別人的所有錢，包括銀行貸款、應付帳款等。</td>
+			</tr>
+			<tr>
+				<td><b>股東權益</b></td>
+				<td>Shareholders' Equity</td>
+				<td>如果把公司所有資產拿去還清所有負債，最後剩下的錢。這才是真正屬於股東的。</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section data-index="10">
+	<h2>財報(3): 現金流量表 (Cash Flow Statement)</h2>
+	<p>損益表上的「利潤」可能只是應收帳款，不代表現金真的進來了。這張表追蹤的是<b>真實現金的流入與流出</b>。告訴我們公司「會不會倒」。</p>
+	<table>
+		<thead>
+			<tr><th>術語</th><th>英文</th><th>學生需要知道的「白話文」解釋</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><b>營業現金流</b></td>
+				<td>Cash Flow from Operations</td>
+				<td>公司靠<b>本業</b>實際賺進來的現金。<span class="badge">最重要的指標</span>，健康的公司此項必須是正數且持續成長。</td>
+			</tr>
+			<tr>
+				<td><b>投資現金流</b></td>
+				<td>Cash Flow from Investing</td>
+				<td>公司花錢買設備、蓋廠房（投資未來）或變賣資產所產生的現金流。</td>
+			</tr>
+			<tr>
+				<td><b>籌資現金流</b></td>
+				<td>Cash Flow from Financing</td>
+				<td>公司跟銀行借錢、跟股東要錢（發行新股）或還錢、發股利所產生的現金流。</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section data-index="11">
+	<h2>總結與下一步</h2>
+	<p>恭喜！您已經學會了金融市場最基礎也最重要的語言。現在，您看到的不再是無意義的數字，而是：</p>
+	<ul>
+		<li><b>市場情緒的波動</b> (每日交易數據與 K 線圖)</li>
+		<li><b>企業經營的成果</b> (三大財務報表)</li>
+		<li><b>資訊的規範與主要玩家</b> (IFRS 與三大法人)</li>
+	</ul>
+	<p>有了這些知識作為基礎，我們就可以更有信心地回到 Python 和 AI 的世界，開始利用這些數據來建構真正的量化分析與預測模型。</p>
+	<div class="callout">
+		在下一個單元，我們將學習如何使用 Python 的 <code>yfinance</code> 和 <code>pandas</code> 函式庫，實際將今天學到的這些數據抓取下來，並進行初步的處理與分析。
+	</div>
+</section>
+
+	</div>
+</main>
+
+<footer class="supplement">
+	© 2025 Porshen Lai · Teaching material (HTML). 完整離線單檔 · Single-file Offline
+</footer>
+
+<script>
+(function(){
+	// --- Element Selectors ---
+	const content = document.getElementById('content');
+	const sections = Array.from(content.querySelectorAll('section'));
+	const tocList = document.getElementById('tocList');
+	const prevBtn = document.getElementById('prevBtn');
+	const nextBtn = document.getElementById('nextBtn');
+	const progressBar = document.getElementById('progressBar');
+	const counter = document.getElementById('counter');
+	const panelToggleBtn = document.getElementById('panelToggleBtn');
+	const panelOverlay = document.getElementById('panel-overlay');
+	const operationsPanel = document.getElementById('operationsPanel');
+	
+	let currentActiveIndex = -1;
+
+	// --- Build TOC ---
+	sections.forEach((sec, idx) => {
+		sec.id = 's' + (idx + 1);
+		const h = sec.querySelector('h2');
+		const title = h ? h.textContent.trim() : 'Section ' + (idx + 1);
+		const li = document.createElement('li');
+		const a = document.createElement('a');
+		a.href = '#' + sec.id;
+		a.textContent = title;
+		a.dataset.index = idx;
+		li.appendChild(a);
+		tocList.appendChild(li);
+	});
+	const tocLinks = Array.from(tocList.querySelectorAll('a'));
+
+	// --- Core UI Update & Navigation Function ---
+	function activateSection(index, smooth = true) {
+		if (index < 0 || index >= sections.length || index === currentActiveIndex) {
+				return; // Prevent invalid or redundant calls
+		}
+		currentActiveIndex = index;
+
+		// 1. Update progress bar and counter
+		const progressPercentage = ((index + 1) / sections.length * 100).toFixed(2);
+		progressBar.style.width = progressPercentage + '%';
+		counter.textContent = (index + 1) + ' / ' + sections.length;
+		
+		// 2. Update button states
+		prevBtn.disabled = (index === 0);
+		nextBtn.disabled = (index === sections.length - 1);
+		
+		// 3. Highlight active section and TOC link
+		sections.forEach((sec, i) => {
+			sec.classList.toggle('current-section', i === index);
+		});
+		tocLinks.forEach((link, i) => {
+			link.classList.toggle('active', i === index);
+		});
+		
+		// 4. Update URL hash and scroll into view
+		const section = sections[index];
+		if (history.replaceState) {
+			history.replaceState(null, null, '#' + section.id);
+		} else {
+			location.hash = '#' + section.id;
+		}
+		section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+	}
+
+	// --- Event Listeners ---
+	prevBtn.addEventListener('click', () => activateSection(currentActiveIndex - 1));
+	nextBtn.addEventListener('click', () => activateSection(currentActiveIndex + 1));
+	
+	tocLinks.forEach(link => {
+		link.addEventListener('click', (e) => {
+			e.preventDefault();
+			const index = parseInt(e.currentTarget.dataset.index, 10);
+			activateSection(index);
+			closePanel();
+		});
+	});
+
+	window.addEventListener('keydown', (e) => {
+		if (e.key === 'ArrowLeft') activateSection(currentActiveIndex - 1);
+		if (e.key === 'ArrowRight') activateSection(currentActiveIndex + 1);
+	});
+	
+	sections.forEach(section => {
+		section.addEventListener('click', function() {
+			// 'this' refers to the clicked section element
+			const index = parseInt(this.dataset.index, 10);
+			activateSection(index);
+		});
+	});
+
+	// --- Panel Logic ---
+	function openPanel() { document.body.classList.add('panel-open'); }
+	function closePanel() { document.body.classList.remove('panel-open'); }
+
+	panelToggleBtn.addEventListener('click', e => {
+		e.stopPropagation();
+		document.body.classList.contains('panel-open') ? closePanel() : openPanel();
+	});
+	
+	panelOverlay.addEventListener('click', closePanel);
+	
+	operationsPanel.addEventListener('click', (e) => {
+		e.stopPropagation();
+	});
+
+	// --- Font Size Controls ---
+	const fontIncreaseBtn = document.getElementById('fontIncreaseBtn');
+	const fontDecreaseBtn = document.getElementById('fontDecreaseBtn');
+	const fontDisplay = document.getElementById('fontDisplay');
+	const root = document.documentElement;
+
+	const FONT_STEP = 0.05, MAX_FONT_SCALE = 1.5, MIN_FONT_SCALE = 0.8, DEFAULT_FONT_SIZE = 16;
+	let currentFontScale = 1.0;
+
+	function applyFontSize(scale) {
+		currentFontScale = Math.max(MIN_FONT_SCALE, Math.min(MAX_FONT_SCALE, scale));
+		root.style.setProperty('--base-font-size', `${DEFAULT_FONT_SIZE * currentFontScale}px`);
+		fontDisplay.textContent = `${Math.round(currentFontScale * 100)}%`;
+		localStorage.setItem('fontScale', currentFontScale);
+	}
+
+	fontIncreaseBtn.addEventListener('click', () => applyFontSize(currentFontScale + FONT_STEP));
+	fontDecreaseBtn.addEventListener('click', () => applyFontSize(currentFontScale - FONT_STEP));
+
+	// --- Initialization ---
+	function init() {
+		// Load font size setting
+		const savedScale = localStorage.getItem('fontScale');
+		applyFontSize(savedScale ? parseFloat(savedScale) : 1.0);
+		
+		// Set initial section based on URL hash or default to first
+		let initialIndex = 0;
+		if (location.hash) {
+			const matchingSection = sections.find(s => '#' + s.id === location.hash);
+			if (matchingSection) {
+				initialIndex = parseInt(matchingSection.dataset.index, 10);
+			}
+		}
+		activateSection(initialIndex, false); // Initial activation without smooth scroll
+	}
+	init();
+})();
+</script>
+</body>
+</html>

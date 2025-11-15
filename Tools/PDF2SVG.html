@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <title>PDF to SVG Demo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    #pdf-viewer { border:1px solid #888; margin:10px 0; }
+    button { margin: 5px; }
+  </style>
+</head>
+<body>
+  <h2>PDF轉SVG範例</h2>
+  <input type="file" id="file-input" accept="application/pdf" />
+  <button id="export-svg" disabled>匯出SVG</button>
+  <div id="pdf-viewer"></div>
+  <script>
+    let pdfDoc, svgElement;
+    document.getElementById('file-input').addEventListener('change', async function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const arrayBuffer = await file.arrayBuffer();
+      pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      const page = await pdfDoc.getPage(1);
+      // 切換SVG顯示
+      const operatorList = await page.getOperatorList();
+      const viewport = page.getViewport({ scale: 1.5 });
+      const svgGfx = new pdfjsLib.SVGGraphics(page.commonObjs, page.objs);
+      svgElement = await svgGfx.getSVG(operatorList, viewport);
+      document.getElementById('pdf-viewer').innerHTML = '';
+      document.getElementById('pdf-viewer').appendChild(svgElement);
+      document.getElementById('export-svg').disabled = false;
+    });
+    document.getElementById('export-svg').addEventListener('click', function() {
+      if (!svgElement) return;
+      const serializer = new XMLSerializer();
+      const svgStr = serializer.serializeToString(svgElement);
+      const blob = new Blob([svgStr], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'page1.svg';
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

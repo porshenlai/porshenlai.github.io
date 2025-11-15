@@ -1,215 +1,85 @@
 (function(){
 
-	function initializePresentation() {
-		// --- Element Selectors ---
-		const content = document.getElementById('content');
-		console.assert(content,'請將投影片 <section> 置於 id="content" 元素之下。');
-		const sections = Array.from(content.querySelectorAll('section'));
-		const tocList = document.getElementById('tocList');
-		const prevBtn = document.getElementById('prevBtn');
-		const nextBtn = document.getElementById('nextBtn');
-		const counter = document.getElementById('counter');
-		const panelOverlay = document.getElementById('panel-overlay'); 
-		const operationsPanel = document.getElementById('operationsPanel');
-		
-		// NEW: Mobile control selectors
-		const mobilePrevBtn = document.getElementById('mobilePrevBtn');
-		const mobileNextBtn = document.getElementById('mobileNextBtn');
-		const mobileEscBtn = document.getElementById('mobileEscBtn');
-		
-		let currentActiveIndex = -1;
+const currentScript = document.currentScript;
 
-		((te)=>{
-			if(te.textContent) return;
-			te.textContent=(document.body.querySelector('.title')||{"textContent":"Presentation"}).textContent;
-		})(document.head.querySelector("title"));
+class Aside
+{	// Aside tutorial bar {{{
+	constructor (RE=document.body, CB={}) {
+		this.RE=RE;
 
-		// --- Build TOC ---
-		sections.forEach((sec, idx) => {
-			if (!sec.hasAttribute("data-index"))
-				sec.setAttribute("data-index",idx);
-			sec.id = 's' + (idx + 1);
-			const h = sec.querySelector('h2') || sec.querySelector('h1');
-			const title = h ? h.textContent.trim() : 'Section ' + (idx + 1);
-			const li = document.createElement('li');
-			const a = document.createElement('a');
-			a.href = '#' + sec.id;
-			a.textContent = title;
-			a.dataset.index = idx;
-			li.appendChild(a);
-			tocList.appendChild(li);
-		});
-		const tocLinks = Array.from(tocList.querySelectorAll('a'));
+		// create panel-overlay (mask)
+		((E)=>{
+			E.addEventListener('click', (evt) => this.close());
+			((S)=>{
+				// [CSS] position:fixed; top:0; left:0; right:0; bottom:0;
+				S.position="fixed";
+				S.top=S.left=S.right=S.bottom=0;
+				// [CSS] background:rgba(0,0,0,0.4); z-index:99;
+				S.background="rgba(0,0,0,0.4)";
+				S.zIndex=99;
+				// [CSS] transition:opacity 0.3s ease, visibility 0.3s;
+				S.transition="opacity 0.3s ease, visibility 0.3s";
+			})(E.style);
+		})(this.Overlay=document.createElement('div'));
+		RE.appendChild(this.Overlay);
 
-		// --- Core UI Update & Navigation Function ---
-		function activateSection(index, smooth = true) {
-			if (index < 0 || index >= sections.length || index === currentActiveIndex) {
-					return; // Prevent invalid or redundant calls
-			}
-			currentActiveIndex = index;
-
-			// 1. Update progress bar and counter
-			counter.textContent = (index + 1) + ' / ' + sections.length;
-			
-			// 2. Update button states
-			prevBtn.disabled = (index === 0);
-			nextBtn.disabled = (index === sections.length - 1);
-			// NEW: Also update mobile buttons
-			if (mobilePrevBtn) {
-				mobilePrevBtn.disabled = (index === 0);
-				mobileNextBtn.disabled = (index === sections.length - 1);
-			}
-			
-			// 3. Highlight active section and TOC link
-			sections.forEach((sec, i) => {
-				sec.classList.toggle('current-section', i === index);
-			});
-			tocLinks.forEach((link, i) => {
-				link.classList.toggle('active', i === index);
-			});
-			
-			// 4. Update URL hash and scroll into view
-			const section = sections[index];
-			if (history.replaceState) {
-				history.replaceState(null, null, '#' + section.id);
-			} else {
-				location.hash = '#' + section.id;
-			}
-			section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
-			sections[index].scrollTop=0;
-		}
-
-		// --- Panel Logic ---
-		function openPanel() { document.body.classList.add('panel-open'); }
-		function closePanel() { document.body.classList.remove('panel-open'); }
-		function togglePanel() {
-			document.body.classList.contains('panel-open') ? closePanel() : openPanel();
-		}
-
-		// --- Event Listeners ---
-		prevBtn.addEventListener('click', () => activateSection(currentActiveIndex - 1));
-		nextBtn.addEventListener('click', () => activateSection(currentActiveIndex + 1));
-		
-		tocLinks.forEach(link => {
-			link.addEventListener('click', (e) => {
-				e.preventDefault();
-				const index = parseInt(e.currentTarget.dataset.index, 10);
-				activateSection(index);
-				closePanel();
-			});
-		});
-
-		window.addEventListener('keydown', (e) => {
-			if (e.key === 'ArrowLeft') activateSection(currentActiveIndex - 1);
-			if (e.key === 'ArrowRight') activateSection(currentActiveIndex + 1);
-			
-			if (e.key === 'Escape') {
-				e.preventDefault(); // Stop default browser action (like exiting fullscreen)
-				togglePanel();
-			}
-		});
-		
-		sections.forEach(section => {
-			section.addEventListener('click', function() {
-				const index = parseInt(this.dataset.index, 10);
-				activateSection(index);
-			});
-		});
-
-		panelOverlay.addEventListener('click', closePanel);
-		
-		operationsPanel.addEventListener('click', (e) => {
-			e.stopPropagation();
-		});
-
-		// NEW: Mobile control listeners
-		if (document.body.classList.contains('is-mobile')) {
-			mobilePrevBtn.addEventListener('click', () => activateSection(currentActiveIndex - 1));
-			mobileNextBtn.addEventListener('click', () => activateSection(currentActiveIndex + 1));
-			mobileEscBtn.addEventListener('click', () => togglePanel());
-		}
-
-		// --- Font Size Controls ---
-		const fontIncreaseBtn = document.getElementById('fontIncreaseBtn');
-		const fontDecreaseBtn = document.getElementById('fontDecreaseBtn');
-		const fontDisplay = document.getElementById('fontDisplay');
-		const root = document.documentElement;
-
-		const FONT_STEP = 0.05, MAX_FONT_SCALE = 1.5, MIN_FONT_SCALE = 0.8, DEFAULT_FONT_SIZE = 24;
-		let currentFontScale = 1.0;
-
-		function applyFontSize(scale) {
-			currentFontScale = Math.max(MIN_FONT_SCALE, Math.min(MAX_FONT_SCALE, scale));
-			root.style.setProperty('--base-font-size', `${DEFAULT_FONT_SIZE * currentFontScale}px`);
-			fontDisplay.textContent = `${Math.round(currentFontScale * 100)}%`;
-			localStorage.setItem('fontScale', currentFontScale);
-		}
-
-		fontIncreaseBtn.addEventListener('click', () => applyFontSize(currentFontScale + FONT_STEP));
-		fontDecreaseBtn.addEventListener('click', () => applyFontSize(currentFontScale - FONT_STEP));
-
-		// --- Initialization ---
-		function init() {
-			// Load font size setting
-			const savedScale = localStorage.getItem('fontScale');
-			applyFontSize(savedScale ? parseFloat(savedScale) : 1.0);
-			
-			// Set initial section based on URL hash or default to first
-			let initialIndex = 0;
-			if (location.hash) {
-				const matchingSection = sections.find(s => '#' + s.id === location.hash);
-				if (matchingSection) {
-					initialIndex = parseInt(matchingSection.dataset.index, 10);
-				}
-			}
-			activateSection(initialIndex, false); // Initial activation without smooth scroll
-		}
-		
-		// 執行初始化
-		init();
-	} // --- 結束 initializePresentation 函式 ---
-
-	document.head.appendChild((
-		(e)=>{
-			e.setAttribute("rel","stylesheet");
-			const u=/(.*\/)[^\/]+(\?.*)?/.exec(document.currentScript.getAttribute("src"));
-			e.setAttribute("href",u ? (u[1]+"/slide.css") : "slide.css");
-			return e;
-		}
-	)(document.createElement("link")));
-
-	document.addEventListener('fullscreenchange', function() {
-    	const isFullscreen = document.fullscreenElement;
-    	if (isFullscreen) {
-        	console.log('The browser has ENTERED fullscreen mode.');
-			document.getElementById("content").setAttribute("playmode","page");
-    	} else {
-        	console.log('The browser has QUIT fullscreen mode.');
-			document.getElementById("content").setAttribute("playmode","continuous");
-    	}
-	});
-
-	document.addEventListener('DOMContentLoaded', () => {
-		if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-			document.body.classList.add('is-mobile');
-		}
-		// 建立並附加 panel-overlay
-		const overlay = document.createElement('div');
-		overlay.id = 'panel-overlay';
-		document.body.appendChild(overlay);
-
-		// 建立並附加 <aside>
-		document.body.appendChild(
-			((asideElement)=>{
-				asideElement.id = "operationsPanel";
-				asideElement.innerHTML=`
+		// Aside bar
+		this.E=((E) => {
+			((S) => {
+				// [CSS] position: fixed; top: 0; right: 0; bottom: 0;
+				S.position="fixed";
+				S.top=S.right=S.bottom=0;
+				// [CSS] width: 320px; max-width: 80vw;
+				S.width="320px"; S.maxWidth="80vw";
+				// [CSS] background: #fff;
+				S.background="#fff";
+				// [CSS] border-left: 1px solid #eee;
+				S.borderLeft="1px solid #eee";
+				// [CSS] box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+				S.boxShadow="-2px 0 10px rgba(0,0,0,0.1)";
+				// [CSS] z-index: 100;
+				S.zIndex=100;
+				// [CSS] transform: translateX(100%);
+				S.transform="translateX(100%)";
+				// [CSS] transition: transform 0.3s ease;
+				S.transition="transform 0.3s ease";
+				// [CSS] display: flex; flex-direction: column;
+				S.display="flex";
+				S.flexDirection="column";
+			})(E.style);
+			E.setAttribute("current","toc");
+			E.innerHTML=`
+<style>
+	.panel-header { padding: 1rem; border-bottom: 1px solid #eee; }
+	.panel-header h3 { margin: 0; color: #0d5ea8; }
+	[current="settings"] #toc, [current="toc"] #settings { display:none; }
+	[current="settings"] #showSettings, [current="toc"] #showTOC { border-color:white; font-weight:bold; }
+	#toc, #settings { flex: 1; overflow-y: auto; padding: 1rem; }
+	#toc ol { list-style: none; padding: 0; margin: 0; }
+	#toc li { margin: 4px 0; }
+	#toc a { color:#0d5ea8; text-decoration: none; display: block; padding: 6px 10px; border-radius: 6px; font-size: 0.9rem; }
+	#toc a:hover { background-color: #f0f5fa; }
+	#toc a.active { font-weight:700; background-color: #e3f2fd; }
+	#settings { display: flex; justify-content: space-between; align-items: center; }
+	#settings label { color: var(--text); font-size: 0.9rem; }
+	#settings .zoom-controls { display: flex; align-items: center; gap: 0.5rem; }
+	.panel-footer { padding: 1rem; border-top: 1px solid #eee; background: #fcfcfc; text-align:center; }
+	.zoom-controls button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ccc; background-color: #f9f9f9; cursor: pointer;}
+	.nav-controls { display: flex; align-items: center; gap: 10px; }
+	.help { font-size: 0.8rem; color: var(--muted); width:100%; text-align:center; }
+</style>
 <div class="panel-header">
 	<h3 style="white-space:nowrap">
-		<span onclick="document.getElementById('content').requestFullscreen();" style="cursor:pointer">🗖</span>
-		導覽
-		<span onclick="document.getElementById('operationsPanel').classList.toggle('show-settings');" style="cursor:pointer">↕</span>
+		<span class="btn" id="playBtn">🗖</span>
+		<button class="btn" id="showTOC">導覽</button>
+		<button class="btn" id="showSettings">設定</button>
 	</h3>
-	<div class="setting-item">
+</div>
+<div style="overflow-y:auto;">
+	<nav id="toc">
+		<ol id="tocList"></ol>
+	</nav>
+	<div id="settings">
 		<label>字型大小</label>
 		<div class="zoom-controls">
 			<button id="fontDecreaseBtn" title="縮小字型">-</button>
@@ -218,37 +88,341 @@
 		</div>
 	</div>
 </div>
-<nav id="toc">
-	<ol id="tocList"></ol>
-</nav>
 <div class="panel-footer">
 	<div class="nav-controls">
 		<button class="btn" id="prevBtn" title="上一節 Prev (←)">←</button>
 		<span id="counter" class="help"></span>
 		<button class="btn" id="nextBtn" title="下一節 Next (→)">→</button>
 	</div>
-	<!--footer>
 	© 2025 Porshen Lai
-	</footer-->
-</div>
-`;
-				return asideElement;
-			})(document.createElement("aside"))
-		);
+</div>`;
+			E.addEventListener('click', (evt) => {
+				let e = evt.target;
+				switch(e.id){
+				case "playBtn":
+					if (CB.fullscreen) CB.fullscreen(evt);
+					break;
+				case "prevBtn":
+					if (CB.activate) CB.activate(-1);
+					break;
+				case "nextBtn":
+					if (CB.activate) CB.activate(1);
+					break;
+				case "fontDecreaseBtn":
+					if (CB.applyFontScale) CB.applyFontScale(-0.05);
+					break;
+				case "fontIncreaseBtn":
+					if (CB.applyFontScale) CB.applyFontScale(0.05);
+					break;
+				case "showTOC":
+					this.E.setAttribute("current","toc");
+					break;
+				case "showSettings":
+					this.E.setAttribute("current","settings");
+					break;
+				default:
+					if (e.tagName==="A") {
+						evt.preventDefault();
+						if (CB.activate) CB.activate(0,parseInt(e.dataset.index, 10));
+						this.close();
+					}
+					break;
+				}
+				evt.stopPropagation();
+			});
+			return E;
+		})(document.createElement("aside"));
+		this.Overlay.appendChild(this.E);
+		this.close();
+	}
+	update (index, total) {
+		this.E.querySelector('#counter').textContent=(index+1)+' / '+total;
+		this.E.querySelector('#prevBtn').disabled=(index===0);
+		this.E.querySelector('#nextBtn').disabled=(index===total-1);
+		Array.from(this.E.querySelectorAll('#tocList a'))
+			.forEach((link, i) => link.classList.toggle('active', i === index));
+	}
+	createTocList (sections) {
+		const tocList=this.E.querySelector('#tocList');
+		sections.forEach((sec, idx) => {
+			const h = sec.querySelector('h2') || sec.querySelector('h1');
+			const title = h ? h.textContent.trim() : (idx + 1);
+			const li = document.createElement('li');
+			const a = document.createElement('a');
+			a.href = '#' + sec.id;
+			a.textContent = title;
+			a.dataset.index = idx;
+			li.appendChild(a);
+			tocList.appendChild(li);
+		});
+	}
+	open () {
+		((S)=>{
+			// [CSS] opacity:1; visiblity:visible;
+			S.opacity=1;
+			S.visibility="visible";
+		})(this.Overlay.style);
+		// [CSS] transform: translateX(0);
+		this.E.style.transform="translateX(0)";
+	}
+	close () {
+		((S)=>{
+			// CSS: { opacity:0; visiblity:hidden; }
+			S.opacity=0;
+			S.visibility="hidden";
+		})(this.Overlay.style);
+		// [CSS] transform: translateX(100%);
+		this.E.style.transform="translateX(100%)";
+	}
+	toggle () {
+		this["hidden" === this.Overlay.style.visibility ? "open" : "close"]();
+	}
+}	// }}}
 
-		// 建立並附加 mobile controls, 無條件附加，CSS 會根據 .is-mobile 決定是否顯示
-		document.body.appendChild(
-			((mobileControls)=>{
-				mobileControls.id = 'mobileControls';
-				mobileControls.innerHTML = `
+class Quiz
+{	// Quiz Plugin {{{
+	constructor (e, ans)
+	{	// (root element of Quiz, {... qi:qa})
+		((SE) => { // install style for Quiz
+			if (SE) return;
+			SE=document.createElement("style");
+			SE.innerHTML=`
+.QS { font-weight:bold; text-decoration:underline; }
+.QI { display:flex;align-items:center; }
+[qr="x"] { color:red; }
+[qr="o"] { color:green; }
+[qi] { border:2px solid silver;padding:1px 4px;margin:4px 1px; }
+[qo]:hover { background:lightgrey; }
+[qt="s"][qa] [qo] { display:none; }
+[qt="s"][qa] .QS[qo] { display:block; }
+section { margin:4px; padding:16px 4px; border:2px solid blue; border-radius:12px; }
+`;
+			document.head.appendChild(SE);
+		})(document.head.querySelector('style[STYID="Quiz"]'));
+
+		this.E=e;
+		this.AnsDB=ans||((ans)=>{
+			//document.head.setAttribute("AID",btoa(JSON.stringify({ "1":3, "2-1":2, "3":2, "4":7 })));
+			if (!ans) return {};
+			return JSON.parse(atob(ans));
+		})(document.head.getAttribute("AID"));
+		this.E.addEventListener('click',(evt)=>{
+			if (evt.target.hasAttribute('qo')) {
+				this.answer(evt.target);
+				evt.stopPropagation();
+			}
+		});
+	}
+	answer (e)
+	{
+		const p=e.parentNode, qi=p.getAttribute("qi");
+		switch(p.getAttribute('qt')||'s'){
+		case 's':
+			if (e.classList.contains('QS')) {
+				[... p.querySelectorAll('.QS')].forEach((e)=>e.classList.remove('QS'));
+				p.removeAttribute("qr");
+				p.removeAttribute("qa");
+			} else {
+				[... p.querySelectorAll('.QS')].forEach((e)=>e.classList.remove('QS'));
+				e.classList.add('QS');
+				const ans=parseInt(e.getAttribute("qo"));
+				if (this.AnsDB[qi])
+					p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
+				p.setAttribute("qa",ans);
+			}
+			console.log("DONE");
+			break;
+		case 'm':
+			e.classList.toggle('QS');
+			const ans=[... p.querySelectorAll('.QS')].reduce((r,e)=>r|parseInt(e.getAttribute('qo')),0);
+			p.setAttribute("qa",ans);
+			if (this.AnsDB[qi])
+				p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
+			break;
+		}
+	}
+	mark () {
+		return [... this.E.querySelectorAll('[qi]')].reduce((r,e)=>{
+			r[e.getAttribute('qi')]=e.getAttribute('qa');
+			return r;
+		},{});
+	}
+}	// }}}
+
+class Slides
+{	// {{{
+	constructor (RE) {
+
+		this.currentActiveIndex=-1;
+		this.currentFontScale=1.0;
+		
+		this.Content=document.getElementById('content');
+		this.Content.addEventListener('click',(evt) => {
+			let e=evt.target, s;
+			for (s=e;s&&s.tagName!=="SECTION";s=s.parentNode);
+			if (s&&s.tagName==="SECTION")
+				this.activateSection(parseInt(s.getAttribute("data-index"),10));
+		});
+
+		this.Sections=Array.from(content.querySelectorAll('section'));
+		this.Sections.forEach((sec, idx) => {
+			if (!sec.hasAttribute("data-index"))
+				sec.setAttribute("data-index",idx);
+			sec.id = 's' + (idx + 1);
+		});
+
+		this.Aside=new Aside(document.body, {
+			"fullscreen": () => document.getElementById('content').requestFullscreen(),
+			"activate": (s,c) => this.activateSection(s+(c===undefined?this.currentActiveIndex:c)),
+			"applyFontScale": (scale) => this.applyFontSize(this.currentFontScale + scale)
+		});
+		this.Aside.createTocList(this.Sections);
+
+		// Install Plugins
+		this.Plugins={};
+		if (this.Content.querySelector('[qi]')) // qi="Quiz ID"
+			this.Plugins.Quiz=new Quiz(this.Content);
+			// .addEventListener('click',(evt)=>{ console.log(qz.mark()); });
+		// If <title> not exist, create one
+		if (!document.head.querySelector("title"))
+			document.head.appendChild(((E) => {
+				E.textContent=(
+					this.Content.querySelector('.title') ||
+					{"textContent":"Presentation"}
+				).textContent;
+				return E;
+			})(document.createElement('title')));
+
+		document.head.appendChild(( // import slide.css
+			(e)=>{
+				e.setAttribute("rel","stylesheet");
+				const u=/(.*\/)[^\/]+(\?.*)?/.exec(currentScript.getAttribute("src"));
+				e.setAttribute("href",u ? (u[1]+"/slide_new.css") : "slide_new.css");
+				return e;
+			}
+		)(document.createElement("link")));
+	}
+
+	activateSection (index, smooth = true) {
+		if (index < 0 || index >= this.Sections.length || index === this.currentActiveIndex)
+			return; // Prevent invalid or redundant calls
+
+		this.currentActiveIndex = index;
+		if (this.Aside)
+			this.Aside.update(index, this.Sections.length);
+		((E)=>{
+			if(E) E.update(index, this.Sections.length);
+		})(document.getElementById("mobileControls"));
+
+		this.Sections.forEach((sec, i) => sec.classList.toggle('current-section', i === index));
+			
+		// 4. Update URL hash and scroll into view
+		const section = this.Sections[index];
+		if (history.replaceState) {
+			history.replaceState(null, null, '#' + section.id);
+		} else {
+			location.hash = '#' + section.id;
+		}
+		section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+		this.Sections[index].scrollTop=0;
+	}
+
+	applyFontSize (scale) {
+		const DEFAULT_FONT_SIZE = 24;
+		this.currentFontScale = Math.max(0.8, Math.min(1.5, scale));
+		document.documentElement.style.setProperty(
+			'--base-font-size',
+			`${DEFAULT_FONT_SIZE * this.currentFontScale}px`
+		);
+		this.Aside.E.querySelector('#fontDisplay').textContent = `${Math.round(this.currentFontScale * 100)}%`;
+	}
+}	// }}}
+
+document.addEventListener('DOMContentLoaded', () => {
+	if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+		document.body.classList.add('is-mobile');
+	}
+
+	let MS=new Slides(document.body);
+
+	let initialIndex = 0;
+	if (location.hash) {
+		const matchingSection = MS.Sections.find(s => '#' + s.id === location.hash);
+		if (matchingSection)
+			initialIndex = parseInt(matchingSection.getAttribute("data-index"), 10);
+	}
+
+	MS.applyFontSize (1.0);
+	setTimeout(()=>MS.activateSection(initialIndex, false),1);
+
+	window.addEventListener('keydown', (e) => {
+		if (e.key==='ArrowLeft') MS.activateSection(MS.currentActiveIndex - 1);
+		if (e.key==='ArrowRight') MS.activateSection(MS.currentActiveIndex + 1);
+		if (e.key==='Escape') {
+			e.preventDefault();
+			MS.Aside.toggle();
+		}
+	});
+
+	if (document.body.classList.contains('is-mobile')) {
+		((E)=>{ // {{{
+			E.id='mobileControls';
+			E.innerHTML=`
+<style>
+#mobileControls {
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 0.1rem 0.75rem;
+	background: rgba(255, 255, 255, 0.95);
+	border-top: 1px solid #ddd;
+	box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+	z-index: 50;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+#mobileControls .btn {
+	flex: 1;
+	padding: 0.2rem 0.5rem;
+	font-size: 0.9rem;
+	font-weight: bold;
+}
+</style>
 <button id="mobilePrevBtn" class="btn">← 上一頁</button>
 <button id="mobileEscBtn" class="btn">☰ 導覽</button>
 <button id="mobileNextBtn" class="btn">下一頁 →</button>
 `;
-				return mobileControls;
-			})(document.createElement('div'))
-		);
+			E.update=(index,total) => {
+				E.querySelector("#mobilePrevBtn").disabled = (index === 0);
+				E.querySelector("#mobileNextBtn").disabled = (index === total - 1);
+			};
+			E.addEventListener('click',(evt) => {
+				let e=evt.target;
+				switch(e.id){
+				case 'mobilePrevBtn':
+					MS.activateSection(MS.currentActiveIndex - 1);
+					break;
+				case 'mobileNextBtn':
+					MS.activateSection(MS.currentActiveIndex + 1);
+					break;
+				case 'mobileEscBtn':
+					MS.Aside.toggle();
+					break;
+				}
+			});
+			document.body.appendChild(E);
+		})(document.createElement('div'));
+	}	// }}}
 
-		initializePresentation();
+	document.addEventListener('fullscreenchange', function () {
+		document.getElementById("content")
+		.setAttribute(
+			"playmode",
+			document.fullscreenElement ? "page" : "continuous"
+		);
 	});
+});
+
 })();
