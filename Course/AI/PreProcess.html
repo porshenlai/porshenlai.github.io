@@ -386,43 +386,174 @@
 			</div>
 		</div>
 	</section>
-	<section>
-		<h2>總結 📝</h2>
-		<p>恭喜！您已經完整走過資料科學中<strong>從原始資料到模型訓練的結構化表格</strong>的四大關鍵流程。</p>
-		<p>以下是我們回顧的步驟、每個階段的<strong>目標問題</strong>和您的<strong>主要方法</strong>，以確保我們對整個流程有深入的理解：</p>
-		<table border='1' cellpadding='8' cellspacing='0' align="center"><tbody>
-			<tr><th>問題</th><th>方法</th></tr>
-			<tr><th colspan="2">數據獲取與整合</th></tr>
-			<tr><td>欄位名稱和結構不一致</td><td>統一關鍵識別碼 (Key)</td></tr>
-			<tr><td>數據的粒度不一致</td><td>對細粒度數據進行聚合 (Aggregation)</td></tr>
-			<tr><th colspan="2">數據清洗</th></tr>
-			<tr><td>遺失值 (Missing Values)</td><td>中位數填補 (Median Imputation)</td></tr>
-			<tr><td>數據不一致（文本變體）</td><td>文本標準化 (Text Standardization)</td></tr>
-			<tr><td>錯誤資料（違反業務規則）</td><td>業務規則驗證 (Validation)</td></tr>
-			<tr><th colspan="2">數據轉換</th></tr>
-			<tr><td>數值尺度差異過大</td><td>標準化 (Standardization)</td></tr>
-			<tr><td>名目型類別無順序性</td><td>獨熱編碼 (One-Hot Encoding)</td></tr>
-			<tr><td>數值分佈極度偏態</td><td>對數轉換 (Log Transformation)</td></tr>
-			<tr><th colspan="2">數據降維與簡化</th></tr>
-			<tr><td>維度過高（特徵過多）</td><td>主成分分析 (PCA)</strong> 或 <strong>特徵選擇</td></tr>
-			<tr><td>特徵間高度相關/冗餘</td><td>刪除其中一個冗餘特徵</strong></td></tr>
-		</tbody></table>
-	</section>
-</div>
 
-<script>
-/*
-	[... document.body.querySelectorAll('.answer')].forEach( (E)=>{
-		E=E.parentNode;
-		if (E.answer==true) return;
-		E.answer=true;
-		E.addEventListener("click", (evt)=>{
-			E.classList.toggle("correct");
-			evt.stopPropagation();
-		});
-	} );
-*/
-</script>
+<section>
+	<h2>總結 📝</h2>
+	<p>恭喜！您已經完整走過資料科學中<strong>從原始資料到模型訓練的結構化表格</strong>的四大關鍵流程。</p>
+	<p>以下是我們回顧的步驟、每個階段的<strong>目標問題</strong>和您的<strong>主要方法</strong>，以確保我們對整個流程有深入的理解：</p>
+	<table border='1' cellpadding='8' cellspacing='0' align="center"><tbody>
+		<tr><th>問題</th><th>方法</th></tr>
+		<tr><th colspan="2">數據獲取與整合</th></tr>
+		<tr><td>欄位名稱和結構不一致</td><td>統一關鍵識別碼 (Key)</td></tr>
+		<tr><td>數據的粒度不一致</td><td>對細粒度數據進行聚合 (Aggregation)</td></tr>
+		<tr><th colspan="2">數據清洗</th></tr>
+		<tr><td>遺失值 (Missing Values)</td><td>中位數填補 (Median Imputation)</td></tr>
+		<tr><td>數據不一致（文本變體）</td><td>文本標準化 (Text Standardization)</td></tr>
+		<tr><td>錯誤資料（違反業務規則）</td><td>業務規則驗證 (Validation)</td></tr>
+		<tr><th colspan="2">數據轉換</th></tr>
+		<tr><td>數值尺度差異過大</td><td>標準化 (Standardization)</td></tr>
+		<tr><td>名目型類別無順序性</td><td>獨熱編碼 (One-Hot Encoding)</td></tr>
+		<tr><td>數值分佈極度偏態</td><td>對數轉換 (Log Transformation)</td></tr>
+		<tr><th colspan="2">數據降維與簡化</th></tr>
+		<tr><td>維度過高（特徵過多）</td><td>主成分分析 (PCA)</strong> 或 <strong>特徵選擇</td></tr>
+		<tr><td>特徵間高度相關/冗餘</td><td>刪除其中一個冗餘特徵</strong></td></tr>
+	</tbody></table>
+</section>
+
+<section AID='eyIxIjoyLCIyIjoxLCIzIjozLCI0IjoyLCI1IjozLCI2IjoxLCI3IjozLCI4IjoyLCI5IjozLCIxMCI6MSwiMTEiOjIsIjEyIjozLCIxMyI6MywiMTQiOjEsIjE1IjoyLCIxNiI6MiwiMTciOjMsIjE4IjoyLCIxOSI6MiwiMjAiOjN9'>
+<div qi='1' qt='s' qc='Preprocessing,GIGO'>
+	在資料前處理中，常提到 "GIGO" 原則，它代表什麼意思？
+	<div qo='1'>Good In, Good Out (好資料進，好資料出)</div>
+	<div qo='2'>Garbage In, Garbage Out (垃圾進，垃圾出)</div>
+	<div qo='3'>Great Input, Great Output (好輸入，好輸出)</div>
+	<div qo='4'>General Input, General Output (一般輸入，一般輸出)</div>
+</div>
+<div qi='2' qt='s' qc='Missing Data,Imputation'>
+	當資料中存在遺失值 (Missing Values) 時，使用「平均數、中位數或眾數」來填補遺失欄位的方法稱為什麼？
+	<div qo='1'>填補 (Imputation)</div>
+	<div qo='2'>刪除 (Deletion)</div>
+	<div qo='3'>標準化 (Standardization)</div>
+	<div qo='4'>編碼 (Encoding)</div>
+</div>
+<div qi='3' qt='s' qc='Missing Data,Deletion'>
+	處理遺失值時，若決定將「整筆」含有遺失值的資料刪除，這種方法稱為？
+	<div qo='1'>眾數填補 (Mode Imputation)</div>
+	<div qo='2'>成對刪除 (Pairwise Deletion)</div>
+	<div qo='3'>列表刪除 (Listwise Deletion)</div>
+	<div qo='4'>標籤編碼 (Label Encoding)</div>
+</div>
+<div qi='4' qt='s' qc='Missing Data,Imputation,Outlier'>
+	當特徵資料中存在「極端值」(Outliers) 時，使用下列何者來填補遺失值通常比使用「平均數」更穩健 (robust)？
+	<div qo='1'>最小值 (Minimum)</div>
+	<div qo='2'>中位數 (Median)</div>
+	<div qo='3'>零 (Zero)</div>
+	<div qo='4'>標準差 (Standard Deviation)</div>
+</div>
+<div qi='5' qt='s' qc='Categorical Data,Encoding'>
+	處理像「紅、綠、藍」這樣的類別資料，需要將其轉換為數值形式，這個過程統稱為什麼？
+	<div qo='1'>特徵縮放 (Feature Scaling)</div>
+	<div qo='2'>特徵工程 (Feature Engineering)</div>
+	<div qo='3'>編碼 (Encoding)</div>
+	<div qo='4'>降維 (Dimensionality Reduction)</div>
+</div>
+<div qi='6' qt='s' qc='Categorical Data,Label Encoding'>
+	將「低、中、高」三個類別轉換為「0, 1, 2」的數值，這種保留了「順序性」的編碼方式是？
+	<div qo='1'>標籤編碼 (Label Encoding)</div>
+	<div qo='2'>獨熱編碼 (One-Hot Encoding)</div>
+	<div qo='3'>目標編碼 (Target Encoding)</div>
+	<div qo='4'>Z-score 標準化</div>
+</div>
+<div qi='7' qt='s' qc='Categorical Data,One-Hot Encoding'>
+	若將「台北、台中、高雄」三個無順序關係的類別，轉換成 [1,0,0], [0,1,0], [0,0,1] 這種向量，此方法稱為什麼？
+	<div qo='1'>標籤編碼 (Label Encoding)</div>
+	<div qo='2'>主成分分析 (PCA)</div>
+	<div qo='3'>獨熱編碼 (One-Hot Encoding)</div>
+	<div qo='4'>最小-最大正規化 (Min-Max)</div>
+</div>
+<div qi='8' qt='s' qc='Categorical Data,One-Hot Encoding'>
+	使用獨熱編碼 (One-Hot Encoding) 時，如果 K 個類別產生了 K 個新特徵，可能會導致「共線性」(Collinearity)，這稱為什麼？
+	<div qo='1'>過度擬合 (Overfitting)</div>
+	<div qo='2'>虛擬變數陷阱 (Dummy Variable Trap)</div>
+	<div qo='3'>維度詛咒 (Curse of Dimensionality)</div>
+	<div qo='4'>梯度消失 (Vanishing Gradient)</div>
+</div>
+<div qi='9' qt='s' qc='Feature Scaling'>
+	為何需要對特徵進行縮放 (Scaling)？例如將「身高 (cm)」和「年齡 (歲)」進行處理？
+	<div qo='1'>為了讓資料符合常態分佈</div>
+	<div qo='2'>為了增加資料的維度</div>
+	<div qo='3'>為了避免模型過度偏重「數值範圍較大」的特徵</div>
+	<div qo='4'>為了移除離群值</div>
+</div>
+<div qi='10' qt='s' qc='Feature Scaling,Normalization'>
+	將資料特徵縮放到 [0, 1] 或 [-1, 1] 的特定區間內，這種方法稱為什麼？
+	<div qo='1'>正規化 (Normalization / Min-Max Scaling)</div>
+	<div qo='2'>標準化 (Standardization / Z-score)</div>
+	<div qo='3'>類別化 (Categorization)</div>
+	<div qo='4'>離散化 (Discretization)</div>
+</div>
+<div qi='11' qt='s' qc='Feature Scaling,Standardization'>
+	將資料特徵轉換為平均值為 0、標準差為 1 的分佈，這種方法稱為什麼？
+	<div qo='1'>正規化 (Normalization / Min-Max Scaling)</div>
+	<div qo='2'>標準化 (Standardization / Z-score)</div>
+	<div qo='3'>標籤編碼 (Label Encoding)</div>
+	<div qo='4'>填補 (Imputation)</div>
+</div>
+<div qi='12' qt='s' qc='Train/Test Split,Overfitting'>
+	將資料集分為「訓練集」和「測試集」的主要目的是什麼？
+	<div qo='1'>讓模型訓練得更快</div>
+	<div qo='2'>增加資料的多樣性</div>
+	<div qo='3'>評估模型對「未見過」資料的泛化能力 (Generalization)，以偵測過度擬合</div>
+	<div qo='4'>簡化資料清理的難度</div>
+</div>
+<div qi='13' qt='s' qc='Overfitting,Model Evaluation'>
+	當一個模型在「訓練集」上表現極好，但在「測試集」上表現很差時，稱為什麼情況？
+	<div qo='1'>擬合不足 (Underfitting)</div>
+	<div qo='2'>演算法偏誤 (Bias)</div>
+	<div qo='3'>過度擬合 (Overfitting)</div>
+	<div qo='4'>資料洩漏 (Data Leakage)</div>
+</div>
+<div qi='14' qt='s' qc='Underfitting,Model Evaluation'>
+	當一個模型結構過於簡單，導致在「訓練集」和「測試集」上表現都不好時，稱為什麼情況？
+	<div qo='1'>擬合不足 (Underfitting)</div>
+	<div qo='2'>過度擬合 (Overfitting)</div>
+	<div qo='3'>高變異數 (High Variance)</div>
+	<div qo='4'>維度詛咒 (Curse of Dimensionality)</div>
+</div>
+<div qi='15' qt='s' qc='Outlier,IQR'>
+	在資料前處理中，使用「四分位距」(IQR) 的主要目的是什麼？
+	<div qo='1'>填補遺失值</div>
+	<div qo='2'>偵測與移除離群值 (Outliers)</div>
+	<div qo='3'>進行特徵編碼</div>
+	<div qo='4'>縮放特徵範圍</div>
+</div>
+<div qi='16' qt='s' qc='Feature Engineering'>
+	從現有的資料中（例如「出生日期」）創造出新的、對模型可能有幫助的特徵（例如「年齡」或「是否為週末」）的過程，稱為什麼？
+	<div qo='1'>特徵縮放 (Feature Scaling)</div>
+	<div qo='2'>特徵工程 (Feature Engineering)</div>
+	<div qo='3'>特徵選取 (Feature Selection)</div>
+	<div qo='4'>特徵編碼 (Feature Encoding)</div>
+</div>
+<div qi='17' qt='s' qc='Feature Selection'>
+	從眾多特徵中，移除不相關或冗餘的特徵，只保留對預測最有幫助的子集，這個過程稱為什麼？
+	<div qo='1'>特徵工程 (Feature Engineering)</div>
+	<div qo='2'>特徵縮放 (Feature Scaling)</div>
+	<div qo='3'>特徵選取 (Feature Selection)</div>
+	<div qo='4'>獨熱編碼 (One-Hot Encoding)</div>
+</div>
+<div qi='18' qt='s' qc='Dimensionality Reduction,Curse of Dimensionality'>
+	當特徵維度過高時，可能導致資料稀疏、計算量大增等問題，這稱為「維度詛ZS」。下列何者是解決此問題的常用技術？
+	<div qo='1'>獨熱編碼 (One-Hot Encoding)</div>
+	<div qo='2'>降維 (Dimensionality Reduction)，例如 PCA</div>
+	<div qo='3'>遺失值填補 (Imputation)</div>
+	<div qo='4'>離群值移除 (Outlier Removal)</div>
+</div>
+<div qi='19' qt='s' qc='Dimensionality Reduction,PCA'>
+	PCA (Principal Component Analysis) 是一種常見的降維技術，它屬於哪一類學習方法？
+	<div qo='1'>監督式學習 (Supervised Learning)</div>
+	<div qo='2'>非監督式學習 (Unsupervised Learning)</div>
+	<div qo='3'>強化學習 (Reinforcement Learning)</div>
+	<div qo='4'>半監督式學習 (Semi-supervised Learning)</div>
+</div>
+<div qi='20' qt='s' qc='Data Augmentation,Imbalanced Data'>
+	在影像辨識中，將現有圖片進行「旋轉、翻轉、裁剪」以產生更多訓練樣本；或在不平衡資料中，對「少數類別」進行「過採樣」(Oversampling)，這些技術統稱為什麼？
+	<div qo='1'>資料清理 (Data Cleaning)</div>
+	<div qo='2'>特徵選取 (Feature Selection)</div>
+	<div qo='3'>資料增強 (Data Augmentation) 或 資料擴增</div>
+	<div qo='4'>正規化 (Normalization)</div>
+</div>
+</section>
+
+</div>
 
 </body>
 </html>

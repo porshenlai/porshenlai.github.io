@@ -203,8 +203,8 @@ class Quiz
 		this.AnsDB=ans||((ans)=>{
 			//document.head.setAttribute("AID",btoa(JSON.stringify({ "1":3, "2-1":2, "3":2, "4":7 })));
 			if (!ans) return {};
-			return JSON.parse(atob(ans));
-		})(document.head.getAttribute("AID"));
+			return JSON.parse(atob(ans.getAttribute("AID")));
+		})(document.body.querySelector("[AID]")||document.head.querySelector("[AID]"));
 		this.E.addEventListener('click',(evt)=>{
 			evt.stopPropagation();
 			for(let e=evt.target;e&&e.hasAttribute;e=e.parentNode)
