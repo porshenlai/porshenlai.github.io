@@ -70,7 +70,7 @@ class Aside
 </style>
 <div class="panel-header">
 	<h3 style="white-space:nowrap">
-		<span class="btn" id="playBtn">🗖</span>
+		<button class="btn" id="playBtn">⛶</button>
 		<button class="btn" id="showTOC">導覽</button>
 		<button class="btn" id="showSettings">設定</button>
 	</h3>
@@ -246,6 +246,105 @@ class Quiz
 	}
 }	// }}}
 
+
+class Cards
+{	/* {{{
+	<div class="flashcard">
+		<div class='front'><h2>Question</h2><p>What CSS property creates a 3D space?</p></div>
+		<div class='back'><h2>Answer</h2><p>The 'perspective' property.</p></div>
+	</div>
+	<script>
+		(new Cards()).install(document.body);
+	</script>
+	*/
+	constructor (E) {
+		if (!document.head.querySelector('style#FlashCardStyle'))
+			document.head.appendChild(((E) => {
+				// {{{
+				E.id="FlashCardStyle"
+				E.innerHTML=`
+.flashcard {
+  background-color: transparent;
+  width: 300px;
+  height: 200px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; /* This is the 3D space */
+}
+.flashcard .front,.flashcard .back {
+  position: absolute;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+}
+.flashcard .front {
+  background-color: #bbb; color: black;
+}
+.flashcard .back {
+  background-color: #2980b9; color: white;
+  transform: rotateX(180deg);
+}
+.flashcard>div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.flashcard>div.flipped {
+  transform: rotateX(180deg);
+}
+`;
+				return E;
+				// }}}
+			})(document.createElement("style")));
+		if (E) this.install(E); else this.RE=undefined;
+	}
+	install (E) {
+		this.RE=E;
+		Array.from(E.querySelectorAll('.flashcard'))
+		.forEach((E) => {
+			const bc=E.querySelector('.back');
+			const inner=((e)=>{
+				if (e===E){
+					e=document.createElement("div");
+					while (E.firstChild) e.appendChild(E.firstChild);
+					E.appendChild(e);
+				}
+				return e;
+			})(bc.parentNode);
+		});
+		E.addEventListener('click', (evt) => {
+			for (let e=evt.target;e&&e.classList;e=e.parentNode)
+			{
+				if (e.classList.contains('flashcard')) {
+					this.flip(e.querySelector('div'));
+					evt.stopPropagation();
+				}
+			}
+		});
+		return this;
+	}
+	flip (e) {
+		switch (e) {
+		case true:
+			Array.from(this.RE.querySelectorAll('.flashcard'))
+			.forEach((e)=>e.classList.add('flipped'));
+			break;
+		case false:
+			Array.from(this.RE.querySelectorAll('.flashcard'))
+			.forEach((e)=>e.classList.remove('flipped'));
+			break;
+		case undefined:
+			break;
+		default:
+			e.classList.toggle('flipped');
+			break;
+		}
+	}
+}	// }}}
+
 class Slides
 {	// {{{
 	constructor (RE) {
@@ -280,6 +379,12 @@ class Slides
 		if (this.Content.querySelector('[qi]')) // qi="Quiz ID"
 			this.Plugins.Quiz=new Quiz(this.Content);
 			// .addEventListener('click',(evt)=>{ console.log(qz.mark()); });
+
+		if (this.Content.querySelector('.flashcard')) {
+			this.Plugins.Cards=(new Cards()).install(document.body);
+			this.Plugins.Cards.flip(true);
+		}
+
 		// If <title> not exist, create one
 		if (!document.head.querySelector("title"))
 			document.head.appendChild(((E) => {
