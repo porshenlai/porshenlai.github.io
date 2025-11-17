@@ -1,0 +1,96 @@
+[PsL="HBar"] {
+	display:flex;flex-flow:row nowrap;
+	justify-content:space-between;align-items:center,
+	position:relative;width:100%;height:100%;
+}
+[PsL="VBar"] {
+	display:flex;flex-flow:column nowrap;
+	justify-content:space-between;align-items:stretch,
+	position:relative;width:100%;height:100%;
+}
+[PsL="HLine"] {
+	display:flex;flex-flow:row nowrap;
+	justify-content:space-between;align-items:stretch,
+	position:relative;width:100%;height:auto;
+}
+[PsL="Center"] {
+	display:flex;flex-flow:row nowrap;
+	justify-content:center;align-items:center,
+	position:relative;width:100%;height:100%;
+}
+[PsL="HBar"]>.L, [PsL="HLine"]>.L {
+	flex:0 0 auto; overflow:hidden; position:relative; width:auto; height:100%;
+}
+[PsL="VBar"]>.L {
+	flex:0 0 auto; overflow:hidden; position:relative; width:100%; height:auto;
+}
+[PsL="HBar"]>.V, [PsL="HLine"]>.V {
+	flex:1 1 auto; overflow:auto hidden; position:relative; width:100%; height:100%;
+}
+[PsL="VBar"]>.V {
+	flex:1 1 auto; overflow:hidden auto; position:relative; width:100%; height:100%;
+}
+@media all and (orientation:landscape) {
+	[PsL="SBar"] {
+		display:flex;flex-flow:row nowrap;
+		width:100% height:100%;
+		justify-content:space-between;align-items:center;
+	}
+	[PsL="SBar"]>.L {
+		flex:0 0 auto;
+		position:relative; width:auto; height:100%;
+		overflow:hidden;
+	}
+	[PsL="SBar"]>.V {
+		flex:1 1 auto;
+		position:relative; width:auto; height:100%;
+		overflow-y:hidden; overflow-x:auto;
+	}
+	[PsL="LBar"] {
+		display:flex; flex-flow:column nowrap;
+		width:100%; height:100%;
+		justify-content:space-between; align-items:center; align-content:space-between;
+	}
+	[PsL="LBar"]>.L {
+		flex:0 0 auto;
+		position:relative; width:100%; height:auto;
+		overflow:hidden;
+	}
+	[PsL="LBar"]>.V {
+		flex:1 1 auto;
+		position:relative; width:100%; height:auto;
+		overflow-y:auto; overflow-x:hidden;
+	}
+}
+@media all and (orientation:portrait) {
+	[PsL="SBar"] {
+		display:flex; flex-flow:column nowrap;
+		width:100%; height:100%;
+		justify-content:space-between; align-items:center; align-content:space-between;
+	}
+	[PsL="SBar"]>.L {
+		flex:0 0 auto;
+		position:relative; width:100%; height:auto;
+		overflow:hidden;
+	}
+	[PsL="SBar"]>.V {
+		flex:1 1 auto;
+		position:relative; width:100%; height:auto;
+		overflow-y:auto; overflow-x:hidden;
+	}
+	[PsL="LBar"] {
+		display:flex; flex-flow:row nowrap;
+		width:100%; height:100%;
+		justify-content:space-between; align-items:center; align-content:space-between;
+	}
+	[PsL="LBar"]>.L {
+		flex:0 0 auto;
+		position:relative; width:auto; height:100%;
+		overflow:hidden;
+	}
+	[PsL="LBar"]>.V {
+		flex:1 1 auto;
+		position:relative; width:auto; height:100%;
+		overflow-y:hidden; overflow-x:auto;
+	}
+}

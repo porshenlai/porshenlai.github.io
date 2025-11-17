@@ -1,0 +1,74 @@
+{
+	"chart":{
+		"src": "https://cdn.jsdelivr.net/npm/chart.js",
+		"exports":["Chart"]
+	},
+	"html2canvas":{
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+		"integrity": "sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["html2canvas"]
+	},
+	"jsencrypt":{
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js",
+		"integrity": "sha512-94ncgEEqkuZ4yNTFmu2dSn1TJ6Ij+ANQqpR7eLVU99kzvYzu6UjBxuVoNHtnd29R+T6nvK+ugCVI698pbyEkvQ==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["JSEncrypt"],
+		"refs":["https://github.com/travist/jsencrypt?utm_source=cdnjs&utm_medium=cdnjs_link&utm_campaign=cdnjs_library"]
+	},
+	"jspdf":{
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js",
+		"integrity": "sha512-ad3j5/L4h648YM/KObaUfjCsZRBP9sAOmpjaT2BDx6u9aBrKFp7SbeHykruy83rxfmG42+5QqeL/ngcojglbJw==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["jspdf"]
+	},
+	"QRCode": {
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js",
+		"integrity": "sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["QRCode"],
+		"refs":["https://github.com/davidshimjs/qrcodejs"]
+	},
+	"qr-scanner": {
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/qr-scanner/1.4.2/qr-scanner.min.js",
+		"integrity": "sha512-Fb3L5w+k6OMng6v8gWYr7fuO//kwaC0PfMReI2pYIRYHRfkjvrsNHoGkiVCvjNkrXX3+Ve9Ag+COx98AZlvR7w==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["QrScanner"],
+		"refs":["https://github.com/nimiq/qr-scanner"]
+	},
+	"regression": {
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js",
+		"integrity": "sha512-0k6FXllQktdobw8Nc8KQN2WtZrOuxpMn7jC2RKCF6LR7EdOhhrg3H5cBPxhs3CFzQVlO6ni1B9SDLUPhBs0Alg==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["regression"]
+	},
+	"sha": {
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.9.0/sha512.min.js",
+		"integrity": "sha512-1BbDJ9JskJteZrmSHnz5hhZQQo8rFDuvadIx6Qg3G8ixN8smfOZsLXumwm1JpAfSP06XtLEmAVQ/dMr8PdbViw==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["sha512","sha384","sha512_256","sha512_224"],
+		"refs":["https://github.com/emn178/js-sha512"]
+	},
+	"svg": {
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.4/svg.min.js",
+		"integrity": "sha512-ovlWyhrYXr3HEkGJI5YPXIFYIbHEKs2yfemKVVIIQe9U74tXyTuVdzMlvZlw/0X5lnIDRgtVlckrkeuCrDpq4Q==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["SVG"],
+		"refs":["https://svgdotjs.github.io/"]
+	},
+	"xlsx": {
+		"src": "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js",
+		"integrity": "sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==",
+		"crossorigin": "anonymous",
+		"referrerpolicy": "no-referrer",
+		"exports":["XLSX"]
+	}
+}
