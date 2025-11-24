@@ -187,14 +187,15 @@ class Quiz
 			if (SE) return;
 			SE=document.createElement("style");
 			SE.innerHTML=`
-.QI { display:flex;align-items:center; }
 [qi] { border:2px solid blue;padding:1px 4px;margin:4px 1px; }
 [qo] { padding:4px; margin:4px; border:2px solid lightgrey;background-image: linear-gradient(white 60%,lightgrey); }
 [qo]:hover { border-color:grey;background-image: linear-gradient(white 60%,grey); }
-[qr="x"] [qo] { border-color:red;background-image: linear-gradient(white 60%,red); }
-[qr="o"] [qo] { border-color:green;background-image: linear-gradient(white 60%,green); }
+[qt][qr="x"] { border-color:red;background-image: linear-gradient(to right,white 60%,pink); }
+[qt][qr="o"] { border-color:green;background-image: linear-gradient(to right,white 60%,lightgreen); }
 [qt="s"][qa] [qo] { display:none; }
 [qt="s"][qa] .QS[qo] { display:block; }
+[qt="m"][qa] [qo] { color:black; }
+[qt="m"][qa] .QS[qo] { color:blue;font-weight:bolder; }
 `;
 			document.head.appendChild(SE);
 		})(document.head.querySelector('style[STYID="Quiz"]'));
@@ -203,8 +204,8 @@ class Quiz
 		this.AnsDB=ans||((ans)=>{
 			//document.head.setAttribute("AID",btoa(JSON.stringify({ "1":3, "2-1":2, "3":2, "4":7 })));
 			if (!ans) return {};
-			return JSON.parse(atob(ans.getAttribute("AID")));
-		})(document.body.querySelector("[AID]")||document.head.querySelector("[AID]"));
+			return JSON.parse(ans.getAttribute("ANS")||atob(ans.getAttribute("AID")));
+		})(document.body.querySelector("[ANS]")||document.body.querySelector("[AID]")||document.head.querySelector("[AID]"));
 		this.E.addEventListener('click',(evt)=>{
 			evt.stopPropagation();
 			for(let e=evt.target;e&&e.hasAttribute;e=e.parentNode)
@@ -213,7 +214,10 @@ class Quiz
 	}
 	answer (e)
 	{
-		const p=e.parentNode, qi=p.getAttribute("qi");
+		let p,qi;
+		for(p=e;p.nodeType&&(!p.matches('[qi]'));p=p.parentNode);
+		if(!p) return;
+		qi=p.getAttribute("qi");
 		switch(p.getAttribute('qt')||'s'){
 		case 's':
 			if (e.classList.contains('QS')) {
