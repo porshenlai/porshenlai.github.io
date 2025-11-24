@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<script src="/App/slide.js"></script>
+<style>
+	.answer { color:blue; display:none; padding:8px; }
+	[qr="o"] .answer { display:block; }
+	.fxl	{ display:flex;align-items:center;justify-content:flex-start; }
+</style>
+</head>
+<body>
+
+<div id="content" ANS='{"1":2,"2-1":1,"2-2":1,"2-3":2,"3-1":2,"3-2":1,"3-3":1,"4-1":2,"4-2":1,"4-3":1,"5":4,"6":1,"7":2,"8":3,"9":1,"10":4,"11":2,"12-1":1,"12-2":2,"12-3":1,"13-1":1,"13-2":2,"13-3":1,"14":2,"15-1":4,"15-2":2,"15-3":1,"16":11,"17":3,"18":1,"19":3,"20-1":2,"20-2":1,"20-3":2,"21-1":1,"21-2":2,"21-3":1,"22":3,"23-1":1,"23-2":1,"23-3":1,"24":4,"25-1":1,"25-2":2,"25-3":1,"26":2,"27":4,"28-1":1,"28-2":1,"28-3":1,"29":1,"30":2,"31":3}'>
+<section>
+	<h1 class="title">AI900 證照模擬試題</h1>
+	<div>
+		<p class="subtitle"></p>
+		<p class="meta">
+			<div>Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a>Porshen Lai</div>
+			<div>Department of Finance, Chihlee University of Technology</div>
+			<div>2025, Winter</div>
+		</p>
+	</div>
+</section>
+
+<section>
+	<div qi='1' qt='s'>
+		下列何種情況應該使用關鍵片語擷取?
+		<div qo='1'>將一些文件從英文翻譯成德文</div>
+		<div qo='2'>辨識哪些文件提供相同主題的資訊</div>
+		<div qo='3'>辨識餐廳的評論為正面或負面</div>
+		<div qo='4'>根據音軌為影片產生字幕</div>
+		<div class="answer">關鍵片語擷取 (KPE) 通過提取文件中的核心主題，幫助用戶快速理解文件內容或將文件分組以進行主題辨識。</div>
+	</div>
+</section>
+
+<section>
+	<h2>關於具名實體辨識 (NER) 與關鍵片語擷取 (KPE)</h2>
+	<div qi='2-1' qt='s'>
+		具名實體辨識 (NER) 可用來擷取文件字串中的日期與時間。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">日期、時間是 NER 可以識別的預建實體類型。</div>
+	</div>
+	<div qi='2-2' qt='s'>
+		關鍵片語擷取 (KPE) 可用來擷取文件字串中的重要片語。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">KPE 的主要功能就是識別文件中的核心主題和重要片語。</div>
+	</div>
+	<div qi='2-3' qt='s'>
+		關鍵片語擷取 可用來擷取文件字串中的所有城市名稱。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">城市名稱是具名實體 (NER) 的任務，而非 KPE。</div>
+	</div>
+</section>
+
+<section>
+	<h2>關於 Azure Bot Service 與聊天機器人</h2>
+	<div qi='3-1' qt='s'>
+		聊天機器人只能使用自訂程式碼來建置。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">可以使用如 Power Virtual Agents 等無程式碼平台或 Azure Bot Service 提供的工具建置。</div>
+	</div>
+	<div qi='3-2' qt='s'>
+		Azure Bot Service 提供用於裝載交談式機器人的服務。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">Azure Bot Service 提供了建置、連接和管理機器人的基礎設施。</div>
+	</div>
+	<div qi='3-3' qt='s'>
+		使用 Azure Bot Service 建置的機器人可與 Microsoft Teams 使用者交流。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">Bot Service 支援多種頻道 (Channels)，包括 Teams、網頁聊天、Line 等。</div>
+	</div>
+</section>
+
+<section>
+	<h2>關於 Azure AI 翻譯工具</h2>
+	<div qi='4-1' qt='s'>
+		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
+		<div><pre>/translate?from=it&amp;to=fr&amp;to=en</pre></div>
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">參數 from=it 表示輸入 (來源語言) 是義大利文。</div>
+	</div>
+	<div qi='4-2' qt='s'>
+		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
+		<div><pre>/translate?from=en&amp;to=fr&amp;to=it</pre></div>
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">參數 from=en 表示來源是英文；to=fr&amp;to=it 表示輸出是法文和義大利文。</div>
+	</div>
+	<div qi='4-3' qt='s'>
+		翻譯服務可用來將文件由英文翻譯為法文。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">這是翻譯服務的基本功能。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='5' qt='s'>
+		您可以使用下列哪一種 AI 服務，擷取使用者輸入意圖 (例如「稍後請回電」)?
+		<div qo='1'>Azure 認知搜尋</div>
+		<div qo='2'>Azure AI 語音</div>
+		<div qo='3'>Azure AI 翻譯工具</div>
+		<div qo='4'>Azure AI 語言</div>
+		<div class="answer">Azure AI 語言服務下的交談語言理解 (CLU) (舊稱 LUIS) 用於識別使用者語句的意圖 (Intent)。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='6' qt='s'>
+		<div class='fxl'>
+			自然語言處理可用於
+			<div>
+				<div qo='1'>將 E-Mail 分類為工作郵件或個人郵件。</div>
+				<div qo='2'>預測未來的租車數。</div>
+				<div qo='3'>顯示溫度過高時停止工廠作業。</div>
+				<div qo='4'>預測哪個網站的瀏覽者會執行交易。</div>
+			</div>
+		</div>
+		<div class="answer">分類 E-Mail 是 NLP 中文字分類的典型應用。其他選項為迴歸/傳統 ML/IoT 應用。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='7' qt='s'>
+		您需要建立一套客戶支援解決方案，協助客戶存取資訊。該解決方案必須支援電話、電子郵件與即時聊天式管道。您應該使用下列哪一種 AI 解決方案?
+		<div qo='1'>自然語言處理 (NLP)</div>
+		<div qo='2'>聊天機器人</div>
+		<div qo='3'>機器學習</div>
+		<div qo='4'>電腦視覺</div>
+		<div class="answer">支援多個交談式管道以提供客戶支援服務，是聊天機器人 (Bot) 的核心功能。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='8' qt='m'>
+		您可以在下列哪兩種情況中使用語音合成解決方案? (多選)
+		<div qo='1'>使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。</div>
+		<div qo='2'>可以用語音與玩家交談的電腦遊戲 AI 角色。</div>
+		<div qo='3'>為新聞廣播產生即時字幕。</div>
+		<div qo='4'>從會議錄音中擷取關鍵片語。</div>
+		<div class="answer">① 使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。② 可以用語音與玩家交談的電腦遊戲 AI 角色。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='9' qt='s'>
+		您建置一套問題解答解決方案，並建立了一個使用知識庫回應客戶要求的機器人。您需要確認在不新增額外技能的情況下，該機器人可以執行的工作。您應該指定何者?
+		<div qo='1'>同時回答多位使用者的問題</div>
+		<div qo='2'>登記客戶購買的商品</div>
+		<div qo='3'>為客戶提供退貨授權 (RMA) 號</div>
+		<div qo='4'>登記客訴內容</div>
+		<div class="answer">問題解答解決方案基於知識庫，其基本功能是提供預先定義的答案。Bot Service 是一個可擴展的服務，可以同時處理多個會話。選項 ②、③、④ 涉及業務邏輯和資料庫操作，需要額外編程或與後端系統集成，超出基本 QnA 知識庫的功能。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='10' qt='s'>
+		您要使用自然語言處理來處理 Microsoft 新聞報導的文字。您收到如下所示輸出。
+		<div><img src="C4_10.jpg" style="width:90%"/></div>
+		請問您執行了下列何種類型的自然語言處理 ?
+		<div qo='1'>翻譯</div>
+		<div qo='2'>關鍵片語擷取</div>
+		<div qo='3'>情感分析</div>
+		<div qo='4'>實體辨識</div>
+		<div class="answer"></div>
+	</div>
+</section>
+
+<section>
+	<div qi='11' qt='s'>
+		圖中顯示下列哪一種類型的 AI 解決方案 ?
+		<div><img src="C4_11.jpg" style="width:90%"/></div>
+		<div qo='1'>機器學習模型</div>
+		<div qo='2'>聊天機器人</div>
+		<div qo='3'>情感分析解決方案</div>
+		<div qo='4'>電腦視覺應用程式</div>
+	</div>
+</section>
+
+<section>
+	<h2>將 Azure 認知服務與適當的工作配對。</h2>
+	<div qi='12-1' qt='s'>
+		將使用者的語音轉換為文字
+		<div qo='1'>Azure AI 語音</div>
+		<div qo='2'>Azure AI 語言服務</div>
+		<div qo='3'>Azure AI 翻譯工具文字</div>
+		<div class="answer">(語音轉文字) 是 語音服務 的功能。</div>
+	</div>
+	<div qi='12-2' qt='s'>
+		識別使用者的意圖
+		<div qo='1'>Azure AI 語音</div>
+		<div qo='2'>Azure AI 語言服務</div>
+		<div qo='3'>Azure AI 翻譯工具文字</div>
+		<div class="answer">(識別意圖) 是 語言服務 (CLU) 的功能。</div>
+	</div>
+	<div qi='12-3' qt='s'>
+		向使用者提供口語回應
+		<div qo='1'>Azure AI 語音</div>
+		<div qo='2'>Azure AI 語言服務</div>
+		<div qo='3'>Azure AI 翻譯工具文字</div>
+		<div class="answer">(文字轉語音/口語回應) 是 語音服務 的功能。</div>
+	</div>
+</section>
+
+<section>
+	下列各項敘述如果成立，請輸入是，否則請輸入否。
+	<div qi='13-1' qt='s'>
+		聊天機器人可以支援語音輸入。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+	</div>
+	<div qi='13-2' qt='s'>
+		每一種溝通管道都需要一個不同聊天機器人。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+	</div>
+	<div qi='13-3' qt='s'>
+		聊天機器人可以結合自然語言及受限的回應選項來管理交談程序。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+	</div>
+</section>
+
+<section>
+	<div qi='14' qt='s'>
+		您管理一個包含客戶評論的網站。您需要儲存這些評論的英文版，然後辨識每位使用者的地理位置，並以當地語言向使用者展示評論。您應該使用下列何種類型的自然語言處理工作負載?
+		<div qo='1'>語言模組化</div>
+		<div qo='2'>翻譯</div>
+		<div qo='3'>語音辨識</div>
+		<div qo='4'>關鍵片語擷取</div>
+		<div class="answer">將評論以當地語言向使用者展示，這需要使用 翻譯 服務。</div>
+	</div>
+</section>
+
+<section>
+	<h2>將 Azure AI 語言服務 API 功能與適當的自然語言處理案例配對。</h2>
+	<div qi='15-1' qt='s'>
+		根據支援報修中所包含文字了解客戶的不滿意程度
+		<div qo='1'>實體辨識</div>
+		<div qo='2'>關鍵片語擷取</div>
+		<div qo='3'>語言偵測</div>
+		<div qo='4'>情感分析</div>
+		<div class="answer">(不滿意程度) : 情感分析。</div>
+	</div>
+	<div qi='15-2' qt='s'>
+		彙總支援報修中重要資訊
+		<div qo='1'>實體辨識</div>
+		<div qo='2'>關鍵片語擷取</div>
+		<div qo='3'>語言偵測</div>
+		<div qo='4'>情感分析</div>
+		<div class="answer">(彙總重要資訊) : 關鍵片語擷取。</div>
+	</div>
+	<div qi='15-3' qt='s'>
+		從支援報修中擷取關鍵日期
+		<div qo='1'>實體辨識</div>
+		<div qo='2'>關鍵片語擷取</div>
+		<div qo='3'>語言偵測</div>
+		<div qo='4'>情感分析</div>
+		<div class="answer">(關鍵日期) : 實體辨識 (日期是實體)。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='16' qt='m'>
+		您需要為商務聊天機器人提供內容，以協助其為使用者解答簡單的查詢。下列哪三種方式是使用語言服務的問題解答來建立問與答文字? (多選)
+		<div qo='1'>從預先定義的資料來源匯入閒聊內容</div>
+		<div qo='2'>手動輸入問題與答案</div>
+		<div qo='4'>將機器人連線到 Cortana 頻道，並且用 Cortana 提問</div>
+		<div qo='8'>從現有的網頁產生問題與答案</div>
+		<div qo='16'>使用 Azure Machine Learning 自動化 ML, 根據包含問題與答案組的檔案來定型模型</div>
+		<div class="answer">問題解答知識庫的建立方法包括手動、從文件 (如 PDF、Word、Excel、TXT) 匯入、以及從 FAQ 網頁 匯入。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='17' qt='s'>
+		可以用來建置使用內建自然語言處理模型的無程式碼應用程式?
+		<div qo='1'>Azure Health Bot</div>
+		<div qo='2'>Microsoft Bot Framework</div>
+		<div qo='3'>Power Virtual Agents</div>
+		<div class="answer">Power Virtual Agents 是一個低程式碼/無程式碼平台，讓非開發人員也能夠建立功能強大的聊天機器人。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='18' qt='s'>
+		識別電話號碼時，會使用哪種類型的自然語言處理 (NLP) 實體?
+		<div qo='1'>規則運算式 (Regex)</div>
+		<div qo='2'>Pattern.any</div>
+		<div qo='3'>machine-learned</div>
+		<div qo='4'>清單</div>
+		<div class="answer">電話號碼、信用卡號等有固定格式的實體，通常使用規則運算式 (Regex) 實體類型進行擷取。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='19' qt='s'>
+		您有一個 Azure 機器人。您要新增常見問題集 (FAQ) 的支援。您該使用哪項 Azure AI 服務以支援常見問題集?
+		<div qo='1'>Azure AI 翻譯工具</div>
+		<div qo='2'>Azure AI 語音</div>
+		<div qo='3'>Azure AI 語言</div>
+		<div qo='4'>Azure AI 文件智慧服務</div>
+		<div class="answer">Azure AI 語言服務中的問題解答 (Question Answering) 功能專門用於建立和管理 FAQ 知識庫。</div>
+	</div>
+</section>
+
+<section>
+	<h2>關於 Azure AI 語言服務的問題解答</h2>
+	<div qi='20-1' qt='s'>
+		您可以使用 Azure AI 語言服務的問題解答 查詢 Azure SQL 資料庫。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">問題解答主要基於靜態知識庫（如文件、FAQ 網頁）提供答案，不直接查詢 SQL 資料庫。</div>
+	</div>
+	<div qi='20-2' qt='s'>
+		若您希望知識庫針對詢問類似問題的不同使用者，提供相同答案，則應該使用 Azure AI 語言服務的問題解答。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">問題解答會從知識庫中找出最相關的固定答案，適合 FAQ 應用。</div>
+	</div>
+	<div qi='20-3' qt='s'>
+		Azure AI 語言服務的問題解答 可以判斷使用者語句的意圖。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">交談語言理解 (CLU) 或 LUIS 才是用於判斷意圖；問題解答只負責匹配問題與答案。</div>
+	</div>
+</section>
+
+<section>
+	<h2>關於 Azure AI 語言服務的功能</h2>
+	<div qi='21-1' qt='s'>
+		Azure AI 語言服務可以識別文字是以何種語言撰寫。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">這是語言偵測 (Language Detection) 功能。</div>
+	</div>
+	<div qi='21-2' qt='s'>
+		Azure AI 語言服務可以偵測文件中的手寫簽名。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">這是電腦視覺或文件智慧服務的任務。</div>
+	</div>
+	<div qi='21-3' qt='s'>
+		Azure AI 語言服務可以識別文件中所提及的公司和組織。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">這是具名實體辨識 (NER) 的功能，公司和組織是常見的實體類型。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='22' qt='s'>
+		您使用常見問題集 (FAQ) 頁面建置 Azure AI 語言服務的問題解答機器人。您需要新增專業的問候語及其他回應，使機器人能夠更友善地與使用者互動。您應該採取什麼措施?
+		<div qo='1'>提高回應的信賴等級閾值</div>
+		<div qo='2'>啟用主動式學習</div>
+		<div qo='3'>新增閒聊 (Chit-Chat)</div>
+		<div qo='4'>建立多回合問題</div>
+		<div class="answer">閒聊 (Chit-Chat) 內容是一組預先定義的問候語、開場白和友好回應，旨在讓機器人對話更像人。</div>
+	</div>
+</section>
+
+<section>
+	<h2>關於 Azure AI 語音服務</h2>
+	<div qi='23-1' qt='s'>
+		您可以使用 Azure AI 語音服務將通話轉譯為文字。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">這是語音轉文字 (Speech-to-Text) 功能。</div>
+	</div>
+	<div qi='23-2' qt='s'>
+		您可以使用 Azure AI 語言服務從通話文字記錄中擷取關鍵實體。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">語音服務輸出文字後，語言服務可對其執行 NER。</div>
+	</div>
+	<div qi='23-3' qt='s'>
+		您可以使用 Azure AI 語音服務將通話音訊翻譯為其他語言。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">語音服務支援語音翻譯 (Speech Translation)，即時將語音翻譯為語音或文字。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='24' qt='s'>
+		小明正在撰寫一個交談語言理解應用程式。小明希望使用者能夠詢問預定節目的相關問題，例如：「主舞台現在正在進行哪一場表演?」，此問題是下列何種類型元素的範例?
+		<div qo='1'>實體</div>
+		<div qo='2'>意圖</div>
+		<div qo='3'>領域</div>
+		<div qo='4'>表達</div>
+		<div class="answer">題目中的句子：「主舞台現在正在進行哪一場表演？」是使用者實際說出的自然語句，在對話式語言理解（NLU）中，這稱為「表達」(Utterance)。</div>
+	</div>
+</section>
+
+<section>
+	<h2>關於 Azure AI 語言服務的進階功能</h2>
+	<div qi='25-1' qt='s'>
+		Azure AI 語言服務可用來從文件中擷取關鍵片語。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">這是關鍵片語擷取 (KPE) 功能。</div>
+	</div>
+	<div qi='25-2' qt='s'>
+		Azure AI 語言服務可用來根據使用者提示產生新聞稿。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">這是 Azure OpenAI 服務（如 GPT-4）的功能。</div>
+	</div>
+	<div qi='25-3' qt='s'>
+		Azure AI 語言服務可用來建置情緒解決方案。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">考量 AI-900 脈絡，情感分析是語言服務的核心功能，故此題應為是。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='26' qt='s'>
+		Jasper 正在使用 Azure AI 語言服務的自訂解答功能建置知識庫。請問 Jasper 可以使用哪種檔案格式來填入知識庫?
+		<div qo='1'>JPGE</div>
+		<div qo='2'>PDF</div>
+		<div qo='3'>PPTX</div>
+		<div qo='4'>ZIP</div>
+		<div class="answer">問題解答 (QnA Maker) 支援多種文件格式，包括 PDF、DOCX、TXT、TSV 等。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='27' qt='s'>
+		Anita 正在為電子商務企業建置交談語言理解模型。Anita 需要確保當語句超出範圍時，該模型仍可偵測。請問你要協助 Anita 怎麼處理?
+		<div qo='1'>建立新的模型。</div>
+		<div qo='2'>匯出模型。</div>
+		<div qo='3'>建立預建工作實體。</div>
+		<div qo='4'>將語句新增至 [無] 意圖 (None Intent)。</div>
+		<div class="answer">在交談語言理解 (CLU) 中，必須訓練一個**「無」(None)** 意圖，並為其提供許多與應用程式無關的語句。這樣當使用者說出不相關的內容時，模型能正確將其分類為超出範圍。</div>
+	</div>
+</section>
+
+<section>
+	<h2>關於與機器人交談的管道</h2>
+	<div qi='28-1' qt='s'>
+		您可以使用語音啟動的虛擬助理與機器人交談。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">透過 Azure AI 語音服務，聊天機器人可以支援語音輸入。</div>
+	</div>
+	<div qi='28-2' qt='s'>
+		您可以使用 Microsoft Teams 與機器人交談。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">Teams 是 Azure Bot Service 支援的標準頻道。</div>
+	</div>
+	<div qi='28-3' qt='s'>
+		您可以使用網頁聊天介面與機器人交談。
+		<div qo='1'>是</div>
+		<div qo='2'>否</div>
+		<div class="answer">網頁聊天 (Web Chat) 是機器人最常見的部署管道之一。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='29' qt='s'>
+		您有一個根據問題解答知識庫提供回應的網路聊天機器人。您需要確保該機器人會利用使用者意見反應隨著時間改善回應的相關性。您應該使用何者?
+		<div qo='1'>主動式學習</div>
+		<div qo='2'>情感分析</div>
+		<div qo='3'>商務邏輯</div>
+		<div qo='4'>關鍵片語擷取</div>
+		<div class="answer">主動式學習 (Active Learning) 是一種機制，它會分析使用者與知識庫的互動 (例如使用者對低信賴度回應的選擇)，以建議新的問題與答案配對，從而迭代改善知識庫。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='30' qt='s'>
+		哪一項自然語言處理功能可用於識別客戶意見反應問卷中的主要話題?
+		<div qo='1'>翻譯</div>
+		<div qo='2'>關鍵片語擷取</div>
+		<div qo='3'>語言偵測</div>
+		<div qo='4'>實體辨識</div>
+		<div class="answer">關鍵片語擷取 (KPE) 旨在從文件中識別出描述主要話題或核心概念的短語。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='31' qt='s'>
+		您擁有 100 部「不」包含任何音訊的教學影片。每部教學影片都有一份腳本。您需要根據腳本，為每部影片產生旁白音訊檔案。您應該使用下列何種工作負載?
+		<div qo='1'>語言模組化</div>
+		<div qo='2'>翻譯</div>
+		<div qo='3'>語音合成</div>
+		<div qo='4'>語音辨識</div>
+		<div class="answer">將文字腳本轉換為語音 (旁白音訊) 是語音合成的任務。</div>
+	</div>
+</section>
+
+</div>
+
+</body>
+</html>
