@@ -206,6 +206,7 @@ class Quiz
 			if (!ans) return {};
 			return JSON.parse(ans.getAttribute("ANS")||atob(ans.getAttribute("AID")));
 		})(document.body.querySelector("[ANS]")||document.body.querySelector("[AID]")||document.head.querySelector("[AID]"));
+		console.log(btoa(JSON.stringify(this.AnsDB)));
 		this.E.addEventListener('click',(evt)=>{
 			evt.stopPropagation();
 			for(let e=evt.target;e&&e.hasAttribute;e=e.parentNode)
