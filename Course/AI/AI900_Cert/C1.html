@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
 <script src="/App/slide.js"></script>
+<style>
+	[topic="電腦視覺"] [tid]:not([tid="電腦視覺"]),
+	[topic="自訂視覺"] [tid]:not([tid="自訂視覺"]),
+	[topic="人臉辨識"] [tid]:not([tid="人臉辨識"]),
+	[topic="文字分析"] [tid]:not([tid="文字分析"]),
+	[topic="語言理解"] [tid]:not([tid="語言理解"]),
+	[topic="問題解答"] [tid]:not([tid="問題解答"]),
+	[topic="公平性"] [tid]:not([tid="公平性"]),
+	[topic="包容性"] [tid]:not([tid="包容性"]),
+	[topic="透明性"] [tid]:not([tid="透明性"]),
+	[topic="權責性"] [tid]:not([tid="權責性"]),
+	[topic="可靠性"] [tid]:not([tid="可靠性與安全性"]),
+	[topic="隱私權"] [tid]:not([tid="隱私權與安全性"]) { display:none; }
+
+	.CAT { color:brown; font-weight:bolder; font-size:120%; }
+</style>
 </head>
 <body>
 
@@ -20,7 +36,260 @@
 </section>
 
 <section>
-	<h2>負責任 AI</h2>
+	<table border='1' cellspacing='0' cellpadding='8' width='95%' align='center'><tbody><tr><th>
+		<div class='CAT'>異常偵測</div>
+		<hr/>
+		<div class='CAT'>內容安全</div>
+		<hr/>
+		<div class='CAT'>視覺</div>
+		<div>電腦視覺</div>
+		<div>自訂視覺</div>
+		<div>臉部辨識</div>
+	</th><th>
+		<div class='CAT'>機器學習</div>
+		<div>Regression (回歸):</div>
+		<div style='color:green'>預測下個月玩具銷售量</div>
+		<div>Clustering (叢集):</div>
+		<div style='color:green'>根據多個尺寸將動物分類</div>
+		<div>Classification (分類):</div>
+		<div style='color:green'>預測貸款是否償還的銀行系統</div>
+	</th><th>
+		<div class='CAT'>語音</div>
+		<div>語音文字相互轉換</div>
+		<div>語音翻譯</div>
+		<div>語音助理</div>
+		<div>說話者辨識</div>
+		<hr/>
+		<div class='CAT'>語言</div>
+		<div>文字分析 (情感,片語,實體)</div>
+		<div>交談語言理解 CLU</div>
+		<div>問題解答</div>
+	</tr></tbody></table>
+</section>
+
+<section>
+	<h2>異常偵測器</h2>
+	<ul>
+		<li>異常偵測器可以監視和偵測時間序列資料中的異常狀況。</li>
+	</ul>
+	<ul style="color:green;">
+		<li>例如:識別詐欺性的信用卡支付</li>
+		<li>例如:透過查找與通常模式的偏差來識別可疑登錄</li>
+		<li>例如:在監視工業製程感應器結合AI來偵測發生潛在問題的狀況</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Azure AI 內容安全</h2>
+	<ul>
+		<li>可以由文字，影像和影片中，偵測出潛在具有冒犯意思，惡意，風險或不當的資料內容。</li>
+	</ul>
+	<ul style="color:green">
+		<li>例如:為學生與授課者篩選掉不當的教育內容</li>
+		<li>例如:為社群軟體對使用者新增的影像，文字和影片進行內容仲裁</li>
+		<li>例如:為遊戲公司對使用者產生的遊戲成品和聊天室進行內容仲裁</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Azure 視覺 API (Vision APIs)</h2>
+	<table><tr topic='電腦視覺'><td valign="top">
+		<br/>
+		<select onchange='this.parentNode.parentNode.setAttribute("topic",this.value);' size='3'>
+			<option selected>電腦視覺</option>
+			<option>自訂視覺</option>
+			<option>人臉辨識</option>
+		</select>
+	</td><td tid='電腦視覺' valign="top"><ul>
+		<h2>光學文字辨識 Optical Character Recognition</h2>
+		<li>可以從相片和文件(發票，名片，信件等)中擷取其中印刷和手寫的文字。</li>
+	</ul><ul style='color:green'>
+		<li>例如:識別手寫字母。</li>
+	</ul><ul>
+		<h2>影像分析 Image Analysis</h2>
+		<li>從影像中擷取視覺特徵(物件，臉部，特定品牌，成人內容等)</li>
+		<li>自動產生標記 (Tag) 描述。</li>
+	</ul><ul style='color:green'>
+		<li>例如:刪除含成人內容的圖片</li>
+		<li>例如:偵測圖片中狗的影像並取得其座標</li>
+	</ul><ul>
+		<h2>空間分析 Spatial Analysis</h2>
+		<li>從影片中偵測人員的存在和移動，並產生事件供其他程式做事當回應。</li>
+		<li>其功能包括計算進入指定空間的人數，偵測人員是否戴口罩，以及人員之間的距離。</li>
+	</ul><ul style='color:green'>
+		<li>例如:當空間中超過指定的人數時就產生警示</li>
+		<li>例如:偵測空間中人員是否遵循社交距離</li>
+	</ul></td><td tid='自訂視覺' valign="top"><ul>
+		<h2>自訂視覺 Custom Vision</h2>
+		<li>自行建置，部署和改善專屬的影像識別工具模型。</li>
+		<li>自訂視覺可以自行指定標籤，提交加上標籤的影像群組，訓練定型，測試，重新定型等步驟來訓練自訂模型。</li>
+	</ul><ul style='color:green'>
+		<li>例如:使用自己的影像來訓練物件偵測</li>
+		<li>例如:使用自訂模型由零售商店的影像中辨識出競爭對手的產品</li>
+	</ul></td><td tid='人臉辨識' valign="top"><ul>
+		<h2>臉部辨識 Face Recognition</h2>
+		<li>提供進階的臉部辨識演算法，來偵測和辨識影像中人類臉部的屬性。</li>
+		<li>其臉部偵測功能可以感知臉部特徵和屬性(眼鏡，化妝等)。</li>
+		<li>臉部驗證功能可以根據信賴分數來判斷兩張人臉是否為同一個人。</li>
+	</ul><ul style='color:green'>
+		<li>例如:在社群媒體中的自動標記朋友的圖像</li>
+	</ul></td></tr></table>
+</section>
+
+<section>
+	<h2>Azure 語音 API (Speech APIs)</h2>
+	<ul>
+		<h3>語音轉換文字 Speech to Text</h3>
+		<li>將音訊串流或本機檔案即時轉譯為文字。</li>
+		<li style='color:green'>例如:製作通話或會議記錄</li>
+		<h3>文字轉換語音 Text to Speech</h3>
+		<li>使用語音合成標記語言(SSML)將輸入的文字轉換成人工合成語音。</li>
+		<li style='color:green'>例如:要錄製或直播視頻提供隱藏式字幕</li>
+		<h3>語音翻譯 Speech Recognition</h3>
+		<li>將語音即時翻譯成多種語言。</li>
+		<li style='color:green'>例如:在國際會議中將各國發言人的內容即時翻譯成英語</li>
+		<h3>語音助理</h3>
+		<li>可以開發類似人類自然對話的使用者介面。</li>
+		<li style='color:green'>例如:使用語音命令打開收音機</li>
+		<li style='color:green'>例如:語音式的客戶服務專線</li>
+		<h3>語者辨識 Speaker Recognition</h3>
+		<li>根據演算法由個人獨特的語音特性，來驗證和識別出說話者的身分。</li>
+		<li style='color:green'>例如:根據語音可以辨識出人員是否在參加會議名單中?</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Azure 語言 API (Language APIs)</h2>
+	<table><tr topic='文字分析'><td valign="top">
+		<br/>
+		<select onchange='this.parentNode.parentNode.setAttribute("topic",this.value);' size='3'>
+			<option selected>文字分析</option>
+			<option>語言理解</option>
+			<option>問題解答</option>
+		</select>
+	</td><td tid='文字分析' valign="top"><ul>
+		<h3>情感分析</h3>
+		<li>可以分析出文章是屬於正面，中性或負面情感。</li>
+	</ul><ul style='color:green'>
+		<li>例如:確定評論是屬於正面還是負面</li>
+		<li>例如:根據支援票證中包含的文本了解客戶的不安程度</li>
+		<li>例如:按照正負尺度評估本文</li>
+		<li>例如:預測社交媒體貼文的情感</li>
+		<li>例如:分析客戶評論，並確定每個評論的正面或負面影響</li>
+	</ul><ul>
+		<h3>關鍵片語擷取</h3>
+		<li>可以從文章中以擷取關鍵片語方式，快速識別出文章的主要概念。</li>
+	</ul><ul style='color:green;'>
+		<li>例如:確定那些文檔提供了有關相同主題的資訊</li>
+		<li>例如:確定文件集合中的主要討論點</li>
+		<li>例如:總結支援票證中的重要資訊</li>
+		<li>例如:確定某些文件中的主要話題為何?</li>
+	</ul><ul>
+		<h3>具名實體辨識 Named Entity Recognition (NER)</h3>
+		<li>可以識別並分類非結構化文字中的實體。</li>
+	</ul><ul style='color:green;'>
+		<li>例如:從支援票證中提取關鍵日期</li>
+		<li>例如:從文本中提取人員，地點和組織等資訊。</li>
+	</ul></td><td tid='語言理解' valign="top"><ul>
+		<h3>交談語言理解 Conversational Language Understanding (CLU)</h3>
+		<li>可以將自訂機器學習智慧套用到交談式或自然語言文字，用來預測整體意義並從中提取相關資訊。</li>
+	</ul><ul style='color:green'>
+		<li>例如:以自動聊天方式回答有關退款和兌換問題</li>
+		<li>例如:輸入問題並互動式回答作為應用程式的一部分</li>
+		<li>例如:家用智慧設備可以回答諸如 “今天天氣會如何?” 之類的問題</li>
+		<li>例如:使用知識庫以交互方式回答使用者問題的網站</li>
+		<li>例如:讓使用者能夠自行在網站上尋找答案的聊天機器人</li>
+		<li>例如:透過在公用網站中爬文來建立 FAQ 的服務</li>
+		<li>例如:餐廳可以使用聊天機器人提供預訂服務與回答問題</li>
+	</ul></td><td tid='問題解答' valign="top"><ul>
+		<h3>問題解答</h3>
+		<li>使用者用自然語言提出問題，再由 AI 系統給予適當的答案。<li>
+		<li>問題解答可讓你定義可使用自然語言輸入查詢的問答組知識庫。</li>
+		<li>多回合交談可在呈現明確答案前，從使用者引出更多資訊。</li>
+	</ul><ul style='color:green'>
+		<li>例如:使用自然語言來查詢知識庫</li>
+		<li>例如:讓知識庫為提供相同的答案給相似提問</li>
+		<li>例如:已有FAQ PDF檔，根據FAQ建立對話支援</li>
+		<li>例如:基於 FAQ 創建機器人</li>
+	</ul></td></tr></table>
+</section>
+
+<section>
+	<h2>負責任的 AI</h2>
+	<table><tr topic='公平性'><td valign="top">
+		<br/>
+		<select onchange='this.parentNode.parentNode.setAttribute("topic",this.value);' size='6'>
+			<option selected>公平性</option>
+			<option>包容性</option>
+			<option>可靠性</option>
+			<option>隱私權</option>
+			<option>透明性</option>
+			<option>權責性</option>
+		</select>
+	</td><td tid='公平性' valign="top">
+		<ul>
+			<h3>公平性</h3>
+			<li>AI 應用程式應該公平的對待所有人，不得因為性別，年齡，種族，宗教或其他因素而影像預測結果。</li>
+			<li>訓練 AI 系統資料集的偏差，不應該反映於 AI 系統的結果就是遵守公平性原則。</li>
+		</ul>
+		<ul style='color:green;'>
+			<li>例如:建立機器學習模型來支援銀行申請貸款的核准時，不得有任何性別，種族，宗教或其他因素的偏見，導致特定族群的客戶獲得不公平的優勢或劣勢。</li>
+			<li>例如:按不同銷售目標區域有不同定價。</li>
+		</ul>
+	</td><td tid='可靠性與安全性' valign="top">
+		<ul>
+			<h3>可靠性與安全性</h3>
+			<li>開發 AI 應用程式時，必須嚴格遵守測試和部署的管理程序，確保能如預期運作才能發行。</li>
+			<li>發行後仍然必須持續監視和追蹤模型，必要時須重新訓練建立新模型，來確保系統的可靠性與安全性。</li>
+		</ul>
+		<ul style='color:green;'>
+			<li>為自動駕駛汽車開發 AI 系統時，要確保系統在其使用壽命內能持續運行</li>
+			<li>機器學習模型用於診斷病患症狀並建議處方</li>
+		</ul>
+	</td><td tid='透明性' valign="top">
+		<ul>
+			<h3>透明性</h3>
+			<li>AI 應用程式應該是公開透明，預測的結果是可以被了解和解釋。</li>
+			<li>無論是專家或使用者，都要能夠明確了解AI系統的用途和運作方式，以及預測的限制。</li>
+		</ul>
+		<ul style='color:green;'>
+			<li>例如:處理提供給 AI 系統的異常值或缺失值</li>
+			<li>例如:自動決策程序必須加以記錄，已便已核准使用者可以了解決策制定原因</li>
+			<li>例如:評估是否應該核准貸款的 AI 系統時，制定決策所用的因素要可以解釋</li>
+		</ul>
+	</td><td tid='包容性' valign="top">
+		<ul>
+			<h3>包容性</h3>
+			<li>AI 裝置應改造福社會中的每個人，AI 設計應考慮所有人類的各種情況。開發系統時不只遵守技術規範，還要兼顧倫理與同理心的需求。</li>
+		</ul>
+		<ul style='color:green'>
+			<li>例如:給予所有人許可權的AI系統，包括有聽覺，視覺和其他障礙的人</li>
+			<li>例如:預測性應用程式會為視覺不便的使用者提供音訊輸出</li>
+			<li>例如:探索語音辨識技術在智慧型家用裝置中的使用，可找出無意間遺漏特定使用者群組的任何頻障</li>
+		</ul>
+	</td><td tid='隱私權與安全性' valign="top">
+		<ul>
+			<h3>隱私權與安全性</h3>
+			<li>必須保護及保障個人與企業資訊。</li>
+		</ul>
+		<ul style='color:green;'>
+			<li>例如:為消費者提供有關其數據的收集，使用和儲存的資訊和控制。</li>
+			<li>例如:只有已核准的特定使用者可以看見個人資料。</li>
+		</ul>
+	</td><td  tid='權責性' valign="top">
+		<ul>
+			<h3>權責性</h3>
+			<li>以 AI 為基礎的解決方案，設計和開發人員應該在有明確準則的組織架構中工作。</li>
+			<li>確保方案符合道德和法律標準。</li>
+			<li>設計和部屬 AI 系統的人員，必須為 AI 的動作和預測負責，尤其是當不斷發展更多系統時，更需注重權責。</li>
+		</ul>
+		<ul style='color:green;'>
+			<li>例如:實施過程以確保 AI 系統所做的決定可以被人類推翻。</li>
+		</ul>
+	</td></tr></table>
+</section>
+
+<section>
 	<div qi='1' qt='s' ___='4'>
 		說明用以定型模型的資料來源是哪一項責任 AI 準則的範例?
 		<div qo='1'>隱私權與安全性</div>
