@@ -145,7 +145,7 @@ class Aside
 	createTocList (sections) {
 		const tocList=this.E.querySelector('#tocList');
 		sections.forEach((sec, idx) => {
-			const h = sec.querySelector('h2') || sec.querySelector('h1');
+			const h = sec.querySelector('h1') || sec.querySelector('h2');
 			const title = h ? h.textContent.trim() : (idx + 1);
 			const li = document.createElement('li');
 			const a = document.createElement('a');
@@ -255,7 +255,6 @@ class Quiz
 	}
 }	// }}}
 
-
 class Cards
 {	/* {{{
 	<div class="flashcard">
@@ -361,13 +360,31 @@ class Slides
 		this.currentActiveIndex=-1;
 		this.currentFontScale=1.0;
 		
-		this.Content=document.getElementById('content');
-		this.Content.addEventListener('click',(evt) => {
-			let e=evt.target, s;
-			for (s=e;s&&s.tagName!=="SECTION";s=s.parentNode);
-			if (s&&s.tagName==="SECTION")
-				this.activateSection(parseInt(s.getAttribute("data-index"),10));
-		});
+		this.Content=((content)=>{
+			content.insertBefore(((s)=>{
+				const code=`
+.cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
+.fxl { display:flex;align-items:center;justify-content:flex-start; }
+`;
+				const quiz=`
+.answer { color:blue; display:none; padding:8px; }
+[qr="o"] .answer { display:block; }
+`;
+				s.innerHTML=`[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
+.frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
+`;
+				s.innerHTML+=code;
+				s.innerHTML+=quiz;
+				return s;
+			})(document.createElement("style")),content.firstChild);
+			content.addEventListener('click',(evt) => {
+				let e=evt.target, s;
+				for (s=e;s&&s.tagName!=="SECTION";s=s.parentNode);
+				if (s&&s.tagName==="SECTION")
+					this.activateSection(parseInt(s.getAttribute("data-index"),10));
+			});
+			return content;
+		})(document.getElementById('content'));
 
 		this.Sections=Array.from(content.querySelectorAll('section'));
 		this.Sections.forEach((sec, idx) => {
@@ -439,8 +456,8 @@ class Slides
 	}
 
 	applyFontSize (scale) {
-		const DEFAULT_FONT_SIZE = 24;
-		this.currentFontScale = Math.max(0.8, Math.min(1.5, scale));
+		const DEFAULT_FONT_SIZE=((w,h)=>w>h ? Math.floor(h/26) : Math.floor(w/30))(window.innerWidth,window.innerHeight);
+		if(scale) this.currentFontScale = Math.max(0.8, Math.min(1.5, scale));
 		document.documentElement.style.setProperty(
 			'--base-font-size',
 			`${DEFAULT_FONT_SIZE * this.currentFontScale}px`
@@ -461,10 +478,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (matchingSection)
 			initialIndex = parseInt(matchingSection.getAttribute("data-index"), 10);
 	}
-
+	window.addEventListener('resize',(e)=>MS.applyFontSize());
 	MS.applyFontSize (1.0);
-	setTimeout(()=>MS.activateSection(initialIndex, false),1);
-
 	window.addEventListener('keydown', (e) => {
 		if (e.key==='ArrowLeft') MS.activateSection(MS.currentActiveIndex - 1);
 		if (e.key==='ArrowRight') MS.activateSection(MS.currentActiveIndex + 1);
@@ -473,6 +488,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			MS.Aside.toggle();
 		}
 	});
+
+	setTimeout(()=>MS.activateSection(initialIndex, false),1);
 
 	if (document.body.classList.contains('is-mobile')) {
 		((E)=>{ // {{{
@@ -500,9 +517,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	font-weight: bold;
 }
 </style>
-<button id="mobilePrevBtn" class="btn">← 上一頁</button>
-<button id="mobileEscBtn" class="btn">☰ 導覽</button>
-<button id="mobileNextBtn" class="btn">下一頁 →</button>
+<button id="mobilePrevBtn" class="btn">←</button>
+<button id="mobileEscBtn" class="btn">☰</button>
+<button id="mobileNextBtn" class="btn">→</button>
 `;
 			E.update=(index,total) => {
 				E.querySelector("#mobilePrevBtn").disabled = (index === 0);
