@@ -5,25 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
 <script src="/App/slide.js"></script>
-<style>
-	.answer { color:blue; display:none; padding:8px; }
-	[qr="o"] .answer { display:block; }
-	.fxl	{ display:flex;align-items:center;justify-content:flex-start; }
-</style>
 </head>
 <body>
 
-<div id="content" ANS='{}'>
-<section>
-	<h1 class="title">💻 AI-900 模擬試題</h1>
-	<div>
-		<p class="subtitle">機器學習基礎</p>
-		<p class="meta">
-			<div>Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a>Porshen Lai</div>
-			<div>Department of Finance, Chihlee University of Technology</div>
-			<div>2025, Winter</div>
-		</p>
-	</div>
+<div id="content">
+<section class="cm">
+	<h1 class="title">💻 AI-900 </h1>
+	<h2>機器學習基礎</h2>
+	<br/>
+	<div>Lecturer: <em><a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+	<div>Department of Finance</div>
+	<div>Chihlee University of Technology</div>
+	<div>2025, Winter</div>
 </section>
 
 <section>
@@ -68,17 +61,17 @@
 	<h2>機器學習工作與模型配對</h2>
 	<div qi="3-1" qt="s" ___="1">
 		根據人口統計資料為乘客指派類別
-		<div qo="1">分類</div><div qo="2">回歸</div><div qo="3">叢集</div>
+		<div qo="1">分類</div><div qo="2">迴歸</div><div qo="3">叢集</div>
 		<div class="answer">預測類別。</div>
 	</div>
 	<div qi="3-2" qt="s" ___="2">
 		根據飛行距離預測消耗的燃油量
-		<div qo="1">分類</div><div qo="2">回歸</div><div qo="3">叢集</div>
+		<div qo="1">分類</div><div qo="2">迴歸</div><div qo="3">叢集</div>
 		<div class="answer">預測連續數值 (燃油量)。</div>
 	</div>
 	<div qi="3-3" qt="s" ___="1">
 		根據人口統計資料預測乘客是否會錯過他們的航班
-		<div qo="1">分類</div><div qo="2">回歸</div><div qo="3">叢集</div>
+		<div qo="1">分類</div><div qo="2">迴歸</div><div qo="3">叢集</div>
 		<div class="answer">預測類別 (會/不會錯過)。</div>
 	</div>
 </section>
@@ -104,8 +97,9 @@
 </section>
 
 <section>
+	<div>您需要預測某個區域的動物族群規模。</div>
 	<div qi='6' qt='s' ___='2'>
-		您需要預測某個區域的動物族群規模。您應該使用下列哪一種 Azure Machine Learning 類型?
+		應該使用下列哪一種 Azure Machine Learning 類型?
 		<div qo='1'>分類</div>
 		<div qo='2'>迴歸</div>
 		<div qo='3'>叢集</div>
@@ -114,8 +108,9 @@
 </section>
 
 <section>
+	<div>您想預測某國家公園內動物的數量。</div>
 	<div qi='7' qt='s' ___='2'>
-		您想預測某國家公園內動物的數量，應該使用下列哪種類型的 Azure Machine Learning 模型類型?
+		應該使用下列哪種類型的 Azure Machine Learning 模型類型?
 		<div qo='1'>分類</div>
 		<div qo='2'>迴歸</div>
 		<div qo='3'>叢集</div>
@@ -124,8 +119,9 @@
 </section>
 
 <section>
+	<div>您想找出具有相似購物習慣的人員族群。</div>
 	<div qi='8' qt='s' ___='3'>
-		您想找出具有相似購物習慣的人員族群，該使用下列哪種機器學習類型?
+		該使用下列哪種機器學習類型?
 		<div qo='1'>分類</div>
 		<div qo='2'>迴歸</div>
 		<div qo='3'>叢集</div>
@@ -136,11 +132,14 @@
 <section>
 	<h2>關於特徵 (Feature) 和標籤 (Label)</h2>
 
-	<table><thead><tr>
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
 		<th>日期</th><th>時間</th><th>質量(公斤)</th><th>溫度(°C)</th><th>品質測試 (通過/不通過)</th>
-	</tr></thead>
-	<tbody><tr>
-		<td></td><td></td><td></td><td></td><td></td>
+	</tr></thead><tbody><tr>
+		<td>2022年11月26日</td><td>18:32:07</td><td>2.109</td><td>62.4</td><td>通過</td>
+	</tr><tr>
+		<td>2022年11月26日</td><td>18:32:49</td><td>2.102</td><td>62.5</td><td>通過</td>
+	</tr><tr>
+		<td>2022年11月27日</td><td>02:31:56</td><td>2.097</td><td>66.5</td><td>不通過</td>
 	</tr></tbody></table>
 
 	<div qi="9-1" qt="s" ___="1">
@@ -161,8 +160,22 @@
 </section>
 
 <section>
+	<div>您需要使用以下資料集來預測指定客戶的收入範圍。</diV>
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
+		<th>名字</th><th>姓氏</th><th>年齡</th><th>教育程度</th><th>收入範圍</th>
+	</tr></thead><tbody><tr>
+		<td>Jack</td><td>Chang</td><td>42</td><td>大專</td><td>25,000-50,000</td>
+	</tr><tr>
+		<td>Mary</td><td>Natti</td><td>38</td><td>高中</td><td>25,000-50,000</td>
+	</tr><tr>
+		<td>David</td><td>Shelton</td><td>54</td><td>大專</td><td>50,000-75,000</td>
+	</tr><tr>
+		<td>Max</td><td>Adler</td><td>25</td><td>大專</td><td>75,000-100,000</td>
+	</tr><tr>
+		<td>Erice</td><td>Jansen</td><td>72</td><td>高中</td><td>50,000-75,000</td>
+	</tr></tbody></table>
 	<div qi='10' qt='m' ___='20'>
-		您需要使用以下資料集來預測指定客戶的收入範圍，應該將下列哪兩個欄位用作特徵? (多選)
+		應該將下列哪兩個欄位用作特徵? (多選)
 		<div qo='1'>名字</div>
 		<div qo='2'>姓氏</div>
 		<div qo='4'>教育程度</div>
@@ -177,15 +190,24 @@
 </section>
 
 <section>
-	您計劃使用下面資料集，訓練一個預測房價類別的模型。請問家庭收入和房價類別分別屬於下列何者?
+	您計劃使用下面資料集，訓練一個預測房價類別的模型。
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
+		<th>家庭收入</th><th>郵遞區號</th><th>房價類別</th>
+	</tr></thead><tbody><tr>
+		<td>20,000</td><td>42055</td><td>低</td>
+	</tr><tr>
+		<td>23,000</td><td>52041</td><td>中</td>
+	</tr><tr>
+		<td>80,000</td><td>78960</td><td>高</td>
+	</tr></tbody></table>
 	<div qi='11-1' qt='s' ___='1'>
-		家庭收入:
+		請問家庭收入屬於下列何者?
 		<div qo='1'>特徵</div>
 		<div qo='2'>標籤</div>
 		<div class="answer">家庭收入：用來預測房價類別的輸入變數 =&gt; 特徵。</div>
 	</div>
 	<div qi='11-2' qt='s' ___='2'>
-		房價類別:
+		請問房價類別屬於下列何者?
 		<div qo='1'>特徵</div>
 		<div qo='2'>標籤</div>
 		<div class="answer">房價類別：模型要預測的目標變數 =&gt; 標籤。</div>
@@ -384,7 +406,7 @@
 </section>
 
 <section>
-	<div qi='25' qt='s'>
+	<div qi='25' qt='s' ___='4'>
 		針對下列何者，您可使用資料集的其中一部分來準備機器學習模型並保持資料集平衡，以驗證結果。
 		<div qo='1'>時間限制</div>
 		<div qo='2'>特徵工程</div>
@@ -406,8 +428,33 @@
 </section>
 
 <section>
+	<div qi='27' qt='s' ___='4'>
+		下列何者會針對指定的計算目標執行工作，並且為實驗和工作流程進行系統化追蹤 ?
+		<div qo='1'>元件</div>
+		<div qo='2'>資料集</div>
+		<div qo='3'>管線</div>
+		<div qo='4'>Azure Machine Learning 作業</div>
+	</div>
+</section>
+
+<section>
+	<div>資料集包含下圖資料行</div>
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
+		<th>名稱</th><th>類型</th>
+	</tr></thead><tbody><tr>
+		<td>Column A</td><td>整數</td>
+	</tr><tr>
+		<td>Column B</td><td>數值</td>
+	</tr><tr>
+		<td>Column C</td><td>數值</td>
+	</tr><tr>
+		<td>Column D</td><td>數值</td>
+	</tr><tr>
+		<td>Column E</td><td>數值</td>
+	</tr></tbody></table>
+	<diV>你有一個根據其他數值資料行預測 ColumnE 值的機器學習模型。</div>
 	<div qi='28' qt='s' ___='1'>
-		資料集包含右圖資料行: ColumnA (整數), ColumnB, C, D, E (數值)。你有一個根據其他數值資料行預測 ColumnE 值的機器學習模型。請問是下列哪一種模型?
+		請問是下列哪一種模型?
 		<div qo='1'>迴歸</div>
 		<div qo='2'>分析</div>
 		<div qo='3'>叢集</div>
@@ -416,8 +463,9 @@
 </section>
 
 <section>
+	<div>您想要使用 Azure Machine Learning 自動化機器學習 (自動化 ML)、建置一個模型並加以訓練。</div>
 	<div qi='29' qt='s' ___='2'>
-		您想要使用 Azure Machine Learning 自動化機器學習 (自動化 ML)、建置一個模型並加以訓練。您應該先建立下列哪一項?
+		您應該先建立下列哪一項?
 		<div qo='1'>Jupyter Notebook</div>
 		<div qo='2'>資料集</div>
 		<div qo='3'>已註冊的資料集</div>
@@ -441,12 +489,77 @@
 </section>
 
 <section>
+	<div>您使用自動化機器學習使用者介面(UI)建置機器學習模型。</div>
+	<div>您必須確保此模型符合 Microsoft 責任 AI 透明度準則。</div>
+	<div qi='31' qt='s' ___='2'>
+		試問您應該如何做?
+		<div qo='1'>將並行反覆運算上限設為 [0]</div>
+		<div qo='2'>啟用最佳解釋模型</div>
+		<div qo='3'>將驗證類型設為 [自動]</div>
+		<div qo='4'>將主要計量設為 [精確度]</div>
+	</div>
+</section>
+
+<section>
+	<div>你需要追蹤數個使用 Azure Machine Learning 進行訓練的模型版本。</div>
+	<div qi='32' qt='s' ___='2'>
+		請問你該怎麼做 ?
+		<div qo='1'>解釋模型</div>
+		<div qo='2'>註冊模型</div>
+		<div qo='3'>佈建推斷叢集</div>
+		<div qo='4'>註冊訓練資料</div>
+	</div>
+</section>
+
+<section>
+	<div>您需要使用 Azure Machine Learning 設計工具建置一個能預測單車價格的模型，請問下圖 A, B, C 中應該使用哪種模組類型來完成此模型 ?</div>
+	<div style="text-align:center;"><img src="figure/2a.jpg" style="width:80%"></img></div>
+	<div qi='33-1' qt='s' ___='4'>
+		A
+		<div qo='1'>轉換為 CSV</div>
+		<div qo='2'>K 均值叢集</div>
+		<div qo='3'>線性迴歸</div>
+		<div qo='4'>選擇資料集中的資料行</div>
+		<div qo='5'>分割資料</div>
+		<div qo='6'>摘要資料</div>
+	</div>
+	<div qi='33-2' qt='s' ___='5'>
+		B
+		<div qo='1'>轉換為 CSV</div>
+		<div qo='2'>K 均值叢集</div>
+		<div qo='3'>線性迴歸</div>
+		<div qo='4'>選擇資料集中的資料行</div>
+		<div qo='5'>分割資料</div>
+		<div qo='6'>摘要資料</div>
+	</div>
+	<div qi='33-3' qt='s' ___='3'>
+		C
+		<div qo='1'>轉換為 CSV</div>
+		<div qo='2'>K 均值叢集</div>
+		<div qo='3'>線性迴歸</div>
+		<div qo='4'>選擇資料集中的資料行</div>
+		<div qo='5'>分割資料</div>
+		<div qo='6'>摘要資料</div>
+	</div>
+</section>
+
+<section>
+	<div>您有一個資料集，包含銷售資料，並定義了標籤。</div>
+	<div>您需要建立一個模型以根據銷售資料分類客戶類型。</div>
 	<div qi='34' qt='s' ___='1'>
-		您有一個資料集，包含銷售資料，並定義了標籤。您需要建立一個模型以根據銷售資料分類客戶類型。使用哪種機器學習類型?
-		<div qo='1'>分類</div>
-		<div qo='2'>叢集</div>
-		<div qo='3'>迴歸</div>
+		該使用哪種機器學習類型?
+		<div qo='1'>分類</div><div qo='2'>叢集</div><div qo='3'>迴歸</div>
 		<div class="answer">分類是用於預測離散類別 (客戶類型) 的監督式學習。</div>
+	</div>
+</section>
+
+<section>
+	下列何者可以用來在實際執行環境中裝載自動化機器學習(自動化ML)模型 ?
+	<div qi='35' qt='s' ___='2'>
+		<div qo='1'>Azure Data Factory</div>
+		<div qo='2'>Azure 自動化</div>
+		<div qo='3'>Azure Kubernetes Service (AKS)</div>
+		<div qo='4'>Azure Logic Apps</div>
 	</div>
 </section>
 
@@ -461,6 +574,29 @@
 </section>
 
 <section>
+	<div>您有一個資料集，您需要建置一個 Azure Machine Learning 分類模型來識別瑕疵產品。</div>
+	<div qi='37' qt='s' ___='1'>
+		您應該先採取什麼措施 ?
+		<div qo='1'>載入資料集</div>
+		<div qo='2'>建立叢集模型</div>
+		<div qo='3'>將資料分割成定型和測試資料集</div>
+		<div qo='4'>建立分類模型</div>
+	</div>
+</section>
+
+<section>
+	<div>您有一個 Azure Machine Learning 管線，其中包含一個分割資料模組。</div>
+	<div>分割資料模組會輸出至定型模型模組和評分模型模組。</div>
+	<div>以下何者為分割資料模組的功能 ?</div>
+	<div qi='38' qt='s' ___='1'>
+		<div qo='1'>建立定型和驗證資料集</div>
+		<div qo='2'>選取必須包含在模型中的資料行</div>
+		<div qo='3'>轉移具有缺少資料的紀錄</div>
+		<div qo='4'>調整數值變數，將它們保持在一致的數值範圍內</div>
+	</div>
+</section>
+
+<section>
 	<div qi='39' qt='s' ___='1'>
 		機器學習模型中，用來當做輸入使用的各組資料值稱為?
 		<div qo='1'>特徵</div>
@@ -468,6 +604,42 @@
 		<div qo='3'>標籤</div>
 		<div qo='4'>執行個體</div>
 		<div class="answer">特徵是模型的輸入變數。</div>
+	</div>
+</section>
+
+<section>
+	<div>從資料集中隨機抽取的子資料集。</div>
+	<div qi='40' qt='s' ___='4'>
+		子資料集通常用於協助模型進行什麼任務 ?
+		<div qo='1'>演算法</div>
+		<div qo='2'>特徵</div>
+		<div qo='3'>標籤</div>
+		<div qo='4'>驗證</div>
+	</div>
+</section>
+
+<section>
+	<div>Jasper 有一個 Azure Machine Learning 模型，使用臨床資料預測患者是否患有某種疾病。</div>
+	<div>Jasper 清理並轉換了臨床資料。</div>
+	<div>Jasper 需要確保模型準確度可進行驗證。請問您要協助 Jasper 接下來做什麼 ?
+	<div qi='41' qt='s' ___='3'>
+		<div qo='1'>使用臨床資料訓練模型</div>
+		<div qo='2'>使用自動化機器學習(自動化 ML)</div>
+		<div qo='3'>將臨床資料分割成兩個資料集</div>
+		<div qo='4'>使用臨床資料驗證模型</div>
+	</div>
+</section>
+
+<section>
+	<div>小明有汽車銷售的大型資料集。</div>
+	<div>他需要根據汽車類型訓練自動化機器學習(自動化ML)模型，以預測汽車銷售額。
+	<div qi='42' qt='s' ___='3'>
+		試問要使用下列哪像工作 ?
+		<div qo='1'>自然語言處理</div>
+		<div qo='2'>電腦視覺</div>
+		<div qo='3'>迴歸</div>
+		<div qo='4'>預測時間序列</div>
+		<div qo='5'>分類</div>
 	</div>
 </section>
 
@@ -493,6 +665,28 @@
 		<div qo='2'>迴歸</div>
 		<div qo='3'>叢集</div>
 		<div class="answer">叢集 | 非監督式學習的分組。</div>
+	</div>
+</section>
+
+<section>
+	<div>小明有 Azure Machine Learning 模型會產生大量的錯誤否定。</div>
+	<div>他需要再不重新訓練模型的情況下降低錯誤否定的數量。</div>
+	<div qi='44' qt='s' ___='1'>
+		請問應該採取什麼措施 ?
+		<div qo='1'>調整閥值</div>
+		<div qo='2'>增加訓練資料量</div>
+		<div qo='3'>增加定型反覆運算的數目</div>
+		<div qo='4'>使用其他機器學習模型</div>
+	</div>
+</section>
+
+<section>
+	<div>在機器學習的過程中，您何時該檢閱評估計量 ?</div>
+	<div qi='45' qt='s' ___='1'>
+		<div qo='1'>使用驗證資料測試模型之後。</div>
+		<div qo='2'>清理資料之後。</div>
+		<div qo='3'>定型模型之前。</div>
+		<div qo='4'>選擇模型的類型之前。</div>
 	</div>
 </section>
 
