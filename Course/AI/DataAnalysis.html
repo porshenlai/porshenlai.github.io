@@ -3,39 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title></title>
-<script>
-    window.MathJax = {
-        tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],
-            displayMath: [['$$', '$$'], ['\\[', '\\]']]
-        }
-    };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script src="/App/slide.js"></script>
-<style>
-	.quiz { border:2px solid red; padding:8px; border-radius:8px; }
-	.answer { background:lightgrey; border:2px solid silver; border-radius:8px; padding:8px; display:none; }
-	.correct>.answer { display:block; }
-	.note { border:2px solid blue; }
-	th[colspan] { background:lightgrey; color:darkblue; font-weight:bold; }
-	img { max-width:90vw; max-height:90vh; }
-</style>
+<title>資料分析</title>
+<script plugins='math,quiz' src="/App/slide.js"></script>
 </head>
 <body>
 
 <div id="content">
-<section>
-	<h1 class="title">資料分析<br/>Data Analysis</h1>
-	<div>
-		<p class="meta">
-			<div>Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a>Porshen Lai</div>
-			<div>Department of Finance, Chihlee University of Technology</div>
-			<div>2025, Winter</div>
-		</p>
-	</div>
+<style>
+	.note { border:2px solid blue; }
+	th[colspan] { background:lightgrey; color:darkblue; font-weight:bold; }
+</style>
+
+<section class="cm">
+	<h1 class="title">💻資料分析<br/>Data Analysis</h1>
+	<br/>
+	<div>Lecturer: <em><a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+	<div><a href="https://fd100.chihlee.edu.tw">Department of Finance</a></div>
+	<div><a href="https://www.chihlee.edu.tw">Chihlee University of Technology</a></div>
+	<div>2025, Winter</div>
 </section>
+
 <section>
 	<h2>資料分析類型</h2>
 	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead>
@@ -302,142 +289,142 @@
 </section>
 
 
-<section AID="eyIxIjoyLCIyIjoyLCIzIjoxLCI0IjoyLCI1IjozLCI2IjoyLCI3IjoxLCI4IjoyLCI5IjoxLCIxMCI6NCwiMTEiOjIsIjEyIjoxLCIxMyI6MiwiMTQiOjEsIjE1IjozLCIxNiI6MiwiMTciOjMsIjE4Ijo0LCIxOSI6MiwiMjAiOjJ9">
+<section>
 	<h2>練習題</h2>
-	<div qi='1' qt='s' qc='AI,ML,DL'>
+	<div qi='1' qt='s' qc='AI,ML,DL' ___='2'>
 		AI (人工智慧)、ML (機器學習) 和 DL (深度學習) 之間的關係，教材中常以下列何種方式描述？
 		<div qo='1'>ML 和 DL 是 AI 的兩個獨立分支</div>
 		<div qo='2'>AI 是一個大範圍，ML 是 AI 的子集，DL 又是 ML 的子集 (像俄羅斯娃娃)</div>
 		<div qo='3'>AI 是 DL 的一部分，DL 又是 ML 的一部分</div>
 		<div qo='4'>三者是完全相同技術的不同名稱</div>
 	</div>
-	<div qi='2' qt='s' qc='ML,Supervised'>
+	<div qi='2' qt='s' qc='ML,Supervised' ___='2'>
 		在機器學習中，如果我們提供給模型的訓練資料「同時包含特徵 (X) 與標籤 (Y)」，這種學習方式稱為什麼？
 		<div qo='1'>非監督式學習 (Unsupervised Learning)</div>
 		<div qo='2'>監督式學習 (Supervised Learning)</div>
 		<div qo='3'>強化學習 (Reinforcement Learning)</div>
 		<div qo='4'>半監督式學習 (Semi-supervised Learning)</div>
 	</div>
-	<div qi='3' qt='s' qc='ML,Unsupervised'>
+	<div qi='3' qt='s' qc='ML,Unsupervised' ___='1'>
 		當訓練資料「只有特徵 (X) 而沒有標籤 (Y)」，我們希望模型自動找出資料中的結構或模式，這稱為什麼？
 		<div qo='1'>非監督式學習 (Unsupervised Learning)</div>
 		<div qo='2'>監督式學習 (Supervised Learning)</div>
 		<div qo='3'>強化學習 (Reinforcement Learning)</div>
 		<div qo='4'>深度學習 (Deep Learning)</div>
 	</div>
-	<div qi='4' qt='s' qc='Data Analysis,EDA'>
+	<div qi='4' qt='s' qc='Data Analysis,EDA' ___='2'>
 		在資料分析流程中，EDA (Exploratory Data Analysis) 指的是什麼？
 		<div qo='1'>探索式資料分析</div>
 		<div qo='2'>探索性資料分析</div>
 		<div qo='3'>實驗性資料分析</div>
 		<div qo='4'>外部資料獲取</div>
 	</div>
-	<div qi='5' qt='s' qc='Data Analysis,Process'>
+	<div qi='5' qt='s' qc='Data Analysis,Process' ___='3'>
 		根據教材，資料分析的第一步通常是什麼？
 		<div qo='1'>模型訓練 (Training)</div>
 		<div qo='2'>資料清理 (Cleaning)</div>
 		<div qo='3'>問題定義 (Define) / 提出問題 (Ask)</div>
 		<div qo='4'>視覺化 (Visualize)</div>
 	</div>
-	<div qi='6' qt='s' qc='Data Analysis,DIKW'>
+	<div qi='6' qt='s' qc='Data Analysis,DIKW' ___='2'>
 		教材中提到的 DIKW 模型，代表資料 (Data) 轉化為智慧 (Wisdom) 的過程。請問 I 代表什麼？
 		<div qo='1'>Internet (網際網路)</div>
 		<div qo='2'>Information (資訊)</div>
 		<div qo='3'>Intelligence (智慧)</div>
 		<div qo='4'>Insight (洞察)</div>
 	</div>
-	<div qi='7' qt='s' qc='Data Analysis,DIKW'>
+	<div qi='7' qt='s' qc='Data Analysis,DIKW' ___='1'>
 		在 DIKW 模型 (Data -&gt; Information -&gt; Knowledge -&gt; Wisdom) 中，哪一層是「將資訊組織成有意義的脈絡與規則」？
 		<div qo='1'>Knowledge (知識)</div>
 		<div qo='2'>Data (資料)</div>
 		<div qo='3'>Information (資訊)</div>
 		<div qo='4'>Wisdom (智慧)</div>
 	</div>
-	<div qi='8' qt='s' qc='EDA,Visualization'>
+	<div qi='8' qt='s' qc='EDA,Visualization' ___='2'>
 		在探索性資料分析 (EDA) 中，哪種圖表最適合用來觀察「單一連續變數」的分布情況 (如集中趨勢與離群值)？
 		<div qo='1'>折線圖 (Line Chart)</div>
 		<div qo='2'>直方圖 (Histogram) 或 盒鬚圖 (Box Plot)</div>
 		<div qo='3'>圓餅圖 (Pie Chart)</div>
 		<div qo='4'>散點圖 (Scatter Plot)</div>
 	</div>
-	<div qi='9' qt='s' qc='EDA,Visualization'>
+	<div qi='9' qt='s' qc='EDA,Visualization' ___='1'>
 		如果想探討「兩個連續變數」之間的相關性，最適合使用哪種圖表？
 		<div qo='1'>散點圖 (Scatter Plot)</div>
 		<div qo='2'>柱狀圖 (Bar Chart)</div>
 		<div qo='3'>圓餅圖 (Pie Chart)</div>
 		<div qo='4'>直方圖 (Histogram)</div>
 	</div>
-	<div qi='10' qt='s' qc='Data Cleaning'>
+	<div qi='10' qt='s' qc='Data Cleaning' ___='4'>
 		在資料清理 (Data Cleaning) 階段，處理「遺失值」(Missing Values) 的常見方法「不包括」下列何者？
 		<div qo='1'>刪除該筆資料 (Deletion)</div>
 		<div qo='2'>填補平均值或中位數 (Imputation)</div>
 		<div qo='3'>保持原樣不處理</div>
 		<div qo='4'>直接將遺失值當作 "0" 進行計算 (這可能導致偏差)</div>
 	</div>
-	<div qi='11' qt='s' qc='Data Type'>
+	<div qi='11' qt='s' qc='Data Type' ___='2'>
 		在資料分析中，像「性別」(男/女)、「血型」(A/B/O/AB) 這類用來分類的資料，稱為什麼類型？
 		<div qo='1'>連續型資料 (Continuous Data)</div>
 		<div qo='2'>類別型資料 (Categorical Data)</div>
 		<div qo='3'>時間序列資料 (Time Series Data)</div>
 		<div qo='4'>順序型資料 (Ordinal Data)</div>
 	</div>
-	<div qi='12' qt='s' qc='Data Type'>
+	<div qi='12' qt='s' qc='Data Type' ___='1'>
 		像「身高」、「體重」、「溫度」這類可以測量出具體數值，且數值間有無限可能性的資料，稱為什麼？
 		<div qo='1'>連續型資料 (Continuous Data)</div>
 		<div qo='2'>類別型資料 (Categorical Data)</div>
 		<div qo='3'>名目資料 (Nominal Data)</div>
 		<div qo='4'>二元資料 (Binary Data)</div>
 	</div>
-	<div qi='13' qt='s' qc='ML,Classification'>
+	<div qi='13' qt='s' qc='ML,Classification' ___='2'>
 		監督式學習中，如果我們要預測的目標 (Y) 是「類別型」資料，例如「會不會下雨」(是/否)，這屬於什麼問題？
 		<div qo='1'>迴歸 (Regression)</div>
 		<div qo='2'>分類 (Classification)</div>
 		<div qo='3'>聚類 (Clustering)</div>
 		<div qo='4'>降維 (Dimensionality Reduction)</div>
 	</div>
-	<div qi='14' qt='s' qc='ML,Regression'>
+	<div qi='14' qt='s' qc='ML,Regression' ___='1'>
 		監督式學習中，如果我們要預測的目標 (Y) 是「連續型」資料，例如預測「明天的氣溫」，這屬於什麼問題？
 		<div qo='1'>迴歸 (Regression)</div>
 		<div qo='2'>分類 (Classification)</div>
 		<div qo='3'>聚類 (Clustering)</div>
 		<div qo='4'>關聯規則 (Association Rule)</div>
 	</div>
-	<div qi='15' qt='s' qc='ML,Clustering'>
+	<div qi='15' qt='s' qc='ML,Clustering' ___='3'>
 		非監督式學習中，將資料自動分成 K 個群組，使得「組內」資料相似度高、「組間」資料相似度低，這種任務稱為什麼？
 		<div qo='1'>分類 (Classification)</div>
 		<div qo='2'>迴歸 (Regression)</div>
 		<div qo='3'>聚類 (Clustering)</div>
 		<div qo='4'>降維 (Dimensionality Reduction)</div>
 	</div>
-	<div qi='16' qt='s' qc='ML,Algorithm'>
+	<div qi='16' qt='s' qc='ML,Algorithm' ___='2'>
 		K-Means (K-平均) 演算法是解決哪一類機器學習問題的常用方法？
 		<div qo='1'>迴歸 (Regression)</div>
 		<div qo='2'>聚類 (Clustering)</div>
 		<div qo='3'>分類 (Classification)</div>
 		<div qo='4'>強化學習 (Reinforcement Learning)</div>
 	</div>
-	<div qi='17' qt='s' qc='ML,Algorithm'>
+	<div qi='17' qt='s' qc='ML,Algorithm' ___='3'>
 		決策樹 (Decision Tree) 和 隨機森林 (Random Forest) 最常用來解決哪一類監督式學習問題？
 		<div qo='1'>聚類 (Clustering)</div>
 		<div qo='2'>降維 (Dimensionality Reduction)</div>
 		<div qo='3'>分類 (Classification) 或 迴歸 (Regression)</div>
 		<div qo='4'>強化學習 (Reinforcement Learning)</div>
 	</div>
-	<div qi='18' qt='s' qc='Data Collection'>
+	<div qi='18' qt='s' qc='Data Collection' ___='4'>
 		教材中提到，當所需資料不存在時，常用的資料獲取方式「不包括」下列何者？
 		<div qo='1'>網路爬蟲 (Web Scraping)</div>
 		<div qo='2'>應用程式介面 (API)</div>
 		<div qo='3'>開放資料庫 (Open Database)</div>
 		<div qo='4'>隨機生成 (Random Generation) (指無根據的隨機生成)</div>
 	</div>
-	<div qi='19' qt='s' qc='Data Preprocessing'>
+	<div qi='19' qt='s' qc='Data Preprocessing' ___='2'>
 		為什麼在訓練模型前，通常需要對特徵進行「標準化」(Standardization) 或「正規化」(Normalization)？
 		<div qo='1'>為了讓資料看起來更美觀</div>
 		<div qo='2'>為了消除不同特徵因「單位」或「尺度」不同所帶來的影響</div>
 		<div qo='3'>為了增加資料的筆數</div>
 		<div qo='4'>這是非監督式學習的專屬步驟</div>
 	</div>
-	<div qi='20' qt='s' qc='AI,Ethics'>
+	<div qi='20' qt='s' qc='AI,Ethics' ___='2'>
 		教材在 AI 倫理 (Ethics) 部分提到，當 AI 模型因為訓練資料的偏見導致對特定群體產生不公平的結果時，這稱為什麼？
 		<div qo='1'>過度擬合 (Overfitting)</div>
 		<div qo='2'>演算法偏誤 (Algorithmic Bias)</div>
@@ -445,8 +432,6 @@
 		<div qo='4'>模型漂移 (Model Drift)</div>
 	</div>
 </section>
-</body>
-</html>
-</section>
+
 </body>
 </html>

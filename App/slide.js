@@ -2,6 +2,32 @@
 
 const currentScript = document.currentScript;
 
+async function loadScript (src,attrs={})
+{	// {{{
+	const se=document.createElement("script"),
+	      rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
+	for(let key in attrs) se.setAttribute(key,attrs[key]);
+	se.src=src;
+	document.head.appendChild(se);
+	return rv;
+}	// }}}
+
+const Plugins={
+	"math":async function(){ // {{{
+    	window.MathJax = {
+        	tex: {
+            	inlineMath: [['$', '$'], ['\\(', '\\)']],
+            	displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        	}
+    	};
+		await loadScript(
+			'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+			{'async':true}
+		);
+		return {};
+	}	// }}}
+};	// Built-in Plugins
+
 class Aside
 {	// Aside tutorial bar {{{
 	constructor (RE=document.body, CB={}) {
@@ -179,180 +205,6 @@ class Aside
 	}
 }	// }}}
 
-class Quiz
-{	// Quiz Plugin {{{
-	constructor (e, ans)
-	{	// (root element of Quiz, {... qi:qa})
-		((SE) => { // install style for Quiz
-			if (SE) return;
-			SE=document.createElement("style");
-			SE.innerHTML=`
-[qi] { border:2px solid blue;border-radius:8px;padding:8px;margin:8px 4px; }
-[qo] { padding:4px; margin:4px; border:2px solid lightgrey;background-image: linear-gradient(white 60%,lightgrey); }
-[qo]:hover { border-color:grey;background-image: linear-gradient(white 60%,grey); }
-[qt][qr="x"] { border-color:red;background-image: linear-gradient(to right,white 60%,pink); }
-[qt][qr="o"] { border-color:green;background-image: linear-gradient(to right,white 60%,lightgreen); }
-[qt="s"][qa] [qo] { display:none; }
-[qt="s"][qa] .QS[qo] { display:block; }
-[qt="m"][qa] [qo] { color:black; }
-[qt="m"][qa] .QS[qo] { color:blue;font-weight:bolder; }
-`;
-			document.head.appendChild(SE);
-		})(document.head.querySelector('style[STYID="Quiz"]'));
-
-		this.E=e;
-		this.AnsDB=ans||((ans)=>{
-			//document.head.setAttribute("AID",btoa(JSON.stringify({ "1":3, "2-1":2, "3":2, "4":7 })));
-			if (!ans)
-				return Array.from(this.E.querySelectorAll('[qi][___]')).reduce((r,e)=>{
-					r[e.getAttribute('qi')]=parseInt(e.getAttribute('___'));
-					return r;
-				},{});
-			return JSON.parse(ans.getAttribute("ANS")||atob(ans.getAttribute("AID")));
-		})(document.body.querySelector("[ANS]")||document.body.querySelector("[AID]")||document.head.querySelector("[AID]"));
-		console.log(btoa(JSON.stringify(this.AnsDB)));
-		this.E.addEventListener('click',(evt)=>{
-			evt.stopPropagation();
-			for(let e=evt.target;e&&e.hasAttribute;e=e.parentNode)
-				if(e.hasAttribute('qo')) { this.answer(e); break; }
-		});
-	}
-	answer (e)
-	{
-		let p,qi;
-		for(p=e;p.nodeType&&(!p.matches('[qi]'));p=p.parentNode);
-		if(!p) return;
-		qi=p.getAttribute("qi");
-		switch(p.getAttribute('qt')||'s'){
-		case 's':
-			if (e.classList.contains('QS')) {
-				[... p.querySelectorAll('.QS')].forEach((e)=>e.classList.remove('QS'));
-				p.removeAttribute("qr");
-				p.removeAttribute("qa");
-			} else {
-				[... p.querySelectorAll('.QS')].forEach((e)=>e.classList.remove('QS'));
-				e.classList.add('QS');
-				const ans=parseInt(e.getAttribute("qo"));
-				if (this.AnsDB[qi])
-					p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
-				p.setAttribute("qa",ans);
-			}
-			break;
-		case 'm':
-			e.classList.toggle('QS');
-			const ans=[... p.querySelectorAll('.QS')].reduce((r,e)=>r|parseInt(e.getAttribute('qo')),0);
-			p.setAttribute("qa",ans);
-			if (this.AnsDB[qi])
-				p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
-			break;
-		}
-	}
-	mark () {
-		return [... this.E.querySelectorAll('[qi]')].reduce((r,e)=>{
-			r[e.getAttribute('qi')]=e.getAttribute('qa');
-			return r;
-		},{});
-	}
-}	// }}}
-
-class Cards
-{	/* {{{
-	<div class="flashcard">
-		<div class='front'><h2>Question</h2><p>What CSS property creates a 3D space?</p></div>
-		<div class='back'><h2>Answer</h2><p>The 'perspective' property.</p></div>
-	</div>
-	<script>
-		(new Cards()).install(document.body);
-	</script>
-	*/
-	constructor (E) {
-		if (!document.head.querySelector('style#FlashCardStyle'))
-			document.head.appendChild(((E) => {
-				// {{{
-				E.id="FlashCardStyle"
-				E.innerHTML=`
-.flashcard {
-  background-color: transparent;
-  width: 300px;
-  height: 200px;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px; /* This is the 3D space */
-}
-.flashcard .front,.flashcard .back {
-  position: absolute;
-  backface-visibility: hidden;
-  width: 100%;
-  height: 100%;
-}
-.flashcard .front {
-  background-color: #bbb; color: black;
-}
-.flashcard .back {
-  background-color: #2980b9; color: white;
-  transform: rotateX(180deg);
-}
-.flashcard>div {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-.flashcard>div.flipped {
-  transform: rotateX(180deg);
-}
-`;
-				return E;
-				// }}}
-			})(document.createElement("style")));
-		if (E) this.install(E); else this.RE=undefined;
-	}
-	install (E) {
-		this.RE=E;
-		Array.from(E.querySelectorAll('.flashcard'))
-		.forEach((E) => {
-			const bc=E.querySelector('.back');
-			const inner=((e)=>{
-				if (e===E){
-					e=document.createElement("div");
-					while (E.firstChild) e.appendChild(E.firstChild);
-					E.appendChild(e);
-				}
-				return e;
-			})(bc.parentNode);
-		});
-		E.addEventListener('click', (evt) => {
-			for (let e=evt.target;e&&e.classList;e=e.parentNode)
-			{
-				if (e.classList.contains('flashcard')) {
-					this.flip(e.querySelector('div'));
-					evt.stopPropagation();
-				}
-			}
-		});
-		return this;
-	}
-	flip (e) {
-		switch (e) {
-		case true:
-			Array.from(this.RE.querySelectorAll('.flashcard'))
-			.forEach((e)=>e.classList.add('flipped'));
-			break;
-		case false:
-			Array.from(this.RE.querySelectorAll('.flashcard'))
-			.forEach((e)=>e.classList.remove('flipped'));
-			break;
-		case undefined:
-			break;
-		default:
-			e.classList.toggle('flipped');
-			break;
-		}
-	}
-}	// }}}
-
 class Slides
 {	// {{{
 	constructor (RE) {
@@ -400,16 +252,7 @@ class Slides
 		});
 		this.Aside.createTocList(this.Sections);
 
-		// Install Plugins
 		this.Plugins={};
-		if (this.Content.querySelector('[qi]')) // qi="Quiz ID"
-			this.Plugins.Quiz=new Quiz(this.Content);
-			// .addEventListener('click',(evt)=>{ console.log(qz.mark()); });
-
-		if (this.Content.querySelector('.flashcard')) {
-			this.Plugins.Cards=(new Cards()).install(document.body);
-			this.Plugins.Cards.flip(true);
-		}
 
 		// If <title> not exist, create one
 		if (!document.head.querySelector("title"))
@@ -464,6 +307,10 @@ class Slides
 		);
 		this.Aside.E.querySelector('#fontDisplay').textContent = `${Math.round(this.currentFontScale * 100)}%`;
 	}
+
+	async install (name, handler) {
+		this.Plugins[name]=await handler(this);
+	}
 }	// }}}
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -471,6 +318,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.body.classList.add('is-mobile');
 
 	let MS=new Slides(document.body);
+
+	((CS)=>{ // Install Plugins
+		for (const name of (CS.getAttribute('plugins')||"").split(',')) {
+			if (name in Plugins)
+				MS.install(name,Plugins[name]);
+			else if(name)
+				loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${name}.js`))
+				.then((h)=>MS.install(name,h));
+		}
+	})(currentScript);
 
 	let initialIndex = 0;
 	if (location.hash) {
