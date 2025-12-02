@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Structure</title>
+<script src="/App/slide.js"></script>
+<style>
+.cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
+.frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
+.fxl { display:flex;align-items:center; }
+</style>
+</head>
+<body>
+<div id="content">
+
+<section>
+	<h1 class="title">ITS Python</h1>
+	<div>
+		<p class="subtitle">Exprssion</p>
+		<p class="meta">
+			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+			<div style="text-align:right">2025, Winter</div>
+		</p>
+	</div>
+</section>
+
+<section>
+	<div>計算下列 Python 數學運算式</div>
+	<div class='iframe'>
+		<div>5 * (1+2) ** 2 - 3 + 4 / 2</div>
+	</div>
+	<div qi='2-1' qt='s' ___='3'>
+		<div qo='1'>5</div><div qo='2'>8</div><div qo='3'>44</div><div qo='4'>22</div>
+	</div>
+</section>
+
+<section>
+	<div>您執行下列程式碼。請問結果為何?</div>
+	<div class='iframe'>
+		<div>value1 = 9</div>
+		<div>value2 = 4</div>
+		<div>answer = (value1 % value2 * 10) // 2.0 ** 3.0 + value2</div>
+	</div>
+	<div qi='2-2' qt='s' ___='4'>
+		<div qo='1'>輸出 129</div>
+		<div qo='2'>發生語法錯誤</div>
+		<div qo='3'>輸出 5.667</div>
+		<div qo='4'>輸出 5.0</div>
+	</div>
+</section>
+
+<section>
+	<div>您執行下列程式碼，請問輸出值為何 ?</div>
+	<div class='iframe'>
+		<div>list_1 = [1,2]</div>
+		<div>list_2 = [3,4]</div>
+		<div>list_3 = list_1 + list_2</div>
+		<div>list_4 = list_3 * 3</div>
+		<div>print(list_4)</div>
+	</div>
+	<div qi='2-3' qt='s' ___='1'>
+		<div qo='1'>[1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]</div>
+		<div qo='2'>[[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]</div>
+		<div qo='3'>[3, 6, 9, 12]</div>
+		<div qo='4'>[[1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]]</div>
+	</div>
+</section>
+
+<section>
+	<div>請問下列程式，print陳述式的輸出為何?</div>
+	<div class='iframe'>
+		<div>x = 'oranges'</div>
+		<div>y = 'apples'</div>
+		<div>z = 'bananas'</div>
+		<div>data = '{1} and {0} and {2}'</div>
+		<div>print( data.format(z,y,x) )</div>
+	</div>
+	<div qi='2-4' qt='s' ___='2'>
+		<div qo='1'>bananas and oranges and apples</div>
+		<div qo='2'>apples and bananas and oranges</div>
+		<div qo='3'>apples and oranges and bananas</div>
+		<div qo='4'>oranges and apples and bananas</div>
+	</div>
+</section>
+
+<section>
+	<div>你設計了一個數學運算的 Python 程式，程式碼如下：</div>
+	<div class='iframe'>
+		<div>a = 21</div>
+		<div>b = 5</div>
+		<div>print( a / b, a // b, a % b )</div>
+	</div>
+	<div>請問 print 將輸出什麼 ?</div>
+	<div qi='2-5' qt='s' ___='1'>
+		<div qo='1'>4.2 4 1</div>
+		<div qo='2'>4 4 4</div>
+		<div qo='3'>1 4 4.2</div>
+	</div>
+</section>
+
+<section>
+	<div>您正在建立一個比較數字的Python程式</div>
+	<div class='iframe'><div class='cb' style='position:relative'>
+		<div>num1 = eval(input ('Please enter the first number: '))</div>
+		<div>num2 = eval(input ('Please enter the second number: '))</div>
+		<div>if num1 == num2:</div>
+		<div class='cb'>print('The two numbers are equal. ')</div>
+		<div>if num1 &lt;= num2:</div>
+		<div class='cb'>print('Number 1 is less than number 2. ')</div>
+		<div>if num1 &gt; num2:</div>
+		<div class='cb'>print('Number 1 is greater than number 2. ')</div>
+		<div>if num2 = num1:</div>
+		<div class='cb'>print('The two numbers are the same. ')</span>
+		<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06<br/>07<br/>08<br/>09<br/>10</div>
+	</div></div>
+	<div>請問下列敘述何者為<strong><span style='color:#ff0000;'>非</span></strong> ?</div>
+	<div qi='2-6' qt='s' ___='2'>
+		<div qo='1'>第04行的print陳述式只有在這兩個數字的值相等時才會列印。</div>
+		<div qo='2'>第06行的print陳述式只有在num1小於num2時才會列印。</div>
+		<div qo='3'>第08行的print陳述式只有在num1大於num2時才會列印。</div>
+		<div qo='4'>第09行的陳述式是無效的比較。</div>
+	</div>
+</section>
+
+<section>
+	<div>請問變數宣告後它們的資料類別依序是？</div>
+	<div qi='2-7-1' qt='s' ___='1'>
+		age = 12
+		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+	</div>
+	<div qi='2-7-2' qt='s' ___='4'>
+		minor = False
+		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+	</div>
+	<div qi='2-7-3' qt='s' ___='3'>
+		name = 'David'
+		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+	</div>
+	<div qi='2-7-4' qt='s' ___='2'>
+		weight = 64.5
+		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+	</div>
+	<div qi='2-7-4' qt='s' ___='3'>
+		zip = '545'
+		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+	</div>
+</section>
+
+<section>
+	根據下列程式，請回答註解中的問題。
+	<div class='frame'>
+		<div>age = input("Enter your age: ")<div>
+		<div class='fxl'>
+			# age 的資料型態為
+			<div qi='2-8-1' qt='s' ___='2'>
+				<div qo='1'>int</div><div qo='2'>str</div><div qo='3'>boolean</div>
+			</div>
+		</div>
+		<div>year = input("Enter the four-digit year: ")</div>
+		<div>born = eval(year) - eval(age)</div>
+		<div class='fxl'>
+			# born 的資料型態為
+			<div qi='2-8-2' qt='s' ___='1'>
+				<div qo='1'>int</div><div qo='2'>str</div><div qo='3'>boolean</div>
+			</div>
+		</div>
+		<div>message = "You were born in " + str(born)</div>
+		<div class='fxl'>
+			# message 的資料型態為
+			<div qi='2-8-3' qt='s' ___='2'>
+				<div qo='1'>int</div><div qo='2'>str</div><div qo='3'>boolean</div>
+			</div>
+		</div>
+		<div>print(message)</div>
+	</div>
+</section>
+
+<section>
+	<div>您需要列印資料,以便呈現出類似下面的範例:</div>
+	<table><tbody>
+		<tr><td>Oranges</td><td>5.6</td><td>1.33</td></tr>
+		<tr><td>Apples</td><td>2.0</td><td>0.54</td></tr>
+		<tr><td>Grapes</td><td>10.2</td><td>10.96</td></tr>
+	</tbody></table>
+	<div>具體而言,列印成品必須符合下列需求:</div>
+	<ul>
+		<li>水果名稱必須在10個空格寬的資料行中靠左對齊列印。</li>
+		<li>重量必須在5個空格寬的資料行中靠右對齊列印,而且小數點後面最多一位數。</li>
+		<li>價格必須在7個空格寬的資料行中靠右對齊列印,而且小數點後面最多兩位數。</li>
+	</ul>
+	<div> 請完成下列程式</div>
+	<div class='frame'>
+		<div>def print_table(file) :</div>
+		<div class='cb'>
+			<div>data = open(file, "r")</div>
+			<div>for record in data :</div>
+			<div class='cb'>
+				<div>fields = record.split(",")</div>
+				<div class='fxl'>
+					<div qi='2-9-1' qt='s' ___='1'>
+						<div qo="1">print("</div><div qo="2">{10:0}</div><div qo="3">{5:1f}</div>
+						<div qo="4">{7:2f}</div><div qo="5">{2:7.2f}</div><div qo="6">{1:5.1f}</div>
+						<div qo="7">{0:10}</div>
+					</div>
+					<div qi='2-9-2' qt='s' ___='7'>
+						<div qo="1">print("</div><div qo="2">{10:0}</div><div qo="3">{5:1f}</div>
+						<div qo="4">{7:2f}</div><div qo="5">{2:7.2f}</div><div qo="6">{1:5.1f}</div>
+						<div qo="7">{0:10}</div>
+					</div>
+					<div qi='2-9-3' qt='s' ___='6'>
+						<div qo="1">print("</div><div qo="2">{10:0}</div><div qo="3">{5:1f}</div>
+						<div qo="4">{7:2f}</div><div qo="5">{2:7.2f}</div><div qo="6">{1:5.1f}</div>
+						<div qo="7">{0:10}</div>
+					</div>
+					<div qi='2-9-4' qt='s' ___='5'>
+						<div qo="1">print("</div><div qo="2">{10:0}</div><div qo="3">{5:1f}</div>
+						<div qo="4">{7:2f}</div><div qo="5">{2:7.2f}</div><div qo="6">{1:5.1f}</div>
+						<div qo="7">{0:10}</div>
+					</div>
+					".format(fields[0], eval(fields[1]), eval(fields[2])))
+				</div>
+			</div>
+		</div>
+	</div>
+</select>
+
+<section>
+	<div>您必須識別各種類型作業的資料類型。</div>
+	<div>請將左側清單中適當的資料類型移至右側的正確類型作業。</div>
+	<div>每種資料類型可能只使用一次,也可能使用多次,甚至完全用不到。</div>
+	<div qi='2-10-1' qt='s' ___='2'>
+		type(5.0)
+		<div qo='1'>int</div><div qo='1'>float</div><div qo='1'>str</div><div qo='1'>boolean</div>
+	</div>
+	<div qi='2-10-2' qt='s' ___='3'>
+		type('True')
+		<div qo='1'>int</div><div qo='1'>float</div><div qo='1'>str</div><div qo='1'>boolean</div>
+	</div>
+	<div qi='2-10-3' qt='s' ___='4'>
+		type(False)
+		<div qo='1'>int</div><div qo='1'>float</div><div qo='1'>str</div><div qo='1'>boolean</div>
+	</div>
+	<div qi='2-10-4' qt='s' ___='2'>
+		type(+1E10)
+		<div qo='1'>int</div><div qo='1'>float</div><div qo='1'>str</div><div qo='1'>boolean</div>
+	</div>
+</section>
+
+<section>
+	<div>某間銀行必須產生一份報表來顯示所有客戶每天的平均。</div>
+	<div>這份報表必須截斷餘額的小數部分。</div>
+	<div>請問哪兩段程式可以使用 ?</div>
+	<div qi='2-11' qt='m' ___='3'>
+		<div qo='1'>average_blance = int(total_deposits/number_of_customers)</div>
+		<div qo='2'>average_blance = total_deposits//number_of_customers</div>
+		<div qo='3'>average_blance = total_deposits**number_of_customers</div>
+		<div qo='4'>average_blance = float(total_deposits//number_of_customers)</div>
+	</div>
+</section>
+
+<section>
+	<div>您正在將現有的應用程式轉換成Python。</div>
+	<div>您需要正確編寫所有算數運算式的程式碼。</div>
+	<div>請依運算元優先順序由高到低依序選取 ?</div>
+	<table><tbody>
+		<tr><th>最高優先權</th><td>
+			<div qi='2-12-1' qt='s' ___='3'>
+				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
+				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
+			</div>
+		</td></tr>
+		<tr><th>第二高</th><td>
+			<div qi='2-12-2' qt='s' ___='5'>
+				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
+				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
+			</div>
+		</td></tr>
+		<tr><th>第三高</th><td>
+			<div qi='2-12-3' qt='s' ___='6'>
+				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
+				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
+			</div>
+		</td></tr>
+		<tr><th>第四高</th><td>
+			<div qi='2-12-4' qt='s' ___='2'>
+				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
+				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
+			</div>
+		</td></tr>
+		<tr><th>第五高</th><td>
+			<div qi='2-12-5' qt='s' ___='1'>
+				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
+				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
+			</div>
+		</td></tr>
+		<tr><th>最低優先權</th><td>
+			<div qi='2-12-6' qt='s' ___='4'>
+				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
+				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
+			</div>
+		</td></tr>
+	</tbody></table>
+</section>
+
+</div>
+</body>
+</html>
+<!--
+"6","a{1},b{3},c{4}","某食品公司需要一套程式，讓他們的客服中心能夠用來輸入新咖啡種類的問卷調查資料。<br />
+此程式必須執行下列工作 :
+<ul>
+	<li>接受輸入(rating)。</li>
+	<li>傳回五星評比標準的平均評分(average)。</li>
+	<li>將輸出四捨五入到兩位小數。</li>
+</ul>
+<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-003.svg'></embed>","A || B || C @@ 1 || 2 || 3 || 4","","2024-0-2-0-0","3"
+"6","a{3},b{4},c{2}","<div style='display:none'>找出會議室並顯示房間名稱</div>
+<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-004.svg'></embed>","A || B || C @@ 1 || 2 || 3 || 4","","2024-0-2-0-0","3"
+"6","a{2}","<div style='display:none'>接受使用者的輸入並將該項資訊輸出至使用者的畫面</div>
+<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-005.svg'></embed>","A @@ input('name') || name = input() || input(name) || name = input","","2024-0-2-0-0","3"
+"3","1,2","此函式必須執行下列工作:<br />
+<br />
+提取浮點數(float)的絕對值<br />
+移除整數後面的任何小數點。<br />
+請問您應該使用哪兩個數學函式?。","math.floor(x) || math.fabs(x) || math.frexp(x) || math.fmod(x)","","2024-0-2-0-0","3"
+"6","a{2},b{1}","<div style='display:none'>&#39;Config1&#39;+&#39;Config2&#39;</div>
+<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-006.svg'></embed>","A || B @@ 1 || 2 || 3 || 4","","2024-0-2-0-0","3"
+"6","a{2},b{1},c{7},d{3},e{5}","<div style='display:none'>b等於a乘以負一之後再平方</div>
+<!--您正在撰寫一個Python程式來評估算數公式。此公式描述為b等於a乘以負一之後再平方。其中a是即將輸入的成績,而b是結果。-->
+<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-007.svg'></embed>","A || B || C || D || E @@ - || ( || ) || ** || **2 || 2 || a","","2024-0-2-0-0","3"
+"3","3,4","您正在建立一個電子商務指令碼來接受使用者輸入並以逗點分隔格式輸出資料。<br />
+您撰寫了下列程式碼以接受輸入：
+<pre style='color:blue'>
+item = input('Enter the item name: ')
+sales = int(input('Enter the quantity: '))
+</pre>
+  輸出必須符合下列需求:
+
+<ul>
+	<li>以雙引號括住字串。</li>
+	<li>不以引號或其他字元括住數字。</li>
+	<li>以逗點分隔項目。</li>
+</ul>
+  請問哪兩個可以符合要求?","print('{0},{1}'.format(item, sales)) || print(item + ',' + sales) || print(''{0}',{1}'.format(item, sales)) || print(''' + item + '',' + sales)","","2024-0-2-0-0","3"
+-->

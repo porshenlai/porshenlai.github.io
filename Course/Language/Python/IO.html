@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Structure</title>
+<script src="/App/slide.js"></script>
+<style>
+.cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
+.frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
+.fxl { display:flex;align-items:center; }
+</style>
+</head>
+<body>
+
+<div id="content">
+
+<style>
+red { color:red; }
+green { color:green; }
+blue { color:blue; }
+pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+pre { background:#0b1020; color:#e6edf3; padding:12px 14px; border-radius:10px; overflow:auto; }
+code { background:#eef2f7; padding:2px 6px; border-radius:6px; }
+pre code { background: transparent; padding: 0; }
+.hl-kw { color:#c792ea; }			/* keyword */
+.hl-fn { color:#82aaff; }			/* function */
+.hl-str { color:#ecc48d; }		 /* string */
+.hl-nb	{ color:#f78c6c; }		 /* number/boolean */
+.hl-cm	{ color:#5c6773; font-style:italic;} /* comment */
+table small { color:#666; }
+kbd { background:#f1f5f9; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:6px; padding:0 6px; font-family:inherit; }
+</style>
+
+<section>
+	<h1 class="title">ITS Python</h1>
+	<div>
+		<p class="subtitle">Input/Output</p>
+		<p class="meta">
+			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+			<div style="text-align:right">2025, Winter</div>
+		</p>
+	</div>
+</section>
+
+<section>
+	<h2>程式執行引數 與 回傳值</h2>
+	<div>Script.py 檔案包含下列程式碼：</div>
+	<div class='frame'>
+		<div>import sys</div>
+		<div>print(sys.argv[2])</div>
+	</div>
+	<br/>
+	<div>您執行下列命令：</div>
+	<div class='frame'>
+		<div>python Script.py Cheese Bacon Bread</div>
+	</div>
+	<br/>
+	<div qi='9-13' qt='s' ___='2'>
+		<div>請問此命令的輸出為何？</div>
+		<div qo='1'>Bread</div>
+		<div qo='2'>Cheese</div>
+		<div qo='3'>Script.py</div>
+		<div qo='4'>Bacon</div>
+	</div>
+</section>
+
+<section>
+	<h2>裝置: 終端機</h2>
+	<ul>
+		<li>輸入：<code>input(prompt)</code> 讀取一行字串（含結尾換行去除）</li>
+		<li>輸出：<code>print(*values, sep=' ', end='\n')</code> 將物件轉成字串後印出</li>
+		<li>注意：<code>input()</code> 回傳一律是 <code>str</code>，需要自行轉型</li>
+	</ul>
+	<div class='frame'>
+		<div>name = input('請輸入姓名：')</div>
+		<div>age = int(input('年齡：'))	# 以 int 轉型</div>
+		<div>print(f'{name} 您好，今年 {age} 歲。')</div>
+	</div>
+	<h3><code>input()</code> 基本參數</h3>
+	<div class='frame'>
+		<div>input()</div>
+		<div>input('請問如何稱呼: ')</div>
+	</div>
+	<h3><code>print()</code> 基本參數</h3>
+	<div class='frame'>
+		<div>print(10, 20, 30) <span class="hl-cm"># 預設 sep=' ', end='\n'</span></div>
+		<div>print(10, 20, 30, sep=<span class="hl-str">' | '</span>)</div>
+		<div>print(<span class="hl-str">'沒有換行'</span>, end=<span class="hl-str">''</span>); print(<span class="hl-str">'接在後面'</span>)</div>
+	</div>
+</section>
+
+<section>
+	<div>請問下列陳述式有何功能？</div>
+	<div class='frame'>
+		data = input()
+	</div>
+	<div qi='9-12' qt='s' ___='3'>
+		<div qo='1'>顯示電腦上的所有輸入周邊裝置</div>
+		<div qo='2'>顯示允許使用者輸入的訊息方塊</div>
+		<div qo='3'>允許使用者在主控台中輸入文字</div>
+		<div qo='4'>建立HTML輸入元素</div>
+	</div>
+</section>
+
+<section>
+	<div>在 Python 程式中，如果希望使用者輸入時，即使用輸入了小數，程式也能自動轉為整數來進行運算。</div>
+	<div>你應該使用以下哪個程式碼片段 ？</div>
+	<div qi='9-13' qt='s' ___='2'>
+		<div qo='1'>total = input('請輸入總數？')</div>
+		<div qo='2'>total = int(eval(input('請輸入總數？')))</div>
+		<div qo='3'>total = str(input('請輸入總數？'))</div>
+		<div qo='4'>total = float(input('請輸入總數？'))</div>
+	</div>
+</section>
+
+<section>
+	<h2>型別轉換</h2>
+	<div><code>input(...)</code> 回傳的資料型態為<span class='red'>字串</span>，必須進行必要的型別轉換後才能進行運算。</div>
+	<div><code>print(...)</code> 引數的資料型態為<span class='red'>字串</span>，必須先轉換成字串才能輸出。</div>
+	<div class='frame'>
+		<div># 讀取三種資料，並做適當轉型</div>
+		<div><span class="hl-kw">from</span> datetime <span class="hl-kw">import</span> datetime</div>
+		<div>price = <span class="hl-fn">float</span>(<span class="hl-fn">input</span>(<span class="hl-str">'收盤價：'</span>))</div>
+		<div>shares = <span class="hl-fn">int</span>(<span class="hl-fn">input</span>(<span class="hl-str">'股數：'</span>))</div>
+		<div>trade_date = datetime.<span class="hl-fn">strptime</span>(<span class="hl-fn">input</span>(<span class="hl-str">'交易日(YYYY-MM-DD)：'</span>), <span class="hl-str">'%Y-%m-%d'</span>)</div>
+		<div>print(price, shares, trade_date)</div>
+	</div>
+	<ul>
+		<li><code>int(s)</code>、<code>float(s)</code>：轉數值；<code>bool(s)</code> 以「是否為空字串」判斷 <small>（<code>bool('0')</code> 仍為 <code>True</code>）</small></li>
+		<li><code>datetime.strptime(text, fmt)</code>：字串→日期時間</li>
+		<li>建議先 <code>.strip()</code> 去除空白，再轉型；必要時 <code>try/except</code> 防呆</li>
+	</ul>
+</section>
+
+<section>
+	<h2>三種格式化方式：總覽</h2>
+	<table>
+		<thead>
+			<tr><th>方法</th><th>語法</th><th>特色</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>f'...{expr:spec}...'</code></td>
+				<td>Python 3.6+，最直覺；可內嵌運算 <small>(如 <code>{x*1.05:.2f}</code>)</small></td>
+				<td>可讀性佳、效能佳；推薦</td>
+			</tr>
+			<tr>
+				<td><code>'...{0:spec}...'.format(x)</code></td>
+				<td>較通用；可重複/具名參數</td>
+				<td>舊專案常見</td>
+			</tr>
+			<tr>
+				<td><code>'...%f' % x</code></td>
+				<td>C 風格；符號如 <code>%d</code>、<code>%f</code></td>
+				<td>相容舊碼；不建議新碼首選</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3>f-strings</h3>
+	<div class='frame'>
+		<div>x = 1234.5</div>
+		<div>print(<span class="hl-str">f'市價：{x:,.2f}'</span>)</div>
+		<div>dt = datetime(2025, 10, 15, 9, 30)</div>
+		<div>print(<span class="hl-str">f'時間：{dt:%Y-%m-%d %H:%M}'</span>)</div>
+	</div>
+	<h3><code>str.format()</code></h3>
+	<div>'市價：{0:,.2f} 股數：{1:d}'.format(1234.5, 3000)</div>
+	<h3>舊式 <code>%</code></h3>
+	<div>'市價：%,.2f 股數：%d' % (1234.5, 3000)</div>
+
+	<h3><code>str()</code> vs <code>repr()</code></h3>
+	<ul>
+		<li><code>str(obj)</code>：給人看的「友善」字串</li>
+		<li><code>repr(obj)</code>：給程式/除錯看的「精確」表示，常含引號、跳脫</li>
+	</ul>
+	<div class='frame'>
+		<div>print(str(`Hello<br/>World`))<span class="hl-cm"># 兩行</span></div>
+		<div>print(repr(`Hello<br/>World`))<span class="hl-cm"># 'Hello\nWorld'</span></div>
+	</div>
+
+	<h3>格式規格字（Spec）常用表</h3>
+	<table>
+		<thead>
+			<tr><th>類別</th><th>Spec/格式</th><th>說明</th><th>範例</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>整數</td>
+				<td><code>d</code>、<code>b</code>、<code>o</code>、<code>x/X</code></td>
+				<td>十進位/二/八/十六進位</td>
+				<td><code>f'{255:d} {255:x}'</code> → <code>255 ff</code></td>
+			</tr>
+			<tr>
+				<td>浮點</td>
+				<td><code>f</code>、<code>e/E</code>、<code>g/G</code></td>
+				<td>小數/科學記號/自動</td>
+				<td><code>f'{3.14159:.2f}'</code> → <code>3.14</code></td>
+			</tr>
+			<tr>
+				<td>千分位</td>
+				<td><code>,</code></td>
+				<td>加千分位分隔</td>
+				<td><code>f'{1234567:,}'</code> → <code>1,234,567</code></td>
+			</tr>
+			<tr>
+				<td>寬度/對齊</td>
+				<td><code>{:&lt;10}</code>、<code>{:^10}</code>、<code>{:&gt;10}</code></td>
+				<td>左/置中/右對齊；可搭配填充字元如 <code>{:_&gt;10}</code></td>
+				<td><code>f'|{42:&lt;5}|{42:^5}|{42:&gt;5}|'</code></td>
+			</tr>
+			<tr>
+				<td>符號</td>
+				<td><code>+</code>、<code>-</code>、<code> </code></td>
+				<td>顯示正負號/只有負號/正留空白</td>
+				<td><code>f'{3:+d} {3:-d} {3: d}'</code> → <code>+3 3␠3</code></td>
+			</tr>
+			<tr>
+				<td>百分比</td>
+				<td><code>%</code></td>
+				<td>乘以 100 並加 % 號</td>
+				<td><code>f'{0.0765:.2%}'</code> → <code>7.65%</code></td>
+			</tr>
+			<tr>
+				<td>repr</td>
+				<td><code>!r</code></td>
+				<td>使用 <code>repr(obj)</code> 的顯示（含轉義）</td>
+				<td><code>f'{'A\nB'!r}'</code> → <code>'A\nB'</code></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3>日期時間格式化常用表</h3>
+	<table>
+		<thead>
+			<tr><th>符號</th><th>意義</th><th>範例</th></tr>
+		</thead>
+		<tbody>
+			<tr><td><code>%Y</code></td><td>四位數年份</td><td>2025</td></tr>
+			<tr><td><code>%m</code> / <code>%d</code></td><td>月 / 日（零填充）</td><td>10 / 05</td></tr>
+			<tr><td><code>%H</code> <code>%M</code> <code>%S</code></td><td>時 分 秒（24h）</td><td>09 30 00</td></tr>
+			<tr><td><code>%b</code> / <code>%B</code></td><td>英文月縮寫 / 全名</td><td>Oct / October</td></tr>
+			<tr><td><code>%a</code> / <code>%A</code></td><td>星期縮寫 / 全名</td><td>Wed / Wednesday</td></tr>
+			<tr><td><code>%z</code> / <code>%Z</code></td><td>時區數值 / 名稱</td><td>+0800 / CST</td></tr>
+			<tr><td><code>ISO</code></td><td><code>dt.isoformat()</code></td><td>2025-10-15T09:30:00+08:00</td></tr>
+		</tbody>
+	</table>
+	<div class='frame'>
+		<div><span class="hl-kw">from</span> datetime <span class="hl-kw">import</span> datetime, timezone, timedelta</div>
+		<div>dt = datetime.<span class="hl-fn">now</span>()</div>
+		<div>print(dt.strftime(<span class="hl-str">'%Y/%m/%d %H:%M'</span>))</div>
+		<div>print(<span class="hl-str">f'ISO: {dt.isoformat()}'</span>)</div>
+	</div>
+</section>
+
+<section>
+	<h2>例外處理</h2>
+	<pre><code class="language-python">
+	<div class='frame'>
+		<div><span class="hl-kw">try</span>:</div>
+		<div class='cb'>
+			<div>txt = <span class="hl-fn">input</span>(<span class="hl-str">'請輸入價格：'</span>).strip().replace(<span class="hl-str">','</span>, <span class="hl-str">''</span>)</div>
+			<div>price = <span class="hl-fn">float</span>(txt)</div>
+			<div>print(<span class="hl-str">f'價格為 {price:.2f}'</span>)</div>
+		</div>
+		<div><span class="hl-kw">except</span> ValueError:</div>
+		<div class='cb'>print(<span class="hl-str">'格式錯誤，請輸入數字。如：1234.56'</span>)</div>
+	</div>
+
+	<h3>常見錯誤與除錯</h3>
+	<ul>
+		<li><code>ValueError</code>：輸入無法轉成指定型別 → 提示格式、加入 <code>try/except</code></li>
+		<li><code>TypeError</code>：<code>None</code> 或型別不符 → 在格式化前先 <code>is None</code> 檢查</li>
+		<li>字串格式錯誤 → 善用 <code>repr()</code> 看見跳脫字元</li>
+		<li>輸出對齊混亂 → 使用寬度與對齊規格（如 <code>{:&gt;10}</code>）</li>
+	</ul>
+</section>
+
+<section>
+	<div>對於下列每一項有關 try 陳述式的敘述，請選取 [正確] 或 [錯誤]。</div>
+	<div class="cb frame">
+	</div>
+	<div qi='9-7-1' qt="s" ___="1">
+		try 陳述式可以包含一個或多個 except 子句。
+		<div qo="1">正確</div><div qo="2">錯誤</div>
+	</div>
+	<div qi='9-7-2' qt="s" ___="1">
+		try 陳述式可以包含 finally 子句，但不含 except 子句。
+		<div qo="1">正確</div><div qo="2">錯誤</div>
+	</div>
+	<div qi='9-7-3' qt="s" ___="1">
+		try 陳述式可以包含 finally 子句以及 except 子句。
+		<div qo="1">正確</div><div qo="2">錯誤</div>
+	</div>
+	<div qi='9-7-4' qt="s" ___="2">
+		try 陳述式可以包含一個或多個 finally 子句。
+		<div qo="1">正確</div><div qo="2">錯誤</div>
+	</div>
+</section>
+
+<section>
+	<div>您需要撰寫執行下列工作的程式碼:</div>
+	<ul>
+		<li>呼叫process()函式。</li>
+		<li>如果process()函式擲回錯誤,則呼叫logError()函式。</li>
+		<li>呼叫process()函式之後一律呼叫displayResult()函式。</li>
+	</ul>
+	<div class='frame'>
+		<div qi='9-6-1' qt="s" ___="5">
+			<div qo="1">assert</div>
+			<div qo="2">except</div>
+			<div qo="3">finally</div>
+			<div qo="4">raise</div>
+			<div qo="5">try</div>
+		</div>
+		<div class='cb'>process()</div>
+		<div qi='9-6-2' qt="s" ___="2">
+			<div qo="1">assert</div>
+			<div qo="2">except</div>
+			<div qo="3">finally</div>
+			<div qo="4">raise</div>
+			<div qo="5">try</div>
+		</div>
+		<div class='cb'>logError()</div>
+		<div qi='9-6-3' qt="s" ___="3">
+			<div qo="1">assert</div>
+			<div qo="2">except</div>
+			<div qo="3">finally</div>
+			<div qo="4">raise</div>
+			<div qo="5">try</div>
+		</div>
+  		<div class='cb'>displayResult()</div>
+	</div>
+</section>
+
+<section>
+	<div>您正在建立一個接受使用者輸入的程式。此程式必須將輸入轉型為整數，並且在無法轉型時正確處理錯誤。</div>
+	<div class="frame">
+		<div>while True:</div>
+		<div class='cb'>
+			<div qi='9-12-1' qt="s" ___="1">
+				<div qo="1">try:</div><div qo="2">else:</div>
+				<div qo="3">except:</div><div qo="4">raise:</div>
+				<div qo="5">finally:</div>
+			</div>
+			<div class='cb'>
+				<div>x = int(input(“Please enter a number: “))</div>
+				<div>break</div>
+			</div>
+			<div class='fxl'>
+				<div qi='9-12-2' qt='s' ___='3'>
+					<div qo="1">try:</div><div qo="2">else:</div>
+					<div qo="3">except:</div><div qo="4">raise:</div>
+					<div qo="5">finally:</div>
+				</div>
+				ValueError:
+			</div>
+			<div class='cb'>print("Not a valid number. Try again...")</div>
+		</div>
+	</div>
+</section>
+
+<section>
+	請從每個下拉式清單中選取正確的選項以完成有關assert方法的敘述。
+	<div qi='9-8-1' qt="s" ___="1">
+		若要測試變數a與b的值是否相同,請使用:
+		<div qo="1">assertEqual(a,b)</div>
+		<div qo="2">assertTrue(x)</div>
+		<div qo="3">assertIs(a,b)</div>
+		<div qo="4">assertIn(a,b)</div>
+	</div>
+	<div qi='9-8-2' qt="s" ___="3">
+		若要測試物件a與b是否相同,請使用:
+		<div qo="1">assertEqual(a,b)</div>
+		<div qo="2">assertTrue(x)</div>
+		<div qo="3">assertIs(a,b)</div>
+		<div qo="4">assertIn(a,b)</div>
+	</div>
+	<div qi='9-8-3' qt="s" ___="4">
+		若要測試清單中是否存在某個值,請使用:
+		<div qo="1">assertEqual(a,b)</div>
+		<div qo="2">assertTrue(x)</div>
+		<div qo="3">assertIs(a,b)</div>
+		<div qo="4">assertIn(a,b)</div>
+	</div>
+</section>
+
+<section>
+	<h2>單元測試 Unit Test</h2>
+	<div>您為了要測試某個物件是否為特定類別的執行個體。撰寫了下列程式</div>
+	<div class="cb frame">
+		<div class="fxl">
+			<div qi='9-3-1' qt="s" ___="2">
+				<div qo="1">define</div>
+				<div qo="2">import</div>
+				<div qo="3">include</div>
+				<div qo="4">using</div>
+			</div> unittest
+		</div>
+		<div class="fxl">
+			class TestIsInstance(
+			<div qi='9-3-2' qt="s" ___="1">
+				<div qo="1">unittest.TestCase</div>
+				<div qo="2">test.TestCase</div>
+				<div qo="3">TestCase.unittest</div>
+				<div qo="4">TestCase.test</div>
+			</div>
+			):
+		</div>
+		<div class="fxl">
+			def
+			<div qi='9-3-3' qt="s" ___="3">
+				<div qo="1">assert_isInstance(self):</div>
+				<div qo="2">eval_isInstance(self):</div>
+				<div qo="3">test_isInstance(self):</div>
+				<div qo="4">try_isInstance(self):</div>
+			</div>
+		</div>
+		<div class='cb'>
+			<div qi='9-3-4' qt="s" ___="1">
+				<div qo="1">self.assertIsInstance(obj, cls, msg=None)</div>
+				<div qo="2">test.assertIsInstance(obj, cls, msg=None)</div>
+				<div qo="3">this.assertIsInstance(obj, cls, msg=None)</div>
+			</div>
+		</div>
+		<div>if __name__ == '__main__':</div>
+		<div class="cb">unittest.main()</div>
+	</div>
+</section>
+
+<section>
+	<h2>裝置: 檔案</h2>
+</section>
+
+<section>
+	<div qi='9-1' qt="s" ___="4">
+		執行下列程式，卻收到第03行的錯誤。請問造成此錯誤的原因是什麼?
+		<div class='frame'>
+			<div class="cb" style="position:relative">
+				<div>def read_file(file) :</div>
+				<div class="cb">
+					<div>line = None</div>
+					<div>if os.path.isfile(file) :</div>
+					<div class="cb">
+						<div>data = open(file,  r)</div>
+						<div>for line in data :</div>
+						<div class="cb">print(line)</div>
+					</div>
+				</div>
+				<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06<br/>06</div>
+			</div>
+		</div>
+		<div qo="1">path 方法不存在 os 物件中。</div>
+		<div qo="2">isfile 方法不接受單一參數。</div>
+		<div qo="3">isfile 方法不存在 path 物件中。</div>
+		<div qo="4">您需要匯入 os 程式庫。</div>
+	</div>
+</section>
+
+<section>
+	<div qi='9-2' qt="s" ___="1">
+		<div>您正在為學校開發一個 Python 應用程式。</div>
+		<div>此應用程式必須讀取並寫入資料至文字檔案。</div>
+		<div>如果檔案不存在,此應用程式就必須建立檔案。</div>
+		<div>如果檔案含有內容,此應用程式就必須刪除內容。</div>
+		<div>請問您應該使用哪個程式碼片段?</div>
+		<div qo="1">open('local_data', 'w+')</div>
+		<div qo="2">open('local_data', 'r')</div>
+		<div qo="3">open('local_data', 'r+')</div>
+		<div qo="4">open('local_data', 'w')</div>
+	</div>
+</section>
+
+<section>
+	<div>某間公司需要有人協助更新他們的檔案系統。</div>
+	<div>您必須建立一個執行下列動作的簡易檔案操作程式：<ul>
+		<li>使用指定的名稱建立檔案。</li>
+		<li>將'End of listing'這段片語附加至檔案。</li>
+	</ul></div>
+	<div class="frame cb">
+		<div>import os</div>
+		<div class='fxl'>
+			file =
+			<div qi='9-4-1' qt="s" ___="2">
+				<div qo="1">open('myFile.txt','w')</div>
+				<div qo="2">open('myFile.txt','a')</div>
+			</div>
+		</div>
+		<div class='fxl'>
+			<div qi='9-4-2' qt="s" ___="1">
+				<div qo="1">file.write</div>
+				<div qo="2">file.add</div>
+			</div>
+			("End of listing")
+		</div>
+		<div>file.close()</div>
+	</div>
+</section>
+
+<section>
+	<div>您正在撰寫一個處理檔案的函式函式。</div>
+	<div>您需要確保此函式會在檔案不存在時傳回None。</div>
+	<div>如果檔案存在,此函式必須傳回第一行。</div>
+	<div>您撰寫了以下這段程式碼:</div>
+	<div class="cb frame">
+		<div>import os</div>
+		<div>def get_first_line(filename, mode):</div>
+		<div class='cb'>
+			<div qi='9-5-1' qt="s" ___="5">
+				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
+				<div qo="2"><div class='cb'>return None</div></div>
+				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
+				<div qo="4">else:</div>
+				<div qo="5">if os.path.isfile(filename):</div>
+			</div>
+			<div qi='9-5-2' qt="s" ___="3">
+				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
+				<div qo="2"><div class='cb'>return None</div></div>
+				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
+				<div qo="4">else:</div>
+				<div qo="5">if os.path.isfile(filename):</div>
+			</div>
+			<div qi='9-5-3' qt="s" ___="1">
+				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
+				<div qo="2"><div class='cb'>return None</div></div>
+				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
+				<div qo="4">else:</div>
+				<div qo="5">if os.path.isfile(filename):</div>
+			</div>
+			<div qi='9-5-4' qt="s" ___="4">
+				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
+				<div qo="2"><div class='cb'>return None</div></div>
+				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
+				<div qo="4">else:</div>
+				<div qo="5">if os.path.isfile(filename):</div>
+			</div>
+			<div qi='9-5-5' qt="s" ___="2">
+				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
+				<div qo="2"><div class='cb'>return None</div></div>
+				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
+				<div qo="4">else:</div>
+				<div qo="5">if os.path.isfile(filename):</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div qi='9-9' qt='s' ___='1'>
+		<div>您撰寫了以下這段程式碼:</div>
+		<div>out.txt檔案不存在。</div>
+		<div>您執行程式碼。</div>
+		<div class="cb frame">
+			<div>import sys</div>
+			<div>try:</div>
+			<div class='cb'>
+				<div>file_in = open('in.txt', &#39;r&#39;)</div>
+				<div>file_out = open('out.txt', &#39;w+&#39;)</div>
+			</div>
+			<div>except IOError:</div>
+			<div class='cb'>print(&#39;cannot open&#39;, file_name)</div>
+			<div>else:</div>
+			<div class='cb'>
+				<div>i = 1</div>
+				<div>for line in file_in:</div>
+				<div class='cb'>
+					<div>print(line.rstrip())</div>
+					<div>file_out.write('line ' + str(i) + ': ' + line)</div>
+					<div>i = i + 1</div>
+				</div>
+				<div>file_in.close()</div>
+				<div>file_out.close()</div>
+			</div>
+		</div>
+		<div>請問以下哪一項敘述是正確的?</div>
+		<div qo="1">此程式碼將正確執行,不會發生錯誤。</div>
+		<div qo="2">此程式碼將執行,但會產生邏輯錯誤。</div>
+		<div qo="3">此程式碼將產生執行階段錯誤。</div>
+		<div qo="4">此程式碼將產生語法錯誤。</div>
+		<div class="answer">
+			<div>若 in.txt 不存在，例外處理時 file_name 為發生引用錯誤</div>
+			<div>否則可以正常執行無誤</div>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div>某間公司需要有人協助更新他們的檔案系統。您必須建立一個執行下列動作的簡易檔案操作程式:</div>
+	<ul>
+		<li>查看檔案是否存在</li>
+		<li>如果檔案存在,則顯示其內容。</li>
+	</ul>
+	<div class="cb frame">
+		<div>import os</div>
+		<div class='fxl'>if <div qi='9-10-1' qt="s" ___="4">
+			<div qo="1">isfile('myFile.txt'):</div>
+			<div qo="2">os.exist('myFile.txt'):</div>
+			<div qo="3">os.find('myFile.txt):</div>
+			<div qo="4">os.path.isfile('myFile.txt'):</div>
+		</div></div>
+		<div class='cb'>
+			<div>file = open('myFile.txt)</div>
+			<div qi='9-10-2' qt="s" ___="3">
+				<div qo="1">output('myFile.txt')</div>
+				<div qo="2">print(file.get('myFile.txt'))</div>
+				<div qo="3">print(file.read())</div>
+				<div qo="4">print('myFile.txt')</div>
+			</div>
+			<div>file.close()</div>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div>請檢閱下列程式碼片段：</div>
+	<div class="frame">
+		<div>f = open('python.txt', 'a')</div>
+		<div>f.write('This is a line of text.')</div>
+		<div>f.close()</div>
+	</div>
+	<div qi='9-11-1' qt="s" ___="1">
+		如果名稱為 python.txt 的檔案不存在，就會建立此檔案。
+		<div qo="1">正確</div><div qo="2">錯誤</div>
+	</div>
+	<div qi='9-11-2' qt="s" ___="2">
+		此檔案中的資料會被覆寫。
+		<div qo="1">正確</div><div qo="2">錯誤</div>
+	</div>
+	<div qi='9-11-3' qt="s" ___="1">
+		其他程式碼可以在這段程式碼執行完畢之後，開啟此檔案。
+		<div qo="1">正確</div><div qo="2">錯誤</div>
+	</div>
+</section>
+
+<section>
+	<h2>裝置: 網路</h2>
+</section>
+
+<section>
+	<h2>裝置: GPIO</h2>
+</section>
+
+</div>
+</body>
+</html>
