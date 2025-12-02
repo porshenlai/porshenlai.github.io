@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
+<style>
+	table th { vertical-align:middle; text-align:center; font-weight:bold; }
+	table td { vertical-align:top; text-align:left; border:2px solid silver; }
+</style>
 <script>
     window.MathJax = {
         tex: {
@@ -18,84 +22,175 @@
 <body>
 
 <div id="content">
-	<section>
-		<h1 class="title">Attention Mechanism<br/>注意力機制</h1>
-		<div>
-			<p class="subtitle">生成式人工智慧</p>
-			<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
-		</div>
-	</section>
-	<section>
-		<h2>注意力機制</h2>
-		<p>在深度學習中，特別是像 Transformer 這樣的模型，注意力機制（Attention Mechanism）扮演著核心角色。它允許模型在處理序列資料時，能夠「關注」到序列中最重要的部分。其中，自注意力（<strong>Self-Attention</strong>）和交叉注意力（<strong>Cross-Attention<strong>）是兩種主要的機制，它們在編碼器（Encoder）和解碼器（Decoder）中的作用和順序有所不同。</p>
-	</section>
-	<section>
-		<h2>自注意力機制 (Self-Attention)</h2>
-		<p>自注意力機制讓模型在處理一個序列時，能將序列中的每一個元素都與同一個序列中的所有其他元素進行關聯，從而為該元素產生一個更豐富的表示。</p>
-		<ul>
-			<li><strong>定義與功能：</strong><ul>
-				<li><strong>查詢向量（Query, $Q$）：</strong> 來自於當前需要被關注的元素。它代表了我們正在尋找的「資訊」。</li>
-				<li><strong>鍵向量（Key, $K$）：</strong> 來自於序列中的所有元素。它代表了其他元素所「提供」的資訊。</li>
-				<li><strong>值向量（Value, $V$）：</strong> 來自於序列中的所有元素。它包含了我們想要「提取」的實際資訊。</li>
-			</ul></li>
-			<li><strong>運作過程：</strong><ol>
-				<li>對於序列中的每個元素，我們將其輸入向量分別轉換為 $Q$、$K$ 和 $V$ 三個向量。</li>
-				<li>計算每個 $Q$ 與所有 $K$ 的點積（Dot Product），這會得到一個相似度分數。這個分數代表了當前元素與序列中所有其他元素之間的關聯程度。</li>
-				<li>將這些分數進行縮放（Scaled）後，再使用 <strong>Softmax</strong> 函數將其轉換為權重，這些權重的總和為 1。</li>
-				<li>最後，將這些權重與對應的 $V$ 向量進行加權求和，得到該元素的最終輸出向量。這個輸出向量融合了整個序列中所有元素的信息，但會更側重於與當前元素關聯度高的部分。</li>
+
+<section class="cm">
+	<h1 class="title">💻 大語言模型</h1>
+	<h2>Attention Mechanism<br/>注意力機制</h2>
+	<br/>
+	<div>Lecturer: <em><a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+	<div><a href="https://fd100.chihlee.edu.tw">Department of Finance</a></div>
+	<div><a href="https://www.chihlee.edu.tw">Chihlee University of Technology</a></div>
+	<div>2025, Winter</div>
+</section>
+
+<section>
+	<h2>注意力機制</h2>
+	<ul>
+		<li>在深度學習中，特別是像 Transformer 這樣的模型，注意力機制（Attention Mechanism）扮演著核心角色。</li>
+		<li>它允許模型在處理序列資料時，能夠「關注」到序列中最重要的部分。</li>
+		<li>其中，自注意力（<strong>Self-Attention</strong>）和交叉注意力（<strong>Cross-Attention<strong>）是兩種主要的機制，它們在編碼器（Encoder）和解碼器（Decoder）中的作用和順序有所不同。</p>
+</section>
+
+<section>
+	<h2>自注意力機制 (Self-Attention)</h2>
+	<p>自注意力機制讓模型在處理一個序列時，能將序列中的每一個元素都與同一個序列中的所有其他元素進行關聯，從而為該元素產生一個更豐富的表示。</p>
+	<ul>
+		<li><strong>定義與功能：</strong><ul>
+			<li><strong>查詢向量（Query, $Q$）：</strong> 來自於當前需要被關注的元素。它代表了我們正在尋找的「資訊」。</li>
+			<li><strong>鍵向量（Key, $K$）：</strong> 來自於序列中的所有元素。它代表了其他元素所「提供」的資訊。</li>
+			<li><strong>值向量（Value, $V$）：</strong> 來自於序列中的所有元素。它包含了我們想要「提取」的實際資訊。</li>
+		</ul></li>
+		<li><strong>運作過程：</strong><ol>
+			<li>對於序列中的每個元素，我們將其輸入向量分別轉換為 $Q$、$K$ 和 $V$ 三個向量。</li>
+			<li>計算每個 $Q$ 與所有 $K$ 的點積（Dot Product），這會得到一個相似度分數。這個分數代表了當前元素與序列中所有其他元素之間的關聯程度。</li>
+			<li>將這些分數進行縮放（Scaled）後，再使用 <strong>Softmax</strong> 函數將其轉換為權重，這些權重的總和為 1。</li>
+			<li>最後，將這些權重與對應的 $V$ 向量進行加權求和，得到該元素的最終輸出向量。這個輸出向量融合了整個序列中所有元素的信息，但會更側重於與當前元素關聯度高的部分。</li>
+		</ol></li>
+		<li><strong>在編碼器中的應用：</strong><ul>
+			<li>編碼器中的每一層都包含一個自注意力層。</li>
+			<li>輸入的序列，例如一個句子 "I am a student"，每個詞都會與句子中的所有詞進行自注意力運算。</li>
+			<li>在這個過程中，$Q$、$K$、$V$ 都來自於編碼器前一層的輸出（或第一層的輸入嵌入向量）。</li>
+			<li>其目的是讓編碼器能夠理解句子中詞彙間的內部關係和上下文。</li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>交叉注意力機制 (Cross-Attention)</h2>
+	<p>交叉注意力機制，也稱為編碼器-解碼器注意力（Encoder-Decoder Attention），允許解碼器在生成輸出序列時，能夠「關注」到輸入序列（由編碼器處理的序列）。</p>
+	<ul>
+		<li><strong>定義與功能：</strong><ul>
+			<li><strong>查詢向量（Query, $Q$）：</strong> 來自於解碼器當前正在處理的單個元素（例如，正在生成的詞）。</li>
+			<li><strong>鍵向量（Key, $K$）：</strong> 來自於<strong>編碼器<strong>輸出的整個序列。</li>
+			<li><strong>值向量（Value, $V$）：</strong> 來自於<strong>編碼器<strong>輸出的整個序列。</li>
+		</ul></li>
+		<li><strong>運作過程：</strong><ol>
+			<li>解碼器在每個解碼步驟中，將當前生成的詞向量轉換為 $Q$ 向量。</li>
+			<li>來自於<strong>編碼器最終輸出</strong>的整個序列被轉換為 $K$ 和 $V$ 向量。</li>
+			<li>計算來自解碼器的 $Q$ 與來自編碼器的所有 $K$ 的點積，得到相似度分數。</li>
+			<li>將分數進行縮放並通過 Softmax 函數轉換為權重。</li>
+			<li>將這些權重與來自編碼器的 $V$ 向量進行加權求和，得到一個新的上下文向量。這個向量捕捉了輸入序列中與當前解碼步驟最相關的資訊。</li>
+		</ol></li>
+		<li><strong>在解碼器中的應用與前傳順序：</strong><ul>
+			<li>解碼器中的每一層通常包含兩個注意力子層：<ol>
+				<li><strong>遮罩自注意力（Masked Self-Attention）：</strong><ul>
+					<li>位於解碼器最底層。</li>
+					<li>功能是讓解碼器在生成第 $i$ 個詞時，只能「看見」並關注到已經生成的第 1 到 $i-1$ 個詞。這是一種因果關係的約束，防止模型在生成時偷看未來的信息。</li>
+					<li>在這裡，$Q$、$K$、$V$ 都來自於解碼器前一層的輸出（或第一層的輸入嵌入向量）。</li>
+				</ul></li>
+				<li><strong>交叉注意力（Cross-Attention）：</strong></ul>
+					<li>位於遮罩自注意力之後。</li>
+					<li>功能是讓解碼器能夠將當前生成的詞（$Q$）與編碼器處理過的<strong>輸入序列</strong>（$K$、$V$）進行關聯。</li>
+					<li><strong>$K$ 和 $V$ 向量</strong>在整個解碼過程中保持不變，它們都是由<strong>編碼器最後一層的輸出<strong>所產生的。</li>
+					<li><strong>$Q$ 向量</strong>則是在每個解碼步驟中，由解碼器<strong>當前層的遮罩自注意力輸出</strong>所產生。</li>
+					<li>這個機制是實現機器翻譯等任務的關鍵，它允許解碼器在生成翻譯時參考原始句子的內容。</li>
+				</ul></li>
 			</ol></li>
-			<li><strong>在編碼器中的應用：</strong><ul>
-				<li>編碼器中的每一層都包含一個自注意力層。</li>
-				<li>輸入的序列，例如一個句子 "I am a student"，每個詞都會與句子中的所有詞進行自注意力運算。</li>
-				<li>在這個過程中，$Q$、$K$、$V$ 都來自於編碼器前一層的輸出（或第一層的輸入嵌入向量）。</li>
-				<li>其目的是讓編碼器能夠理解句子中詞彙間的內部關係和上下文。</li>
-			</ul></li>
-		</ul>
-	</section>
-	<section>
-		<h2>交叉注意力機制 (Cross-Attention)</h2>
-		<p>交叉注意力機制，也稱為編碼器-解碼器注意力（Encoder-Decoder Attention），允許解碼器在生成輸出序列時，能夠「關注」到輸入序列（由編碼器處理的序列）。</p>
-		<ul>
-			<li><strong>定義與功能：</strong><ul>
-				<li><strong>查詢向量（Query, $Q$）：</strong> 來自於解碼器當前正在處理的單個元素（例如，正在生成的詞）。</li>
-				<li><strong>鍵向量（Key, $K$）：</strong> 來自於<strong>編碼器<strong>輸出的整個序列。</li>
-				<li><strong>值向量（Value, $V$）：</strong> 來自於<strong>編碼器<strong>輸出的整個序列。</li>
-			</ul></li>
-			<li><strong>運作過程：</strong><ol>
-				<li>解碼器在每個解碼步驟中，將當前生成的詞向量轉換為 $Q$ 向量。</li>
-				<li>來自於<strong>編碼器最終輸出</strong>的整個序列被轉換為 $K$ 和 $V$ 向量。</li>
-				<li>計算來自解碼器的 $Q$ 與來自編碼器的所有 $K$ 的點積，得到相似度分數。</li>
-				<li>將分數進行縮放並通過 Softmax 函數轉換為權重。</li>
-				<li>將這些權重與來自編碼器的 $V$ 向量進行加權求和，得到一個新的上下文向量。這個向量捕捉了輸入序列中與當前解碼步驟最相關的資訊。</li>
-			</ol></li>
-			<li><strong>在解碼器中的應用與前傳順序：</strong><ul>
-				<li>解碼器中的每一層通常包含兩個注意力子層：<ol>
-					<li><strong>遮罩自注意力（Masked Self-Attention）：</strong><ul>
-						<li>位於解碼器最底層。</li>
-						<li>功能是讓解碼器在生成第 $i$ 個詞時，只能「看見」並關注到已經生成的第 1 到 $i-1$ 個詞。這是一種因果關係的約束，防止模型在生成時偷看未來的信息。</li>
-						<li>在這裡，$Q$、$K$、$V$ 都來自於解碼器前一層的輸出（或第一層的輸入嵌入向量）。</li>
-					</ul></li>
-					<li><strong>交叉注意力（Cross-Attention）：</strong></ul>
-						<li>位於遮罩自注意力之後。</li>
-						<li>功能是讓解碼器能夠將當前生成的詞（$Q$）與編碼器處理過的<strong>輸入序列</strong>（$K$、$V$）進行關聯。</li>
-						<li><strong>$K$ 和 $V$ 向量</strong>在整個解碼過程中保持不變，它們都是由<strong>編碼器最後一層的輸出<strong>所產生的。</li>
-						<li><strong>$Q$ 向量</strong>則是在每個解碼步驟中，由解碼器<strong>當前層的遮罩自注意力輸出</strong>所產生。</li>
-						<li>這個機制是實現機器翻譯等任務的關鍵，它允許解碼器在生成翻譯時參考原始句子的內容。</li>
-					</ul></li>
-				</ol></li>
-			</ul></li>
-		</ul>
-	</section>
-	<section>
-		<h2>總結</h2>
-		<ul>
-			<li><strong>編碼器</strong>主要使用<strong>自注意力<strong>，目的是深入理解<strong>輸入序列<strong>的內部上下文和關係。</li>
-			<li><strong>解碼器</strong>則同時使用<strong>遮罩自注意力<strong>和<strong>交叉注意力<strong>。</li>
-			<li><strong>遮罩自注意力</strong>用於理解<strong>輸出序列<strong>自身已生成部分之間的上下文。</li>
-			<li><strong>交叉注意力</strong>則負責將<strong>解碼器的輸出（$Q$）<strong>與<strong>編碼器的輸出（$K$, $V$）<strong>進行連接，實現跨序列的資訊傳遞和對齊。</li>
-		</ul>
-		<p>這種前後順序的設計讓 Transformer 模型能有效地在編碼器中捕捉輸入的豐富語義，並在解碼器中利用這些語義來逐步生成準確的輸出序列。</p>
-	</section>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>總結 1</h2>
+	<ul>
+		<li><strong>編碼器</strong>主要使用<strong>自注意力<strong>，目的是深入理解<strong>輸入序列<strong>的內部上下文和關係。</li>
+		<li><strong>解碼器</strong>則同時使用<strong>遮罩自注意力<strong>和<strong>交叉注意力<strong>。</li>
+		<li><strong>遮罩自注意力</strong>用於理解<strong>輸出序列<strong>自身已生成部分之間的上下文。</li>
+		<li><strong>交叉注意力</strong>則負責將<strong>解碼器的輸出（$Q$）<strong>與<strong>編碼器的輸出（$K$, $V$）<strong>進行連接，實現跨序列的資訊傳遞和對齊。</li>
+	</ul>
+	<p>這種前後順序的設計讓 Transformer 模型能有效地在編碼器中捕捉輸入的豐富語義，並在解碼器中利用這些語義來逐步生成準確的輸出序列。</p>
+</section>
+
+<section>
+	<h2>📝 翻譯、摘要、問答任務比較</h2>
+	<h3>🎯 任務目標與模型結構差異</h3>
+	<table border="0" cellspacing="2" cellpadding="8" width="95%" align="center"><thead><tr>
+		<th><strong>特性</strong></th>
+		<th><strong>機器翻譯 (Machine Translation)</strong></th>
+		<th><strong>文本摘要 (Text Summarization)</strong></th>
+		<th><strong>問答系統 (Question Answering, QA)</strong></th>
+	</tr></thead>
+	<tbody><tr>
+		<td><strong>任務目標</strong></td>
+		<td>將源語言文本 (Source Text) 轉換為目標語言文本 (Target Text)，要求<strong>語義等價</strong>。</td>
+		<td>將長篇輸入文本壓縮成一個較短、保留主要資訊的摘要。</td>
+		<td>根據給定的上下文 (Context) 或知識庫，找到問題的<strong>答案 (Answer)</strong>。</td>
+	</tr><tr>
+		<td><strong>理想輸出長度</strong></td>
+		<td>幾乎等於輸入長度（可能略有差異）。</td>
+		<td><strong>顯著短於</strong>輸入長度。</td>
+		<td><strong>極短</strong>（通常是單詞、短語或一個句子）。</td>
+	</tr><tr>
+		<td><strong>輸入與輸出關係</strong></td>
+		<td><strong>一對一的跨語言轉換</strong>。</td>
+		<td><strong>多對一的濃縮</strong>。</td>
+		<td><strong>多對一的檢索與生成</strong>。</td>
+	</tr><tr>
+		<td><strong>主要模型結構</strong></td>
+		<td><strong>編碼器-解碼器 (Encoder-Decoder)</strong> 架構（如標準 Transformer）。</td>
+		<td><strong>編碼器-解碼器</strong>（抽取式或抽象式）或<strong>純解碼器</strong>（如大型語言模型，LLM）。</td>
+		<td><strong>純編碼器</strong> (如 BERT, 抽取式QA) 或 <strong>編碼器-解碼器</strong> (如 T5, 抽象式/生成式QA)。</td>
+	</tr><tr>
+		<td><strong>輸出類型</strong></td>
+		<td><strong>生成式</strong> (Generative)</td>
+		<td><strong>生成式</strong>（抽象式）或 <strong>抽取式</strong>（Extractive）</td>
+		<td><strong>抽取式</strong>（指向文本片段）或 <strong>生成式</strong>（抽象式）</td>
+	</tr></tbody></table>
+
+	<h3>🧠 注意力機制 (Attention) 在三種任務中的差異</h3>
+	<p>在基於 Transformer 的模型中，注意力機制在處理這三個任務時，其<strong>作用對象</strong>和<strong>訓練權重</strong>的側重點有所不同。</p>
+	<table border="0" cellspacing="2" cellpadding="8" width="95%" align="center"><thead><tr>
+		<th><strong>注意力差異</strong></th>
+		<th><strong>機器翻譯</strong></th>
+		<th><strong>文本摘要</strong></th>
+		<th><strong>問答系統</strong></th>
+	</tr></thead>
+	<tbody><tr>
+		<td><strong>核心注意力</strong></td>
+		<td><strong>編碼器-解碼器注意力 (Cross-Attention)</strong>：解碼器在生成目標詞時，<strong>關注</strong>源語言編碼器輸出中的<strong>對應詞</strong>。</td>
+		<td><strong>自我注意力 (Self-Attention)</strong>：在編碼器中理解全文語義。<strong>交叉注意力</strong>：解碼器關注<strong>輸入文本中最重要的句子或短語</strong>。</td>
+		<td><strong>自我注意力</strong>：強烈依賴編碼器中的<strong>自我注意力</strong>來建立問題與上下文之間的複雜關係。</td>
+	</tr><tr>
+		<td><strong>訓練權重重點</strong></td>
+		<td><strong>對齊 (Alignment)</strong>：訓練模型學習兩種語言之間<strong>詞彙和語法結構的精確對應關係</strong>。</td>
+		<td><strong>權重分配 (Salience)</strong>：訓練模型給予輸入文本中<strong>關鍵信息（主旨、關鍵句）更高的權重</strong>。</td>
+		<td><strong>相關性與邊界 (Relevance &amp; Boundary)</strong>：訓練模型準確識別上下文中與<strong>問題最相關的詞彙序列</strong>的<strong>起始與結束邊界</strong>。</td>
+	</tr><tr>
+		<td><strong>檢索作用</strong></td>
+		<td><strong>跨語言詞彙和短語的對應檢索</strong>。</td>
+		<td><strong>檢索/提取</strong>文本中<strong>最能代表全文核心主題的句子或概念</strong>。</td>
+		<td><strong>檢索</strong>上下文 (Context) 中與 Question 語義最<strong>匹配</strong>的<strong>文本跨度 (Span)</strong> 或信息。</td>
+	</tr></tbody></table>
+	<h4>額外說明：</h4>
+	<ol>
+		<li><strong>交叉注意力 (Cross-Attention) 的意義：</strong><ul>
+			<li><strong>翻譯：</strong> 確保翻譯的精準度，例如：解碼器生成「dog」時，必須確保編碼器注意到了源文本中的「狗」。</li>
+			<li><strong>摘要：</strong> 確保摘要內容忠於原文主旨。模型生成摘要詞時，會回頭「看」原文，確認信息來源。</li>
+			<li><strong>問答 (生成式)：</strong> 模型生成答案時，必須專注於上下文中最能支持答案的片段。</li>
+		</ul></li>
+		<li><strong>檢索 (Retrieval) 的差異：</strong><ul>
+			<li><strong>翻譯：</strong> 檢索是內隱的，屬於<strong>語言結構對應</strong>的檢索。</li>
+			<li><strong>摘要：</strong> 檢索是<strong>主題信息</strong>的篩選和提取（尤其在抽取式摘要中）。</li>
+			<li><strong>問答：</strong> 檢索是最顯式的。在<strong>抽取式 QA</strong> 中，模型直接「檢索」並指出答案的具體位置；在 <strong>RAG (Retrieval-Augmented Generation)</strong> 模型中，檢索指的是從海量知識庫中提取<strong>相關文檔</strong>。</li>
+		</ul></li>
+	</ol>
+	<p>總而言之，雖然三種任務都使用了注意力機制，但<ul>
+		<li><strong>翻譯</strong>側重於<strong>對齊</strong>；</li>
+		<li><strong>摘要</strong>側重於<strong>壓縮和重要性篩選</strong>；而</li>
+		<li><strong>問答</strong>側重於<strong>精確的相關性檢索與定位</strong>。</li>
+	</ul></p>
+</section>
+
 </div>
 
 </body>
