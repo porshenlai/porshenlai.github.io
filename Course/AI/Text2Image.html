@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_blank"/>
+<title></title>
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="/App/slide.js"></script>
+<style>
+	table th { vertical-align:middle; text-align:center; font-weight:bold; }
+	table td { vertical-align:top; text-align:left; border:2px solid silver; }
+</style>
+</head>
+<body>
+
+<div id="content">
+
+<section class="cm">
+	<h1 class="title">💻 影像生成</h1>
+	<h2>Diffusion, VAE, 與 GAN</h2>
+	<br/>
+	<div>Lecturer: <em><a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+	<div><a href="https://fd100.chihlee.edu.tw">Department of Finance</a></div>
+	<div><a href="https://www.chihlee.edu.tw">Chihlee University of Technology</a></div>
+	<div>2025, Winter</div>
+</section>
+<section>
+
+<section>
+	<h2>💡 生成模型理論差異比較 (VAE, Diffusion, GAN)</h2>
+	<div class='frame'><ul>
+		<li><strong>VAE</strong>: 變分自編碼器 (VAE, Variational Autoencoder)</li>
+		<li><strong>Diffusion</strong>: 擴散模型 (Diffusion Model)</li>
+		<li><strong>GAN</strong>: 生成對抗網路 (GAN, Generative Adversarial Network)</li>
+	</ul></div>
+	<table border='0' cellspacing='2' cellpadding='8' width='95%' align='center'><thead><tr>
+		<th width="4%"><strong>特性</strong></th>
+		<th width="32%"><strong>VAE</strong></th>
+		<th width="32%"><strong>Diffusion</strong></th>
+		<th width="32%"><strong>GAN</strong></th>
+	</tr></thead>
+	<tbody style='font-size:70%'><tr>
+		<td><strong>核心思想</strong></td>
+		<td><strong>機率模型/編碼-解碼</strong>：學習數據的<strong>潛在分佈 (Latent Distribution)</strong>，將輸入 $X$ 編碼為潛在空間 $Z$ 的分佈（通常為高斯），再從 $Z$ 解碼回 $X$。</td>
+		<td><strong>逐步去噪</strong>：模仿熱力學中的擴散過程。模型學習逐步<strong>反轉</strong>一個從數據到隨機噪聲的固定馬可夫鏈 (Markov Chain)，從純噪聲中逐步去噪以生成數據。</td>
+		<td><strong>對抗學習</strong>：包含兩個相互競爭的網路：<strong>生成器 (Generator)</strong> 試圖生成逼真的數據，<strong>判別器 (Discriminator)</strong> 試圖區分真實數據和生成數據。</td>
+	</tr><tr>
+		<td><strong>目標函式 (Loss)</strong></td>
+		<td><strong>最大化變分下界 (ELBO)</strong>，包含：<ul>
+			<li>1. <strong>重構誤差</strong> (使輸出接近輸入)，</li>
+			<li>2. <strong>KL 散度</strong> (使潛在分佈接近先驗分佈)。</li>
+		</ul></td>
+		<td><strong>預測噪聲</strong>：通常是 L2 Loss 或 L1 Loss，用於讓模型預測在某個時間步 $t$ 中被加上的噪聲 $\epsilon$。</td>
+		<td><strong>對抗性損失</strong>：基於極小化極大化 (Minimax) 概念，生成器試圖最小化 $\log(1 - D(G(z)))$，判別器試圖最小化 $\log(D(x)) + \log(1 - D(G(z)))$。</td>
+	</tr><tr>
+		<td><strong>採樣過程</strong></td>
+		<td><strong>單步採樣</strong>：從潛在空間 $Z$ 中採樣一個向量，然後將其通過解碼器一步生成圖像。<strong>速度快</strong>。</td>
+		<td><strong>多步採樣</strong>：從純噪聲開始，需要<strong>數十到數千</strong>個時間步逐步去噪來生成最終圖像。<strong>速度慢</strong>（但 LDM 和新的採樣器有所改善）。</td>
+		<td><strong>單步採樣</strong>：從潛在空間 $Z$ 中採樣一個向量，通過生成器一步生成圖像。<strong>速度快</strong>。</td>
+	</tr><tr>
+		<td><strong>優勢</strong></td>
+		<td><ul>
+			<li>1. 具備可解釋的<strong>潛在空間</strong>。</li>
+			<li>2. 訓練穩定。</li>
+			<li>3. 易於計算<strong>潛在空間插值</strong>。</li>
+		</ul></td>
+		<td><ul>
+			<li>1. <strong>生成品質極高</strong>，特別是照片寫實感。</li>
+			<li>2. 訓練穩定，避免 GAN 的模式崩潰問題。</li>
+			<li>3. 具有極強的<strong>條件生成 (Conditional Generation)</strong> 能力。</li>
+		</ul></td>
+		<td><ul>
+			<li>1. <strong>生成速度快</strong>。</li>
+			<li>2. 潛在的最高圖像品質可以非常高。</li>
+			<li>3. 採樣效率高 (單步)。</li>
+		</ul></td>
+	</tr><tr>
+		<td><strong>缺點</strong></td>
+		<td><ul>
+			<li>1. 生成圖像通常<strong>較為模糊</strong>，不如 GAN 或 Diffusion 銳利。</li>
+			<li>2. ELBO 損失限制了其對細節的捕捉。</li>
+		</ul></td>
+		<td><ul>
+			<li>1. <strong>採樣速度慢</strong> (需要大量計算資源和時間)。</li>
+			<li>2. 需要<strong>極大</strong>的計算資源進行訓練。</li>
+		</ul></td>
+		<td><ul>
+			<li>1. <strong>訓練不穩定</strong>，容易出現模式崩潰 (Mode Collapse)。</li>
+			<li>2. 難以量化生成品質。</li>
+		</ul></td>
+	</tr></tbody></table>
+</section>
+
+<section>
+	<h2>🖼️ Text-to-Image 應用與主要模型比較</h2>
+	<table border='0' cellspacing='2' cellpadding='8' width='95%' align='center'><thead><tr>
+		<th><strong>模型類別</strong></th>
+		<th><strong>Text-to-Image 應用中的角色</strong></th>
+		<th><strong>應用/主要模型範例</strong></th>
+		<th><strong>備註</strong></th>
+	</tr></thead>
+	<tbody style='font-size:70%'><tr>
+		<td><strong>VAE</strong></td>
+		<td><strong>潛在空間壓縮/解碼器</strong>：在現代大型 T2I 模型（如 Stable Diffusion）中，VAE 通常作為一個<strong>子組件 (Sub-component)</strong>，負責將高維圖像壓縮到低維的<strong>潛在空間</strong> (Latent Space)，以及將潛在空間的輸出<strong>解碼</strong>回最終圖像。</td>
+		<td>* <strong>VQ-VAE / VQ-GAN</strong> (作為大型 Transformer 或 Diffusion 模型的前置/後置模型) * <strong>CVAE</strong> (Conditional VAE，早期的條件生成嘗試)</td>
+		<td>單獨的 VAE 很少用於頂尖 T2I，但其<strong>編碼/解碼</strong>技術對 <strong>Latent Diffusion Models (LDM)</strong> 至關重要。</td>
+	</tr><tr>
+		<td><strong>Diffusion</strong></td>
+		<td><strong>核心生成引擎</strong>：是目前 <strong>Text-to-Image 領域的主流</strong>。模型在潛在空間中學習從文本條件 (Text Conditioning) 下逐步去噪。</td>
+		<td>* <strong>Stable Diffusion (LDM)</strong> * <strong>DALL-E 2</strong> (結合了 CLIP 和 Diffusion) * <strong>Imagen</strong> (結合了 T5 LLM 和 Diffusion) * <strong>Midjourney</strong> (基於 Diffusion 及其變體)</td>
+		<td><strong>目前 T2I 領域的品質和泛化性領導者</strong>，特別是在照片寫實感和理解複雜語義方面表現出色。</td>
+	</tr><tr>
+		<td><strong>GAN</strong></td>
+		<td><strong>早期的 T2I 模型</strong>：早期的 GANs 嘗試直接從文本嵌入 (Text Embeddings) 生成圖像，但隨著圖像複雜度增加，GANs 難以維持生成穩定性和高品質細節。</td>
+		<td>* <strong>StackGAN</strong> * <strong>AttnGAN</strong> * <strong>BigGAN</strong> (通常用於無條件/類別條件生成) * <strong>DALL-E 1</strong> (早期的 T2I 模型結合了 VQ-VAE 和 Transformer)</td>
+		<td>在 T2I 領域，由於其訓練穩定性問題和對高解析度細節的捕捉不如 Diffusion，<strong>已逐漸被淘汰</strong>。</td>
+	</tr></tbody></table>
+</section>
+
+<section>
+	<h2>結論</h2>
+	<ul>
+		<li><strong>Diffusion Models</strong> (如 Stable Diffusion 和 Imagen) 是當前 <strong>Text-to-Image</strong> 領域的<strong>黃金標準 (Gold Standard)</strong></li>
+		<li>它們利用了 <strong>VAE</strong> 進行圖像壓縮/解壓縮（成為 Latent Diffusion Model），並通過逐步去噪的優勢，實現了前所未有的生成品質和文本理解能力。</li>
+		<li><strong>GAN</strong> 則因其固有的訓練穩定性問題，在 Text-to-Image 領域中已經退居次要地位。</li>
+	</ul>
+</section>
+
+</div>
+
+</body>
+</html>
