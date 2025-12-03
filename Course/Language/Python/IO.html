@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Code Structure</title>
 <script plugins='quiz' src="/App/slide.js"></script>
-<style>
-.cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
-.frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
-.fxl { display:flex;align-items:center; }
-</style>
 </head>
 <body>
 
@@ -19,17 +14,12 @@
 red { color:red; }
 green { color:green; }
 blue { color:blue; }
-pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-pre { background:#0b1020; color:#e6edf3; padding:12px 14px; border-radius:10px; overflow:auto; }
-code { background:#eef2f7; padding:2px 6px; border-radius:6px; }
-pre code { background: transparent; padding: 0; }
 .hl-kw { color:#c792ea; }			/* keyword */
 .hl-fn { color:#82aaff; }			/* function */
 .hl-str { color:#ecc48d; }		 /* string */
 .hl-nb	{ color:#f78c6c; }		 /* number/boolean */
 .hl-cm	{ color:#5c6773; font-style:italic;} /* comment */
 table small { color:#666; }
-kbd { background:#f1f5f9; border:1px solid #cbd5e1; border-bottom-width:2px; border-radius:6px; padding:0 6px; font-family:inherit; }
 </style>
 
 <section>
@@ -43,6 +33,72 @@ kbd { background:#f1f5f9; border:1px solid #cbd5e1; border-bottom-width:2px; bor
 			<div style="text-align:right">2025, Winter</div>
 		</p>
 	</div>
+</section>
+
+<section>
+	<h2>周邊裝置架構</h2>
+	<div style='text-align:center;'><img src='figure/IOArch.gif' style='width:80%'></div>
+</section>
+
+<section>
+	<h2>存取流程</h2>
+	<div style='text-align:center;'><img src='figure/IOFlow.gif' style='width:45%'></div>
+	<ul>
+		<li>open close 必須成對出現，否則會產生占用系統資源的垃圾。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>例外處理</h2>
+	<div style='text-align:center;'><img src='figure/TryExceptSample.gif' style='width:60%'></div>
+</section>
+
+<section>
+	<h2>With</h2>
+	<div style='text-align:center;'><img src='figure/WithFile.gif' style='width:45%'></div>
+	<table border='1' cellspacing='1' cellpadding='8' align='center'><tbody><tr>
+		<th>r</th>
+		<td>讀取模式，指標會置於開頭。(預設)</td>
+	</tr><tr>
+		<th>w</th>
+		<td>寫入模式，不存在時建立，存在時會被覆寫。</td>
+	</tr><tr>
+		<th>a</th>
+		<td>附加模式，不存在時建立，存在時會加入到尾端。</td>
+	</tr><tr>
+		<th>r+</th>
+		<td>讀寫模式，指標會置於開頭。</td>
+	</tr><tr>
+		<th>w+</th>
+		<td>讀寫模式，不存在時建立，存在時會被覆寫。</td>
+	</tr><tr>
+		<th>a+</th>
+		<td>讀寫模式，不存在時建立，存在時會加入到尾端。</td>
+	</tr></tbody></table>
+</section>
+
+<section>
+	<h2>讀檔</h2>
+	<div style='text-align:center;'><img src='figure/ReadFile.gif' style='width:40%'></div>
+	<table border='1' cellspacing='1' cellpadding='8' align='center'><tbody><tr>
+		<th>EOF(End of File)<br/>檔案結尾</th>
+		<td>讀到空字串 “”</td>
+		<td>readline() == “”</td>
+	</tr><tr>
+		<th>New Line<br/>空白行</th>
+		<td>只讀到一個換行符號 “\n”</td>
+		<td>readline() == “\n”</td>
+	</tr></tbody></table>
+</section>
+
+<section>
+	<h2>寫檔</h2>
+	<div style='text-align:center;'><img src='figure/WriteFile.gif' style='width:40%'></div>
+</section>
+
+<section>
+	<h2>完整的檔案處理</h2>
+	<div style='text-align:center;'><img src='figure/FileIO.gif' style='width:90%'></div>
 </section>
 
 <section>
@@ -258,7 +314,6 @@ kbd { background:#f1f5f9; border:1px solid #cbd5e1; border-bottom-width:2px; bor
 
 <section>
 	<h2>例外處理</h2>
-	<pre><code class="language-python">
 	<div class='frame'>
 		<div><span class="hl-kw">try</span>:</div>
 		<div class='cb'>
@@ -390,6 +445,7 @@ kbd { background:#f1f5f9; border:1px solid #cbd5e1; border-bottom-width:2px; bor
 
 <section>
 	<h2>單元測試 Unit Test</h2>
+	<div style='text-align:center;'><img src='figure/UnitTest.gif' width='80%'></img></div>
 	<div>您為了要測試某個物件是否為特定類別的執行個體。撰寫了下列程式</div>
 	<div class="cb frame">
 		<div class="fxl">

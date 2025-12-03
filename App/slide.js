@@ -327,8 +327,10 @@ button:hover {border-color:#90a4ae;}
 		} else {
 			location.hash = '#' + section.id;
 		}
-		section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
-		this.Sections[index].scrollTop=0;
+		setTimeout(()=>{
+			section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+			this.Sections[index].scrollTop=0;
+		},0);
 	}
 
 	applyFontSize (scale) {
