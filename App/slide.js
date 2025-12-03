@@ -51,80 +51,52 @@ class Aside
 
 		// Aside bar
 		this.E=((E) => {
-			((S) => {
-				// [CSS] position: fixed; top: 0; right: 0; bottom: 0;
-				S.position="fixed";
-				S.top=S.right=S.bottom=0;
-				// [CSS] width: 320px; max-width: 80vw;
-				S.width="320px"; S.maxWidth="80vw";
-				// [CSS] background: #fff;
-				S.background="#fff";
-				// [CSS] border-left: 1px solid #eee;
-				S.borderLeft="1px solid #eee";
-				// [CSS] box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-				S.boxShadow="-2px 0 10px rgba(0,0,0,0.1)";
-				// [CSS] z-index: 100;
-				S.zIndex=100;
-				// [CSS] transform: translateX(100%);
-				S.transform="translateX(100%)";
-				// [CSS] transition: transform 0.3s ease;
-				S.transition="transform 0.3s ease";
-				// [CSS] display: flex; flex-direction: column;
-				S.display="flex";
-				S.flexDirection="column";
-			})(E.style);
 			E.setAttribute("current","toc");
 			E.innerHTML=`
 <style>
-	.panel-header { padding: 1rem; border-bottom: 1px solid #eee; }
-	.panel-header h3 { margin: 0; color: #0d5ea8; }
-	[current="settings"] #toc, [current="toc"] #settings { display:none; }
-	[current="settings"] #showSettings, [current="toc"] #showTOC { border-color:white; font-weight:bold; }
-	#toc, #settings { flex: 1; overflow-y: auto; padding: 1rem; }
-	#toc ol { list-style: none; padding: 0; margin: 0; }
-	#toc li { margin: 4px 0; }
-	#toc a { color:#0d5ea8; text-decoration: none; display: block; padding: 6px 10px; border-radius: 6px; font-size: 0.9rem; }
-	#toc a:hover { background-color: #f0f5fa; }
-	#toc a.active { font-weight:700; background-color: #e3f2fd; }
-	#settings { display: flex; justify-content: space-between; align-items: center; }
-	#settings label { color: var(--text); font-size: 0.9rem; }
-	#settings .zoom-controls { display: flex; align-items: center; gap: 0.5rem; }
-	.panel-footer { padding: 1rem; border-top: 1px solid #eee; background: #fcfcfc; text-align:center; }
-	.zoom-controls button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ccc; background-color: #f9f9f9; cursor: pointer;}
-	.nav-controls { display: flex; align-items: center; gap: 10px; }
-	.help { font-size: 0.8rem; color: var(--muted); width:100%; text-align:center; }
+aside {position:fixed;top:0;right:0;bottom:0;width:640px;max-width:80vw;font-size:24px;background:#fff;border-left:1px solid #eee;box-shadow:-2px 0 10px rgba(0,0,0,0.1);z-index:100;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:center;}
+aside button {font-size:24px;border-radius:12px;padding:4px 12px;}
+aside ol {list-style:none;padding:0;margin:0;}
+aside li {margin: 4px 0;}
+aside a {color:#0d5ea8;text-decoration:none;display:block;padding:6px 10px;border-radius:6px;font-size:0.9rem;}
+aside a:hover {background-color:#f0f5fa;}
+aside a.active {font-weight:700;background-color:#e3f2fd;}
+[current="settings"] [tab="toc"], [current="toc"] [tab="settings"] {display:none;};
+[tab="toc"], [tab="settings"] {flex:1;overflow-y:auto;padding:1rem;}
 </style>
-<div class="panel-header">
-	<h3 style="white-space:nowrap">
-		<button class="btn" id="playBtn">⛶</button>
-		<button class="btn" id="showTOC">導覽</button>
-		<button class="btn" id="showSettings">設定</button>
+<div style="padding:0.5rem 1rem;border-bottom:1px solid #eee;width:100%;">
+	<h3 style="margin:0;color:#0d5ea8;white-space:nowrap;">
+		<button action="playBtn">⛶</button>
+		<button tab="settings" action="showTOC">導覽</button>
+		<span tab="settings">設定</span>
+		<span tab="toc">導覽</span>
+		<button tab="toc" action="showSettings">設定</button>
 	</h3>
 </div>
-<div style="overflow-y:auto;">
-	<nav id="toc">
-		<ol id="tocList"></ol>
-	</nav>
-	<div id="settings">
-		<label>字型大小</label>
-		<div class="zoom-controls">
-			<button id="fontDecreaseBtn" title="縮小字型">-</button>
-			<span id="fontDisplay">100%</span>
-			<button id="fontIncreaseBtn" title="放大字型">+</button>
+<div style="flex:1 1 auto;overflow-y:auto;width:100%;padding:32px;">
+	<nav tab="toc"><ol></ol></nav>
+	<div tab="settings">
+		<div style='display:flex;justify-content:space-between;align-items:flex-start;'>
+			<label style="color:#222;font-size: 0.9rem;">字型大小</label>
+			<div style="display:flex;align-items:center;gap:0.5rem;">
+				<button action="fontDecreaseBtn" title="縮小字型">-</button>
+				<span action="fontDisplay">100%</span>
+				<button action="fontIncreaseBtn" title="放大字型">+</button>
+			</div>
 		</div>
 	</div>
 </div>
-<div class="panel-footer">
-	<div class="nav-controls">
-		<button class="btn" id="prevBtn" title="上一節 Prev (←)">←</button>
-		<span id="counter" class="help"></span>
-		<button class="btn" id="nextBtn" title="下一節 Next (→)">→</button>
-	</div>
-	© 2025 Porshen Lai
+<div style="padding:0.5rem 1rem;border-top:1px solid #eee;background:#fcfcfc;width:100%;display:flex;flex-flow:row nowrap;justify-content:space-between;">
+	<span style='width:0px;overflow:display;white-space:nowrap;'>© 2025 Porshen Lai</span>
+	<span style='background:#fff;gap:10px;'>
+		<button action="prevBtn" title="上一節 Prev (←)">←</button>
+		<span uid="counter" style='{font-size:0.8rem;color:#666;width:100%;text-align:center;}'></span>
+		<button action="nextBtn" title="下一節 Next (→)">→</button>
+	</span>
 </div>`;
 			E.addEventListener('click', (evt) => {
 				let e = evt.target;
-				switch(e.id){
+				switch(e.getAttribute("action")){
 				case "playBtn":
 					if (CB.fullscreen) CB.fullscreen(evt);
 					break;
@@ -147,8 +119,9 @@ class Aside
 					this.E.setAttribute("current","settings");
 					break;
 				default:
-					if (e.tagName==="A") {
+					if (e.hasAttribute("data-index")) {
 						evt.preventDefault();
+						console.log("CLICK",CB.activate,e);
 						if (CB.activate) CB.activate(0,parseInt(e.dataset.index, 10));
 						this.close();
 					}
@@ -162,24 +135,24 @@ class Aside
 		this.close();
 	}
 	update (index, total) {
-		this.E.querySelector('#counter').textContent=(index+1)+' / '+total;
-		this.E.querySelector('#prevBtn').disabled=(index===0);
-		this.E.querySelector('#nextBtn').disabled=(index===total-1);
-		Array.from(this.E.querySelectorAll('#tocList a'))
+		this.E.querySelector('[uid="counter"]').textContent=(index+1)+' / '+total;
+		this.E.querySelector('[action="prevBtn"]').disabled=(index===0);
+		this.E.querySelector('[action="nextBtn"]').disabled=(index===total-1);
+		Array.from(this.E.querySelectorAll('[tab="toc"]>ol a'))
 			.forEach((link, i) => link.classList.toggle('active', i === index));
 	}
 	createTocList (sections) {
-		const tocList=this.E.querySelector('#tocList');
+		const tl=this.E.querySelector('[tab="toc"]>ol');
 		sections.forEach((sec, idx) => {
 			const h = sec.querySelector('h1') || sec.querySelector('h2');
-			const title = h ? h.textContent.trim() : (idx + 1);
+			const title = h ? h.textContent.trim() : `Slide ${idx + 1}`;
 			const li = document.createElement('li');
 			const a = document.createElement('a');
 			a.href = '#' + sec.id;
 			a.textContent = title;
 			a.dataset.index = idx;
 			li.appendChild(a);
-			tocList.appendChild(li);
+			tl.appendChild(li);
 		});
 	}
 	open () {
@@ -211,6 +184,73 @@ class Slides
 
 		this.currentActiveIndex=-1;
 		this.currentFontScale=1.0;
+
+		(()=>{ // install style {{{
+			const S=document.createElement("style")
+			const PAGE=`
+:root { --base-font-size: 24px; } /* Font size control */ 
+* { box-sizing: border-box; }
+html { font-size: var(--base-font-size); scroll-behavior: smooth; }
+html, body { height: 100%; }
+body {
+	margin:0; font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, Segoe UI, Arial;
+	color:#222; background:#fff; line-height:1.6;
+	display: flex; flex-direction: column;
+}
+`;
+			const SECTION=`
+#content {flex:1;padding:1.5rem;overflow:hidden auto;background:#f0f0f0;}
+#content section {margin:1.75rem 0 2.25rem 0;scroll-snap-align:none;}
+#content[playmode="page"] {
+	padding: 0; 
+	scroll-snap-type: y mandatory;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#content[playmode="page"] section {
+	margin: 0.5rem;
+	height: calc(100% - 1rem);
+	min-height: calc(100% - 1rem);
+	padding: 1.25rem; 
+	scroll-snap-align: start; 
+	overflow-y: auto;
+	scroll-margin-top: 0.5rem; 
+}
+#content[playmode="page"] section.current-section {
+	scroll-margin-top: 0.5rem;
+}
+
+section { 
+	margin: 1.75rem 0 2.25rem 0; padding: 1.25rem; border:2px solid #e6e6e6; border-radius:14px; 
+	box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+	transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+	cursor: pointer;
+	scroll-margin-top: 1.5rem;
+}
+section:hover {
+	border-color: #ccc;
+}
+section.current-section {
+	border-color: #26A69A;
+	background-color: #f6fffd;
+	box-shadow: 0 4px 16px rgba(38, 166, 154, 0.2);
+	cursor: default;
+}
+`;
+			const BASIC=`
+.title {font-size:clamp(1.75rem, 4vw, 2.5rem);font-weight:800;margin:0 0 0.375rem 0;color:#1E88E5;}
+.subtitle {font-size:clamp(1rem, 2.4vw, 1.25rem);color:#666;margin:0;}
+.frame {margin:16px 4px;padding:8px;border:2px dashed silver;border-radius:8px;background:#F0FFF0;}
+h2 {margin:0 0 0.625rem 0;font-size:1.375rem;color:#1E88E5;}
+h3 {margin:0.625rem 0;font-size:1.125rem;color:#0d5ea8;}
+ul, ol {margin:8px 0 8px 22px;}
+button {appearance:none;border:1px solid #cfd8dc;background:#fff;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:95%;}
+button:hover {border-color:#90a4ae;}
+[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
+`;
+			S.innerHTML=PAGE+SECTION+BASIC;
+			document.head.appendChild(S);
+		})(); // }}}
 		
 		this.Content=((content)=>{
 			content.insertBefore(((s)=>{
@@ -222,21 +262,23 @@ class Slides
 .answer { color:blue; display:none; padding:8px; }
 [qr="o"] .answer { display:block; }
 `;
-				s.innerHTML=`[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
-.frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
+				s.innerHTML=`
 `;
 				s.innerHTML+=code;
 				s.innerHTML+=quiz;
 				return s;
 			})(document.createElement("style")),content.firstChild);
-			content.addEventListener('click',(evt) => {
+			content.addEventListener('click', (evt) => {
 				let e=evt.target, s;
 				for (s=e;s&&s.tagName!=="SECTION";s=s.parentNode);
 				if (s&&s.tagName==="SECTION")
 					this.activateSection(parseInt(s.getAttribute("data-index"),10));
 			});
+			content.addEventListener('scrollend', (evt) => {
+				console.log("scrollend");
+			});
 			return content;
-		})(document.getElementById('content'));
+		})(RE.querySelector('#content'));
 
 		this.Sections=Array.from(content.querySelectorAll('section'));
 		this.Sections.forEach((sec, idx) => {
@@ -246,8 +288,8 @@ class Slides
 		});
 
 		this.Aside=new Aside(document.body, {
+			"activate": (v,av) => this.activateSection(v?this.currentActiveIndex+parseInt(v):av),
 			"fullscreen": () => document.getElementById('content').requestFullscreen(),
-			"activate": (s,c) => this.activateSection(s+(c===undefined?this.currentActiveIndex:c)),
 			"applyFontScale": (scale) => this.applyFontSize(this.currentFontScale + scale)
 		});
 		this.Aside.createTocList(this.Sections);
@@ -263,15 +305,6 @@ class Slides
 				).textContent;
 				return E;
 			})(document.createElement('title')));
-
-		document.head.appendChild(( // import slide.css
-			(e)=>{
-				e.setAttribute("rel","stylesheet");
-				const u=/(.*\/)[^\/]+(\?.*)?/.exec(currentScript.getAttribute("src"));
-				e.setAttribute("href",u ? (u[1]+"/slide.css") : "slide.css");
-				return e;
-			}
-		)(document.createElement("link")));
 	}
 
 	activateSection (index, smooth = true) {
@@ -305,7 +338,7 @@ class Slides
 			'--base-font-size',
 			`${DEFAULT_FONT_SIZE * this.currentFontScale}px`
 		);
-		this.Aside.E.querySelector('#fontDisplay').textContent = `${Math.round(this.currentFontScale * 100)}%`;
+		this.Aside.E.querySelector('[action="fontDisplay"]').textContent = `${Math.round(this.currentFontScale * 100)}%`;
 	}
 
 	async install (name, handler) {
