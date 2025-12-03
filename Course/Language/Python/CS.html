@@ -877,7 +877,7 @@
 	</div>
 </section>
 
-<section>
+<!--section>
 	<h2>🕰️ Python time 模組函數</h2>
 	<table border='1' cellspacing='1' cellpadding='8' align='center'><thead><tr>
 		<th><strong>函式 (Function)</strong></th>
@@ -928,6 +928,136 @@
 	</tr><tr>
 		<td>tm_isdst</td>
 		<td>時光節約時間 (1 為有時光節約時間, 0 為無時光節約時間)</td>
+	</tr></tbody></table>
+</section-->
+
+<section>
+	<h2>📅 DateTime Format Codes</h2>
+	<table border='1' cellspacing='1' cellpadding='8' align='center'><thead><tr>
+		<th><strong>類別</strong></th>
+		<th><strong>代碼</strong></th>
+		<th><strong>意義</strong></th>
+		<th><strong>範例輸出</strong></th>
+	</tr></thead><tbody><tr>
+		<td><strong>年份</strong></td>
+		<td>%Y</td>
+		<td>帶世紀的年份</td>
+		<td>2025</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%y</td>
+		<td>不帶世紀的年份 (00-99)</td>
+		<td>25</td>
+	</tr><tr>
+		<td><strong>月份</strong></td>
+		<td>%m</td>
+		<td>月份，帶零填充的數字 (01-12)</td>
+		<td>12</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%B</td>
+		<td>月份的全稱 (依地區設定而定)</td>
+		<td>December</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%b</td>
+		<td>月份的縮寫名稱 (依地區設定而定)</td>
+		<td>Dec</td>
+	</tr><tr>
+		<td><strong>日</strong></td>
+		<td>%d</td>
+		<td>月份中的日期，帶零填充的數字 (01-31)</td>
+		<td>03</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%j</td>
+		<td>年份中的第幾天，帶零填充的數字 (001-366)</td>
+		<td>337</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%A</td>
+		<td>星期幾的全稱 (依地區設定而定)</td>
+		<td>Wednesday</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%a</td>
+		<td>星期幾的縮寫名稱 (依地區設定而定)</td>
+		<td>Wed</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%w</td>
+		<td>星期幾的數字 (0=星期日 到 6=星期六)</td>
+		<td>3</td>
+	</tr><tr>
+		<td><strong>小時</strong></td>
+		<td>%H</td>
+		<td>小時 (24 小時制)，帶零填充的數字 (00-23)</td>
+		<td>17</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%I</td>
+		<td>小時 (12 小時制)，帶零填充的數字 (01-12)</td>
+		<td>05</td>
+	</tr><tr>
+		<td><strong>分鐘</strong></td>
+		<td>%M</td>
+		<td>分鐘，帶零填充的數字 (00-59)</td>
+		<td>52</td>
+	</tr><tr>
+		<td><strong>秒數</strong></td>
+		<td>%S</td>
+		<td>秒數，帶零填充的數字 (00-61，包括閏秒)</td>
+		<td>17</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%f</td>
+		<td>微秒，作為小數點數字 (000000-999999)</td>
+		<td>000000 (如果未提供)</td>
+	</tr><tr>
+		<td><strong>上午/下午</strong></td>
+		<td>%p</td>
+		<td>地區設定中上午或下午的表示</td>
+		<td>PM</td>
+	</tr><tr>
+		<td><strong>時區</strong></td>
+		<td>%z</td>
+		<td>時區偏移量 (例如，-0500, +0800)</td>
+		<td>-0600 (對於 CST)</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%Z</td>
+		<td>時區名稱 (依地區設定而定)</td>
+		<td>CST (對於 Central Standard Time)</td>
+	</tr><tr>
+		<td><strong>組合</strong></td>
+		<td>%c</td>
+		<td>地區設定中合適的日期和時間表示</td>
+		<td>Wed Dec 3 17:52:17 2025</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%x</td>
+		<td>地區設定中合適的日期表示</td>
+		<td>12/03/25</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%X</td>
+		<td>地區設定中合適的時間表示</td>
+		<td>17:52:17</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%r</td>
+		<td>12 小時制時間 (等同於 %I:%M:%S %p)</td>
+		<td>05:52:17 PM</td>
+	</tr><tr>
+		<td>&nbsp;</td>
+		<td>%T</td>
+		<td>24 小時制時間 (等同於 %H:%M:%S)</td>
+		<td>17:52:17</td>
+	</tr><tr>
+		<td><strong>特殊</strong></td>
+		<td>%%</td>
+		<td>字面上的百分比符號</td>
+		<td>%</td>
 	</tr></tbody></table>
 </section>
 
