@@ -258,14 +258,9 @@ button:hover {border-color:#90a4ae;}
 .cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
 .fxl { display:flex;align-items:center;justify-content:flex-start; }
 `;
-				const quiz=`
-.answer { color:blue; display:none; padding:8px; }
-[qr="o"] .answer { display:block; }
-`;
 				s.innerHTML=`
 `;
 				s.innerHTML+=code;
-				s.innerHTML+=quiz;
 				return s;
 			})(document.createElement("style")),content.firstChild);
 			content.addEventListener('click', (evt) => {

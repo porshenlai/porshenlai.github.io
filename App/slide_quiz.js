@@ -16,6 +16,7 @@ class Quiz
 [qt="s"][qa] :not(.QS)[qo] { display:none; }
 [qt="m"][qa] [qo] { color:black; }
 [qt="m"][qa] .QS[qo] { color:blue;font-weight:bolder; }
+[qt]:not([qr='o']) .answer { display:none; }
 `;
 			document.head.appendChild(SE);
 		})(document.head.querySelector('style[STYID="Quiz"]'));
