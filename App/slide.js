@@ -33,8 +33,7 @@ class Aside
 	constructor (RE=document.body, CB={}) {
 		this.RE=RE;
 
-		// create panel-overlay (mask)
-		((E)=>{
+		((E)=>{ // create panel-overlay (mask) {{{
 			E.addEventListener('click', (evt) => this.close());
 			((S)=>{
 				// [CSS] position:fixed; top:0; left:0; right:0; bottom:0;
@@ -42,19 +41,18 @@ class Aside
 				S.top=S.left=S.right=S.bottom=0;
 				// [CSS] background:rgba(0,0,0,0.4); z-index:99;
 				S.background="rgba(0,0,0,0.4)";
-				S.zIndex=99;
+				S.zIndex=1001;
 				// [CSS] transition:opacity 0.3s ease, visibility 0.3s;
 				S.transition="opacity 0.3s ease, visibility 0.3s";
 			})(E.style);
-		})(this.Overlay=document.createElement('div'));
-		RE.appendChild(this.Overlay);
+			RE.appendChild(E);
+		})(this.Overlay=document.createElement('div')); // }}}
 
-		// Aside bar
-		this.E=((E) => {
+		((E) => { // Aside bar {{{
 			E.setAttribute("current","toc");
 			E.innerHTML=`
 <style>
-aside {position:fixed;top:0;right:0;bottom:0;width:640px;max-width:80vw;font-size:24px;background:#fff;border-left:1px solid #eee;box-shadow:-2px 0 10px rgba(0,0,0,0.1);z-index:100;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:center;}
+aside {position:fixed;top:0;right:0;bottom:0;width:640px;max-width:80vw;font-size:24px;background:#fff;border-left:1px solid #eee;box-shadow:-2px 0 10px rgba(0,0,0,0.1);z-index:1002;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:center;}
 aside button {font-size:24px;border-radius:12px;padding:4px 12px;}
 aside ol {list-style:none;padding:0;margin:0;}
 aside li {margin: 4px 0;}
@@ -129,9 +127,47 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 				}
 				evt.stopPropagation();
 			});
+			this.Overlay.appendChild(E);
 			return E;
-		})(document.createElement("aside"));
-		this.Overlay.appendChild(this.E);
+		})(this.E=document.createElement("aside")); // }}}
+
+		((E)=>{ // Launch PAD {{{
+			E.id="control-panel";
+			E.innerHTML=`
+<style>
+#control-panel {position:fixed;bottom:0;left:0;display:flex;flex-flow:row wrap;width:150px;padding:10px;z-index:1000;pointer-events:none;}
+#control-panel [action] {width:50px;height:50px;margin:5px;display:flex;justify-content:center;align-items:center;background-color:#3498db;color:white;font-weight:bold;font-size:1.2em;border-radius:5px;user-select:none;cursor:pointer;pointer-events:auto;}
+#control-panel>[action="none"] {opacity:0;}
+#control-panel>[action="none"]:hover {opacity:1;}
+#control-panel:not(.active) :not([action="none"]) {display:none;}
+</style>
+<div action="prev">P</div><div action="menu">M</div>
+<div action="none"></div><div action="next">N</div>
+`;
+			E.addEventListener('click',(evt)=>{
+				const func=evt.target.getAttribute('action');
+				switch(func){
+				case 'none':
+					E.classList.toggle('active');
+					break;
+				case 'menu':
+					E.classList.remove('active'); this.open(); break;
+				case 'prev':
+					E.classList.remove('active'); 
+					if (CB.activate) CB.activate(-1);
+					break;
+				case 'next':
+					E.classList.remove('active');
+					if (CB.activate) CB.activate(1);
+					break;
+				default:
+					return;
+				}
+				evt.preventDefault();
+			});
+			RE.appendChild(E);
+		})(document.createElement("div")); // }}}
+
 		this.close();
 	}
 	update (index, total) {
