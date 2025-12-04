@@ -4,9 +4,9 @@ class Quiz
 {	// Quiz Plugin
 	constructor (e, ans)
 	{	// (root element of Quiz, {... qi:qa})
-		((SE) => { // install style for Quiz
-			if (SE) return;
-			SE=document.createElement("style");
+		if (!document.head.querySelector('style[STYID="Quiz"]')) (() => {
+			SE=document.createElement("style"); // install style for Quiz
+			SE.setAttribute('STYID','Quiz')
 			SE.innerHTML=`
 [qi] { border:2px solid blue;border-radius:8px;padding:8px;margin:8px 4px; }
 [qo] { padding:4px; margin:4px; border:2px solid lightgrey;background-image: linear-gradient(white 60%,lightgrey); }
@@ -19,7 +19,7 @@ class Quiz
 [qt]:not([qr='o']) .answer { display:none; }
 `;
 			document.head.appendChild(SE);
-		})(document.head.querySelector('style[STYID="Quiz"]'));
+		})();
 		if(e) this.install(e, ans);
 	}
 	install (e, ans) {
@@ -51,7 +51,6 @@ Usage:
 		<qiv qo='1'>1</qiv><qiv qo='2'>2</qiv><qiv qo='4'>3</qiv><qiv qo='8'>4</qiv>
 	</div>
 `);
-
 		this.E.addEventListener('click',(evt)=>{
 			for (let e=evt.target;e&&e.hasAttribute;e=e.parentNode) {
 				let v=e.getAttribute('qo');
