@@ -141,8 +141,8 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 #control-panel>[action="none"]:hover {opacity:1;}
 #control-panel:not(.active) :not([action="none"]) {display:none;}
 </style>
-<div action="prev">P</div><div action="menu">M</div>
-<div action="none"></div><div action="next">N</div>
+<div action="prev">◀</div><div action="menu">☰</div>
+<div action="none"></div><div action="next">▶</div>
 `;
 			E.addEventListener('click',(evt)=>{
 				const func=evt.target.getAttribute('action');
