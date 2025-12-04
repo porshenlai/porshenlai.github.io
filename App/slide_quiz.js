@@ -55,6 +55,7 @@ Usage:
 			for (let e=evt.target;e&&e.hasAttribute;e=e.parentNode) {
 				let v=e.getAttribute('qo');
 				if(v&&v!=='value') {
+					evt.preventDefault();
 					evt.stopPropagation();
 					this.answer(e,v);
 					break;
@@ -64,6 +65,7 @@ Usage:
 		this.E.addEventListener('change',(evt)=>{
 			let v=evt.target.getAttribute('qo');
 			if(v==='value') {
+				evt.preventDefault();
 				evt.stopPropagation();
 				evt.target.classList.remove('QS');
 				this.answer(evt.target,evt.target.value);
