@@ -5,7 +5,7 @@ class Quiz
 	constructor (e, ans)
 	{	// (root element of Quiz, {... qi:qa})
 		if (!document.head.querySelector('style[STYID="Quiz"]')) (() => {
-			SE=document.createElement("style"); // install style for Quiz
+			const SE=document.createElement("style"); // install style for Quiz
 			SE.setAttribute('STYID','Quiz')
 			SE.innerHTML=`
 [qi] { border:2px solid blue;border-radius:8px;padding:8px;margin:8px 4px; }
