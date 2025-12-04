@@ -5,51 +5,35 @@ class Cards
 	constructor (E) {
 		if (!document.head.querySelector('style#FlashCardStyle'))
 			document.head.appendChild(((E) => {
-				// {{{
 				E.id="FlashCardStyle"
 				E.innerHTML=`
-.flashcard {
-  background-color: transparent;
-  width: 300px;
-  height: 200px;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px; /* This is the 3D space */
-}
-.flashcard .front,.flashcard .back {
-  position: absolute;
-  backface-visibility: hidden;
-  width: 100%;
-  height: 100%;
-}
-.flashcard .front {
-  background-color: #bbb; color: black;
-}
-.flashcard .back {
-  background-color: #2980b9; color: white;
-  transform: rotateX(180deg);
-}
-.flashcard>div {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-.flashcard>div.flipped {
-  transform: rotateX(180deg);
-}
+.flashcard {background-color:transparent;width: 30%;height: 0;padding-top:30%;border:1px solid #f1f1f1;perspective:1000px;}
+.flashcard .front,.flashcard .back {position:absolute;width:100%;height:100%;overflow:hidden auto;backface-visibility:hidden;}
+.flashcard .front {background-color:#bbb;color:black;}
+.flashcard .back {background-color:#2980b9;color:white;transform:rotateX(180deg);}
+.flashcard>div {position:absolute;left:0;top:0;width:100%;height:100%;text-align:center;transition:transform 0.6s;transform-style:preserve-3d;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);}
+.flashcard>div.flipped {transform: rotateX(180deg);}
 `;
 				return E;
-				// }}}
 			})(document.createElement("style")));
 		if (E) this.install(E); else this.RE=undefined;
 	}
+	list (E) {
+		const rs=Array.from(E.querySelectorAll('.flashcard'));
+		console.assert(rs.length>0,`
+Usage:
+	<div style='display:flex;flex-flow:row wrap;gap:1vw 2%;'>
+		<div class='flashcard' style='width:32%;padding-top:32%;'>
+			<div class='front'> 正面 </div>
+			<div class='back'> 背面 </div>
+		</div>
+	</div>
+`);
+		return rs;
+	}
 	install (E) {
 		this.RE=E;
-		Array.from(E.querySelectorAll('.flashcard'))
-		.forEach((E) => {
+		this.list(E).forEach((E) => {
 			const bc=E.querySelector('.back');
 			const inner=((e)=>{
 				if (e===E){

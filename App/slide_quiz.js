@@ -13,8 +13,7 @@ class Quiz
 [qo]:hover { border-color:grey;background-image: linear-gradient(white 60%,grey); }
 [qt][qr="x"] { border-color:red;background-image: linear-gradient(to right,white 60%,pink); }
 [qt][qr="o"] { border-color:green;background-image: linear-gradient(to right,white 60%,lightgreen); }
-[qt="s"][qa] [qo] { display:none; }
-[qt="s"][qa] .QS[qo] { display:block; }
+[qt="s"][qa] :not(.QS)[qo] { display:none; }
 [qt="m"][qa] [qo] { color:black; }
 [qt="m"][qa] .QS[qo] { color:blue;font-weight:bolder; }
 `;
@@ -24,58 +23,87 @@ class Quiz
 	}
 	install (e, ans) {
 		this.E=e;
-		this.AnsDB=ans||((ans)=>{
-			//document.head.setAttribute("AID",btoa(JSON.stringify({ "1":3, "2-1":2, "3":2, "4":7 })));
-			if (!ans)
-				return Array.from(this.E.querySelectorAll('[qi][___]')).reduce((r,e)=>{
-					r[e.getAttribute('qi')]=parseInt(e.getAttribute('___'));
-					return r;
-				},{});
-			return JSON.parse(ans.getAttribute("ANS")||atob(ans.getAttribute("AID")));
-		})(
-			document.body.querySelector("[ANS]") ||
-			document.body.querySelector("[AID]") ||
-			document.head.querySelector("[AID]")
-		);
-		console.log(btoa(JSON.stringify(this.AnsDB)));
+		this.AnsDB=ans||(()=>{ // search answers from document
+			let e=document.body.querySelector('[AID]') || document.head.querySelector('[AID]');
+			// if (b64 answer avaialbe) then (decode it) else (find json stringified answer)
+			e=e ? atob(getAttribute('AID'))
+				: ((e=document.body.querySelector('[ANS]') || document.head.querySelector('[ANS]'))&&e.getAttribute('ANS'));
+			// if (stringified JSON available) then (parse it) else (collect answers from quiz)
+			return e ? JSON.parse(e) : Array.from(this.E.querySelectorAll('[qt][___]')).reduce((r,e)=>{
+				if (!e.hasAttribute('qi')) // if qi not exist then generate the qi
+					e.setAttribute('qi',this.MaxQI ? (++this.MaxQI) : (this.MaxQI=1));
+				r[e.getAttribute('qi')]=parseInt(e.getAttribute('___'));
+				return r;
+			},{});
+		})();
+		// console.log(btoa(JSON.stringify(this.AnsDB)));
+
+		console.assert(this.E.querySelector('[qt]'),`
+Usage:
+	<div [qi='1'] qt='s' [___'1']>
+		<qiv qo='1'>1</qiv><qiv qo='2'>2</qiv><qiv qo='3'>3</qiv><qiv qo='4'>4</qiv>
+	</div>
+	<div [qi='2'] qt='s' [___'1']>
+		<select qo='value'><option>請選擇</option><option value='1'></option><option value='2'></option></select>
+	</div>
+	<div [qi='3'] qt='m' [___'5']>
+		<qiv qo='1'>1</qiv><qiv qo='2'>2</qiv><qiv qo='4'>3</qiv><qiv qo='8'>4</qiv>
+	</div>
+`);
+
 		this.E.addEventListener('click',(evt)=>{
-			evt.stopPropagation();
-			for(let e=evt.target;e&&e.hasAttribute;e=e.parentNode)
-				if(e.hasAttribute('qo')) { this.answer(e); break; }
+			for (let e=evt.target;e&&e.hasAttribute;e=e.parentNode) {
+				let v=e.getAttribute('qo');
+				if(v&&v!=='value') {
+					evt.stopPropagation();
+					this.answer(e,v);
+					break;
+				}
+			}
+		});
+		this.E.addEventListener('change',(evt)=>{
+			let v=evt.target.getAttribute('qo');
+			if(v==='value') {
+				evt.stopPropagation();
+				evt.target.classList.remove('QS');
+				this.answer(evt.target,evt.target.value);
+			}
 		});
 		return this;
 	}
-	answer (e)
+	answer (e,v)
 	{
-		let p,qi;
-		for(p=e;p.nodeType&&(!p.matches('[qi]'));p=p.parentNode);
-		if(!p) return;
-		qi=p.getAttribute("qi");
-		switch(p.getAttribute('qt')||'s'){
+		// locate the quiz block
+		let p; for(p=e;p.nodeType&&(!p.matches('[qt]'));p=p.parentNode); if(!p) return;
+		const qi=p.getAttribute("qi");
+		switch(p.getAttribute('qt')){
 		case 's':
 			if (e.classList.contains('QS')) {
+				// click selected one, clear all
 				[... p.querySelectorAll('.QS')].forEach((e)=>e.classList.remove('QS'));
 				p.removeAttribute("qr");
 				p.removeAttribute("qa");
 			} else {
+				// click new answer, clear all, then select this one
 				[... p.querySelectorAll('.QS')].forEach((e)=>e.classList.remove('QS'));
 				e.classList.add('QS');
-				const ans=parseInt(e.getAttribute("qo"));
-				if (this.AnsDB[qi])
-					p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
-				p.setAttribute("qa",ans);
+				v=parseInt(v);
+				if (this.AnsDB[qi]) // match the answer
+					p.setAttribute("qr",this.AnsDB[qi]===v ? 'o' : 'x');
+				p.setAttribute("qa",v); // fill in the selection
 			}
 			break;
 		case 'm':
-			e.classList.toggle('QS');
-			const ans=[... p.querySelectorAll('.QS')].reduce((r,e)=>r|parseInt(e.getAttribute('qo')),0);
+			e.classList.toggle('QS'); // toggle the flag of this answer
+			const ans=[... p.querySelectorAll('.QS')].reduce((r,e)=>r|parseInt(e.getAttribute('qo')),0); // compute the selection mask
 			p.setAttribute("qa",ans);
-			if (this.AnsDB[qi])
+			if (this.AnsDB[qi]) // match the answer
 				p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
 			break;
 		}
 	}
 	mark () {
+		// submit all the replied answers
 		return [... this.E.querySelectorAll('[qi]')].reduce((r,e)=>{
 			r[e.getAttribute('qi')]=e.getAttribute('qa');
 			return r;
