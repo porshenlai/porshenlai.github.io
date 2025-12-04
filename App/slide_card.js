@@ -8,23 +8,23 @@ class Cards
 				const SE=document.createElement("style");
 				SE.setAttribute('STYID','Card');
 				SE.innerHTML=`
-.flashcard {background-color:transparent;width: 30%;height: 0;padding-top:30%;border:1px solid #f1f1f1;perspective:1000px;}
-.flashcard .front,.flashcard .back {position:absolute;width:100%;height:100%;overflow:hidden auto;backface-visibility:hidden;}
-.flashcard .front {background-color:#bbb;color:black;}
-.flashcard .back {background-color:#2980b9;color:white;transform:rotateX(180deg);}
-.flashcard>div {position:absolute;left:0;top:0;width:100%;height:100%;text-align:center;transition:transform 0.6s;transform-style:preserve-3d;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);}
-.flashcard>div.flipped {transform: rotateX(180deg);}
+.card {background-color:transparent;width: 30%;height: 0;padding-top:30%;border:1px solid #f1f1f1;perspective:1000px;}
+.card .front,.card .back {position:absolute;width:100%;height:100%;overflow:hidden auto;backface-visibility:hidden;}
+.card .front {background-color:#bbb;color:black;}
+.card .back {background-color:#2980b9;color:white;transform:rotateX(180deg);}
+.card>div {position:absolute;left:0;top:0;width:100%;height:100%;text-align:center;transition:transform 0.6s;transform-style:preserve-3d;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);}
+.card>div.flipped {transform: rotateX(180deg);}
 `;
 				document.head.appendChild(SE);
 			})();
 		if (E) this.install(E); else this.RE=undefined;
 	}
 	list (E) {
-		const rs=Array.from(E.querySelectorAll('.flashcard'));
+		const rs=Array.from(E.querySelectorAll('.card'));
 		console.assert(rs.length>0,`
 Usage:
 	<div style='display:flex;flex-flow:row wrap;gap:1vw 2%;'>
-		<div class='flashcard' style='width:32%;padding-top:32%;'>
+		<div class='card' style='width:32%;padding-top:32%;'>
 			<div class='front'> 正面 </div>
 			<div class='back'> 背面 </div>
 		</div>
@@ -48,7 +48,7 @@ Usage:
 		E.addEventListener('click', (evt) => {
 			for (let e=evt.target;e&&e.classList;e=e.parentNode)
 			{
-				if (e.classList.contains('flashcard')) {
+				if (e.classList.contains('card')) {
 					this.flip(e.querySelector('div'));
 					evt.stopPropagation();
 				}
@@ -60,11 +60,11 @@ Usage:
 	flip (e) {
 		switch (e) {
 		case true:
-			Array.from(this.RE.querySelectorAll('.flashcard'))
+			Array.from(this.RE.querySelectorAll('.card'))
 			.forEach((e)=>e.classList.add('flipped'));
 			break;
 		case false:
-			Array.from(this.RE.querySelectorAll('.flashcard'))
+			Array.from(this.RE.querySelectorAll('.card'))
 			.forEach((e)=>e.classList.remove('flipped'));
 			break;
 		case undefined:
