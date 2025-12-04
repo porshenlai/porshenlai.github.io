@@ -414,58 +414,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	setTimeout(()=>MS.activateSection(initialIndex, false),1);
 
-	if (document.body.classList.contains('is-mobile')) {
-		((E)=>{ // {{{
-			E.id='mobileControls';
-			E.innerHTML=`
-<style>
-#mobileControls {
-	display: flex;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	padding: 0.1rem 0.75rem;
-	background: rgba(255, 255, 255, 0.95);
-	border-top: 1px solid #ddd;
-	box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-	z-index: 50;
-	justify-content: space-between;
-	gap: 0.5rem;
-}
-#mobileControls .btn {
-	flex: 1;
-	padding: 0.2rem 0.5rem;
-	font-size: 0.9rem;
-	font-weight: bold;
-}
-</style>
-<button id="mobilePrevBtn" class="btn">←</button>
-<button id="mobileEscBtn" class="btn">☰</button>
-<button id="mobileNextBtn" class="btn">→</button>
-`;
-			E.update=(index,total) => {
-				E.querySelector("#mobilePrevBtn").disabled = (index === 0);
-				E.querySelector("#mobileNextBtn").disabled = (index === total - 1);
-			};
-			E.addEventListener('click',(evt) => {
-				let e=evt.target;
-				switch(e.id){
-				case 'mobilePrevBtn':
-					MS.activateSection(MS.currentActiveIndex - 1);
-					break;
-				case 'mobileNextBtn':
-					MS.activateSection(MS.currentActiveIndex + 1);
-					break;
-				case 'mobileEscBtn':
-					MS.Aside.toggle();
-					break;
-				}
-			});
-			document.body.appendChild(E);
-		})(document.createElement('div'));
-	}	// }}}
-
 	document.addEventListener('fullscreenchange', function () {
 		document.getElementById("content")
 		.setAttribute(
