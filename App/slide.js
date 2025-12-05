@@ -56,7 +56,7 @@ aside {position:fixed;top:0;right:0;bottom:0;width:640px;max-width:80vw;font-siz
 aside button {font-size:24px;border-radius:12px;padding:4px 12px;}
 aside ol {list-style:none;padding:0;margin:0;}
 aside li {margin: 4px 0;}
-aside a {color:#0d5ea8;text-decoration:none;display:block;padding:6px 10px;border-radius:6px;font-size:0.9rem;}
+aside a {color:#0d5ea8;text-decoration:none;display:block;padding:6px 10px;border-radius:6px;font-size:20px;}
 aside a:hover {background-color:#f0f5fa;}
 aside a.active {font-weight:700;background-color:#e3f2fd;}
 [current="settings"] [tab="toc"], [current="toc"] [tab="settings"] {display:none;};
@@ -75,7 +75,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 	<nav tab="toc"><ol></ol></nav>
 	<div tab="settings">
 		<div style='display:flex;justify-content:space-between;align-items:flex-start;'>
-			<label style="color:#222;font-size: 0.9rem;">字型大小</label>
+			<label style="color:#222;font-size:20px;">字型大小</label>
 			<div style="display:flex;align-items:center;gap:0.5rem;">
 				<button action="fontDecreaseBtn" title="縮小字型">-</button>
 				<span action="fontDisplay">100%</span>
@@ -88,7 +88,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 	<span style='width:0px;overflow:display;white-space:nowrap;'>© 2025 Porshen Lai</span>
 	<span style='background:#fff;gap:10px;'>
 		<button action="prevBtn" title="上一節 Prev (←)">←</button>
-		<span uid="counter" style='{font-size:0.8rem;color:#666;width:100%;text-align:center;}'></span>
+		<span uid="counter" style='{font-size:20px;color:#666;width:100%;text-align:center;}'></span>
 		<button action="nextBtn" title="下一節 Next (→)">→</button>
 	</span>
 </div>`;
@@ -130,43 +130,6 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			this.Overlay.appendChild(E);
 			return E;
 		})(this.E=document.createElement("aside")); // }}}
-
-		((E)=>{ // Launch PAD {{{
-			E.id="control-panel";
-			E.innerHTML=`
-<style>
-#control-panel {position:fixed;bottom:0;left:0;display:flex;flex-flow:row wrap;width:150px;padding:10px;z-index:1000;pointer-events:none;}
-#control-panel [action] {width:50px;height:50px;margin:5px;display:flex;justify-content:center;align-items:center;background-color:#3498db;color:white;font-weight:bold;font-size:1.2em;border-radius:5px;user-select:none;cursor:pointer;pointer-events:auto;}
-#control-panel>[action="none"] {opacity:0;}
-#control-panel>[action="none"]:hover {opacity:1;}
-#control-panel:not(.active) :not([action="none"]) {display:none;}
-</style>
-<div action="prev">◀</div><div action="menu">☰</div>
-<div action="none"></div><div action="next">▶</div>
-`;
-			E.addEventListener('click',(evt)=>{
-				const func=evt.target.getAttribute('action');
-				switch(func){
-				case 'none':
-					E.classList.toggle('active');
-					break;
-				case 'menu':
-					E.classList.remove('active'); this.open(); break;
-				case 'prev':
-					E.classList.remove('active'); 
-					if (CB.activate) CB.activate(-1);
-					break;
-				case 'next':
-					E.classList.remove('active');
-					if (CB.activate) CB.activate(1);
-					break;
-				default:
-					return;
-				}
-				evt.preventDefault();
-			});
-			RE.appendChild(E);
-		})(document.createElement("div")); // }}}
 
 		this.close();
 	}
@@ -288,7 +251,8 @@ button:hover {border-color:#90a4ae;}
 			document.head.appendChild(S);
 		})(); // }}}
 		
-		this.Content=((content)=>{
+		(()=>{ // Content {{{
+			const content=this.Content=RE.querySelector('#content');
 			content.insertBefore(((s)=>{
 				const code=`
 .cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
@@ -305,13 +269,17 @@ button:hover {border-color:#90a4ae;}
 				if (s&&s.tagName==="SECTION")
 					this.activateSection(parseInt(s.getAttribute("data-index"),10));
 			});
-			content.addEventListener('scrollend', (evt) => {
-				console.log("scrollend");
+			content.addEventListener('scrollend', (evt) => { // auto activate page when current slide out of viewport
+				let i,x=this.Content.getBoundingClientRect().height/3;
+				for (i=0;i<this.Sections.length;i++) {
+					const eb=this.Sections[i].getBoundingClientRect();
+					if ((eb.y+eb.height)>x) break;
+				}
+				this.activateSection(i,true);
 			});
-			return content;
-		})(RE.querySelector('#content'));
+		})(); // }}}
 
-		this.Sections=Array.from(content.querySelectorAll('section'));
+		this.Sections=Array.from(this.Content.querySelectorAll('section'));
 		this.Sections.forEach((sec, idx) => {
 			if (!sec.hasAttribute("data-index"))
 				sec.setAttribute("data-index",idx);
@@ -326,6 +294,45 @@ button:hover {border-color:#90a4ae;}
 		this.Aside.createTocList(this.Sections);
 
 		this.Plugins={};
+
+		((E)=>{ // Launch PAD {{{
+			E.id="control-panel";
+			E.innerHTML=`
+<style>
+#control-panel {position:fixed;bottom:0;left:0;display:flex;flex-flow:row wrap;width:150px;padding:10px;z-index:1000;pointer-events:none;}
+#control-panel [action] {width:50px;height:50px;margin:5px;display:flex;justify-content:center;align-items:center;background-color:#3498db;color:white;font-weight:bold;font-size:20px;border-radius:5px;user-select:none;cursor:pointer;pointer-events:auto;}
+#control-panel>[action="none"] {background:rgba(0,0,0,0);border:1px solid silver;}
+#control-panel:not(.active) :not([action="none"]) {display:none;}
+</style>
+<div action="prev">◀</div>
+<div action="menu">☰</div>
+<div action="none"></div>
+<div action="next">▶</div>
+`;
+			E.addEventListener('mouseover',(evt)=>E.classList.add('active'));
+			E.addEventListener('click',(evt)=>{
+				const func=evt.target.getAttribute('action');
+				switch(func){
+				case 'none':
+					E.classList.toggle('active');
+					break;
+				case 'menu':
+					E.classList.remove('active'); this.Aside.open(); break;
+				case 'prev':
+					E.classList.remove('active'); 
+					this.activateSection(this.currentActiveIndex-1);
+					break;
+				case 'next':
+					E.classList.remove('active');
+					this.activateSection(this.currentActiveIndex+1);
+					break;
+				default:
+					return;
+				}
+				evt.preventDefault();
+			});
+			this.Content.appendChild(E);
+		})(document.createElement("div")); // }}}
 
 		// If <title> not exist, create one
 		if (!document.head.querySelector("title"))
@@ -383,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
 		document.body.classList.add('is-mobile');
 
-	let MS=new Slides(document.body);
+	let MS=window.App=new Slides(document.body);
 
 	((CS)=>{ // Install Plugins
 		for (const name of (CS.getAttribute('plugins')||"").split(',')) {
