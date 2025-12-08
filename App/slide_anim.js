@@ -17,7 +17,7 @@ class Animation
 			if (e.nodeType!==1) continue;
 			if (e.classList.contains('af')) {
 				let dur=e.getAttribute('dur');
-				if (dur!==undefined) {
+				if (dur!==null) {
 					if ((''+dur)==='0')
 						this.Guide=e;
 					else this.ALs.push(e);
@@ -66,9 +66,11 @@ class Animation
 	start () {
 		this.ALs.StartTS=new Date().getTime();
 		this.Guide.style.zIndex='-9000';
-		this.Slide.setTickHandler(this.E.getAttribute('ani'),(t)=>this.sync(this.getTS()));
-		for (let e of this.Ms) e.pause();
-		if (this.Ms.length>0) this.Ms[this.Ms.Cur=0].play();
+		if (this.Ms.length>0) {
+			for (let e of this.Ms) e.pause();
+			this.Slide.regTickHandler(this.E.getAttribute('ani'),(t)=>this.sync(this.getTS()));
+			this.Ms[this.Ms.Cur=0].play();
+		}
 		if (this.MLs.length>0) { this.MLs.Cur=-1; this.flip(1); }
 	}
 
@@ -80,12 +82,11 @@ class Animation
 				n=this.Ms[this.Ms.Cur=n];
 				this.Ms.Shift=0;
 				for (e of this.Ms){ if (e==n) break; else this.Ms.Shift+=e.duration; }
-				console.log("Shift is ",this.Ms.Shift);
 				return n.play();
 			}
 			if (n<this.Ms.length) return this.Ms[this.Ms.Cur=n].play();
 		} else for (let e of this.Ms) e.pause();
-		this.Slide.setTickHandler(this.E.getAttribute('ani'));
+		this.Slide.regTickHandler(this.E.getAttribute('ani'));
 		delete this.StartTS;
 		this.Guide.style.zIndex='9000';
 	}
@@ -96,7 +97,6 @@ class Animation
 	}
 
 	sync (ts) {
-		console.log("SYNC:",ts);
 		for (let e of this.ALs) if (e.dur) {
 			if (
 				(e.dur[0]<=ts && ts<e.dur[1])||
@@ -122,8 +122,10 @@ SCRIPT.value=async function (slide) {
 	if (!document.head.querySelector('style[STYID="Anim"]')) (()=>{ // install style
 		const se=document.createElement('style');
 		se.setAttribute("STYID","Anim");
+//[ani] {width:100%;overflow:hidden;position:relative;}
 		se.innerHTML=`
 [ani] {width:100%;padding-top:50%;height:0;overflow:hidden;position:relative;}
+[playmode="page"] [ani] { padding:0;height:100%;}
 .af {position:absolute;left:0;top:0;right:0;bottom:0;opacity:0;transform:scale(1.1);z-index:0;}
 .af[dur="0"] {background:white;opacity:1;z-index:-9000;transform:scale(1);}
 .af.active {opacity:1;transform:scale(1);z-index:100;}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang='zh-Hant'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<base target='_blank'/>
+<title>簡報頁面測試</title>
+<script plugins='card,quiz,anim' src='/App/slide.js'></script>
+<style>
+	select { font-size:100%; }
+</style>
+</head>
+<body><div id='content'>
+
+<section class='cm'>
+	<h1 class='title'>💻 簡報頁面測試</h1>
+	<h2>這是副標題</h2>
+	<br/>
+	<div>👨‍🏫<em><a href='mailto:porshenlai@gm.chihlee.edu.tw'>Porshen Lai</a></em></div>
+	<div><a href='https://fd100.chihlee.edu.tw'>Department of Finance</a></div>
+	<div><a href='https://www.chihlee.edu.tw'>Chihlee University of Technology</a></div>
+	<div>2025, Winter</div>
+</section>
+
+<section class='full'>
+	<div ani="Test-1">
+		<div class='af' dur='0'>
+			<h2>Slider with music</h2>
+			<button onclick='console.log(App.Plugins)'>TEST</button>
+			<button action="start">Start</button>
+		</div>
+		<div class='af' dur='10'>Hello</div>
+		<div class='af' dur='10'><img src='AI/images/boxplot.jfif'/></div>
+		<div class='af' dur='10'>World</div>
+		<div class='af' dur='5-15'>123<br>YO HO YAYAYAY</div>
+		<audio><source src="test.mp3" type="audio/mpeg"></audio>
+		<audio><source src="test.mp3" type="audio/mpeg"></audio>
+	</div>
+</section>
+
+<section>
+	<div ani="Test-2">
+		<div class='af' dur='0'>
+			<h2>Manual slider</h2>
+			<button onclick='console.log(App.Plugins)'>TEST</button>
+			<button action="start">Start</button>
+		</div>
+		<div class='af' action='next'>Hello</div>
+		<div class='af' action='next'><img src='AI/images/boxplot.jfif'/></div>
+		<div class='af' action='stop'>World</div>
+	</div>
+</section>
+
+<section>
+	<h2>Quiz Test</h2>
+	<div qt='s' ___='1'>
+		單選題
+		<span qo='1'>選項壹</span>
+		<span qo='2'>選項貳</span>
+		<span qo='3'>選項參</span>
+		<span qo='4'>選項肆</span>
+	</div>
+	<div qt='s' ___='1'>
+		單選題
+		<select qo='value'>
+		<option>請選擇</option>
+		<option value='1'>選項壹</option>
+		<option value='2'>選項貳</option>
+		<option value='3'>選項參</option>
+		<option value='4'>選項肆</option>
+		</select>
+	</div>
+	<div qt='m' ___='5'>
+		複選題
+		<span qo='1'>選項壹</span>
+		<span qo='2'>選項貳</span>
+		<span qo='4'>選項參</span>
+		<span qo='8'>選項肆</span>
+	</div>
+</section>
+
+<section>
+	<h2>Flash Card Test</h2>
+	<div style='display:flex;flex-flow:row wrap;gap:1vw 2%;'>
+		<div class='card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
+		<div class='card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
+		<div class='card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
+		<div class='card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
+	</div>
+</section>
+
+</div></body>
+</html>
