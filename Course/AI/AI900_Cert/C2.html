@@ -16,6 +16,7 @@
 	.figure { text-align:center;margin:16px; }
 	.figure>img { width:80%; }
 	table.ac td { text-align:center; }
+	[TID]>button { width:100%; }
 </style>
 
 <section class="cm">
@@ -32,10 +33,10 @@
 	<h2>模型的種類</h2>
 	<table class="tabTable" border='1' cellspacing='0' cellpadding='3' width='100%'>
 	<thead><tr>
-		<th TID='1'>監督式學習</th>
-		<th TID='2'>非監督式學習</th>
-		<th TID='3'>半監督式學習</th>
-		<th TID='4'>增強學習</th>
+		<th TID='1'><button>監督式學習</button></th>
+		<th TID='2'><button>非監督式學習</button></th>
+		<th TID='3'><button>半監督式學習</button></th>
+		<th TID='4'><button>增強學習</button></th>
 	</tr></thead><tbody><tr>
 		<td TAB='1' colspan='4'>
 			<h3>監督式學習</h3>
@@ -140,27 +141,79 @@
 </section>
 
 <section>
+	<h2>評估分類模型常用的指標</h2>
+	<table border='1' cellspacing='0' cellpadding='8' class='ac'><tr>
+		<th>預測值\真實值</th>
+		<th>真</th>
+		<th>假</th>
+		<td rowspan='3' style='text-align:left'>
+			<div>T: 預測正確(True)</div>
+			<div>F: 預測錯誤(False)</div>
+			<div>P: 陽性(Positive)</div>
+			<div>N: 陰性(Negative)</div>
+		</td>
+	</tr><tr>
+		<th>真</th>
+		<td>TP<br/>真陽性</td>
+		<td>FP<br/>假陽性</td>
+	</tr><tr>
+		<th>假</th>
+		<td>FN<br/>假陰性</td>
+		<td>TN<br/>真應性</td>
+	</tr></table>
+	<br/>
+	<table border='1' cellspacing='0' cellpadding='8'><tr>
+		<th>準確率</th><td>(TP+TN) / (TP+FP+FN+TN)</td>
+	</tr><tr>
+		<th>精確率</th><td>TP / (TP+FP)</td>
+	</tr><tr>
+		<th>召回率</th><td>TP / (TP+FN)</td>
+	</tr><tr>
+		<th>F值</th><td>((a^2+1) *精確率*召回率) / (a^2*精確率+召回率)</td>
+	</tr><tr>
+		<th>曲線下面積</th><td><a href="https://zh.wikipedia.org/wiki/ROC%E6%9B%B2%E7%BA%BF" target="_blank">ROC曲線</a>下的面積，ROC X座標為假陽率，Y座標為真陽率。</td>
+	</tr></table>
+</section>
+
+<section>
 	<h2>迴歸模型</h2>
-	<div class='figure'><img src="figure/2_M.jpg" style="width:60%;"></img></div>
+	<ul>
+		<li>用來預測一段時間後的連續數值資料</li>
+		<li>必須使用有標記的資料</li>
+		<li>所預測的目標值為數值</li>
+		<li>常用的演算法<ul>
+			<li>線性迴歸演算法
+			<li>多項式迴歸演算法
+		</ul></li>
+		<li><img src="figure/2_M.jpg" style="width:60%;"></img></li>
+	</ul>
 </section>
 
 <section>
 	<h2>叢集模型</h2>
-	<div class='figure'><img src="figure/2_N.jpg" style="width:70%;"></img></div>
+	<ul>
+		<li>不用標記標籤資料</li>
+		<li>根據共同特性（特徵值）進行項目分組</li>
+		<li>常用演算法：<ul>
+			<li>Ｋ－Ｍｅａｎｓ</li>
+			<li>Ｇａｕｓｓｉａｎ　Ｍｉｘｔｕｒｅ</li>
+		</ul></li>
+		<li><img src="figure/2_N.jpg" style="width:70%;"></img></li>
+	</ul>
 </section>
 
 <section>
 	<h2>機器學習的工作流程</h2>
 	<table class="tabTable" border='1' cellspacing='0' cellpadding='3' width='100%'>
 	<thead><tr>
-		<th TID='1'>問題定義</th>
-		<th TID='2'>資料蒐集</th>
-		<th TID='3'>資料準備</th>
-		<th TID='4'>模型選擇</th>
-		<th TID='5'>模型定型</th>
-		<th TID='5'>模型評估</th>
-		<th TID='7'>參數調整</th>
-		<th TID='8'>模型部屬</th>
+		<th TID='1'><button>問題定義</button></th>
+		<th TID='2'><button>資料蒐集</button></th>
+		<th TID='3'><button>資料準備</button></th>
+		<th TID='4'><button>模型選擇</button></th>
+		<th TID='5'><button>模型定型</button></th>
+		<th TID='5'><button>模型評估</button></th>
+		<th TID='7'><button>參數調整</button></th>
+		<th TID='8'><button>模型部屬</button></th>
 	</tr></thead><tbody>
 	<tr><td TAB='1' colspan='8'>
 			<h3>問題定義</h3>
@@ -262,9 +315,64 @@
 
 <section>
 	<h2>Azure 機器學習服務 (Machine Learning Service)</h2>
+	<ul>
+		<li>內建多種模型開發方式<ul>
+			<li>機器學習設計工具, 自動化機器學習, Jupyter 筆記本共同作業</li>
+			<li>開放原始碼架構, 程式庫, 特徵工程, 超參數調整, 偵錯工具, 分析工具</li>
+		</ul></li>
+		<li>可靠的機器學習作業 (MLOps)<ul>
+			<li>Machine Learnng Operations</li>
+			<li>在內部，邊緣和多重雲端環境中，部署及管理眾多模型</li>
+			<li>快速部屬，評分機器學習模型，使用即時和批次方式進行預測</li>
+			<li>MLOps 工具持續監視模型效能計量，偵測資料變動，重新定型以改善模型效能</li>
+			<li>追蹤紀錄，查核管理</li>
+		</ul></li>
+		<li>提供完整的模型評估功能</li>
+		<li>平台多元，安全並符合規範<ul>
+			<li>Azure 自動化機器學習 (Automated Machine Learning)</li>
+			<li>Azure 機器學習設計工具 (Azure Machine Learning Designer)</li>
+			<li>資料和計算管理</li>
+			<li>管線 (Pipelines)</li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>Azure Machine Learning 方案的生命週期</h2>
 	<div style="text-align:center;"><img src="figure/2_O.jpg" style="width:70%;"></img></div>
-	<h3>使用設計工具建立模型管線</h3>
-	<div style="text-align:center;"><img src="figure/2_P.jpg" style="width:80%;"></img></div>
+</section>
+
+<section>
+	<h2>Azure Machine Learning Studio 建立模型的方式</h2>
+	<ul>
+		<li>筆記本<ul>
+			<li>使用 Python 或 R語言自行編寫程式碼</li>
+		</ul></li>
+		<li>自動化 ML<ul>
+			<li>使用精靈透握一連串對話方塊，引導設定模型的條件</li>
+		</ul></li>
+		<li>設計工具<ul>
+			<li>可視的畫布介面，拖拉元件，管線，和資料集的方式建立 ML管線</li>
+			<li><table border='1' cellspacing='0' cellpadding='8'><tr>
+ 				<th width='16%'>開啟<br/>ML 服務</th>
+				<th width='16%'>建立<br/>ML 工作區</th>
+				<th width='16%'>建立<br/>管線</th>
+				<th width='16%'>提交<br/>管線</th>
+				<th width='16%'>評估<br/>模型</th>
+				<th width='16%'>部署<br/>模型</th>
+			</tr></table></li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>使用設計工具建立模型管線</h2>
+	<ul>
+		<li>可以隨時儲存管線草稿</li>
+		<li>管線規劃完成後，執行前選取功能表右邊的「設定」功能，來設定進行機器學習模型計算的資源。</li>
+		<li>發佈推斷管線時，應設定REST端點，驗證金鑰兩個參數來存取 Web Service。</li>
+		<li><img src="figure/2_P.jpg" style="width:80%;"></img></li>
+	</ul>
 </section>
 
 <section>
