@@ -4,6 +4,7 @@ class Animation
 {
 	constructor (RE,slide) {
 		this.E=RE;
+		this.ID=this.E.getAttribute('ani');
 		this.Slide=slide;
 
 		// generate plan lists
@@ -35,8 +36,9 @@ class Animation
 				if (f) switch (f) {
 					case 'next': this.flip(1); break;
 					case 'prev': this.flip(-1); break;
-					case 'stop': this.stop(); break;
-					case 'start': this.start(); break;
+					case 'stop': case 'pause': this.stop(); break;
+					case 'play': this.start(); break;
+					case 'seek': this.seek(); break;
 				}
 			}
 		});
@@ -50,7 +52,7 @@ class Animation
 					e.repeat=true;
 					e.dur=[t,t+parseFloat(dur[0]),true];
 					t=e.dur[1];
-				} else e.dur=[dur[0],dur[1]];
+				} else e.dur=[parseInt(dur[0]),parseInt(dur[1]||'0')];
 			}
 			for (let e of this.ALs) if (e.dur&&e.dur[2]) e.dur[2]=t;
 		})();
@@ -68,7 +70,9 @@ class Animation
 		this.Guide.style.zIndex='-9000';
 		if (this.Ms.length>0) {
 			for (let e of this.Ms) e.pause();
-			this.Slide.regTickHandler(this.E.getAttribute('ani'),(t)=>this.sync(this.getTS()));
+			const id=this.E.getAttribute('ani');
+			this.Slide.regEventHook('tick',this.ID,()=>this.sync(this.getTS()));
+			this.Slide.regEventHook('section',this.ID,()=>this.stop());
 			this.Ms[this.Ms.Cur=0].play();
 		}
 		if (this.MLs.length>0) { this.MLs.Cur=-1; this.flip(1); }
@@ -86,9 +90,31 @@ class Animation
 			}
 			if (n<this.Ms.length) return this.Ms[this.Ms.Cur=n].play();
 		} else for (let e of this.Ms) e.pause();
-		this.Slide.regTickHandler(this.E.getAttribute('ani'));
+		this.Slide.regEventHook('tick',this.ID);
+		this.Slide.regEventHook('section',this.ID);
 		delete this.StartTS;
+		// fill-in video information
+		const ms=this.Ms[this.Ms.Cur];
+		if(ms) Array.from(this.Guide.querySelectorAll('[dvalue]')).forEach((e)=>{
+			e.textContent=((name)=>{
+				switch(name){
+				case 'duration': return Math.floor(ms.duration);
+				case 'position': return Math.floor(ms.currentTime);
+				case 'ratio': return Math.floor(100*ms.currentTime/ms.duration);
+				case 'url': let s=ms.querySelector('[src]'); return s ? s.getAttribute("src") : "";
+				}
+			})(e.getAttribute('dvalue'));
+		});
 		this.Guide.style.zIndex='9000';
+	}
+
+	seek () {
+		const m=this.Ms[this.Ms.Cur];
+		if (!m) return;
+		m.currentTime=window.prompt(
+			`Total length of media is ${m.duration}, current at:`,
+			m.currentTime
+		);
 	}
 
 	activate (e) {
@@ -97,12 +123,19 @@ class Animation
 	}
 
 	sync (ts) {
+		if (this.Ms[this.Ms.Cur].paused) return;
 		for (let e of this.ALs) if (e.dur) {
-			if (
-				(e.dur[0]<=ts && ts<e.dur[1])||
-				(Math.floor((ts-e.dur[0])/e.dur[2])>Math.floor((ts-e.dur[1])/e.dur[2]))
-			){
-				if (!e.classList.contains('active'))
+			let focus=false;
+			const B=e.dur[0],E=e.dur[1],D=e.dur[2];
+			if ((B<=ts && ts<E)||(Math.floor((ts-B)/D)>Math.floor((ts-E)/D)))
+				focus=true;
+			else if (0==E && (B<=ts && ts<B+1)) {
+				// B+1: use 1 second to capture the edge event, this may result the multiple capture problem.
+				this.Ms[this.Ms.Cur].pause();
+				focus=true;
+			}
+			if (focus) {
+				if (!e.classList.contains('active')) 
 					this.activate(e);
 			} else e.classList.remove('active');
 		}

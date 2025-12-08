@@ -304,8 +304,8 @@ button:hover {border-color:#90a4ae;}
 			this.Content.appendChild(E);
 		})(document.createElement("div")); // }}}
 
-		this.TickHandlers={};
-		setInterval(()=>{ for(let n in this.TickHandlers) this.TickHandlers[n](); },1000)
+		this.EventHook={};
+		setInterval(()=>{ let eh=this.EventHook.tick; if(eh) for(let n in eh) eh[n](); },1000)
 	}	// }}}
 
 	activate (index, smooth = true)
@@ -347,10 +347,11 @@ button:hover {border-color:#90a4ae;}
 			this.Content.setAttribute("playmode",value ? "page" : "continuous");
 		}
 	}
-	regTickHandler (name, handler)
+	regEventHook (cat, name, handler)
 	{	// (un)schedule a tick callback {{{
-		if(handler) this.TickHandlers[name]=handler;
-		else delete this.TickHandlers[name];
+		let eh=this.EventHook[cat]||(this.EventHook[cat]={});
+		if(handler) eh[name]=handler;
+		else delete eh[name];
 	}	// }}}
 	async install (name, handler)
 	{	// install page plugin {{{

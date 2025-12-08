@@ -26,13 +26,15 @@
 	<div ani="Test-1">
 		<div class='af' dur='0'>
 			<h2>Slider with music</h2>
-			<button onclick='console.log(App.Plugins)'>TEST</button>
-			<button action="start">Start</button>
+			<div><span dvalue='position'></span>/<span dvalue='duration'></span>=<span dvalue='ratio'></span>%</div>
+			<button action="seek">⏩</button>
+			<button action="play">▶️</button>
 		</div>
-		<div class='af' dur='10'>Hello</div>
-		<div class='af' dur='10'><img src='AI/images/boxplot.jfif'/></div>
-		<div class='af' dur='10'>World</div>
-		<div class='af' dur='5-15'>123<br>YO HO YAYAYAY</div>
+		<div class='af' dur='10' action='pause'>Hello</div>
+		<div class='af' dur='10' action='pause'><img src='AI/images/boxplot.jfif'/></div>
+		<div class='af' dur='10' action='pause'>World</div>
+		<div class='af' dur='5-15' action='pause'>123<br>YO HO YAYAYAY</div>
+		<div class='af' dur='25-0' style='background:silver'>Description comes here.<button action='play'>PLAY</button></div>
 		<audio><source src="test.mp3" type="audio/mpeg"></audio>
 		<audio><source src="test.mp3" type="audio/mpeg"></audio>
 	</div>
@@ -42,8 +44,7 @@
 	<div ani="Test-2">
 		<div class='af' dur='0'>
 			<h2>Manual slider</h2>
-			<button onclick='console.log(App.Plugins)'>TEST</button>
-			<button action="start">Start</button>
+			<button action="play">▶️</button>
 		</div>
 		<div class='af' action='next'>Hello</div>
 		<div class='af' action='next'><img src='AI/images/boxplot.jfif'/></div>

@@ -9,6 +9,15 @@
 <body>
 
 <div id="content">
+
+<style>
+	.hide { display:none; }
+	.example { color:darkgreen;background:#fee;padding:1px 16px; }
+	.figure { text-align:center;margin:16px; }
+	.figure>img { width:80%; }
+	table.ac td { text-align:center; }
+</style>
+
 <section class="cm">
 	<h1 class="title">💻 AI-900 </h1>
 	<h2>機器學習的基本準則</h2>
@@ -20,48 +29,235 @@
 </section>
 
 <section>
+	<h2>模型的種類</h2>
+	<table class="tabTable" border='1' cellspacing='0' cellpadding='3' width='100%'>
+	<thead><tr>
+		<th TID='1'>監督式學習</th>
+		<th TID='2'>非監督式學習</th>
+		<th TID='3'>半監督式學習</th>
+		<th TID='4'>增強學習</th>
+	</tr></thead><tbody><tr>
+		<td TAB='1' colspan='4'>
+			<h3>監督式學習</h3>
+			<ul>
+				<li>將附上 標籤 (label) 的資料，交給機器學習模型定型來找出最佳解答</li>
+				<li>資料集的欄位稱為 特徵 (feature)</li>
+				<li>指定為標籤的欄位稱為 標籤 或 目標</li>
+				<li>為資料指定標籤的動作稱為 標記 或 預定義</li>
+				<li>分成 分類(classification) 和 迴歸(regression) 兩大類</li>
+				<li class='example'>例如: 輸入500張附有貓和老虎標籤的圖片，作為模型的定型資料訓練後，再輸入新的沒有標籤的圖片，驗證模型是否能正確辨識出是貓還是老虎。</li>
+				<li><img src="figure/2_C.jpg" style="width:50%;"></img></li>
+				<li><img src="figure/2_D.jpg" style="width:50%;"></img></li>
+				<li><img src="figure/2_E.jpg" style="width:70%;"></img></li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='2' colspan='4'>
+			<h3>非監督式學習</h3>
+			<ul>
+				<li>沒有標記標籤，模型自己探索資料間的規律，找出資料特徵，達成解答未知資料的目標。</li>
+				<li>叢集分析式式非監督式學習最常見的方法，會根據特徵由演算法計算資料間的相似度，將資料區分為不同群組。</li>
+				<li><img src="figure/2_F.jpg" style="width:50%;"></img></li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='3' colspan='4'>
+			<h3>半監督式學習</h3>
+			<ul>
+				<li>介於監督式與非監督式間的機器學習</li>
+				<li>透過少量有標籤的資料找出特徵，就能對其它大量無標籤的資料進行預測</li>
+				<li>可以減少標記資料的時間和人力，又能預測出準確的結果</li>
+				<li><img src="figure/2_G.jpg" style="width:50%;"></img></li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='4' colspan='4'>
+			<h3>增強學習</h3>
+			<ul>
+				<li>電腦經由和動態環境不停互動來學習正確完成任務的過程</li>
+				<li>嘗試錯誤 (trial and error)</li>
+				<li>根據外界的回饋資料隨時修正行動，反覆嘗試錯誤來獲得最大報酬</li>
+				<li><img src="figure/2_H.jpg" style="width:45%;"></img></li>
+			</ul>
+		</td>
+	</tr></tbody>
+	</table>
+</section>
+
+<section>
+	<h2>分類模型: 決策樹 (Decision Tree)</h2>
+	<ul>
+		<li>監督式學習，標籤值為「是」或「否」</li>
+		<li>可適用於分類或迴歸模型</li>
+		<li>算法接近人類的思考邏輯，容易理解運算原理與預測結果</li>
+		<li>速度快，適合處理大數據</li>
+		<li>深度過深時容易擬合過度</li>
+		<li><img src="figure/2_I.jpg" style="width:70%;"></img></li>
+	</ul>
+</section>
+
+<section>
+	<h2>分類模型: 羅吉斯回歸</h2>
+	<ul>
+		<li>監督式學習，運用於分類模型</li>
+		<li>找出一條能夠將所有資料清楚地分開的直線</li>
+		<li>預測範圍 0 ~ 1 代表目標值為 「是」或「否」的機率</li>
+		<li>不是合解決非線性問題</li>
+		<li><img src="figure/2_J.jpg" style="width:30%;"></img></li>
+	</ul>
+</section>
+
+<section>
+	<h2>分類模型: 支援向量機 (SVM)</h2>
+	<ul>
+		<li>監督式學習</li>
+		<li>可以畫出最能分隔資料的邊界，適用於分類，迴歸和偵測離群值</li>
+		<li>適合多高維度，訓練資料少的資料集。</li>
+		<li><img src="figure/2_K.jpg" style="width:60%;"></img></li>
+	</ul>
+</section>
+
+<section>
+	<h2>分類模型: K 近鄰 (K-NN)</h2>
+	<ul>
+		<li>監督式學習，分類模型</li>
+		<li>將資料轉為向量，再用資料間的距離來換算成資料的近似度</li>
+		<li>根據近似度作為分類的標準</li>
+		<li>選取近似度最高的Ｋ筆資料所屬最多的分類</li>
+		<li>各分類樣本數量差異多時易錯誤</li>
+		<li><img src="figure/2_L.jpg" style="width:60%;"></img></li>
+	</ul>
+</section>
+
+<section>
+	<h2>分類模型: 貝氏分類器 (Naive Bayes Classifier)</h2>
+	<ul>
+		<li>根據事件的發生次數，來計算事件發生的機率。</li>
+		<li>貝氏分類為貝氏定理 (Bayes’ theorem) 的應用。模型中假設所有的特徵都是獨立不會相互影響，所以使得計算大大簡化。</li>
+		<li>經過計算可以得知某筆資料對各標籤目標的發生機率，機率最高的標籤就是所屬的分類。</li>
+		<li>資料量夠多時，簡單又有效，不易過度擬合。特徵數多時，易有運算誤差。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>迴歸模型</h2>
+	<div class='figure'><img src="figure/2_M.jpg" style="width:60%;"></img></div>
+</section>
+
+<section>
+	<h2>叢集模型</h2>
+	<div class='figure'><img src="figure/2_N.jpg" style="width:70%;"></img></div>
+</section>
+
+<section>
+	<h2>機器學習的工作流程</h2>
+	<table class="tabTable" border='1' cellspacing='0' cellpadding='3' width='100%'>
+	<thead><tr>
+		<th TID='1'>問題定義</th>
+		<th TID='2'>資料蒐集</th>
+		<th TID='3'>資料準備</th>
+		<th TID='4'>模型選擇</th>
+		<th TID='5'>模型定型</th>
+		<th TID='5'>模型評估</th>
+		<th TID='7'>參數調整</th>
+		<th TID='8'>模型部屬</th>
+	</tr></thead><tbody>
+	<tr><td TAB='1' colspan='8'>
+			<h3>問題定義</h3>
+			<ul>
+				<li>了解問題</li>
+				<li>將方案的抽象目標轉化成可以量化的具體項目</li>
+				<li class='example'>例如:將「降低工廠營業成本」轉化成「預測下個月的最適當生產量」。</li>
+			</ul>
+		</td></tr>
+	<tr><td TAB='2' colspan='8'>
+			<h3>資料蒐集</h3>
+			<ul>
+				<li>收集資料的集合稱為資料集 (dataset)</li>
+				<li>將多個資料集合併成單一的資料集</li>
+				<li>確保資料集中的資料值具有相似規模，避免超出正常範圍的離群值</li>
+				<li class='example'>例如: 開發預測美國汽車駕駛人保險金額的機器學習模型時，想降低系統的偏差就要取得代表美國人口的定型樣本資料集，而不是日本或全球的樣本。</li>
+				<li>
+			<table border='1' cellspacing='0' cellpadding='8' class="ac">
+			<thead><tr>
+				<th>編號</th><th>姓名</th><th>年齡</th><th>職業</th><th style='color:red'>年收入</th>
+			</tr></thead><tbody><tr>
+				<td>A001</td><td>陳全</td><td>45</td><td>自由業</td><td style='color:red'>900,000</td>
+			</tr><tr>
+				<td>A002</td><td>王雙</td><td>36</td><td>業務員</td><td style='color:red'>1,050,000</td>
+			</tr><tr>
+				<td>A003</td><td>張三</td><td>32</td><td>服務業</td><td style='color:red'>750,000</td>
+			</tr><tr style="background:yellow">
+				<td>A004</td><td>李四</td><td>28</td><td>工程師</td><td style='color:red'>1,200,000</td>
+			</tr><tr>
+				<td colspan='5'><div>…</div><div>
+					<span style="background:yellow">row 資料行</span>
+					<span style="color:red">column 資料欄 資料列</span>
+				</div></td>
+			</tr></tbody>
+			</table>
+				</li>
+			</ul>
+		</td></tr>
+	<tr><td TAB='3' colspan='8'>
+		<h3>資料準備</h3>
+		<ul>
+			<li>資料清理 (data clearing)<ul>
+				<li>資料正規化 (normalization)</li>
+				<li>資料標準化 (standardization)</li>
+				<li>移除異常資料 (遺漏值，無效值，離群值)</li>
+			</ul></li>
+			<li>特徵工程 (feature engineering)<ul>
+				<li>將原始資料處理成為「特徵」</li>
+				<li>學習模型以特徵為輸入的資料，以標籤為輸出的預測</li>
+				<li>特徵是觀察對象中獨立且可測量的屬性，代表模型所處理的實際項目。</li>
+				<li>特徵抽取 (feature extraction)<ul>
+					<li>從資料集中發掘可用的特徵。</li>
+					<li>轉化出量化的多維度資料。</li>
+				</ul></li>
+				<li>特徵選擇 (feature selection)<ul>
+					<li>根據機器學習模型的目標，分析挑選重要的特徵。</li>
+					<li class="example">例如: 購物網站若要預測推薦的商品，應該使用「產品名稱」作為特徵，因為產品名稱和消費習慣相關。</li>
+					<div class='figure'><img src="figure/2_B.jpg" style="width:50%;"></img></div>
+				</ul></li>
+			</ul></li>
+			<li>資料分割 (data split)<ul>
+				<li>70~80% 訓練(定型)資料，20~30% 測試(評估)資料</li>
+			</ul></li>
+		</td></tr>
+	<tr><td TAB='4' colspan='8'>
+		<h3>模型選擇</h3>
+		<ul>
+			<li>機器學習的目標是找出解決問題的最佳方案</li>
+			<li>依照問題的性質，資料量，資料類型，運算效能等情況全面衡量，來選擇最合適的模型。</li>
+			<li>模型種類有: 1) 分類，2) 迴歸，3) 叢集等。</li>
+		</ul>
+		</td></tr>
+	<tr><td TAB='5' colspan='8'>
+		<h3>模型定型與模型評估</h3>
+		<ul>
+			<li>使用分割出來的訓練(定型)資料集，對機器學習模型進行訓練(定型)。</li>
+			<li>使用分割除來的測試(評估)資料集，來測試模型的準確性與執行效能。</li>
+			<li>預測結果的準確性很低時，就必須重新定型模型。</li>
+		</ul>
+		</td></tr>
+	<tr><td TAB='7' colspan='8'>
+		<h3>參數調整</h3>
+		<ul>
+			<li>調整模型演算法中的 超參數 (hyperparameter)，讓模型預測結果更真實。</li>
+			<li>定義模型的相關屬性或定型過程的參數就稱為 超參數</li>
+			<li>參數過度調整可能會造成 凝合過度 (overfitting)</li>
+		</ul>
+		</td></tr>
+	<tr><td TAB='8' colspan='8'>
+		<h3>模型部署</h3>
+		</td></tr>
+	</tbody></table>
+</section>
+
+<section>
 	<h2>機器學習的工作流程</h2>
 	<div style="text-align:center;"><img src="figure/2_A.jpg" style="width:80%;"></img></div>
-</section>
-
-<section>
-	<h2>問題定義</h2>
-</section>
-
-<section>
-	<h2>資料蒐集</h2>
-</section>
-
-<section>
-	<h2>資料準備</h2>
-	<h3>特徵工程</h3>
-	<div style="text-align:center;"><img src="figure/2_B.jpg" style="width:50%;"></img></div>
-</section>
-
-<section>
-	<h2>模型選擇</h2>
-	<h3>監督式學習</h3>
-	<div style="text-align:center;"><img src="figure/2_C.jpg" style="width:50%;"></img></div>
-	<div style="text-align:center;"><img src="figure/2_D.jpg" style="width:50%;"></img></div>
-	<div style="text-align:center;"><img src="figure/2_E.jpg" style="width:70%;"></img></div>
-	<h3>非監督式學習</h3>
-	<div style="text-align:center;"><img src="figure/2_F.jpg" style="width:50%;"></img></div>
-	<h3>半監督式學習</h3>
-	<div style="text-align:center;"><img src="figure/2_G.jpg" style="width:50%;"></img></div>
-	<h3>增強學習</h3>
-	<div style="text-align:center;"><img src="figure/2_H.jpg" style="width:45%;"></img></div>
-	<h3>分類模型: 決策樹 (Decision Tree)</h3>
-	<div style="text-align:center;"><img src="figure/2_I.jpg" style="width:70%;"></img></div>
-	<h3>分類模型: 羅吉斯回歸</h3>
-	<div style="text-align:center;"><img src="figure/2_J.jpg" style="width:30%;"></img></div>
-	<h3>分類模型: 支援向量機 (SVM)</h3>
-	<div style="text-align:center;"><img src="figure/2_K.jpg" style="width:60%;"></img></div>
-	<h3>分類模型: K 近鄰 (K-NN)</h3>
-	<div style="text-align:center;"><img src="figure/2_L.jpg" style="width:60%;"></img></div>
-	<h3>迴歸模型</h3>
-	<div style="text-align:center;"><img src="figure/2_M.jpg" style="width:60%;"></img></div>
-	<h3>叢集模型</h3>
-	<div style="text-align:center;"><img src="figure/2_N.jpg" style="width:70%;"></img></div>
 </section>
 
 <section>
@@ -751,6 +947,28 @@
 		<div class="answer">加班時數是一個連續數值，因此使用迴歸模型。</div>
 	</div>
 </section>
+
+<script>
+	Array.from(document.body.querySelectorAll('#content table.tabTable'))
+	.forEach(function (table) {
+		let th=table.querySelector('thead'),
+			tb=table.querySelector('tbody');
+		th.addEventListener('click',function (evt) {
+			for(let s=evt.target;s!==th;s=s.parentNode) {
+				let tid=s.getAttribute('TID');
+				if (tid){
+					Array.from(tb.querySelectorAll('[TAB]'))
+					.forEach((e)=>e.classList.add('hide'));
+					let a=tb.querySelector(`[TAB="${tid}"]`);
+					if (a) a.classList.remove('hide');
+				}
+			}
+			evt.stopPropagation();
+			evt.preventDefault();
+		});
+		th.querySelector('[TID="1"]').click();
+	});
+</script>
 
 </div>
 
