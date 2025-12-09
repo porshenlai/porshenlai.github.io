@@ -8,6 +8,7 @@
 <style>
 .cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
+.sub { font-weight:bold; background:silver; }
 .fxl { display:flex; }
 </style>
 </head>
@@ -877,63 +878,53 @@
 	</div>
 </section>
 
-<!--section>
-	<h2>🕰️ Python time 模組函數</h2>
-	<table border='1' cellspacing='1' cellpadding='8' align='center'><thead><tr>
-		<th><strong>函式 (Function)</strong></th>
-		<th><strong>功能 (Description)</strong></th>
+<section>
+	<h2>📅 Python datetime 模組常用方法</h2>
+	<div>Python 的 datetime 模組主要包含了 date、time、datetime、timedelta 和 tzinfo 幾個核心類別。</div>
+	<div>以下表格著重於在程式設計中最常用到的 datetime 類別方法。</div>
+
+	<table border='1' cellspacing='0' cellpadding='8' width='100%' align='center' style='font-size:70%'><thead><tr>
+		<th><strong>類別/方法</strong><div class='sub'><strong>參數</strong><div></th>
+		<th><strong>說明</strong></th>
+		<th><strong>範例</strong><div class='sub'><strong>輸出結果</strong></div></th>
 	</tr></thead><tbody><tr>
-		<td>clock()</td><td>取得程式執行時間。</td>
+		<td><strong>datetime.now()</strong><div class='sub'>無</div></td>
+		<td>取得<strong>當前</strong>的本地日期和時間。</td>
+		<td>dt = datetime.now()<div class='sub'>2025-12-09 14:10:56.123456</div></td>
 	</tr><tr>
-		<td>ctime([ 時間數值 ])</td><td>以傳入的時間數值來取得時間字串。</td>
+		<td><strong>datetime.strptime()</strong><div class='sub'>string, format</div></td>
+		<td>將<strong>字串</strong>依指定格式解析成 datetime 物件。</td>
+		<td>dt = datetime.strptime("2025/12/09 14:10", "%Y/%m/%d %H:%M")<div class='sub'>2025-12-09 14:10:00</div></td>
 	</tr><tr>
-		<td>localtime([ 時間數值 ])</td><td>以傳入的時間數值來取得時間元組資訊。</td>
+		<td><strong>.strftime()</strong><div class='sub'>format</div></td>
+		<td>將 datetime 物件格式化為<strong>字串</strong>輸出。</td>
+		<td>dt = datetime(2025, 12, 9, 14, 10)<br/>dt.strftime("%Y年%m月%d日")<div class='sub'>2025年12月09日</div></td>
 	</tr><tr>
-		<td>sleep(n)</td><td>程式停止執行 <strong>n</strong> 秒。</td>
+		<td><strong>.date()</strong><div class='sub'>無</div></td>
+		<td>從 datetime 物件中取出<strong>日期</strong>部分 (回傳 date 物件)。</td>
+		<td>dt = datetime.now()<br/>dt.date()<div class='sub'>2025-12-09</div></td>
 	</tr><tr>
-		<td>time()</td><td>取得目前時間數值。</td>
+		<td><strong>.time()</strong><div class='sub'>無</div></td>
+		<td>從 datetime 物件中取出<strong>時間</strong>部分 (回傳 time 物件)。</td>
+		<td>dt = datetime.now()<br/>dt.time()<div class='sub'>14:10:56.123456</div></td>
+	</tr><tr>
+		<td><strong>.weekday()</strong><div class='sub'>無</div></td>
+		<td>回傳星期幾，<strong>週一為 0，週日為 6</strong>。</td>
+		<td>dt = datetime(2025, 12, 9) (週二)<br/>dt.weekday()<div class='sub'>1</div></td>
+	</tr><tr>
+		<td><strong>.isoweekday()</strong><div class='sub'>無</div></td>
+		<td>回傳星期幾，<strong>週一為 1，週日為 7</strong>。</td>
+		<td>dt = datetime(2025, 12, 9) (週二)<br/>dt.isoweekday()<div class='sub'>2</div></td>
+	</tr><tr>
+		<td><strong>timedelta</strong><div class='sub'>days, hours, etc.</div></td>
+		<td><strong>時間差</strong>計算。用於加減日期時間。</td>
+		<td>dt1 = datetime(2025, 12, 9)<br/>td = timedelta(days=7)<br/>dt2 = dt1 + td<div class='sub'>2025-12-16 00:00:00</div></td>
 	</tr></tbody></table>
 </section>
 
 <section>
-	<h2>⏱️ Python Time 結構成員 (struct_time)</h2>
-	<table border='1' cellspacing='1' cellpadding='8' align='center'><thead><tr>
-		<th><strong>名稱</strong></th>
-		<th><strong>意義</strong></th>
-	</tr></thead>
-	<tbody><tr>
-		<td>tm_year</td>
-		<td>西元年</td>
-	</tr><tr>
-		<td>tm_mon</td>
-		<td>月份 (1 到 12)</td>
-	</tr><tr>
-		<td>tm_mday</td>
-		<td>日數 (1 到 31)</td>
-	</tr><tr>
-		<td>tm_hour</td>
-		<td>小時 (0 到 23)</td>
-	</tr><tr>
-		<td>tm_min</td>
-		<td>分鐘 (0 到 59)</td>
-	</tr><tr>
-		<td>tm_sec</td>
-		<td>秒數 (0 到 60，可能是閏秒)</td>
-	</tr><tr>
-		<td>tm_wday</td>
-		<td>星期幾 (0 到 6, 星期一為 0, $\cdots\cdots$, 星期日為 6)</td>
-	</tr><tr>
-		<td>tm_yday</td>
-		<td>一年中的第幾天 (1 到 366，可能是閏年)</td>
-	</tr><tr>
-		<td>tm_isdst</td>
-		<td>時光節約時間 (1 為有時光節約時間, 0 為無時光節約時間)</td>
-	</tr></tbody></table>
-</section-->
-
-<section>
 	<h2>📅 DateTime Format Codes</h2>
-	<table border='1' cellspacing='1' cellpadding='8' align='center'><thead><tr>
+	<table border='1' cellspacing='1' cellpadding='8' align='center' style='font-size:70%'><thead><tr>
 		<th><strong>類別</strong></th>
 		<th><strong>代碼</strong></th>
 		<th><strong>意義</strong></th>
