@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Structure</title>
+<script plugins="quiz,tab" src="/App/slide.js"></script>
+<style>
+.cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
+.frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
+.sub { font-weight:bold; background:silver; }
+.fxl { display:flex; }
+[TID].active { border:0;background:white; }
+.explain { font-size:70%; }
+[TID]:not(.active) h3 { color:silver; }
+select { font-size:100%; }
+</style>
+</head>
+<body>
+
+<div id="content">
+<section>
+	<h1 class="title">ITS Python</h1>
+	<div>
+		<p class="subtitle">Data Structure</p>
+		<p class="meta">
+			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+			<div style="text-align:right">2025, Winter</div>
+		</p>
+	</div>
+</section>
+
+<section>
+	<h2>🔢 Python 內建函數</h2><!--{{{-->
+	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
+	</tr><tr>
+		<td>len(x)</td>
+		<td>取得元素個數</td>
+		<td>len([1,3,5,7])</td>
+		<td>4</td>
+	</tr><tr>
+		<td>chr(x)</td>
+		<td>取得整數 <strong>x</strong> 的字元</td>
+		<td>chr(65)</td>
+		<td>A</td>
+	</tr><tr>
+		<td>ord(x)</td>
+		<td>回傳字元 <strong>x</strong> 的 Unicode 編碼值</td>
+		<td>ord(" 我 ")</td>
+		<td>25105</td>
+	</tr><tr>
+		<td>sorted(串列)</td>
+		<td>由小到大排序</td>
+		<td>sorted([3,1,7,5])</td>
+		<td>[1,3,5,7]</td>
+	</tr><tr>
+		<td>sum(串列)</td>
+		<td>計算串列元素的總和</td>
+		<td>sum([1,3,5,7])</td>
+		<td>16</td>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div qt='s' ___='2'>
+		請問下列程式碼會列印幾行輸出?
+		<div class='frame'><div class='cb'>
+			<div>products = 2</div>
+			<div>n = 5</div>
+			<div>while (n != 0) :</div>
+			<div class='cb'>
+				<div>product *= n</div>
+				<div>print(product, n)</div>
+				<div>n -= 1</div>
+				<div>if n == 3 : break</div>
+			</div>
+		</div></div>
+		<table width='100%'><tr>
+			<th qo='1'>1</th><th qo='2'>2</th><th qo='3'>3</th><th qo='4'>5</th>
+		</tr></table>
+	</div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您正在建立一套適用於小學孩童的互動式乘法表助手程式。</div>
+	<div>您需要完成一個名為times_tables的函式,以計算並顯示所有2到12的乘法表組合。</div>
+	<div class='frame'><div class='cb'>
+		<div># Displays times tables 2 - 12</div>
+		<div>def times_tables():</div>
+		<div class='cb'>
+			<div qt='s' ___='2'>for col in <select qo='value'>
+				<option>請選擇</option>
+				<option value="1">range(13)</option>
+				<option value="2">range(2,13)</option>
+				<option value="3">range(2,12,1)</option>
+				<option value="4">range(12)</option>
+			</select> :</div>
+			<div class='cb'>
+				<div qt='s' ___='2'>for row in <select qo='value'>
+					<option>請選擇</option>
+					<option value="1">range(13)</option>
+					<option value="2">range(2,13)</option>
+					<option value="3">range(2,12,1)</option>
+					<option value="4">range(12)</option>
+				</select> :</div>
+				<div class='cb'>print(row * col, end = " ")</div>
+			</div>
+			<div>print()</div>
+		</div>
+		<div># main</div>
+		<div>times_tables()</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您正在撰寫一個 Python 程式來驗證員工識別碼</div>
+	<ul>
+		<li>識別碼的格式必須是 ddd-dd-dddd, 而且只能包含數字和虛線</li>
+		<li>如果格式正確,此程式必須列印 True</li>
+		<li>如果格式不正確,則列印 False</li>
+	</ul>
+
+	<div class='frame'><div class='cb'>
+		<div qt='s' ___='1'><select qo='value'>
+			<option>請選擇</option>
+			<option value="1">employee_number =""</option>
+			<option value="2">employee_number ="123"</option>
+		</select></div>
+		<div>parts=""</div>
+		<div qt='s' ___='2'><select qo='value'>
+			<option>請選擇</option>
+			<option value="1">while employee_number !=""</option>
+			<option value="2">while employee_number !="123"</option>
+		</select></div>
+		<div class='cb'>
+			<div qt='s' ___='1'><select qo='value'>
+				<option>請選擇</option>
+				<option value="1">vaild = False </option>
+				<option value="2">vaild = True</option>
+			</select></div>
+			<div>employee_number = input("Enter employee number (ddd-dd-dddd) ('123' to quit): ")</div>
+			<div>parts = employee_number.split('-')</div>
+			<div>if len(parts) == 3:</div>
+			<div class='cb'>
+				<div>if len(parts[0]) == 3 and len(parts[1]) == 2 and len(parts[2]) == 4 :</div>
+				<div class='cb'>
+					<div>if parts[0].isdigit() and parts[1].isdigit() and parts[2].isdigit() :</div>
+					<div class='cb'>
+						<div qt='s' ___='2'><select qo="value">
+							<option>請選擇</option>
+							<option value="1">vaild = False </option>
+							<option value="2">vaild = True</option>
+						</select></div>
+					</div>
+				</div>
+			</div>
+			<div>print(valid)</div>
+		</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您正在撰寫程式碼以使用星號建立E字形。</div>
+	<div>您需要列印五行程式碼,其中第一行、第三行和第五行各有四個星號,而第二行和第四行各有一個星號。如下所示。</div>
+	<div>****</div><div>*</div><div>****</div><div>*</div><div>****</div>
+	<div class='frame'><div class='cb'>
+		<div>result_str=""</div>
+		<div qt='s' ___='4'>
+			for row in range(1,<select qo="value">
+				<option>請選擇</option>
+				<option value="1">3</option>
+				<option value="2">4</option>
+				<option value="3">5</option>
+				<option value="4">6</option>
+			</select>) :
+		</div>
+		<div class='cb'>
+			<div qt='s' ___='3'>
+				for column in range(1,<select qo="value">
+					<option>請選擇</option>
+					<option value="1">3</option>
+					<option value="2">4</option>
+					<option value="3">5</option>
+					<option value="4">6</option>
+				</select>) :
+				<div class='cb'>
+					<div>if (row==1 or row==3 or row==5) :</div>
+					<div class='cb'>result_str=result_str+"*"</div>
+					<div>elif column==1 :</div>
+					<div class='cb'>result_str=result_str+"*"</div>
+				</div>
+			</div>
+			<div>result_str=result_str+"\n"</div>
+		</div>
+		<div>print(result_str)</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您正在為某間線上產品配銷公司開發一個Python程式。</div>
+	<div>此程式必須逐一查看產品清單(productIdList),然後在找到特定產品識別碼時逸出。</div>
+	<div class='frame'><div class='cb'>
+		<div>productIdList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</div>
+		<div>index = 0</div>
+		<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+			<option value="1">while</option>
+			<option value="2">for</option>
+			<option value="3">if</option>
+			<option value="4">break</option>
+		</select> (index &lt; 10) :</div>
+		<div class='cb'>
+			<div>print(productIdList[index])</div>
+			<div>if productIdList[index] == 6 :</div>
+			<div class='cb'>
+				<div qt='s' ___='4'><select qo='value'><option>請選擇</option>
+					<option value="1">while</option>
+					<option value="2">for</option>
+					<option value="3">if</option>
+					<option value="4">break</option>
+				</select></div>
+			</div>
+			<div>else :</div>
+			<div class='cb'>
+				<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+					<option value="1">continue</option>
+					<option value="2">break</option>
+					<option value="3">index += 1</option>
+					<option value="4">index = 1</option>
+				</select></div>
+			</div>
+		</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您正在建立一個Python程式,讓使用者猜測1到10之間的數字。使用者最多可以猜三次。</div>
+	<div class='frame'><div class='cb'>
+		<div>from random import randint</div>
+		<div>target = randint(1, 10)</div>
+		<div>chance = 1</div>
+		<div>print("Guess an integer from 1 to 10. You will have 3 chances. ")</div>
+		<div qt='s' ___='7'><select qo='value'><option>請選擇</option>
+			<option value="1">break</option>
+			<option value="2">chance += 1</option>
+			<option value="3">chance = 2</option>
+			<option value="4">pass</option>
+			<option value="5">while chance &lt; 3</option>
+			<option value="6">while chance &lt; 3 :</option>
+			<option value="7">while chance &lt;= 3 :</option>
+		</select></div>
+		<div class='cb'>
+			<div>guess = int(input("Guess an integer: "))</div>
+			<div>if guess &gt; target :</div>
+			<div class='cb'>print("Guess is too high")</div>
+			<div>elif guess &lt; target :</div>
+			<div class='cb'>print("Guess is too low")</div>
+			<div>else :</div>
+			<div class='cb'>
+				<div>print("Guess is just right!")</div>
+				<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+					<option value="">(B) 請選擇</option>
+					<option value="1">break</option>
+					<option value="2">chance += 1</option>
+					<option value="3">chance = 2</option>
+					<option value="4">pass</option>
+					<option value="5">while chance &lt; 3</option>
+					<option value="6">while chance &lt; 3 :</option>
+					<option value="7">while chance &lt;= 3 :</option>
+				</select></div>
+			</div>
+			<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+				<option value="1">break</option>
+				<option value="2">chance += 1</option>
+				<option value="3">chance = 2</option>
+				<option value="4">pass</option>
+				<option value="5">while chance &lt; 3</option>
+				<option value="6">while chance &lt; 3 :</option>
+				<option value="7">while chance &lt;= 3 :</option>
+			</select></div>
+		</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您正在撰寫符合下列需求的程式碼:<ul>
+		<li>允許使用者不斷輸入字詞。</li>
+		<li>輸出每個字詞的字元數。</li>
+	</ul></div>
+	<div class='frame'><div class='cb'>
+		<div>x = "Hello World"</div>
+		<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+			<option value="1">for</option>
+			<option value="2">if</option>
+			<option value="3">while</option>
+		</select> x != "QUIT" :</div>
+		<div class='cb'>
+			<div>num = 0</div>
+			<div>
+				<span qt='s' ___='1'><select qo='value'><option>請選擇</option>
+					<option value="1">for</option>
+					<option value="2">if</option>
+					<option value="3">while</option>
+				</select> char </span>
+				<span qt='s' ___='3'><select qo='value'><option>請選擇</option>
+					<option value="1">and</option>
+					<option value="2">or</option>
+					<option value="3">in</option>
+					<option value="4">not</option>
+				</select> x :</span>
+			</div>
+			<div class='cb'>num += 1</div>
+			<div>print(num)</div>
+			<div>x = input("Enter a new word or QUIT to exit: ")</div>
+		</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>某間公司決定要發獎金給每年所得低於 150,000 美元的所有員工。</div>
+	<div>下列公式會根據基本薪資和固定獎金套用至每位員工 :</div>
+	<div class='cb'>新的薪資 = 目前薪資x103%+500美元獎金</div>
+	<div>您撰寫了程式碼,將員工薪資讀取到名為 salary_list 的變數中。</div>
+	<div>您需要完成針對每位合格員工薪資套用加薪公式的程式碼。</div>
+	<div class='frame'><div class='cb'>
+		<div># Each salary in the list is updated based on increase. Employees making</div>
+		<div># $150,000 or more will not get a raise.</div>
+		<div># Salary list is populated from employee database, code not shown.</div>
+		<div qt='s' ___='3'><select qo="value"><option>請選擇</option>
+			<option value="1">for index in range(len(salary_list)+1):</option>
+			<option value="2">for index in range(len(salary_list)-1):</option>
+			<option value="3">for index in range(len(salary_list)):</option>
+			<option value="4">for index in salary_list:</option>
+		</select></div>
+		<div class='cb'>
+		    <div>if salary_list[index] &gt;= 150000 :</div>
+			<div class='cb'>
+		        <div qt='s' ___='2'><select qo="value"><option>請選擇</option>
+					<option value="1">exit()</option>
+					<option value="2">continue</option>
+					<option value="3">break</option>
+					<option value="4">end</option>
+				</select></div>
+			</div>
+		    <div>salary_list[index] = (salary_list[index] *1.03) +500</div>
+		</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>某間出版公司需要設法找出他們出版物中特定字母的數目,以便保持良好的平衡。</div>
+	<div>似乎一直有讀者在抱怨字母e的使用次數過多。您需要建立一個符合需求的函式。</div>
+	<div class='frame'><div class='cb'>
+		<div># Function accepts list of words from a file</div>
+		<div>#     and letter to search for.</div>
+		<div># Returns count of a particular letter in that list.</div>
+		<div>def count_letter(letter, word_list):</div>
+		<div class='cb'>
+			<div>count = 0</div>
+		    <div>for <span qt='s' ___='2'><select qo='value'><option>請選擇</option>
+				<option value="1">word_list in word</option>
+				<option value="2">word in word_list</option>
+				<option value="3">word == word_list</option>
+				<option value="4">word is word_list</option>
+			</select> :</span></div>
+			<div class='cb'>
+		        <div>if <span qt='s' ___='4'><select qo='value'><option>請選擇</option>
+					<option value="1">word is letter</option>
+					<option value="2">letter is word</option>
+					<option value="3">word in letter</option>
+					<option value="4">letter in word</option>
+				</select> :</span></div>
+				<div class='cb'>count += 1</div>
+			</div>
+			<div>return count</div>
+		</div>
+		<div>word_list = []</div>
+		<div># word_list is populated from a file. Code not shown.</div>
+		<div>letter = input("which letter would you like to count")</div>
+		<div>letter_count = count_letter(letter, word_list)</div>
+		<div>print("There are: ", letter_count, "instances of " + letter)</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>某位同事撰寫了一個程式來輸入名稱至資料庫中。</div>
+	<div>然而,此程式卻將每個名稱中的字母前後顛倒。</div>
+	<div>您需要撰寫一個Python函式來按照正確順序輸出名稱中的字元。</div>
+	<div class='frame'><div class='cb'>
+		<div># Function reverses characters in a string.</div>
+		<div># return new string in reversed order.</div>
+		<div>def reverse_name(backward_name):</div>
+		<div class='cb'>
+		    <div>forward_name = ""</div>
+		    <div qt='s' ___='2'>length = <select qo='value'><option>請選擇</option>
+				<option value="1">backward_name:</option>
+				<option value="2">len(backward_name)-1</option>
+				<option value="3">range(0,len(backward_name),-1)</option>
+				<option value="4">range(len(backward_name)-1,-1,-1)</option>
+			</select></div>
+		    <div>while length &gt;= 0:</div>
+			<div class='cb'>
+		        <div qt='s' ___='2'>forward_name += <select qo='value'><option>請選擇</option>
+					<option value="1">backward_name[index]</option>
+					<option value="2">backward_name[length]</option>
+					<option value="3">backward_name[length+1]</option>
+					<option value="4">backward_name[len(backward_name)-len(forward_name)]</option>
+				</select></div>
+		        <div>length = length-1</div>
+			</div>
+		    <div>return forward_name</div>
+		</div>
+		<div>print(reverse_name("nohtyp"))</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您評估下列程式碼時發現錯誤。加上行號僅為參考之用。</div>
+	<div>您必須更正下列程式碼。</div>
+	<div>請評估這段程式碼,然後從每個下拉式清單中選取正確的選項以回答問題。</div>
+	<div class='iframe'><div class='cb'>
+		<div>numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</div>
+		<div>index = 0</div>
+		<div qt='s' ___='1'><s>while (index &lt;10)</s><select qo="value"><option>請選擇</option>
+			<option value="1">while (index&lt;10):</option>
+			<option value="2">while [index&lt;10]</option>
+			<option value="3">while (index&lt;5)</option>
+			<option value="4">while [index&lt;5]</option>
+		</select></div>
+		<div class='cb'>
+			<div>print(numbers[index])</div>
+		    <div qt='s' ___='2'><s>if numbers(index) = 6</s><select qo="value"><option>請選擇</option>
+				<option value="1">if numbers[index]==6</option>
+				<option value="2">if numbers[index]==6:</option>
+				<option value="3">if numbers(index)=6:</option>
+				<option value="4">if numbers(index)!=6</option>
+			</select></div>
+			<div class='cb'>break</div>
+			<div>else :</div>
+			<div class='cb'>index += 1</div>
+		</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>某間公司要求您為造成薪資問題的部分程式碼偵錯。</div>
+	<div>他們要求您找出薪資錯誤的來源。已經宣告的變數如下:</div>
+	<div class='frame'><div class='cb'>
+		<div>employee_pay = [15000, 120000, 35000, 45000]</div>
+		<div>count = 0</div>
+		<div>sum = 0</div>
+	</div></div>
+	<div>下列程式碼有兩個錯誤需要修正 :</div>
+	<div class='frame'><div class='cb'>
+		<div qt='s' ___='4'>for index in range<s>(0, len(employee_pay)-1):</s><select qo="value"><option>請選擇</option>
+		    <option value="1">(size(employee_pay)):</option>
+		    <option value="2">(size(employee_pay)-1):</option>
+		    <option value="3">(len(employee_pay)+1):</option>
+		    <option value="4">(len(employee_pay)):</option>
+		</select></div>
+		<div class='cb'>
+		    <div>count += 1</div>
+		    <div>sum += employee_pay[index]</div>
+		</div>
+		<div qt='s' ___='1'>average = <s>sum//count</s><select qo="value"><option>請選擇</option>
+		    <option value="1">sum/count</option>
+		    <option value="2">sum**count</option>
+		    <option value="3">sum*count</option>
+		</select></div>
+		<div>print("The total payroll is:", sum)</div>
+		<div>print("The average salary is:", average)</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您正在建置一個Python程式來顯示2到100之間的所有質數(質數是指只有該數字本身和1能整除的任何數字)。</div>
+	<div>請將左側清單中適當的程式碼片段移至右側的正確位置,以完成程式碼。</div>
+
+	<div class='frame'><div class='cb'>
+		<div qt='s' ___='2'>
+			<div qo='1'>break</div>
+			<div qo='2'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
+			<div qo='3'>continue</div>
+			<div qo='4'><div>for i in range(2, p):</div><div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div>
+			<div qo='5'>p = p + 1</div>
+			<div qo='6'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
+			<div qo='7'><div>if is_prime == True:</div><div class='cb'>print(p)</div></div>
+		</div>
+		<div class='cb'><div qt='s' ___='4'>
+			<div qo='1'>break</div>
+			<div qo='2'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
+			<div qo='3'>continue</div>
+			<div qo='4'><div>for i in range(2, p):</div><div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div>
+			<div qo='5'>p = p + 1</div>
+			<div qo='6'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
+			<div qo='7'><div>if is_prime == True:</div><div class='cb'>print(p)</div></div>
+		</div><div class='cb'><div qt='s' ___='1'>
+			<div qo='1'>break</div>
+			<div qo='2'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
+			<div qo='3'>continue</div>
+			<div qo='4'><div>for i in range(2, p):</div><div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div>
+			<div qo='5'>p = p + 1</div>
+			<div qo='6'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
+			<div qo='7'><div>if is_prime == True:</div><div class='cb'>print(p)</div></div>
+		</div></div><div qt='s' ___='7'>
+			<div qo='1'>break</div>
+			<div qo='2'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
+			<div qo='3'>continue</div>
+			<div qo='4'><div>for i in range(2, p):</div><div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div>
+			<div qo='5'>p = p + 1</div>
+			<div qo='6'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
+			<div qo='7'><div>if is_prime == True:</div><div class='cb'>print(p)</div></div>
+		</div><div qt='s' ___='5'>
+			<div qo='1'>break</div>
+			<div qo='2'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
+			<div qo='3'>continue</div>
+			<div qo='4'><div>for i in range(2, p):</div><div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div>
+			<div qo='5'>p = p + 1</div>
+			<div qo='6'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
+			<div qo='7'><div>if is_prime == True:</div><div class='cb'>print(p)</div></div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
+	<div>您正在撰寫符合下列需求的程式碼:<ul>
+		<li>允許使用者不斷輸入字詞。</li>
+		<li>輸出每個字詞的字元數。</li>
+	</ul></div>
+	<div>請從每個下拉式清單中選取正確的選項以完成程式碼。</div>
+	<div>請注意:每一個答對的項目都能獲得部分分數。</div>
+
+	<div class='frame'><div class='cb'>
+		<div>x = 'Hello World'</div>
+		<div><span qt='s' ___='3'><select qo='value'><option>請選擇</option>
+			<option value='1'>for</option>
+			<option value='2'>if</option>
+			<option value='3'>while</option>
+		</select></span> x != 'QUIT' :</div>
+		<div class='cb'>
+			<div>num = 0</div>
+			<div>
+				<span qt='s' ___='1'><select qo='value'><option>請選擇</option>
+					<option value='1'>for</option>
+					<option value='2'>if</option>
+					<option value='3'>while</option>
+				</select></span> char
+				<span qt='s' ___='3'><select qo='value'><option>請選擇</option>
+					<option value='1'>and</option>
+					<option value='2'>or</option>
+					<option value='3'>in</option>
+					<option value='3'>not</option>
+				</select></span> x :
+			</div>
+			<div class='cb'>num += 1</div>
+			<div>print(num)</div>
+			<div>x = input('Enter a new word or QUIT to exit: ')</div>
+		</div>
+	</div></div>
+	<!--}}}-->
+</section>
+
+</div>
+</body>
+</html>

@@ -4,12 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Code Structure</title>
-<script plugins="quiz" src="/App/slide.js"></script>
+<script plugins="quiz,tab" src="/App/slide.js"></script>
 <style>
 .cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
 .sub { font-weight:bold; background:silver; }
 .fxl { display:flex; }
+[TID].active { border:0;background:white; }
+.explain { font-size:70%; }
+[TID]:not(.active) h3 { color:silver; }
 </style>
 </head>
 <body>
@@ -30,22 +33,50 @@
 
 <section>
 	<h2>程式註解</h2>
-	<h3>💻 程式註解的定義與目的</h3>
-	<p>程式註解是一種在原始碼中插入的<strong>非執行性文字</strong>。</p>
-	<p>它的主要特點是：</p>
-	<ol>
-		<li><strong>不被編譯或執行：</strong> 當程式碼被編譯器或直譯器處理時，註解會被完全忽略。它們不會影響程式的實際運作或輸出結果。</li>
-		<li><strong>目的在於溝通：</strong> 註解是用來向<strong>人類讀者</strong>（包括未來的您自己、協作的同事，或任何需要維護此程式碼的人）解釋程式碼的功能、原理、目的或任何重要細節。</li>
-	</ol>
-	<h3>✨ 註解的主要作用</h3>
-	<p>程式註解是良好程式設計習慣的<strong>基石</strong>，它們提供了幾項關鍵的價值：</p>
-	<ul>
-		<li><strong>解釋複雜邏輯：</strong> 說明一段難以理解或不尋常的演算法是如何運作的。</li>
-		<li><strong>說明程式意圖 (Why)：</strong> 解釋為什麼要這樣寫，而不是解釋程式碼做了什麼 (程式碼本身通常已經說明了 "What")。例如，解釋為什麼選擇這個特定的資料結構或解決方案。</li>
-		<li><strong>標記重要資訊：</strong> 提示需要注意的<strong>錯誤 (Bug)</strong>、未完成的<strong>待辦事項 (TODO)</strong>，或未來可能需要的<strong>改進 (FIXME)</strong>。</li>
-		<li><strong>產生文件：</strong> 在某些語言中（如 JavaDoc, Python Docstrings），特定格式的註解可以用來自動生成專案的 API 文件。</li>
-		<li><strong>臨時禁用程式碼：</strong> 在測試或偵錯時，可以用註解快速將某段程式碼暫時排除在執行之外，而不必刪除它。</li>
-	</ul>
+	<div class='tab'>
+	<div style='text-align:center'>
+		<button TID='1' style='width:45%'><h3>💻 定義與目的</h3></button>
+		<button TID='2' style='width:45%'><h3>✨ 主要作用</h3></button>
+	</div>
+	<div TAB='1'>
+		<div>程式註解是一種在原始碼中插入的<strong>非執行性文字</strong>。它的主要特點是：</div>
+		<ul>
+		<li><strong>不被編譯或執行</strong><div class='explain'>
+			當程式碼被編譯器或直譯器處理時，註解會被完全忽略。它們不會影響程式的實際運作或輸出結果。
+		</div></li>
+		<li><strong>目的在於溝通</strong><div class='explain'>
+			註解是用來向<strong>人類讀者</strong>（包括未來的您自己、協作的同事，或任何需要維護此程式碼的人）
+			解釋程式碼的功能、原理、目的或任何重要細節。
+		</div></li>
+		</ul>
+	</div>
+	<div TAB='2'>
+		<p>程式註解是良好程式設計習慣的<strong>基石</strong>，它們提供了幾項關鍵的價值：</p>
+		<ul>
+		<li><strong>解釋複雜邏輯</strong><div class='explain'>
+			說明一段難以理解或不尋常的演算法是如何運作的。
+		</div></li>
+		<li><strong>說明程式意圖 (Why)</strong><div class='explain'>
+			解釋為什麼要這樣寫，而不是解釋程式碼做了什麼 (程式碼本身通常已經說明了 "What")。
+		</div><div class='explain'>
+			例如，解釋為什麼選擇這個特定的資料結構或解決方案。
+		</div></li>
+		<li><strong>標記重要資訊</strong><div class='explain'>
+			提示需要注意的<strong>錯誤 (Bug)</strong>、
+		</div><div class='explain'>
+			未完成的<strong>待辦事項 (TODO)</strong>，
+		</div><div class='explain'>
+			或未來可能需要的<strong>改進 (FIXME)</strong>。
+		</div></li>
+		<li><strong>產生文件</strong><div class='explain'>
+			某些語言（如 JavaDoc, Python Docstrings），特定格式的註解可用來自動生成專案的 API 文件。
+		</div></li>
+		<li><strong>臨時禁用程式碼</strong><div class='explain'>
+			在測試或偵錯時，可以用註解快速將某段程式碼暫時排除在執行之外，而不必刪除它。
+		</div></li>
+		</ul>
+	</div>
+	</div>
 </section>
 
 <section>
@@ -141,180 +172,235 @@
 
 <section>
 	<h2>🛠️ 程式函數 (Function)</h2>
-	<p><strong>函數</strong>（Function）可以想像成一個<strong>有特定任務的小型機器或配方</strong>。</p>
-	<ul>
-		<li><strong>定義：</strong> 函數是組織程式碼的一種方式。它是一個<strong>被命名的、獨立的程式碼區塊</strong>，設計用於執行特定的任務或計算。</li>
-		<li><strong>目的：</strong><ul>
-			<li><strong>重用性 (Reusability)：</strong> 您可以寫一次程式碼，然後在程式的不同地方多次呼叫（執行）這個函數，避免重複撰寫相同的邏輯。</li>
-			<li><strong>模組化 (Modularity)：</strong> 將大型程式拆分成許多小、專注的函數，使程式碼更容易理解、測試和維護。</li>
-			<li><strong>抽象化 (Abstraction)：</strong> 使用者只需要知道函數的名稱和它做什麼（例如 calculate_area(length, width)），而不需要知道它是如何實現計算的內部細節。</li>
-		</ul></li>
-	</ul>
-	<div class='frame'><div class='cb'>
-		<div>def calculate_sum(a, b): <span style="color:red"># 這是函數定義 (Function Definition)</span></div>
-		<div class='cb'>
-    		<div>result = a + b</div>
-    		<div>return result</div>
-		</div>
-		<br/>
-		<div>total = calculate_sum(5, 3) <span style="color:red"># 這是函數呼叫 (Function Call)</span></div>
+	<div><strong>函數</strong>（Function）可以想像成一個<strong>有特定任務的小型機器或配方</strong>。</div>
+	<div class='tab'><div style='text-align:center'>
+		<button TID='1' style='width:32%'><h3>定義</h3></button>
+		<button TID='2' style='width:32%'><h3>目的</h3></button>
+		<button TID='3' style='width:32%'><h3>範例</h3></button>
+	</div><div TAB='1'>
+		<div>函數是組織程式碼的一種方式。</div>
+		<div>它是一個<strong>被命名的、獨立的程式碼區塊</strong>，設計用於執行特定的任務或計算。</div>
+	</div><div TAB='2'>
+		<ul>
+		<li><strong>重用性 (Reusability)：</strong><div class='explain'>
+			您可以寫一次程式碼，然後在程式的不同地方多次呼叫（執行）這個函數，避免重複撰寫相同的邏輯。
+		</div></li>
+		<li><strong>模組化 (Modularity)：</strong><div class='explain'>
+			將大型程式拆分成許多小、專注的函數，使程式碼更容易理解、測試和維護。
+		</div></li>
+		<li><strong>抽象化 (Abstraction)：</strong><div class='explain'>
+			使用者只需要知道函數的名稱和它做什麼（例如 calculate_area(length, width)），而不需要知道它是如何實現計算的內部細節。
+		</div></li>
+		</ul>
+	</div><div TAB='3'>
+		<div class='frame'><div class='cb'>
+			<div>def calculate_sum(a, b): <span style="color:red"># 這是函數定義 (Function Definition)</span></div>
+			<div class='cb'>
+    			<div>result = a + b</div>
+    			<div>return result</div>
+			</div>
+			<br/>
+			<div>total = calculate_sum(5, 3) <span style="color:red"># 這是函數呼叫 (Function Call)</span></div>
+		</div></div>
 	</div></div>
 </section>
 
 <section>
 	<h2>📦 參數/引數 (Arguments)</h2>
-	<p><strong>參數/引數（Arguments）</strong> 是傳遞給函數的輸入。它們是用來讓函數在執行任務時可以使用或操作的資料。</p>
-	<p><strong>定義：</strong> 參數是在呼叫函數時，提供給函數的值。這些值在函數的內部會被當作區域變數來使用。</p>
-	<p><strong>輸入用途：</strong> 如果函數需要某些特定的資料才能完成其工作，這些資料就必須以參數的形式傳遞。</p>
-	<p><strong>Parameter vs. Argument</strong><ul>
-		<li><strong>形參 (Parameter)：</strong> 在函數定義中宣告的變數名稱 (例如上面例子中的 a 和 b)。</li>
-		<li><strong>實參 (Argument)：</strong> 在函數呼叫時傳入的實際值 (例如上面例子中的 5 和 3)。</li>
-	</ul></p>
-	<div class='frame'><div class='cb'>
-		<div style="color:red"># 函數定義時的 (a, b) 稱為形參 (Parameters)</div>
-		<div>def calculate_sum(a, b):</div>
-		<div class='cb'>
-    		<div>result = a + b</div>
-    		<div>return result</div>
-		</div>
-		<br/>
-		<div style="color:red"># 函數呼叫時的 (5, 3) 稱為實參 (Arguments)</div>
-		<div>total = calculate_sum(5, 3) # 這是函數呼叫 (Function Call)</div>
+	<div><strong>定義：</strong><div class='explain'>
+		參數是在呼叫函數時，提供給函數的值。這些值在函數的內部會被當作區域變數來使用。
 	</div></div>
+	<div><strong>用途：</strong><div class='explain'>
+		如果函數需要某些特定的資料才能完成其工作，這些資料就必須以參數的形式傳遞。
+	</div></div>
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tr>
+		<th>形參</th><th>Parameter</th><td>在函數定義中宣告的變數名稱</td>
+	</tr><tr>
+		<td colspan='3'>
+			<div class='frame'><div class='cb'>
+				<div style="color:red"># 函數定義時的 (a, b) 稱為形參 (Parameters)</div>
+				<div>def calculate_sum(a, b):</div>
+				<div class='cb'>
+   					<div>result = a + b</div>
+   					<div>return result</div>
+				</div>
+			</div></div>
+		</td>
+	</tr><tr>
+		<th>實參</th><th>Argument</th><td>在函數呼叫時傳入的實際值</td>
+	</tr><tr>
+		<td colspan='3'>
+			<div class='frame'><div class='cb'>
+				<div style="color:red"># 函數呼叫時的 (5, 3) 稱為實參 (Arguments)</div>
+				<div>total = calculate_sum(5, 3) # 這是函數呼叫 (Function Call)</div>
+			</div>
+		</td>
+	</tr></table>
 </section>
 
 <section>
 	<h2>回傳值 (Return Value)</h2>
 	<p><strong>回傳值</strong>（Return Value）是<strong>函數執行完畢後給出的輸出結果</strong>。</p>
-	<ul>
-		<li><strong>定義：</strong> 回傳值是函數執行完其工作後，將結果傳遞回呼叫者（Calling Code）的一種機制。</li>
-		<li><strong>輸出用途：</strong><ul>
-			<li>如果函數的任務是計算或產生一個結果 (如計算總和、查詢資料庫、生成報表)，它會使用 return 關鍵字將這個結果送出。</li>
-			<li>函數只能回傳<strong>一個</strong>值（雖然這個值可以是複雜的資料結構，如列表或物件）。</li>
-			<li>有些函數執行動作（如印出訊息或儲存檔案），但沒有需要回傳的計算結果，這種函數可以不寫 return，或隱式回傳一個特殊的「空值」 (例如 Python 的 None 或 C/Java 的 void)。</li>
-		</ul></li>
-	</ul>
-	<div class='frame'><div class='cb'>
-		<div>def calculate_sum(a, b):</div>
-		<div class='cb'>
-    		<div>result = a + b</div>
-			<div style="color:red"># 使用 return 關鍵字將計算結果 (result 的值 8) 傳回去</div>
-    		<div>return result</div>
-		</div>
-		<br/>
-		<div style="color:red"># 呼叫函數後，回傳值 8 會被賦予給變數 total</div>
-		<div>total = calculate_sum(5, 3) <span style='color:red'># total 的值現在是 8</span></div>
-		<div>print(total) <span style='color:red'># 輸出 8</span></div>
+	<div class='tab'><div style='text-align:center'>
+		<button TID='1' style='width:32%'><h3>定義</h3></button>
+		<button TID='2' style='width:32%'><h3>用途</h3></button>
+		<button TID='3' style='width:32%'><h3>範例</h3></button>
+	</div><div TAB='1'>
+		<div>回傳值是函數執行完其工作後，將結果傳遞回呼叫者（Calling Code）的一種機制。</div>
+	</div><div TAB='2'>
+		<ul>
+		<li>如果函數的任務是計算或產生一個結果 (如計算總和、查詢資料庫、生成報表)，它會使用 return 關鍵字將這個結果送出。</li>
+		<li>函數只能回傳<strong>一個</strong>值（雖然這個值可以是複雜的資料結構，如列表或物件）。</li>
+		<li>有些函數執行動作（如印出訊息或儲存檔案），但沒有需要回傳的計算結果，這種函數可以不寫 return，或隱式回傳一個特殊的「空值」 (例如 Python 的 None 或 C/Java 的 void)。</li>
+		</ul>
+	</div><div TAB='3'>
+		<div class='frame'><div class='cb'>
+			<div>def calculate_sum(a, b):</div>
+			<div class='cb'>
+    			<div>result = a + b</div>
+				<div style="color:red"># 使用 return 關鍵字將計算結果 (result 的值 8) 傳回去</div>
+    			<div>return result</div>
+			</div>
+			<br/>
+			<div style="color:red"># 呼叫函數後，回傳值 8 會被賦予給變數 total</div>
+			<div>total = calculate_sum(5, 3) <span style='color:red'># total 的值現在是 8</span></div>
+			<div>print(total) <span style='color:red'># 輸出 8</span></div>
+		</div></div>
 	</div></div>
 </section>
 
 <section>
 	<h2>🐍 Python 函數參數的類型 (Parameters in Python)</h2>
 	<p>Python 參數主要可以根據<strong>傳遞方式</strong>（位置或名稱）和<strong>數量</strong>（固定或可變）來區分。</p>
-	<h3>I. 基本參數類型 (Positional and Keyword)</h3>
-	<p>這是最常見的參數類型，決定了您如何傳遞值給函數。</p>
-	<h4>1. 必填的位置參數 (Positional-or-Keyword)</h4>
-	<ul>
-		<li><strong>定義：</strong> 這些是函數定義中<strong>必須提供值</strong>的參數，如果呼叫時未提供，程式會拋出錯誤。</li>
-		<li><strong>傳遞方式：</strong> 您可以<strong>按順序</strong>傳遞值 (位置傳遞)，也可以<strong>使用名稱</strong>傳遞值 (關鍵字傳遞)。</li>
-		<li><p><strong>範例：</strong>
-			<div class=frame'><div class='cb'>
-				<div>def greet(name, message):</div>
-				<div class='cb'>print(f"Hello, {name}! {message}")</div>
-				<br/>
-				<div style='color:red'># 兩種呼叫方式都有效</div>
-				<div>greet("Alice", "Good morning.") # 位置傳遞 (按順序)</div>
-				<div>greet(message="How are you?", name="Bob") # 關鍵字傳遞 (按名稱)</div>
-			</div></div>
-		</li>
-	</ul>
-	<h4>2. 具有預設值的參數 (Default Arguments)</h4>
-	<ul>
-		<li><strong>定義：</strong> 在函數定義時，為參數提供一個<strong>預設值</strong>。</li>
-		<li><strong>特性：</strong><ul>
-			<li><strong>可選 (Optional)：</strong> 如果呼叫函數時沒有為此參數提供值，它將使用預設值。</li>
-			<li><strong>必須放在後面：</strong> 任何帶有預設值的參數<strong>必須</strong>定義在所有沒有預設值的參數之後。</li>
-		</ul></li>
-		<li><p><strong>範例：</strong>
-			<div class='frame'><div class='cb'>
+	<table class='tab' border='0' width='100%'><thead style='background:#eee'><tr>
+		<th>基本參數類型</th>
+		<th TID='1'><button style="width:100%">位置參數</button></th>
+		<th TID='2'><button style="width:100%">預設參數</button></th>
+	</tr><tr>
+		<th>可變長度參數</th>
+		<th TID='3'><button style="width:100%">位置參數集合</button></th>
+		<th TID='4'><button style="width:100%">關鍵字參數集合</button></th>
+	</tr><tr>
+		<th>僅限傳遞方式的參數</th>
+		<th TID='5'><button style="width:100%">僅限位置參數</button></th>
+		<th TID='6'><button style="width:100%">僅限關鍵字參數</button></th>
+	</tr></thead><tbody><tr>
+		<td TAB='1' colspan='3'>
+			<h3>必填的位置參數 (Positional-or-Keyword)</h4>
+			<ul>
+			<li><strong>定義：</strong> 這些是函數定義中<strong>必須提供值</strong>的參數，如果呼叫時未提供，程式會拋出錯誤。</li>
+			<li><strong>傳遞方式：</strong> 您可以<strong>按順序</strong>傳遞值 (位置傳遞)，也可以<strong>使用名稱</strong>傳遞值 (關鍵字傳遞)。</li>
+			<li><p><strong>範例：</strong>
+				<div class=frame'><div class='cb'>
+					<div>def greet(name, message):</div>
+					<div class='cb'>print(f"Hello, {name}! {message}")</div>
+					<br/>
+					<div style='color:red'># 兩種呼叫方式都有效</div>
+					<div>greet("Alice", "Good morning.") # 位置傳遞 (按順序)</div>
+					<div>greet(message="How are you?", name="Bob") # 關鍵字傳遞 (按名稱)</div>
+				</div></div>
+			</li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='2' colspan='3'>
+			<h3>具有預設值的參數 (Default Arguments)</h4>
+			<ul>
+			<li><strong>定義：</strong> 在函數定義時，為參數提供一個<strong>預設值</strong>。</li>
+			<li><strong>特性：</strong><ul>
+				<li><strong>可選 (Optional)：</strong> 如果呼叫函數時沒有為此參數提供值，它將使用預設值。</li>
+				<li><strong>必須放在後面：</strong> 任何帶有預設值的參數<strong>必須</strong>定義在所有沒有預設值的參數之後。</li>
+			</ul></li>
+			<li><p><strong>範例：</strong>
+				<div class='frame'><div class='cb'>
 <div>def power(base, exponent=2): <span style='color:red'># exponent 有預設值 2</span></div>
 <div class='cb'>return base ** exponent</div>
 <br/>
 <div>result1 = power(3)        <span style='color:red'># 呼叫時省略 exponent，使用預設值 2 (3**2 = 9)</span></div>
 <div>result2 = power(3, 4)     <span style='color:red'># 呼叫時提供 exponent，覆蓋預設值 (3**4 = 81)</span></div>
-			</div></div>
-		</li>
-	</ul>
-	<h3>II. 可變長度參數 (Arbitrary Arguments)</h3>
-	<p>當您不知道使用者會傳遞多少個參數時，可以使用這兩種特殊的參數。</p>
-	<h4>3. 位置參數集合 (*args)</h4>
-	<ul>
-		<li><strong>語法：</strong> 在參數名稱前加上單個星號 (*)。</li>
-		<li><strong>用途：</strong> 用來接收<strong>任意數量的</strong>、<strong>額外的</strong>、<strong>位置</strong>傳遞的參數。</li>
-		<li><strong>特性：</strong> 傳入的所有位置參數會被打包成一個<strong>元組 (Tuple)</strong>。</li>
-		<li><p><strong>範例：</strong></p>
-			<div class='iframe'><div class='cb'>
-				<div>def print_all(*names): # names 是一個 tuple
-				<div class='cb'>
-					<div>for name in names:</div>
-					<div class='cb'>print(name)</div>
-				</div>
-				<div>print_all("A", "B", "C", "D") <span style='color:red'># 傳入了 4 個參數</span></div>
-				<div style='color:red'># names 的值會是 ("A", "B", "C", "D")</div>
-			</div></div>
-		</li>
-	</ul>
-	<h4>4. 關鍵字參數集合 (**kwargs)</h4>
-	<ul>
-		<li><strong>語法：</strong> 在參數名稱前加上兩個星號 (**)。</li>
-		<li><strong>用途：</strong> 用來接收<strong>任意數量的</strong>、<strong>額外的</strong>、<strong>關鍵字</strong>傳遞的參數。</li>
-		<li><strong>特性：</strong> 傳入的所有關鍵字參數會被打包成一個<strong>字典 (Dictionary)</strong>。</li>
-		<li><p><strong>範例：</strong></p>
-			<div class='frame'><div class='cb'>
-				<div>def print_profile(name, **info): <span style='color:red'># info 是一個 dictionary</span></div>
-				<div class='cb'>
-					<div>print(f"Name: {name}")</div>
-    				<div>for key, value in info.items():</div>
-					<div class='cb'>print(f"{key}: {value}")</div>
-				</div>
-				<br/>
-				<div>print_profile("Alice", age=30, city="Taipei") </div>
-				<div style='color:red'># info 的值會是 {'age': 30, 'city': 'Taipei'}</div>
-			</div></div>
-		</li>
-	</ul>
-	<h3>III. 僅限傳遞方式的參數 (Forced Argument Type)</h3>
-	<p>這些參數使用特殊的斜線 (/) 和星號 (*) 符號，來限制參數<strong>只能</strong>使用位置傳遞或關鍵字傳遞。</p>
-	<h4>5. 僅限位置參數 (Positional-Only Parameters)</h4>
-	<ul>
-		<li><strong>語法：</strong> 在所有僅限位置參數之後加上一個斜線 (/)。</li>
-		<li><strong>限制：</strong> 斜線前的參數<strong>只能</strong>通過它們在順序中的<strong>位置</strong>來傳遞，<strong>不能</strong>使用名稱 (關鍵字) 來傳遞。</li>
-		<li><strong>用途：</strong> 主要用於 API 設計，強制使用者依賴位置，避免因參數名稱變更而破壞程式碼。</li>
-		<li><p><strong>範例：</strong></p>
-			<div class='frame'><div class='cb'>
-				<div>def combined(a, b, /, c, d):</div>
-				<div class='cb'>pass</div>
-				<br/>
-				<div>combined(1, 2, c=3, d=4) <span style='color:red'># 正確：a, b 必須是位置傳遞</span></div>
-				<div style='color:red'># combined(a=1, b=2, c=3, d=4) # 錯誤：a, b 不能使用關鍵字傳遞</div>
-			</div></div>
-		</li>
-	</ul>
-	<h4>6. 僅限關鍵字參數 (Keyword-Only Parameters)</h4>
-	<ul>
-		<li><strong>語法：</strong> 在所有僅限關鍵字參數之前加上一個單星號 (*)。這個星號可以是單獨的，或者跟在 *args 參數之後。</li>
-		<li><strong>限制：</strong> 星號後的參數<strong>只能</strong>通過它們的<strong>名稱</strong> (關鍵字) 來傳遞，<strong>不能</strong>通過位置來傳遞。</li>
-		<li><strong>用途：</strong> 確保程式碼的可讀性，特別是對於那些不常用或含義不明確的參數。</li>
-		<li><p><strong>範例：</strong></p>
-			<div class='frame'><div class='cb'>
-				<div>def configure(debug=False, *, verbose=False):</div>
-				<div class='cb'>print(f"Debug: {debug}, Verbose: {verbose}")</div>
-				<br/>
-				<div>configure(debug=True, verbose=True) <span style='color:red'># 正確：verbose 必須是關鍵字傳遞</span></div>
-				<div style='color:red'># configure(True, True) # 錯誤：verbose 不能用位置傳遞</div>
-			</div></div>
-		</li>
-	</ul>
+				</div></div>
+			</li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='3' colspan='3'>
+			<h3>位置參數集合 (*args)</h3>
+			<ul>
+			<li><strong>語法：</strong> 在參數名稱前加上單個星號 (*)。</li>
+			<li><strong>用途：</strong> 用來接收<strong>任意數量的</strong>、<strong>額外的</strong>、<strong>位置</strong>傳遞的參數。</li>
+			<li><strong>特性：</strong> 傳入的所有位置參數會被打包成一個<strong>元組 (Tuple)</strong>。</li>
+			<li><p><strong>範例：</strong></p>
+				<div class='iframe'><div class='cb'>
+					<div>def print_all(*names): # names 是一個 tuple
+					<div class='cb'>
+						<div>for name in names:</div>
+						<div class='cb'>print(name)</div>
+					</div>
+					<div>print_all("A", "B", "C", "D") <span style='color:red'># 傳入了 4 個參數</span></div>
+					<div style='color:red'># names 的值會是 ("A", "B", "C", "D")</div>
+				</div></div>
+			</li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='4' colspan='3'>
+			<h3>關鍵字參數集合 (**kwargs)</h3>
+			<ul>
+			<li><strong>語法：</strong> 在參數名稱前加上兩個星號 (**)。</li>
+			<li><strong>用途：</strong> 用來接收<strong>任意數量的</strong>、<strong>額外的</strong>、<strong>關鍵字</strong>傳遞的參數。</li>
+			<li><strong>特性：</strong> 傳入的所有關鍵字參數會被打包成一個<strong>字典 (Dictionary)</strong>。</li>
+			<li><p><strong>範例：</strong></p>
+				<div class='frame'><div class='cb'>
+					<div>def print_profile(name, **info): <span style='color:red'># info 是一個 dictionary</span></div>
+					<div class='cb'>
+						<div>print(f"Name: {name}")</div>
+    					<div>for key, value in info.items():</div>
+						<div class='cb'>print(f"{key}: {value}")</div>
+					</div>
+					<br/>
+					<div>print_profile("Alice", age=30, city="Taipei") </div>
+					<div style='color:red'># info 的值會是 {'age': 30, 'city': 'Taipei'}</div>
+				</div></div>
+			</li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='5' colspan='3'>
+			<h3>僅限位置參數 (Positional-Only Parameters)</h3>
+			<ul>
+			<li><strong>語法：</strong> 在所有僅限位置參數之後加上一個斜線 (/)。</li>
+			<li><strong>限制：</strong> 斜線前的參數<strong>只能</strong>通過它們在順序中的<strong>位置</strong>來傳遞，<strong>不能</strong>使用名稱 (關鍵字) 來傳遞。</li>
+			<li><strong>用途：</strong> 主要用於 API 設計，強制使用者依賴位置，避免因參數名稱變更而破壞程式碼。</li>
+			<li><p><strong>範例：</strong></p>
+				<div class='frame'><div class='cb'>
+					<div>def combined(a, b, /, c, d):</div>
+					<div class='cb'>pass</div>
+					<br/>
+					<div>combined(1, 2, c=3, d=4) <span style='color:red'># 正確：a, b 必須是位置傳遞</span></div>
+					<div style='color:red'># combined(a=1, b=2, c=3, d=4) # 錯誤：a, b 不能使用關鍵字傳遞</div>
+				</div></div>
+			</li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='6' colspan='3'>
+			<h3>僅限關鍵字參數 (Keyword-Only Parameters)</h3>
+			<ul>
+			<li><strong>語法：</strong> 在所有僅限關鍵字參數之前加上一個單星號 (*)。這個星號可以是單獨的，或者跟在 *args 參數之後。</li>
+			<li><strong>限制：</strong> 星號後的參數<strong>只能</strong>通過它們的<strong>名稱</strong> (關鍵字) 來傳遞，<strong>不能</strong>通過位置來傳遞。</li>
+			<li><strong>用途：</strong> 確保程式碼的可讀性，特別是對於那些不常用或含義不明確的參數。</li>
+			<li><p><strong>範例：</strong></p>
+				<div class='frame'><div class='cb'>
+					<div>def configure(debug=False, *, verbose=False):</div>
+					<div class='cb'>print(f"Debug: {debug}, Verbose: {verbose}")</div>
+					<br/>
+					<div>configure(debug=True, verbose=True) <span style='color:red'># 正確：verbose 必須是關鍵字傳遞</span></div>
+					<div style='color:red'># configure(True, True) # 錯誤：verbose 不能用位置傳遞</div>
+				</div></div>
+			</li>
+			</ul>
+		</td>
+	</tr></tbody></table>
 
 	<h3>📋 總結：函數參數的完整順序</h3>
 	<p>在 Python 的函數定義中，所有類型的參數<strong>必須</strong>按照以下嚴格的順序出現：</p>
@@ -340,21 +426,59 @@
 
 <section>
 	<h2>⚙️ Python 字串 (String) 函數</h2>
-	<table border='1' cellspacing='8' cellpadding='8' align='center'><thead><tr>
-		<th><strong>函式 (Function)</strong></th>
-		<th><strong>功能 (Description)</strong></th>
-		<th><strong>範例 (Example)</strong></th>
-		<th><strong>範例結果 (Example Result)</strong></th>
+	<table border='1' cellspacing='0' cellpadding='8' align='center' style='font-size:70%'><thead><tr>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
 	</tr></thead><tbody><tr>
-		<td>center(n)</td>
-		<td>將字串擴充為 <strong>n</strong> 個字元且置中</td>
-		<td>"book".center(8)</td>
-		<td>" book "</td>
+		<td>len( 字串 )</td>
+		<td>取得字串長度</td>
+		<td>len("book")</td>
+		<td>4</td>
 	</tr><tr>
 		<td>find(s)</td>
 		<td>搜尋 <strong>s</strong> 字串在字串中的位置</td>
 		<td>"book".find("k")</td>
 		<td>3</td>
+	</tr><tr>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
+	</tr><tr>
+		<td>center(n)</td>
+		<td>將字串擴充為 <strong>n</strong> 個字元且置中</td>
+		<td>"book".center(8)</td>
+		<td>" book "</td>
+	</tr><tr>
+		<td>ljust(n)</td>
+		<td>將字串擴充為 <strong>n</strong> 個字元且靠左</td>
+		<td>"book".ljust(8)</td>
+		<td>"book "</td>
+	</tr><tr>
+		<td>rjust(n)</td>
+		<td>將字串擴充為 <strong>n</strong> 個字元且靠右</td>
+		<td>"book".rjust(8)</td>
+		<td>" book"</td>
+	</tr><tr>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
+	</tr><tr>
+		<td>strip()</td>
+		<td>移除字串左方及右方的空白字元</td>
+		<td>" book ".strip()</td>
+		<td>"book"</td>
+	</tr><tr>
+		<td>lstrip()</td>
+		<td>移除字串左方的空白字元</td>
+		<td>" book ".lstrip()</td>
+		<td>"book "</td>
+	</tr><tr>
+		<td>rstrip()</td>
+		<td>移除字串右方的空白字元</td>
+		<td>" book ".rstrip()</td>
+		<td>" book"</td>
+	</tr><tr>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
+	</tr><tr>
+		<td>startswith(s)</td>
+		<td>字串是否以 <strong>s</strong> 字串開頭</td>
+		<td>"abc".startswith("a")</td>
+		<td>True</td>
 	</tr><tr>
 		<td>endswith(s)</td>
 		<td>字串是否以 <strong>s</strong> 字串結尾</td>
@@ -371,90 +495,44 @@
 		<td>"YES".isupper()</td>
 		<td>True</td>
 	</tr><tr>
-		<td>s.join(list)</td>
-		<td>將串列中元素以 <strong>s</strong> 字串做為連接字元組成一個字串</td>
-		<td>"#".join(["ab", "cd", "ef"])</td>
-		<td>ab#cd#ef</td>
-	</tr><tr>
-		<td>len( 字串 )</td>
-		<td>取得字串長度</td>
-		<td>len("book")</td>
-		<td>4</td>
-	</tr><tr>
-		<td>ljust(n)</td>
-		<td>將字串擴充為 <strong>n</strong> 個字元且靠左</td>
-		<td>"book".ljust(8)</td>
-		<td>"book "</td>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
 	</tr><tr>
 		<td>lower()</td>
 		<td>將字串元都轉為小寫字母</td>
 		<td>"Yes".lower()</td>
 		<td>yes</td>
 	</tr><tr>
-		<td>lstrip()</td>
-		<td>移除字串左方的空白字元</td>
-		<td>" book ".lstrip()</td>
-		<td>"book "</td>
+		<td>upper()</td>
+		<td>將字串元都轉為大寫字母</td>
+		<td>"Yes".upper()</td>
+		<td>YES</td>
 	</tr><tr>
-		<td>replace(s1, s2)</td>
-		<td>將字串中的 <strong>s1</strong> 字串以 <strong>s2</strong> 字串取代</td>
-		<td>"book".replace("o","a")</td>
-		<td>baak</td>
-	</tr><tr>
-		<td>rjust(n)</td>
-		<td>將字串擴充為 <strong>n</strong> 個字元且靠右</td>
-		<td>"book".rjust(8)</td>
-		<td>" book"</td>
-	</tr><tr>
-		<td>rstrip()</td>
-		<td>移除字串右方的空白字元</td>
-		<td>" book ".rstrip()</td>
-		<td>" book"</td>
+		<td>s.join(list)</td>
+		<td>將串列中元素以 <strong>s</strong> 字串做為連接字元組成一個字串</td>
+		<td>"#".join(["ab", "cd", "ef"])</td>
+		<td>ab#cd#ef</td>
 	</tr><tr>
 		<td>split(s)</td>
 		<td>將字串以 <strong>s</strong> 字串為分隔字元分割為串列</td>
 		<td>"ab#cd#ef".split("#")</td>
 		<td>["ab", "cd", "ef"]</td>
 	</tr><tr>
-		<td>startswith(s)</td>
-		<td>字串是否以 <strong>s</strong> 字串開頭</td>
-		<td>"abc".startswith("a")</td>
-		<td>True</td>
-	</tr><tr>
-		<td>strip()</td>
-		<td>移除字串左方及右方的空白字元</td>
-		<td>" book ".strip()</td>
-		<td>"book"</td>
-	</tr><tr>
-		<td>upper()</td>
-		<td>將字串元都轉為大寫字母</td>
-		<td>"Yes".upper()</td>
-		<td>YES</td>
+		<td>replace(s1, s2)</td>
+		<td>將字串中的 <strong>s1</strong> 字串以 <strong>s2</strong> 字串取代</td>
+		<td>"book".replace("o","a")</td>
+		<td>baak</td>
 	</tr></tbody></table>
 </section>
 
 <section>
-	<h2>🔢 Python 內建數學與型別轉換函數</h2>
-	<table border='1' cellspacing='8' cellpadding='8' align='center'><thead><tr>
-		<th><strong>函式</strong></th>
-		<th><strong>功能</strong></th>
-		<th><strong>範例</strong></th>
-		<th><strong>範例結果</strong></th>
+	<h2>🔢 Python 內建型別轉換函數</h2>
+	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
 	</tr></thead><tbody><tr>
-		<td>abs(x)</td>
-		<td>取得 <strong>x</strong> 的絕對值</td>
-		<td>abs(-5)</td>
-		<td>5</td>
-	</tr><tr>
-		<td>chr(x)</td>
-		<td>取得整數 <strong>x</strong> 的字元</td>
-		<td>chr(65)</td>
-		<td>A</td>
-	</tr><tr>
-		<td>divmod(x, y)</td>
-		<td>取得 <strong>x</strong> 除以 <strong>y</strong> 的商及餘數的元組</td>
-		<td>divmod(44, 6)</td>
-		<td>(7, 2)</td>
+		<td>int(x)</td>
+		<td>將 <strong>x</strong> 轉換成整數</td>
+		<td>int(34.21)</td>
+		<td>34</td>
 	</tr><tr>
 		<td>float(x)</td>
 		<td>將 <strong>x</strong> 轉換成浮點數</td>
@@ -466,35 +544,27 @@
 		<td>hex(34)</td>
 		<td>0x22</td>
 	</tr><tr>
-		<td>int(x)</td>
-		<td>將 <strong>x</strong> 轉換成整數</td>
-		<td>int(34.21)</td>
-		<td>34</td>
-	</tr><tr>
-		<td>len(x)</td>
-		<td>取得元素個數</td>
-		<td>len([1,3,5,7])</td>
-		<td>4</td>
-	</tr><tr>
-		<td>max(參數串列)</td>
-		<td>取得參數串列中的最大值</td>
-		<td>max(1,3,5,7)</td>
-		<td>7</td>
-	</tr><tr>
-		<td>min(參數串列)</td>
-		<td>取得參數串列中的最小值</td>
-		<td>min(1,3,5,7)</td>
-		<td>1</td>
-	</tr><tr>
 		<td>oct(x)</td>
 		<td>將 <strong>x</strong> 轉換成八進位數字</td>
 		<td>oct(34)</td>
 		<td>0o42</td>
 	</tr><tr>
-		<td>ord(x)</td>
-		<td>回傳字元 <strong>x</strong> 的 Unicode 編碼值</td>
-		<td>ord(" 我 ")</td>
-		<td>25105</td>
+		<td>str(x)</td>
+		<td>將 <strong>x</strong> 轉換成字串</td>
+		<td>str(56)</td>
+		<td>56 ( 字串 )</td>
+	<tr></tbody></table>
+</section>
+
+<section>
+	<h2>🔢 Python 內建數學函數</h2>
+	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
+	</tr></thead><tbody><tr>
+		<td>abs(x)</td>
+		<td>取得 <strong>x</strong> 的絕對值</td>
+		<td>abs(-5)</td>
+		<td>5</td>
 	</tr><tr>
 		<td>pow(x, y)</td>
 		<td>取得 <strong>x</strong> 的 <strong>y</strong> 次方</td>
@@ -506,15 +576,47 @@
 		<td>round(45.8)</td>
 		<td>46</td>
 	</tr><tr>
+		<td>divmod(x, y)</td>
+		<td>取得 <strong>x</strong> 除以 <strong>y</strong> 的商及餘數的元組</td>
+		<td>divmod(44, 6)</td>
+		<td>(7, 2)</td>
+	</tr><tr>
+		<td>max(參數串列)</td>
+		<td>取得參數串列中的最大值</td>
+		<td>max(1,3,5,7)</td>
+		<td>7</td>
+	</tr><tr>
+		<td>min(參數串列)</td>
+		<td>取得參數串列中的最小值</td>
+		<td>min(1,3,5,7)</td>
+		<td>1</td>
+	</tr><tbody></table>
+</section>
+
+<section>
+	<h2>🔢 Python 內建串列函數</h2>
+	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
+		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
+	</tr><tr>
+		<td>len(x)</td>
+		<td>取得元素個數</td>
+		<td>len([1,3,5,7])</td>
+		<td>4</td>
+	</tr><tr>
+		<td>chr(x)</td>
+		<td>取得整數 <strong>x</strong> 的字元</td>
+		<td>chr(65)</td>
+		<td>A</td>
+	</tr><tr>
+		<td>ord(x)</td>
+		<td>回傳字元 <strong>x</strong> 的 Unicode 編碼值</td>
+		<td>ord(" 我 ")</td>
+		<td>25105</td>
+	</tr><tr>
 		<td>sorted(串列)</td>
 		<td>由小到大排序</td>
 		<td>sorted([3,1,7,5])</td>
 		<td>[1,3,5,7]</td>
-	</tr><tr>
-		<td>str(x)</td>
-		<td>將 <strong>x</strong> 轉換成字串</td>
-		<td>str(56)</td>
-		<td>56 ( 字串 )</td>
 	</tr><tr>
 		<td>sum(串列)</td>
 		<td>計算串列元素的總和</td>

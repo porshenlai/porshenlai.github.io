@@ -25,7 +25,34 @@ const Plugins={
 			{'async':true}
 		);
 		return {};
-	}	// }}}
+	}, 	// }}}
+	"tab":async function(){
+		const es=Array.from(document.body.querySelectorAll('#content .tab'));
+		if (es.length<=0)
+			return console.log(`
+Usaeg:
+	<div class='tab'>
+		<div><button TID="1">ONE</button><button TID="2">TWO</button></div>
+		<div TAB="1">ONE ONE ONE</div>
+		<div TAB="2">TWO TWO TWO</div>
+	</div>
+`);	
+		es.forEach(function (C) {
+			C.addEventListener('click',function (evt) {
+				const tis=Array.from(C.querySelectorAll('[TID]')),
+				      ti=tis.find((e)=>e.contains(evt.target));
+				if(!ti) return;
+				const tid=ti.getAttribute('TID');
+				tis.forEach((e)=>e.classList[ti===e?'add':'remove']('active'));
+				Array.from(C.querySelectorAll('[TAB]')).forEach((tab) => {
+					tab.classList[tid===tab.getAttribute('TAB')?'remove':'add']('hide');
+					evt.stopPropagation();
+					evt.preventDefault();
+				});
+			});
+			C.querySelector('[TID]').click();
+		});
+	}
 };	// Built-in Plugins
 
 class Aside
@@ -208,6 +235,7 @@ section.current-section {border-color:#26A69A;background-color:#f6fffd;box-shado
 			const BASIC=`
 .title {font-size:clamp(1.75rem, 4vw, 2.5rem);font-weight:800;margin:0 0 0.375rem 0;color:#1E88E5;}
 .subtitle {font-size:clamp(1rem, 2.4vw, 1.25rem);color:#666;margin:0;}
+.hide {display:none;}
 .frame {margin:16px 4px;padding:8px;border:2px dashed silver;border-radius:8px;background:#F0FFF0;}
 h2 {margin:0 0 0.625rem 0;font-size:1.375rem;color:#1E88E5;}
 h3 {margin:0.625rem 0;font-size:1.125rem;color:#0d5ea8;}

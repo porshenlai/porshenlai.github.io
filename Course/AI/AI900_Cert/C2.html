@@ -4,14 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>機器學習</title>
-<script plugins="quiz" src="/App/slide.js"></script>
+<script plugins="quiz,tabTable" src="/App/slide.js"></script>
 </head>
 <body>
 
 <div id="content">
 
 <style>
-	.hide { display:none; }
 	.example { color:darkgreen;background:#fee;padding:1px 16px; }
 	.figure { text-align:center;margin:16px; }
 	.figure>img { width:80%; }
@@ -1055,28 +1054,6 @@
 		<div class="answer">加班時數是一個連續數值，因此使用迴歸模型。</div>
 	</div>
 </section>
-
-<script>
-	Array.from(document.body.querySelectorAll('#content table.tabTable'))
-	.forEach(function (table) {
-		let th=table.querySelector('thead'),
-			tb=table.querySelector('tbody');
-		th.addEventListener('click',function (evt) {
-			for(let s=evt.target;s!==th;s=s.parentNode) {
-				let tid=s.getAttribute('TID');
-				if (tid){
-					Array.from(tb.querySelectorAll('[TAB]'))
-					.forEach((e)=>e.classList.add('hide'));
-					let a=tb.querySelector(`[TAB="${tid}"]`);
-					if (a) a.classList.remove('hide');
-				}
-			}
-			evt.stopPropagation();
-			evt.preventDefault();
-		});
-		th.querySelector('[TID="1"]').click();
-	});
-</script>
 
 </div>
 
