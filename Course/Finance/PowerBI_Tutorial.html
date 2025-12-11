@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_blank">
+<title>💻 Power BI 數據分析入門</title>
+<script plugins="quiz" src="/App/slide.js"></script>
+
+</head><body>
+<div id="content">
+
+<style>
+.speaker-note { display:none; }
+strong { color:darkgreen; }
+li { margin:24px 0; }
+</style>
+
+<section class="cm current-section">
+	<h1 class="title">💻 Power BI 數據視覺化與分析入門</h1>
+	<h2>從 Excel 邁向現代商業智慧 (Business Intelligence, BI)</h2>
+	<br>
+	<div>👨‍🏫<em><a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+	<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a></div>
+	<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+	<div>2025, Winter</div>
+</section>
+
+<section>
+	<h2>MS Excel vs. Power BI：數據分析定位差異</h2>
+	<ul>
+		<li><strong>MS Excel：</strong><ul>
+			<li>個人、單一檔案、靜態報表、試算表工具。</li>
+			<li><strong>異：</strong> 專注於<strong>單一檔案</strong>內的精確計算、複雜公式與小型數據集。操作直觀，適合個人分析與靜態報表。</li>
+		</ul></li>
+		<li><strong>Power BI：</strong><ul>
+			<li>團隊、多數據源整合、動態互動式報表、BI 平台。</li>
+			<li><strong>同：</strong> 皆有強大的<strong>數據清理</strong>與<strong>分析</strong>能力 (例如：Power Query)。</li>
+			<li><strong>異：</strong> 專為處理<strong>大數據量</strong>、整合<strong/>多種數據源</strong>、建立<strong>數據模型</strong>、<strong>動態互動式報表</strong>與<strong>共享協作</strong>而設計。</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">強調兩者關係是互補而非取代，定位在不同規模的數據任務。 </div>
+</section>
+
+<section>
+	<h2>工作單元對比：最小結構化單元</h2>
+	<ul>
+		<li><strong>Excel：</strong> <strong>儲存格 (Cell)</strong>。<ul>
+			<li>靈活性高，可輸入各種資料型態</li>
+			<li>難以追蹤數據來源，常產生資料混亂</li>
+		</ul></li>
+		<li><strong>Power BI：</strong> <strong>結構化資料 (Structured Data)</strong>。<ul>
+			<li>數據必須有定義良好的<strong>欄位 (Column)</strong> 與<strong>行 (Row)</strong></li>
+			<li>遵循資料庫設計原則，有利於大規模分析</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">Power BI 的數據處理是基於資料庫的思維。</div>
+</section>
+
+<section>
+	<h2>數據組織對比：單位的集合</h2>
+	<ul>
+		<li><strong>Excel：</strong> <strong>工作表 (Sheet)</strong>。<ul>
+			<li>一組 Cell 的集合</li>
+			<li>報表設計時，一個工作表往往就是一份最終報表</li>
+		</ul></li>
+		<li><strong>Power BI：</strong> <strong>資料表 (Table)</strong>。<ul>
+			<li>從不同數據源匯入的實體，是數據模型的<strong>基本單位</strong></li>
+			<li>一個 Table 包含一類實體 (例如：客戶、產品、交易)</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">從「工作表」到「資料表」，思維從 2D 試算轉向 3D 數據模型。 </div>
+</section>
+
+<section>
+	<h2>數據清理與轉換引擎：Power Query</h2>
+	<ul>
+		<li><strong>Power Query (M 語言)</strong><ul>
+			<li>Excel 和 Power BI <strong>共享</strong>的 ETL (抽取/轉換/載入) 工具</li>
+			<li><strong>定位：</strong> 數據載入前的<strong>預處理</strong>階段</li>
+			<li><strong>用途：</strong> 數據清洗、合併、追加、轉換格式、逆透視等繁瑣任務，所有步驟都會記錄，可自動化重跑。</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">Power Query 是兩者的交集點，是學習 BI 的第一步。 </div>
+</section>
+
+<section>
+	<h2>M 語言 vs. Excel 公式 (Formula)</h2>
+	<ul>
+		<li><strong>Excel 公式：</strong><ul>
+			<li>如 SUM, VLOOKUP</li>
+			<li>多數在 Cell 層級計算</li>
+			<li><strong>(時機)</strong> 數據已經在 Sheet 中</li>
+		</ul></li>
+		<li><strong>M 語言 (Mashup Language)：</strong><ul>
+			<li>專門用於 <strong>Power Query</strong> 處理步驟</li>
+			<li>用於<strong>數據載入前</strong>的轉換邏輯</li>
+			<li><strong>(時機)</strong> 數據從來源讀取時</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">M 語言是「數據準備」的邏輯，與 Excel 公式是「最終計算」的邏輯不同。</div>
+</section>
+
+<section>
+	<h2>數據分析與建模語言：DAX</h2>
+	<ul>
+		<li><strong>DAX (Data Analysis Expressions)：</strong><ul>
+			<li>Power BI 的專屬分析語言</li>
+			<li><strong>(定位)</strong> 數據<strong>模型化</strong>與<strong>進階計算</strong>階段</li>
+			<li><strong>(用途)</strong> 建立<strong>量值 (Measures)</strong>、<strong>計算欄 (Calculated Columns)</strong>，處理時間智慧、彙總、篩選等<strong>複雜分析</strong></li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">DAX 是 Power BI 的精髓，讓數據從報表變成商業洞察，是財金分析的強力工具。 </div>
+</section>
+
+<section>
+	<h2>程序自動化對比：VBA vs. Power Automate</h2>
+	<ul>
+		<li><strong>VBA (Visual Basic for Applications)：</strong><ul>
+			<li>Excel 內的<strong>宏</strong>程式語言</li>
+			<li><strong>(用途)</strong> 自動化 Cell 和物件操作，在<strong>桌面軟體</strong>環境內執行</li>
+		</ul></li>
+		<li><strong>Power Automate (Power BI Service)：</strong><ul>
+			<li>微軟雲端自動化工具</li>
+			<li><strong>(用途)</strong> 可排程或事件觸發 Power BI <strong>數據刷新</strong>、報表通知等<strong>雲端服務</strong>流程</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">BI 平台的自動化通常是基於雲端服務的流程，而非桌面程式內的宏，更適合企業級流程。</div>
+</section>
+
+<section>
+	<h2>Power BI 工作流程：三個核心階段</h2>
+	<ol>
+		<li><strong>數據獲取/轉換 (Power Query/M 語言)</strong><ul>
+			<li>連接數據源、清洗、轉換。</li>
+		</ul></li>
+		<li><strong>數據建模/分析 (DAX 語言)</strong><ul>
+			<li>建立關聯、定義量值。</li>
+		</ul></li>
+		<li><strong>數據視覺化/共享 (Power BI Desktop & Service)</strong><ul>
+			<li>設計報表、發布到雲端。</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note"><a href="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcSmvZKxgIqliRaqiPk9LkZMMNuW-QV_ZDu0as-uQOHD_ftgA6-X-HBmxTwLyxGHjulV46Exg7YkNHDOCapq9F447h4f-D3v9F5bkTGpXr2PaUWEXTY">Power BI 的分析步驟是一個有邏輯、可重現的過程。</a></div>
+</section>
+
+<section>
+	<h2>Power BI Desktop：分析師的主要工具</h2>
+	<ul>
+		<li><strong>定位</strong><ul>
+			<li>免費的<strong>桌面應用程式</strong></li>
+			<li>用於開發、設計報表與數據模型</li>
+		</ul></li>
+		<li><strong>用途</strong><ul>
+			<li>數據連線、清洗、DAX 編寫、視覺化設計</li>
+			<li>儲存 `.pbix` 檔案</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">第一個要下載安裝的軟體，「免費」的。</div>
+</section>
+
+<section>
+	<h2>Power BI Service：雲端共享與協作平台</h2>
+	<ul>
+		<li><strong>定位</strong><ul>
+			<li>基於網頁的<strong>雲端服務</strong> (需登入學校/公司帳號)</li>
+		</ul></li>
+		<li><strong>用途</strong><ul>
+			<li>發布、共享、管理報表與儀表板</li>
+			<li>排程數據刷新</li>
+			<li>團隊協作</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">區分 Desktop (設計端) 與 Service (發布端)。發布後才能讓他人透過網頁或手機 APP 檢視。</div>
+</section>
+
+<section>
+	<h2>軟體下載：Power BI Desktop 安裝指引</h2>
+	<ul>
+		<li><strong>方式一：透過 Microsoft Store (推薦)</strong>：<ul>
+			<li>優點：自動更新，操作簡便。</li>
+			<li>步驟：開啟 Microsoft Store，搜尋 "Power BI Desktop"，點擊「取得」或「安裝」。</li>
+		</ul></li>
+		<li><strong>方式二：透過 Microsoft 官方網站</strong>：<ul>
+			<li>優點：可選擇 32 位元或 64 位元版本。</li>
+			<li>注意：需手動檢查更新。</li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>Power BI 帳號申請與登入</h2>
+	<ul>
+		<li><strong>必要條件</strong><ul>
+			<li>Power BI Service 服務需要使用 <strong>學校/公司信箱</strong> (工作或學校帳號) 進行註冊</li>
+			<li><strong>(注意)</strong> 個人 Gmail 或 Hotmail 通常無法直接註冊 <strong>Power BI Service</strong></li>
+		</ul></li>
+		<li><strong>Desktop 登入</strong><ul>
+			<li>軟體可離線使用，但發布報表到 Service 時需要登入此帳號</li>
+		</ul></li>
+	</ul>
+	<div class="speaker-note">必須使用學校提供的 Email 註冊，才能登入 Service 並享有特定服務。</div>
+</section>
+
+<section>
+	<h2>導覽頁面：Desktop 三大檢視區</h2>
+	<ol>
+		<li><strong>報表檢視 (Report View)</strong><ul>
+			<li>拖曳視覺效果，設計最終報表</li>
+		</ul></li>
+		<li><strong>數據檢視 (Data View)</strong><ul>
+			<li>查看和篩選原始表格數據 (如 Excel 檢視)</li>
+		</ul></li>
+		<li><strong>模型檢視 (Model View)</strong><ul>
+			<li>管理資料表之間的關聯，建立數據模型</li>
+		</ul></li>
+	</ol>
+	<div class="speaker-note">Power BI 的設計是分層次的，三個檢視區各有專職。</div>
+</section>
+
+<section>
+	<h2>載入內建範例檔案：立即體驗</h2>
+	<ul>
+		<li><strong>方法一</strong><ul>
+			<li>開啟 Power BI Desktop &gt; 點擊 <strong>"Try a sample dataset"</strong> (試用範例資料集)。</li>
+		</ul></li>
+		<li><strong>方法二</strong><ul>
+			<li>點擊「檔案」&gt;「範例報表」&gt;「開啟範例」。</li>
+		</ul></li>
+		<li><strong>任務</strong><ul>
+			<li>透過範例檔案 (`Sales and Marketing Sample.pbix`)，立即感受動態、互動式報表的魅力。</li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>總結與課後練習</h2>
+	<ul>
+		<li><strong>今日重點回顧：</strong><ul>
+			<li>Excel vs. Power BI 的核心差異</li>
+			<li>結構化資料的思維</li>
+			<li>M 語言與 DAX 的定位。</li>
+		</ul></li>
+		<li><strong>課後練習：</strong><ol>
+			<li>完成 Power BI Desktop 安裝。</li>
+			<li>成功開啟內建的 <strong>Sales and Marketing Sample</strong>，並與視覺效果進行互動。</li>
+		</ol></li>
+	</ul>
+</section>
+
+<section>
+	<h2>測驗：數據分析建模的專用語言是什麼？</h2>
+	<div qt="s" ___="2" qi="1">
+		<div qo="1">1. M 語言 (用於轉換)</div>
+		<div qo="2">2. DAX 語言 (用於建模)</div>
+		<div qo="3">3. VBA 語言 (用於自動化)</div>
+		<div qo="4">4. C++ 語言 (用於編譯)</div>
+	</div>
+</section>
+
+<section>
+	<h2>測驗：Excel 與 Power BI 共用的 ETL 工具為何？</h2>
+	<div qt="s" ___="1" qi="2">
+		<div qo="1">1. Power Query</div>
+		<div qo="2">2. DAX Engine</div>
+		<div qo="3">3. Power Automate</div>
+		<div qo="4">4. Cell Formula</div>
+	</div>
+</section>
+
+<section>
+	<h2>測驗：Power BI Desktop 的哪種檢視用於管理表格間的關聯？</h2>
+	<div qt="s" ___="3" qi="3">
+		<div qo="1">1. 報表檢視</div>
+		<div qo="2">2. 數據檢視</div>
+		<div qo="3">3. 模型檢視</div>
+		<div qo="4">4. 視覺化檢視</div>
+	</div>
+</section>
+
+<section>
+	<h2>測驗：註冊 Power BI Service 應使用何種電子郵件？</h2>
+	<div qt="s" ___="4" qi="4">
+		<div qo="1">1. Gmail</div>
+		<div qo="2">2. Hotmail</div>
+		<div qo="3">3. Yahoo Mail</div>
+		<div qo="4">4. 學校或公司信箱</div>
+	</div>
+</section>
+
+</div></body></html>
