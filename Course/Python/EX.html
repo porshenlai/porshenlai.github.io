@@ -9,6 +9,7 @@
 .cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
 .fxl { display:flex;align-items:center; }
+select { font-size:100%; }
 </style>
 </head>
 <body>
@@ -202,10 +203,10 @@
 <section>
 	<!--{{{-->
 	<div>計算下列 Python 數學運算式</div>
-	<div class='iframe'>
+	<div class='frame'>
 		<div>5 * (1+2) ** 2 - 3 + 4 / 2</div>
 	</div>
-	<div qi='2-1' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		<div qo='1'>5</div><div qo='2'>8</div><div qo='3'>44</div><div qo='4'>22</div>
 	</div>
 	<!--}}}-->
@@ -214,12 +215,12 @@
 <section>
 	<!--{{{-->
 	<div>您執行下列程式碼。請問結果為何?</div>
-	<div class='iframe'>
+	<div class='frame'>
 		<div>value1 = 9</div>
 		<div>value2 = 4</div>
 		<div>answer = (value1 % value2 * 10) // 2.0 ** 3.0 + value2</div>
 	</div>
-	<div qi='2-2' qt='s' ___='4'>
+	<div qt='s' ___='4'>
 		<div qo='1'>輸出 129</div>
 		<div qo='2'>發生語法錯誤</div>
 		<div qo='3'>輸出 5.667</div>
@@ -231,14 +232,14 @@
 <section>
 	<!--{{{-->
 	<div>您執行下列程式碼，請問輸出值為何 ?</div>
-	<div class='iframe'>
+	<div class='frame'>
 		<div>list_1 = [1,2]</div>
 		<div>list_2 = [3,4]</div>
 		<div>list_3 = list_1 + list_2</div>
 		<div>list_4 = list_3 * 3</div>
 		<div>print(list_4)</div>
 	</div>
-	<div qi='2-3' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		<div qo='1'>[1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]</div>
 		<div qo='2'>[[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]</div>
 		<div qo='3'>[3, 6, 9, 12]</div>
@@ -250,14 +251,14 @@
 <section>
 	<!--{{{-->
 	<div>請問下列程式，print陳述式的輸出為何?</div>
-	<div class='iframe'>
+	<div class='frame'>
 		<div>x = 'oranges'</div>
 		<div>y = 'apples'</div>
 		<div>z = 'bananas'</div>
 		<div>data = '{1} and {0} and {2}'</div>
 		<div>print( data.format(z,y,x) )</div>
 	</div>
-	<div qi='2-4' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		<div qo='1'>bananas and oranges and apples</div>
 		<div qo='2'>apples and bananas and oranges</div>
 		<div qo='3'>apples and oranges and bananas</div>
@@ -269,13 +270,13 @@
 <section>
 	<!--{{{-->
 	<div>你設計了一個數學運算的 Python 程式，程式碼如下：</div>
-	<div class='iframe'>
+	<div class='frame'>
 		<div>a = 21</div>
 		<div>b = 5</div>
 		<div>print( a / b, a // b, a % b )</div>
 	</div>
 	<div>請問 print 將輸出什麼 ?</div>
-	<div qi='2-5' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		<div qo='1'>4.2 4 1</div>
 		<div qo='2'>4 4 4</div>
 		<div qo='3'>1 4 4.2</div>
@@ -286,7 +287,7 @@
 <section>
 	<!--{{{-->
 	<div>您正在建立一個比較數字的Python程式</div>
-	<div class='iframe'><div class='cb' style='position:relative'>
+	<div class='frame'><div class='cb' style='position:relative'>
 		<div>num1 = eval(input ('Please enter the first number: '))</div>
 		<div>num2 = eval(input ('Please enter the second number: '))</div>
 		<div>if num1 == num2:</div>
@@ -300,7 +301,7 @@
 		<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06<br/>07<br/>08<br/>09<br/>10</div>
 	</div></div>
 	<div>請問下列敘述何者為<strong><span style='color:#ff0000;'>非</span></strong> ?</div>
-	<div qi='2-6' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		<div qo='1'>第04行的print陳述式只有在這兩個數字的值相等時才會列印。</div>
 		<div qo='2'>第06行的print陳述式只有在num1小於num2時才會列印。</div>
 		<div qo='3'>第08行的print陳述式只有在num1大於num2時才會列印。</div>
@@ -312,25 +313,35 @@
 <section>
 	<!--{{{-->
 	<div>請問變數宣告後它們的資料類別依序是？</div>
-	<div qi='2-7-1' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		age = 12
-		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
-	<div qi='2-7-2' qt='s' ___='4'>
+	<div qt='s' ___='4'>
 		minor = False
-		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
-	<div qi='2-7-3' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		name = 'David'
-		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
-	<div qi='2-7-4' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		weight = 64.5
-		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
-	<div qi='2-7-4' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		zip = '545'
-		<div qo='1'>int</div><div qo='2'>float</div><div qo='3'>str</div><div qo='4'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
 	<!--}}}-->
 </section>
@@ -340,26 +351,32 @@
 	根據下列程式，請回答註解中的問題。
 	<div class='frame'>
 		<div>age = input("Enter your age: ")<div>
-		<div class='fxl'>
+		<div qt='s' ___='2'>
 			# age 的資料型態為
-			<div qi='2-8-1' qt='s' ___='2'>
-				<div qo='1'>int</div><div qo='2'>str</div><div qo='3'>boolean</div>
-			</div>
+			<select qo='value'><option>請選擇</option>
+				<option value='1'>int</option>
+				<option value='2'>str</option>
+				<option value='3'>boolean</option>
+			</select>
 		</div>
 		<div>year = input("Enter the four-digit year: ")</div>
 		<div>born = eval(year) - eval(age)</div>
-		<div class='fxl'>
+		<div qt='s' ___='1'>
 			# born 的資料型態為
-			<div qi='2-8-2' qt='s' ___='1'>
-				<div qo='1'>int</div><div qo='2'>str</div><div qo='3'>boolean</div>
-			</div>
+			<select qo='value'><option>請選擇</option>
+				<option value='1'>int</option>
+				<option value='2'>str</option>
+				<option value='3'>boolean</option>
+			</select>
 		</div>
 		<div>message = "You were born in " + str(born)</div>
-		<div class='fxl'>
+		<div qt='s' ___='2'>
 			# message 的資料型態為
-			<div qi='2-8-3' qt='s' ___='2'>
-				<div qo='1'>int</div><div qo='2'>str</div><div qo='3'>boolean</div>
-			</div>
+			<select qo='value'><option>請選擇</option>
+				<option value='1'>int</option>
+				<option value='2'>str</option>
+				<option value='3'>boolean</option>
+			</select>
 		</div>
 		<div>print(message)</div>
 	</div>
@@ -369,74 +386,79 @@
 <section>
 	<!--{{{-->
 	<div>您需要列印資料,以便呈現出類似下面的範例:</div>
-	<table><tbody>
-		<tr><td>Oranges</td><td>5.6</td><td>1.33</td></tr>
-		<tr><td>Apples</td><td>2.0</td><td>0.54</td></tr>
-		<tr><td>Grapes</td><td>10.2</td><td>10.96</td></tr>
-	</tbody></table>
-	<div>具體而言,列印成品必須符合下列需求:</div>
-	<ul>
+	<pre>Oranges  5.6  1.33
+Apples   2.0  0.54
+Grapes  10.2 10.96</pre>
+	<div>具體而言,列印成品必須符合下列需求:<ul>
 		<li>水果名稱必須在10個空格寬的資料行中靠左對齊列印。</li>
 		<li>重量必須在5個空格寬的資料行中靠右對齊列印,而且小數點後面最多一位數。</li>
 		<li>價格必須在7個空格寬的資料行中靠右對齊列印,而且小數點後面最多兩位數。</li>
-	</ul>
+	</ul></div>
 	<div> 請完成下列程式</div>
-	<div class='frame'>
+	<div class='frame'><div class='cb'>
 		<div>def print_table(file) :</div>
 		<div class='cb'>
 			<div>data = open(file, "r")</div>
 			<div>for record in data :</div>
 			<div class='cb'>
 				<div>fields = record.split(",")</div>
-				<div class='fxl'>
-					<div qi='2-9-1' qt='s' ___='1'>
-						<div qo="1">print("</div><div qo="2">{10:0}</div><div qo="3">{5:1f}</div>
-						<div qo="4">{7:2f}</div><div qo="5">{2:7.2f}</div><div qo="6">{1:5.1f}</div>
-						<div qo="7">{0:10}</div>
-					</div>
-					<div qi='2-9-2' qt='s' ___='7'>
-						<div qo="1">print("</div><div qo="2">{10:0}</div><div qo="3">{5:1f}</div>
-						<div qo="4">{7:2f}</div><div qo="5">{2:7.2f}</div><div qo="6">{1:5.1f}</div>
-						<div qo="7">{0:10}</div>
-					</div>
-					<div qi='2-9-3' qt='s' ___='6'>
-						<div qo="1">print("</div><div qo="2">{10:0}</div><div qo="3">{5:1f}</div>
-						<div qo="4">{7:2f}</div><div qo="5">{2:7.2f}</div><div qo="6">{1:5.1f}</div>
-						<div qo="7">{0:10}</div>
-					</div>
-					<div qi='2-9-4' qt='s' ___='5'>
-						<div qo="1">print("</div><div qo="2">{10:0}</div><div qo="3">{5:1f}</div>
-						<div qo="4">{7:2f}</div><div qo="5">{2:7.2f}</div><div qo="6">{1:5.1f}</div>
-						<div qo="7">{0:10}</div>
-					</div>
+				<div>
+					<span qt='s' ___='1'><select qo='value'><option>請選擇</option>
+						<option value="1">print("</option><option value="2">{10:0}</option><option value="3">{5:1f}</option>
+						<option value="4">{7:2f}</option><option value="5">{2:7.2f}</option><option value="6">{1:5.1f}</option>
+						<option value="7">{0:10}</option>
+					</select></span>
+					<span qt='s' ___='7'><select qo='value'><option>請選擇</option>
+						<option value="1">print("</option><option value="2">{10:0}</option><option value="3">{5:1f}</option>
+						<option value="4">{7:2f}</option><option value="5">{2:7.2f}</option><option value="6">{1:5.1f}</option>
+						<option value="7">{0:10}</option>
+					</select></span>
+					<span qt='s' ___='6'><select qo='value'><option>請選擇</option>
+						<option value="1">print("</option><option value="2">{10:0}</option><option value="3">{5:1f}</option>
+						<option value="4">{7:2f}</option><option value="5">{2:7.2f}</option><option value="6">{1:5.1f}</option>
+						<option value="7">{0:10}</option>
+					</select></span>
+					<span qt='s' ___='5'><select qo='value'><option>請選擇</option>
+						<option value="1">print("</option><option value="2">{10:0}</option><option value="3">{5:1f}</option>
+						<option value="4">{7:2f}</option><option value="5">{2:7.2f}</option><option value="6">{1:5.1f}</option>
+						<option value="7">{0:10}</option>
+					</select></span>
 					".format(fields[0], eval(fields[1]), eval(fields[2])))
 				</div>
 			</div>
 		</div>
-	</div>
+	</div></div>
 	<!--}}}-->
-</select>
+</section>
 
 <section>
 	<!--{{{-->
 	<div>您必須識別各種類型作業的資料類型。</div>
 	<div>請將左側清單中適當的資料類型移至右側的正確類型作業。</div>
 	<div>每種資料類型可能只使用一次,也可能使用多次,甚至完全用不到。</div>
-	<div qi='2-10-1' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		type(5.0)
-		<div qo='1'>int</div><div qo='1'>float</div><div qo='1'>str</div><div qo='1'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
-	<div qi='2-10-2' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		type('True')
-		<div qo='1'>int</div><div qo='1'>float</div><div qo='1'>str</div><div qo='1'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
-	<div qi='2-10-3' qt='s' ___='4'>
+	<div qt='s' ___='4'>
 		type(False)
-		<div qo='1'>int</div><div qo='1'>float</div><div qo='1'>str</div><div qo='1'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
-	<div qi='2-10-4' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		type(+1E10)
-		<div qo='1'>int</div><div qo='1'>float</div><div qo='1'>str</div><div qo='1'>boolean</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>int</th><th width='25%' qo='2'>float</th><th width='25%' qo='3'>str</th><th qo='4'>boolean</th>
+		</tr></table>
 	</div>
 	<!--}}}-->
 </section>
@@ -446,7 +468,7 @@
 	<div>某間銀行必須產生一份報表來顯示所有客戶每天的平均。</div>
 	<div>這份報表必須截斷餘額的小數部分。</div>
 	<div>請問哪兩段程式可以使用 ?</div>
-	<div qi='2-11' qt='m' ___='3'>
+	<div qt='m' ___='3'>
 		<div qo='1'>average_blance = int(total_deposits/number_of_customers)</div>
 		<div qo='2'>average_blance = total_deposits//number_of_customers</div>
 		<div qo='3'>average_blance = total_deposits**number_of_customers</div>
@@ -462,40 +484,40 @@
 	<div>請依運算元優先順序由高到低依序選取 ?</div>
 	<table><tbody>
 		<tr><th>最高優先權</th><td>
-			<div qi='2-12-1' qt='s' ___='3'>
-				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
-				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
-			</div>
+			<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+				<option value='1'>加法和減法</option><option value='2'>乘法和除法</option><option value='3'>括弧</option>
+				<option value='4'>及</option><option value='5'>指數</option><option value='6'>一元正、負、非</option>
+			</select></div>
 		</td></tr>
 		<tr><th>第二高</th><td>
-			<div qi='2-12-2' qt='s' ___='5'>
-				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
-				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
-			</div>
+			<div qt='s' ___='5'><select qo='value'><option>請選擇</option>
+				<option value='1'>加法和減法</option><option value='2'>乘法和除法</option><option value='3'>括弧</option>
+				<option value='4'>及</option><option value='5'>指數</option><option value='6'>一元正、負、非</option>
+			</select></div>
 		</td></tr>
 		<tr><th>第三高</th><td>
-			<div qi='2-12-3' qt='s' ___='6'>
-				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
-				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
-			</div>
+			<div qt='s' ___='6'><select qo='value'><option>請選擇</option>
+				<option value='1'>加法和減法</option><option value='2'>乘法和除法</option><option value='3'>括弧</option>
+				<option value='4'>及</option><option value='5'>指數</option><option value='6'>一元正、負、非</option>
+			</select></div>
 		</td></tr>
 		<tr><th>第四高</th><td>
-			<div qi='2-12-4' qt='s' ___='2'>
-				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
-				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
-			</div>
+			<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+				<option value='1'>加法和減法</option><option value='2'>乘法和除法</option><option value='3'>括弧</option>
+				<option value='4'>及</option><option value='5'>指數</option><option value='6'>一元正、負、非</option>
+			</select></div>
 		</td></tr>
 		<tr><th>第五高</th><td>
-			<div qi='2-12-5' qt='s' ___='1'>
-				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
-				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
-			</div>
+			<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value='1'>加法和減法</option><option value='2'>乘法和除法</option><option value='3'>括弧</option>
+				<option value='4'>及</option><option value='5'>指數</option><option value='6'>一元正、負、非</option>
+			</select></div>
 		</td></tr>
 		<tr><th>最低優先權</th><td>
-			<div qi='2-12-6' qt='s' ___='4'>
-				<div qo='1'>加法和減法</div><div qo='2'>乘法和除法</div><div qo='3'>括弧</div>
-				<div qo='4'>及</div><div qo='5'>指數</div> <div qo='6'>一元正、負、非</div>
-			</div>
+			<div qt='s' ___='4'><select qo='value'><option>請選擇</option>
+				<option value='1'>加法和減法</option><option value='2'>乘法和除法</option><option value='3'>括弧</option>
+				<option value='4'>及</option><option value='5'>指數</option><option value='6'>一元正、負、非</option>
+			</select></div>
 		</td></tr>
 	</tbody></table>
 	<!--}}}-->
