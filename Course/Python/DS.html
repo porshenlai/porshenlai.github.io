@@ -66,45 +66,134 @@ select { font-size:100%; }
 </section>
 
 <section>
-"3","2,4","你為公司設計了一個 Python 應用程式，在 members 的清單中包含了 50 位會員的姓名，最後 5 名是 VIP 會員。<br />
- <br />
-你需要分割清單內容顯示除了 VIP 會員以外的一般會員，你可以利用以下哪二個程式碼達成？","members [-5 : 0] || members [0 : -5] || members [1 : -5] || members [ : -5] || members [1 : 5]","","2024-0-5-0-0","3"
+	<!--{{{-->
+	<div>你為公司設計了一個 Python 應用程式，在 members 的清單中包含了 50 位會員的姓名，最後 5 名是 VIP 會員。</div>
+	<div>你需要分割清單內容顯示除了 VIP 會員以外的一般會員，你可以利用以下哪二個程式碼達成？</div>
+	<div qt='m' ___='10'>
+		<div qo='1'>members [-5 : 0]</div>
+		<div qo='2'>members [0 : -5]</div>
+		<div qo='4'>members [1 : -5]</div>
+		<div qo='8'>members [ : -5]</div>
+		<div qo='16'>members [1 : 5]</div>
+	</div>
+	<!--}}}-->
 </section>
 
 <section>
-"2","3","在下列的程式碼中：
-<pre style='color:blue'>
-slist = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;]
-print(&#39;f&#39; in slist)
-</pre>
- 執行後會輸出列印的內容為？","5 || 6 || True || False","","2024-0-5-0-0","3"
+	<!--{{{-->
+	<div>在下列的程式碼中：</div>
+	<div class='frame'><div class='cb'>
+		<div>slist = ["a", "b", "c", "d", "e", "f"]</div>
+		<div>print("f" in slist)</div>
+	</div></div>
+	<div>執行後會輸出列印的內容為？</div>
+	<div qt='s' ___='3'>
+		<div qo='1'>5</div>
+		<div qo='2'>6</div>
+		<div qo='3'>True</div>
+		<div qo='4'>False</div>
+	</div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{1},b{5},c{2},d{6}","<meta charset='utf-8'>
-<p dir='ltr' id='docs-internal-guid-934ec0bd-7fff-47a6-c73f-946832902636' style='line-height:1.2;margin-top:0pt;margin-bottom:0pt;'>您需要識別針對下列順序結構執行各種配量作業的結果:<br />
-<br />
-alph = 'abcdefghijklmnopqrstuvwxyz'<br />
-<br />
- </p>","alph[3:15] || alph[3:15:3] || alph[15:3:-3] || alph[::-3] @@ defghijklmno || pmjg || defghijklmnop || ponmlkjihgfe || dgjm || zwtqnkheb","","2024-0-5-0-0","3"
+	<!--{{{-->
+	<div>您需要識別針對下列順序結構執行各種配量作業的結果:</div>
+	<div class='frame'><div class='cb'>
+		<div>alph = 'abcdefghijklmnopqrstuvwxyz'</div>
+	</div></div>
+	<div qt='s' ___='1'>
+		alph[3:15] → <select qo='value'><option>請選擇</option>
+			<option value='1'>defghijklmno</option><option value='2'>pmjg</option>
+			<option value='3'>defghijklmnop</option><option value='4'>ponmlkjihgfe</option>
+			<option value='5'>dgjm</option><option value='6'>zwtqnkheb</option>
+		</select>
+	</div>
+	<div qt='s' ___='5'>
+		alph[3:15:3] → <select qo='value'><option>請選擇</option>
+			<option value='1'>defghijklmno</option><option value='2'>pmjg</option>
+			<option value='3'>defghijklmnop</option><option value='4'>ponmlkjihgfe</option>
+			<option value='5'>dgjm</option><option value='6'>zwtqnkheb</option>
+		</select>
+	</div>
+	<div qt='s' ___='2'>
+		alph[15:3:-3] → <select qo='value'><option>請選擇</option>
+			<option value='1'>defghijklmno</option><option value='2'>pmjg</option>
+			<option value='3'>defghijklmnop</option><option value='4'>ponmlkjihgfe</option>
+			<option value='5'>dgjm</option><option value='6'>zwtqnkheb</option>
+		</select>
+	</div>
+	<div qt='s' ___='6'>
+		alph[::-3] → <select qo='value'><option>請選擇</option>
+			<option value='1'>defghijklmno</option><option value='2'>pmjg</option>
+			<option value='3'>defghijklmnop</option><option value='4'>ponmlkjihgfe</option>
+			<option value='5'>dgjm</option><option value='6'>zwtqnkheb</option>
+		</select>
+	</div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{2},b{2},c{1},d{1}","您正在為公司開發一個Python應用程式。<br />
-您撰寫了以下這段程式碼:
-<pre style='color:blue'>
-numList = [1, 2, 3, 4, 5]
-alphaList = ['a', 'b', 'c', 'd', 'e']
-print(numList is alphaList)
-print(numList == alphaList)
-numList = alphaList
-print(numList is alphaList)
-print(numList == alphaList)<span style='white-space: normal'> </span></pre>","請問第一個print後面顯示的內容為何? || 請問第二個print後面顯示的內容為何? || 請問第三個print後面顯示的內容為何? || 請問第四個print後面顯示的內容為何? @@ True || False","","2024-0-5-0-0","3"
+	<!--{{{-->
+	<div>您正在為公司開發一個Python應用程式。</div>
+	<div>您撰寫了以下這段程式碼:</div>
+	<div class='frame'><div class='cb'>
+		<div>numList = [1, 2, 3, 4, 5]</div>
+		<div>alphaList = ['a', 'b', 'c', 'd', 'e']</div>
+		<div>print(numList is alphaList)</div>
+		<div>print(numList == alphaList)</div>
+		<div>numList = alphaList</div>
+		<div>print(numList is alphaList)</div>
+		<div>print(numList == alphaList)</div>
+	</div></div>
+	<div qt='s' ___='2'>
+		請問第一個print後面顯示的內容為何?
+		<div><table width='100%'><tr>
+			<th width='50%' qo='1'>True</th><th width='50%' qo='2'>False</th>
+		</tr></table></div>
+	</div>
+	<div qt='s' ___='2'>
+		請問第二個print後面顯示的內容為何?
+		<div><table width='100%'><tr>
+			<th width='50%' qo='1'>True</th><th width='50%' qo='2'>False</th>
+		</tr></table></div>
+	</div>
+	<div qt='s' ___='1'>
+		請問第三個print後面顯示的內容為何?
+		<div><table width='100%'><tr>
+			<th width='50%' qo='1'>True</th><th width='50%' qo='2'>False</th>
+		</tr></table></div>
+	</div>
+	<div qt='s' ___='1'>
+		請問第四個print後面顯示的內容為何?
+		<div><table width='100%'><tr>
+			<th width='50%' qo='1'>True</th><th width='50%' qo='2'>False</th>
+		</tr></table></div>
+	</div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{1},b{2}","您需要識別針對下列順序結構執行各種配量作業的結果：<br />
-alph = 'abcdefghijklmnopqrstuvwxyz'","alph[3:6] || alph[:6] @@ def || abcdef || cde || defg || cdef || abcde","","2024-0-5-0-0","3"
+	<!--{{{-->
+	<div>您需要識別針對下列順序結構執行各種配量作業的結果：</div>
+	<div class='frame'><div class='cb'>
+		<div>alph = 'abcdefghijklmnopqrstuvwxyz'</div>
+	</div></div>
+	<div qt='s' ___='1'>
+		alph[3:6] → <select qo='value'><option>請選擇</option>
+			<option value='1'>def</option><option value='2'>abcdef</option>
+			<option value='3'>cde</option><option value='4'>defg</option>
+			<option value='5'>cdef</option><option value='6'>abcde</option>
+		</select>
+	</div>
+	<div qt='s' ___='2'>
+		alph[:6] → <select qo='value'><option>請選擇</option>
+			<option value='1'>def</option><option value='2'>abcdef</option>
+			<option value='3'>cde</option><option value='4'>defg</option>
+			<option value='5'>cdef</option><option value='6'>abcde</option>
+		</select>
+	</div>
+	<!--}}}-->
 </section>
 
 </div>

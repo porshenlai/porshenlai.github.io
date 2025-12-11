@@ -33,214 +33,441 @@ select { font-size:100%; }
 </section>
 
 <section>
-"2","1","您撰寫了下列程式碼來根據學生目前的成績 (grade) 和排名 (rank) 判斷學生的最終成績。<br />
-請問將會列印何值?
-<pre style='color:blue'>
-grade = 76
-rank = 3
-if grade &gt; 80 and rank &gt;= 3 :
-    grade += 10
-elif grade &gt; 70 and rank &gt; 3 :
-    grade += 5
-else :
-    grade -= 5
-print(grade)
-</pre>","71 || 76 || 81 || 86","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您撰寫了下列程式碼來根據學生目前的成績 (grade) 和排名 (rank) 判斷學生的最終成績。</div>
+	<div>請問下列程式將會列印何值?</div>
+	<div class='frame'><div class='cb'>
+		<div>grade = 76</di>
+		<div>rank = 3</div>
+		<div>if grade &gt; 80 and rank &gt;= 3 :</div>
+		<div class='cb'>grade += 10</div>
+		<div>elif grade &gt; 70 and rank &gt; 3 :</div>
+		<div class='cb'>grade += 5</div>
+		<div>else :</div>
+		<div class='cb'>grade -= 5</div>
+		<div>print(grade)</div>
+	</div></div>
+	<div qt='s' ___='1'>
+		<table width='100%'><tr>
+			<th width='25' qo='1'>71</th>
+			<th width='25' qo='2'>76</th>
+			<th width='25' qo='3'>81</th>
+			<th width='25' qo='4'>86</th>
+		</tr></table>
+	</div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{1},b{3},c{2},d{3}","您正在使用Python編寫數學公用程式的程式碼。<br />
-您正在撰寫一個函式來方根。此函式必須符合下列需求:
-<ul>
-	<li>如果 a 為非負數, 則傳回 a ** (1 / b)</li>
-	<li>如果 a 為負偶數, 則傳回 'Result is an imaginary number'</li>
-	<li>如果 a 為負奇數, 則傳回 -(-a) ** (1 / b) 請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</li>
-</ul>
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-001.svg'></embed>","A || B || C || D @@ 1 || 2 || 3 || 4","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您正在使用Python編寫數學公用程式的程式碼。</div>
+	<div>您正在撰寫一個函式來方根。此函式必須符合下列需求:<ul>
+		<li>如果 a 為非負數, 則傳回 a ** (1 / b)</li>
+		<li>如果 a 為負偶數, 則傳回 'Result is an imaginary number'</li>
+		<li>如果 a 為負奇數, 則傳回 -(-a) ** (1 / b) 請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</li>
+	</ul></div>
+	<div class='frame'><div class='cb'>
+		<div>def safe_root (a, b):</div>
+		<div class='cb'>
+			<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value="1">if a &gt;= 0 :</option>
+				<option value="2">if a%2 == 0 :</option>
+				<option value="3">else :</option>
+				<option value="4">elif :</option>
+			</select></div>
+			<div class='cb'>answer = a ** (1 / b)</div>
+			<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+				<option value="1">if a &gt;= 0 :</option>
+				<option value="2">if a%2 == 0 :</option>
+				<option value="3">else :</option>
+				<option value="4">elif :</option>
+			</select></div>
+			<div class='cb'>
+				<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+					<option value="1">if a &gt;= 0 :</option>
+					<option value="2">if a%2 == 0 :</option>
+					<option value="3">else :</option>
+					<option value="4">elif :</option>
+				</select></div>
+				<div class='cb'>answer = "Result is an imaginary number"</div>
+				<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+					<option value="1">if a &gt;= 0 :</option>
+					<option value="2">if a%2 == 0 :</option>
+					<option value="3">else :</option>
+					<option value="4">elif :</option>
+				</select></div>
+				<div class='cb'>answer = -(-a) ** (1 / b)</div>
+			</div>
+			<div>return answer</div>
+		</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{1},b{2},c{1}","<meta charset='utf-8'>
-<p dir='ltr' id='docs-internal-guid-9f825b30-7fff-45bd-e46a-dfd45a37579b' style='line-height:1.2;margin-top:0pt;margin-bottom:0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>您正在撰寫一個Python程式來判斷使用者輸入的數字(num)是一位數、兩位數,還是超過兩位數(digits)。</span><br />
- </p>
-
-<p dir='ltr' style='line-height:1.2;margin-top:0pt;margin-bottom:0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</span></p>
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-002.svg'></embed>","A || B || C @@ 1 || 2 || 3 || 4","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您正在撰寫一個Python程式來判斷使用者輸入的數字(num)是一位數、兩位數,還是超過兩位數(digits)。</div>
+	<div>請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</div>
+	<div class='frame'><div class='cb'>
+		<div>num = int(input("Enter a number with 1 or 2 digits: "))</div>
+		<div>digits = "0"</div>
+		<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+			<option value='1'>if num &gt; -10 and num &lt; 10 :</option>
+			<option value='2'>if num &gt; -100 and num &lt; 100 :</option>
+		</select></div>
+		<div class='cb'>digits= "1"</div>
+		<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+			<option value='1'>if num &gt; -100 and num &lt; 100 :</option>
+			<option value='2'>elif num &gt; -100 and num &lt; 100 :</option>
+			<option value='3'>if num &gt; -10 and num &lt; 10 :</option>
+			<option value='4'>elif num &gt; -10 and num &lt; 10 :</option>
+		</select></div>
+		<div class='cb'>digits= "2"</div>
+		<div qt='s' ___='1'><select qo="value"><option>請選擇</option>
+			<option value="1">else:</option>
+			<option value="2">elif:</option>
+		</select></div>
+		<div class='cb'>digits = "&gt;2"</div>
+		<div>print(digits + " digits.")</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{1},b{1},c{3}","<meta charset='utf-8'>
-<p dir='ltr' id='docs-internal-guid-d3db2211-7fff-09cb-ba99-ebeaf23edfa8' style='line-height:1.2;margin-top:0pt;margin-bottom:0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>您正在建立一個函式來根據下列規則計算入場費(admission_fee)</span></p>
-
-<ul dir='ltr'>
-	<li style='line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>未滿5歲的任何人=免費入場</span></li>
-	<li style='line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>年滿5歲以上的任何在校學生=10美元</span></li>
-	<li style='line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>5至17歲的任何非在校人士=20美元</span></li>
-	<li style='line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>超過17歲的任何非在校人士=50美元</span></li>
-</ul>
-
-<p dir='ltr' style='line-height:1.2;margin-top:0pt;margin-bottom:0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>rate 代表美元價格。</span></p>
-
-<p dir='ltr' style='line-height:1.2;margin-top:0pt;margin-bottom:0pt;'><span style='font-size:16pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;'>請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</span><br />
-<br />
- </p>
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-003.svg'></embed>","A || B || C @@ 1 || 2 || 3","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您正在建立一個函式來根據下列規則計算入場費(admission_fee)<ul>
+		<li>未滿5歲的任何人=免費入場</li>
+		<li>年滿5歲以上的任何在校學生=10美元</li>
+		<li>5至17歲的任何非在校人士=20美元</li>
+		<li>超過17歲的任何非在校人士=50美元</li>
+	</ul></div>
+	<div>rate 代表美元價格。</div>
+	<div>請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</div>
+	<div class='frame'><div class='cb'>
+		<div>def admission_fee (age, school):</div>
+		<div class='cb'>
+			<div>rate = 0</div>
+			<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value="1">if age &gt;=5 and school == True :</option>
+				<option value="2">if age &gt;=5 and age&lt;=17 :</option>
+				<option value="3">if age &gt;=5 and school == False :</option>
+			</select></div>
+			<div class='cb'>rate = 10</div>
+			<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value="1">elif age &gt;=5 and school == False :</option>
+				<option value="2">else age &gt;=5 and school == False :</option>
+				<option value="3">elif age &gt;=5 and school == True :</option>
+			</select></div>
+			<div class='cb'>
+				<div qt='s' ___='3'><select qo="value"><option>請選擇</option>
+					<option value="1">if age &gt;=5 and school == True :</option>
+					<option value="2">if age &gt;=5 and school == Fasle :</option>
+					<option value="3">if age &lt;=17 :</option>
+				</select></div>
+				<div class='cb'>rate = 20</div>
+				<div>else:</div>
+				<div class='cb'>rate = 50</div>
+			</div>
+			<div>return rate</div>
+		</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{2},b{2}","你開發一個程式碼用來判斷整數是奇數還是偶數：<br />
-
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-004.svg'/>","A || B @@ 1 || 2 || 3 || 4","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>你開發一個程式碼用來判斷整數是奇數還是偶數：</div>
+	<div class='frame'><div class='cb'>
+		<div>from random import randint</div>
+		<div>num = randint(1, 100)</div>
+		<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+			<option value="1">if num / 2 == 0:</option>
+			<option value="2">if num % 2 == 0:</option>
+			<option value="3">if num / 2 = 0:</option>
+			<option value="4">if num % 2 = 0:</option>
+		</select></div>
+		<div class='cb'>print("%d 是偶數" % num)</div>
+		<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+			<option value="1">if num / 2 != 0:</option>
+			<option value="2">else:</option>
+			<option value="3">if num / 2 &lt;&gt; 0:</option>
+			<option value="4">elif num / 2 == 0:</option>
+		</select></div>
+		<div class='cb'>print("%d 是奇數" % num)</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{2},b{3}","您正在為某間零售商店撰寫 Python 程式，將庫存追蹤自動化。<br />
-您的第一項工作是讀取庫存交易的檔案。該檔案包含前一天的銷售量，包括商品識別碼、價格和數量。<br />
-<br />
-該檔案的資料範例如下所示:
-<pre style='color:green'>
+	<!--{{{-->
+	<div>您正在為某間零售商店撰寫 Python 程式，將庫存追蹤自動化。</div>
+	<div>您的第一項工作是讀取庫存交易的檔案。該檔案包含前一天的銷售量，包括商品識別碼、價格和數量。</div>
+	<div>該檔案的資料範例如下所示:</div>
+	<pre>
 10, 200, 5
 20, 100, 1
 </pre>
-    程式碼必須執行下列工作:
-
-<ol>
-	<li>讀取並列印檔案的每一行。</li>
-	<li>忽略空白行。</li>
-	<li>讀取所有行之後關閉檔案。</li>
-</ol>
-
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-005.svg'/>","A || B @@ 1 || 2 || 3","","2024-0-3-0-0","3"
+	<div>程式碼必須執行下列工作:<ol>
+		<li>讀取並列印檔案的每一行。</li>
+		<li>忽略空白行。</li>
+		<li>讀取所有行之後關閉檔案。</li>
+	</ol></div>
+	<div>您撰寫了以下這段程式碼。</div>
+	<div class='frame'><div class='cb'>
+		<div>inventory = open("inventory.txt", 'r')</div>
+		<div>eof = False</div>
+		<div>while eof == False:</div>
+		<div class='cb'>
+			<div>line = inventory.readline()</div>
+			<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+				<option value="1">if line != '\n':</option>
+				<option value="2">if line != '':</option>
+				<option value="3">if line != None:</option>
+			</select></div>
+			<div class='cb'>
+				<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+					<option value="1">if line != "":</option>
+					<option value="2">if line != None:</option>
+					<option value="3">if line != "\n":</option>
+				</select></div>
+				<div class='cb'>print(line)</div>
+			</div>
+			<div>else :</div>
+			<div class='cb'>
+				<div>print ("End of file")</div>
+				<div>eof = True</div>
+				<div>inventory.close()</div>
+			</div>
+		</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{2},b{4},c{4},d{4}","您正在設計一個決策結構, 以將學生的數字成績(grade)轉換成字母成績(letter_grade)。<br />
-此程式必須依照下表的指定內容指派字母成績:
-<table align='center' border='1' cellpadding='5'>
-	<tbody>
-		<tr>
-			<th>百分比範圍</th>
-			<th>字母成績</th>
-		</tr>
-		<tr>
-			<th>90到100</th>
-			<td>A</td>
-		</tr>
-		<tr>
-			<th>80到89</th>
-			<td>B</td>
-		</tr>
-		<tr>
-			<th>70到79</th>
-			<td>C</td>
-		</tr>
-		<tr>
-			<th>65到69</th>
-			<td>D</td>
-		</tr>
-		<tr>
-			<th>0到64</th>
-			<td>F</td>
-		</tr>
-	</tbody>
-</table>
-     舉例來說,如果使用者輸入90,輸出就應該是'Your letter grade is A'。同樣地,如果使用者輸入89,輸出就應該是'Your letter grade is B'。<br />
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-006.svg'></embed>","A || B || C || D @@ 1 || 2 || 3 || 4","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您正在設計一個決策結構, 以將學生的數字成績(grade)轉換成字母成績(letter_grade)。</div>
+	<div>此程式必須依照下表的指定內容指派字母成績:</div>
+	<table align='center' border='1' cellpadding='5'><tbody>
+		<tr><th>百分比範圍</th><th>字母成績</th></tr>
+		<tr><th>90到100</th><td>A</td></tr>
+		<tr><th>80到89</th><td>B</td></tr>
+		<tr><th>70到79</th><td>C</td></tr>
+		<tr><th>65到69</th><td>D</td></tr>
+		<tr><th>0到64</th><td>F</td></tr>
+	</tbody></table>
+	<div>舉例來說,如果使用者輸入90,輸出就應該是'Your letter grade is A'。</div>
+	<div>同樣地,如果使用者輸入89,輸出就應該是'Your letter grade is B'。</div>
+
+	<div class='frame'><div class='cb'>
+		<div>grade = int(input("Enter a numeric grade"))</div>
+		<div qt='s' ___='2'><select qo="value"><option>請選擇</option>
+			<option value="1">if grade &lt;= 90:</option>
+			<option value="2">if grade &gt;= 90:</option>
+			<option value="3">elif grade &gt; 90:</option>
+			<option value="4">elif grade &gt;= 90:</option>
+		</select></div>
+		<div class='cb'>letter_grade='A'</div>
+		<div qt='s' ___='4'><select qo="value"><option>請選擇</option>
+			<option value="1">if grade &gt; 80:</option>
+			<option value="2">if grade &gt;= 80:</option>
+			<option value="3">elif grade &gt; 80:</option>
+			<option value="4">elif grade &gt;= 80:</option>
+		</select></div>
+		<div class='cb'>letter_grade='B'</div>
+		<div qt='s' ___='4'><select qo='value'><option>請選擇</option>
+			<option value="1">if grade &gt; 70:</option>
+			<option value="2">if grade &gt;= 70:</option>
+			<option value="3">elif grade &gt; 70:</option>
+			<option value="4">elif grade &gt;= 70:</option>
+		</select></div>
+		<div class='cb'>letter_grade='C'</div>
+		<div qt='s' ___='4'><select qo='value'><option>請選擇</option>
+			<option value="1">if grade &gt; 65:</option>
+			<option value="2">if grade &gt;= 65:</option>
+			<option value="3">elif grade &gt; 65:</option>
+			<option value="4">elif grade &gt;= 65:</option>
+		</select></div>
+		<div class='cb'>letter_grade='D'</div>
+		<div>else:</div>
+		<div class='cb'>letter_grade='F'</div>
+		<div>print("Your letter grade is ", letter_grade)</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{2},b{1},c{1}","某間影音商店需要設法判斷向客戶收取的DVD租借金額。<br />
-此金額取決於客戶當天歸還DVD的時間。此外，星期四和星期日還有特價優惠。費用結構如下所示:
-<ul>
-	<li>預設費用 (cost per_day) 是每晚1.59美元。</li>
-	<li>如果客戶在晚上8點過後歸還DVD，商店會向他們額外收取一晚的費用。這筆費用儲存在ontime變數中。</li>
-	<li>星期日 (Sunday) 租借的DVD可享整個租借期間七折優惠。租借日期儲存在weekday變數中。</li>
-	<li>星期四 (Thursday) 租借的DVD可享整個租借期間五折優惠。租借天數儲存在 days_rented 變數中。</li>
-</ul>
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-007.svg'></embed>","A || B || C @@ 1 || 2 || 3","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>某間影音商店需要設法判斷向客戶收取的DVD租借金額。</div>
+	<div>此金額取決於客戶當天歸還DVD的時間。</div>
+	<div>此外，星期四和星期日還有特價優惠。</div>
+	<div>費用結構如下所示:<ul>
+		<li>預設費用 (cost per_day) 是每晚1.59美元。</li>
+		<li>如果客戶在晚上8點過後歸還DVD，商店會向他們額外收取一晚的費用。這筆費用儲存在ontime變數中。</li>
+		<li>星期日 (Sunday) 租借的DVD可享整個租借期間七折優惠。租借日期儲存在weekday變數中。</li>
+		<li>星期四 (Thursday) 租借的DVD可享整個租借期間五折優惠。租借天數儲存在 days_rented 變數中。</li>
+	</ul></div>
+	<div class='frame'><div class='cb'>
+		<div># DVD Rental Calculator</div>
+		<div>ontime = input("Was the video returned before 8 PM? Y or N").lower()</div>
+		<div>days_rented = int(input("How many days was the video rented?"))</div>
+		<div>weekday = input("What day was the video rented?").capitalize()</div>
+		<div>cost_per_day = 1.59</div>
+		<div qt='s' ___='2'>if ontime <select qo='value'><option>請選擇</option>
+			<option value="1">!= "n" :</option>
+			<option value="2">== "n" :</option>
+			<option value="3">== "y" :</option>
+		</select></div>
+		<div class='cb'>days_rented +=1</div>
+		<div qt='s' ___='1'>if weekday <select qo='value'><option>請選擇</option>
+			<option value="1">== "Sunday" :</option>
+			<option value="2">&gt;= "Sunday" :</option>
+			<option value="3">is "Sunday" :</option>
+		</select></div>
+		<div class='cb'>total = (days_rented * cost_per_day) * 0.7</div>
+		<div qt='s' ___='1'>elif weekday <select qo='value'><option>請選擇</option>
+			<option value="1">== "Thursday" :</option>
+			<option value="2">&lt;="Thursday" :</option>
+			<option value="3">is "Thursday" :</option>
+		</select></div>
+		<div class='cb'>total = (days_rented * cost_per_day) * 0.5</div>
+		<div>else:</div>
+		<div class='cb'>total = days_rented * cost_per_day</div>
+		<div>print("Cost of the DVD rental is: $", total)</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{2},b{2},c{1},d{1},e{2},f{4},g{4}","您正在撰寫程式碼來根據下列準則傳回字母成績：
-<ul>
-	<li>變數grade會將數字成績儲存成 0 到 100 之間的整數。</li>
-	<li>90 到 100 的成績 = A。</li>
-	<li>80 到 89 的成績 = B。</li>
-	<li>70 到 79 的成績 = C。</li>
-	<li>其他所有成績都不及格。</li>
-</ul>
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-008.svg'></embed>","A || B || C || D || E || F || G @@ 1 || 2 || 3 || 4","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您正在撰寫程式碼來根據下列準則傳回字母成績：<ul>
+		<li>變數grade會將數字成績儲存成 0 到 100 之間的整數。</li>
+		<li>90 到 100 的成績 = A。</li>
+		<li>80 到 89 的成績 = B。</li>
+		<li>70 到 79 的成績 = C。</li>
+		<li>其他所有成績都不及格。</li>
+	</ul></div>
+	<div class='frame'><div class='cb'>
+		<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+			<option value="1">elif</option><option value="2">if</option>
+			<option value="3">for</option><option value="4">else</option>
+		</select> grade &lt;= 100 :</div>
+		<div class='cb'>
+			<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+				<option value="1">elif</option><option value="2">if</option>
+				<option value="3">for</option><option value="4">else</option>
+			</select> grade &gt;= 90 :</div>
+			<div class='cb'>print "Your grade is A."</div>
+		    <div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value="1">elif</option><option value="2">if</option>
+				<option value="3">for</option><option value="4">else</option>
+			</select> grade &gt;= 80 :</div>
+			<div class='cb'>print "Your grade is B."</div>
+			<div><span qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value="1">elif</option><option value="2">if</option>
+				<option value="3">for</option><option value="4">else</option>
+			</select> grade &lt; 80</span> <span qt='s' ___='2'><select qo='value'>
+				<option>請選擇</option><option value="1">or</option>
+				<option value="2">and</option><option value="3">not</option>
+			</select> grade &gt; 69:</span></div>
+			<div class='cb'>print "Your grade is C."</div>
+		    <div qt='s' ___='4'><select qo='value'><option>請選擇</option>
+				<option value="1">elif :</option><option value="2">if :</option>
+				<option value="3">for :</option><option value="4">else :</option>
+			</select></div> 
+			<div class='cb'>print "Your grade is failing."</div>
+		</div>
+		<div qt='s' ___='4'><select qo="value"><option>請選擇</option>
+			<option value="1">elif :</option><option value="2">if :</option>
+			<option value="3">for :</option><option value="4">else :</option>
+		</select></div> 
+		<div class='cb'>print "Invalid grade entered."</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{1},b{1}","您正在撰寫一個函式來執行數字的安全除法。<br />
-您需要確保分母和分子會傳遞給函式,而且分母不為零。<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-009.svg'></embed>","A || B @@ 1 || 2 || 3 || 4","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您正在撰寫一個函式來執行數字的安全除法。</div>
+	<div>您需要確保分母和分子會傳遞給函式,而且分母不為零。</div>
+	<div class='frame'><div class='cb'>
+		<div>def safe_divide (numerator, denominator) :</div>
+		<div class='cb'>
+	    	<div qt='s' ___='1'><select qo="value"><option>請選擇</option>
+				<option value="1">if numerator is None or denominator is None:</option>
+				<option value="2">if numerator is None and denominator is None:</option>
+				<option value="3">if numerator = None or denominator = None:</option>
+				<option value="4">if numerator = None and denominator = None:</option>
+			</select></div>
+			<div class='cb'>print("A required value is missing.")</div>
+			<div qt='s' ___='1'><select qo="value"><option>請選擇</option>
+				<option value="1">elif denominator == 0:</option>
+				<option value="2">elif denominator = 0:</option>
+				<option value="3">elif denominator != 0:</option>
+				<option value="4">elif denominator in 0:</option>
+			</select></div>
+			<div class='cb'>print("The denominator is zero.")</div>
+			<div>else :</div>
+			<div class='cb'>return numerator / denominator</div>
+		</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{2},b{1}","您為公司開發了一個Python應用程式。<br />
-您需要完成程式碼,好讓print陳述式正確。<br />
-<br />
-請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。<br />
-<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-3-010.svg'></embed>","A || B @@ 1 || 2 || 3","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您為公司開發了一個Python應用程式。</div>
+	<div>您需要完成程式碼,好讓print陳述式正確。</div>
+	<div>請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</div>
+	<div class='frame'><div class='cb'>
+		<div>numList = [1, 2, 3, 4, 5]</div>
+		<div>alphaList = ["a", "b", "c", "d", "e"]</div>
+		<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+			<option value="1">if numList = alphaList :</option>
+			<option value="2">if numList == alphaList :</option>
+			<option value="3">if numList += alphaList :</option>
+		</select></div>
+		<div class='cb'>print("The value in numList are equal to alphaList")</div>
+		<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+			<option value="1">else :</option>
+			<option value="2">elif :</option>
+			<option value="3">elseif :</option>
+		</select></div>
+		<div class='cb'>print("The value in numList are not equal to alphaList")</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-"6","a{1},b{5},c{2},d{3}","<p>您正在建立一個Python指令碼以評估文字輸入並檢查是否有大寫和小寫。</p>
-
-<p>請問您應該依序使用哪四個程式碼片段來開發解決方案?請將四個程式碼片段移至作答區中,然後按照正確的順序排列。</p>
-
-<table border='1'>
-	<tbody>
-		<tr>
-			<th>A</th>
-			<td>
-			<pre>
-name = input('Enter your name: ')</pre>
-			</td>
-		</tr>
-		<tr>
-			<th>B</th>
-			<td>
-			<pre>
-elif name.upper() == name:
-    print(name, 'is all upper case.')</pre>
-			</td>
-		</tr>
-		<tr>
-			<th>C</th>
-			<td>
-			<pre>
-else:
-    print(name, 'is mixed case.')</pre>
-			</td>
-		</tr>
-		<tr>
-			<th>D</th>
-			<td>
-			<pre>
-else:
-    print(name, 'is upper case.')</pre>
-			</td>
-		</tr>
-		<tr>
-			<th>E</th>
-			<td>
-			<pre>
-if name.lower() == name:
-    print(name, 'is all lower case.')</pre>
-			</td>
-		</tr>
-		<tr>
-			<th>F</th>
-			<td>
-			<pre>
-else:
-    print(name, 'is lower case.')</pre>
-			</td>
-		</tr>
-	</tbody>
-</table>","第一段 || 第二段 || 第三段 || 第四段 @@ A || B || C || D || E || F","","2024-0-3-0-0","3"
+	<!--{{{-->
+	<div>您正在建立一個Python指令碼以評估文字輸入並檢查是否有大寫和小寫。</div>
+	<div>請問您應該依序使用哪四個程式碼片段來開發解決方案?請將四個程式碼片段移至作答區中,然後按照正確的順序排列。</div>
+	<table qt='sort' ___='1,5,2,3'><tr><td width='50%'>
+		<div qo='1'>
+			<div>name = input('Enter your name: ')</div>
+		</div>
+		<div qo='2'>
+			<div>elif name.upper() == name:</div>
+			<div class='cb'>print(name, 'is all upper case.')</div>
+		</div>
+		<div qo='3'>
+			<div>else:</div>
+			<div class='cb'>print(name, 'is mixed case.')</div>
+		</div>
+		<div qo='4'>
+			<div>else:</div>
+			<div class='cb'>print(name, 'is upper case.')</div>
+		</div>
+		<div qo='5'>
+			<div>if name.lower() == name:</div>
+			<div class='cb'>print(name, 'is all lower case.')</div>
+		</div>
+		<div qo='6'>
+			<div>else:</div>
+			<div class='cb'>print(name, 'is lower case.')</div>
+		</div>
+	</td><td width='50%' style='border:1px solid silver'>
+	</td></table>
+	<!--}}}-->
 </section>
 
 <section>
@@ -529,16 +756,16 @@ else:
 			<option value="4">for index in salary_list:</option>
 		</select></div>
 		<div class='cb'>
-		    <div>if salary_list[index] &gt;= 150000 :</div>
+			<div>if salary_list[index] &gt;= 150000 :</div>
 			<div class='cb'>
-		        <div qt='s' ___='2'><select qo="value"><option>請選擇</option>
+				<div qt='s' ___='2'><select qo="value"><option>請選擇</option>
 					<option value="1">exit()</option>
 					<option value="2">continue</option>
 					<option value="3">break</option>
 					<option value="4">end</option>
 				</select></div>
 			</div>
-		    <div>salary_list[index] = (salary_list[index] *1.03) +500</div>
+			<div>salary_list[index] = (salary_list[index] *1.03) +500</div>
 		</div>
 	</div></div>
 	<!--}}}-->
@@ -550,19 +777,19 @@ else:
 	<div>似乎一直有讀者在抱怨字母e的使用次數過多。您需要建立一個符合需求的函式。</div>
 	<div class='frame'><div class='cb'>
 		<div># Function accepts list of words from a file</div>
-		<div>#     and letter to search for.</div>
+		<div>#	 and letter to search for.</div>
 		<div># Returns count of a particular letter in that list.</div>
 		<div>def count_letter(letter, word_list):</div>
 		<div class='cb'>
 			<div>count = 0</div>
-		    <div>for <span qt='s' ___='2'><select qo='value'><option>請選擇</option>
+			<div>for <span qt='s' ___='2'><select qo='value'><option>請選擇</option>
 				<option value="1">word_list in word</option>
 				<option value="2">word in word_list</option>
 				<option value="3">word == word_list</option>
 				<option value="4">word is word_list</option>
 			</select> :</span></div>
 			<div class='cb'>
-		        <div>if <span qt='s' ___='4'><select qo='value'><option>請選擇</option>
+				<div>if <span qt='s' ___='4'><select qo='value'><option>請選擇</option>
 					<option value="1">word is letter</option>
 					<option value="2">letter is word</option>
 					<option value="3">word in letter</option>
@@ -591,24 +818,24 @@ else:
 		<div># return new string in reversed order.</div>
 		<div>def reverse_name(backward_name):</div>
 		<div class='cb'>
-		    <div>forward_name = ""</div>
-		    <div qt='s' ___='2'>length = <select qo='value'><option>請選擇</option>
+			<div>forward_name = ""</div>
+			<div qt='s' ___='2'>length = <select qo='value'><option>請選擇</option>
 				<option value="1">backward_name:</option>
 				<option value="2">len(backward_name)-1</option>
 				<option value="3">range(0,len(backward_name),-1)</option>
 				<option value="4">range(len(backward_name)-1,-1,-1)</option>
 			</select></div>
-		    <div>while length &gt;= 0:</div>
+			<div>while length &gt;= 0:</div>
 			<div class='cb'>
-		        <div qt='s' ___='2'>forward_name += <select qo='value'><option>請選擇</option>
+				<div qt='s' ___='2'>forward_name += <select qo='value'><option>請選擇</option>
 					<option value="1">backward_name[index]</option>
 					<option value="2">backward_name[length]</option>
 					<option value="3">backward_name[length+1]</option>
 					<option value="4">backward_name[len(backward_name)-len(forward_name)]</option>
 				</select></div>
-		        <div>length = length-1</div>
+				<div>length = length-1</div>
 			</div>
-		    <div>return forward_name</div>
+			<div>return forward_name</div>
 		</div>
 		<div>print(reverse_name("nohtyp"))</div>
 	</div></div>
@@ -631,7 +858,7 @@ else:
 		</select></div>
 		<div class='cb'>
 			<div>print(numbers[index])</div>
-		    <div qt='s' ___='2'><s>if numbers(index) = 6</s><select qo="value"><option>請選擇</option>
+			<div qt='s' ___='2'><s>if numbers(index) = 6</s><select qo="value"><option>請選擇</option>
 				<option value="1">if numbers[index]==6</option>
 				<option value="2">if numbers[index]==6:</option>
 				<option value="3">if numbers(index)=6:</option>
@@ -657,19 +884,19 @@ else:
 	<div>下列程式碼有兩個錯誤需要修正 :</div>
 	<div class='frame'><div class='cb'>
 		<div qt='s' ___='4'>for index in range<s>(0, len(employee_pay)-1):</s><select qo="value"><option>請選擇</option>
-		    <option value="1">(size(employee_pay)):</option>
-		    <option value="2">(size(employee_pay)-1):</option>
-		    <option value="3">(len(employee_pay)+1):</option>
-		    <option value="4">(len(employee_pay)):</option>
+			<option value="1">(size(employee_pay)):</option>
+			<option value="2">(size(employee_pay)-1):</option>
+			<option value="3">(len(employee_pay)+1):</option>
+			<option value="4">(len(employee_pay)):</option>
 		</select></div>
 		<div class='cb'>
-		    <div>count += 1</div>
-		    <div>sum += employee_pay[index]</div>
+			<div>count += 1</div>
+			<div>sum += employee_pay[index]</div>
 		</div>
 		<div qt='s' ___='1'>average = <s>sum//count</s><select qo="value"><option>請選擇</option>
-		    <option value="1">sum/count</option>
-		    <option value="2">sum**count</option>
-		    <option value="3">sum*count</option>
+			<option value="1">sum/count</option>
+			<option value="2">sum**count</option>
+			<option value="3">sum*count</option>
 		</select></div>
 		<div>print("The total payroll is:", sum)</div>
 		<div>print("The average salary is:", average)</div>
