@@ -45,7 +45,9 @@ Usaeg:
 				const tid=ti.getAttribute('TID');
 				tis.forEach((e)=>e.classList[ti===e?'add':'remove']('active'));
 				Array.from(C.querySelectorAll('[TAB]')).forEach((tab) => {
-					tab.classList[tid===tab.getAttribute('TAB')?'remove':'add']('hide');
+					setTimeout(()=>{
+					tab.classList[tid===tab.getAttribute('TAB')?'remove':'add']('fold');
+					},100);
 					evt.stopPropagation();
 					evt.preventDefault();
 				});
@@ -157,11 +159,14 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 	}	// }}}
 	update (index, total)
 	{	// update status information {{{
-		this.E.querySelector('[uid="counter"]').textContent=(index+1)+' / '+total;
-		this.E.querySelector('[action="prevBtn"]').disabled=(index===0);
-		this.E.querySelector('[action="nextBtn"]').disabled=(index===total-1);
-		Array.from(this.E.querySelectorAll('[tab="toc"]>ol a'))
-			.forEach((link, i) => link.classList.toggle('active', i === index));
+		if (index&&total) {
+			this.E.querySelector('[uid="counter"]').textContent=(index+1)+' / '+total;
+			this.E.querySelector('[action="prevBtn"]').disabled=(index===0);
+			this.E.querySelector('[action="nextBtn"]').disabled=(index===total-1);
+			Array.from(this.E.querySelectorAll('[tab="toc"]>ol a'))
+				.forEach((link, i) => link.classList.toggle('active', i === index));
+		}
+		this.E.querySelector('[action="fsToggle"]').checked = !!document.fullscreenElement;
 	}	// }}}
 	installTOC (sections)
 	{	// install TOC table {{{
@@ -413,7 +418,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	})(currentScript);	// }}}
 
-	document.addEventListener('fullscreenchange', ()=>MS.set('pagemode',document.fullscreenElement));
+	document.addEventListener('fullscreenchange', ()=>{
+		MS.set('pagemode',document.fullscreenElement);
+		MS.Aside.update();
+		setTimeout(()=>{
+			const section=MS.Sections[MS.current];
+			console.log("Scroll to ",section);
+			section.scrollIntoView({behavior:'auto',block:'start'});
+			section.scrollTop=0;
+		},0);
+	});
 	window.addEventListener('keydown', (e) => {
 		if (e.key==='ArrowLeft') MS.activate(MS.current-1);
 		if (e.key==='ArrowRight') MS.activate(MS.current+1);
