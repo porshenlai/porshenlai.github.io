@@ -17,6 +17,7 @@ class Quiz
 [qt="m"][qa] [qo] { color:black; }
 [qt="m"][qa] .QS[qo] { color:blue;font-weight:bolder; }
 [qt]:not([qr='o']) .answer { display:none; }
+[qt="sort"] .QS[qo] { color:blue;font-weight:bolder; }
 `;
 			document.head.appendChild(SE);
 		})();
@@ -96,11 +97,29 @@ Usage:
 			}
 			break;
 		case 'm':
-			e.classList.toggle('QS'); // toggle the flag of this answer
-			const ans=[... p.querySelectorAll('.QS')].reduce((r,e)=>r|parseInt(e.getAttribute('qo')),0); // compute the selection mask
-			p.setAttribute("qa",ans);
-			if (this.AnsDB[qi]) // match the answer
-				p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
+			(()=>{
+				e.classList.toggle('QS'); // toggle the flag of this answer
+				const ans=[... p.querySelectorAll('.QS')].reduce((r,e)=>r|parseInt(e.getAttribute('qo')),0); // compute the selection mask
+				p.setAttribute("qa",ans);
+				if (this.AnsDB[qi]) // match the answer
+					p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
+			})();
+			break;
+		case 'sort':
+			(()=>{
+				let c=e.parentNode;
+				e.classList.toggle('QS'); // toggle the flag of this answer
+				if (e.classList.contains('QS'))
+					c.insertBefore(e,c.querySelector('[qo]:not(.QS)'));
+				else c.appendChild(e);
+				const ans=parseInt(Array.from(c.querySelectorAll('[qo].QS')).reduce((r,e)=>{
+					r.push(e.getAttribute('qo'));
+					return r;
+				},[]).join(''));
+				p.setAttribute("qa",ans);
+				if (this.AnsDB[qi]) // match the answer
+					p.setAttribute("qr",this.AnsDB[qi]===ans ? 'o' : 'x');
+			})();
 			break;
 		}
 	}
