@@ -14,6 +14,7 @@
 red { color:red; }
 green { color:green; }
 blue { color:blue; }
+select { font-size:100%; }
 .hl-kw { color:#c792ea; }			/* keyword */
 .hl-fn { color:#82aaff; }			/* function */
 .hl-str { color:#ecc48d; }		 /* string */
@@ -102,29 +103,30 @@ table small { color:#666; }
 </section>
 
 <section>
-	<h2>程式執行引數 與 回傳值</h2>
+	<h2>程式執行引數 與 回傳值</h2><!--{{{-->
 	<div>Script.py 檔案包含下列程式碼：</div>
-	<div class='frame'>
+	<div class='frame'><div class='cb'>
 		<div>import sys</div>
 		<div>print(sys.argv[2])</div>
-	</div>
+	</div></div>
 	<br/>
 	<div>您執行下列命令：</div>
 	<div class='frame'>
 		<div>python Script.py Cheese Bacon Bread</div>
 	</div>
 	<br/>
-	<div qi='9-13' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		<div>請問此命令的輸出為何？</div>
-		<div qo='1'>Bread</div>
-		<div qo='2'>Cheese</div>
-		<div qo='3'>Script.py</div>
-		<div qo='4'>Bacon</div>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>Bread</th><th width='25%' qo='2'>Cheese</th>
+			<th width='25%' qo='3'>Script.py</th><th width='25%' qo='4'>Bacon</th>
+		</tr></table>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>裝置: 終端機</h2>
+	<h2>裝置: 終端機</h2><!--{{{-->
 	<ul>
 		<li>輸入：<code>input(prompt)</code> 讀取一行字串（含結尾換行去除）</li>
 		<li>輸出：<code>print(*values, sep=' ', end='\n')</code> 將物件轉成字串後印出</li>
@@ -146,42 +148,47 @@ table small { color:#666; }
 		<div>print(10, 20, 30, sep=<span class="hl-str">' | '</span>)</div>
 		<div>print(<span class="hl-str">'沒有換行'</span>, end=<span class="hl-str">''</span>); print(<span class="hl-str">'接在後面'</span>)</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
+	<!--{{{-->
 	<div>請問下列陳述式有何功能？</div>
 	<div class='frame'>
 		data = input()
 	</div>
-	<div qi='9-12' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		<div qo='1'>顯示電腦上的所有輸入周邊裝置</div>
 		<div qo='2'>顯示允許使用者輸入的訊息方塊</div>
 		<div qo='3'>允許使用者在主控台中輸入文字</div>
 		<div qo='4'>建立HTML輸入元素</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
+	<!--{{{-->
 	<div>在 Python 程式中，如果希望使用者輸入時，即使用輸入了小數，程式也能自動轉為整數來進行運算。</div>
 	<div>你應該使用以下哪個程式碼片段 ？</div>
-	<div qi='9-13' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		<div qo='1'>total = input('請輸入總數？')</div>
 		<div qo='2'>total = int(eval(input('請輸入總數？')))</div>
 		<div qo='3'>total = str(input('請輸入總數？'))</div>
 		<div qo='4'>total = float(input('請輸入總數？'))</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>型別轉換</h2>
+	<h2>型別轉換</h2><!--{{{-->
 	<div><code>input(...)</code> 回傳的資料型態為<span class='red'>字串</span>，必須進行必要的型別轉換後才能進行運算。</div>
 	<div><code>print(...)</code> 引數的資料型態為<span class='red'>字串</span>，必須先轉換成字串才能輸出。</div>
 	<div class='frame'>
 		<div># 讀取三種資料，並做適當轉型</div>
-		<div><span class="hl-kw">from</span> datetime <span class="hl-kw">import</span> datetime</div>
-		<div>price = <span class="hl-fn">float</span>(<span class="hl-fn">input</span>(<span class="hl-str">'收盤價：'</span>))</div>
-		<div>shares = <span class="hl-fn">int</span>(<span class="hl-fn">input</span>(<span class="hl-str">'股數：'</span>))</div>
-		<div>trade_date = datetime.<span class="hl-fn">strptime</span>(<span class="hl-fn">input</span>(<span class="hl-str">'交易日(YYYY-MM-DD)：'</span>), <span class="hl-str">'%Y-%m-%d'</span>)</div>
+		<div>from datetime import datetime</div>
+		<div>price = float(input('收盤價：'))</div>
+		<div>shares = int(input('股數：'))</div>
+		<div>trade_date = datetime.strptime(input('交易日(YYYY-MM-DD)：'), '%Y-%m-%d')</div>
 		<div>print(price, shares, trade_date)</div>
 	</div>
 	<ul>
@@ -189,9 +196,11 @@ table small { color:#666; }
 		<li><code>datetime.strptime(text, fmt)</code>：字串→日期時間</li>
 		<li>建議先 <code>.strip()</code> 去除空白，再轉型；必要時 <code>try/except</code> 防呆</li>
 	</ul>
+	<!--}}}-->
 </section>
 
 <section>
+	<!--{{{-->
 	<h2>三種格式化方式：總覽</h2>
 	<table>
 		<thead>
@@ -310,9 +319,11 @@ table small { color:#666; }
 		<div>print(dt.strftime(<span class="hl-str">'%Y/%m/%d %H:%M'</span>))</div>
 		<div>print(<span class="hl-str">f'ISO: {dt.isoformat()}'</span>)</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
+	<!--{{{-->
 	<h2>例外處理</h2>
 	<div class='frame'>
 		<div><span class="hl-kw">try</span>:</div>
@@ -332,167 +343,174 @@ table small { color:#666; }
 		<li>字串格式錯誤 → 善用 <code>repr()</code> 看見跳脫字元</li>
 		<li>輸出對齊混亂 → 使用寬度與對齊規格（如 <code>{:&gt;10}</code>）</li>
 	</ul>
+	<!--}}}-->
 </section>
 
 <section>
+	<!--{{{-->
 	<div>對於下列每一項有關 try 陳述式的敘述，請選取 [正確] 或 [錯誤]。</div>
-	<div class="cb frame">
-	</div>
-	<div qi='9-7-1' qt="s" ___="1">
+	<div qt="s" ___="1">
 		try 陳述式可以包含一個或多個 except 子句。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo="1">正確</th><th qo="2">錯誤</th></tr></table>
 	</div>
-	<div qi='9-7-2' qt="s" ___="1">
+	<div qt="s" ___="1">
 		try 陳述式可以包含 finally 子句，但不含 except 子句。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo="1">正確</th><th qo="2">錯誤</th></tr></table>
 	</div>
-	<div qi='9-7-3' qt="s" ___="1">
+	<div qt="s" ___="1">
 		try 陳述式可以包含 finally 子句以及 except 子句。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo="1">正確</th><th qo="2">錯誤</th></tr></table>
 	</div>
-	<div qi='9-7-4' qt="s" ___="2">
+	<div qt="s" ___="2">
 		try 陳述式可以包含一個或多個 finally 子句。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo="1">正確</th><th qo="2">錯誤</th></tr></table>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<div>您需要撰寫執行下列工作的程式碼:</div>
-	<ul>
+	<!--{{{-->
+	<div>您需要撰寫執行下列工作的程式碼:<ul>
 		<li>呼叫process()函式。</li>
 		<li>如果process()函式擲回錯誤,則呼叫logError()函式。</li>
 		<li>呼叫process()函式之後一律呼叫displayResult()函式。</li>
-	</ul>
-	<div class='frame'>
-		<div qi='9-6-1' qt="s" ___="5">
-			<div qo="1">assert</div>
-			<div qo="2">except</div>
-			<div qo="3">finally</div>
-			<div qo="4">raise</div>
-			<div qo="5">try</div>
-		</div>
+	</ul></div>
+	<div class='frame'><div class='cb'>
+		<div qt='s' ___='5'><select qo='value'><option>請選擇</option>
+			<option value="1">assert</option>
+			<option value="2">except</option>
+			<option value="3">finally</option>
+			<option value="4">raise</option>
+			<option value="5">try</option>
+		</select> :</div>
 		<div class='cb'>process()</div>
-		<div qi='9-6-2' qt="s" ___="2">
-			<div qo="1">assert</div>
-			<div qo="2">except</div>
-			<div qo="3">finally</div>
-			<div qo="4">raise</div>
-			<div qo="5">try</div>
-		</div>
+		<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+			<option value="1">assert</option>
+			<option value="2">except</option>
+			<option value="3">finally</option>
+			<option value="4">raise</option>
+			<option value="5">try</option>
+		</select> :</div>
 		<div class='cb'>logError()</div>
-		<div qi='9-6-3' qt="s" ___="3">
-			<div qo="1">assert</div>
-			<div qo="2">except</div>
-			<div qo="3">finally</div>
-			<div qo="4">raise</div>
-			<div qo="5">try</div>
-		</div>
+		<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+			<option value="1">assert</option>
+			<option value="2">except</option>
+			<option value="3">finally</option>
+			<option value="4">raise</option>
+			<option value="5">try</option>
+		</select> :</div>
   		<div class='cb'>displayResult()</div>
-	</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
+	<!--{{{-->
 	<div>您正在建立一個接受使用者輸入的程式。此程式必須將輸入轉型為整數，並且在無法轉型時正確處理錯誤。</div>
 	<div class="frame">
 		<div>while True:</div>
 		<div class='cb'>
-			<div qi='9-12-1' qt="s" ___="1">
-				<div qo="1">try:</div><div qo="2">else:</div>
-				<div qo="3">except:</div><div qo="4">raise:</div>
-				<div qo="5">finally:</div>
-			</div>
+			<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value="1">try</option>
+				<option value="2">else</option>
+				<option value="3">except</option>
+				<option value="4">raise</option>
+				<option value="5">finally</option>
+			</select> :</div>
 			<div class='cb'>
 				<div>x = int(input(“Please enter a number: “))</div>
 				<div>break</div>
 			</div>
-			<div class='fxl'>
-				<div qi='9-12-2' qt='s' ___='3'>
-					<div qo="1">try:</div><div qo="2">else:</div>
-					<div qo="3">except:</div><div qo="4">raise:</div>
-					<div qo="5">finally:</div>
-				</div>
-				ValueError:
-			</div>
+			<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+				<option value="1">try</option>
+				<option value="2">else</option>
+				<option value="3">except</option>
+				<option value="4">raise</option>
+				<option value="5">finally</option>
+			</select> ValueError :</div>
 			<div class='cb'>print("Not a valid number. Try again...")</div>
 		</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
+	<!--{{{-->
 	請從每個下拉式清單中選取正確的選項以完成有關assert方法的敘述。
-	<div qi='9-8-1' qt="s" ___="1">
+	<div qt="s" ___="1">
 		若要測試變數a與b的值是否相同,請使用:
 		<div qo="1">assertEqual(a,b)</div>
 		<div qo="2">assertTrue(x)</div>
 		<div qo="3">assertIs(a,b)</div>
 		<div qo="4">assertIn(a,b)</div>
 	</div>
-	<div qi='9-8-2' qt="s" ___="3">
+	<div qt="s" ___="3">
 		若要測試物件a與b是否相同,請使用:
 		<div qo="1">assertEqual(a,b)</div>
 		<div qo="2">assertTrue(x)</div>
 		<div qo="3">assertIs(a,b)</div>
 		<div qo="4">assertIn(a,b)</div>
 	</div>
-	<div qi='9-8-3' qt="s" ___="4">
+	<div qt="s" ___="4">
 		若要測試清單中是否存在某個值,請使用:
 		<div qo="1">assertEqual(a,b)</div>
 		<div qo="2">assertTrue(x)</div>
 		<div qo="3">assertIs(a,b)</div>
 		<div qo="4">assertIn(a,b)</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>單元測試 Unit Test</h2>
+	<h2>單元測試 Unit Test</h2><!--{{{-->
 	<div style='text-align:center;'><img src='figure/UnitTest.gif' width='80%'></img></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<!--{{{-->
 	<div>您為了要測試某個物件是否為特定類別的執行個體。撰寫了下列程式</div>
-	<div class="cb frame">
-		<div class="fxl">
-			<div qi='9-3-1' qt="s" ___="2">
-				<div qo="1">define</div>
-				<div qo="2">import</div>
-				<div qo="3">include</div>
-				<div qo="4">using</div>
-			</div> unittest
-		</div>
-		<div class="fxl">
-			class TestIsInstance(
-			<div qi='9-3-2' qt="s" ___="1">
-				<div qo="1">unittest.TestCase</div>
-				<div qo="2">test.TestCase</div>
-				<div qo="3">TestCase.unittest</div>
-				<div qo="4">TestCase.test</div>
-			</div>
-			):
-		</div>
-		<div class="fxl">
-			def
-			<div qi='9-3-3' qt="s" ___="3">
-				<div qo="1">assert_isInstance(self):</div>
-				<div qo="2">eval_isInstance(self):</div>
-				<div qo="3">test_isInstance(self):</div>
-				<div qo="4">try_isInstance(self):</div>
-			</div>
-		</div>
+	<div class="frame"><div class='cb'>
+		<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+			<option value="1">define</option>
+			<option value="2">import</option>
+			<option value="3">include</option>
+			<option value="4">using</option>
+		</select> unittest</div>
+		<div qt='s' ___='1'>class TestIsInstance(<select qo='value'><option>請選擇</option>
+			<option value="1">unittest.TestCase</option>
+			<option value="2">test.TestCase</option>
+			<option value="3">TestCase.unittest</option>
+			<option value="4">TestCase.test</option>
+		</select>) :</div>
 		<div class='cb'>
-			<div qi='9-3-4' qt="s" ___="1">
-				<div qo="1">self.assertIsInstance(obj, cls, msg=None)</div>
-				<div qo="2">test.assertIsInstance(obj, cls, msg=None)</div>
-				<div qo="3">this.assertIsInstance(obj, cls, msg=None)</div>
-			</div>
+			<div qt='s' ___='3'>def <select qo='value'><option>請選擇</option>
+				<option value="1">assert_isInstance(self)</option>
+				<option value="2">eval_isInstance(self)</option>
+				<option value="3">test_isInstance(self)</option>
+				<option value="4">try_isInstance(self)</option>
+			</select> :</div>
+			<div class='cb' qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value="1">self.assertIsInstance(obj, cls, msg=None)</option>
+				<option value="2">test.assertIsInstance(obj, cls, msg=None)</option>
+				<option value="3">this.assertIsInstance(obj, cls, msg=None)</option>
+			</select></div>
 		</div>
+		<br/>
 		<div>if __name__ == '__main__':</div>
 		<div class="cb">unittest.main()</div>
-	</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>裝置: 檔案</h2>
+	<h2>裝置: 檔案系統</h2><!--{{{-->
+	<!--}}}-->
 </section>
 
 <section>
-	<div qi='9-1' qt="s" ___="4">
+	<!--{{{-->
+	<div qt="s" ___="4">
 		執行下列程式，卻收到第03行的錯誤。請問造成此錯誤的原因是什麼?
 		<div class='frame'>
 			<div class="cb" style="position:relative">
@@ -514,10 +532,11 @@ table small { color:#666; }
 		<div qo="3">isfile 方法不存在 path 物件中。</div>
 		<div qo="4">您需要匯入 os 程式庫。</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<div qi='9-2' qt="s" ___="1">
+	<div qt="s" ___="1">
 		<div>您正在為學校開發一個 Python 應用程式。</div>
 		<div>此應用程式必須讀取並寫入資料至文字檔案。</div>
 		<div>如果檔案不存在,此應用程式就必須建立檔案。</div>
@@ -538,20 +557,14 @@ table small { color:#666; }
 	</ul></div>
 	<div class="frame cb">
 		<div>import os</div>
-		<div class='fxl'>
-			file =
-			<div qi='9-4-1' qt="s" ___="2">
-				<div qo="1">open('myFile.txt','w')</div>
-				<div qo="2">open('myFile.txt','a')</div>
-			</div>
-		</div>
-		<div class='fxl'>
-			<div qi='9-4-2' qt="s" ___="1">
-				<div qo="1">file.write</div>
-				<div qo="2">file.add</div>
-			</div>
-			("End of listing")
-		</div>
+		<div qt="s" ___='2'>file = <select qo='value'><option>請選擇</option>
+			<option value='1'>open('myFile.txt','w')</option>
+			<option value='2'>open('myFile.txt','a')</option>
+		</select></div>
+		<div qt="s" ___='1'><select qo='value'><option>請選擇</option>
+			<option value="1">file.write</option>
+			<option value="2">file.add</option>
+		</select>("End of listing")</div>
 		<div>file.close()</div>
 	</div>
 </section>
@@ -565,35 +578,7 @@ table small { color:#666; }
 		<div>import os</div>
 		<div>def get_first_line(filename, mode):</div>
 		<div class='cb'>
-			<div qi='9-5-1' qt="s" ___="5">
-				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
-				<div qo="2"><div class='cb'>return None</div></div>
-				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
-				<div qo="4">else:</div>
-				<div qo="5">if os.path.isfile(filename):</div>
-			</div>
-			<div qi='9-5-2' qt="s" ___="3">
-				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
-				<div qo="2"><div class='cb'>return None</div></div>
-				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
-				<div qo="4">else:</div>
-				<div qo="5">if os.path.isfile(filename):</div>
-			</div>
-			<div qi='9-5-3' qt="s" ___="1">
-				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
-				<div qo="2"><div class='cb'>return None</div></div>
-				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
-				<div qo="4">else:</div>
-				<div qo="5">if os.path.isfile(filename):</div>
-			</div>
-			<div qi='9-5-4' qt="s" ___="4">
-				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
-				<div qo="2"><div class='cb'>return None</div></div>
-				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
-				<div qo="4">else:</div>
-				<div qo="5">if os.path.isfile(filename):</div>
-			</div>
-			<div qi='9-5-5' qt="s" ___="2">
+			<div qt="sort" ___="53142">
 				<div qo="1"><div class='cb'><div class='cb'>return file.readline()</div></div></div>
 				<div qo="2"><div class='cb'>return None</div></div>
 				<div qo="3"><div class='cb'>with open(filename, 'r') as file:</div></div>
@@ -605,7 +590,7 @@ table small { color:#666; }
 </section>
 
 <section>
-	<div qi='9-9' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		<div>您撰寫了以下這段程式碼:</div>
 		<div>out.txt檔案不存在。</div>
 		<div>您執行程式碼。</div>
@@ -613,11 +598,11 @@ table small { color:#666; }
 			<div>import sys</div>
 			<div>try:</div>
 			<div class='cb'>
-				<div>file_in = open('in.txt', &#39;r&#39;)</div>
-				<div>file_out = open('out.txt', &#39;w+&#39;)</div>
+				<div>file_in = open('in.txt', 'r')</div>
+				<div>file_out = open('out.txt', 'w+')</div>
 			</div>
 			<div>except IOError:</div>
-			<div class='cb'>print(&#39;cannot open&#39;, file_name)</div>
+			<div class='cb'>print('cannot open', file_name)</div>
 			<div>else:</div>
 			<div class='cb'>
 				<div>i = 1</div>
@@ -649,25 +634,25 @@ table small { color:#666; }
 		<li>查看檔案是否存在</li>
 		<li>如果檔案存在,則顯示其內容。</li>
 	</ul>
-	<div class="cb frame">
+	<div class='frame'><div class="cb">
 		<div>import os</div>
-		<div class='fxl'>if <div qi='9-10-1' qt="s" ___="4">
-			<div qo="1">isfile('myFile.txt'):</div>
-			<div qo="2">os.exist('myFile.txt'):</div>
-			<div qo="3">os.find('myFile.txt):</div>
-			<div qo="4">os.path.isfile('myFile.txt'):</div>
-		</div></div>
+		<div qt="s" ___="4">if <select qo='value'><option>請選擇</option>
+			<option value="1">isfile('myFile.txt'):</option>
+			<option value="2">os.exist('myFile.txt'):</option>
+			<option value="3">os.find('myFile.txt):</option>
+			<option value="4">os.path.isfile('myFile.txt'):</option>
+		</select></div>
 		<div class='cb'>
 			<div>file = open('myFile.txt)</div>
-			<div qi='9-10-2' qt="s" ___="3">
-				<div qo="1">output('myFile.txt')</div>
-				<div qo="2">print(file.get('myFile.txt'))</div>
-				<div qo="3">print(file.read())</div>
-				<div qo="4">print('myFile.txt')</div>
-			</div>
+			<div qt="s" ___="3"><select qo='value'><option>請選擇</option>
+				<option value="1">output('myFile.txt')</option>
+				<option value="2">print(file.get('myFile.txt'))</option>
+				<option value="3">print(file.read())</option>
+				<option value="4">print('myFile.txt')</option>
+			</select></div>
 			<div>file.close()</div>
 		</div>
-	</div>
+	</div></div>
 </section>
 
 <section>
@@ -677,17 +662,17 @@ table small { color:#666; }
 		<div>f.write('This is a line of text.')</div>
 		<div>f.close()</div>
 	</div>
-	<div qi='9-11-1' qt="s" ___="1">
+	<div qt="s" ___="1">
 		如果名稱為 python.txt 的檔案不存在，就會建立此檔案。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo="1">正確</th><th qo="2">錯誤</th></tr></table>
 	</div>
-	<div qi='9-11-2' qt="s" ___="2">
+	<div qt="s" ___="2">
 		此檔案中的資料會被覆寫。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo="1">正確</th><th qo="2">錯誤</th></tr></table>
 	</div>
-	<div qi='9-11-3' qt="s" ___="1">
+	<div qt="s" ___="1">
 		其他程式碼可以在這段程式碼執行完畢之後，開啟此檔案。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo="1">正確</th><th qo="2">錯誤</th></tr></table>
 	</div>
 </section>
 
