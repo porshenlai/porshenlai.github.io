@@ -343,23 +343,13 @@
 
 <script>
     // 瀏覽器發音 API 函數
-    function speakText(text, lang) {
+    function speakText(text, lang='en') {
         if ('speechSynthesis' in window) {
             const utterance = new SpeechSynthesisUtterance(text);
-            
-            // 根據語言代碼設定發音引擎
-            utterance.lang = lang; 
-            
-            if (lang.startsWith('ko') || lang.startsWith('ja')) {
-                utterance.rate = 1.0; 
-            } else {
-                utterance.rate = 0.8; 
-            }
-
-            speechSynthesis.speak(utterance);
-        } else {
-            alert('您的瀏覽器不支援 Speech Synthesis API。');
-        }
+            utterance.lang = lang; // 根據語言代碼設定發音引擎
+            utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
+            speechSynthesis.speak (utterance);
+        } else alert('您的瀏覽器不支援 Speech Synthesis API。');
     }
 
     // 根據選擇的語言過濾表格行和例字

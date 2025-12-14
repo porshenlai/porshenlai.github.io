@@ -12,6 +12,14 @@ async function loadScript (src,attrs={})
 	return rv;
 }	// }}}
 
+function* ancestors (se, ef=(e)=>!!e)
+{	// generate all parent elements until ef() {{{
+	while (ef(se)) {
+		yield se;
+		se=se.parentNode;
+	}
+}	// }}}
+
 const Plugins={
 	"math":async function(){ // {{{
     	window.MathJax = {
@@ -26,7 +34,7 @@ const Plugins={
 		);
 		return {};
 	}, 	// }}}
-	"tab":async function(){
+	"tab":async function(){ // {{{
 		const es=Array.from(document.body.querySelectorAll('#content .tab'));
 		if (es.length<=0)
 			return console.log(`
@@ -54,7 +62,7 @@ Usaeg:
 			});
 			C.querySelector('[TID]').click();
 		});
-	}
+	}	// }}}
 };	// Built-in Plugins
 
 class Aside
@@ -267,10 +275,26 @@ button:hover {border-color:#90a4ae;}
 				return s;
 			})(document.createElement("style")),content.firstChild);
 			content.addEventListener('click', (evt) => {
-				let e=evt.target, s;
-				for (s=e;s&&s.tagName!=="SECTION";s=s.parentNode);
-				if (s&&s.tagName==="SECTION")
-					this.activate(parseInt(s.getAttribute("data-index"),10));
+				for (let e=evt.target; e; e=e.parentNode){
+					if (e.hasAttribute('action')) {
+						switch(e.getAttribute('action')){
+						case 'speak' :
+							this.speak(
+								e.getAttribute("text") || e.textContent,
+								e.getAttribute("lang") || "en"
+							);
+							break;
+						default:
+							break;
+						}
+						evt.stopPropagation();
+						evt.preventDefault();
+					}
+					if (e.tagName==='SECTION') {
+						this.activate(parseInt(e.getAttribute("data-index"),10));
+						break;
+					}
+				}
 			});
 			content.addEventListener('scrollend', (evt) => { // auto activate page when current slide out of viewport
 				let i,x=this.Content.getBoundingClientRect().height/3;
@@ -278,7 +302,7 @@ button:hover {border-color:#90a4ae;}
 					const eb=this.Sections[i].getBoundingClientRect();
 					if ((eb.y+eb.height)>x) break;
 				}
-				this.activate(i,true);
+				if (document.fullscreenElement) this.activate(i,true);
 			});
 		})(); // }}}
 
@@ -374,12 +398,22 @@ button:hover {border-color:#90a4ae;}
 		this.Aside.E.querySelector('[action="fontDisplay"]').textContent = `${Math.round(this.fontScale * 100)}%`;
 	}	// }}}
 
-	set (name, value) {
+	speak (text, lang='en')
+	{	// {{{
+		if ('speechSynthesis' in window) {
+			const utterance = new SpeechSynthesisUtterance(text);
+			utterance.lang = lang; // 根據語言代碼設定發音引擎
+			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
+			speechSynthesis.speak (utterance);
+        } else alert('您的瀏覽器不支援 Speech Synthesis API。');
+    }	// }}}
+	set (name, value)
+	{	// set/unset parameters {{{
 		switch (name) {
 		case 'pagemode':
 			this.Content.setAttribute("playmode",value ? "page" : "continuous");
 		}
-	}
+	}	// }}}
 	regEventHook (cat, name, handler)
 	{	// (un)schedule a tick callback {{{
 		let eh=this.EventHook[cat]||(this.EventHook[cat]={});
@@ -423,7 +457,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		MS.Aside.update();
 		setTimeout(()=>{
 			const section=MS.Sections[MS.current];
-			console.log("Scroll to ",section);
 			section.scrollIntoView({behavior:'auto',block:'start'});
 			section.scrollTop=0;
 		},0);

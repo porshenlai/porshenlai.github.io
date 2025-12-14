@@ -19,7 +19,7 @@
 <body>
 
 <div id="content">
-<section>
+<section class='cm'>
 	<h1 class="title">ITS Python</h1>
 	<div>
 		<p class="subtitle">Code Structure</p>
@@ -33,7 +33,7 @@
 </section>
 
 <section>
-	<h2>程式註解</h2>
+	<h2>程式註解</h2><!--{{{-->
 	<div class='tab'>
 	<div style='text-align:center'>
 		<button TID='1' style='width:45%'><h3>💻 定義與目的</h3></button>
@@ -78,10 +78,11 @@
 		</ul>
 	</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>程式註解</h2>
+	<h2>程式註解</h2><!--{{{-->
 	<div qi='2' qt="s" ___="3">
 		您為公司開發了一個Python應用程式。<br />
 		您想要在自己的程式碼中加入附註,好讓其他團隊成員能夠了解。<br />
@@ -91,10 +92,11 @@
 		<div qo="3">在任何一行的 #後面放置附註。</div>
 		<div qo="4">在任何程式碼片段的 之間放置附註。</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>程式註解</h2>
+	<h2>程式註解</h2><!--{{{-->
 	某間銀行要將他們舊有的銀行交易程式碼轉至Python。<br />
 	該銀行雇用您來記錄已移轉的程式碼。<br />
 	請問哪個文件記錄語法是正確的?<br />
@@ -136,10 +138,11 @@
 			</div>
 		</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>程式註解</h2>
+	<h2>程式註解</h2><!--{{{-->
 	您建立了下列 Python 函式來計算數字的次方。
 	<div class="frame"><div class="cb" style="position:relative">
 		<div># The calc_power function calculates exponents</div>
@@ -153,26 +156,27 @@
 		</div>
 		<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06<br/>07</div>
 	</div></div>
-	<div qi='13-1' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		Python不會檢查第01到04行的語法。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='13-2' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		第02和03行的井字號(#)是選擇性的。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='13-3' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		第06行的字串將解釋為註解。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='13-4' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		第07行包含內嵌註解。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>🛠️ 程式函數 (Function)</h2>
+	<h2>🛠️ 程式函數 (Function)</h2><!--{{{-->
 	<div><strong>函數</strong>（Function）可以想像成一個<strong>有特定任務的小型機器或配方</strong>。</div>
 	<div class='tab'><div style='text-align:center'>
 		<button TID='1' style='width:32%'><h3>定義</h3></button>
@@ -204,10 +208,11 @@
 			<div>total = calculate_sum(5, 3) <span style="color:red"># 這是函數呼叫 (Function Call)</span></div>
 		</div></div>
 	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>📦 參數/引數 (Arguments)</h2>
+	<h2>📦 參數/引數 (Arguments)</h2><!--{{{-->
 	<div><strong>定義：</strong><div class='explain'>
 		參數是在呼叫函數時，提供給函數的值。這些值在函數的內部會被當作區域變數來使用。
 	</div></div>
@@ -237,10 +242,11 @@
 			</div>
 		</td>
 	</tr></table>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>回傳值 (Return Value)</h2>
+	<h2>回傳值 (Return Value)</h2><!--{{{-->
 	<p><strong>回傳值</strong>（Return Value）是<strong>函數執行完畢後給出的輸出結果</strong>。</p>
 	<div class='tab'><div style='text-align:center'>
 		<button TID='1' style='width:32%'><h3>定義</h3></button>
@@ -268,10 +274,11 @@
 			<div>print(total) <span style='color:red'># 輸出 8</span></div>
 		</div></div>
 	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>🐍 Python 函數參數的類型 (Parameters in Python)</h2>
+	<h2>🐍 Python 函數參數的類型 (Parameters in Python)</h2><!--{{{-->
 	<p>Python 參數主要可以根據<strong>傳遞方式</strong>（位置或名稱）和<strong>數量</strong>（固定或可變）來區分。</p>
 	<table class='tab' border='0' width='100%'><thead style='background:#eee'><tr>
 		<th>基本參數類型</th>
@@ -423,11 +430,12 @@
 		<div>):</div>
 		<div class='cb'>pass</div>
 	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>函數例題</h2>
-	<div qi='7' qt="m" ___="5">
+	<h2>函數例題</h2><!--{{{-->
+	<div qt="m" ___="5">
 		學生們正在參加學校的活動之夜。下列函式會告訴學生該前往何處參加活動:
 		<div class="cb frame">
 			<div>def roomAssignment (student, year) :</div>
@@ -477,10 +485,11 @@
 			</div>
 		</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>函數例題</h2>
+	<h2>函數例題</h2><!--{{{-->
 	請檢閱下列程式。
 	<div class='frame'><div class='cb' style='position:relative;'>
 		<div>def petStore(category, species, breed = 'none'):</div>
@@ -507,22 +516,23 @@
 		<div>petStore('bird',species='Scarlet Macaw')</div>
 		<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06<br/>07<br/>08<br/>09<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18</div>
 	</div></div>
-	<div qi='8-1' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		此函式(petStore)會傳回一個值。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='8-2' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		第14和17行的函式呼叫無效。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='8-3' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		第16和18行的函式呼叫會產生錯誤
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>函數例題</h2>
+	<h2>函數例題</h2><!--{{{-->
 	下列函式會計算使用指數之運算式的值。
 	<div class="frame"><div class="cb" style="position:relative;">
 		<div>def calc_power(a, b):</div>
@@ -533,21 +543,23 @@
 		<div>print('The result is ' + result)</div>
 		<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06</div>
 	</div></div>
-	<div qi='9-1' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		該程式碼將在第 03 行和第 04 行產生錯誤。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='9-2' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		該程式碼將在第 02 行和第 05 行產生錯誤。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='9-3' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		程式碼將正確地將資料輸出到控制台。
-		<div qo="1">正確</div><div qo="2">錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
+	<!--{{{-->
 	<h2>函數例題</h2>
 	您正在撰寫一個函式來增加遊戲內的玩家分數，此函式具有下列需求:
 	<ul>
@@ -569,27 +581,28 @@
 		<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06<br/>07<br/>08</div>
 	</div></div>
 
-	<div qi='10-1' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		為了符合需求,您必須將第01行變更為:
 		<div class="cb">def increment_score(score, bonus, points =1):</div>
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='10-2' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		以預設值定義任何參數之後,右側的所有參數也必須使用預設值來定義。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='10-3' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		如果您不變更第01行,而且僅使用兩個參數來呼叫此函式,第三個參數的值將為None。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='10-4' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		第03行也會修改在第06行宣告之變數points的值。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>函數例題</h2>
+	<h2>函數例題</h2><!--{{{-->
 	對於下列每一項有關以下函式的敘述,請選取[正確]或[錯誤]。
 	<div class="cb frame">
 		<div>def grosspay(hours=40,rate=25,pieces=0,piecerate=0,salary=0):</div>
@@ -610,67 +623,62 @@
 	</div>
 	<div qi='11-1' qt='s' ___='2'>
 		grosspay()的函式呼叫會產生語法錯誤。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
 	<div qi='11-2' qt='s' ___='2'>
 		grosspay(salary=50000)的函式呼叫不會傳回任何結果。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
 	<div qi='11-3' qt='s' ___='1'>
 		grosspay(pieces=500, piecerate=4)的函式呼叫所傳回的結果為2000。
-		<div qo='1'>正確</div><div qo='2'>錯誤</div>
+		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>函數例題</h2>
+	<h2>函數例題</h2><!--{{{-->
 	某間自行車公司正在建立一個程式,讓客戶能夠記錄騎乘英里數。<br />
 	此程式會根據客戶所記錄的英里數傳送訊息。<br />
-	<div class="cb frame">
-		<div qi='12-1' qt='s' ___='1'>
-			<div qo='1'>def get_name():</div>
-			<div qo='2'>def get_name(biker):</div>
-			<div qo='3'>def get_name(name):</div>
-			<div class="cb">
-				<div>name = input("What is your name? ")</div>
-				<div>return name</div>
-			</div>
+	<div class="frame"><div class='cb'>
+		<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+			<option value='1'>def get_name():</option>
+			<option value='2'>def get_name(biker):</option>
+			<option value='3'>def get_name(name):</option>
+		</select></div>
+		<div class="cb">
+			<div>name = input("What is your name? ")</div>
+			<div>return name</div>
 		</div>
-		<div qi='12-2' qt='s' ___='3'>
-			<div qo="1">def get_calories():</div>
-			<div qo="2">def get_calories(miles, burn_rate):</div>
-			<div qo="3">def get_calories(miles, calories_per_mile):</div>
-			<div class="cb">
-				<div>calories = miles * calories_per_mile</div>
-				<div>return calories</div>
-			</div>
+		<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+			<option value="1">def get_calories():</option>
+			<option value="2">def get_calories(miles, burn_rate):</option>
+			<option value="3">def get_calories(miles, calories_per_mile):</option>
+		</select></div>
+		<div class="cb">
+			<div>calories = miles * calories_per_mile</div>
+			<div>return calories</div>
 		</div>
 		<div>distance = int(input("How many miles did you bike this week? "))</div>
 		<div>burn_rate = 50</div>
 		<div>biker=get_name()</div>
 		<div>calories_burned = calc_calories(distance, burn_rate)</div>
 		<div>print(biker, ", you burned about ", calories_burned, " calories.")</div>
-	</div>
+	</div></div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>文件字串 (Document String)</h2>
-	<div qi='3' qt="s" ___="3">
-		請檢閱下列函式:
-		<div class="cb frame">
-			<div>def cube(n):</div>
-			<div class="cb">
-				<div>''' Returns the cube of number n '''</div>
-				<div>return n*n*n</div>
-			</div>
-		</div>
-		請問哪個命令可列印文件字串?
-		<div qo="1">print(__doc__)</div>
-		<div qo="2">print(cube(doc))</div>
-		<div qo="3">print(cube.__doc__)</div>
-		<div qo="4">print(cube(docstring))</div>
+	<h2>文件字串 (Document String)</h2><!--{{{-->
+	<div qt="s" ___="4">
+		請問哪些字元代表單行文件字串的開頭和結尾?
+		<div qo="1">單引號(')</div>
+		<div qo="2">雙引號(')</div>
+		<div qo="3">兩個雙引號('')</div>
+		<div qo="4">三個雙引號(''')</div>
 	</div>
-	<div qi='4' qt="s" ___="3">
+	<br/>
+	<div qt="s" ___="3">
 		在記錄函式時,文件字串的標準位置在哪裡?
 		<div qo="1">在程式檔案的開頭</div>
 		<div qo="2">在函式上方</div>
@@ -678,17 +686,27 @@
 		<div qo="4">在函式的結尾</div>
 		<div qo="5">在程式檔案的結尾</div>
 	</div>
-	<div qi='5' qt="s" ___="4">
-		請問哪些字元代表單行文件字串的開頭和結尾?
-		<div qo="1">單引號(')</div>
-		<div qo="2">雙引號(')</div>
-		<div qo="3">兩個雙引號('')</div>
-		<div qo="4">三個雙引號(''')</div>
+	<br/>
+	<div qt="s" ___="3">
+		請檢閱下列函式:
+		<div class="cb frame"><div class='cb'>
+			<div>def cube(n):</div>
+			<div class="cb">
+				<div>''' Returns the cube of number n '''</div>
+				<div>return n*n*n</div>
+			</div>
+		</div></div>
+		請問哪個命令可列印文件字串?
+		<div qo="1">print(__doc__)</div>
+		<div qo="2">print(cube(doc))</div>
+		<div qo="3">print(cube.__doc__)</div>
+		<div qo="4">print(cube(docstring))</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>💻 Python random 模組函數一覽</h2>
+	<h2>💻 Python random 模組函數一覽</h2><!--{{{-->
 	<table border='1' cellspacing='8' cellpadding='8' align='center'><thead><tr>
 		<th><strong>函式</strong></th>
 		<th><strong>功能</strong></th>
@@ -729,11 +747,12 @@
 		<td>由 <strong>f1</strong> 到 <strong>f2</strong> 之間隨機取得一個浮點數</td><td>r.uniform(1, 10)</td>
 		<td>6.351865...</td>
 	</tr></tbody></table>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>模組: 隨機(Random)</h2>
-	<div qi='6' qt="m" ___="6">
+	<h2>模組: 隨機(Random)</h2><!--{{{-->
+	<div qt='m' ___='6'>
 		您正在撰寫程式碼來產生一個最小值5與最大值11的隨機整數。<br/>
 		請問您應該使用哪兩個函式?
 		<div qo="1">random.randint(5, 12)</div>
@@ -741,10 +760,11 @@
 		<div qo="4">random.randint(5, 11)</div>
 		<div qo="8">random.randrange(5, 11, 1)</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>模組: 隨機(Random)</h2>
+	<h2>模組: 隨機(Random)</h2><!--{{{-->
 	您正在撰寫一個程式來隨機指派房間(room_number)和團隊建立組別(group)以進行公司培訓活動。<br/>
 	<div class="frame cb">
 		<div>import random</div>
@@ -758,30 +778,31 @@
 		<div class='cb'>
 			<div>while room_number in roomsAssigned:</div>
 			<div class='cb'>
-				<div qi='16-1' qt='s' ___='2'>
-					<div qo='1'>room_number=random(1,50)</div>
-					<div qo='2'>room_number=random.randint(1,50)</div>
-					<div qo='3'>room_number=random.shuffle(1,50)</div>
-					<div qo='4'>room_number=random.random(1,50)</div>
-				</div>
+				<div qt='s' ___='2'><select qo='value'><option>請選擇</option>
+					<option value='1'>room_number=random(1,50)</option>
+					<option value='2'>room_number=random.randint(1,50)</option>
+					<option value='3'>room_number=random.shuffle(1,50)</option>
+					<option value='4'>room_number=random.random(1,50)</option>
+				</select></div>
 			</div>
 			<div>print(f"{name}, your room number is {room_number}")</div>
 			<div>roomsAssigned.append(room_number)</div>
-			<div qi='16-2' qt='s' ___='1'>
-				<div qo='1'>group = random.choice(groupList)</div>
-				<div qo='2'>group = random.randange(groupList)</div>
-				<div qo='3'>group = random.shuffle(groupList)</div>
-				<div qo='4'>group = random.sample(groupList)</div>
-			</div>
+			<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+				<option value='1'>group = random.choice(groupList)</option>
+				<option value='2'>group = random.randange(groupList)</option>
+				<option value='3'>group = random.shuffle(groupList)</option>
+				<option value='4'>group = random.sample(groupList)</option>
+			</select></div>
 			<div>print(f"You will meet with the {group} Group this afternoon. ")</div>
 			<div>count+=1</div>
 			<div>name=input("Please enter your name (Q to quit)? ")</div>
 		</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>📅 Python datetime 模組常用方法</h2>
+	<h2>📅 Python datetime 模組常用方法</h2><!--{{{-->
 	<div>Python 的 datetime 模組主要包含了 date、time、datetime、timedelta 和 tzinfo 幾個核心類別。</div>
 	<div>以下表格著重於在程式設計中最常用到的 datetime 類別方法。</div>
 
@@ -822,10 +843,11 @@
 		<td><strong>時間差</strong>計算。用於加減日期時間。</td>
 		<td>dt1 = datetime(2025, 12, 9)<br/>td = timedelta(days=7)<br/>dt2 = dt1 + td<div class='sub'>2025-12-16 00:00:00</div></td>
 	</tr></tbody></table>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>📅 DateTime Format Codes</h2>
+	<h2>📅 DateTime Format Codes</h2><!--{{{-->
 	<table border='1' cellspacing='1' cellpadding='8' align='center' style='font-size:70%'><thead><tr>
 		<th><strong>類別</strong></th>
 		<th><strong>代碼</strong></th>
@@ -952,11 +974,12 @@
 		<td>字面上的百分比符號</td>
 		<td>%</td>
 	</tr></tbody></table>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>模組: DateTime</h2>
-	<div qi='1' qt="s" ___="3">
+	<h2>模組: DateTime</h2><!--{{{-->
+	<div qt="s" ___="3">
 		請問下列程式執行後將輸出什麼 ?
 		<div class="cb frame">
 			<div>import datetime</div>
@@ -968,29 +991,30 @@
 		<div qo="3">APRIL-07-17</div>
 		<div qo="4">04-07-2017</div>
 	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>模組: DateTime</h2>
+	<h2>模組: DateTime</h2><!--{{{-->
 	您正在撰寫一個程式來顯示 My Healthy Delivery 的特價優惠。
 	<div class="frame cb">
 		<div>import datetime</div>
 		<div>dailySpecials= ( "Spaghetti", "Macaroni &amp; Cheese", "Meatloaf",  "Fried Chicken" )</div>
 		<div>weekendSpecials=( "Lobster", "Prime Rib", "Parmesan-Crusted Cod" )</div>
 		<div># 擷取目前的日期。</div>
-		<div qi='14-1' qt='s' ___='3'>
-			<div qo='1'>now=datetime()</div>
-			<div qo='2'>now=datetime.date()</div>
-			<div qo='3'>now=datetime.datetime.now()</div>
-			<div qo='4'>now=new date()</div>
-		</div>
+		<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+			<option value='1'>now=datetime()</option>
+			<option value='2'>now=datetime.date()</option>
+			<option value='3'>now=datetime.datetime.now()</option>
+			<option value='4'>now=new date()</option>
+		</select></div>
 		<div># 擷取工作日(即星期幾)的完整名稱。</div>
-		<div qi='14-2' qt='s' ___='1'>
-			<div qo="1">today=now.strftime("%A")</div>
-			<div qo="2">today=now.strftime("%B")</div>
-			<div qo="3">today=now.strftime("%W")</div>
-			<div qo="4">today=now.strftime("%Y")</div>
-		</div>
+		<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+			<option value="1">today=now.strftime("%A")</option>
+			<option value="2">today=now.strftime("%B")</option>
+			<option value="3">today=now.strftime("%W")</option>
+			<option value="4">today=now.strftime("%Y")</option>
+		</select></div>
 		<div>print("My Healthy Eats Delivery")</div>
 		<div>if today == "Friday" or today=="Saturday" or today =="Sunday":</div>
 		<div class='cb'>
@@ -1005,14 +1029,15 @@
 			<div class='cb'>print(item)</div>
 		</div>
 		<div># 計算當週剩餘天數。</div>
-		<div qi='14-3' qt='s' ___='3'>
-			<div qo='1'>dayLeft=now-now.weekday()</div>
-			<div qo='2'>dayleft=today-today.weekday()</div>
-			<div qo='3'>dayleft=6-now.weekday()</div>
-			<div qo='4'>dayleft=6-datetime.datetime.weekday()</div>
-		</div>
+		<div qt='s' ___='3'><select qo='value'><option>請選擇</option>
+			<option value='1'>dayLeft=now-now.weekday()</option>
+			<option value='2'>dayleft=today-today.weekday()</option>
+			<option value='3'>dayleft=6-now.weekday()</option>
+			<option value='4'>dayleft=6-datetime.datetime.weekday()</option>
+		</select></div>
 		<div>print(f"Pricing specials change in {daysLeft} days")</div>
 	</div>
+	<!--}}}-->
 </section>
 
 </div>
