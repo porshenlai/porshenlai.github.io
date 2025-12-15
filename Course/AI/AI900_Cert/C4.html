@@ -21,11 +21,227 @@
 </section>
 
 <section>
-	<h2>關鍵片語擷取 (KPE)</h2>
+	<h2>自然語言處理</h2><!--{{{-->
+
+	<h3>Natural Language Processing (NLP)</h3>
+	<div>機器接受到自然語言後先轉換成文字，在分解成字彙，理解其內容，最後做出世當的反應，這整個過程稱之為自然語言處理。</div>
+	<div>相關技術包刮: 斷詞處理, 列表, 詞類標記, 詞意消歧, 字頻, 語法剖析, 建立「向量化」模型 ......</div>
+
+	<h3>Microsoft Azure 認知服務</h3>
+	<table border='1' cellspacing='0' cellpadding='8'><tr>
+		<th>語言服務</th><th>語音服務</th>
+	</tr><tr>
+		<td valign='top'><ul>
+			<li>文字分析</li>
+			<li>翻譯工具</li>
+			<li>交談語言理解</li>
+			<li>問題解答</li>
+		</ul></td><td valign='top'><ul>
+			<li>語音轉換文字</li>
+			<li>文字轉換語音</li>
+			<li>語音翻譯</li>
+		</ul></td>
+	</tr></table>
+
+	<h3>Azure Bot Service</h3>
+	<div>Web 聊天，電子郵件，Microsoft Teams …</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>具名實體辨識 (NER)</h2>
+	<h2>語言認知服務</h2><!--{{{-->
+	<ul>
+	<li>Microsoft Azure 語言認知服務有下列功能：<ul>
+		<li>判斷文字所使用的語言</li>
+		<li>對文字進行情感分析，以判斷內文是屬於正面或負面情感</li>
+		<li>從文字中擷取關鍵片語，並標註交談重點</li>
+		<li>識別並分類文字中的實體。實體可以是人，地，時，組織，及數量等的常用項目</li>
+	</ul></li>
+	<li>Microsoft Azure 語言認知服務可應用於下列案例中：<ul>
+		<li>社群媒體摘要分析，用於偵測有關政治情勢或市場產品的好感度</li>
+		<li>文件搜尋，用於擷取出關鍵片語，協助製作摘要文件或目錄</li>
+		<li>由文件或其他文字中擷取出品牌資訊或公司名稱，以供辨識之用</li>
+	</ul></li>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>語言偵測</h2><!--{{{-->
+	<ul>
+	<li>語言偵測功能可以辨識出文章使用的語言，系統偵測後將回傳下列資料：<ul>
+		<li>語言名稱: Chinese_Traditional | 繁體中文 | …</li>
+		<li>ISO 639-1 語言識別碼: zh_cht | unknown | …</li>
+		<li>信心指數: 信心指數值 | NaN</li>
+	</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>情感分析</h2><!--{{{-->
+	<ul>
+	<li>評估文件後傳回文件的情感分數和標籤</li>
+	<li>按「正負尺度」來評估文件</li>
+	<li>文件經情感分析後會傳回 0 到 1 之間的情感分數，接近 1 的值表示正向情感，接近 0 的值表示負面情感</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>關鍵片語擷取 (KPE)</h2><!--{{{-->
+	<ul>
+	<li>自動辨識出文件內有意義且具代表性的片語，應用範圍包刮：<ul>
+		<li>識別出文件中的表達重點，進行摘要說明</li>
+		<li>檢視電子郵件並分類為工作相關郵件，私人郵件或垃圾郵件</li>
+		<li>自動建立文件索引</li>
+		<li>文字自動過濾不雅字眼</li>
+		<li>相同主題的文件自動歸類</li>
+	</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>具名實體辨識 (NER)</h2><!--{{{-->
+	<ul>
+	<li>NER: Named Entity Recognition</li>
+	<li>專有名詞辨識</li>
+	<li>具名實體辨識</li>
+	<li>輸入一篇文章，服務會傳回該文件的「實體」清單<div class='frame'>
+		<div>「實體」是特定類型的項目或分類 (人員，地點，組織和時間等)。</div>
+		<div>如下表，類型還可以在細分為子類型</div>
+		<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+			<th>類型</th><th>子類型</th><th>範例</th>
+		</tr><tr>
+			<td>人</td><td>&nbsp;</td><td>徐則林</td>
+		</tr><tr>
+			<td>位置</td><td>&nbsp;</td><td>臺北市</td>
+		</tr><tr>
+			<td>數量</td><td>溫度</td><td>37.5 ⁰C</td>
+		</tr><tr>
+			<td>數量</td><td>數字</td><td>3,三</td>
+		</tr><tr>
+			<td>日期時間</td><td>日期</td><td>2024年10月28日</td>
+		</tr></tbody></table>
+	</div></li>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>語音服務</h2><!--{{{-->
+	<div>語音服務包含下列應用程式開發介面 (API)<ul>
+		<li>語音轉換文字</li>
+		<li>文字轉換語音</li>
+		<li>語音翻譯</li>
+	</ul></div>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>語音辨識</h2><!--{{{-->
+	<ul>
+	<li>「原音」模型：<ul>
+		<li>可以將音訊轉換成音素 (特定聲音的表示法)</li>
+	</ul></li>
+	<li>「語言」模型：<ul>
+		<li>可以將音素對應到單字，通常會使用統計演算法，根據音素預測出最可能的單字序列</li>
+	</ul></li>
+	<li>語音辨識產出的文檔，可應用於：<ul>
+		<li>為影片提供字幕</li>
+		<li>建立通話或會議的逐字稿</li>
+		<li>自動化課程筆記</li>
+		<li>演講時的內容轉譯成字幕</li>
+	</ul></li>
+	</ul>
+	<h3>語音文字轉換API - 語音轉文字</h3>
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<td><p>標準聽寫</p><p>&nbsp;</p></td><td>自動語言偵測</td>
+	</tr><tr>
+		<td><p>批次聽寫</p><p>&nbsp;</p></td><td>發音評量</td>
+	</tr><tr>
+		<td><p>自訂語音</p><p>&nbsp;</p></td><td>連續辨識功能</td>
+	</tr><tr>
+		<td><p>發言者識別</p><p>&nbsp;</p></td><td>不雅內容篩選器</td>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>語音合成</h2><!--{{{-->
+	<ul>
+	<li>進行語音合成，需要下列資訊：<ul>
+		<li>文字：要說出的內文</li>
+		<li>語言：以何種語言發聲</li>
+	</ul></li>
+	<li>可能用途<ul>
+		<li>產生使用者詢問問題的語音回答</li>
+		<li>電話總機系統的語音功能表</li>
+		<li>大聲朗誦出電子郵件或簡訊</li>
+		<li>公共場所之廣播通知</li>
+	</ul></li>
+	</ul>
+	<h3>語音文字轉換API - 文字轉語音</h3>
+	<div>可指定要用來說出文字的語音種類。目前可指定為以下三種語音：</div>
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<td>標準語音</td><td>最類似人聲，最簡單且最符合成本效益的語音模型</td>
+	</tr><tr>
+		<td>神經語音</td><td>使用標準語音，再以類神經網路來調整合成中音調的部分，增強調和詞型變化的能力，進而產生更自然的發音</td>
+	</tr><tr>
+		<td>自定神經語音</td><td>使用自己的資料，建立獨一無二的自訂合成語音</td>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>翻譯服務</h2><!--{{{-->
+	<ul>
+	<li>Azure 提供支援翻譯的認知服務，包括<ul>
+		<li>「文字翻譯」服務，執行文字到文字的翻譯</li>
+		<li>「語音翻譯」服務，執行語音轉換文字或語音轉換其他語音的翻譯</li>
+	</ul></li>
+	<li>使用 ISO 639-1 語言代碼來指定來源與目標語言，可同時指定多個目標語言來將來源語言同時翻譯成多種語言。例如:<div class='frame'>/translate?from=en&amp;to=ja&amp;to=ko</div></li>
+	<li>翻譯設定<ul>
+		<li>過濾不雅內容：可標示用詞不雅的文字</li>
+		<li>選擇性翻譯：可標示不要翻譯的內容</li>
+	</ul></li>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>使用交談語言理解建立語言模型</h2><!--{{{-->
+	<ul>
+	<li>電腦不僅能接受輸入的語言，也能夠解讀輸入語言的語義。</li>
+	<li>Azure 透過語言服務所提供的「交談語言理解」(CLU) 來處理</li>
+	<li>CLU 為「對話語言理解 (LUIS: Language Understanding) 的進階版。</li>
+	</ul>
+	<div class='frame'>
+		<div>能夠由對話中得到下列三核心概念<ul>
+			<li>表達方式 : 使用者所要表述的內容 (Ex: 好熱喔! 打開冷氣。)</li>
+			<li>實體 (Entity)：言語中所指稱的特定項目 (Ex: 冷氣)</li>
+			<li>意圖 (Intent)：期待得到的某項結果 (Ex: 啟動設備)</li>
+		</ul></div>
+		<div>無法辨識意圖時，預設為 None (無意圖) 會被視為後備的處理程序。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>使用 Azure 機器人服務 建構 機器人</h2><!--{{{-->
+	<ul>
+	<li>透過多種通訊通道，以交談方式與使用者互動，提供第一線自動化支援</li>
+	<li>建立自訂知識庫 (KB: Knowledge Base)<ul>
+		<li>使用 Azure 語言服務的問題解答功能建立。</li>
+		<li>管理者匯入半結構化的靜態資料<div>
+			(FAQ網頁，PDF，Excel，手冊，文件等文字檔)。
+		</div></li>
+		<li>系統自動擷取資料中關聯性的相關資訊，整合建立問題與解答。</li>
+	</ul></li>
+	<li>問答配對內容包括:<ul>
+		<li>問題的所有替代形式</li>
+		<li>在搜尋期間用來篩選答案選擇的中繼資料標籤</li>
+		<li>後續提示，以備進階搜尋</li>
+	</ul></li>
+	<!--}}}-->
 </section>
 
 <section>
