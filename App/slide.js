@@ -168,11 +168,11 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 		((E) => { // Dialog Element {{{
 			E.setAttribute('style','display:none;flex-flow:column nowrap;position:absolute;left:5%;top:5%;right:5%;bottom:5%;overflow:hidden;');
 			E.innerHTML=`
-<div UID='Path' style='border-bottom:2px solid gold;margin-bottom:4px;'></div>
+<div UID='Caption' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
 <div UID='View' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;border-radius:6px;'></div>
 `;
 			this.Overlay.appendChild(E);
-			E.appendChild(E.Path=E.querySelector('[UID="Path"]'));
+			E.appendChild(E.Caption=E.querySelector('[UID="Caption"]'));
 			E.appendChild(E.View=E.querySelector('[UID="View"]'));
 			E.View.addEventListener('click',(evt)=>{
 				evt.stopPropagation();
@@ -216,16 +216,18 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 		((S)=>{
 			// [CSS] opacity:1; visiblity:visible;
 			S.opacity=1;
-			S.visibility="visible";
+			S.visibility='visible';
 		})(this.Overlay.style);
 		if (dialog) {
-			this.E.style.transform="translateX(100%)";
+			this.E.style.transform='translateX(100%)';
+			if(dialog.hasAttribute('caption'))
+				this.DE.Caption.textContent=dialog.getAttribute('caption');
 			while(dialog.firstChild) this.DE.View.appendChild(dialog.firstChild);
 			this.DE.style.display='flex';
 		} else {
 			this.DE.style.display='none';
 			// [CSS] transform: translateX(0);
-			this.E.style.transform="translateX(0)";
+			this.E.style.transform='translateX(0)';
 		}
 	}	// }}}
 	close ()
@@ -235,6 +237,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			S.opacity=0;
 			S.visibility="hidden";
 		})(this.Overlay.style);
+		while (this.DE.Caption.firstChild) this.DE.Caption.removeChild(this.DE.Caption.firstChild);
 		while (this.DE.View.firstChild) this.DE.View.removeChild(this.DE.View.firstChild);
 		// [CSS] transform: translateX(100%);
 		this.E.style.transform="translateX(100%)";
@@ -283,6 +286,9 @@ button {appearance:none;border:1px solid #cfd8dc;background:#fff;padding:8px 12p
 button:hover {border-color:#90a4ae;}
 #content[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
 #content[playmode="page"] section.full { margin:0;padding:0;border:0;height:100%;scroll-margin-top:0; }
+
+.figure { object-fit:contain;width:100%;height:100%; }
+[action="playDLG"] .dialog { display:none; }
 `;
 			S.innerHTML=PAGE+SECTION+BASIC;
 			document.head.appendChild(S);

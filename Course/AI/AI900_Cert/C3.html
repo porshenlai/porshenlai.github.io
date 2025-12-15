@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>電腦視覺 (MCF AI900)</title>
 <script plugins="quiz" src="/App/slide.js"></script>
-<style>
-	.figure { object-fit:contain;width:100%;height:100%; }
-	[action="playDLG"] .dialog { display:none; }
-</style>
 </head>
 <body>
 
 <div id="content">
+<style>
+[action="playDLG"] { text-decoration:underline; color:blue; }
+[action="playDLG"]:hover { background:silver; }
+</style>
 <section class="cm">
 	<h1 class="title">💻 AI-900 </h1>
 	<h2>電腦視覺工作負載功能</h2>
@@ -29,7 +29,7 @@
 		<td>內容組織</td><td>醫療保健</td>
 	</tr><tr>
 		<td>文字擷取</td>
-		<td action='playDLG'>空間分析<div class='dialog'>
+		<td action='playDLG'>空間分析<div class='dialog' caption='識別人員在某個空間中遵守社交距離'>
 			<img class='figure' src='figure/3_A.png'/>
 		</div></a></td>
 	</tr><tr>
@@ -40,15 +40,150 @@
 		<td>智慧城市</td><td>零售商店的購物者分析</td>
 	</tr><tr>
 		<td>自動型交通工具</td>
-		<td action='playDLG'>臉部識別<div class='dialog'>
-			<img class='figure' src='figure/3_B.png'/>
-		</div></a></td>
+		<td>臉部識別
+			<span action='playDLG'>1<div class='dialog' caption='臉部辨識與空間分析可偵測某個人是否戴著口罩'>
+				<img class='figure' src='figure/3_B.png'/>
+			</div></span>
+			<span action='playDLG'>2<div class='dialog' caption='臉部識別的功能'>
+				<div style='padding:8px;width:100%;height:100%;'><table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+					<td>門禁管理</td><td>人員進出管理，智能門鎖，醫療智慧藥櫃</td>
+				</tr><tr>
+					<td>監控安全系統</td><td>倉庫區域偵測是否有未授權人士出現</td>
+				</tr><tr>
+					<td>身分驗證</td><td>VIP，登記的訪客，阻擋名單人員</td>
+				</tr><tr>
+					<td>智慧零售</td><td>蒐集來電顧客的性別，年齡，情緒等數據</td>
+				</tr><tr>
+					<td>健康控管</td><td>檢測口罩是否正確配戴</td>
+				</tr></tbody></table></div>
+			</div></span>
+		</td>
 	</tr></tbody></table>
 	<!--}}}-->
 </section>
 
 <section>
-	<!--{{{-->
+	<h2>影像分析的功能</h2><!--{{{-->
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<td>影像描述 (說明影像)</td>
+		<td>光學字元辨識
+			<span action='playDLG'>[1]<div class='dialog' caption='光學字元辨識可偵測影像中的文字資料'>
+				<img class='figure' src='figure/3_D.png'/>
+			</div></span>
+		</td>
+	</tr><tr>
+		<td>標記視覺特徵
+			<span action='playDLG'>[1]<div class='dialog' caption='標記視覺特徵取得影像中包含的標籤與信賴分數'>
+				<img class='figure' src='figure/3_C.jpg'/>
+			</div></span></td><td>偵測品牌</td>
+	</tr><tr>
+		<td>影像分類</td>
+		<td>臉部偵測 <span action='playDLG'>[1]<div class='dialog' caption='透過臉部服務識別影像中人員的年齡和性別'>
+			<img class='figure' src='figure/3_E.png'/>
+		</div></span></td>
+	</tr><tr>
+		<td>物件偵測</td><td>偵測特定領域內容 (名人，地標)</td>
+	</tr><tr>
+		<td>語意分割</td><td>偵測影像類型，偵測影像色彩配置，產生縮圖，內容仲裁等</td>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>光學文字識別 (OCR)</h2><!--{{{-->
+	<ul>
+		<li>偵測和讀取影像中的文字</li>
+		<li>偵測和讀取 PDF 文件檔中的文字</li>
+		<li>偵測和讀取相片中的手寫文字</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>文件智慧服務和知識採礦</h2><!--{{{-->
+	<ul>
+		<li>先前稱為 Azure 表格辨識器</li>
+		<li>使用機器學習模型從您的圖檔中擷取索引鍵/值組，文字和資料表</li>
+		<li>文件智慧服務專注於從文件中擷取結構化資料</li>
+		<li>知識採礦則是一個更全面的解決方案</li>
+		<li>結合兩者，可從結構化與非結構化資料中提取有價值的知識和見解</li>
+		<li>例如:<span action='playDLG'>[辨識發票]<div class='dialog' caption='表單辨識器與發票模型可分析發票中的資訊'>
+			<img class='figure' src='figure/3_F.png'/>
+		</div></span>,<span action='playDLG'>[辨識名片]<div class='dialog' caption='表單辨識器與名片模型可分析名片中的資訊'>
+			<img class='figure' src='figure/3_G.png'/>
+		</div></span></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>自訂視覺</h2><!--{{{-->
+	<ul>
+		<li>Custom Vision</li>
+		<li>是一項影像辨識服務 <span action='playDLG'>[*]<div class='dialog' caption='物件偵測可辨識每個物件在影像中的座標位置'>
+			<img class='figure' src='figure/3_H.png'/>
+		</div></span></li>
+		<li>開發人員可以透過自訂視覺服務，針對特定影像內的「物件」指定「標籤」來建置，部署專屬的自訂影像分類及物件偵測模型</li>
+		<li>包括「影像分類」與「物件偵測」兩種功能</li>
+		<li>自訂視覺影像分類<ul>
+			<li>產品識別</li>
+			<li>醫療診斷</li>
+			<li>災害調查</li>
+		</ul></li>
+		<li>自訂視覺物件偵測<ul>
+			<li>檢查建物安全</li>
+			<li>保護野生動物</li>
+			<li>檢測腫瘤</li>
+			<li>自動化結帳</li>
+			<li>駕駛輔助</li>
+			<li>異常偵測</li>
+		</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>臉部辨識服務</h2><!--{{{-->
+	<div>臉部辨識服務功能大致分成兩大部分：</div>
+	<ul>
+		<li>針對單一臉部作偵測，可以得知這些臉部的相關資訊<ul>
+			<li>年齡，性別，是否佩戴眼鏡，表情</li>
+		</ul></li>
+		<li>驗證影像中的「這兩張臉屬於同一個人嗎？」 <ul>
+			<li>人臉的相似度</li>
+		</ul></li>
+		<li>臉部偵測: 臉部矩形, 臉部驗證, 相似性</li>
+		<li>臉部辨識: <span action='playDLG'>臉部特徵點<div class='dialog' caption='27個臉部特徵點'>
+			<img class='figure' src='figure/3_I.png'/>
+		</div></span>, 屬性, 相似性</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>臉部識別原理</h2><!--{{{-->
+	<ul>
+		<li>生物辨識技術有指紋辨識，虹膜辨識，聲音辨識，人臉辨識... 等</li>
+		<li>人臉辨識利用人臉五官輪廓的距離角度來建立3D結構模型，以向量方式擷取臉部特徵點偵測值，進行身分辨識</li>
+		<li>優點包括：非接觸式，攝像裝置普及，辨識速度快，不易已照片作假，不受裝扮物件影像，直接取像，不需使用者配合。</li>
+		<li>臉部識別功能：身分識別, 存取授權, 顧客分析, 健康管理</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>臉部識別應用實例</h2><!--{{{-->
+	<ul>
+		<li>「<span action='playDLG'>出勤管理系統<div class='dialog' caption='人臉辨識技術應用於出勤管理系統'>
+				<img class='figure' src='figure/3_J.png'/>
+			</div></span>」，若保全使用了臉部偵測和臉部辨識電腦視覺，保全系統會分析 CCTV 影像，讓經過授權的人員能夠進入管制區域。<ul>
+			<li>人員到達工作場所，入口處攝像機取像，影像資料傳送至後端出勤管理系統</li>
+			<li>伺服器 API 或資料庫的人臉辨識以驗證結果立即傳出是否可開門的決策。</li>
+		</ul></li>
+		<li>「<span action='playDLG'>人臉辨識尋人系統<div class='dialog' caption='臉部識別應用實例'>
+				<img class='figure' src='figure/3_K.png'/>
+			</div></span>」透過無人機從人群中拍攝人臉影像，將資訊傳送至人臉辨識系統，比對資料庫內所指定的人臉影像，可即時列出要找尋的人物。</li>
+	</ul>
 	<!--}}}-->
 </section>
 
