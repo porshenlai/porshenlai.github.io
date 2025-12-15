@@ -134,8 +134,11 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 				let e = evt.target;
 				switch(e.getAttribute("action")){
 				case "fsToggle": if(CB.fullscreen) CB.fullscreen(e.checked); break;
-				case "prevBtn": if (CB.activate) CB.activate(-1); break;
-				case "nextBtn": if (CB.activate) CB.activate(1); break;
+				case "prevBtn":
+					if (CB.activate) CB.activate(-1); break;
+				case "nextBtn":
+					if (CB.activate) CB.activate(1); break;
+					break;
 				case "fontDecreaseBtn":
 					if (CB.applyFontScale) CB.applyFontScale(-0.05);
 					break;
@@ -149,10 +152,9 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 					this.E.setAttribute("current","settings");
 					break;
 				default:
-					if (e.hasAttribute("data-index")) {
+					if (e.dataset.sid) {
 						evt.preventDefault();
-						console.log("CLICK",CB.activate,e);
-						if (CB.activate) CB.activate(0,parseInt(e.dataset.index, 10));
+						if (CB.activate) CB.activate(e.dataset.sid);
 						this.close();
 					}
 					break;
@@ -200,9 +202,9 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			const li = document.createElement('li');
 			while (li.firstChild) li.removeChild(li.firstChild);
 			const a = document.createElement('a');
-			a.href = '#' + sec.id;
+			//a.href = '#' + sec.getAttribute('SID');
 			a.textContent = title;
-			a.dataset.index = idx;
+			a.dataset.sid = sec.getAttribute('SID');
 			li.appendChild(a);
 			tl.appendChild(li);
 		});
@@ -247,8 +249,9 @@ class Slides
 {
 	constructor (RE)
 	{	// {{{
-		this.current=-1;
+		this.current=undefined;
 		this.fontScale=1.0;
+		this.NextSID=0;
 
 		(()=>{ // install style {{{
 			const S=document.createElement("style")
@@ -290,7 +293,6 @@ button:hover {border-color:#90a4ae;}
 			content.insertBefore(((s)=>{
 				const code=`
 .cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
-.fxl { display:flex;align-items:center;justify-content:flex-start; }
 `;
 				s.innerHTML=`
 `;
@@ -298,7 +300,7 @@ button:hover {border-color:#90a4ae;}
 				return s;
 			})(document.createElement("style")),content.firstChild);
 			content.addEventListener('click', (evt) => {
-				for (let e=evt.target; e; e=e.parentNode){
+				for (let e=evt.target; e!==content; e=e.parentNode){
 					if (e.hasAttribute('action')) {
 						switch(e.getAttribute('action')){
 						case 'playDLG':
@@ -316,31 +318,21 @@ button:hover {border-color:#90a4ae;}
 						evt.stopPropagation();
 						evt.preventDefault();
 					}
-					if (e.tagName==='SECTION') {
-						this.activate(parseInt(e.getAttribute("data-index"),10));
-						break;
-					}
+					if (e.tagName==='SECTION') { this.activate(e); break; }
 				}
 			});
 			content.addEventListener('scrollend', (evt) => { // auto activate page when current slide out of viewport
-				let i,x=this.Content.getBoundingClientRect().height/3;
-				for (i=0;i<this.Sections.length;i++) {
-					const eb=this.Sections[i].getBoundingClientRect();
+				let s,x=this.Content.getBoundingClientRect().height/3;
+				for (s=this.Content.firstChild; s; s=s.nextSibling) if(s.nodeType===1) {
+					const eb=s.getBoundingClientRect();
 					if ((eb.y+eb.height)>x) break;
 				}
-				if (document.fullscreenElement) this.activate(i,true);
+				if (s&&document.fullscreenElement) this.activate(s);
 			});
 		})(); // }}}
 
-		this.Sections=Array.from(this.Content.querySelectorAll('section'));
-		this.Sections.forEach((sec, idx) => {
-			if (!sec.hasAttribute("data-index"))
-				sec.setAttribute("data-index",idx);
-			sec.id=`s${idx+1}`
-		});
-
 		this.Aside=new Aside(document.body, {
-			"activate": (v,av) => this.activate(v?this.current+parseInt(v):av),
+			"activate": (s) => this.activate(s),
 			"fullscreen": (mode) => {
 				if (mode) {
 					if(!document.fullscreenElement) document.body.requestFullscreen();
@@ -348,7 +340,8 @@ button:hover {border-color:#90a4ae;}
 			},
 			"applyFontScale": (scale) => this.applyFontSize(this.fontScale + scale)
 		});
-		this.Aside.installTOC(this.Sections);
+		this.fixSections();
+		this.Aside.installTOC(Array.from(this.Content.querySelectorAll('section')));
 
 		this.Plugins={};
 
@@ -362,7 +355,7 @@ button:hover {border-color:#90a4ae;}
 #control-panel:not(.active) :not([action="none"]) {display:none;}
 </style>
 <div action="prev">◀</div>
-<div action="menu">☰</div>
+<div action="menu">☰</div
 <div action="none"></div>
 <div action="next">▶</div>
 `;
@@ -376,9 +369,9 @@ button:hover {border-color:#90a4ae;}
 				case 'menu':
 					E.classList.remove('active'); this.Aside.open(); break;
 				case 'prev':
-					E.classList.remove('active'); this.activate(this.current-1); break;
+					E.classList.remove('active'); this.activate(-1); break;
 				case 'next':
-					E.classList.remove('active'); this.activate(this.current+1); break;
+					E.classList.remove('active'); this.activate(1); break;
 				default:
 					return;
 				}
@@ -391,22 +384,50 @@ button:hover {border-color:#90a4ae;}
 		setInterval(()=>{ let eh=this.EventHook.tick; if(eh) for(let n in eh) eh[n](); },1000)
 	}	// }}}
 
-	activate (index, smooth = true)
-	{	// activate the index-th section {{{
-		if (index < 0 || index >= this.Sections.length || index === this.current)
-			return; // Prevent invalid or redundant calls
-
-		this.current=index;
+	fixSections ()
+	{	// {{{
+		let counts=[0,0];
+		for (let s=this.Content.firstChild; s; s=s.nextSibling)
+			if (s.tagName==='SECTION') {
+				counts[1]++;
+				if (!s.hasAttribute('SID'))
+					s.setAttribute('SID',++this.NextSID);
+				if (this.current===s) {
+					s.classList.add('current-section');
+					counts[0]=counts[1];
+				}else
+					s.classList.remove('current-section')
+			}
 		if (this.Aside)
-			this.Aside.update(index, this.Sections.length);
+			this.Aside.update(counts[0], counts[1]);
+		return counts;
+	}	// }}}
 
-		this.Sections.forEach((sec, i) => sec.classList.toggle('current-section', i === index));
-			
+	activate (section, smooth = true)
+	{	// activate specified section {{{
+		section = (()=>{
+			switch (section) {
+			case 1 :
+				for (let s=this.current.nextSibling; s; s=s.nextSibling) if (s.tagName==='SECTION') return s;
+			case -1 :
+				for (let s=this.Content.firstChild,h=[]; s; s=s.nextSibling) if (s.tagName==='SECTION') {
+					if (s===this.current) return h.pop(); else h.push(s);
+				}
+				break;
+			default:
+				if ('string'===typeof(section)) section=this.Content.querySelector(`[SID="${section}"]`); 
+				return section;
+			}
+		})();
+		if (!section || section===this.current) return;
+
+		this.current=section;
+		this.fixSections();
+
 		// Update URL hash and scroll into view
-		const section = this.Sections[index];
 		if (history.replaceState)
-			history.replaceState(null, null, '#' + section.id);
-		else location.hash = '#' + section.id;
+			history.replaceState(null, null, '#' + section.getAttribute('SID'));
+		else location.hash = '#' + section.getAttribute('SID');
 
 		setTimeout(()=>{
 			section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
@@ -450,7 +471,7 @@ button:hover {border-color:#90a4ae;}
 	{	// install page plugin {{{
 		this.Plugins[name]=await handler(this);
 	}	// }}}
-}	// }}}
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 	const content=document.body.querySelector('#content'),
@@ -482,30 +503,28 @@ document.addEventListener('DOMContentLoaded', () => {
 		MS.set('pagemode',document.fullscreenElement);
 		MS.Aside.update();
 		setTimeout(()=>{
-			const section=MS.Sections[MS.current];
-			section.scrollIntoView({behavior:'auto',block:'start'});
-			section.scrollTop=0;
+			MS.current.scrollIntoView({behavior:'auto',block:'start'});
+			MS.current.scrollTop=0;
 		},0);
 	});
 	window.addEventListener('keydown', (e) => {
-		if (e.key==='ArrowLeft') MS.activate(MS.current-1);
-		if (e.key==='ArrowRight') MS.activate(MS.current+1);
-		if (e.key==='Escape') {
-			e.preventDefault();
+		if (e.key==='ArrowLeft')
+			MS.activate(-1);
+		else if (e.key==='ArrowRight')
+			MS.activate(1);
+		else if (e.key==='Escape')
 			MS.Aside.toggle();
-		}
+		else return;
+		e.preventDefault();
 	});
 	window.addEventListener('resize',(e) => MS.applyFontSize());
 	MS.applyFontSize (1.0);
 
 	(()=>{	// apply url hash and activate the section {{{
-		let index=0;
-		if (location.hash) {
-			const section=MS.Sections.find(s => `#${s.id}` === location.hash);
-			if (section) index=parseInt(section.getAttribute("data-index"));
-		}
+		const section = MS.Content.querySelector(location.hash ? `section[SID="${location.hash.substr(1)}"]` : "section")
+		console.log("========================>",section);
 		setTimeout(()=>{
-			MS.activate(index, false);
+			MS.activate(section, false);
 			loading.parentNode.removeChild(loading);
 			content.style.opacity='1';
 		}, 1);
