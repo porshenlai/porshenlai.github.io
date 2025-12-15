@@ -163,6 +163,21 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			return E;
 		})(this.E=document.createElement("aside")); // }}}
 
+		((E) => { // Dialog Element {{{
+			E.setAttribute('style','display:none;flex-flow:column nowrap;position:absolute;left:5%;top:5%;right:5%;bottom:5%;overflow:hidden;');
+			E.innerHTML=`
+<div UID='Path' style='border-bottom:2px solid gold;margin-bottom:4px;'></div>
+<div UID='View' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;border-radius:6px;'></div>
+`;
+			this.Overlay.appendChild(E);
+			E.appendChild(E.Path=E.querySelector('[UID="Path"]'));
+			E.appendChild(E.View=E.querySelector('[UID="View"]'));
+			E.View.addEventListener('click',(evt)=>{
+				evt.stopPropagation();
+				evt.preventDefault();
+			});
+		})(this.DE=document.createElement("div")); // }}}
+
 		this.close();
 	}	// }}}
 	update (index, total)
@@ -192,7 +207,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			tl.appendChild(li);
 		});
 	}	// }}}
-	open ()
+	open (dialog)
 	{	// launch aside bar {{{
 		// if (document.fullscreenElement) document.exitFullscreen();
 	
@@ -201,8 +216,15 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			S.opacity=1;
 			S.visibility="visible";
 		})(this.Overlay.style);
-		// [CSS] transform: translateX(0);
-		this.E.style.transform="translateX(0)";
+		if (dialog) {
+			this.E.style.transform="translateX(100%)";
+			while(dialog.firstChild) this.DE.View.appendChild(dialog.firstChild);
+			this.DE.style.display='flex';
+		} else {
+			this.DE.style.display='none';
+			// [CSS] transform: translateX(0);
+			this.E.style.transform="translateX(0)";
+		}
 	}	// }}}
 	close ()
 	{	// hide aside bar {{{
@@ -211,6 +233,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			S.opacity=0;
 			S.visibility="hidden";
 		})(this.Overlay.style);
+		while (this.DE.View.firstChild) this.DE.View.removeChild(this.DE.View.firstChild);
 		// [CSS] transform: translateX(100%);
 		this.E.style.transform="translateX(100%)";
 	}	// }}}
@@ -278,6 +301,9 @@ button:hover {border-color:#90a4ae;}
 				for (let e=evt.target; e; e=e.parentNode){
 					if (e.hasAttribute('action')) {
 						switch(e.getAttribute('action')){
+						case 'playDLG':
+							this.Aside.open(e.querySelector('.dialog').cloneNode(true));
+							break;
 						case 'speak' :
 							this.speak(
 								e.getAttribute("text") || e.textContent,
