@@ -28,7 +28,7 @@
 	<div>相關技術包刮: 斷詞處理, 列表, 詞類標記, 詞意消歧, 字頻, 語法剖析, 建立「向量化」模型 ......</div>
 
 	<h3>Microsoft Azure 認知服務</h3>
-	<table border='1' cellspacing='0' cellpadding='8'><tr>
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tr>
 		<th>語言服務</th><th>語音服務</th>
 	</tr><tr>
 		<td valign='top'><ul>
@@ -140,12 +140,13 @@
 <section>
 	<h2>語音辨識</h2><!--{{{-->
 	<ul>
-	<li>「原音」模型：<ul>
-		<li>可以將音訊轉換成音素 (特定聲音的表示法)</li>
-	</ul></li>
-	<li>「語言」模型：<ul>
-		<li>可以將音素對應到單字，通常會使用統計演算法，根據音素預測出最可能的單字序列</li>
-	</ul></li>
+	<li><table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<th>「原音」模型</th>
+		<td>可以將音訊轉換成音素 (特定聲音的表示法)</td>
+	</tr><tr>
+		<th>「語言」模型</th>
+		<td>可以將音素對應到單字，通常會使用統計演算法，根據音素預測出最可能的單字序列</td>
+	</tr></table></li>
 	<li>語音辨識產出的文檔，可應用於：<ul>
 		<li>為影片提供字幕</li>
 		<li>建立通話或會議的逐字稿</li>
@@ -155,13 +156,11 @@
 	</ul>
 	<h3>語音文字轉換API - 語音轉文字</h3>
 	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
-		<td><p>標準聽寫</p><p>&nbsp;</p></td><td>自動語言偵測</td>
+		<th width='33%'>標準聽寫</th><th width='33%'>批次聽寫</th><th width='33%'>自訂語音</th>
 	</tr><tr>
-		<td><p>批次聽寫</p><p>&nbsp;</p></td><td>發音評量</td>
+		<th>發言者識別</th><th>自動語言偵測</th><th>發音評量</th>
 	</tr><tr>
-		<td><p>自訂語音</p><p>&nbsp;</p></td><td>連續辨識功能</td>
-	</tr><tr>
-		<td><p>發言者識別</p><p>&nbsp;</p></td><td>不雅內容篩選器</td>
+		<th>連續辨識功能</th><th>不雅內容篩選器</th>
 	</tr></tbody></table>
 	<!--}}}-->
 </section>
@@ -374,7 +373,7 @@
 
 <section>
 	<div>您要使用自然語言處理來處理 Microsoft 新聞報導的文字。您收到如下所示輸出。</div>
-	<div><img src="C4_10.jpg" style="width:90%"/></div>
+	<div><img src="figure/4_Q1.jpg" style="width:50%"/></div>
 	<div qt='s' ___='4'>
 		請問您執行了下列何種類型的自然語言處理 ？
 		<div qo='1'>翻譯</div>
@@ -386,7 +385,7 @@
 </section>
 
 <section>
-	<div><img src="C4_11.jpg" style="width:90%"/></div>
+	<div><img src="figure/4_Q2.jpg" style="width:90%"/></div>
 	<div qt='s' ___='2'>
 		圖中顯示下列哪一種類型的 AI 解決方案 ？
 		<div qo='1'>機器學習模型</div>

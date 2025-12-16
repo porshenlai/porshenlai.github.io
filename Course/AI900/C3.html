@@ -25,13 +25,15 @@
 
 <section>
 	<h2>電腦視覺的用途</h2><!--{{{-->
-	<table border='1' cellspacing='0' cellpadding='8'><tbody><tr>
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
 		<td>內容組織</td><td>醫療保健</td>
 	</tr><tr>
 		<td>文字擷取</td>
-		<td action='playDLG'>空間分析<div class='dialog' caption='識別人員在某個空間中遵守社交距離'>
-			<img class='figure' src='figure/3_A.png'/>
-		</div></a></td>
+		<td>空間分析
+			<span action='playDLG'>[1]<div class='dialog' caption='識別人員在某個空間中遵守社交距離'>
+				<img class='figure' src='figure/3_A.png'/>
+			</div></span>
+		</td>
 	</tr><tr>
 		<td>擴增實境</td><td>運動</td>
 	</tr><tr>
@@ -41,10 +43,10 @@
 	</tr><tr>
 		<td>自動型交通工具</td>
 		<td>臉部識別
-			<span action='playDLG'>1<div class='dialog' caption='臉部辨識與空間分析可偵測某個人是否戴著口罩'>
+			<span action='playDLG'>[1]<div class='dialog' caption='臉部辨識與空間分析可偵測某個人是否戴著口罩'>
 				<img class='figure' src='figure/3_B.png'/>
 			</div></span>
-			<span action='playDLG'>2<div class='dialog' caption='臉部識別的功能'>
+			<span action='playDLG'>[2]<div class='dialog' caption='臉部識別的功能'>
 				<div style='padding:8px;width:100%;height:100%;'><table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
 					<td>門禁管理</td><td>人員進出管理，智能門鎖，醫療智慧藥櫃</td>
 				</tr><tr>
@@ -124,20 +126,25 @@
 			<img class='figure' src='figure/3_H.png'/>
 		</div></span></li>
 		<li>開發人員可以透過自訂視覺服務，針對特定影像內的「物件」指定「標籤」來建置，部署專屬的自訂影像分類及物件偵測模型</li>
-		<li>包括「影像分類」與「物件偵測」兩種功能</li>
-		<li>自訂視覺影像分類<ul>
-			<li>產品識別</li>
-			<li>醫療診斷</li>
-			<li>災害調查</li>
-		</ul></li>
-		<li>自訂視覺物件偵測<ul>
-			<li>檢查建物安全</li>
-			<li>保護野生動物</li>
-			<li>檢測腫瘤</li>
-			<li>自動化結帳</li>
-			<li>駕駛輔助</li>
-			<li>異常偵測</li>
-		</ul></li>
+		<li>包括「影像分類」與「物件偵測」兩種功能
+			<div><table border='1' cellspacing='0' cellpadding='8' align='center' width='100%'><tr>
+				<th>自訂視覺影像分類</th><th>自訂視覺物件偵測</th>
+			</tr><tr>
+				<td valign='top'><ul>
+					<li>產品識別</li>
+					<li>醫療診斷</li>
+					<li>災害調查</li>
+				</ul></td>
+				<td valign='top'><ul>
+					<li>檢查建物安全</li>
+					<li>保護野生動物</li>
+					<li>檢測腫瘤</li>
+					<li>自動化結帳</li>
+					<li>駕駛輔助</li>
+					<li>異常偵測</li>
+				</ul></td>
+			</table></div>
+		</li>
 	</ul>
 	<!--}}}-->
 </section>
@@ -654,7 +661,7 @@
 	<!--{{{-->
 	<div qt='s' ___='1'>
 		您將一張影像送至電腦視覺 API，並收到如下圖所示的標註影像。
-		<div><img src="C3_33.jpg" style="width:80%"/></div>
+		<div><img src="figure/3_Q1.jpg" style="width:60%"/></div>
 		請問此處使用了哪種類型的電腦視覺？ 
 		<div qo='1'>物件偵測</div>
 		<div qo='2'>臉部偵測</div>

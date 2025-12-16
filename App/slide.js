@@ -528,7 +528,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	(()=>{	// apply url hash and activate the section {{{
 		const section = MS.Content.querySelector(location.hash ? `section[SID="${location.hash.substr(1)}"]` : "section")
-		console.log("========================>",section);
 		setTimeout(()=>{
 			MS.activate(section, false);
 			loading.parentNode.removeChild(loading);
