@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>機器學習的基本準則</title>
-<script plugins="quiz,tabTable" src="/App/slide.js"></script>
+<script plugins="quiz,tab" src="/App/slide.js"></script>
 </head>
 <body>
 
@@ -16,6 +16,7 @@
 	.figure>img { width:80%; }
 	table.ac td { text-align:center; }
 	[TID]>button { width:100%; }
+	[action="playDLG"] { text-decoration:underline;color:blue; };
 </style>
 
 <section class="cm">
@@ -30,7 +31,7 @@
 
 <section>
 	<h2>模型的種類</h2>
-	<table class="tabTable" border='1' cellspacing='0' cellpadding='3' width='100%'>
+	<table class="tab" border='1' cellspacing='0' cellpadding='3' width='100%'>
 	<thead><tr>
 		<th TID='1'><button>監督式學習</button></th>
 		<th TID='2'><button>非監督式學習</button></th>
@@ -44,11 +45,14 @@
 				<li>資料集的欄位稱為 特徵 (feature)</li>
 				<li>指定為標籤的欄位稱為 標籤 或 目標</li>
 				<li>為資料指定標籤的動作稱為 標記 或 預定義</li>
-				<li>分成 分類(classification) 和 迴歸(regression) 兩大類</li>
-				<li class='example'>例如: 輸入500張附有貓和老虎標籤的圖片，作為模型的定型資料訓練後，再輸入新的沒有標籤的圖片，驗證模型是否能正確辨識出是貓還是老虎。</li>
-				<li><img src="figure/2_C.jpg" style="width:50%;"></img></li>
-				<li><img src="figure/2_D.jpg" style="width:50%;"></img></li>
-				<li><img src="figure/2_E.jpg" style="width:70%;"></img></li>
+				<li>分成 <span action='playDLG'>分類(classification)<div caption='分類(classification)'>
+						<img src="figure/2_D.jpg"></img>
+					</div></span> 和 <span action='playDLG'>迴歸(regression)<div caption='迴歸(regression)'>
+						<img src="figure/2_E.jpg"></img>
+					</div></span> 兩大類</li>
+				<li class='example'>例如: 輸入500張附有貓和老虎標籤的圖片，作為模型的定型資料訓練後，再輸入新的沒有標籤的圖片，驗證模型是否能正確辨識出是貓還是老虎。
+					<span action='playDLG'>[1]<div caption='貓和老虎'><img src="figure/2_C.jpg"/></div></span>
+				</li>
 			</ul>
 		</td>
 	</tr><tr>
@@ -56,8 +60,8 @@
 			<h3>非監督式學習</h3>
 			<ul>
 				<li>沒有標記標籤，模型自己探索資料間的規律，找出資料特徵，達成解答未知資料的目標。</li>
-				<li>叢集分析式式非監督式學習最常見的方法，會根據特徵由演算法計算資料間的相似度，將資料區分為不同群組。</li>
-				<li><img src="figure/2_F.jpg" style="width:50%;"></img></li>
+				<li>叢集分析式式非監督式學習最常見的方法，會根據特徵由演算法計算資料間的相似度，將資料區分為不同群組。
+					<span action='playDLG'>[1]<div caption='非監督式學習'><img src="figure/2_F.png"/></div></span></li>
 			</ul>
 		</td>
 	</tr><tr>
@@ -65,19 +69,25 @@
 			<h3>半監督式學習</h3>
 			<ul>
 				<li>介於監督式與非監督式間的機器學習</li>
-				<li>透過少量有標籤的資料找出特徵，就能對其它大量無標籤的資料進行預測</li>
+				<li>透過少量有標籤的資料找出特徵，就能對其它大量無標籤的資料進行預測
+					<span action='playDLG'>[1]<div caption='半監督式學習'>
+						<img src="figure/2_G.jpg"/>
+					</div></span>
+				</li>
 				<li>可以減少標記資料的時間和人力，又能預測出準確的結果</li>
-				<li><img src="figure/2_G.jpg" style="width:50%;"></img></li>
 			</ul>
 		</td>
 	</tr><tr>
 		<td TAB='4' colspan='4'>
 			<h3>增強學習</h3>
 			<ul>
-				<li>電腦經由和動態環境不停互動來學習正確完成任務的過程</li>
+				<li>電腦經由和動態環境不停互動來學習正確完成任務的過程
+					<span action='playDLG'>[1]<div caption='半監督式學習'>
+						<img src="figure/2_H.jpg"/>
+					</div></span>
+				</li>
 				<li>嘗試錯誤 (trial and error)</li>
 				<li>根據外界的回饋資料隨時修正行動，反覆嘗試錯誤來獲得最大報酬</li>
-				<li><img src="figure/2_H.jpg" style="width:45%;"></img></li>
 			</ul>
 		</td>
 	</tr></tbody>
@@ -89,21 +99,23 @@
 	<ul>
 		<li>監督式學習，標籤值為「是」或「否」</li>
 		<li>可適用於分類或迴歸模型</li>
-		<li>算法接近人類的思考邏輯，容易理解運算原理與預測結果</li>
+		<li>算法接近人類的<span action="playDLG">思考邏輯<div caption='思考邏輯'>
+				<img src="figure/2_I.svg"/>
+			</div></span>，容易理解運算原理與預測結果</li>
 		<li>速度快，適合處理大數據</li>
 		<li>深度過深時容易擬合過度</li>
-		<li><img src="figure/2_I.jpg" style="width:70%;"></img></li>
 	</ul>
 </section>
 
 <section>
 	<h2>分類模型: 羅吉斯回歸</h2>
 	<ul>
-		<li>監督式學習，運用於分類模型</li>
+		<li>監督式學習，運用於分類模型
+			<span action='playDLG'>[1]<div caption='羅吉斯回歸'><img src='figure/2_J.jpg'/></div></span>
+		</li>
 		<li>找出一條能夠將所有資料清楚地分開的直線</li>
 		<li>預測範圍 0 ~ 1 代表目標值為 「是」或「否」的機率</li>
 		<li>不是合解決非線性問題</li>
-		<li><img src="figure/2_J.jpg" style="width:30%;"></img></li>
 	</ul>
 </section>
 
@@ -111,9 +123,10 @@
 	<h2>分類模型: 支援向量機 (SVM)</h2>
 	<ul>
 		<li>監督式學習</li>
-		<li>可以畫出最能分隔資料的邊界，適用於分類，迴歸和偵測離群值</li>
+		<li>可以畫出最能分隔資料的邊界，適用於分類，迴歸和偵測離群值
+			<span action='playDLG'>[1]<div caption='支援向量機'><img src='figure/2_K.jpg'/></div></span>
+		</li>
 		<li>適合多高維度，訓練資料少的資料集。</li>
-		<li><img src="figure/2_K.jpg" style="width:60%;"></img></li>
 	</ul>
 </section>
 
@@ -123,9 +136,10 @@
 		<li>監督式學習，分類模型</li>
 		<li>將資料轉為向量，再用資料間的距離來換算成資料的近似度</li>
 		<li>根據近似度作為分類的標準</li>
-		<li>選取近似度最高的Ｋ筆資料所屬最多的分類</li>
+		<li>選取近似度最高的Ｋ筆資料所屬最多的分類
+			<span action='playDLG'>[1]<div caption='支援向量機'><img src='figure/2_L.jpg'/></div></span>
+		</li>
 		<li>各分類樣本數量差異多時易錯誤</li>
-		<li><img src="figure/2_L.jpg" style="width:60%;"></img></li>
 	</ul>
 </section>
 
@@ -181,10 +195,11 @@
 		<li>必須使用有標記的資料</li>
 		<li>所預測的目標值為數值</li>
 		<li>常用的演算法<ul>
-			<li>線性迴歸演算法
-			<li>多項式迴歸演算法
+		<li>線性迴歸演算法
+			<span action='playDLG'>[1]<div caption='線性迴歸演算法'><img src='figure/2_Ma.jpg'/></div></span></li>
+		<li>多項式迴歸演算法
+			<span action='playDLG'>[2]<div caption='多項式迴歸演算法'><img src='figure/2_Mb.jpg'/></div></span></li>
 		</ul></li>
-		<li><img src="figure/2_M.jpg" style="width:60%;"></img></li>
 	</ul>
 </section>
 
@@ -194,16 +209,16 @@
 		<li>不用標記標籤資料</li>
 		<li>根據共同特性（特徵值）進行項目分組</li>
 		<li>常用演算法：<ul>
-			<li>Ｋ－Ｍｅａｎｓ</li>
+			<li>Ｋ－Ｍｅａｎｓ
+				<span action='playDLG'>[1]<div caption='K-Means'><img src='figure/2_N.jpg'/></div></span></li>
 			<li>Ｇａｕｓｓｉａｎ　Ｍｉｘｔｕｒｅ</li>
 		</ul></li>
-		<li><img src="figure/2_N.jpg" style="width:70%;"></img></li>
 	</ul>
 </section>
 
 <section>
 	<h2>機器學習的工作流程</h2>
-	<table class="tabTable" border='1' cellspacing='0' cellpadding='3' width='100%'>
+	<table class="tab" border='1' cellspacing='0' cellpadding='3' width='100%'>
 	<thead><tr>
 		<th TID='1'><button>問題定義</button></th>
 		<th TID='2'><button>資料蒐集</button></th>
@@ -309,7 +324,7 @@
 
 <section>
 	<h2>機器學習的工作流程</h2>
-	<div style="text-align:center;"><img src="figure/2_A.jpg" style="width:80%;"></img></div>
+	<div style="text-align:center;"><img src="figure/2_A.svg" style="width:80%;"></img></div>
 </section>
 
 <section>
@@ -338,7 +353,7 @@
 
 <section>
 	<h2>Azure Machine Learning 方案的生命週期</h2>
-	<div style="text-align:center;"><img src="figure/2_O.jpg" style="width:70%;"></img></div>
+	<div style="text-align:center;"><img src="figure/2_O.svg"/></div>
 </section>
 
 <section>
@@ -370,7 +385,7 @@
 		<li>可以隨時儲存管線草稿</li>
 		<li>管線規劃完成後，執行前選取功能表右邊的「設定」功能，來設定進行機器學習模型計算的資源。</li>
 		<li>發佈推斷管線時，應設定REST端點，驗證金鑰兩個參數來存取 Web Service。</li>
-		<li><img src="figure/2_P.jpg" style="width:80%;"></img></li>
+		<li><img src="figure/2_P.svg"/></li>
 	</ul>
 </section>
 

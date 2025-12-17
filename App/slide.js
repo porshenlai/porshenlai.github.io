@@ -47,6 +47,7 @@ Usaeg:
 `);	
 		es.forEach(function (C) {
 			C.addEventListener('click',function (evt) {
+				console.log(evt);
 				const tis=Array.from(C.querySelectorAll('[TID]')),
 				      ti=tis.find((e)=>e.contains(evt.target));
 				if(!ti) return;
@@ -54,7 +55,7 @@ Usaeg:
 				tis.forEach((e)=>e.classList[ti===e?'add':'remove']('active'));
 				Array.from(C.querySelectorAll('[TAB]')).forEach((tab) => {
 					setTimeout(()=>{
-					tab.classList[tid===tab.getAttribute('TAB')?'remove':'add']('fold');
+					tab.classList[tid===tab.getAttribute('TAB')?'remove':'add']('hide');
 					},100);
 					evt.stopPropagation();
 					evt.preventDefault();
@@ -169,7 +170,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			E.setAttribute('style','display:none;flex-flow:column nowrap;position:absolute;left:5%;top:5%;right:5%;bottom:5%;overflow:hidden;');
 			E.innerHTML=`
 <div UID='Caption' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
-<div UID='View' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;border-radius:6px;'></div>
+<div UID='View' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;border-radius:6px;overflow:hidden auto;'></div>
 `;
 			this.Overlay.appendChild(E);
 			E.appendChild(E.Caption=E.querySelector('[UID="Caption"]'));
@@ -287,8 +288,8 @@ button:hover {border-color:#90a4ae;}
 #content[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
 #content[playmode="page"] section.full { margin:0;padding:0;border:0;height:100%;scroll-margin-top:0; }
 
-.figure { object-fit:contain;width:100%;height:100%; }
-[action="playDLG"] .dialog { display:none; }
+[uid="View"] img { object-fit:contain;width:100%;height:100%; }
+[action="playDLG"] [caption] { display:none; }
 `;
 			S.innerHTML=PAGE+SECTION+BASIC;
 			document.head.appendChild(S);
@@ -310,7 +311,7 @@ button:hover {border-color:#90a4ae;}
 					if (e.hasAttribute('action')) {
 						switch(e.getAttribute('action')){
 						case 'playDLG':
-							this.Aside.open(e.querySelector('.dialog').cloneNode(true));
+							this.Aside.open(e.querySelector('[caption]').cloneNode(true));
 							break;
 						case 'speak' :
 							this.speak(
