@@ -23,6 +23,72 @@ select {font-size:100%;}
 			document.head.appendChild(SE);
 		})();
 		if(e) this.install(e, ans);
+		// install configuration menu
+		window.App.Aside.installSetting((()=>{
+			const E=document.createElement("div");
+			E.setAttribute("SID","quiz:default");
+			E.innerHTML=`
+	QUIZ: <button action='downloadDLC'>下載數位學院CSV</button>
+`;
+			E.addEventListener('click',(evt)=>{
+				for (let e=evt.target; e!==E; e=e.parentNode) {
+					if (!e.hasAttribute('action')) continue;
+					switch (e.getAttribute('action')) {
+					case 'downloadDLC': this.downloadDLC(); break;
+					}
+					evt.stopPropagation();
+					evt.preventDefault();
+				}
+			});
+			return E;
+		})());
+	}
+	saveCSV (aa) {
+		const rst=aa.map((row)=>('"'+row.map((v)=>v.replaceAll('"','""')).join('","')+'"')).join('\n');
+		((ae)=>{
+			const url=URL.createObjectURL(new Blob([rst],{"type":"text/csv;charset:utf8"}));
+			ae.href=url;
+			ae.download='quiz.csv';
+			document.body.appendChild(ae);
+			ae.click();
+			document.body.removeChild(ae);
+			window.URL.revokeObjectURL(url);
+		})(document.createElement('a'));
+	}
+	downloadDLC (tag='2025-0-1-0-0') {
+		let table=[];
+		for (let q of Array.from(this.E.querySelectorAll('[qt]'))) {
+			// 題目類型(2:單選,3:複選,6:組合),
+			// 答案({a:1},{b:2}),
+			// 問題,
+			// 選項(A||B@@1||2),
+			// 說明,
+			// 標籤(2025-0-3-0-0),
+			// 難易度(3)
+			let xq=q.cloneNode(true), qt=xq.getAttribute('qt'), xo, difficulty="3", explain="";
+			xo=Array.from(xq.querySelectorAll('[qo]')).reduce((r,e)=>{
+				r.push(e.textContent);
+				e.parentNode.removeChild(e);
+				return r;
+			},[]).join(" || ");
+			explain=Array.from(xq.querySelectorAll('.answer')).reduce((r,e)=>{
+				r.push(e.innerHTML);
+				e.parentNode.removeChild(e);
+				return r;
+			},[]).join("\n");
+			table.push([
+				qt==='m'?'3':'2',
+				((a)=>{
+					if (qt==='s') return a;
+					let ta=[];
+					for (let i=1,j=1; i<a; i*=2,j++)
+						if ((a&i)>0) ta.push(j);
+					return ta.join(',');
+				})(xq.getAttribute('___')),
+				xq.innerHTML.trim(), xo, explain, tag, difficulty
+			]);
+		}
+		this.saveCSV(table);
 	}
 	install (e, ans) {
 		this.E=e;

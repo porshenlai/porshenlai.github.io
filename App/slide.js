@@ -113,7 +113,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 <div style="flex:1 1 auto;overflow-y:auto;width:100%;padding:32px;">
 	<nav tab="toc"><ol></ol></nav>
 	<div tab="settings">
-		<div style='display:flex;justify-content:space-between;align-items:flex-start;'>
+		<div UID="fontsize" style='display:flex;justify-content:space-between;align-items:flex-start;'>
 			<label style="color:#222;font-size:20px;">字型大小</label>
 			<div style="display:flex;align-items:center;gap:0.5rem;">
 				<button action="fontDecreaseBtn" title="縮小字型">-</button>
@@ -210,6 +210,13 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			tl.appendChild(li);
 		});
 	}	// }}}
+	installSetting (elem)
+	{	// {{{
+		const pe=this.E.querySelector('div[tab="settings"]'),
+		      oe=pe.querySelector(`[UID=${elem.getAttribute("UID")}]`);
+		pe.insertBefore(elem,oe);
+		if(oe) pe.removeChild(oe);
+	}	// }}}
 	open (dialog)
 	{	// launch aside bar {{{
 		// if (document.fullscreenElement) document.exitFullscreen();
@@ -288,6 +295,7 @@ button:hover {border-color:#90a4ae;}
 #content[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
 #content[playmode="page"] section.full { margin:0;padding:0;border:0;height:100%;scroll-margin-top:0; }
 
+[action="playDLG"] { text-decoration:underline;color:blue; }
 [uid="View"] img { object-fit:contain;width:100%;height:100%; }
 [action="playDLG"] [caption] { display:none; }
 `;

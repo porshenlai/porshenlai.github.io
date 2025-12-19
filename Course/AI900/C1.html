@@ -37,7 +37,7 @@
 </section>
 
 <section>
-	<h2>人工智慧工作負載</h2>
+	<h2>人工智慧工作負載</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' width='95%' align='center'><tbody><tr><th>
 		<div class='CAT'>異常偵測</div>
 		<hr/>
@@ -67,10 +67,11 @@
 		<div>交談語言理解 CLU</div>
 		<div>問題解答</div>
 	</tr></tbody></table>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>異常偵測器</h2>
+	<h2>異常偵測器</h2><!--{{{-->
 	<ul>
 		<li>異常偵測器可以監視和偵測時間序列資料中的異常狀況。</li>
 	</ul>
@@ -79,10 +80,11 @@
 		<li>例如:透過查找與通常模式的偏差來識別可疑登錄</li>
 		<li>例如:在監視工業製程感應器結合AI來偵測發生潛在問題的狀況</li>
 	</ul>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>Azure AI 內容安全</h2>
+	<h2>Azure AI 內容安全</h2><!--{{{-->
 	<ul>
 		<li>可以由文字，影像和影片中，偵測出潛在具有冒犯意思，惡意，風險或不當的資料內容。</li>
 	</ul>
@@ -91,10 +93,11 @@
 		<li>例如:為社群軟體對使用者新增的影像，文字和影片進行內容仲裁</li>
 		<li>例如:為遊戲公司對使用者產生的遊戲成品和聊天室進行內容仲裁</li>
 	</ul>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>Azure 視覺 API (Vision APIs)</h2>
+	<h2>Azure 視覺 API (Vision APIs)</h2><!--{{{-->
 	<table><tr topic='電腦視覺'><td valign="top">
 		<br/>
 		<select onchange='this.parentNode.parentNode.setAttribute("topic",this.value);' size='3'>
@@ -136,10 +139,11 @@
 	</ul><ul style='color:green'>
 		<li>例如:在社群媒體中的自動標記朋友的圖像</li>
 	</ul></td></tr></table>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>Azure 語音 API (Speech APIs)</h2>
+	<h2>Azure 語音 API (Speech APIs)</h2><!--{{{-->
 	<ul>
 		<h3>語音轉換文字 Speech to Text</h3>
 		<li>將音訊串流或本機檔案即時轉譯為文字。</li>
@@ -158,10 +162,11 @@
 		<li>根據演算法由個人獨特的語音特性，來驗證和識別出說話者的身分。</li>
 		<li style='color:green'>例如:根據語音可以辨識出人員是否在參加會議名單中?</li>
 	</ul>
+	<!--}}}-->
 </section>
 
 <section>
-	<h2>Azure 語言 API (Language APIs)</h2>
+	<h2>Azure 語言 API (Language APIs)</h2><!--{{{-->
 	<table><tr topic='文字分析'><td valign="top">
 		<br/>
 		<select onchange='this.parentNode.parentNode.setAttribute("topic",this.value);' size='3'>
@@ -214,121 +219,57 @@
 		<li>例如:已有FAQ PDF檔，根據FAQ建立對話支援</li>
 		<li>例如:基於 FAQ 創建機器人</li>
 	</ul></td></tr></table>
+	<!--}}}-->
 </section>
 
 <section>
-	<div>將 AI 工作負載類型與適當的案例進行配對。</div>
-	<div qi='3-1' qt='s' ___='4'>
-		回答退款及換貨問題的自動化聊天機器人
+	<h2>Q: 將 AI 工作負載類型與適當的案例進行配對。</h2><!--{{{-->
+	<div qt='s' ___='4'>
+		回答退款及換貨問題的自動化聊天機器人，屬於何種AI工作負載類型 ?
 		<div qo='1'>異常偵測</div>
 		<div qo='2'>電腦視覺</div>
 		<div qo='3'>知識採礦</div>
 		<div qo='4'>自然語言處理</div>
 		<div class="answer">處理自然語言問答。</div>
 	</div>
-	<div qi='3-2' qt='s' ___='2'>
-		判斷相片中是否有人物
+	<div qt='s' ___='2'>
+		判斷相片中是否有人物，屬於何種AI工作負載類型 ?
 		<div qo='1'>異常偵測</div>
 		<div qo='2'>電腦視覺</div>
 		<div qo='3'>知識採礦</div>
 		<div qo='4'>自然語言處理</div>
 		<div class="answer">處理影像內容。</div>
 	</div>
-	<div qi='3-3' qt='s' ___='4'>
-		判斷評論為正面或負面
+	<div qt='s' ___='4'>
+		判斷評論為正面或負面，屬於何種AI工作負載類型 ?
 		<div qo='1'>異常偵測</div>
 		<div qo='2'>電腦視覺</div>
 		<div qo='3'>知識採礦</div>
 		<div qo='4'>自然語言處理</div>
 		<div class="answer">情感分析，屬於 NLP。</div>
 	</div>
-</section>
 
-<section>
-	<div>關於自然語言處理 (NLP) 的應用</div>
-	<div qi='5-1' qt='s' ___='1'>
-		監視線上服務的評論是否包含不雅用語為一項自然語言處理範例。
-		<div qo='1'>是</div><div qo='2'>否</div>
-		<div class="answer">偵測不雅用語是文字分類或內容篩選的任務，屬於 NLP。</div>
-	</div>
-	<div qi='5-2' qt='s' ___='2'>
-		辨識影像中品牌標誌為一項自然語言處理範例。
-		<div qo='1'>是</div><div qo='2'>否</div>
-		<div class="answer">這是電腦視覺的任務。</div>
-	</div>
-	<div qi='5-3' qt='s' ___='1'>
-		監視公開新聞網站是否包含產品負面陳述為一項自然語言處理範例。
-		<div qo='1'>是</div><div qo='2'>否</div>
-		<div class="answer">偵測負面陳述是情感分析的任務，屬於 NLP。</div>
-	</div>
-</section>
-
-<section>
-	<div qi='7' qt='m' ___='10'>
-		下列哪兩個案例是自然語言處理 (NLP) 工作負載範例? (多選)
-		<div qo='1'>監控機器溫度，以在溫度達到特定閾值時打開風扇</div>
-		<div qo='2'>可以回答諸如「今天天氣如何?」等問題的家用智慧型裝置</div>
-		<div qo='4'>自動將車前燈插入汽車的生產線機械</div>
-		<div qo='8'>使用知識庫以互動方式回答使用者問題的網站</div>
-		<div class="answer">處理問題和回答、理解使用者輸入是 NLP 的核心應用。</div>
-	</div>
-</section>
-
-<section>
-	<div>您需要根據客戶在聊天機器人中鍵入的內容，偵測客戶何時感到沮喪。</div>
 	<div qi='8' qt='s' ___='2'>
-		您應該使用下列哪一種類型的 AI 工作負載?
+		<div>您需要根據客戶在聊天機器人中鍵入的內容，偵測客戶何時感到沮喪。</div>
+		<div>您應該使用下列哪一種類型的 AI 工作負載?</div>
 		<div qo='1'>迴歸</div>
 		<div qo='2'>自然語言處理</div>
 		<div qo='3'>異常偵測</div>
 		<div qo='4'>電腦視覺</div>
 		<div class="answer">偵測文字中的情緒（如沮喪）是 情感分析，屬於 NLP 工作負載。</div>
 	</div>
-</section>
 
-<section>
-	<div>貴公司想要打造瓶罐回收機。此回收機必須能夠自動識別正確形狀的瓶罐，拒收所有其他項目。</div>
-	<div qi='9' qt='s' ___='2'>
-		公司應該使用哪種 AI 工作負載?
+	<div qt='s' ___='2'>
+		<div>貴公司想要打造瓶罐回收機。此回收機必須能夠自動識別正確形狀的瓶罐，拒收所有其他項目。</div>
+		<div>公司應該使用哪種 AI 工作負載?</div>
 		<div qo='1'>自然語言處理</div>
 		<div qo='2'>電腦視覺</div>
 		<div qo='3'>知識採礦</div>
 		<div qo='4'>異常偵測</div>
 		<div class="answer">識別影像中物體的形狀和類別是電腦視覺的任務（通常是影像分類或物件偵測）。</div>
 	</div>
-</section>
 
-<section>
-	<div qi='10' qt='s' ___='1'>
-		預測貸款是否償還的銀行系統是哪個類型的機器學習範例?
-		<div qo='1'>分類</div>
-		<div qo='2'>叢集</div>
-		<div qo='3'>迴歸</div>
-		<div class="answer">預測「是」（償還）或「否」（不償還）是預測離散類別，因此是分類。</div>
-	</div>
-</section>
-
-<section>
-	關於異常偵測 (Anomaly Detection)
-	<div qi='12-1' qt='s' ___='2'>
-		根據歷史資料預測房價為異常偵測範例。
-		<div qo='1'>是</div><div qo='2'>否</div>
-		<div class="answer">這是迴歸模型的範例。</div>
-	</div>
-	<div qi='12-2' qt='s' ___='1'>
-		在慣常模式中尋找偏差藉以識別可疑的登入為異常偵測範例。
-		<div qo='1'>是</div><div qo='2'>否</div>
-		<div class="answer">異常偵測的核心就是識別與「慣常模式」顯著不同的數據點。</div>
-	</div>
-	<div qi='12-3' qt='s' ___='2'>
-		根據患者的病歷預測患者是否會罹患糖尿病為異常偵測範例。
-		<div qo='1'>是</div><div qo='2'>否</div>
-		<div class="answer">這是分類模型的範例 (預測「是」或「否」)。</div>
-	</div>
-</section>
-
-<section>
-	<div qi='15' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		建立錄音的文字記錄是下列何者的範例:
 		<div qo='1'>電腦視覺工作負載</div>
 		<div qo='2'>知識採礦工作負載</div>
@@ -336,10 +277,8 @@
 		<div qo='4'>生成式 AI 工作負載</div>
 		<div class="answer">語音轉文字 (Speech-to-Text) 雖然涉及語音服務，但在 AI 工作負載類型中，它屬於自然語言處理領域（因為結果是文字/語言處理）。</div>
 	</div>
-</section>
 
-<section>
-	<div qi='20' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		可以回答「台積電股票價格是多少?」這種問題的智慧型裝置是哪一種 AI 工作負載的範例?
 		<div qo='1'>異常偵測</div>
 		<div qo='2'>自然語言處理</div>
@@ -347,10 +286,8 @@
 		<div qo='4'>知識採礦</div>
 		<div class="answer">處理自然語言問句和理解問題意圖是 NLP 的應用。</div>
 	</div>
-</section>
 
-<section>
-	<div qi='23' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		從大量非結構化資料中擷取資料間的關聯性，是哪一種 AI 工作負載類型?
 		<div qo='1'>知識採礦</div>
 		<div qo='2'>電腦視覺</div>
@@ -358,10 +295,8 @@
 		<div qo='4'>異常偵測</div>
 		<div class="answer">知識採礦利用 AI 服務 (如認知搜索) 從非結構化內容中找到隱藏的洞察和關係。</div>
 	</div>
-</section>
 
-<section>
-	<div qi='26' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		請問您應該使用哪一種 Azure AI 工作負載，根據文章的文字創作插圖?
 		<div qo='1'>電腦視覺</div>
 		<div qo='2'>生成式 AI</div>
@@ -369,38 +304,35 @@
 		<div qo='4'>Azure AI 文件智慧服務</div>
 		<div class="answer">根據文字生成新的內容（如插圖/影像）是 生成式 AI 的應用 (例如 DALL·E)</div>
 	</div>
-</section>
 
-<section>
-	將 AI 解決方案與適當的工作配對。
-	<div qi='28-1' qt='s' ___='2'>
-		根據關鍵字建立社交媒體貼文
+	<div qt='s' ___='2'>
+		根據關鍵字建立社交媒體貼文，應使用何種 AI 解決方案 ?
 		<div qo='1'>電腦視覺</div>
 		<div qo='2'>生成式 AI</div>
 		<div qo='3'>知識採礦</div>
 		<div qo='4'>自然語言處理</div>
 		<div class="answer">生成新內容。</div>
 	</div>
-	<div qi='28-2' qt='s' ___='4'>
-		從社交媒體貼文中擷取關鍵字
+
+	<div qt='s' ___='4'>
+		從社交媒體貼文中擷取關鍵字，應使用何種 AI 解決方案 
 		<div qo='1'>電腦視覺</div>
 		<div qo='2'>生成式 AI</div>
 		<div qo='3'>知識採礦</div>
 		<div qo='4'>自然語言處理</div>
 		<div class="answer">分析和擷取文字資訊。</div>
 	</div>
-	<div qi='28-3' qt='s' ___='1'>
-		從掃描的文件中擷取文字
+
+	<div qt='s' ___='1'>
+		從掃描的文件中擷取文字，應使用何種 AI 解決方案 
 		<div qo='1'>電腦視覺</div>
 		<div qo='2'>生成式 AI</div>
 		<div qo='3'>知識採礦</div>
 		<div qo='4'>自然語言處理</div>
 		<div class="answer">OCR，屬於電腦視覺。</div>
 	</div>
-</section>
 
-<section>
-	<div qi='29' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		詢問聊天機器人是否即將下雨，是哪一種工作?
 		<div qo='1'>異常偵測</div>
 		<div qo='2'>電腦視覺</div>
@@ -408,12 +340,10 @@
 		<div qo='4'>預測</div>
 		<div class="answer">處理自然語言的問句<b>(詢問聊天機器人)</b>是 NLP 的任務。</div>
 	</div>
-</section>
 
-<section>
-	<div>將 AI 服務與適當的工作配對。</div>
-	<div qi='30-1' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		從醫療人院表單中取得資料以匯入到病患追蹤資料庫。
+		應使用哪種 AI 服務。
 		<div qo='1'>Azure AI 文件智慧服務</div>
 		<div qo='2'>電腦視覺</div>
 		<div qo='3'>生成式 AI</div>
@@ -421,8 +351,10 @@
 		<div qo='5'>自然語言處理</div>
 		<div class="answer">專門用於結構化文件擷取。</div>
 	</div>
-	<div qi='30-2' qt='s' ___='3'>
+
+	<div qt='s' ___='3'>
 		自動生成每月行銷文案的草稿
+		應使用哪種 AI 服務。
 		<div qo='1'>Azure AI 文件智慧服務</div>
 		<div qo='2'>電腦視覺</div>
 		<div qo='3'>生成式 AI</div>
@@ -430,8 +362,10 @@
 		<div qo='5'>自然語言處理</div>
 		<div class="answer">生成新內容。</div>
 	</div>
-	<div qi='30-3' qt='s' ___='2'>
+
+	<div qt='s' ___='2'>
 		分析空照相片識別淹水區域
+		應使用哪種 AI 服務。
 		<div qo='1'>Azure AI 文件智慧服務</div>
 		<div qo='2'>電腦視覺</div>
 		<div qo='3'>生成式 AI</div>
@@ -439,11 +373,95 @@
 		<div qo='5'>自然語言處理</div>
 		<div class="answer">處理和理解影像內容。</div>
 	</div>
+
+	<div qt='s' ___='4'>
+		<div>您有一些儲存成文字檔案的保險理賠報表。</div>
+		<div>您需要從報表中擷取關鍵字詞以產生摘要。</div>
+		<div>您應該使用下列哪一種類型的 AI 工作負載 ?</div>
+		<div qo='1'>異常偵測</div>
+		<div qo='2'>電腦視覺</div>
+		<div qo='3'>知識採礦</div>
+		<div qo='4'>自然語言處理</div>
+	</div>
+	<!--}}}-->
 </section>
 
+<section>
+	<h2>Q: 機器學習範例 </h2><!--{{{-->
+	<div qt='s' ___='1'>
+		預測貸款是否償還的銀行系統是哪個類型的機器學習範例?
+		<div qo='1'>分類</div>
+		<div qo='2'>叢集</div>
+		<div qo='3'>迴歸</div>
+		<div class="answer">預測「是」（償還）或「否」（不償還）是預測離散類別，因此是分類。</div>
+	</div>
+	<!--}}}-->
+</section>
 
 <section>
-	<h2>負責任的 AI</h2>
+	<h2>Q: 關於自然語言處理 (NLP) 的應用</h2><!--{{{-->
+	<div qt='s' ___='1'>
+		監視線上服務的評論是否包含不雅用語為一項自然語言處理範例。
+		<div qo='1'>是</div><div qo='2'>否</div>
+		<div class="answer">偵測不雅用語是文字分類或內容篩選的任務，屬於 NLP。</div>
+	</div>
+	<div qt='s' ___='2'>
+		辨識影像中品牌標誌為一項自然語言處理範例。
+		<div qo='1'>是</div><div qo='2'>否</div>
+		<div class="answer">這是電腦視覺的任務。</div>
+	</div>
+	<div qt='s' ___='1'>
+		監視公開新聞網站是否包含產品負面陳述為一項自然語言處理範例。
+		<div qo='1'>是</div><div qo='2'>否</div>
+		<div class="answer">偵測負面陳述是情感分析的任務，屬於 NLP。</div>
+	</div>
+
+	<div qt='s' ___='1'>
+		會回答諸如「我的下一場約會是何時?」等問題的家用智慧服務裝置為交談式 AI 的範例。
+		<div qo='1'>是</div><div qo='2'否></div>
+	</div>
+	<div qt='s' ___='1'>
+		公司網站上的互動式網路聊天功能可以使用 Azure Bot Service 實作。
+		<div qo='1'>是</div><div qo='2'否></div>
+	</div>
+	<div qt='s' ___='2'>
+		未預先錄製影片自動產生字幕式是交談式 AI 的範例。 
+		<div qo='1'>是</div><div qo='2'否></div>
+	</div>
+
+	<div qt='m' ___='10'>
+		下列哪兩個案例是自然語言處理 (NLP) 工作負載範例? (多選)
+		<div qo='1'>監控機器溫度，以在溫度達到特定閾值時打開風扇</div>
+		<div qo='2'>可以回答諸如「今天天氣如何?」等問題的家用智慧型裝置</div>
+		<div qo='4'>自動將車前燈插入汽車的生產線機械</div>
+		<div qo='8'>使用知識庫以互動方式回答使用者問題的網站</div>
+		<div class="answer">處理問題和回答、理解使用者輸入是 NLP 的核心應用。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>Q: 異常偵測 (Anomaly Detection)</h2><!--{{{-->
+	<div qt='s' ___='2'>
+		根據歷史資料預測房價為異常偵測範例。
+		<div qo='1'>是</div><div qo='2'>否</div>
+		<div class="answer">這是迴歸模型的範例。</div>
+	</div>
+	<div qt='s' ___='1'>
+		在慣常模式中尋找偏差藉以識別可疑的登入為異常偵測範例。
+		<div qo='1'>是</div><div qo='2'>否</div>
+		<div class="answer">異常偵測的核心就是識別與「慣常模式」顯著不同的數據點。</div>
+	</div>
+	<div qt='s' ___='2'>
+		根據患者的病歷預測患者是否會罹患糖尿病為異常偵測範例。
+		<div qo='1'>是</div><div qo='2'>否</div>
+		<div class="answer">這是分類模型的範例 (預測「是」或「否」)。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section>
+	<h2>負責任的 AI</h2><!--{{{-->
 	<table><tr topic='公平性'><td valign="top">
 		<br/>
 		<select onchange='this.parentNode.parentNode.setAttribute("topic",this.value);' size='6'>
@@ -515,10 +533,12 @@
 			<li>例如:實施過程以確保 AI 系統所做的決定可以被人類推翻。</li>
 		</ul>
 	</td></tr></table>
+	<!--}}}-->
 </section>
 
 <section>
-	<div qi='1' qt='s' ___='4'>
+	<h2>Q: 負責任的 AI</h2><!--{{{-->
+	<div qt='s' ___='4'>
 		說明用以定型模型的資料來源是哪一項責任 AI 準則的範例?
 		<div qo='1'>隱私權與安全性</div>
 		<div qo='2'>公平性</div>
@@ -526,34 +546,28 @@
 		<div qo='4'>透明度</div>
 		<div class="answer">透明度要求 AI 系統應公開其目的、運作方式和訓練數據來源，以便使用者理解其局限性。</div>
 	</div>
-</section>
 
-<section>
-	<div>公司正在探索語音辨識技術在其智慧型家用裝置中的使用。公司想要找出可能無意間遺漏特定使用者群組的任何屏障。</div>
-	<div qi='2' qt='s' ___='4'>
-		這是下列何者責任 AI 的 Microsoft 指導準則範例?
+	<div qt='s' ___='4'>
+		<div>公司正在探索語音辨識技術在其智慧型家用裝置中的使用。公司想要找出可能無意間遺漏特定使用者群組的任何屏障。</div>
+		<div>這是下列何者責任 AI 的 Microsoft 指導準則範例?</div>
 		<div qo='1'>權責</div>
 		<div qo='2'>公平性</div>
 		<div qo='3'>隱私權與安全性</div>
 		<div qo='4'>包容性</div>
 		<div class="answer">包容性旨在確保 AI 系統應考慮到人類的多樣性，消除潛在的排斥或障礙。</div>
 	</div>
-</section>
 
-<section>
-	<div>AI 系統不應反映用於為訓練系統的資料集偏差。</div>
-	<div qi='4' qt='s' ___='2'>
-		這是下列哪個 Microsoft 責任 AI 的準則?
+	<div qt='s' ___='2'>
+		<div>AI 系統不應反映用於為訓練系統的資料集偏差。</div>
+		<div>這是下列哪個 Microsoft 責任 AI 的準則?</div>
 		<div qo='1'>權責性</div>
 		<div qo='2'>公平性</div>
 		<div qo='3'>包容性</div>
 		<div qo='4'>透明度</div>
 		<div class="answer">公平性旨在防止 AI 系統對不同群體產生系統性偏差或不公平的結果。</div>
 	</div>
-</section>
 
-<section>
-	<div qi='6' qt='m' ___='56'>
+	<div qt='m' ___='56'>
 		Microsoft 責任 AI 的指導準則是哪三項? (多選)
 		<div qo='1'>決斷性</div>
 		<div qo='2'>固執性</div>
@@ -563,21 +577,8 @@
 		<div qo='32'>可靠性和安全性</div>
 		<div class="answer">Microsoft 責任 AI 的六大準則為：公平性、包容性、可靠性和安全性、透明度、隱私權與安全性和權責性。</div>
 	</div>
-</section>
 
-<section>
-	<div>您正在建置 AI 應用程式。您需要確保應用程式使用負責任 AI 的準則。</div>
-	<div qi='11' qt='m' ___='10'>
-		請問您應該遵循下列哪兩個準則 ?
-		<div qo='1'>實作敏捷式軟體開發 (Agile Software Development) 方法 </div>
-		<div qo='2'>建立風險治理委員會，包括合法小組的成員，風險治理小組的成員，以及隱私保護專員</div>
-		<div qo='4'>防止洩漏使用 AI 演算法自動做出決策</div>
-		<div qo='8'>實作 AI 模型驗證的程序，作為軟體檢閱程序的一部分。</div>
-	</div>
-</section>
-
-<section>
-	<div qi='13' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		當重要欄位包含不尋常或缺少值時，確保 AI 系統不會提供預測，是負責任 AI 的什麼準則?
 		<div qo='1'>包容性</div>
 		<div qo='2'>隱私權與安全性</div>
@@ -585,90 +586,29 @@
 		<div qo='4'>透明度</div>
 		<div class="answer">可靠性確保 AI 系統在所有情況下都能以一致且可靠的方式運行，包括在面對不完整的或異常的輸入時。</div>
 	</div>
-</section>
 
-<section>
-	<div qi='14' qt='s' ___='2'>
-		您要建置AI系統，系統該包含哪項工作以協助服務符合 Microsoft 責任 AI 透明度準則 ?
-		<div qo='1'>確定定型資料集具有母體代表性。</div>
-		<div qo='2'>提供文件以利開發人員偵錯程式碼。</div>
-		<div qo='3'>啟用自動調整功能，以確保服務能根據需求調整。</div>
-		<div qo='4'>確定所有視覺效果都有可供螢幕助讀程式讀取的相關聯文字。</div>
+	<div qt='s' ___='6'>
+		<div>必須記錄決策流程，讓相關人員得以確認特定報價與根據，</div>
+		<div>屬於哪一項負責任 AI 的工作。</div>
+		<div qo="1">權責</div><div qo="2">公平性</div><div qo="3">包容性</div>
+		<div qo="4">隱私性和安全性</div><div qo="5">可靠性和安全性</div><div qo="6">透明度</div>
 	</div>
-</section>
 
-<section>
-	<div>下列各項敘述如果成立，請輸入【是】; 否則請輸入【否】。</div>
-	<div qi='17-1' qt='s' ___='1'>
-		會回答諸如「我的下一場約會是何時?」等問題的家用智慧服務裝置為交談式 AI 的範例。
-		<div qo='1'>是</div><div qo='2'否></div>
+	<div qt='s' ___='4'>
+		<div>只有決策流程相關人員可以看到客戶個人資訊，</div>
+		<div>屬於哪一項負責任 AI 的工作。</div>
+		<div qo="1">權責</div><div qo="2">公平性</div><div qo="3">包容性</div>
+		<div qo="4">隱私性和安全性</div><div qo="5">可靠性和安全性</div><div qo="6">透明度</div>
 	</div>
-	<div qi='17-2' qt='s' ___='1'>
-		公司網站上的互動式網路聊天功能可以使用 Azure Bot Service 實作。
-		<div qo='1'>是</div><div qo='2'否></div>
-	</div>
-	<div qi='17-3' qt='s' ___='2'>
-		未預先錄製影片自動產生字幕式是交談式 AI 的範例。 
-		<div qo='1'>是</div><div qo='2'否></div>
-	</div>
-</section>
 
-<section>
-	<div>您有一些儲存成文字檔案的保險理賠報表。</div>
-	<div>您需要從報表中擷取關鍵字詞以產生摘要。</div>
-	<div qi='18' qt='s' ___='4'>
-		您應該使用下列哪一種類型的 AI 工作負載 ?
-		<div qo='1'>異常偵測</div>
-		<div qo='2'>電腦視覺</div>
-		<div qo='3'>知識採礦</div>
-		<div qo='4'>自然語言處理</div>
+	<div qt='s' ___='3'>
+		<div>使用螢幕助讀程式或其他輔助技術的使用者必須能存取此系統，</div>
+		<div>屬於哪一項負責任 AI 的工作。</div>
+		<div qo="1">權責</div><div qo="2">公平性</div><div qo="3">包容性</div>
+		<div qo="4">隱私性和安全性</div><div qo="5">可靠性和安全性</div><div qo="6">透明度</div>
 	</div>
-</section>
 
-<section>
-	<div>你正在開發一套系統以預測英國駕駛的保險價格。</div>
-	<div>你需要盡量將系統的非預期偏差降至最低。</div>
-	<div qi='22' qt='s' ___='4'>
-		請問你應該採取什麼措施 ?
-		<div qo='1'>取得完全隨機的定型樣本</div>
-		<div qo='2'>使用全球保險公司的資料建立定型資料集</div>
-		<div qo='3'>從資料中移除受保護特性的相關資訊，然後再進行取樣</div>
-		<div qo='4'>取得代表英國人口的定型樣本</div>
-	</div>
-</section>
-
-<section>
-	<div>將工作負載類型與適當的案例進行配對。</div>
-	<div>每種工作負載類型可使用一或多次，也可以完全用不到。</div>
-	<div qi='16-1' qt='s' ___='6'>
-	必須記錄決策流程，讓相關人員得以確認特定報價與根據
-	<div qo="1">權責</div><div qo="2">公平性</div><div qo="3">包容性</div>
-	<div qo="4">隱私性和安全性</div><div qo="5">可靠性和安全性</div><div qo="6">透明度</div>
-	</div>
-	<div qi='16-2' qt='s' ___='4'>
-	只有決策流程相關人員可以看到客戶個人資訊
-	<div qo="1">權責</div><div qo="2">公平性</div><div qo="3">包容性</div>
-	<div qo="4">隱私性和安全性</div><div qo="5">可靠性和安全性</div><div qo="6">透明度</div>
-	</div>
-	<div qi='16-3' qt='s' ___='3'>
-	使用螢幕助讀程式或其他輔助技術的使用者必須能存取此系統
-	<div qo="1">權責</div><div qo="2">公平性</div><div qo="3">包容性</div>
-	<div qo="4">隱私性和安全性</div><div qo="5">可靠性和安全性</div><div qo="6">透明度</div>
-	</div>
-</section>
-
-<section>
-	<div qi='19' qt='s' ___='3'>
-		下列哪一項敘述是 Microsoft 責任 AI 準則的範例 ?
-		<div qo='1'>AI 系統必須只能使用公開提供的資料</div>
-		<div qo='2'>AI 系統必須保障公司的利益</div>
-		<div qo='3'>AI 系統必須易於理解</div>
-		<div qo='4'>AI 系統必須將個人詳細資料公開</div>
-	</div>
-</section>
-
-<section>
-	<div qi='21' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		開發 AI 自動駕駛汽車系統時，應套用哪個 Microsoft 責任 AI 的準則，以確保系統在生命週期內維持一致的作業?
 		<div qo='1'>公平性</div>
 		<div qo='2'>可靠性和安全性</div>
@@ -676,10 +616,8 @@
 		<div qo='4'>包容性</div>
 		<div class="answer">可靠性和安全性準則強調 AI 系統在部署的整個生命週期中，必須持續且安全地運作。</div>
 	</div>
-</section>
 
-<section>
-	<div qi='24' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		在使用生成式 AI 的聊天解決方案中實作篩選以封鎖有害內容是 Microsoft 負責任 AI 準則的範例。
 		<div qo='1'>權責性</div>
 		<div qo='2'>公平性</div>
@@ -687,20 +625,65 @@
 		<div qo='4'>透明度</div>
 		<div class="answer"></div>
 	</div>
+
+	<div qt='s' ___='3'>
+		<div>使用未經許可取得資料建立的自然語言處理 (NLP) 模型。</div>
+		<div>此違規行為屬於下面哪項 Microsoft 責任 AI 的準則?</div>
+		<div qo='1'>可靠性和安全性</div>
+		<div qo='2'>透明度</div>
+		<div qo='3'>隱私權和安全性</div>
+		<div qo='4'>包容性</div>
+		<div class="answer">未經許可取得資料直接違反了數據的隱私權和使用權規定。</div>
+	</div>
+	<!--}}}-->
 </section>
 
 <section>
-	<div qi='25' qt='s' ___='1'>
+	<h2>Q: 負責任 AI 的實踐</h2><!--{{{-->
+	<div qt='m' ___='10'>
+		<div>您正在建置 AI 應用程式。您需要確保應用程式使用負責任 AI 的準則。</div>
+		<div>請問您應該遵循下列哪兩個準則 ?</div>
+		<div qo='1'>實作敏捷式軟體開發 (Agile Software Development) 方法 </div>
+		<div qo='2'>建立風險治理委員會，包括合法小組的成員，風險治理小組的成員，以及隱私保護專員</div>
+		<div qo='4'>防止洩漏使用 AI 演算法自動做出決策</div>
+		<div qo='8'>實作 AI 模型驗證的程序，作為軟體檢閱程序的一部分。</div>
+	</div>
+
+	<div qt='s' ___='2'>
+		您要建置AI系統，系統該包含哪項工作以協助服務符合 Microsoft 責任 AI 透明度準則 ?
+		<div qo='1'>確定定型資料集具有母體代表性。</div>
+		<div qo='2'>提供文件以利開發人員偵錯程式碼。</div>
+		<div qo='3'>啟用自動調整功能，以確保服務能根據需求調整。</div>
+		<div qo='4'>確定所有視覺效果都有可供螢幕助讀程式讀取的相關聯文字。</div>
+	</div>
+
+	<div qt='s' ___='4'>
+		<div>你正在開發一套系統以預測英國駕駛的保險價格。</div>
+		<div>你需要盡量將系統的非預期偏差降至最低。</div>
+		<div>請問你應該採取什麼措施 ?</div>
+		<div qo='1'>取得完全隨機的定型樣本</div>
+		<div qo='2'>使用全球保險公司的資料建立定型資料集</div>
+		<div qo='3'>從資料中移除受保護特性的相關資訊，然後再進行取樣</div>
+		<div qo='4'>取得代表英國人口的定型樣本</div>
+	</div>
+
+	<div qt='s' ___='3'>
+		下列哪一項敘述是 Microsoft 責任 AI 準則的範例 ?
+		<div qo='1'>AI 系統必須只能使用公開提供的資料</div>
+		<div qo='2'>AI 系統必須保障公司的利益</div>
+		<div qo='3'>AI 系統必須易於理解</div>
+		<div qo='4'>AI 系統必須將個人詳細資料公開</div>
+	</div>
+
+	<div qt='s' ___='1'>
 		下列哪一項敘述是 Microsoft 責任 AI 準則的範例 ?
 		<div qo='1'>AI 系統必須透明且包容</div>
 		<div qo='2'>AI 系統必須保障公司的利益</div>
 		<div qo='3'>AI 系統必須只使用公開提供的資料</div>
 		<div qo='4'>AI 系統必須將個人詳細資料公開</div>
 	</div>
-</section>
 
-<section>
-	<div qi='27' qt='s' ___='3'>
+	<div qt='s' ___='3'>
 		以下何者是 Microsoft 負責任 AI 準則的範例?
 		<div qo='1'>AI 系統應該讓個人詳細資料方便存取</div>
 		<div qo='2'>AI 系統應該屬於公眾領域</div>
@@ -708,18 +691,7 @@
 		<div qo='4'>AI 系統應該保障開發人員的利益</div>
 		<div class="answer">隱私權與安全性是六大責任 AI 準則之一。</div>
 	</div>
-</section>
-
-<section>
-	使用未經許可取得資料建立的自然語言處理 (NLP) 模型。
-	<div qi='31' qt='s' ___='3'>
-		此違規行為屬於下面哪項 Microsoft 責任 AI 的準則?
-		<div qo='1'>可靠性和安全性</div>
-		<div qo='2'>透明度</div>
-		<div qo='3'>隱私權和安全性</div>
-		<div qo='4'>包容性</div>
-		<div class="answer">未經許可取得資料直接違反了數據的隱私權和使用權規定。</div>
-	</div>
+	<!--}}}-->
 </section>
 
 </div>
