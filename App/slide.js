@@ -462,6 +462,7 @@ button:hover {border-color:#90a4ae;}
 			setTimeout(()=>{
 				section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
 				section.scrollTop=0;
+				(this.Content.getAttribute('playmode')==='page'?section:this.Content).focus();
 			},0);
 	}	// }}}
 	applyFontSize (scale)
@@ -541,12 +542,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	})(currentScript);	// }}}
 
 	document.addEventListener('fullscreenchange', ()=>{
-		MS.set('pagemode',document.fullscreenElement);
-		MS.Aside.update();
-		setTimeout(()=>{
-			MS.current.scrollIntoView({behavior:'auto',block:'start'});
-			MS.current.scrollTop=0;
-		},0);
+		if (document.fullscreenElement) {
+			MS.set('pagemode',true);
+			MS.Aside.update();
+			setTimeout(()=>{
+				MS.current.scrollIntoView({behavior:'auto',block:'start'});
+				MS.current.scrollTop=0;
+			},0);
+		}
 	});
 	window.addEventListener('keydown', (e) => {
 		if (e.key==='ArrowLeft')
