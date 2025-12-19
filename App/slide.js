@@ -47,7 +47,6 @@ Usaeg:
 `);	
 		es.forEach(function (C) {
 			C.addEventListener('click',function (evt) {
-				console.log(evt);
 				const tis=Array.from(C.querySelectorAll('[TID]')),
 				      ti=tis.find((e)=>e.contains(evt.target));
 				if(!ti) return;
