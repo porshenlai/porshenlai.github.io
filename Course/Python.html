@@ -6,7 +6,7 @@
 <title>Expression</title>
 <script plugins='quiz' src="/App/slide.js"></script>
 </head>
-<body>
+<body style='opacity:0'>
 <div id="content">
 
 <style>
@@ -1787,10 +1787,10 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_DS,Q_ITS'>
-	<!--{{{-->
-	<div>你為公司設計了一個 Python 應用程式，在 members 的清單中包含了 50 位會員的姓名，最後 5 名是 VIP 會員。</div>
-	<div>你需要分割清單內容顯示除了 VIP 會員以外的一般會員，你可以利用以下哪二個程式碼達成？</div>
+	<!--{{{ [] -->
 	<div qt='m' ___='10'>
+		<div>你為公司設計了一個 Python 應用程式，在 members 的清單中包含了 50 位會員的姓名，最後 5 名是 VIP 會員。</div>
+		<div>你需要分割清單內容顯示除了 VIP 會員以外的一般會員，你可以利用以下哪二個程式碼達成？</div>
 		<div qo='1'>members [-5 : 0]</div>
 		<div qo='2'>members [0 : -5]</div>
 		<div qo='4'>members [1 : -5]</div>
@@ -1801,26 +1801,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_DS,Q_ITS'>
-	<!--{{{-->
-	<div>在下列的程式碼中：</div>
-	<div class='frame'><div class='cb'>
-		<div>slist = ["a", "b", "c", "d", "e", "f"]</div>
-		<div>print("f" in slist)</div>
-	</div></div>
-	<div>執行後會輸出列印的內容為？</div>
-	<div qt='s' ___='3'>
-		<table width='100%'><tr>
-			<th width='25%' qo='1'>5</th>
-			<th width='25%' qo='2'>6</th>
-			<th width='25%' qo='3'>True</th>
-			<th width='25%' qo='4'>False</th>
-		</tr></table>
-	</div>
-	<!--}}}-->
-</section>
-
-<section ks='P_DS,Q_ITS'>
-	<!--{{{-->
+	<!--{{{ [] -->
 	<div>您需要識別針對下列順序結構執行各種配量作業的結果:</div>
 	<div class='frame'><div class='cb'>
 		<div>alph = 'abcdefghijklmnopqrstuvwxyz'</div>
@@ -1857,7 +1838,49 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_DS,Q_ITS'>
-	<!--{{{-->
+	<!--{{{ [] -->
+	<div>您需要識別針對下列順序結構執行各種配量作業的結果：</div>
+	<div class='frame'><div class='cb'>
+		<div>alph = 'abcdefghijklmnopqrstuvwxyz'</div>
+	</div></div>
+	<div qt='s' ___='1'>
+		alph[3:6] → <select qo='value'><option>請選擇</option>
+			<option value='1'>def</option><option value='2'>abcdef</option>
+			<option value='3'>cde</option><option value='4'>defg</option>
+			<option value='5'>cdef</option><option value='6'>abcde</option>
+		</select>
+	</div>
+	<div qt='s' ___='2'>
+		alph[:6] → <select qo='value'><option>請選擇</option>
+			<option value='1'>def</option><option value='2'>abcdef</option>
+			<option value='3'>cde</option><option value='4'>defg</option>
+			<option value='5'>cdef</option><option value='6'>abcde</option>
+		</select>
+	</div>
+	<!--}}}-->
+</section>
+
+<section ks='P_DS,Q_ITS'>
+	<!--{{{ in -->
+	<div>在下列的程式碼中：</div>
+	<div class='frame'><div class='cb'>
+		<div>slist = ["a", "b", "c", "d", "e", "f"]</div>
+		<div>print("f" in slist)</div>
+	</div></div>
+	<div>執行後會輸出列印的內容為？</div>
+	<div qt='s' ___='3'>
+		<table width='100%'><tr>
+			<th width='25%' qo='1'>5</th>
+			<th width='25%' qo='2'>6</th>
+			<th width='25%' qo='3'>True</th>
+			<th width='25%' qo='4'>False</th>
+		</tr></table>
+	</div>
+	<!--}}}-->
+</section>
+
+<section ks='P_DS,Q_ITS'>
+	<!--{{{ is -->
 	<div>您正在為公司開發一個Python應用程式。</div>
 	<div>您撰寫了以下這段程式碼:</div>
 	<div class='frame'><div class='cb'>
@@ -1892,29 +1915,6 @@ Grapes  10.2 10.96</pre>
 		<div><table width='100%'><tr>
 			<th width='50%' qo='1'>True</th><th width='50%' qo='2'>False</th>
 		</tr></table></div>
-	</div>
-	<!--}}}-->
-</section>
-
-<section ks='P_DS,Q_ITS'>
-	<!--{{{-->
-	<div>您需要識別針對下列順序結構執行各種配量作業的結果：</div>
-	<div class='frame'><div class='cb'>
-		<div>alph = 'abcdefghijklmnopqrstuvwxyz'</div>
-	</div></div>
-	<div qt='s' ___='1'>
-		alph[3:6] → <select qo='value'><option>請選擇</option>
-			<option value='1'>def</option><option value='2'>abcdef</option>
-			<option value='3'>cde</option><option value='4'>defg</option>
-			<option value='5'>cdef</option><option value='6'>abcde</option>
-		</select>
-	</div>
-	<div qt='s' ___='2'>
-		alph[:6] → <select qo='value'><option>請選擇</option>
-			<option value='1'>def</option><option value='2'>abcdef</option>
-			<option value='3'>cde</option><option value='4'>defg</option>
-			<option value='5'>cdef</option><option value='6'>abcde</option>
-		</select>
 	</div>
 	<!--}}}-->
 </section>
@@ -1973,8 +1973,8 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>程式註解</h2><!--{{{-->
-	<div qi='2' qt="s" ___="3">
+	<h2>(Q) 程式註解</h2><!--{{{ # -->
+	<div qt="s" ___="3">
 		您為公司開發了一個Python應用程式。<br />
 		您想要在自己的程式碼中加入附註,好讓其他團隊成員能夠了解。<br />
 		請問您應該採取下列哪一項做法?
@@ -1987,11 +1987,11 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>程式註解</h2><!--{{{-->
-	某間銀行要將他們舊有的銀行交易程式碼轉至Python。<br />
-	該銀行雇用您來記錄已移轉的程式碼。<br />
-	請問哪個文件記錄語法是正確的?<br />
-	<div qi='15' qt='s' ___='4'>
+	<h2>(Q) 程式註解</h2><!--{{{ # -->
+	<div qt='s' ___='4'>
+		<div>某間銀行要將他們舊有的銀行交易程式碼轉至Python。</div>
+		<div>該銀行雇用您來記錄已移轉的程式碼。</div>
+		<div>請問哪個文件記錄語法是正確的?</div>
 		<div qo='1'>
 			<div class="cb">
 				<div>def get_balance():</div>
@@ -2033,7 +2033,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>程式註解</h2><!--{{{-->
+	<h2>(Q) 程式註解</h2><!--{{{ # -->
 	您建立了下列 Python 函式來計算數字的次方。
 	<div class="frame"><div class="cb" style="position:relative">
 		<div># The calc_power function calculates exponents</div>
@@ -2325,7 +2325,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>函數例題</h2><!--{{{-->
+	<h2>(Q) 函數</h2><!--{{{ ()-->
 	<div qt="m" ___="5">
 		學生們正在參加學校的活動之夜。下列函式會告訴學生該前往何處參加活動:
 		<div class="cb frame">
@@ -2380,7 +2380,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>函數例題</h2><!--{{{-->
+	<h2>(Q) 函數</h2><!--{{{ ()-->
 	請檢閱下列程式。
 	<div class='frame'><div class='cb' style='position:relative;'>
 		<div>def petStore(category, species, breed = 'none'):</div>
@@ -2423,7 +2423,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>函數例題</h2><!--{{{-->
+	<h2>(Q) 函數</h2><!--{{{ ()-->
 	下列函式會計算使用指數之運算式的值。
 	<div class="frame"><div class="cb" style="position:relative;">
 		<div>def calc_power(a, b):</div>
@@ -2450,8 +2450,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<!--{{{-->
-	<h2>函數例題</h2>
+	<h2>(Q) 函數</h2><!--{{{ ()-->
 	您正在撰寫一個函式來增加遊戲內的玩家分數，此函式具有下列需求:
 	<ul>
 		<li>如果沒有針對points指定任何值,則points的起始值為一。</li>
@@ -2493,7 +2492,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>函數例題</h2><!--{{{-->
+	<h2>(Q) 函數</h2><!--{{{ ()-->
 	對於下列每一項有關以下函式的敘述,請選取[正確]或[錯誤]。
 	<div class="cb frame">
 		<div>def grosspay(hours=40,rate=25,pieces=0,piecerate=0,salary=0):</div>
@@ -2512,15 +2511,15 @@ Grapes  10.2 10.96</pre>
 			<div class="cb">return hours * rate</div>
 		</div>
 	</div>
-	<div qi='11-1' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		grosspay()的函式呼叫會產生語法錯誤。
 		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='11-2' qt='s' ___='2'>
+	<div qt='s' ___='2'>
 		grosspay(salary=50000)的函式呼叫不會傳回任何結果。
 		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
-	<div qi='11-3' qt='s' ___='1'>
+	<div qt='s' ___='1'>
 		grosspay(pieces=500, piecerate=4)的函式呼叫所傳回的結果為2000。
 		<table width='100%'><tr><th width='50%' qo='1'>正確</th><th qo='2'>錯誤</th></tr></table>
 	</div>
@@ -2528,7 +2527,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>函數例題</h2><!--{{{-->
+	<h2>(Q) 函數</h2><!--{{{ ()-->
 	某間自行車公司正在建立一個程式,讓客戶能夠記錄騎乘英里數。<br />
 	此程式會根據客戶所記錄的英里數傳送訊息。<br />
 	<div class="frame"><div class='cb'>
@@ -2560,7 +2559,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>文件字串 (Document String)</h2><!--{{{-->
+	<h2>(Q) 文件字串 (Document String)</h2><!--{{{ Document String -->
 	<div qt="s" ___="4">
 		請問哪些字元代表單行文件字串的開頭和結尾?
 		<div qo="1">單引號(')</div>
@@ -2596,7 +2595,7 @@ Grapes  10.2 10.96</pre>
 	<!--}}}-->
 </section>
 
-<section ks='P_CS,Q_ITS'>
+<section ks='P_CS'>
 	<h2>💻 Python random 模組函數一覽</h2><!--{{{-->
 	<table border='1' cellspacing='8' cellpadding='8' align='center'><thead><tr>
 		<th><strong>函式</strong></th>
@@ -2642,7 +2641,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>模組: 隨機(Random)</h2><!--{{{-->
+	<h2>(Q) 隨機模組</h2><!--{{{ Random -->
 	<div qt='m' ___='6'>
 		您正在撰寫程式碼來產生一個最小值5與最大值11的隨機整數。<br/>
 		請問您應該使用哪兩個函式?
@@ -2655,8 +2654,8 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>模組: 隨機(Random)</h2><!--{{{-->
-	您正在撰寫一個程式來隨機指派房間(room_number)和團隊建立組別(group)以進行公司培訓活動。<br/>
+	<h2>(Q) 隨機模組</h2><!--{{{ Random -->
+	<div>您正在撰寫一個程式來隨機指派房間(room_number)和團隊建立組別(group)以進行公司培訓活動。</div>
 	<div class="frame cb">
 		<div>import random</div>
 		<div>roomsAssigned=[1]</div>
@@ -2692,7 +2691,7 @@ Grapes  10.2 10.96</pre>
 	<!--}}}-->
 </section>
 
-<section ks='P_CS,Q_ITS'>
+<section ks='P_CS'>
 	<h2>📅 Python datetime 模組常用方法</h2><!--{{{-->
 	<div>Python 的 datetime 模組主要包含了 date、time、datetime、timedelta 和 tzinfo 幾個核心類別。</div>
 	<div>以下表格著重於在程式設計中最常用到的 datetime 類別方法。</div>
@@ -2869,9 +2868,9 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>模組: DateTime</h2><!--{{{-->
+	<h2>(Q) 日期模組</h2><!--{{{ DateTime -->
 	<div qt="s" ___="3">
-		請問下列程式執行後將輸出什麼 ?
+		<div>請問下列程式執行後將輸出什麼 ?</div>
 		<div class="cb frame">
 			<div>import datetime</div>
 			<div>d = datetime.datetime(2017, 4, 7)</div>
@@ -2886,8 +2885,8 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>模組: DateTime</h2><!--{{{-->
-	您正在撰寫一個程式來顯示 My Healthy Delivery 的特價優惠。
+	<h2>(Q) 日期模組</h2><!--{{{ DateTime-->
+	<div>您正在撰寫一個程式來顯示 My Healthy Delivery 的特價優惠。</div>
 	<div class="frame cb">
 		<div>import datetime</div>
 		<div>dailySpecials= ( "Spaghetti", "Macaroni &amp; Cheese", "Meatloaf",  "Fried Chicken" )</div>

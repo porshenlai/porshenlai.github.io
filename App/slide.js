@@ -257,7 +257,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 
 class Slides
 {
-	constructor (RE)
+	constructor (RE, Args={})
 	{	// {{{
 		this.current=undefined;
 		this.fontScale=1.0;
@@ -354,7 +354,7 @@ button:hover {border-color:#90a4ae;}
 			},
 			"applyFontScale": (scale) => this.applyFontSize(this.fontScale + scale)
 		});
-		this.fixSections();
+		this.fixSections(Args.s);
 		this.Aside.installTOC(Array.from(this.Content.querySelectorAll('section')));
 
 		this.Plugins={};
@@ -398,19 +398,32 @@ button:hover {border-color:#90a4ae;}
 		setInterval(()=>{ let eh=this.EventHook.tick; if(eh) for(let n in eh) eh[n](); },1000)
 	}	// }}}
 
-	fixSections ()
+	fixSections (selector)
 	{	// {{{
-		let counts=[0,0];
+		let counts=[0,0],filter=()=>true;
+
+		if (selector)
+			filter=function(s){
+				const ks=(s.getAttribute('ks')||'').split(',');
+				return !!selector.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true));
+			}
+
 		for (let s=this.Content.firstChild; s; s=s.nextSibling)
 			if (s.tagName==='SECTION') {
-				counts[1]++;
-				if (!s.hasAttribute('SID'))
-					s.setAttribute('SID',++this.NextSID);
-				if (this.current===s) {
-					s.classList.add('current-section');
-					counts[0]=counts[1];
-				}else
-					s.classList.remove('current-section')
+				if (filter(s)) {
+					counts[1]++;
+					if (!s.hasAttribute('SID'))
+						s.setAttribute('SID',++this.NextSID);
+					if (this.current===s) {
+						s.classList.add('current-section');
+						counts[0]=counts[1];
+					}else
+						s.classList.remove('current-section')
+				} else {
+					let ns={nextSibling:s.nextSibling};
+					s.parentNode.removeChild(s);
+					s=ns;
+				}
 			}
 		if (this.Aside)
 			this.Aside.update(counts[0], counts[1]);
@@ -423,11 +436,12 @@ button:hover {border-color:#90a4ae;}
 			switch (section) {
 			case 1 :
 				for (let s=this.current.nextSibling; s; s=s.nextSibling) if (s.tagName==='SECTION') return s;
+				return;
 			case -1 :
 				for (let s=this.Content.firstChild,h=[]; s; s=s.nextSibling) if (s.tagName==='SECTION') {
 					if (s===this.current) return h.pop(); else h.push(s);
 				}
-				break;
+				return;
 			default:
 				if ('string'===typeof(section)) section=this.Content.querySelector(`[SID="${section}"]`); 
 				return section;
@@ -443,10 +457,12 @@ button:hover {border-color:#90a4ae;}
 			history.replaceState(null, null, '#' + section.getAttribute('SID'));
 		else location.hash = '#' + section.getAttribute('SID');
 
-		setTimeout(()=>{
-			section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
-			section.scrollTop=0;
-		},0);
+		const eb=section.getBoundingClientRect();
+		if ((eb.top+50>this.Content.clientHeight)||(eb.top+eb.height<50))
+			setTimeout(()=>{
+				section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+				section.scrollTop=0;
+			},0);
 	}	// }}}
 	applyFontSize (scale)
 	{	// apply font size {{{
@@ -490,7 +506,6 @@ button:hover {border-color:#90a4ae;}
 document.addEventListener('DOMContentLoaded', () => {
 	const content=document.body.querySelector('#content'),
 	      loading=document.createElement("div");
-	content.style.opacity='0';
 	loading.style.textAlign='center';
 	loading.textContent='Loading ...';
 	document.body.insertBefore(loading,document.body.firstChild);
@@ -501,7 +516,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		te.textContent=te.textContent||(content.querySelector('.title')||{"textContent":"Presentation"}).textContent
 	})();	// }}}
 
-	let MS=window.App=new Slides(document.body);
+	const args=(location.search||'?').substr(1).split('&').reduce((r,a)=>{ // parse query string {{{
+		const pa=/^([^=]+)=(.*)$/.exec(a);
+		if (pa) {
+			switch (pa[1]) {
+			case 's' :
+				r[pa[1]]=pa[2].split('|').map((v)=>v.split('.')); break;
+			default:
+				r[pa[1]]=pa[2]; break;
+			}
+		} else r[a] = true;
+		return r;
+	},{}); // }}}
+	let MS=window.App=new Slides(document.body, args);
 
 	((CS)=>{	// install page plugins {{{
 		for (const name of (CS.getAttribute('plugins')||"").split(',')) {
@@ -539,7 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		setTimeout(()=>{
 			MS.activate(section, false);
 			loading.parentNode.removeChild(loading);
-			content.style.opacity='1';
+			document.body.style.opacity='1';
 		}, 1);
 	})();	// }}}
 });
