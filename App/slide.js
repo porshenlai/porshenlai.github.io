@@ -346,7 +346,7 @@ button:hover {border-color:#90a4ae;}
 		})(); // }}}
 
 		this.Aside=new Aside(document.body, {
-			"activate": (s) => this.activate(s),
+			"activate": (s) => this.activate(s, true),
 			"fullscreen": (mode) => {
 				if (mode) {
 					if(!document.fullscreenElement) document.body.requestFullscreen();
@@ -369,8 +369,8 @@ button:hover {border-color:#90a4ae;}
 #control-panel:not(.active) :not([action="none"]) {display:none;}
 </style>
 <div action="prev">◀</div>
-<div action="menu">☰</div
-<div action="none"></div>
+<div action="menu">☰</div>
+<div action="none"> </div>
 <div action="next">▶</div>
 `;
 			E.addEventListener('mouseover',(evt)=>E.classList.add('active'));
@@ -383,9 +383,13 @@ button:hover {border-color:#90a4ae;}
 				case 'menu':
 					E.classList.remove('active'); this.Aside.open(); break;
 				case 'prev':
-					E.classList.remove('active'); this.activate(-1); break;
+					E.classList.remove('active');
+					this.activate(-1, true);
+					break;
 				case 'next':
-					E.classList.remove('active'); this.activate(1); break;
+					E.classList.remove('active');
+					this.activate(1, true);
+					break;
 				default:
 					return;
 				}
@@ -430,7 +434,7 @@ button:hover {border-color:#90a4ae;}
 		return counts;
 	}	// }}}
 
-	activate (section, smooth = true)
+	activate (section, scroll)
 	{	// activate specified section {{{
 		section = (()=>{
 			switch (section) {
@@ -447,23 +451,28 @@ button:hover {border-color:#90a4ae;}
 				return section;
 			}
 		})();
-		if (!section || section===this.current) return;
 
-		this.current=section;
-		this.fixSections();
+		if (!section) return;
 
-		// Update URL hash and scroll into view
-		if (history.replaceState)
-			history.replaceState(null, null, '#' + section.getAttribute('SID'));
-		else location.hash = '#' + section.getAttribute('SID');
+		if (section!==this.current) {
+			this.current=section;
+			this.fixSections();
 
-		const eb=section.getBoundingClientRect();
-		if ((eb.top+50>this.Content.clientHeight)||(eb.top+eb.height<50))
+			// Update URL hash and scroll into view
+			if (history.replaceState)
+				history.replaceState(null, null, '#' + section.getAttribute('SID'));
+			else location.hash = '#' + section.getAttribute('SID');
+		}
+
+		if (scroll!==undefined){
 			setTimeout(()=>{
-				section.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
-				section.scrollTop=0;
-				(this.Content.getAttribute('playmode')==='page'?section:this.Content).focus();
-			},0);
+				(this.Content.getAttribute('playmode')==='page'?this.current:this.Content).focus();
+				this.current.scrollIntoView({ behavior: scroll ? 'smooth' : 'auto', block: 'start' });
+				this.current.scrollTop=0;
+			},1);
+		}
+		//const eb=section.getBoundingClientRect();
+		//if ((eb.top+50>this.Content.clientHeight)||(eb.top+eb.height<50))
 	}	// }}}
 	applyFontSize (scale)
 	{	// apply font size {{{
@@ -543,20 +552,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	document.addEventListener('fullscreenchange', ()=>{
 		if (document.fullscreenElement) {
-			MS.set('pagemode',true);
+			MS.set('pagemode', true);
 			MS.Aside.update();
-			setTimeout(()=>{
-				MS.current.scrollIntoView({behavior:'auto',block:'start'});
-				MS.current.scrollTop=0;
-			},0);
+			MS.Aside.close();
+			setTimeout(()=>MS.activate(MS.current, true),1000);
 		}
 	});
 	window.addEventListener('keydown', (e) => {
-		if (e.key==='ArrowLeft')
-			MS.activate(-1);
-		else if (e.key==='ArrowRight')
-			MS.activate(1);
-		else if (e.key==='Escape')
+		if (e.key==='ArrowLeft') {
+			MS.activate(-1, true);
+		} else if (e.key==='ArrowRight') {
+			MS.activate(1, true);
+		} else if (e.key==='Escape')
 			MS.Aside.toggle();
 		else return;
 		e.preventDefault();
