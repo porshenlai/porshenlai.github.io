@@ -20,6 +20,31 @@ function* ancestors (se, ef=(e)=>!!e)
 	}
 }	// }}}
 
+class sw {
+	constructor (csn='!hide') {
+		this.S={};
+		this.L=[];
+		if (csn.startsWith('!')) {
+			this.CSN=csn.substr(1);
+			this.OP=(n,name)=>n!==name;
+		} else {
+			this.CSN=csn;
+			this.OP=(n,name)=>n===name;
+		}
+	}
+	add (name,elem) {
+		this.S[name]=elem;
+	}
+	addlink (elem) {
+		this.L.push(elem);
+	}
+	choose (name) {
+		for (const n in this.S)
+			this.S[n].classList[this.OP(n,name)?'add':'remove'](this.CSN);
+		this.L.forEach((e)=>{ if(e.sw) e.sw.choose(name); });
+	}
+}
+
 const Plugins={
 	"math":async function(){ // {{{
     	window.MathJax = {
@@ -34,7 +59,7 @@ const Plugins={
 		);
 		return {};
 	}, 	// }}}
-	"tab":async function(){ // {{{
+	"tab":async function() { // {{{
 		const es=Array.from(document.body.querySelectorAll('#content .tab'));
 		if (es.length<=0)
 			return console.log(`
