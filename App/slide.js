@@ -210,11 +210,11 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 	update (index, total)
 	{	// update status information {{{
 		if (index&&total) {
-			this.E.querySelector('[uid="counter"]').textContent=(index+1)+' / '+total;
-			this.E.querySelector('[action="prevBtn"]').disabled=(index===0);
-			this.E.querySelector('[action="nextBtn"]').disabled=(index===total-1);
+			this.E.querySelector('[uid="counter"]').textContent=index+' / '+total;
+			this.E.querySelector('[action="prevBtn"]').disabled=(index===1);
+			this.E.querySelector('[action="nextBtn"]').disabled=(index===total);
 			Array.from(this.E.querySelectorAll('[tab="toc"]>ol a'))
-				.forEach((link, i) => link.classList.toggle('active', i === index));
+				.forEach((link, i) => link.classList.toggle('active', i === index-1));
 		}
 		this.E.querySelector('[action="fsToggle"]').checked = !!document.fullscreenElement;
 	}	// }}}
@@ -454,6 +454,11 @@ button:hover {border-color:#90a4ae;}
 					s=ns;
 				}
 			}
+
+		document.head.querySelector('title').textContent=(
+			content.querySelector('.title')||content.querySelector('h1')||content.querySelector('h2')
+		).textContent||"Presentation";
+
 		if (this.Aside)
 			this.Aside.update(counts[0], counts[1]);
 		return counts;
@@ -545,11 +550,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	loading.textContent='Loading ...';
 	document.body.insertBefore(loading,document.body.firstChild);
 
-	(()=>{	// complete the <title> element automatically. {{{
-		let te=document.head.querySelector("title");
-		if(!te) document.head.appendChild(te=document.createElement('title'));
-		te.textContent=te.textContent||(content.querySelector('.title')||{"textContent":"Presentation"}).textContent
-	})();	// }}}
+	((te) => {
+		if (!te)
+			document.head.appendChild(te=document.createElement('title'));
+		if (!te.textContent)
+			te.generated=true;
+	})(document.head.querySelector('title'));
 
 	const args=(location.search||'?').substr(1).split('&').reduce((r,a)=>{ // parse query string {{{
 		const pa=/^([^=]+)=(.*)$/.exec(a);
