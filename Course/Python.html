@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Expression</title>
-<script plugins='quiz' src="/App/slide.js"></script>
+<script plugins='TeX,quiz,card' src="/App/slide.js"></script>
 </head>
 <body style='opacity:0'>
 <div id="content">
@@ -22,6 +21,17 @@ blue { color:blue; }
 .hl-nb	{ color:#f78c6c; }
 .hl-cm	{ color:#5c6773; font-style:italic;} 
 table small { color:#666; }
+
+.C3Tbl { display:flex;flex-flow:row wrap;gap:1vw 2%; }
+.C3Tbl .card { width:32%;padding-top:32%; }
+.origin { display:flex;flex-flow:column nowrap;justify-content:center;align-items:center; }
+
+.syntax th { background:#eee; }
+.syntax .K { color:red; }
+.syntax .V { color:green; }
+
+[xlang="markdown"] table { width:80%; margin-left:auto; margin-right:auto; }
+[xlang="markdown"] table td { border:2px solid silver; padding:0px 16px; }
 </style>
 
 <section class='cm'>
@@ -40,7 +50,67 @@ table small { color:#666; }
 <!--{{{ PART-1: Expression -->
 
 <section ks='P_EX'>
-	<h2>🔢 內建型別轉換函數</h2><!--{{{-->
+	<h2>運算元: 資料型態</h2><!--{{{ Data Type -->
+	<div class='C3Tbl'>
+		<div class='card'><div class='front origin'>
+			<div>123</div>
+			<div>-123</div>
+			<div>0</div>
+		</div><div class='back origin'>
+			<div>整數</div>
+			<div>Integer</div>
+			<div>int</div>
+		</div></div>
+		<div class='card'><div class='front origin'>
+			<div>1.23</div>
+			<div>-1.23</div>
+			<div>0.0</div>
+		</div><div class='back origin'>
+			<div>浮點數</div>
+			<div>Float</div>
+			<div>float</div>
+		</div></div>
+		<div class='card'><div class='front origin'>
+			<div>"1.23"</div>
+			<div>'1.23'</div>
+			<div>"""1.<br/>23"""</div>
+		</div><div class='back origin'>
+			<div>字串</div>
+			<div>String</div>
+			<div>str</div>
+		</div></div>
+		<div class='card'><div class='front origin'>
+			<div>True</div>
+			<div>False</div>
+		</div><div class='back origin'>
+			<div>布林值</div>
+			<div>Boolean</div>
+			<div>bool</div>
+		</div></div>
+		<div class='card'><div class='front origin'>
+			<div>1.23+4.56j</div>
+			<div>-1.23-4.56j</div>
+			<div>0+0j</div>
+		</div><div class='back origin'>
+			<div>複數</div>
+			<div>Complex</div>
+			<div>complex</div>
+		</div></div>
+		<div class='card'><div class='front origin'>
+			<div>b"1.23"</div>
+			<div>b'1.23'</div>
+			<div>b"""1.<br/>23"""</div>
+		</div><div class='back origin'>
+			<div>位元</div>
+			<div>Bytes</div>
+			<div>bytes</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section ks='P_EX'>
+	<h2>🔢 內建函數: 型別轉換</h2><!--{{{ Built-in Functions: Type Conversion --> 
 	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
 		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
 	</tr></thead><tbody><tr>
@@ -207,8 +277,19 @@ table small { color:#666; }
 	<!--}}}-->
 </section>
 
+<section ks='P_EX' xlang='markdown'><!--{{{ Operator -->
+## 🔢 運算子
+| 運算子 | 數值 | 字串 |
+| :---: | :--- | :--- |
+| + | 3+2$\rightarrow$5 | "3"+"2"$\rightarrow$"32" |
+| - | 3-2$\rightarrow$1 | 未定義 |
+| * | 3*2$\rightarrow$6 | "3"*2$\rightarrow$"33" |
+| / | 3/2$\rightarrow$1.5 | 未定義 |
+| // | 3//2$\rightarrow$1 | 未定義 |
+</section><!--}}}-->
+
 <section ks='P_EX'>
-	<h2>🔢 內建數學函數 (math)</h2><!--{{{-->
+	<h2>🔢 內建函數: 數學</h2><!--{{{ Built-in Functions: Mathematics -->
 	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
 		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
 	</tr></thead><tbody><tr>
@@ -775,16 +856,117 @@ Grapes  10.2 10.96</pre>
 <!--{{{ PART-2: Flow Control -->
 
 <section ks='P_FC'>
-	<h2>Condition</h2>
+	<!--{{{-->
+	<h2>條件式</h2>
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
+			<td rowspan='2' action='display' valign='top'>
+				<img src='Python/3_IF.svg' style='width:128px;height:128px;'/>
+				<div caption='IF.'><img src='Python/3_IF.svg'/></div>
+			</td>
+			<th><span class='K'>如果</span></th>
+			<th><span class='V'>下雨</span></th>
+			<th><span class='K'>就</span></th>
+			<th><span class='V'>待在家裡睡覺</th>
+		</tr><tr>
+			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+		</tr></table>
+	</div>
+
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
+			<td rowspan='4' action='display' valign='top'>
+				<img src='Python/3_IFELSE.svg' style='width:128px;height:128px;'/>
+				<div caption='IF.ELSE.'><img src='Python/3_IFELSE.svg'/></div>
+			</td>
+			<th><span class='K'>如果</span></th>
+			<th><span class='V'>下雨</span></th>
+			<th><span class='K'>就</span></th>
+			<th><span class='V'>待在家裡睡覺</span></th>
+		</tr><tr>
+			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+		</tr><tr>
+			<th><span class='K'>否則</span></th>
+			<th></th>
+			<th><span class='K'>就</span></th>
+			<th><span class='V'>去逛街</span></th>
+		</tr><tr>
+			<th>else</th><th></th><th>:</th><th>shop()</th>
+		</tr></table>
+	</div>
+
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
+			<td rowspan='6' action='display' valign='top'>
+				<img src='Python/3_IFELIFELSE.svg' style='width:128px;height:128px;'/>
+				<div caption='IF.ELSE.'><img src='Python/3_IFELIFELSE.svg'/></div>
+			</td>
+			<th><span class='K'>如果</span></th>
+			<th><span class='V'>下雨</span></th>
+			<th><span class='K'>就</span></th>
+			<th><span class='V'>待在家裡睡覺</span></th>
+		</tr><tr>
+			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+		</tr><tr>
+			<th><span class='K'>沒有的話如果</span></th>
+			<th><span class='V'>淹大水</span></th>
+			<th><span class='K'>就</span></th>
+			<th><span class='V'>去划船</span></th>
+		</tr><tr>
+			<th>elif</th><th>(FLOODED)</th><th>:</th><th>boating()</th>
+		</tr><tr>
+			<th><span class='K'>否則</span></th>
+			<th></th>
+			<th><span class='K'>就</span></th>
+			<th><span class='V'>去逛街</span></th>
+		</tr><tr>
+			<th>else</th><th></th><th>:</th><th>shop()</th>
+		</tr></table>
+	</div>
+	<!--}}}-->
+</section>
+
+<section ks='P_FC'>
+	<h2>迴圈</h2>
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
+			<td rowspan='2' action='display' valign='top'>
+				<img src='Python/3_WHILE.svg' style='width:128px;height:128px;'/>
+				<div caption='WHILE'><img src='Python/3_WHILE.svg'/></div>
+			</td>
+			<th><span class='K'>當持續</span></th>
+			<th><span class='V'>下雨</span></th>
+			<th><span class='K'>就</span></th>
+			<th><span class='V'>待在家裡睡覺</span></th>
+		</tr><tr>
+			<th>while</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+		</tr></table>
+	</div>
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
+			<td rowspan='2' action='display' valign='top'>
+				<img src='Python/3_FOR.svg' style='width:128px;height:128px;'/>
+				<div caption='FOR'><img src='Python/3_FOR.svg'/></div>
+			</td>
+			<th><span class='K'>對</span></th>
+			<th><span class='V'>班上</span>的每個<span class='V'>同學</span></th>
+			<th><span class='K'>進行</th>
+			<th><span class='V'>調分</th>
+		</tr><tr>
+			<th>for</th><th>(STUDENT in CLASS)</th><th>:</th><th>add_score()</th>
+		</tr></table>
+	</div>
 	<ul>
-	<li><span action='playDLG'>[2]<div caption='IF'><img src='Python/3_IF.svg'/></div></span></li>
-	<li><span action='playDLG'>[3]<div caption='IF.ELSE.'><img src='Python/3_IFELSE.svg'/></div></span></li>
-	<li><span action='playDLG'>[4]<div caption='IF.ELIF.ELSE.'><img src='Python/3_IFELIFELSE.svg'/></div></span><li>
-	<li><span action='playDLG'>[5]<div caption='WHITE'><img src='Python/3_WHILE.svg'/></div></span></li>
-	<li><span action='playDLG'>[6]<div caption='BREAK'><img src='Python/3_BREAK.svg'/></div></span></li>
-	<li><span action='playDLG'>[7]<div caption='CONTINUE'><img src='Python/3_CONTINUE.svg'/></div></span></li>
-	<li><span action='playDLG'>[8]<div caption='FOR'><img src='Python/3_FOR.svg'/></div></span></li>
-	</ul>
+</section>
+
+<section ks='P_FC'>
+	<h2>基於條件式的迴圈控制</h2>
+	<div class='frame'>
+		<table border='1' cellspacing='8' cellpadding='8' class='syntax' width='100%'><tr>
+		<td valign='top' uid='View' style='height:65vh;'><img src='Python/3_BREAK.svg'/></td>
+		<td valign='top' uid='View' style='height:65vh;'><img src='Python/3_CONTINUE.svg'/></td>
+		</tr></table>
+	</div>
 </section>
 
 <section ks='P_FC,Q_ITS'>
@@ -1754,6 +1936,41 @@ Grapes  10.2 10.96</pre>
 <!--{{{ PART-3: Data Structure -->
 
 <section ks='P_DS'>
+	<h2>Operator []</h2>
+	<table class='syntax'><tr>
+		<th><span class='V'>集合資料</span></th>
+		<th><span class='K'>[</span></th>
+		<th><span class='V'>起始位置</span></th>
+		<th><span class='K'>,</span></th>
+		<th><span class='V'>終止位置</span></th>
+		<th><span class='K'>,</span></th>
+		<th><span class='V'>步伐大小</span></th>
+		<th><span class='K'>]</span></th>
+	</tr><tr>
+		<th>修課名單</th><th></th><th>5</th><th></th><th>20</th><th></th><th>1</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單第五位同學開始，至第二十位同學前的所有同學。
+	</tr><tr>
+		<th>修課名單</th><th></th><th>5</th><th></th><th>20</th><th></th><th>2</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單第五位同學開始，至第二十位同學前的每隔一位同學選取一個。
+	</tr><tr>
+		<th>修課名單</th><th></th><th>20</th><th></th><th>5</th><th></th><th>-2</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單第二十位同學開始，倒著選取至第五位同學後，每隔一位同學選取一個。
+	</td></tr></table>
+</section>
+
+<section ks='P_DS'>
+	<table>
+	<tr><th>省略的參數</th><td></td></tr>
+	<tr><th>省略起始位置</th><td></td></tr>
+	<tr><th>省略終止位置</th><td></td></tr>
+	<tr><th>省略步伐大小</th><td></td></tr>
+	</table>
+</section>
+
+<section ks='P_DS'>
 	<h2>🔢 Python 內建函數</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
 		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
@@ -1924,7 +2141,7 @@ Grapes  10.2 10.96</pre>
 <!--{{{ PART-4: Code Structure -->
 
 <section ks='P_CS'>
-	<h2>程式註解</h2><!--{{{-->
+	<h2>🛠️ 程式註解</h2><!--{{{-->
 	<div class='tab'>
 	<div style='text-align:center'>
 		<button TID='1' style='width:45%'><h3>💻 定義與目的</h3></button>
@@ -1973,7 +2190,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 程式註解</h2><!--{{{ # -->
+	<!--{{{ # -->
 	<div qt="s" ___="3">
 		您為公司開發了一個Python應用程式。<br />
 		您想要在自己的程式碼中加入附註,好讓其他團隊成員能夠了解。<br />
@@ -1987,7 +2204,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 程式註解</h2><!--{{{ # -->
+	<!--{{{ # -->
 	<div qt='s' ___='4'>
 		<div>某間銀行要將他們舊有的銀行交易程式碼轉至Python。</div>
 		<div>該銀行雇用您來記錄已移轉的程式碼。</div>
@@ -2033,7 +2250,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 程式註解</h2><!--{{{ # -->
+	<!--{{{ # -->
 	您建立了下列 Python 函式來計算數字的次方。
 	<div class="frame"><div class="cb" style="position:relative">
 		<div># The calc_power function calculates exponents</div>
@@ -2325,7 +2542,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 函數</h2><!--{{{ ()-->
+	<!--{{{ ()-->
 	<div qt="m" ___="5">
 		學生們正在參加學校的活動之夜。下列函式會告訴學生該前往何處參加活動:
 		<div class="cb frame">
@@ -2380,7 +2597,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 函數</h2><!--{{{ ()-->
+	<!--{{{ ()-->
 	請檢閱下列程式。
 	<div class='frame'><div class='cb' style='position:relative;'>
 		<div>def petStore(category, species, breed = 'none'):</div>
@@ -2423,7 +2640,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 函數</h2><!--{{{ ()-->
+	<!--{{{ ()-->
 	下列函式會計算使用指數之運算式的值。
 	<div class="frame"><div class="cb" style="position:relative;">
 		<div>def calc_power(a, b):</div>
@@ -2450,7 +2667,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 函數</h2><!--{{{ ()-->
+	<!--{{{ ()-->
 	您正在撰寫一個函式來增加遊戲內的玩家分數，此函式具有下列需求:
 	<ul>
 		<li>如果沒有針對points指定任何值,則points的起始值為一。</li>
@@ -2492,7 +2709,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 函數</h2><!--{{{ ()-->
+	<!--{{{ ()-->
 	對於下列每一項有關以下函式的敘述,請選取[正確]或[錯誤]。
 	<div class="cb frame">
 		<div>def grosspay(hours=40,rate=25,pieces=0,piecerate=0,salary=0):</div>
@@ -2527,7 +2744,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 函數</h2><!--{{{ ()-->
+	<!--{{{ ()-->
 	某間自行車公司正在建立一個程式,讓客戶能夠記錄騎乘英里數。<br />
 	此程式會根據客戶所記錄的英里數傳送訊息。<br />
 	<div class="frame"><div class='cb'>
@@ -2559,7 +2776,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 文件字串 (Document String)</h2><!--{{{ Document String -->
+	<!--{{{ Document String -->
 	<div qt="s" ___="4">
 		請問哪些字元代表單行文件字串的開頭和結尾?
 		<div qo="1">單引號(')</div>
@@ -2641,7 +2858,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 隨機模組</h2><!--{{{ Random -->
+	<!--{{{ Random -->
 	<div qt='m' ___='6'>
 		您正在撰寫程式碼來產生一個最小值5與最大值11的隨機整數。<br/>
 		請問您應該使用哪兩個函式?
@@ -2654,7 +2871,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 隨機模組</h2><!--{{{ Random -->
+	<!--{{{ Random -->
 	<div>您正在撰寫一個程式來隨機指派房間(room_number)和團隊建立組別(group)以進行公司培訓活動。</div>
 	<div class="frame cb">
 		<div>import random</div>
@@ -2868,7 +3085,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 日期模組</h2><!--{{{ DateTime -->
+	<!--{{{ DateTime -->
 	<div qt="s" ___="3">
 		<div>請問下列程式執行後將輸出什麼 ?</div>
 		<div class="cb frame">
@@ -2885,7 +3102,7 @@ Grapes  10.2 10.96</pre>
 </section>
 
 <section ks='P_CS,Q_ITS'>
-	<h2>(Q) 日期模組</h2><!--{{{ DateTime-->
+	<!--{{{ DateTime-->
 	<div>您正在撰寫一個程式來顯示 My Healthy Delivery 的特價優惠。</div>
 	<div class="frame cb">
 		<div>import datetime</div>

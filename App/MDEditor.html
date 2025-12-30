@@ -4,17 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Markdown Editor & Manager</title>
-	<script>
-   		window.MathJax = {
-	   		tex: {
-			   	inlineMath: [['$', '$'], ['\\(', '\\)']],
-			   	displayMath: [['$$', '$$'], ['\\[', '\\]']]
-	   		}
-   		};
-	</script>
-	<script src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'></script>
-	<script src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
-	<script src='https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js'></script>
+	<script src='TeX.js'></script>
 	<style>
 		:root {
 			--bar-height: 60px;
@@ -146,16 +136,6 @@
 	let isPreviewMode = false;
 	let autoSaveTimer;
 
-	mermaid.initialize({ startOnLoad: false, theme: 'default' });
-	// Setup Marked with a custom renderer for code blocks
-	const renderer = new marked.Renderer();
-	renderer.code = ({ text, lang }) => {
-		// Check if the code block language is 'mermaid'
-		if (lang === 'mermaid') return `<pre class="mermaid">${text}</pre>`;
-		// Default behavior for other languages
-		return `<pre><code>${text}</code></pre>`;
-	};
-	marked.setOptions({ renderer });
 	// 初始化判斷
 	window.onload = () => {
 		if (currentFile) {
@@ -253,17 +233,10 @@
 		isPreviewMode = !isPreviewMode;
 
 		if (isPreviewMode) {
-			preview.innerHTML = marked.parse(textarea.value);
+			document.getElementById("TeX").syncMD(preview,textarea.value);
 			preview.style.display = 'block';
 			textarea.style.display = 'none';
 			btn.textContent = "✎";
-			if (window.MathJax && window.MathJax.typesetPromise) {
-				window.MathJax.typesetPromise([preview]).then(()=>0).catch(console.log);
-			}
-			((es)=>{
-				if (!es||es.length<1) return;
-				mermaid.run({ nodes: es }).then(()=>0).catch(console.log);
-			})(Array.from(preview.querySelectorAll('.mermaid')));
 		} else {
 			preview.style.display = 'none';
 			textarea.style.display = 'block';

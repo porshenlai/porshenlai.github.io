@@ -1,4 +1,4 @@
-(function(){
+(function(CS){
 
 const currentScript = document.currentScript;
 
@@ -21,6 +21,7 @@ function* ancestors (se, ef=(e)=>!!e)
 }	// }}}
 
 class sw {
+	// TODO {{{
 	constructor (csn='!hide') {
 		this.S={};
 		this.L=[];
@@ -43,22 +44,13 @@ class sw {
 			this.S[n].classList[this.OP(n,name)?'add':'remove'](this.CSN);
 		this.L.forEach((e)=>{ if(e.sw) e.sw.choose(name); });
 	}
-}
+}	// }}}
 
 const Plugins={
-	"math":async function(){ // {{{
-    	window.MathJax = {
-        	tex: {
-            	inlineMath: [['$', '$'], ['\\(', '\\)']],
-            	displayMath: [['$$', '$$'], ['\\[', '\\]']]
-        	}
-    	};
-		await loadScript(
-			'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
-			{'async':true}
-		);
-		return {};
-	}, 	// }}}
+	"TeX":async function () {
+		let cf=await loadScript('/App/TeX.js',{auto:'#content'});
+		if (cf instanceof Promise) await cf;
+	},
 	"tab":async function() { // {{{
 		const es=Array.from(document.body.querySelectorAll('#content .tab'));
 		if (es.length<=0)
@@ -135,9 +127,9 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 	</h3>
 </div>
 <div style="flex:1 1 auto;overflow-y:auto;width:100%;padding:32px;">
-	<nav tab="toc"><ol></ol></nav>
-	<div tab="settings">
-		<div UID="fontsize" style='display:flex;justify-content:space-between;align-items:flex-start;'>
+	<nav tab='toc'><ol></ol></nav>
+	<div tab='settings'>
+		<div UID='fontsize' style='display:flex;justify-content:space-between;align-items:flex-start;'>
 			<label style="color:#222;font-size:20px;">字型大小</label>
 			<div style="display:flex;align-items:center;gap:0.5rem;">
 				<button action="fontDecreaseBtn" title="縮小字型">-</button>
@@ -145,6 +137,9 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 				<button action="fontIncreaseBtn" title="放大字型">+</button>
 			</div>
 		</div>
+		<div UID='queryKws'><div>
+			<span action='openFilter'></span> <select handle='addValue'></select>
+		</div></div>
 	</div>
 </div>
 <div style="padding:0.5rem 1rem;border-top:1px solid #eee;background:#fcfcfc;width:100%;display:flex;flex-flow:row nowrap;justify-content:space-between;">
@@ -155,6 +150,19 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 		<button action="nextBtn" title="下一節 Next (→)">→</button>
 	</span>
 </div>`;
+			E.addEventListener('change', (evt) => {
+				let e = evt.target;
+				switch(e.getAttribute("handle")){
+				case 'addValue':
+					((se,val)=>{
+						const vs=se.textContent.split('.').filter((v)=>v);
+						vs.push(val);
+						se.textContent=vs.join('.');
+					})(e.parentNode.querySelector('span'),e.value);
+					e.value='-';
+					break;
+				}
+			});
 			E.addEventListener('click', (evt) => {
 				let e = evt.target;
 				switch(e.getAttribute("action")){
@@ -169,6 +177,13 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 					break;
 				case "fontIncreaseBtn":
 					if (CB.applyFontScale) CB.applyFontScale(0.05);
+					break;
+				case 'openFilter':
+					window.open(
+						location.href.replace(location.hash,'')+
+						'?s='+e.textContent+
+						location.hash
+					);
 					break;
 				case "showTOC":
 					this.E.setAttribute("current","toc");
@@ -218,21 +233,31 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 		}
 		this.E.querySelector('[action="fsToggle"]').checked = !!document.fullscreenElement;
 	}	// }}}
-	installTOC (sections)
+	install (content)
 	{	// install TOC table {{{
 		const tl=this.E.querySelector('[tab="toc"]>ol');
-		sections.forEach((sec, idx) => {
+		Array.from(content.querySelectorAll('section'))
+		.forEach((sec, idx) => {
 			const h = sec.querySelector('h1') || sec.querySelector('h2');
-			const title = h ? h.textContent.trim() : `Slide ${idx + 1}`;
-			const li = document.createElement('li');
-			while (li.firstChild) li.removeChild(li.firstChild);
-			const a = document.createElement('a');
-			//a.href = '#' + sec.getAttribute('SID');
-			a.textContent = title;
-			a.dataset.sid = sec.getAttribute('SID');
-			li.appendChild(a);
-			tl.appendChild(li);
+			if (h) {
+				const title = h.textContent.trim();
+				const li = document.createElement('li');
+				while (li.firstChild) li.removeChild(li.firstChild);
+				const a = document.createElement('a');
+				//a.href = '#' + sec.getAttribute('SID');
+				a.textContent = title;
+				a.dataset.sid = sec.getAttribute('SID');
+				li.appendChild(a);
+				tl.appendChild(li);
+			}
 		});
+		// install keywords selector
+		((E)=>{
+			E.querySelector('select[handle="addValue"]').innerHTML=content.Keywords.reduce(
+				(r,v)=>r+'<option>'+v+'</option>',
+				'<option value="-">+</option>'
+			);
+		})(this.E.querySelector('[UID="queryKws"]'));
 	}	// }}}
 	installSetting (elem)
 	{	// {{{
@@ -282,13 +307,16 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 
 class Slides
 {
-	constructor (RE, Args={})
+	constructor (RE)
 	{	// {{{
 		this.current=undefined;
 		this.fontScale=1.0;
 		this.NextSID=0;
+		this.Plugins={};
+		this.EventHook={};
+		this.Content=RE.querySelector('#content');
 
-		(()=>{ // install style {{{
+		(()=>{ // install built-in style {{{
 			const S=document.createElement("style")
 			const PAGE=`
 :root {--base-font-size:24px;}
@@ -319,55 +347,12 @@ button:hover {border-color:#90a4ae;}
 #content[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
 #content[playmode="page"] section.full { margin:0;padding:0;border:0;height:100%;scroll-margin-top:0; }
 
-[action="playDLG"] { text-decoration:underline;color:blue; }
 [uid="View"] img { object-fit:contain;width:100%;height:100%; }
-[action="playDLG"] [caption] { display:none; }
+[action="display"] { text-decoration:underline;color:blue; }
+[action="display"] [caption] { display:none; }
 `;
 			S.innerHTML=PAGE+SECTION+BASIC;
 			document.head.appendChild(S);
-		})(); // }}}
-		
-		(()=>{ // Content {{{
-			const content=this.Content=RE.querySelector('#content');
-			content.insertBefore(((s)=>{
-				const code=`
-.cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
-`;
-				s.innerHTML=`
-`;
-				s.innerHTML+=code;
-				return s;
-			})(document.createElement("style")),content.firstChild);
-			content.addEventListener('click', (evt) => {
-				for (let e=evt.target; e!==content; e=e.parentNode){
-					if (e.hasAttribute('action')) {
-						switch(e.getAttribute('action')){
-						case 'playDLG':
-							this.Aside.open(e.querySelector('[caption]').cloneNode(true));
-							break;
-						case 'speak' :
-							this.speak(
-								e.getAttribute("text") || e.textContent,
-								e.getAttribute("lang") || "en"
-							);
-							break;
-						default:
-							break;
-						}
-						evt.stopPropagation();
-						evt.preventDefault();
-					}
-					if (e.tagName==='SECTION') { this.activate(e); break; }
-				}
-			});
-			content.addEventListener('scrollend', (evt) => { // auto activate page when current slide out of viewport
-				let s,x=this.Content.getBoundingClientRect().height/3;
-				for (s=this.Content.firstChild; s; s=s.nextSibling) if(s.nodeType===1) {
-					const eb=s.getBoundingClientRect();
-					if ((eb.y+eb.height)>x) break;
-				}
-				if (s&&document.fullscreenElement) this.activate(s);
-			});
 		})(); // }}}
 
 		this.Aside=new Aside(document.body, {
@@ -379,10 +364,6 @@ button:hover {border-color:#90a4ae;}
 			},
 			"applyFontScale": (scale) => this.applyFontSize(this.fontScale + scale)
 		});
-		this.fixSections(Args.s);
-		this.Aside.installTOC(Array.from(this.Content.querySelectorAll('section')));
-
-		this.Plugins={};
 
 		((E)=>{ // Launch PAD {{{
 			E.id="control-panel";
@@ -423,45 +404,77 @@ button:hover {border-color:#90a4ae;}
 			this.Content.appendChild(E);
 		})(document.createElement("div")); // }}}
 
-		this.EventHook={};
 		setInterval(()=>{ let eh=this.EventHook.tick; if(eh) for(let n in eh) eh[n](); },1000)
 	}	// }}}
+		
+	async init (Args={})
+	{	// async init {{{
+		// Process <section>s in #content, and create this.Content
 
-	fixSections (selector)
-	{	// {{{
-		let counts=[0,0],filter=()=>true;
+		const content=this.Content;
 
-		if (selector)
-			filter=function(s){
-				const ks=(s.getAttribute('ks')||'').split(',');
-				return !!selector.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true));
-			}
+		// A. fix sections
+		((selector) => {
+			// filter sections, generate SIDs, and calc total number of pages
+			content.Keywords={}; // content.Keywords : 所有定義的 Keywords
+			content.PageCounts=Array.from(content.querySelectorAll('section')).reduce((r,s)=>{
+				const ks=(s.getAttribute('ks')||'').split(',').filter((v)=>v);
+				ks.forEach((k)=>content.Keywords[k]=true);
+				if (selector&&(!selector.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)))) {
+					if (s.parentNode) s.parentNode.removeChild(s); // filter out pages
+				} else { r++; if (!s.hasAttribute('SID')) s.setAttribute('SID',r); }
+				return r;
+			}, 0);
+			content.Keywords=Object.keys(content.Keywords);
+			// fill title values
+			((te)=>{
+				if (te) return;
+				document.head.appendChild(te=document.createElement('title'));
+				te.textContent=Args.title||(
+					content.querySelector('.title')||content.querySelector('h1')||content.querySelector('h2')||{textContent:"Presentation"}
+				).textContent;
+			})(document.head.querySelector('title'));
+		})(Args.s);
 
-		for (let s=this.Content.firstChild; s; s=s.nextSibling)
-			if (s.tagName==='SECTION') {
-				if (filter(s)) {
-					counts[1]++;
-					if (!s.hasAttribute('SID'))
-						s.setAttribute('SID',++this.NextSID);
-					if (this.current===s) {
-						s.classList.add('current-section');
-						counts[0]=counts[1];
-					}else
-						s.classList.remove('current-section')
-				} else {
-					let ns={nextSibling:s.nextSibling};
-					s.parentNode.removeChild(s);
-					s=ns;
+		// B. install styles for sections
+		content.insertBefore(((s)=>{
+			s.innerHTML=`
+.cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
+`;
+			return s;
+		})(document.createElement("style")),content.firstChild);
+
+		// C. bind event handles
+		content.addEventListener('click', (evt) => {
+			for (let e=evt.target; e!==content; e=e.parentNode){
+				if (e.hasAttribute('action')) {
+					switch(e.getAttribute('action')){
+					case 'display':
+						this.Aside.open(e.querySelector('[caption]').cloneNode(true));
+						break;
+					case 'speak' :
+						this.speak(
+							e.getAttribute("text") || e.textContent,
+							e.getAttribute("lang") || "en"
+						);
+						break;
+					default:
+						break;
+					}
+					evt.stopPropagation();
+					evt.preventDefault();
 				}
+				if (e.tagName==='SECTION') { this.activate(e); break; }
 			}
-
-		document.head.querySelector('title').textContent=(
-			content.querySelector('.title')||content.querySelector('h1')||content.querySelector('h2')
-		).textContent||"Presentation";
-
-		if (this.Aside)
-			this.Aside.update(counts[0], counts[1]);
-		return counts;
+		});
+		content.addEventListener('scrollend', (evt) => { // auto activate page when current slide out of viewport
+			let s,x=this.Content.getBoundingClientRect().height/3;
+			for (s=this.Content.firstChild; s; s=s.nextSibling) if(s.nodeType===1) {
+				const eb=s.getBoundingClientRect();
+				if ((eb.y+eb.height)>x) break;
+			}
+			if (s&&document.fullscreenElement) this.activate(s);
+		});
 	}	// }}}
 
 	activate (section, scroll)
@@ -481,13 +494,14 @@ button:hover {border-color:#90a4ae;}
 				return section;
 			}
 		})();
-
 		if (!section) return;
 
 		if (section!==this.current) {
 			this.current=section;
-			this.fixSections();
-
+			// Update current section class tag
+			Array.from(section.parentNode.querySelectorAll('.current-section')).forEach((s)=>s.classList.remove('current-section'));
+			section.classList.add('current-section');
+			if (this.Aside) this.Aside.update(parseInt(section.getAttribute('SID')), section.parentNode.PageCounts);
 			// Update URL hash and scroll into view
 			if (history.replaceState)
 				history.replaceState(null, null, '#' + section.getAttribute('SID'));
@@ -496,14 +510,15 @@ button:hover {border-color:#90a4ae;}
 
 		if (scroll!==undefined){
 			setTimeout(()=>{
-				(this.Content.getAttribute('playmode')==='page'?this.current:this.Content).focus();
 				this.current.scrollIntoView({ behavior: scroll ? 'smooth' : 'auto', block: 'start' });
 				this.current.scrollTop=0;
+				//setTimeout(()=>(this.Content.getAttribute('playmode')==='page'?this.current:this.Content).focus(),1000);
 			},1);
 		}
 		//const eb=section.getBoundingClientRect();
 		//if ((eb.top+50>this.Content.clientHeight)||(eb.top+eb.height<50))
 	}	// }}}
+
 	applyFontSize (scale)
 	{	// apply font size {{{
 		const DEFAULT_FONT_SIZE=((w,h)=>w>h ? Math.floor(h/26) : Math.floor(w/30))(window.innerWidth,window.innerHeight);
@@ -524,6 +539,7 @@ button:hover {border-color:#90a4ae;}
 			speechSynthesis.speak (utterance);
         } else alert('您的瀏覽器不支援 Speech Synthesis API。');
     }	// }}}
+
 	set (name, value)
 	{	// set/unset parameters {{{
 		switch (name) {
@@ -531,56 +547,55 @@ button:hover {border-color:#90a4ae;}
 			this.Content.setAttribute("playmode",value ? "page" : "continuous");
 		}
 	}	// }}}
+
 	regEventHook (cat, name, handler)
 	{	// (un)schedule a tick callback {{{
 		let eh=this.EventHook[cat]||(this.EventHook[cat]={});
 		if(handler) eh[name]=handler;
 		else delete eh[name];
 	}	// }}}
+
 	async install (name, handler)
 	{	// install page plugin {{{
 		this.Plugins[name]=await handler(this);
 	}	// }}}
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-	const content=document.body.querySelector('#content'),
-	      loading=document.createElement("div");
+document.addEventListener('DOMContentLoaded', async () => { // {{{
+	const loading=document.createElement("div");
 	loading.style.textAlign='center';
 	loading.textContent='Loading ...';
 	document.body.insertBefore(loading,document.body.firstChild);
 
-	((te) => {
-		if (!te)
-			document.head.appendChild(te=document.createElement('title'));
-		if (!te.textContent)
-			te.generated=true;
-	})(document.head.querySelector('title'));
-
-	const args=(location.search||'?').substr(1).split('&').reduce((r,a)=>{ // parse query string {{{
+	// 1. Create {args} according to {location.search}
+	const args=(location.search||'?').substr(1).split('&').reduce((r,a)=>{
 		const pa=/^([^=]+)=(.*)$/.exec(a);
 		if (pa) {
 			switch (pa[1]) {
 			case 's' :
-				r[pa[1]]=pa[2].split('|').map((v)=>v.split('.')); break;
+				r[pa[1]]=decodeURIComponent(pa[2]).split('|').map((v)=>v.split('.')); break;
 			default:
-				r[pa[1]]=pa[2]; break;
+				r[pa[1]]=decodeURIComponent(pa[2]); break;
 			}
 		} else r[a] = true;
 		return r;
-	},{}); // }}}
-	let MS=window.App=new Slides(document.body, args);
+	},{});
 
-	((CS)=>{	// install page plugins {{{
-		for (const name of (CS.getAttribute('plugins')||"").split(',')) {
-			if (name in Plugins)
-				MS.install(name,Plugins[name]);
-			else if(name)
-				loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${name}.js`))
-				.then((h)=>MS.install(name,h));
-		}
-	})(currentScript);	// }}}
+	// 2. Create Slide Instance
+	let MS=window.App=new Slides(document.body);
+	await MS.init(args);
 
+	// 3. Install slide plugins
+	for (const name of (CS.getAttribute('plugins')||"").split(',')) {
+		if (name in Plugins)
+			await MS.install(name,Plugins[name]);
+		else if(name)
+			await MS.install(name,await loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${name}.js`)));
+	}
+
+	MS.Aside.install(MS.Content);
+
+	// 4. Bind Events
 	document.addEventListener('fullscreenchange', ()=>{
 		if (document.fullscreenElement) {
 			MS.set('pagemode', true);
@@ -600,16 +615,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		e.preventDefault();
 	});
 	window.addEventListener('resize',(e) => MS.applyFontSize());
+
+	// 5.1 Initialize the font size of play session
 	MS.applyFontSize (1.0);
+	// 5.2 Initialize the page hash to latest viewed page
+	setTimeout((section)=>{
+		MS.activate(section, false);
+		loading.parentNode.removeChild(loading);
+		document.body.style.opacity='1';
+	}, 1, MS.Content.querySelector(location.hash ? `section[SID="${location.hash.substr(1)}"]` : "section"));
+});	// }}}
 
-	(()=>{	// apply url hash and activate the section {{{
-		const section = MS.Content.querySelector(location.hash ? `section[SID="${location.hash.substr(1)}"]` : "section")
-		setTimeout(()=>{
-			MS.activate(section, false);
-			loading.parentNode.removeChild(loading);
-			document.body.style.opacity='1';
-		}, 1);
-	})();	// }}}
-});
-
-})();
+})(document.currentScript);

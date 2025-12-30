@@ -727,13 +727,13 @@
 				<li>資料集的欄位稱為 特徵 (feature)</li>
 				<li>指定為標籤的欄位稱為 標籤 或 目標</li>
 				<li>為資料指定標籤的動作稱為 標記 或 預定義</li>
-				<li>分成 <span action='playDLG'>分類(classification)<div caption='分類(classification)'>
+				<li>分成 <span action='display'>分類(classification)<div caption='分類(classification)'>
 						<img src="AI900/2_D.jpg"></img>
-					</div></span> 和 <span action='playDLG'>迴歸(regression)<div caption='迴歸(regression)'>
+					</div></span> 和 <span action='display'>迴歸(regression)<div caption='迴歸(regression)'>
 						<img src="AI900/2_E.jpg"></img>
 					</div></span> 兩大類</li>
 				<li class='example'>例如: 輸入500張附有貓和老虎標籤的圖片，作為模型的定型資料訓練後，再輸入新的沒有標籤的圖片，驗證模型是否能正確辨識出是貓還是老虎。
-					<span action='playDLG'>[1]<div caption='貓和老虎'><img src="AI900/2_C.jpg"/></div></span>
+					<span action='display'>[1]<div caption='貓和老虎'><img src="AI900/2_C.jpg"/></div></span>
 				</li>
 			</ul>
 		</td>
@@ -743,7 +743,7 @@
 			<ul>
 				<li>沒有標記標籤，模型自己探索資料間的規律，找出資料特徵，達成解答未知資料的目標。</li>
 				<li>叢集分析式式非監督式學習最常見的方法，會根據特徵由演算法計算資料間的相似度，將資料區分為不同群組。
-					<span action='playDLG'>[1]<div caption='非監督式學習'><img src="AI900/2_F.png"/></div></span></li>
+					<span action='display'>[1]<div caption='非監督式學習'><img src="AI900/2_F.png"/></div></span></li>
 			</ul>
 		</td>
 	</tr><tr>
@@ -752,7 +752,7 @@
 			<ul>
 				<li>介於監督式與非監督式間的機器學習</li>
 				<li>透過少量有標籤的資料找出特徵，就能對其它大量無標籤的資料進行預測
-					<span action='playDLG'>[1]<div caption='半監督式學習'>
+					<span action='display'>[1]<div caption='半監督式學習'>
 						<img src="AI900/2_G.jpg"/>
 					</div></span>
 				</li>
@@ -764,7 +764,7 @@
 			<h3>增強學習</h3>
 			<ul>
 				<li>電腦經由和動態環境不停互動來學習正確完成任務的過程
-					<span action='playDLG'>[1]<div caption='半監督式學習'>
+					<span action='display'>[1]<div caption='半監督式學習'>
 						<img src="AI900/2_H.jpg"/>
 					</div></span>
 				</li>
@@ -782,7 +782,7 @@
 	<ul>
 		<li>監督式學習，標籤值為「是」或「否」</li>
 		<li>可適用於分類或迴歸模型</li>
-		<li>算法接近人類的<span action="playDLG">思考邏輯<div caption='思考邏輯'>
+		<li>算法接近人類的<span action="display">思考邏輯<div caption='思考邏輯'>
 				<img src="AI900/2_I.svg"/>
 			</div></span>，容易理解運算原理與預測結果</li>
 		<li>速度快，適合處理大數據</li>
@@ -795,7 +795,7 @@
 	<h2>分類模型: 羅吉斯回歸</h2><!--{{{-->
 	<ul>
 		<li>監督式學習，運用於分類模型
-			<span action='playDLG'>[1]<div caption='羅吉斯回歸'><img src='AI900/2_J.jpg'/></div></span>
+			<span action='display'>[1]<div caption='羅吉斯回歸'><img src='AI900/2_J.jpg'/></div></span>
 		</li>
 		<li>找出一條能夠將所有資料清楚地分開的直線</li>
 		<li>預測範圍 0 ~ 1 代表目標值為 「是」或「否」的機率</li>
@@ -809,7 +809,7 @@
 	<ul>
 		<li>監督式學習</li>
 		<li>可以畫出最能分隔資料的邊界，適用於分類，迴歸和偵測離群值
-			<span action='playDLG'>[1]<div caption='支援向量機'><img src='AI900/2_K.jpg'/></div></span>
+			<span action='display'>[1]<div caption='支援向量機'><img src='AI900/2_K.jpg'/></div></span>
 		</li>
 		<li>適合多高維度，訓練資料少的資料集。</li>
 	</ul>
@@ -823,7 +823,7 @@
 		<li>將資料轉為向量，再用資料間的距離來換算成資料的近似度</li>
 		<li>根據近似度作為分類的標準</li>
 		<li>選取近似度最高的Ｋ筆資料所屬最多的分類
-			<span action='playDLG'>[1]<div caption='支援向量機'><img src='AI900/2_L.jpg'/></div></span>
+			<span action='display'>[1]<div caption='支援向量機'><img src='AI900/2_L.jpg'/></div></span>
 		</li>
 		<li>各分類樣本數量差異多時易錯誤</li>
 	</ul>
@@ -884,10 +884,10 @@
 	<li>必須使用有標記的資料</li>
 	<li>所預測的目標值為數值</li>
 	<li>常用的演算法<ul>
-		<li>線性迴歸演算法<span action='playDLG'>[1]<div caption='線性迴歸演算法'>
+		<li>線性迴歸演算法<span action='display'>[1]<div caption='線性迴歸演算法'>
 			<img src='AI900/2_Ma.jpg'/>
 		</div></span></li>
-		<li>多項式迴歸演算法<span action='playDLG'>[2]<div caption='多項式迴歸演算法'>
+		<li>多項式迴歸演算法<span action='display'>[2]<div caption='多項式迴歸演算法'>
 			<img src='AI900/2_Mb.jpg'/>
 		</div></span></li>
 	</ul></li>
@@ -901,7 +901,7 @@
 	<li>不用標記標籤資料</li>
 	<li>根據共同特性（特徵值）進行項目分組</li>
 	<li>常用演算法：<ul>
-		<li>Ｋ－Ｍｅａｎｓ<span action='playDLG'>[1]<div caption='K-Means'>
+		<li>Ｋ－Ｍｅａｎｓ<span action='display'>[1]<div caption='K-Means'>
 			<img src='AI900/2_N.jpg'/>
 		</div></span></li>
 		<li>Ｇａｕｓｓｉａｎ　Ｍｉｘｔｕｒｅ</li>
@@ -1701,7 +1701,7 @@
 	</tr><tr>
 		<td>文字擷取</td>
 		<td>空間分析
-			<span action='playDLG'>[1]<div class='dialog' caption='識別人員在某個空間中遵守社交距離'>
+			<span action='display'>[1]<div class='dialog' caption='識別人員在某個空間中遵守社交距離'>
 				<img class='AI900' src='AI900/3_A.png'/>
 			</div></span>
 		</td>
@@ -1714,10 +1714,10 @@
 	</tr><tr>
 		<td>自動型交通工具</td>
 		<td>臉部識別
-			<span action='playDLG'>[1]<div class='dialog' caption='臉部辨識與空間分析可偵測某個人是否戴著口罩'>
+			<span action='display'>[1]<div class='dialog' caption='臉部辨識與空間分析可偵測某個人是否戴著口罩'>
 				<img class='AI900' src='AI900/3_B.png'/>
 			</div></span>
-			<span action='playDLG'>[2]<div class='dialog' caption='臉部識別的功能'>
+			<span action='display'>[2]<div class='dialog' caption='臉部識別的功能'>
 				<div style='padding:8px;width:100%;height:100%;'><table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
 					<td>門禁管理</td><td>人員進出管理，智能門鎖，醫療智慧藥櫃</td>
 				</tr><tr>
@@ -1740,18 +1740,18 @@
 	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
 		<td>影像描述 (說明影像)</td>
 		<td>光學字元辨識
-			<span action='playDLG'>[1]<div class='dialog' caption='光學字元辨識可偵測影像中的文字資料'>
+			<span action='display'>[1]<div class='dialog' caption='光學字元辨識可偵測影像中的文字資料'>
 				<img class='AI900' src='AI900/3_D.png'/>
 			</div></span>
 		</td>
 	</tr><tr>
 		<td>標記視覺特徵
-			<span action='playDLG'>[1]<div class='dialog' caption='標記視覺特徵取得影像中包含的標籤與信賴分數'>
+			<span action='display'>[1]<div class='dialog' caption='標記視覺特徵取得影像中包含的標籤與信賴分數'>
 				<img class='AI900' src='AI900/3_C.jpg'/>
 			</div></span></td><td>偵測品牌</td>
 	</tr><tr>
 		<td>影像分類</td>
-		<td>臉部偵測 <span action='playDLG'>[1]<div class='dialog' caption='透過臉部服務識別影像中人員的年齡和性別'>
+		<td>臉部偵測 <span action='display'>[1]<div class='dialog' caption='透過臉部服務識別影像中人員的年齡和性別'>
 			<img class='AI900' src='AI900/3_E.png'/>
 		</div></span></td>
 	</tr><tr>
@@ -1780,9 +1780,9 @@
 		<li>文件智慧服務專注於從文件中擷取結構化資料</li>
 		<li>知識採礦則是一個更全面的解決方案</li>
 		<li>結合兩者，可從結構化與非結構化資料中提取有價值的知識和見解</li>
-		<li>例如:<span action='playDLG'>[辨識發票]<div class='dialog' caption='表單辨識器與發票模型可分析發票中的資訊'>
+		<li>例如:<span action='display'>[辨識發票]<div class='dialog' caption='表單辨識器與發票模型可分析發票中的資訊'>
 			<img class='AI900' src='AI900/3_F.png'/>
-		</div></span>,<span action='playDLG'>[辨識名片]<div class='dialog' caption='表單辨識器與名片模型可分析名片中的資訊'>
+		</div></span>,<span action='display'>[辨識名片]<div class='dialog' caption='表單辨識器與名片模型可分析名片中的資訊'>
 			<img class='AI900' src='AI900/3_G.png'/>
 		</div></span></li>
 	</ul>
@@ -1793,7 +1793,7 @@
 	<h2>自訂視覺</h2><!--{{{-->
 	<ul>
 		<li>Custom Vision</li>
-		<li>是一項影像辨識服務 <span action='playDLG'>[*]<div class='dialog' caption='物件偵測可辨識每個物件在影像中的座標位置'>
+		<li>是一項影像辨識服務 <span action='display'>[*]<div class='dialog' caption='物件偵測可辨識每個物件在影像中的座標位置'>
 			<img class='AI900' src='AI900/3_H.png'/>
 		</div></span></li>
 		<li>開發人員可以透過自訂視覺服務，針對特定影像內的「物件」指定「標籤」來建置，部署專屬的自訂影像分類及物件偵測模型</li>
@@ -1831,7 +1831,7 @@
 			<li>人臉的相似度</li>
 		</ul></li>
 		<li>臉部偵測: 臉部矩形, 臉部驗證, 相似性</li>
-		<li>臉部辨識: <span action='playDLG'>臉部特徵點<div class='dialog' caption='27個臉部特徵點'>
+		<li>臉部辨識: <span action='display'>臉部特徵點<div class='dialog' caption='27個臉部特徵點'>
 			<img class='AI900' src='AI900/3_I.png'/>
 		</div></span>, 屬性, 相似性</li>
 	</ul>
@@ -1852,13 +1852,13 @@
 <section ks='CV'>
 	<h2>臉部識別應用實例</h2><!--{{{-->
 	<ul>
-		<li>「<span action='playDLG'>出勤管理系統<div class='dialog' caption='人臉辨識技術應用於出勤管理系統'>
+		<li>「<span action='display'>出勤管理系統<div class='dialog' caption='人臉辨識技術應用於出勤管理系統'>
 				<img class='AI900' src='AI900/3_J.png'/>
 			</div></span>」，若保全使用了臉部偵測和臉部辨識電腦視覺，保全系統會分析 CCTV 影像，讓經過授權的人員能夠進入管制區域。<ul>
 			<li>人員到達工作場所，入口處攝像機取像，影像資料傳送至後端出勤管理系統</li>
 			<li>伺服器 API 或資料庫的人臉辨識以驗證結果立即傳出是否可開門的決策。</li>
 		</ul></li>
-		<li>「<span action='playDLG'>人臉辨識尋人系統<div class='dialog' caption='臉部識別應用實例'>
+		<li>「<span action='display'>人臉辨識尋人系統<div class='dialog' caption='臉部識別應用實例'>
 				<img class='AI900' src='AI900/3_K.png'/>
 			</div></span>」透過無人機從人群中拍攝人臉影像，將資訊傳送至人臉辨識系統，比對資料庫內所指定的人臉影像，可即時列出要找尋的人物。</li>
 	</ul>
