@@ -20,7 +20,7 @@
 	};
 
 	const TASKS=[
-		['/App/js/marked.min.js',async ()=>{ // https://cdn.jsdelivr.net/npm/marked/marked.min.js
+		['js/marked.min.js',async ()=>{ // https://cdn.jsdelivr.net/npm/marked/marked.min.js
 			const renderer = new marked.Renderer();
 			renderer.code = ({text,lang}) => (lang === 'mermaid') ? `<pre xlang="mermaid">${text}</pre>` : `<pre><code>${text}</code></pre>`;
 			marked.setOptions({ renderer });
@@ -40,13 +40,13 @@
 				});
 			};
 		}],
-		['/App/js/tex-mml-chtml.js',()=>{ // https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+		['js/tex-mml-chtml.js',()=>{ // https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 			cse.syncMath=async function (cw) {
 				if (window.MathJax && window.MathJax.typesetPromise)
 					await window.MathJax.typesetPromise([Element(cw)]);
 			};
 		}],
-		['/App/js/mermaid.min.js',()=>{ // https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
+		['js/mermaid.min.js',()=>{ // https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
 			mermaid.initialize({ startOnLoad: false, theme: 'default' });
 			cse.syncDiagram=async function (cw) {
 				const es=Array.from(Element(cw).querySelectorAll('[xlang="mermaid"]'));
@@ -56,9 +56,10 @@
 	];
 
 	cse.value = (async () => {
+		const prefix=/(.*\/)([^\/]+)(\?.*)?/.exec(cse.src);
 		await Promise.all(TASKS.map((s)=>{
 			let se=document.createElement('script');
-			se.src=s[0];
+			se.src=prefix[1]+s[0];
 			se.init=(s[1]||(()=>undefined));
 			return se;
 		}).reduce((rs,se)=>{

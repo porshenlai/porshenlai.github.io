@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Markdown Editor & Manager</title>
-	<script src='TeX.js'></script>
+	<script src='http://g3c.cyberpiers.com:4780/App/TeX.js'></script>
 	<style>
 		:root {
 			--bar-height: 60px;
@@ -102,9 +102,7 @@
 				<button class="btn-primary" onclick="createNewFile()">+ 新增</button>
 				<button class="btn-action" onclick="document.getElementById('file-upload').click()">↑ 上傳</button>
 			</div>
-			<div style="text-align: right;">
-				<button id="del-mode-btn" class="btn-danger" onclick="toggleDeleteMode()">刪除: OFF</button>
-			</div>
+			<div style="text-align: right;"></div>
 		</div>
 		<input type="file" id="file-upload" accept=".md,.txt" style="display: none;" onchange="handleFileUpload(event)">
 		<ul id="file-list-ul" class="file-list"></ul>
@@ -114,9 +112,10 @@
 		<div class="top-bar">
 			<div class="btn-group">
 				<button onclick="goBack()">←</button>
-				<button id="toggle-view-btn" onclick="toggleViewMode()">🔍</button>
+	   			<button id="toggle-view-btn" onclick="toggleViewMode()">🔍</button>
 				<button onclick="handleCopy()">📋</button>
 				<button onclick="handleDownload()">📥</button>
+				<button class="btn-danger" onclick="deleteCurrentFile()" style="margin-left: 10px;">🗑️ 刪除檔案</button>
 			</div>
 			<div style="text-align: right;">
 				<div id="current-filename" style="font-weight: bold;"></div>
@@ -131,15 +130,19 @@
 
 <script>
 	const urlParams = new URLSearchParams(window.location.search);
+	const remoteUrl = urlParams.get('url');
 	const currentFile = urlParams.get('file');
+	const viewonly = urlParams.get('viewonly')!==null;
 	let isDeleteMode = false;
 	let isPreviewMode = false;
 	let autoSaveTimer;
 
 	// 初始化判斷
-	window.onload = () => {
-		if (currentFile) {
-			initEditor(currentFile);
+	window.onload = async () => {
+		if (remoteUrl) {
+			await initRemoteUrl(remoteUrl);
+		} else if (currentFile) {
+			initLocalStorage(decodeURIComponent(currentFile));
 		} else {
 			renderFileList();
 		}
@@ -153,23 +156,68 @@
 
 		keys.forEach(key => {
 			const li = document.createElement('li');
-			li.className = `file-item ${isDeleteMode ? 'delete-mode' : ''}`;
+			li.className = 'file-item';
 			li.innerHTML = `
 				<div class="file-name" onclick="onFileClick('${encodeURIComponent(key)}')">${key}</div>
 				<div class="rename-link" onclick="renameFile(event, '${encodeURIComponent(key)}')">改名</div>
 			`;
 			listUl.appendChild(li);
 		});
-		if(keys.length === 0) listUl.innerHTML = '<p style="text-align:center; color:#94a3b8; margin-top:50px;">沒有檔案，請點擊新增。</p>';
+
+		if(keys.length === 0) {
+			listUl.innerHTML = '<p style="text-align:center; color:#94a3b8; margin-top:50px;">目前沒有存檔。</p>';
+		}
+	}
+
+	function initLocalStorage(fileName) {
+		document.getElementById('current-filename').textContent = fileName;
+		
+		initEditor(localStorage.getItem(fileName)||"");
+
+		const textarea=document.getElementById('md-input');
+		textarea.addEventListener('input', () => {
+			document.getElementById('save-status').textContent = "儲存中...";
+			clearTimeout(autoSaveTimer);
+			autoSaveTimer = setTimeout(() => {
+				localStorage.setItem(fileName, textarea.value);
+				document.getElementById('save-status').textContent = "已自動儲存";
+			}, 500);
+		});
+	}
+
+	async function initRemoteUrl(url) {
+		try {
+			const response = await fetch(url);
+			if (!response.ok) throw new Error("網路請求失敗");
+			const content = await response.text();
+
+			if (viewonly)
+				return initEditor(content||"");
+
+			// 取得基礎檔名
+			let baseName = url.split('/').pop() || "remote_file.md";
+			let finalName = baseName;
+			let counter = 1;
+
+			// 碰撞檢查：如果已存在，則更名 (例如 test.md -> test(1).md)
+			while (localStorage.getItem(finalName) !== null) {
+				const nameParts = baseName.split('.');
+				const ext = nameParts.pop();
+				finalName = `${nameParts.join('.')}(${counter}).${ext}`;
+				counter++;
+			}
+
+			// 寫入 localStorage 並轉址到編輯模式
+			localStorage.setItem(finalName, content);
+			window.location.search = `?file=${encodeURIComponent(finalName)}`;
+		} catch (err) {
+			alert("無法讀取遠端檔案: " + err.message);
+			window.location.search = '';
+		}
 	}
 
 	function onFileClick(encodedName) {
-		const name = decodeURIComponent(encodedName);
-		if (isDeleteMode) {
-			if (confirm(`刪除「${name}」？`)) { localStorage.removeItem(name); renderFileList(); }
-		} else {
-			window.location.search = `?file=${encodedName}`;
-		}
+		window.location.search = `?file=${encodedName}`;
 	}
 
 	function createNewFile() {
@@ -195,42 +243,26 @@
 		}
 	}
 
-	function toggleDeleteMode() {
-		isDeleteMode = !isDeleteMode;
-		const btn = document.getElementById('del-mode-btn');
-		btn.textContent = `刪除模式: ${isDeleteMode ? 'ON' : 'OFF'}`;
-		btn.classList.toggle('active', isDeleteMode);
-		renderFileList();
-	}
-
 	// --- 編輯器邏輯 ---
-	function initEditor(fileName) {
+	function initEditor(content="") {
 		document.getElementById('view-list').style.display = 'none';
 		document.getElementById('view-editor').style.display = 'flex';
-		document.getElementById('current-filename').textContent = fileName;
-		
 		const textarea = document.getElementById('md-input');
-		textarea.value = localStorage.getItem(fileName) || "";
-
-		textarea.addEventListener('input', () => {
-			document.getElementById('save-status').textContent = "儲存中...";
-			clearTimeout(autoSaveTimer);
-			autoSaveTimer = setTimeout(() => {
-				localStorage.setItem(fileName, textarea.value);
-				document.getElementById('save-status').textContent = "已自動儲存";
-			}, 500);
-		});
+		textarea.value = content;
+		toggleViewMode(viewonly);
 	}
 
 	function goBack() { window.location.search = ''; }
 
 	// --- 模式切換邏輯 (重點) ---
-	function toggleViewMode() {
+	function toggleViewMode(target) {
 		const textarea = document.getElementById('md-input');
 		const preview = document.getElementById('preview-area');
 		const btn = document.getElementById('toggle-view-btn');
 
-		isPreviewMode = !isPreviewMode;
+		if (target===undefined)
+			target=(!isPreviewMode);
+		isPreviewMode = target;
 
 		if (isPreviewMode) {
 			document.getElementById("TeX").syncMD(preview,textarea.value);
@@ -340,6 +372,13 @@
 
 		// 以 UTF-8 編碼讀取文字內容
 		reader.readAsText(file, "UTF-8");
+	}
+
+	function deleteCurrentFile() {
+		if (confirm(`確定要永久刪除「${currentFile}」嗎？此操作無法還原。`)) {
+   			localStorage.removeItem(currentFile);
+			goBack(); // 刪除後返回列表頁
+		}
 	}
 </script>
 </body>
