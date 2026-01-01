@@ -1,0 +1,76 @@
+"2","4","執行下列程式，卻收到第03行的錯誤。請問造成此錯誤的原因是什麼?
+<table>
+	<tbody>
+		<tr>
+			<td>
+			<pre style='color:red'>
+01
+02
+03
+04
+05
+06</pre>
+			</td>
+			<td>
+			<pre style='color:blue'>
+def read_file(file) :
+    line = None
+    if os.path.isfile(file) :
+        data = open(file,  r)
+        for line in data :
+            print(line)
+</pre>
+			</td>
+		</tr>
+	</tbody>
+</table>","path方法不存在os物件中。 || isfile方法不接受單一參數。 || isfile方法不存在path物件中。 || 您需要匯入os程式庫。","","2024-0-9-0-0","3"
+"2","1","您正在為學校開發一個Python應用程式。<br />
+此應用程式必須讀取並寫入資料至文字檔案。如果檔案不存在,此應用程式就必須建立檔案。如果檔案含有內容,此應用程式就必須刪除內容。 請問您應該使用哪個程式碼片段?","open('local_data', 'w+') || open('local_data', 'r') || open('local_data', 'r+') || open('local_data', 'w')","","2024-0-9-0-0","3"
+"6","a{2},b{1},c{3},d{1}","<div style='display:none'>unittest</div>
+<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-10-001.svg'></embed>","A || B || C || D @@ 1 || 2 || 3 || 4","","2024-0-9-0-0","3"
+"6","a{2},b{1}","某間公司需要有人協助更新他們的檔案系統。<br />
+您必須建立一個執行下列動作的簡易檔案操作程式:
+<ul>
+	<li>使用指定的名稱建立檔案。</li>
+	<li>將'End of listing'這段片語附加至檔案。</li>
+</ul>
+<br />
+<embed width='100%' src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-9-001.svg'/>","A || B @@ 1 || 2","","2024-0-9-0-0","3"
+"6","a{5},b{3},c{1},d{4},e{2}","<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-9-002.svg' width='100%'></embed>","A || B || C || D || E @@ return file.readline() || return None || with open(filename, 'r') as file: || else: || if os.path.isfile(filename):","","2024-0-9-0-0","3"
+"6","a{5},b{2},c{3}","<!--您需要撰寫執行下列工作的程式碼:
+<ul>
+	<li>呼叫process()函式。</li>
+	<li>如果process()函式擲回錯誤,則呼叫logError()函式。</li>
+	<li>呼叫process()函式之後一律呼叫displayResult()函式。</li>
+</ul>--><embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-9-003.svg' width='100%'></embed>","A || B || C @@ assert || except || finally || raise || try","","2024-0-9-0-0","3"
+"6","a{1},b{1},c{1},d{2}","對於下列每一項有關 try 陳述式的敘述，請選取 [正確] 或 [錯誤]。","try 陳述式可以包含一個或多個 except 子句。 || try 陳述式可以包含 finally 子句，但不含 except 子句。 || try 陳述式可以包含 finally 子句以及 except 子句。 || try 陳述式可以包含一個或多個 finally 子句。 @@ 正確 || 錯誤","","2024-0-9-0-0","3"
+"6","a{1},b{3},c{4}","請從每個下拉式清單中選取正確的選項以完成有關assert方法的敘述。","若要測試變數a與b的值是否相同,請使用: || 若要測試物件a與b是否相同,請使用: || 若要測試清單中是否存在某個值,請使用: @@ assertEqual(a,b) || assertTrue(x) || assertIs(a,b) || assertIn(a,b)","","2024-0-9-0-0","3"
+"2","1","您撰寫了以下這段程式碼:
+<pre>
+import sys
+try:
+    file_in = open('in.txt', &#39;r&#39;)
+    file_out = open('out.txt', &#39;w+&#39;)
+except IOError:
+    print(&#39;cannot open&#39;, file_name)
+else:
+    i = 1
+    for line in file_in:
+        print(line.rstrip())
+        file_out.write('line ' + str(i) + ': ' + line)
+        i = i + 1
+    file_in.close()
+    file_out.close()
+</pre>
+  out.txt檔案不存在。您執行程式碼。<br />
+請問以下哪一項敘述是正確的?","此程式碼將正確執行,不會發生錯誤。 || 此程式碼將執行,但會產生邏輯錯誤。 || 此程式碼將產生執行階段錯誤。 || 此程式碼將產生語法錯誤。","若 in.txt 不存在，例外處理時 file_name 為發生引用錯誤<br />
+否則可以正常執行無誤","2024-0-9-0-0","3"
+"6","a{4},b{3}","<div style='display:none;'>某間公司需要有人協助更新他們的檔案系統。您必須建立一個執行下列動作的簡易檔案操作程式</div>
+<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-9-005.svg' width='100%'></embed>","A || B @@ 1 || 2 || 3 || 4","","2024-0-9-0-0","3"
+"6","a{1},b{2},c{1}","請檢閱下列程式碼片段：
+<pre>
+f = open('python.txt', 'a') 
+f.write('This is a line of text.') 
+f.close()</pre>","如果名稱為 python.txt 的檔案不存在，就會建立此檔案。 || 此檔案中的資料會被覆寫。 || 其他程式碼可以在這段程式碼執行完畢之後，開啟此檔案。 @@ 正確 || 錯誤","","2024-0-9-0-0","3"
+"6","a{1},b{3}","<div style='display:none;'>您正在建立一個接受使用者輸入的程式。此程式必須將輸入轉型為整數，並且在無法轉型時正確處理錯誤。</div>
+<embed src='https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-9-006.svg' width='100%'></embed>","A || B @@ try: || else: || except: || raise: || finally:","","2024-0-9-0-0","3"

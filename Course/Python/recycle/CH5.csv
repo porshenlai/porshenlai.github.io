@@ -1,0 +1,27 @@
+"3","2,4","你為公司設計了一個&nbsp;Python&nbsp;應用程式，在&nbsp;members&nbsp;的清單中包含了&nbsp;50&nbsp;位會員的姓名，最後&nbsp;5&nbsp;名是&nbsp;VIP&nbsp;會員。<br />
+&nbsp;<br />
+你需要分割清單內容顯示除了&nbsp;VIP&nbsp;會員以外的一般會員，你可以利用以下哪二個程式碼達成？","members [-5 : 0] || members [0 : -5] || members [1 : -5] || members [ : -5] || members [1 : 5]","","2024-0-5-0-0","3"
+"2","3","在下列的程式碼中：
+<pre style=&quot;color:blue&quot;>
+slist&nbsp;=&nbsp;[&#39;a&#39;,&nbsp;&#39;b&#39;,&nbsp;&#39;c&#39;,&nbsp;&#39;d&#39;,&nbsp;&#39;e&#39;,&nbsp;&#39;f&#39;]
+print(&#39;f&#39;&nbsp;in&nbsp;slist)
+</pre>
+&nbsp;執行後會輸出列印的內容為？","5 || 6 || True || False","","2024-0-5-0-0","3"
+"6","a{1},b{5},c{2},d{6}","<meta charset=&quot;utf-8&quot;>
+<p dir=&quot;ltr&quot; id=&quot;docs-internal-guid-934ec0bd-7fff-47a6-c73f-946832902636&quot; style=&quot;line-height:1.2;margin-top:0pt;margin-bottom:0pt;&quot;>您需要識別針對下列順序結構執行各種配量作業的結果:<br />
+<br />
+alph&nbsp;=&nbsp;&quot;abcdefghijklmnopqrstuvwxyz&quot;<br />
+<br />
+&nbsp;</p>","alph[3:15] || alph[3:15:3] || alph[15:3:-3] || alph[::-3] @@ defghijklmno || pmjg || defghijklmnop || ponmlkjihgfe || dgjm || zwtqnkheb","","2024-0-5-0-0","3"
+"6","a{2},b{2},c{1},d{1}","您正在為公司開發一個Python應用程式。<br />
+您撰寫了以下這段程式碼:
+<pre style=&quot;color:blue&quot;>
+numList&nbsp;=&nbsp;[1,&nbsp;2,&nbsp;3,&nbsp;4,&nbsp;5]
+alphaList&nbsp;=&nbsp;[&quot;a&quot;,&nbsp;&quot;b&quot;,&nbsp;&quot;c&quot;,&nbsp;&quot;d&quot;,&nbsp;&quot;e&quot;]
+print(numList&nbsp;is&nbsp;alphaList)
+print(numList&nbsp;==&nbsp;alphaList)
+numList&nbsp;=&nbsp;alphaList
+print(numList&nbsp;is&nbsp;alphaList)
+print(numList&nbsp;==&nbsp;alphaList)<span style=&quot;white-space: normal&quot;>&nbsp;</span></pre>","請問第一個print後面顯示的內容為何? || 請問第二個print後面顯示的內容為何? || 請問第三個print後面顯示的內容為何? || 請問第四個print後面顯示的內容為何? @@ True || False","","2024-0-5-0-0","3"
+"6","a{1},b{2}","您需要識別針對下列順序結構執行各種配量作業的結果：<br />
+alph&nbsp;=&nbsp;&quot;abcdefghijklmnopqrstuvwxyz&quot;","alph[3:6] || alph[:6] @@ def || abcdef || cde || defg || cdef || abcde","","2024-0-5-0-0","3"

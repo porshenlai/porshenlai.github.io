@@ -30,6 +30,12 @@ table small { color:#666; }
 .syntax .K { color:red; }
 .syntax .V { color:green; }
 
+.black { color:black; }
+.red { color:red; }
+.green { color:green; }
+.blue { color:blue; }
+.brown { color:brown; }
+
 [xlang="markdown"] table { width:80%; margin-left:auto; margin-right:auto; }
 [xlang="markdown"] table td { border:2px solid silver; padding:0px 16px; }
 </style>
@@ -263,7 +269,7 @@ table small { color:#666; }
 		</select></div>
 		<div>if not room in rooms:</div>
 		<div class='cb'>
-		    <div qt='s' ___='2'># 為什麼上方判斷式無法尋找房間？<select qo="value">
+			<div qt='s' ___='2'># 為什麼上方判斷式無法尋找房間？<select qo="value">
 				<option>請選擇</option>
 				<option value="1">無效的語法</option>
 				<option value="2">不符合的資料類型</option>
@@ -1294,7 +1300,7 @@ Grapes  10.2 10.96</pre>
 				<option value="3">for</option><option value="4">else</option>
 			</select> grade &gt;= 90 :</div>
 			<div class='cb'>print "Your grade is A."</div>
-		    <div qt='s' ___='1'><select qo='value'><option>請選擇</option>
+			<div qt='s' ___='1'><select qo='value'><option>請選擇</option>
 				<option value="1">elif</option><option value="2">if</option>
 				<option value="3">for</option><option value="4">else</option>
 			</select> grade &gt;= 80 :</div>
@@ -1307,7 +1313,7 @@ Grapes  10.2 10.96</pre>
 				<option value="2">and</option><option value="3">not</option>
 			</select> grade &gt; 69:</span></div>
 			<div class='cb'>print "Your grade is C."</div>
-		    <div qt='s' ___='4'><select qo='value'><option>請選擇</option>
+			<div qt='s' ___='4'><select qo='value'><option>請選擇</option>
 				<option value="1">elif :</option><option value="2">if :</option>
 				<option value="3">for :</option><option value="4">else :</option>
 			</select></div> 
@@ -1329,7 +1335,7 @@ Grapes  10.2 10.96</pre>
 	<div class='frame'><div class='cb'>
 		<div>def safe_divide (numerator, denominator) :</div>
 		<div class='cb'>
-	    	<div qt='s' ___='1'><select qo="value"><option>請選擇</option>
+			<div qt='s' ___='1'><select qo="value"><option>請選擇</option>
 				<option value="1">if numerator is None or denominator is None:</option>
 				<option value="2">if numerator is None and denominator is None:</option>
 				<option value="3">if numerator = None or denominator = None:</option>
@@ -2309,8 +2315,8 @@ Grapes  10.2 10.96</pre>
 		<div class='frame'><div class='cb'>
 			<div>def calculate_sum(a, b): <span style="color:red"># 這是函數定義 (Function Definition)</span></div>
 			<div class='cb'>
-    			<div>result = a + b</div>
-    			<div>return result</div>
+				<div>result = a + b</div>
+				<div>return result</div>
 			</div>
 			<br/>
 			<div>total = calculate_sum(5, 3) <span style="color:red"># 這是函數呼叫 (Function Call)</span></div>
@@ -2372,9 +2378,9 @@ Grapes  10.2 10.96</pre>
 		<div class='frame'><div class='cb'>
 			<div>def calculate_sum(a, b):</div>
 			<div class='cb'>
-    			<div>result = a + b</div>
+				<div>result = a + b</div>
 				<div style="color:red"># 使用 return 關鍵字將計算結果 (result 的值 8) 傳回去</div>
-    			<div>return result</div>
+				<div>return result</div>
 			</div>
 			<br/>
 			<div style="color:red"># 呼叫函數後，回傳值 8 會被賦予給變數 total</div>
@@ -2432,8 +2438,8 @@ Grapes  10.2 10.96</pre>
 <div>def power(base, exponent=2): <span style='color:red'># exponent 有預設值 2</span></div>
 <div class='cb'>return base ** exponent</div>
 <br/>
-<div>result1 = power(3)        <span style='color:red'># 呼叫時省略 exponent，使用預設值 2 (3**2 = 9)</span></div>
-<div>result2 = power(3, 4)     <span style='color:red'># 呼叫時提供 exponent，覆蓋預設值 (3**4 = 81)</span></div>
+<div>result1 = power(3)		<span style='color:red'># 呼叫時省略 exponent，使用預設值 2 (3**2 = 9)</span></div>
+<div>result2 = power(3, 4)	 <span style='color:red'># 呼叫時提供 exponent，覆蓋預設值 (3**4 = 81)</span></div>
 				</div></div>
 			</li>
 			</ul>
@@ -2470,7 +2476,7 @@ Grapes  10.2 10.96</pre>
 					<div>def print_profile(name, **info): <span style='color:red'># info 是一個 dictionary</span></div>
 					<div class='cb'>
 						<div>print(f"Name: {name}")</div>
-    					<div>for key, value in info.items():</div>
+						<div>for key, value in info.items():</div>
 						<div class='cb'>print(f"{key}: {value}")</div>
 					</div>
 					<br/>
@@ -3145,6 +3151,83 @@ Grapes  10.2 10.96</pre>
 		<div>print(f"Pricing specials change in {daysLeft} days")</div>
 	</div>
 	<!--}}}-->
+</section>
+
+<section ks='P_CS'>
+<h2>類別 Class</h2>
+<div class='frame'><div class='cb green'>
+	<div>import datetime</div>
+	<div>class TradeLogger:</div>
+	<div class='cb blue'>
+		<div>def __init__(self, symbol: str, strategy_name: str):</div>
+		<div class='cb black'>
+			<div>self.symbol = symbol</div>
+			<div>self.strategy_name = strategy_name</div>
+			<div>self.filename = f"{symbol}_{datetime.date.today()}.log"</div>
+			<div>self.file = None</div>
+		</div>
+		<br/>
+		<div class='red'>## Context Manager Protocol ##</div>
+		<div>def __enter__(self):</div>
+		<div class='cb black'>
+			<div class='red'>"""進入 with 區塊時觸發：執行開檔動作"""</div>
+			<div>print(f"[系統訊號] 正在開啟日誌檔: {self.filename}")</div>
+			<div>self.file = open(self.filename, "a", encoding="utf-8")</div>
+			<div>return self  <span class='red'># 回傳物件本身給 'as' 後面的變數</span></div>
+		</div>
+		<br/>
+		<div>def __exit__(self, exc_type, exc_val, exc_tb):</div>
+		<div class='cb black'>
+			<div class='red'>"""離開 with 區塊時觸發：執行關檔動作"""</div>
+			<div>if self.file:</div>
+			<div class='cb brown'>
+				<div>self.file.close()</div>
+				<div>print(f"[系統訊號] 檔案 {self.filename} 已安全關閉。")</div>
+			</div>
+			<div class='red'># 如果有異常發生，可以在這裡處理 (exc_type 為異常類型)</div>
+		</div>
+		<br/>
+		<div class='red'>## String Representation (字串表示法) ##</div>
+		<div>def __repr__(self):</div>
+		<div class='cb black'>
+			<div class='red'>"""<br/>
+			供開發者偵錯使用。<br/>
+			慣例上回傳一個「能用來重新建立該物件」的字串。</br>
+			"""</div>
+			<div>return f"TradeLogger(symbol='{self.symbol}', strategy_name='{self.strategy_name}')"</div>
+		</div>
+		<br/>
+		<div>def log_trade(self, side: str, price: float, volume: int):</div>
+		<div class='cb black'>
+			<div ='red'>"""模擬寫入交易紀錄"""</div>
+			<div>timestamp = datetime.datetime.now().strftime("%H:%M:%S")</div>
+			<div>record = f"[{timestamp}] {side} | {price} | {volume} units\n"</div>
+			<div>self.file.write(record)</div>
+			<div>print(f"紀錄已寫入: {record.strip()}")</div>
+		</div>
+	</div>
+</div>
+</section>
+
+<section ks='P_CS'>
+<div class='frame'><div class='cb'>
+	<div class='red'># --- 實際應用範例 ---</div>
+	<div>if __name__ == "__main__":</div>
+	<div class='cb'>
+		<div class='red'># 使用 with 關鍵字自動管理資源</div>
+		<div class='blue'>with TradeLogger("TSMC", "MA_Cross") as logger:</div>
+		<div class='cb'>
+			<div class='red'># 進行交易寫入</div>
+			<div class='blue'>logger.log_trade("BUY", 605.0, 1000)</div>
+			<br/>
+			<div class='red'># 示範使用 format 與 !r (呼叫 __repr__)</div>
+			<div class='red'># 在金融報表或 Debug Log 中非常實用</div>
+			<div>print("\n--- 格式化輸出展示 ---")</div>
+			<div class='blue'>print("當前 logger 狀態: {!r}".format(logger))</div>
+			<div>print(f"Debug 資訊 (f-string): {logger!r}")</div>
+		</div>
+	</div>
+</div></div>
 </section>
 
 <!--}}}-->

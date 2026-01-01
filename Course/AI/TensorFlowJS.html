@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang='zh-Hant'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<base target='_blank'/>
+<title></title>
+<script plugins='quiz' src='/App/slide.js'></script>
+</head>
+<body><div id='content'>
+
+<style>
+	.note { font-size:70%; color:blue; }
+</style>
+
+<section class='cm'>
+	<h1 class='title'>💻 TensorFlow.js Web Services</h1>
+	<h2>with express@nodejs</h2>
+	<br/>
+	<div>👨‍🏫<em><a href='mailto:porshenlai@gm.chihlee.edu.tw'>Porshen Lai</a></em></div>
+	<div><a href='https://fd100.chihlee.edu.tw'>Department of Finance</a></div>
+	<div><a href='https://www.chihlee.edu.tw'>Chihlee University of Technology</a></div>
+	<div>2025, Winter</div>
+</section>
+
+<section>
+	<h2>電腦視覺 (Computer Vision)</h2>
+	<div>這是 TFJS 最豐富的領域，包含影像分類、物件偵測與人體特徵辨識。</div>
+	<ul>
+		<li><strong>MobileNet</strong><div class='note'>@tensorflow-models/mobilenet</div><ul>
+			<li>快速、輕量級的<strong>影像分類</strong>（可辨識 1000 種物體）。</li>
+		</ul></li>
+		<li><strong>COCO-SSD</strong><div class='note'>@tensorflow-models/coco-ssd</div><ul>
+			<li><strong>物件偵測</strong>，能在單張影像中找出多個物體並標記位置。</li>
+		</ul></li>
+		<li><strong>PoseNet / MoveNet</strong><div class='note'>@tensorflow-models/pose-detection</div><ul>
+			<li><strong>人體姿勢偵測</strong>，追蹤關節點（如手肘、膝蓋）。</li>
+		</ul></li>
+		<li><strong>Face Landmarks</strong> <div class='note'>@tensorflow-models/face-landmarks-detection</div><ul>
+			<li><strong>臉部特徵偵測</strong>，可辨識臉部 486 個 3D 座標點。</li>
+		</ul></li>
+		<li><strong>BlazeFace</strong> <div class='note'>@tensorflow-models/blazeface</div><ul>
+			<li>超輕量級的<strong>臉部偵測</strong>（僅偵測邊框，不含特徵點）。</li>
+		</ul></li>
+		<li><strong>DeepLab</strong> <div class='note'>@tensorflow-models/deeplab</div><ul>
+			<li><strong>語義分割</strong>，將影像中的每個像素分配到特定的類別。</li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>文字與自然語言處理 (NLP)</h2>
+	<div>適用於情感分析、問答系統與文字處理。</div>
+	<ul>
+		<li><strong>Universal Sentence Encoder</strong><div class='note'>@tensorflow-models/universal-sentence-encoder</div><ul>
+			<li>將句子轉化為向量（Embeddings），用於<strong>語義相似度分析</strong>。</li>
+		</ul></li>
+		<li><strong>Toxicity</strong><div class='note'>@tensorflow-models/toxicity</div><ul>
+			<li>偵測文字內容是否包含<strong>冒犯性、威脅或髒話</strong>。</li>
+		</ul></li>
+		<li><strong>Question and Answer</strong><div class='note'>@tensorflow-models/qna</div><ul>
+			<li><strong>問答系統</strong>，給予一段文章後，能回答相關問題（基於 BERT）。</li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>音訊處理 (Audio)</h2>
+	<ul>
+		<li><strong>Speech Commands</strong><div class='note'>@tensorflow-models/speech-commands</div><ul>
+			<li><strong>語音指令辨識</strong>，可辨識簡單的單詞（如 Up, Down, Left, Right）。</li>
+		</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>如何在 Node.js 中安裝與使用？</h2>
+	<div>要在 Node.js 中使用這些模型，你必須先安裝 TensorFlow.js 的 Node 加速版本（tfjs-node），然後再安裝特定的模型套件。</div>
+	<ol>
+		<li>安裝指令<pre><code># 安裝 TFJS Node 核心加速器 (使用 C++ 綁定)
+npm install @tensorflow/tfjs-node
+# 安裝你想使用的模型 (以 MobileNet 為例)
+npm install @tensorflow-models/mobilenet</pre></li>
+		<li>範例代碼 (影像分類)<pre><code>
+const tf = require('@tensorflow/tfjs-node');
+
+const mobilenet = require('@tensorflow-models/mobilenet');
+const fs = require('fs');
+
+async function run() {
+	// 1. 載入模型
+	const model = await mobilenet.load();
+
+	// 2. 讀取本地圖片並解碼為 Tensor
+	const imageBuffer = fs.readFileSync('image.jpg');
+	const imageTensor = tf.node.decodeImage(imageBuffer);
+
+	// 3. 進行預測
+	const predictions = await model.classify(imageTensor);
+	console.log('預測結果：', predictions);
+}
+
+run();</code></pre></li>
+	</ol>
+</section>
+
+<section>
+	<h2>其他資源</h2>
+	<div>除了上述 NPM 套件外，你還可以透過以下方式獲取更多模型：<ul>
+		<li><strong>TensorFlow Hub</strong>: <a href="https://tfhub.dev/">tfhub.dev</a> 有大量已轉換為 TFJS 格式的模型，可以透過 tf.loadGraphModel() 遠端或本地載入。</li><li><strong>MediaPipe</strong>: 許多 MediaPipe 的先進模型（如手部追蹤、自拍分割）也已陸續與 TFJS 整合。</li>
+		<li>測試列表項目</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2><!--問答標題請放這邊--></h2>
+	<div qt='s' ___='答案請放這邊'></div>
+		<div qo='1'><!--選項一請放這邊--></div>
+		<div qo='2'><!--選項二請放這邊--></div>
+		<div qo='3'><!--選項三請放這邊--></div>
+		<div qo='4'><!--選項四請放這邊--></div>
+	</div>
+</section>
+
+</div></body>
+</html>

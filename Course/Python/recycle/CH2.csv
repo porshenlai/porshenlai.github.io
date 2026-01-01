@@ -1,0 +1,154 @@
+"2","3","計算下列&nbsp;Python&nbsp;數學運算式<br />
+<span style=&quot;color:#0000ff;&quot;>5&nbsp;*&nbsp;(1+2)&nbsp;**&nbsp;2&nbsp;-&nbsp;3&nbsp;+&nbsp;4&nbsp;/&nbsp;2</span>","5 || 8 || 44 || 22","","2024-0-2-0-0","3"
+"2","4","您執行下列程式碼。請問結果為何?
+<pre style=&quot;color:#0000ff;&quot;>
+value1&nbsp;=&nbsp;9
+value2&nbsp;=&nbsp;4
+answer&nbsp;=&nbsp;(value1&nbsp;%&nbsp;value2&nbsp;*&nbsp;10)&nbsp;//&nbsp;2.0&nbsp;**&nbsp;3.0&nbsp;+&nbsp;value2
+</pre>","輸出 129 || 發生語法錯誤 || 輸出 5.667 || 輸出 5.0","","2024-0-2-0-0","3"
+"2","1","您執行下列程式碼，請問輸出值為何&nbsp;?
+<pre style=&quot;color:blue&quot;>
+list_1&nbsp;=&nbsp;[1,2]
+list_2&nbsp;=&nbsp;[3,4]
+list_3&nbsp;=&nbsp;list_1&nbsp;+&nbsp;list_2
+list_4&nbsp;=&nbsp;list_3&nbsp;*&nbsp;3
+print(list_4)
+</pre>","[1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4] || [[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]] || [3, 6, 9, 12] || [[1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]]","","2024-0-2-0-0","3"
+"2","2","請問下列程式，print陳述式的輸出為何?
+<pre style=&quot;color:blue&quot;>
+x&nbsp;=&nbsp;&quot;oranges&quot;
+y&nbsp;=&nbsp;&quot;apples&quot;
+z&nbsp;=&nbsp;&quot;bananas&quot;
+data&nbsp;=&nbsp;&quot;{1}&nbsp;and&nbsp;{0}&nbsp;and&nbsp;{2}&quot;
+print(&nbsp;data.format(z,y,x)&nbsp;)
+</pre>","bananas and oranges and apples || apples and bananas and oranges || apples and oranges and bananas || oranges and apples and bananas","","2024-0-2-0-0","3"
+"2","3","請問下列陳述式有何功能？
+<pre style=&quot;color:blue&quot;>
+data&nbsp;=&nbsp;input()
+
+</pre>","顯示電腦上的所有輸入周邊裝置 || 顯示允許使用者輸入的訊息方塊 || 允許使用者在主控台中輸入文字 || 建立HTML輸入元素","","2024-0-2-0-0","3"
+"2","1","你設計了一個數學運算的&nbsp;Python&nbsp;程式，程式碼如下：
+<pre style=&quot;color:blue&quot;>
+a&nbsp;=&nbsp;21
+b&nbsp;=&nbsp;5
+print(&nbsp;a&nbsp;/&nbsp;b,&nbsp;a&nbsp;//&nbsp;b,&nbsp;a&nbsp;%&nbsp;b&nbsp;)
+</pre>
+&nbsp;請問&nbsp;print&nbsp;將輸出什麼&nbsp;?","4.2 4 1 || 4 4 4 || 1 4 4.2","","2024-0-2-0-0","3"
+"2","2","在&nbsp;Python&nbsp;程式中，如果希望使用者輸入時，即使用輸入了小數，程式也能自動轉為整數來進行運算。<br />
+你應該使用以下哪個程式碼片段&nbsp;？","total = input(&quot;請輸入總數？&quot;) || total = int(eval(input(&quot;請輸入總數？&quot;))) || total = str(input(&quot;請輸入總數？&quot;)) || total = float(input(&quot;請輸入總數？&quot;))","","2024-0-2-0-0","3"
+"2","2","您正在建立一個比較數字的Python程式
+<table>
+	<tbody>
+		<tr>
+			<td>
+			<pre>
+<strong><span style=&quot;color:#ff0000;&quot;>01
+02
+03
+04
+05
+06
+07
+08
+09
+10</span></strong>
+</pre>
+			</td>
+			<td>
+			<pre>
+<span style=&quot;color:#0000ff;&quot;>num1&nbsp;=&nbsp;eval(input&nbsp;(&quot;Please&nbsp;enter&nbsp;the&nbsp;first&nbsp;number:&nbsp;&quot;))
+num2&nbsp;=&nbsp;eval(input&nbsp;(&quot;Please&nbsp;enter&nbsp;the&nbsp;second&nbsp;number:&nbsp;&quot;))
+if&nbsp;num1&nbsp;==&nbsp;num2:
+&nbsp;&nbsp;&nbsp;&nbsp;print(&quot;The&nbsp;two&nbsp;numbers&nbsp;are&nbsp;equal.&nbsp;&quot;)
+if&nbsp;num1&nbsp;&lt;=&nbsp;num2:
+&nbsp;&nbsp;&nbsp;&nbsp;print(&quot;Number&nbsp;1&nbsp;is&nbsp;less&nbsp;than&nbsp;number&nbsp;2.&nbsp;&quot;)
+if&nbsp;num1&nbsp;&gt;&nbsp;num2:
+&nbsp;&nbsp;&nbsp;&nbsp;print(&quot;Number&nbsp;1&nbsp;is&nbsp;greater&nbsp;than&nbsp;number&nbsp;2.&nbsp;&quot;)
+if&nbsp;num2&nbsp;=&nbsp;num1:
+&nbsp;&nbsp;&nbsp;&nbsp;print(&quot;The&nbsp;two&nbsp;numbers&nbsp;are&nbsp;the&nbsp;same.&nbsp;&quot;)</span>
+</pre>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br />
+請問下列敘述何者為<strong><span style=&quot;color:#ff0000;&quot;>非</span></strong>&nbsp;?","第04行的print陳述式只有在這兩個數字的值相等時才會列印。 || 第06行的print陳述式只有在num1小於num2時才會列印。 || 第08行的print陳述式只有在num1大於num2時才會列印。 || 第09行的陳述式是無效的比較。","","2024-0-2-0-0","3"
+"6","a{1},b{4},c{3},d{2},e{3}","請問變數宣告後它們的資料類別依序是？","age?=?12 || minor?=?False || name?=?&quot;David&quot; || weight?=?64.5 || zip?=?&quot;545&quot; @@ int || float || str || boolean","","2024-0-2-0-0","3"
+"6","a{2},b{1},c{2}","根據下列程式，請回答註解中的問題。<br />
+<br />
+<embed src=&quot;https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-001.svg&quot;></embed>","A || B || C @@ int || str || boolean","","2024-0-2-0-0","3"
+"6","a{1},b{7},c{6},d{5}","<p>您需要列印資料,以便呈現出類似下面的範例:</p>
+
+<table>
+	<tbody>
+		<tr>
+			<td>Oranges</td>
+			<td>5.6</td>
+			<td>1.33</td>
+		</tr>
+		<tr>
+			<td>Apples</td>
+			<td>2.0</td>
+			<td>0.54</td>
+		</tr>
+		<tr>
+			<td>Grapes</td>
+			<td>10.2</td>
+			<td>10.96</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>具體而言,列印成品必須符合下列需求:</p>
+
+<ul>
+	<li>水果名稱必須在10個空格寬的資料行中靠左對齊列印。</li>
+	<li>重量必須在5個空格寬的資料行中靠右對齊列印,而且小數點後面最多一位數。</li>
+	<li>重量必須在7個空格寬的資料行中靠右對齊列印,而且小數點後面最多兩位數。</li>
+</ul>
+&nbsp;請完成下列程式<br />
+<embed src=&quot;https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-002.svg&quot;></embed>","A || B || C || D @@ 1 || 2 || 3 || 4 || 5 || 6 || 7","","2024-0-2-0-0","3"
+"6","a{2},b{3},c{4},d{2}","您必須識別各種類型作業的資料類型。<br />
+請將左側清單中適當的資料類型移至右側的正確類型作業。每種資料類型可能只使用一次,也可能使用多次,甚至完全用不到。","type(5.0) || type(&quot;True&quot;) || type(False) || type(+1E10) @@ int || float || str || boolean","","2024-0-2-0-0","3"
+"3","1,2","某間銀行必須產生一份報表來顯示所有客戶每天的平均。<br />
+這份報表必須截斷餘額的小數部分。<br />
+請問哪兩段程式可以使用&nbsp;?","average_blance?=?int(total_deposits/number_of_customers) || average_blance?=?total_deposits//number_of_customers || average_blance?=?total_deposits**number_of_customers || average_blance?=?float(total_deposits//number_of_customers)","","2024-0-2-0-0","3"
+"6","a{3},b{5},c{6},d{2},e{1},f{4}","您正在將現有的應用程式轉換成Python。<br />
+您需要正確編寫所有算數運算式的程式碼。<br />
+請依運算元優先順序由高到低依序選取 ?","最高優先權 || 第二高 || 第三高 || 第四高 || 第五高 || 最低 @@ 加法和減法 || 乘法和除法 || 括弧 || 及 || 指數 || 一元正、負、非","","2024-0-2-0-0","3"
+"6","a{1},b{3},c{4}","某食品公司需要一套程式，讓他們的客服中心能夠用來輸入新咖啡種類的問卷調查資料。<br />
+此程式必須執行下列工作&nbsp;:
+<ul>
+	<li>接受輸入(rating)。</li>
+	<li>傳回五星評比標準的平均評分(average)。</li>
+	<li>將輸出四捨五入到兩位小數。</li>
+</ul>
+<embed src=&quot;https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-003.svg&quot;></embed>","A || B || C @@ 1 || 2 || 3 || 4","","2024-0-2-0-0","3"
+"6","a{3},b{4},c{2}","<div style=&quot;display:none&quot;>找出會議室並顯示房間名稱</div>
+<embed src=&quot;https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-004.svg&quot;></embed>","A || B || C @@ 1 || 2 || 3 || 4","","2024-0-2-0-0","3"
+"6","a{2}","<div style=&quot;display:none&quot;>接受使用者的輸入並將該項資訊輸出至使用者的畫面</div>
+<embed src=&quot;https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-005.svg&quot;></embed>","A @@ input(&quot;name&quot;) || name = input() || input(name) || name = input","","2024-0-2-0-0","3"
+"3","1,2","此函式必須執行下列工作:<br />
+<br />
+提取浮點數(float)的絕對值<br />
+移除整數後面的任何小數點。<br />
+請問您應該使用哪兩個數學函式?。","math.floor(x) || math.fabs(x) || math.frexp(x) || math.fmod(x)","","2024-0-2-0-0","3"
+"6","a{2},b{1}","<div style=&quot;display:none&quot;>&#39;Config1&#39;+&#39;Config2&#39;</div>
+<embed src=&quot;https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-006.svg&quot;></embed>","A || B @@ 1 || 2 || 3 || 4","","2024-0-2-0-0","3"
+"6","a{2},b{1},c{7},d{3},e{5}","<div style=&quot;display:none&quot;>b等於a乘以負一之後再平方</div>
+<!--您正在撰寫一個Python程式來評估算數公式。此公式描述為b等於a乘以負一之後再平方。其中a是即將輸入的成績,而b是結果。-->
+<embed src=&quot;https://www.cyberpiers.com/CLUT/Quiz.Python/ITS2023-2-007.svg&quot;></embed>","A || B || C || D || E @@ - || ( || ) || ** || **2 || 2 || a","","2024-0-2-0-0","3"
+"3","3,4","您正在建立一個電子商務指令碼來接受使用者輸入並以逗點分隔格式輸出資料。<br />
+您撰寫了下列程式碼以接受輸入：
+<pre style=&quot;color:blue&quot;>
+item&nbsp;=&nbsp;input(&quot;Enter&nbsp;the&nbsp;item&nbsp;name:&nbsp;&quot;)
+sales&nbsp;=&nbsp;int(input(&quot;Enter&nbsp;the&nbsp;quantity:&nbsp;&quot;))
+</pre>
+&nbsp;&nbsp;輸出必須符合下列需求:
+
+<ul>
+	<li>以雙引號括住字串。</li>
+	<li>不以引號或其他字元括住數字。</li>
+	<li>以逗點分隔項目。</li>
+</ul>
+&nbsp;&nbsp;請問哪兩個可以符合要求?","print(&quot;{0},{1}&quot;.format(item, sales)) || print(item + ',' + sales) || print('&quot;{0}&quot;,{1}'.format(item, sales)) || print('&quot;' + item + '&quot;,' + sales)","","2024-0-2-0-0","3"

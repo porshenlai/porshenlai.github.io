@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang='zh-Hant'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<base target='_blank'/>
+<title></title>
+<script plugins='quiz' src='/App/slide.js'></script>
+</head>
+<body><div id='content'>
+
+<section class='cm'>
+	<h1 class='title'>💻 Power BI</h1>
+	<h2>Reports</h2>
+	<br/>
+	<div>👨‍🏫<em><a href='mailto:porshenlai@gm.chihlee.edu.tw'>Porshen Lai</a></em></div>
+	<div><a href='https://fd100.chihlee.edu.tw'>Department of Finance</a></div>
+	<div><a href='https://www.chihlee.edu.tw'>Chihlee University of Technology</a></div>
+	<div>2025, Winter</div>
+</section>
+
+<section>
+	<h2>互動式報表 (Standard Reports)</h2>
+	<ul>
+	<li><strong>核心功能與目的</strong><ul>
+		<li>探索式分析、多維度鑽取 (Drill-down) 與連動篩選。</li>
+	</ul></li>
+	<li><strong>最佳使用場合</strong><ul>
+		<li>投資組合分析、股市走勢探索、業務 KPI 看板。</li>
+	</ul></li>
+	<li><strong>關鍵設定參數 / 技術點</strong><ul>
+		<li><strong>欄位參數 (Field Params)</strong>、DAX 度量值、視覺化書籤。</li>
+	</ul></li>
+	<li><strong>常搭配的數據表格類型</strong><ul>
+		<li><strong>星狀架構 (Star Schema)</strong>：事實表 (Fact) + 維度表 (Dim)。</li>
+	</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>編頁報表 (Paginated Reports)</h2>
+	<ul>
+	<li><strong>核心功能與目的</strong><ul>
+		<li>格式固定的「像素級」精準報表，適合長表格分頁列印。</li>
+	</ul></li>
+	<li><strong>最佳使用場合</strong><ul>
+		<li>金融對帳單、發票、詳細成交清單 (Transaction List)。</li>
+	</ul></li>
+	<li><strong>關鍵設定參數 / 技術點</strong><ul>
+		<li><strong>報表參數 (@Param)</strong>、運算式 (Expressions)、頁首頁尾佈局。</li>
+	</ul></li>
+	<li><strong>常搭配的數據表格類型</strong><ul>
+		<li><strong>扁平化交易表</strong>：單一資料集、大批量純文字記錄。</li>
+	</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>儀表板 (Dashboards)</h2>
+	<ul>
+	<li><strong>核心功能與目的</strong><ul>
+		<li>跨報表的指標彙整，提供單一畫面的高階概況。</li>
+	</ul></li>
+	<li><strong>最佳使用場合</strong><ul>
+		<li>企業戰情室、多專案監控、多策略組合摘要。</li>
+	</ul></li>
+	<li><strong>關鍵設定參數 / 技術點</strong><ul>
+		<li><strong>動態磚 (Tiles)</strong>、即時警示 (Alerts)、問與答 (Q&amp;A)。</li>
+	</ul></li>
+	<li><strong>常搭配的數據表格類型</strong><ul>
+		<li><strong>彙整型指標 (Metrics)</strong>：來自多個報表的視覺效果釘選。</li>
+	</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>即時串流報表 (Real-time Streaming)</h2>
+	<ul>
+	<li><strong>核心功能與目的</strong><ul>
+		<li>低延遲顯示最新數據，通常不存儲於資料模型中。</li>
+	</ul></li>
+	<li><strong>最佳使用場合</strong><ul>
+		<li>虛擬貨幣即時行情、IoT 感測器監測 (如 Pico 傳回的數據)。</li>
+	</ul></li>
+	<li><strong>關鍵設定參數 / 技術點</strong><ul>
+		<li><strong>串流資料集 (Streaming API)</strong>、推送視窗 (Push window)。</li>
+	</ul></li>
+	<li><strong>常搭配的數據表格類型</strong><ul>
+		<li><strong>時間序列資料</strong>：只有最新的一筆或短暫窗格內的資料。</li>
+	</ul></li>
+	</ul>
+</section>
+
+<section>
+	<h2>計量指標報表 (Metrics/Scorecards)</h2>
+	<ul>
+	<li><strong>核心功能與目的</strong><ul>
+		<li>追蹤特定目標的完成進度與狀態 (如：已達成/有風險)。</li>
+	</ul></li>
+	<li><strong>最佳使用場合</strong><ul>
+		<li>智能投資報酬率達標追蹤、學習進度管理。</li>
+	</ul></li>
+	<li><strong>關鍵設定參數 / 技術點</strong><ul>
+		<li><strong>目標值 (Targets)</strong>、臨界值 (Thresholds)、人工簽入。</li>
+	</ul></li>
+	<li><strong>常搭配的數據表格類型</strong><ul>
+		<li><strong>績效數據表</strong>：包含目標值、實際值與時間維度的表格。</li>
+	</ul></li>
+	</ul>
+</section>
+
+<section class='cm'>
+	<h1>💻 互動式報表常用圖表比較表</h1>
+</section>
+
+<section>
+	<h2>折線圖 (Line Chart)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>趨勢分析</strong>。呈現數值隨時間變化的走勢。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>X 軸</strong>：時間序列</li>
+		<li><strong>Y 軸</strong>：連續數值</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li>擅長顯示週期性、季節性與長期趨勢。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li>股價走勢、淨值變化、移動平均線 (MA)。</li>
+	</ul></li>
+	<li><a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-line-chart?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>群組/堆疊柱狀圖 (Bar/Column)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>類別比較</strong>。比較不同項目間的離散數值。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>軸</strong>：類別資料</li>
+		<li><strong>值</strong>：聚合數值</li>
+		<li><strong>圖例</strong>：次分類</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li><strong>堆疊</strong>強調總量與組成；</li>
+		<li><strong>群組</strong>強調項目間的絕對值比較。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li>不同投資組合 (Portfolio) 的季度收益率對比。</li>
+	</ul></li>
+	<li><a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-column-charts?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>散佈圖/泡泡圖 (Scatter/Bubble)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>相關性與分布</strong>。尋找兩變數間的關聯。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>X/Y 軸</strong>：數值指標</li>
+		<li><strong>大小</strong>：第三維度 (泡泡圖)</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li>識別異常值 (Outliers)、集群 (Clusters) 與相關係數。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li>現代投資組合理論的<strong>風險 (波動率) vs. 報酬率</strong>分布圖。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption='泡泡圖'>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualization-scatter/power-bi-compare-charts.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-scatter?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>瀑布圖 (Waterfall)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>變動因果分析</strong>。解釋起點到終點的增減過程。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>類別</strong>：變動階段</li>
+		<li><strong>Y 軸</strong>：正負增量值</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li>自動計算累計總計，並以顏色區分增(綠)減(紅)。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li><strong>盈餘分析 (P&amp;L)</strong>：從毛利到淨利的各項支出拆解。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption='瀑布圖'>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualization-waterfall-charts/power-bi-waterfall-chart.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-waterfall-charts?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>矩陣 (Matrix)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>多維彙總</strong>。類似 Excel 樞紐分析表，但具連動性。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>列/欄</strong>：多層級類別</li>
+		<li><strong>值</strong>：聚合度量值</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li>支援<strong>階層式鑽取</strong>，能同時看到總計與詳細拆解。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li>分地區、分產品線的年度業績交叉彙對表。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption='矩陣'>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualization-matrix-visual/matrix-visual-expand-and-collapse-row-headers.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-matrix-visual?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>樹狀結構圖 (Treemap)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>佔比與層級</strong>。以面積大小呈現部分與整體的關係。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>分組</strong>：層級類別</li>
+		<li><strong>值</strong>：正數數值</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li>適合展示大量類別，一眼看出誰是「大頭」。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li>S&amp;P 500 各板塊市值佔比熱力圖。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption='樹狀結構圖'>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualization-treemaps/power-bi-treemap-overview.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-treemaps?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>KPI/儀表 (KPI/Gauge)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>目標達成率</strong>。快速檢視單一核心指標狀態。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>指標值</strong>：實際數值</li>
+		<li><strong>目標值</strong>：預期數值</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li>提供顏色警示 (如紅黃綠)，適合即時監控。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li>基金經理人的年度獲利目標達成進度。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption='KPI'>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualization-kpi/power-bi-chart.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-kpi?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section class='cm'>
+	<h1>💻 進階與 AI 驅動圖表</h1>
+</section>
+
+<section>
+	<h2>ArcGIS 地圖 (ArcGIS for Power BI)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>進階地理空間分析</strong>。結合 Esri 的地圖圖層進行深度地理資訊探討。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>位置</strong>：經緯度或地址</li>
+		<li><strong>大小/顏色</strong>：度量值</li>
+		<li><strong>參考圖層</strong>：人口普查或地標數據</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li><strong>層次感與豐富度</strong>：支援熱力圖、行車時間範圍 (Drive-time) 分析，並可疊加官方人口統計背景資料。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li><strong>銀行分行選址</strong>：結合地區所得水準與交通便利性，分析分行服務覆蓋範圍與潛在獲利。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption='ArcGIS'>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualizations-arcgis/regional-sales-against-demographic-layer.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualizations-arcgis'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>Python / R 視覺化</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>自定義深度統計</strong>。執行 Power BI 內建圖表做不到的繪圖。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>值 (Values)</strong>：傳入 Python 的 DataFrame 欄位</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li><strong>無限擴展性</strong>：可調用 Scikit-learn, Seaborn 等，處理非線性模型視覺化。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li><strong>資產配置優化</strong>：繪製「效率前緣 (Efficient Frontier)」與蒙地卡羅模擬分布。</li>
+	</ul></li>
+	<li><a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/service-r-visuals'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>分解樹狀結構 (Decomposition Tree)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>根因分析</strong>。將一個高階指標拆解到多個維度中。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>分析 (Analyze)</strong>：度量值</li>
+		<li><strong>解釋依據 (Explain by)</strong>：多個維度欄位</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li><strong>動態路徑</strong>：使用者可自選拆解順序，或由 AI 找出最大/最小值的關鍵路徑。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li><strong>損益拆解</strong>：分析為何本月淨利下降？（按部門 -&gt; 按產品 -&gt; 按成本項）。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption='分解樹狀結構'>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualization-decomposition-tree/tree-full.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-decomposition-tree'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>關鍵影響因素 (Key Influencers)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>因素重要性分析</strong>。識別哪些變數最能影響目標值。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>分析</strong>：感興趣的指標</li>
+		<li><strong>解釋依據</strong>：候選影響因子（類別或數值）</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li><strong>統計自動化</strong>：後端自動執行迴歸分析，找出具有統計顯著性的因子。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li><strong>違約風險分析</strong>：找出影響「貸款違約」最關鍵的因子（如年資、負債比）。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption='關鍵影響因素'>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualization-influencers/power-bi-ki-numbers-new.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-influencers?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>緞帶圖表 (Ribbon Chart)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>排名變動分析</strong>。觀察類別在時間序列中的排名切換。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>X 軸</strong>：時間</li>
+		<li><strong>Y 軸</strong>：數值</li>
+		<li><strong>圖例</strong>：類別</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li><strong>視覺直觀</strong>：除了數值，更強調「排名 (Rank)」的消長，帶狀越粗代表數值越大。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li><strong>基金績效排名</strong>：觀察多檔基金在不同季度間的績效名次變動。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption=''>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/desktop-ribbon-charts/ribbon-charts-01.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/desktop-ribbon-charts?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+<section>
+	<h2>漏斗圖 (Funnel Chart)</h2>
+	<ul>
+	<li><strong>核心用途</strong><ul>
+		<li><strong>階段轉換分析</strong>。追蹤一個線性流程中各階段的流失率與留存率。</li>
+	</ul></li>
+	<li><strong>資料參數與設定</strong><ul>
+		<li><strong>類別 (Group)</strong>：流程階段（需按順序排列）</li>
+		<li><strong>值 (Values)</strong>：量化指標</li>
+	</ul></li>
+	<li><strong>關鍵差異與優點</strong><ul>
+		<li><strong>視覺化瓶頸</strong>：一眼看出哪一個環節流失最多（漏斗最窄處），並自動計算與前一階段的百分比。</li>
+	</ul></li>
+	<li><strong>金融/統計應用範例</strong><ul>
+		<li><strong>信貸審核流程</strong>：從「收件 -&gt; 初審 -&gt; 徵信 -&gt; 核貸 -&gt; 撥款」的轉化效率分析。</li>
+	</ul></li>
+	<li><span action='display'>[Sample]<div caption=''>
+		<img src='https://learn.microsoft.com/zh-tw/power-bi/visuals/media/power-bi-visualization-funnel-charts/power-bi-funnel-plain.png'/>
+	</div></span> <a href='https://learn.microsoft.com/zh-tw/power-bi/visuals/power-bi-visualization-funnel-charts?tabs=powerbi-desktop'>[Reference]</a></li>
+</section>
+
+</div></body>
+</html>
