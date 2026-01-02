@@ -59,8 +59,6 @@
 			padding: 15px; border-bottom: 1px solid var(--border);
 		}
 		.file-name { flex-grow: 1; cursor: pointer; font-weight: 600; }
-		.delete-mode .file-name { color: #dc2626; }
-		.rename-link { font-size: 13px; color: var(--primary); cursor: pointer; text-decoration: underline; }
 
 		/* 編輯與檢視區 (滿版) */
 		#view-editor { height: 100%; display: flex; flex-direction: column; }
@@ -90,7 +88,7 @@
 
 		/* Markdown 內容稍微美化 */
 		#preview-area h1 { border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-		#preview-area code { background: #f1f5f9; padding: 2px 4px; border-radius: 4px; }
+		#preview-area pre { background:#eee;padding:2px 8px;border:1px solid silver;border-radius:6px;box-shadow:0 10px 20px -5px rgba(0,0,0,0.5),0 8px 10px -6px rgba(0,0,0,0.1);}
 
 		.status-text { font-size: 12px; color: #94a3b8; }
 	</style>
@@ -115,10 +113,9 @@
 	   			<button id="toggle-view-btn" onclick="toggleViewMode()">🔍</button>
 				<button onclick="handleCopy()">📋</button>
 				<button onclick="handleDownload()">📥</button>
-				<button class="btn-danger" onclick="deleteCurrentFile()" style="margin-left: 10px;">🗑️ 刪除檔案</button>
 			</div>
 			<div style="text-align: right;">
-				<div id="current-filename" style="font-weight: bold;"></div>
+				<div id="current-filename" style="font-weight: bold;cursor:pointer;"></div>
 				<div id="save-status" class="status-text"></div>
 			</div>
 		</div>
@@ -159,7 +156,6 @@
 			li.className = 'file-item';
 			li.innerHTML = `
 				<div class="file-name" onclick="onFileClick('${encodeURIComponent(key)}')">${key}</div>
-				<div class="rename-link" onclick="renameFile(event, '${encodeURIComponent(key)}')">改名</div>
 			`;
 			listUl.appendChild(li);
 		});
@@ -170,7 +166,25 @@
 	}
 
 	function initLocalStorage(fileName) {
-		document.getElementById('current-filename').textContent = fileName;
+		((fe)=>{
+			fe.textContent = fileName;
+			fe.addEventListener('click',(evt)=>{
+				evt.stopPropagation();
+				const oldName = fileName;
+				const newName = prompt("新名稱(前綴 delete- 刪除)：", fileName);
+				if ((!newName) || newName === oldName) return;
+				if (newName===`delete-${oldName}`) {
+					if (confirm(`確定要永久刪除「${oldName}」嗎？此操作無法還原。`)) {
+   						localStorage.removeItem(oldName);
+						window.location.search = '';
+					}
+				} else {
+					localStorage.setItem(newName, localStorage.getItem(oldName));
+					localStorage.removeItem(oldName);
+					window.location.search = `?file=${encodeURIComponent(newName)}`;
+				}
+			});
+		})(document.getElementById('current-filename'));
 		
 		initEditor(localStorage.getItem(fileName)||"");
 
@@ -230,17 +244,6 @@
 		)(new Date());
 		localStorage.setItem(name, "");
 		window.location.search = `?file=${encodeURIComponent(name)}`;
-	}
-
-	function renameFile(e, encodedOld) {
-		e.stopPropagation();
-		const oldName = decodeURIComponent(encodedOld);
-		const newName = prompt("新名稱：", oldName);
-		if (newName && newName !== oldName) {
-			localStorage.setItem(newName, localStorage.getItem(oldName));
-			localStorage.removeItem(oldName);
-			renderFileList();
-		}
 	}
 
 	// --- 編輯器邏輯 ---
@@ -372,13 +375,6 @@
 
 		// 以 UTF-8 編碼讀取文字內容
 		reader.readAsText(file, "UTF-8");
-	}
-
-	function deleteCurrentFile() {
-		if (confirm(`確定要永久刪除「${currentFile}」嗎？此操作無法還原。`)) {
-   			localStorage.removeItem(currentFile);
-			goBack(); // 刪除後返回列表頁
-		}
 	}
 </script>
 </body>
