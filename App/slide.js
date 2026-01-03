@@ -1,13 +1,14 @@
 (function(CS){
 
 const currentScript = document.currentScript;
+const jsPrefix=(/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1];
 
 async function loadScript (src,attrs={})
 {	// {{{
 	const se=document.createElement("script"),
 	      rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
 	for(let key in attrs) se.setAttribute(key,attrs[key]);
-	se.src=src;
+	se.src=jsPrefix+src;
 	document.head.appendChild(se);
 	return rv;
 }	// }}}
@@ -48,7 +49,7 @@ class sw {
 
 const Plugins={
 	"TeX":async function () {
-		let cf=await loadScript('/App/TeX.js',{auto:'#content'});
+		let cf=await loadScript('TeX.js',{auto:'#content'});
 		if (cf instanceof Promise) await cf;
 	},
 	"tab":async function() { // {{{

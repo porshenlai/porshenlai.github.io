@@ -29,7 +29,6 @@
 				if (text) {
 					while(cw.firstChild) cw.removeChild(cw.firstChild);
 					cw.innerHTML=marked.parse(text);
-					console.log("SYNC MDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",cw.innerHTML,text);
 					await cse.syncMath(cw);
 					await cse.syncDiagram(cw);
 				} else Array.from(cw.querySelectorAll('[xlang="markdown"]')).forEach((e)=>{
