@@ -348,8 +348,18 @@ button:hover {border-color:#90a4ae;}
 #content[playmode="page"] section.full { margin:0;padding:0;border:0;height:100%;scroll-margin-top:0; }
 
 [uid="View"] img { object-fit:contain;width:100%;height:100%; }
+[action] { cursor:pointer; }
+[action]:hover { border:2px solid blue; }
 [action="display"] { text-decoration:underline;color:blue; }
 [action="display"] [caption] { display:none; }
+
+.red { color:red; }
+.blue { color:blue; }
+.green { color:green; }
+.brown { color:brown; }
+.purple { color:purple; }
+.orange { color:orange; }
+.black { color:black; }
 `;
 			S.innerHTML=PAGE+SECTION+BASIC;
 			document.head.appendChild(S);
@@ -448,19 +458,12 @@ button:hover {border-color:#90a4ae;}
 		content.addEventListener('click', (evt) => {
 			for (let e=evt.target; e!==content; e=e.parentNode){
 				if (e.hasAttribute('action')) {
-					switch(e.getAttribute('action')){
-					case 'display':
-						this.Aside.open(e.querySelector('[caption]').cloneNode(true));
-						break;
-					case 'speak' :
-						this.speak(
-							e.getAttribute("text") || e.textContent,
-							e.getAttribute("lang") || "en"
-						);
-						break;
-					default:
-						break;
-					}
+					(e.getAttribute('action')||"").split(";")
+					.forEach((a)=>{
+						a=(a||"").split(',');
+						const cmd=a[0]; a[0]=e;
+						if(cmd) this[cmd].apply(this,a);	
+					});
 					evt.stopPropagation();
 					evt.preventDefault();
 				}
@@ -530,8 +533,14 @@ button:hover {border-color:#90a4ae;}
 		this.Aside.E.querySelector('[action="fontDisplay"]').textContent = `${Math.round(this.fontScale * 100)}%`;
 	}	// }}}
 
-	speak (text, lang='en')
+	display (e)
+	{
+		this.Aside.open(e.querySelector('[caption]').cloneNode(true));
+	}
+
+	speak (e,lang='en')
 	{	// {{{
+		const text=e.getAttribute('text') || e.textContent;
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
 			utterance.lang = lang; // 根據語言代碼設定發音引擎
