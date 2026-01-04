@@ -350,7 +350,7 @@ button:hover {border-color:#90a4ae;}
 
 [uid="View"] img { object-fit:contain;width:100%;height:100%; }
 [action] { cursor:pointer; }
-[action]:hover { border:2px solid blue; }
+[action]:hover { text-decoration:underline; }
 [action="display"] { text-decoration:underline;color:blue; }
 [action="display"] [caption] { display:none; }
 
