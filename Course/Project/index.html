@@ -6,12 +6,18 @@
 <title></title>
 <style>
 	li[onclick] { cursor:pointer;color:blue;text-decoration:underline; }
+	[UID='content'] td { text-align:center;border:1px solid silver; }
 </style>
+
 <script>
 	function op(url,type) {
 		if (!type)
-			type=url.endsWith(".txt") ? "txt" : "unknown";
+			type=url.endsWith(".txt") ? "txt" : url.endsWith(".md") ? "md" : "unknown";
 		switch (type) {
+		case "md":
+			url='/App/MDEditor.html?url='+url+"&base="+location+'&viewonly';
+			window.open(url);
+			break;
 		case "txt":
 			url="/App/textview.html?url="+url+"&base="+location;
 			window.open(url);
@@ -21,7 +27,21 @@
 </script>
 </head>
 <body>
+
 <h1>系統整合開發</h1>
+
+<table UID='content' width='100%'><thead><tr>
+	<th>Project</th>
+	<th>Duration</th>
+	<th>Files</th>
+	<th>Keywords</th>
+</tr></thead><tbody><tr>
+	<td>Alpha Catch</td>
+	<td>251201-</td>
+	<td onclick='op("AlphaCatch_20260101.md")'>Alpha Catch Specification 2026/01/01</td>
+	<td>SPEC,CLUT114</td>
+</tr></tbody></table>
+
 <ul>
 	<li><a href="GitLLM.html">大語言模型遇到 Git</a></li>
 	<li><a href="VibeCoding.html">Vibe Coding</a></li>
