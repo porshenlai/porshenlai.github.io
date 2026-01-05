@@ -24,20 +24,26 @@
 			const renderer = new marked.Renderer();
 			renderer.code = ({text,lang}) => (lang === 'mermaid') ? `<pre xlang="mermaid">${text}</pre>` : `<pre><code>${text}</code></pre>`;
 			marked.setOptions({ renderer });
-			cse.syncMD=async function(cw, text) {
+			cse.syncMD=async function(cw, text, auto=true) {
 				cw=Element(cw);
 				if (text) {
-					while(cw.firstChild) cw.removeChild(cw.firstChild);
+					while (cw.firstChild) cw.removeChild(cw.firstChild);
 					cw.innerHTML=marked.parse(text);
-					await cse.syncMath(cw);
-					await cse.syncDiagram(cw);
-				} else Array.from(cw.querySelectorAll('[xlang="markdown"]')).forEach((e)=>{
-					const ne=e.cloneNode(false);
-					ne.markdown=e.innerHTML;
-					e.parentNode.insertBefore(ne,e);
-					cse.syncMD(ne,ne.markdown);
-					e.parentNode.removeChild(e);
-				});
+					if (cw.getAttribute('markdown')==='markdown')
+						cw.removeAttribute('xlang');
+					if (auto) {
+						await cse.syncMath(cw);
+						await cse.syncDiagram(cw);
+					}
+				} else {
+					for (e of Array.from(cw.querySelectorAll('[xlang="markdown"]'))) {
+						const ne=e.cloneNode(false);
+						ne.markdown=e.innerHTML;
+						e.parentNode.insertBefore(ne,e);
+						await cse.syncMD(ne,ne.markdown);
+						e.parentNode.removeChild(e);
+					}
+				}
 			};
 		}],
 		['js/tex-mml-chtml.js',()=>{ // https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
@@ -50,6 +56,7 @@
 			mermaid.initialize({ startOnLoad: false, theme: 'default' });
 			cse.syncDiagram=async function (cw) {
 				const es=Array.from(Element(cw).querySelectorAll('[xlang="mermaid"]'));
+				es.forEach((e)=>e.removeAttribute('xlang'));
 				if (es&&es.length>0) await mermaid.run({ nodes: es });
 			};
 		}]
@@ -74,7 +81,7 @@
 				await new Promise((or,oe)=>{
 					window.addEventListener('load', () => cse.syncMD(cse.getAttribute('auto')).then(or,oe));
 				});
-			else await cse.syncMD(cse.getAttribute('auto'));
+			else await cse.syncMD(cse.getAttribute('auto'),null);
 		}
 	})();
 })(document.currentScript);
