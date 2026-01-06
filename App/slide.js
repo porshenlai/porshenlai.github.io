@@ -10,7 +10,7 @@ async function loadScript (src,attrs={})
 	for(let key in attrs) se.setAttribute(key,attrs[key]);
 	se.src=jsPrefix+src;
 	document.head.appendChild(se);
-	return rv;
+	return (await rv)||se;
 }	// }}}
 
 function* ancestors (se, ef=(e)=>!!e)
@@ -49,8 +49,7 @@ class sw {
 
 const Plugins={
 	"TeX":async function () {
-		let cf=await loadScript('TeX.js',{auto:'#content'});
-		if (cf instanceof Promise) await cf;
+		return await loadScript('TeX.js',{auto:'#content'});
 	},
 	"tab":async function() { // {{{
 		const es=Array.from(document.body.querySelectorAll('#content .tab'));
@@ -278,7 +277,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 		})(this.Overlay.style);
 		if (dialog) {
 			this.E.style.transform='translateX(100%)';
-			if(dialog.hasAttribute('caption'))
+			if (dialog.hasAttribute('caption'))
 				this.DE.Caption.textContent=dialog.getAttribute('caption');
 			while(dialog.firstChild) this.DE.View.appendChild(dialog.firstChild);
 			this.DE.style.display='flex';
@@ -534,9 +533,16 @@ button:hover {border-color:#90a4ae;}
 		this.Aside.E.querySelector('[action="fontDisplay"]').textContent = `${Math.round(this.fontScale * 100)}%`;
 	}	// }}}
 
-	display (e)
+	async display (e, text)
 	{
-		this.Aside.open(e.querySelector('[caption]').cloneNode(true));
+		if (e.hasAttribute('mermaid')) {
+			const de=document.createElement("div");
+			de.setAttribute('caption',e.getAttribute('caption')||"");
+			de.appendChild(document.createElement("div"));
+			de.firstChild.style.textAlign='center';
+			await this.Plugins.TeX.syncDiagram(de.firstChild,e.getAttribute('mermaid'));
+			this.Aside.open(de);
+		} else this.Aside.open(e.querySelector('[caption]').cloneNode(true));
 	}
 
 	speak (e,lang='en')
@@ -567,7 +573,8 @@ button:hover {border-color:#90a4ae;}
 
 	async install (name, handler)
 	{	// install page plugin {{{
-		this.Plugins[name]=await handler(this);
+		this.Plugins[name]=await Promise.resolve(handler(this));
+		console.log('install',name,this.Plugins[name]);
 	}	// }}}
 }
 

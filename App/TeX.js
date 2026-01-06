@@ -54,10 +54,14 @@
 		}],
 		['js/mermaid.min.js',()=>{ // https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
 			mermaid.initialize({ startOnLoad: false, theme: 'default' });
-			cse.syncDiagram=async function (cw) {
-				const es=Array.from(Element(cw).querySelectorAll('[xlang="mermaid"]'));
-				es.forEach((e)=>e.removeAttribute('xlang'));
-				if (es&&es.length>0) await mermaid.run({ nodes: es });
+			cse.syncDiagram=async function (cw, lang) {
+				if (lang) {
+					cw.innerHTML=(await mermaid.render('graphDiv',lang)).svg;
+				} else {
+					const es=Array.from(Element(cw).querySelectorAll('[xlang="mermaid"]'));
+					es.forEach((e)=>e.removeAttribute('xlang'));
+					if (es&&es.length>0) await mermaid.run({ nodes: es });
+				}
 			};
 		}]
 	];
