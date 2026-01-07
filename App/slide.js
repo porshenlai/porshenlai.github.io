@@ -49,7 +49,7 @@ class sw {
 
 const Plugins={
 	"TeX":async function (slide) { // {{{
-		let r = await loadScript('TeX.js');
+		let r = await loadScript(jsPrefix+'TeX.js');
 		for (let s of Array.from(slide.Content.querySelectorAll('section')))
 			await r.resolve(s);
 		return r;
@@ -558,6 +558,7 @@ button:hover {border-color:#90a4ae;}
 		});
 
 		if (e.hasAttribute('mermaid')) {
+			console.log(this.Plugins);
 			await this.Plugins.TeX.renderMermaid(de.firstChild,e.getAttribute('mermaid'));
 		} else return this.Aside.open(e.querySelector('[caption]').cloneNode(true));
 
