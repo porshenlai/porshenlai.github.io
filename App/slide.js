@@ -8,7 +8,7 @@ async function loadScript (src,attrs={})
 	const se=document.createElement("script"),
 	      rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
 	for(let key in attrs) se.setAttribute(key,attrs[key]);
-	se.src=jsPrefix+src;
+	se.src=src;
 	document.head.appendChild(se);
 	return (await rv)||se;
 }	// }}}
@@ -49,7 +49,7 @@ class sw {
 
 const Plugins={
 	"TeX":async function () {
-		return await loadScript('TeX.js',{auto:'#content'});
+		return await loadScript(jsPrefix+'TeX.js',{auto:'#content'});
 	},
 	"tab":async function() { // {{{
 		const es=Array.from(document.body.querySelectorAll('#content .tab'));
