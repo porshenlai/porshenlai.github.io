@@ -48,13 +48,13 @@ class sw {
 }	// }}}
 
 const Plugins={
-	"TeX":async function (slide) {
+	"TeX":async function (slide) { // {{{
 		let r = await loadScript('TeX.js');//,{auto:'#content'});
 		for (let s of Array.from(slide.Content.querySelectorAll('section')))
 			await r.resolve(s);
 		return r;
-	},
-	"tab":async function() { // {{{
+	}, // }}}
+	"tab":async function (slide) { // {{{
 		const es=Array.from(document.body.querySelectorAll('#content .tab'));
 		if (es.length<=0)
 			return console.log(`
@@ -272,9 +272,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 	open (dialog)
 	{	// launch aside bar {{{
 		// if (document.fullscreenElement) document.exitFullscreen();
-	
-		((S)=>{
-			// [CSS] opacity:1; visiblity:visible;
+		((S)=>{ // [CSS] opacity:1; visiblity:visible;
 			S.opacity=1;
 			S.visibility='visible';
 		})(this.Overlay.style);
@@ -286,7 +284,6 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			this.DE.style.display='flex';
 		} else {
 			this.DE.style.display='none';
-			// [CSS] transform: translateX(0);
 			this.E.style.transform='translateX(0)';
 		}
 	}	// }}}
@@ -461,22 +458,17 @@ button:hover {border-color:#90a4ae;}
 			return s;
 		})(document.createElement("style")),content.firstChild);
 
-		// C. bind event handles
 		content.addEventListener('click', (evt) => {
 			for (let e=evt.target; e!==content; e=e.parentNode){
 				if (e.hasAttribute('action')) {
-					(e.getAttribute('action')||"").split(";")
-					.forEach((a)=>{
-						a=(a||"").split(',');
-						const cmd=a[0]; a[0]=e;
-						if(cmd) this[cmd].apply(this,a);	
-					});
+					this.handleAction(e);
 					evt.stopPropagation();
 					evt.preventDefault();
 				}
 				if (e.tagName==='SECTION') { this.activate(e); break; }
 			}
 		});
+
 		content.addEventListener('scrollend', (evt) => { // auto activate page when current slide out of viewport
 			let s,x=this.Content.getBoundingClientRect().height/3;
 			for (s=this.Content.firstChild; s; s=s.nextSibling) if(s.nodeType===1) {
@@ -540,17 +532,37 @@ button:hover {border-color:#90a4ae;}
 		this.Aside.E.querySelector('[action="fontDisplay"]').textContent = `${Math.round(this.fontScale * 100)}%`;
 	}	// }}}
 
+	handleAction (e)
+	{ // {{{
+		(e.getAttribute('action')||"").split(";").forEach((a)=>{
+			a=(a||"").split(',');
+			const cmd=a[0]; a[0]=e;
+			if(cmd) this[cmd].apply(this,a);	
+		});
+	}	// }}}
+
 	async display (e, text)
-	{
+	{	// {{{
+		const de=document.createElement("div");
+		de.appendChild(document.createElement("div"));
+		de.setAttribute('caption',e.getAttribute('caption')||"");
+		de.firstChild.style.textAlign='center';
+		de.firstChild.addEventListener('click',(evt)=>{
+			for (let e=evt.target; e.nodeType===1; e=e.parentNode){
+				if (e.hasAttribute('action')) {
+					this.handleAction(e);
+					evt.stopPropagation();
+					evt.preventDefault();
+				}
+			}
+		});
+
 		if (e.hasAttribute('mermaid')) {
-			const de=document.createElement("div");
-			de.setAttribute('caption',e.getAttribute('caption')||"");
-			de.appendChild(document.createElement("div"));
-			de.firstChild.style.textAlign='center';
 			await this.Plugins.TeX.renderMermaid(de.firstChild,e.getAttribute('mermaid'));
-			this.Aside.open(de);
-		} else this.Aside.open(e.querySelector('[caption]').cloneNode(true));
-	}
+		} else return this.Aside.open(e.querySelector('[caption]').cloneNode(true));
+
+		return this.Aside.open(de);
+	}	// }}}
 
 	speak (e,lang='en')
 	{	// {{{
