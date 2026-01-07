@@ -48,8 +48,11 @@ class sw {
 }	// }}}
 
 const Plugins={
-	"TeX":async function () {
-		return await loadScript('TeX.js',{auto:'#content'});
+	"TeX":async function (slide) {
+		let r = await loadScript('TeX.js');//,{auto:'#content'});
+		for (let s of Array.from(slide.Content.querySelectorAll('section')))
+			await r.resolve(s);
+		return r;
 	},
 	"tab":async function() { // {{{
 		const es=Array.from(document.body.querySelectorAll('#content .tab'));
@@ -432,9 +435,13 @@ button:hover {border-color:#90a4ae;}
 				ks.forEach((k)=>content.Keywords[k]=true);
 				if (selector&&(!selector.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)))) {
 					if (s.parentNode) s.parentNode.removeChild(s); // filter out pages
-				} else { r++; if (!s.hasAttribute('SID')) s.setAttribute('SID',r); }
+				} else {
+					r++;
+					if (!s.hasAttribute('SID')) s.setAttribute('SID',r);
+				}
 				return r;
 			}, 0);
+
 			content.Keywords=Object.keys(content.Keywords);
 			// fill title values
 			((te)=>{
@@ -540,7 +547,7 @@ button:hover {border-color:#90a4ae;}
 			de.setAttribute('caption',e.getAttribute('caption')||"");
 			de.appendChild(document.createElement("div"));
 			de.firstChild.style.textAlign='center';
-			await this.Plugins.TeX.syncDiagram(de.firstChild,e.getAttribute('mermaid'));
+			await this.Plugins.TeX.renderMermaid(de.firstChild,e.getAttribute('mermaid'));
 			this.Aside.open(de);
 		} else this.Aside.open(e.querySelector('[caption]').cloneNode(true));
 	}
@@ -574,7 +581,6 @@ button:hover {border-color:#90a4ae;}
 	async install (name, handler)
 	{	// install page plugin {{{
 		this.Plugins[name]=await Promise.resolve(handler(this));
-		console.log('install',name,this.Plugins[name]);
 	}	// }}}
 }
 
@@ -609,7 +615,6 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		else if(name)
 			await MS.install(name,await loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${name}.js`)));
 	}
-
 	MS.Aside.install(MS.Content);
 
 	// 4. Bind Events
