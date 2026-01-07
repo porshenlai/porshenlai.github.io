@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script plugins="quiz,tab" src="https://porshenlai.github.io/App/slide.js"></script>
+<!--script plugins="quiz,tab" src="https://porshenlai.github.io/App/slide.js"></script-->
+<script plugins="quiz,tab" src="/App/slide.js"></script>
 <style>
 	.CAT { color:brown; font-weight:bolder; font-size:120%; }
 </style>
@@ -727,13 +728,9 @@
 				<li>資料集的欄位稱為 特徵 (feature)</li>
 				<li>指定為標籤的欄位稱為 標籤 或 目標</li>
 				<li>為資料指定標籤的動作稱為 標記 或 預定義</li>
-				<li>分成 <span action='display'>分類(classification)<div caption='分類(classification)'>
-						<img src="AI900/2_D.jpg"></img>
-					</div></span> 和 <span action='display'>迴歸(regression)<div caption='迴歸(regression)'>
-						<img src="AI900/2_E.jpg"></img>
-					</div></span> 兩大類</li>
+				<li>分成 <span action='display' caption="分類(classification)" photo="AI900/2_D.jpg">分類</span> 和 <span action='display' caption='迴歸(regression)' photo="AI900/2_E.jpg">迴歸</span> 兩大類</li>
 				<li class='example'>例如: 輸入500張附有貓和老虎標籤的圖片，作為模型的定型資料訓練後，再輸入新的沒有標籤的圖片，驗證模型是否能正確辨識出是貓還是老虎。
-					<span action='display'>[1]<div caption='貓和老虎'><img src="AI900/2_C.jpg"/></div></span>
+					<span action='display' caption='貓和老虎' photo='AI900/2_C.jpg'>[1]</span>
 				</li>
 			</ul>
 		</td>
@@ -752,9 +749,7 @@
 			<ul>
 				<li>介於監督式與非監督式間的機器學習</li>
 				<li>透過少量有標籤的資料找出特徵，就能對其它大量無標籤的資料進行預測
-					<span action='display'>[1]<div caption='半監督式學習'>
-						<img src="AI900/2_G.jpg"/>
-					</div></span>
+					<span action='display' caption='半監督式學習' photo='AI900/2_G.jpg'>[1]</span>
 				</li>
 				<li>可以減少標記資料的時間和人力，又能預測出準確的結果</li>
 			</ul>
@@ -782,7 +777,13 @@
 	<ul>
 		<li>監督式學習，標籤值為「是」或「否」</li>
 		<li>可適用於分類或迴歸模型</li>
-		<li>算法接近人類的<span action="display">思考邏輯<div caption='思考邏輯'>
+		<li>算法接近人類的<span action="display" mermaid="
+flowchart TD
+	A{下大雨} -->|YES| C[停賽]
+	A -->|NO| B
+	B{颳大風} -->|YES| D[停賽]
+	B -->|NO| E[比賽]
+">思考邏輯<div caption='思考邏輯'>
 				<img src="AI900/2_I.svg"/>
 			</div></span>，容易理解運算原理與預測結果</li>
 		<li>速度快，適合處理大數據</li>
