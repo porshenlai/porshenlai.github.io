@@ -252,13 +252,36 @@ flowchart TB
 <section xlang='markdown'>
 ## 2026/2/10 (TUE) 巴黎 $\rightarrow$ 巴塞爾 $\rightarrow$ 圖恩
 
+<button action="display" caption="交通路線圖" mermaid="
+flowchart TB
+	subgraph Row1 [法國]
+	A[<span action='speak,fr'>Ermont-Eaubonne</span> 埃爾蒙]
+	B[<span action='speak,fr'>Gare du Nord</span> 巴黎北站]
+	C[<span action='speak,fr'>Gare de Lyon</span> 里昂車站]
+	A-->|Line-H|B
+	B-->|RER-D:S|C
+	end
+	subgraph Row2 [瑞士/<a href='https://www.sbb.ch/en/'>SBB</a>]
+	D[<span action='speak,de'>Basel</span> 巴塞爾]
+	E[<span action='speak,de'>Bern</span> 伯恩]
+	F[<span action='speak,de'>Thun</span> 圖恩]
+	D-->|IC6/ICE|E
+	E-->|IC6/ICE|F
+	end
+	Row1-->|<span action='speak,fr'>TGV Lyria</span>|Row2
+" style="float:right;font-size:200%;">🛤️</button>
+
 * **(退房)** <span action='speak,fr'>OVELIA Ermont</span> | 08:30 - 10:00
 
-* **(交通) 埃爾蒙 (<span action='speak,fr'>Ermont</span>) $\rightarrow$ 里昂車站 (<span action='speak,fr'>Gare de Lyon</span>)**
-    * **埃爾蒙 (<span action='speak,fr'>Ermont-Eaubonne</span>)** &gt; <span action='speak,fr'>Line H</span> (約 15 分) &gt; **巴黎北站 (<span action='speak,fr'>Gare du Nord</span>)**
-    * **巴黎北站** &gt; 轉乘 **<span action='speak,fr'>RER D</span>** (往南) &gt; **巴黎里昂車站 (<span action='speak,fr'>Gare de Lyon</span>)**
+* **(交通)** **<span action='speak,fr'>Paris Gare de Lyon</span>** &gt;<span action='speak,fr'>TGV Lyria</span>&gt; **<span action='speak,de'>Basel(巴賽爾)</span>**
 
-* **(交通)** **<span action='speak,fr'>Paris Gare de Lyon</span>** &gt;<span action='speak,fr'>TGV Lyria</span>&gt; **<span action='speak,fr'>Basel(巴賽爾)</span>**
+* **常用標示：**
+	* 出口：<span action='speak,de'>Ausgang</span> (德文) —— 在火車站尋找這個字。
+	* 入口：<span action='speak,de'>Eingang</span>。
+	* 月台：<span action='speak,de'>Gleis</span> (例如：Gleis 41)。
+* **禮貌用語：**
+	* 你好：<span action='speak,de'>Grüezi</span> (瑞士德語特有的打招呼方式，發音類似 "咕列漆")。
+	* 謝謝：<span action='speak,de'>Danke</span>。
 
 * **Basel**: 
     * 車站本身是歷史與現代融合的典範，具備著名的玻璃天橋。
@@ -266,15 +289,13 @@ flowchart TB
 	* 在車站附近的 **Schweizerhof** 喝茶。
 	* 若體力許可，搭路面電車 5 分鐘可看萊茵河景。
 
-* **(交通)** **<span action='speak,fr'>Basel</span>(巴賽爾)** &gt;<a href='https://www.sbb.ch/en/'>SBB</a>&gt; **<span action='speak,fr'>Thun</span>(圖恩)**
-
 * **Thun**: 
     * 飯店位於 Aare 河邊，非常漂亮。
 	* 在 **Aarequai (河岸步道)** 找間景觀餐廳坐著，看著如童話般的 **Thun Castle**（城堡）與木頭水門橋，風景如畫。
 
-* **(入住)** <span action='speak,fr'>Hotel Aare Thun</span>
+* **(入住)** <span action='speak,de'>Hotel Aare Thun</span>
 	* **時間**: 15:00 - 00:00
-	* **地址**: <span action='speak,fr'>Freienhofgasse</span> 3, 3600 Thun, Switzerland
+	* **地址**: <span action='speak,de'>Freienhofgasse</span> 3, 3600 Thun, Switzerland
 	* **地圖**: <a href='https://maps.app.goo.gl/SayNNcMgnqfwKC6C9'>**Google**</a>
 	* **電話**: +41 33 227 50 50
 </section>
@@ -282,8 +303,23 @@ flowchart TB
 <section xlang='markdown'>
 ## 2026/2/11 (WED) 少女峰工程奇蹟
 
-* **(交通) 圖恩 (<span action='speak,de'>Thun</span>) $\rightarrow$ 少女峰 (<span action='speak,de'>Jungfraujoch</span>)**
-	* **圖恩** $\rightarrow$ **茵特拉肯東站 (<span action='speak,de'>Interlaken Ost</span>)** $\rightarrow$ **格林德瓦航廈 (<span action='speak,de'>Grindelwald Terminal</span>)**。
+<button action="display" caption="交通路線圖" mermaid="
+graph TD
+    Start[<span action='speak,de'>Thun</span>] <-->|SBB| IO[<span action='speak,de'>Interlaken Ost</span>]
+    IO -->|BOB| GT(<span action='speak,de'>Grindelwald Terminal</span>)
+    GT -->|Eiger Express 纜車| EG(<span action='speak,de'>Eigergletscher</span>)
+    EG -->|JB| JFJ[<span action='speak,de'>Jungfraujoch</span> 少女峰頂]
+    JFJ -->|JB| KS(<span action='speak,de'>Kleine Scheidegg</span>)
+    KS -->|WAB| LB(<span action='speak,de'>Lauterbrunnen</span>)
+    LB -->|BOB| IO
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style JFJ fill:#00ffff,stroke:#333,stroke-width:4px
+" style="float:right;font-size:200%;">🛤️</button>
+
+* **(交通)** BOB: <a href='https://www.jungfrau.ch/en-gb/corporate/jungfrau-railways/berner-oberland-bahnen-ag/berner-oberland-bahn/?srsltid=AfmBOorG5Nhf9TdRXLOpsoqsXBycdKXLrb2RRBQlCpgRfQfGA1RAP2ba'>Bernese Oberland Railway</a>
+* **(交通)** WAB: <a href='https://www.jungfrau.ch/en-gb/corporate/jungfrau-railways/jungfraubahn-holding-ag/wengernalpbahn-ag/?srsltid=AfmBOoofnfMstrjPVGDG2D07Tzv08dpvqwqXjbdIyk3uuPhUen0KuvNy'>Wengernalpbahn</a> – the world's longest cog railway
+* **(交通)** JB: Jungfrau Railway
+* **(交通)** <a href='https://www.jungfrau.ch/de-ch/eiger-express/'>Eiger Express</a> 纜車
 
 * **少女峰 景點說明**:
 	* **艾格快線 (<span action='speak,de'>Eiger Express</span>)**: 欣賞最尖端的纜車軌道設計與齒軌火車。
@@ -293,8 +329,21 @@ flowchart TB
 <section xlang='markdown'>
 ## 2026/2/12 (THU) 伯恩老城與噴泉藝術
 
-* **(交通) 圖恩 (<span action='speak,de'>Thun</span>) $\rightarrow$ 伯恩 (<span action='speak,de'>Bern</span>)**
-	* 火車直達，僅需 20 分鐘。
+<button action="display" caption="交通路線圖" mermaid='
+graph TD
+    subgraph "Bern City (免爬坡)"
+    A[Bern火車站] -- "10號巴士" --> B[玫瑰花園/最高點]
+    B -- "10號巴士" --> C[熊公園/河邊]
+    C -- "12號巴士" --> D[鐘樓/平地拱廊]
+    D -- "步行 (平路)" --> A
+    end
+    subgraph "Thun Departure"
+    Start[Thun] <-->|SBB| A
+    end
+    style B fill:#f96,stroke:#333
+    style C fill:#bbf,stroke:#333
+    style D fill:#dfd,stroke:#333
+' style="float:right;font-size:200%;">🛤️</button>
 
 * **伯恩 (<span action='speak,de'>Bern</span>) 景點說明**:
 	* **UNESCO 老城**: 6 公里長的石造拱廊，適合緩慢步行避雨。
@@ -305,58 +354,131 @@ flowchart TB
 <section xlang='markdown'>
 ## 2026/2/13 (FRI) 圖恩 $\rightarrow$ 蘇黎世
 
+<button action="display" caption="交通路線圖" mermaid='
+graph TD
+    subgraph "第一階段：跨城市移動 (約 83 分鐘)"
+    A[<span action="speak,de">Thun</span> 圖恩車站] -- "IC 8 / IC 81" --> B[<span action="speak,de">Zürich HB</span> 蘇黎世總站]
+    end
+    subgraph "第二階段：市區接駁 (約 20 分鐘)"
+    B -- "由地面大廳步行至站前廣場" --> C[<span action="speak,de">Zürich, Bahnhofplatz</span> 站]
+    C -- "Tram 10 / 11 (地面層)" --> D[<span action="speak,de">Glattbrugg, Zentrum</span> 站]
+    end
+    subgraph "第三階段：最後哩程 (約 5 分鐘)"
+    D -- "沿 <span action="speak,de">Oberhauserstrasse</span> 350m" --> E[<span action="speak,de">Amanthos Living</span> 飯店]
+    end
+    style A fill:#f9f,stroke:#333
+    style B fill:#bbf,stroke:#333
+    style D fill:#dfd,stroke:#333,stroke-width:2px
+    style E fill:#f96,stroke:#333,stroke-width:4px
+' style="float:right;font-size:200%;">🛤️</button>
+
 * **退房**: <span action='speak,de'>Hotel Aare Thun</span> | 11:00
 
-* **(交通) <span action='speak,de'>Thun</span> &gt;<a href=''>SBB</a>&gt; <span action='speak,de'>Zurich HB</span>**
-
-* **蘇黎世 (<span action='speak,de'>Zurich</span>) 景點說明**:
+* 下午 1:00 - 2:30： 從圖恩搭乘 IC8/IC81 抵達蘇黎世總站。
     * 推薦將行李寄存在 **<span action='speak,de'>Zurich HB</span>** 寄物櫃。
-    * **瑞士國家博物館**: 觀賞現代與古典結合的建築外型。
-    * **湖邊下午茶**: 搭電車至 **<span action='speak,de'>Bürkliplatz</span>** 欣賞湖景，並前往 **<span action='speak,de'>Sprüngli</span>** 總店。
-
-* **(交通)** <span action='speak,de'>Zurich HB</span> &gt;<a href='https://www.zvv.ch/zvv/en/home.html'>ZVV</a>&gt; <span action='speak,de'>Oberhauserstrasse</span>
-
+* 下午 2:30 - 3:30： **瑞士國家博物館** (<span action='speak,de'>Landesmuseum</span>)。
+	* 就在火車站隔壁，全程有電梯，建築像城堡。您可以先在此稍作停留，博物館有非常舒適的座椅與咖啡廳。
+    * 觀賞現代與古典結合的建築外型。
+* 下午 3:30 - 4:00： 搭乘 Tram 11 從火車站直接抵達飯店入住 (Glattbrugg, Zentrum 站)。
+	* <a href='https://www.zvv.ch/zvv/en/home.html'>ZVV</a>
 * **(入住)** <span action='speak,de'>Amanthos Living Zürich Airport</span>
 	* **時間**: 15:00 - 23:00
 	* **地址**: <span action='speak,de'>Oberhauserstrasse 30, 8152 Glattbrugg, Switzerland</span>
 	* **地圖**: <a href='https://maps.app.goo.gl/P3FJKLwntWGeFA79A'>Google</a>
 	* **電話**: +41 43 217 86 94
+* 傍晚： 飯店周邊休息。若體力許可，飯店附近有超市可以買點水果或點心。
 </section>
 
 <section xlang='markdown'>
-## 2026/2/14 (SAT) 蘇黎世財金軸線
+## 2026/2/14 (SAT)：經典蘇黎世與湖景
 
-* **(交通) 飯店 $\rightarrow$ 閱兵廣場 (<span action='speak,de'>Paradeplatz</span>)**
-	* 搭乘路面電車 6/7/11/13 號線。
+<button action="display" caption="交通路線圖" mermaid='
+graph TB
+    A[<span action="speak,de">Amanthos Living</span> 飯店] <-->|350m| B[<span action="speak,de">Glattbrugg, Zentrum</span> 站]
+	B -->|Tram 11| C[<span action="speak,de">Augustinergasse</span> 奧古斯丁巷/<span action="speak,de">Paradeplatz</span> 閱兵廣場]
+    C -->|步行 5min| D[<span action="speak,de">Fraumünster</span> 聖母大教堂/<span action="speak,de">Bürkliplatz</span> 蘇黎世湖湖畔碼頭]
+    D -->|Tram 11| B
+' style="float:right;font-size:200%;">🛤️</button>
 
-* **蘇黎世財金 景點說明**:
-	* **班霍夫大街 (<span action='speak,de'>Bahnhofstrasse</span>)**: 參觀全球最昂貴街道與金融中心。
+* 上午： 從飯店搭乘 Tram 11 直達 <span action='speak,de'>Augustinergasse</span> (奧古斯丁巷)。
+	* 重點： 這裡是蘇黎世最美的彩色小巷，路面平坦。
+* 中午： <span action='speak,de'>Paradeplatz</span> (閱兵廣場) 與 <span action='speak,de'>Bahnhofstrasse</span> (班霍夫大街)。
+	* 午餐建議： 在閱兵廣場的 Sprüngli 旗艦店用餐，二樓有電梯，環境優雅。
 	* **閱兵廣場**: 瑞士銀行 (UBS) 總部所在地，觀賞莊嚴建築。
-	* **聖母大教堂 (<span action='speak,de'>Fraumünster</span>)**: 欣賞 **夏卡爾** 的彩繪玻璃藝術。
+	* **班霍夫大街 (<span action='speak,de'>Bahnhofstrasse</span>)**: 參觀全球最昂貴街道與金融中心。
+* 下午： Fraumünster (聖母大教堂) ➔ Bürkliplatz (湖畔碼頭)。
+	* 聖母大教堂內部可欣賞夏卡爾彩繪玻璃（有座位可靜坐）。	* 之後步行 3 分鐘到湖邊的 Bürkliplatz 坐著吹海風、看天鵝與遠方的阿爾卑斯山，對心臟負擔極小。
+* 晚上： 搭乘 Tram 11 原路回飯店。
 </section>
 
 <section xlang='markdown'>
-## 2026/2/15 (SUN) 蘇黎世歷史巷弄
+## 2026/2/15 (SUN) ⛴️ 2蘇黎世湖水路之旅
 
-* **老城區 (<span action='speak,de'>Altstadt</span>) 景點說明**:
-	* **奧古斯丁巷 (<span action='speak,de'>Augustinergasse</span>)**: 觀賞中古世紀彩色挑窗的老房子，極具真實歷史感。
+<button action="display" caption="交通路線圖" mermaid='
+graph TB
+    A[<span action="speak,de">Amanthos Living</span> 飯店] -->|8min| X[<span action="speak,de">Opfikon</span> 站]
+	X -->|S7| Y[<span action="speak,de">Zurich HB</span>蘇黎世總站]
+	Y <-->|Tram 11| C[<span action="speak,de">Bürkliplatz</span> 湖畔碼頭]
+    C <-->|Ferry ZSG| G[<span action="speak,de">Kilchberg</span> 碼頭]
+    G <-->|緩步 15min| H[<span action="speak,de">Lindt home of chocolate</span> 巧克力之家]
+	C -->|Tram 11| B
+	B[<span action="speak,de">Glattbrugg, Zentrum</span> 站] -->|350m| A
+    style H fill:#dfd,stroke:#333
+    style C fill:#bbf,stroke:#333
+' style="float:right;font-size:200%;">🛤️</button>
+
+* **早上 2/16 趕車場勘**
+	* **出發：** 從飯店步行約 8 分鐘抵達 Opfikon 站（這段路先確認好怎麼走）。
+	* **搭車：** 搭乘 S7 往蘇黎世總站。
+	* 場勘重點 (關鍵)：
+		* 抵達 Zürich HB 地下月台後，不要出站，請在月台上尋找 「Lift」(電梯) 標誌。
+		* 搭電梯上到 地面層 (Level 0)。
+		* 找到往 Tracks 5–18（地面長途車月台）的大廳。確認這段路走多久、電梯位置在哪。
+		* 這就是您隔天要搭 IC3 往 Chur 的區域。
+* 10:30 - 11:30 | 悠閒移動： 從飯店搭乘 Tram 11 電車直達 Bürkliplatz。
+* 11:30 - 12:15 | <a href='https://www.zsg.ch/en/'>ZSG Ferry</a>
+	* 登船與啟航： 在 Bürkliplatz 碼頭登船（持一日券配合半價卡可直接上船）。
+	* 建議坐在船尾或室內窗邊，這段航程約 20-30 分鐘，您可以完全不用體力，盡情欣賞岸邊豪宅與遠處雪山。
+* 12:15 - 12:30 | 漫步前往： 在 Kilchberg ZH (See) 下船。從碼頭走到瑞士蓮巧克力之家大約 700-800 公尺。
+* 12:30 - 15:00 | <a href='https://www.lindt-home-of-chocolate.com/en/'>瑞士蓮巧克力之家</a>
+	* 巧克力感官之旅： 參觀博物館、看巨大噴泉、買伴手禮。館內沙發區很多，累了隨時可以坐下。
+* 15:00 - 16:00 | <a href='https://www.zsg.ch/en/'>ZSG Ferry</a>
+	* 原路慢步回 Kilchberg 碼頭。搭船回到 Bürkliplatz，剛好可以看傍晚的湖景。
+* 16:00 之後 | 輕鬆返程： 從 Bürkliplatz 坐 Tram 11 一路睡回飯店。
 </section>
 
 <section xlang='markdown'>
 ## 2026/2/16 (MON) 伯連納列車 - 工程奇蹟
 
-* **(交通)** <span action='speak,fr'>Oberhauserstrasse</span> $\rightarrow$ <span action='speak,de'>Chur</span>
-	* <span action='speak,fr'>Oberhauserstrasse</span> &gt;<a href='https://www.zvv.ch/zvv/en/home.html'>ZVV</a>&gt; <span action='speak,fr'>Zurich HB</span>
-	* <span action='speak,fr'>Zurich HB</span> &gt;<a href='https://www.sbb.ch/en/'>SBB</a>&gt; <span action='speak,de'>Chur</span>
-
-* **(交通)** <span action='speak,de'>Chur</span> &gt;Bernina Express&gt; <span action='speak,it'>Tirano</span>
-    * **Landwasser Viaduct**: 列車會駛過高 65 公尺的石拱橋並直接進入隧道，這是軌道攝影經典。
-    * **Brusio Spiral Viaduct**: 為了克服坡度設計的 360 度迴旋橋，世界文化遺產的工程之美。
-
-* **(交通)** <span action='speak,it'>Tirano</span> &gt;<span action='speak,it'>Trenitalia</span>&gt; <span action='speak,it'>Milano Centrale</span>**
-	* **時刻表**: [Trenitalia 蒂拉諾-米蘭](https://www.trenitalia.com/en.html)
-
-* **(入住)** <span action='speak,it'>Duomo-Centrale Elegant two-room Nolo next to M1</span>
+* **[05:50]** 離開飯店
+	* 從 <span action='speak,de'>Amanthos Living</span> 步行至 <span action='speak,de'>Opfikon</span> 站。(8 分鐘)
+* **[06:12]** 搭乘 **S7**
+	* <span action='speak,de'>Opfikon</span> ➔ <span action='speak,de'>Zürich HB</span> (11 分鐘)
+* **[06:23]** 抵達 **<span action='speakde'>Zürich HB</span>**
+	* 場勘轉乘 搭乘電梯至地面層 Tracks 5-18 (預留 15 分鐘垂直移動)
+* **[06:38]** 搭乘 **IC3**
+	* <span action='speak,de'>Zürich HB</span> ➔ <span action='speak,de'>Chur</span>
+* **[07:52]** 抵達 **<span action='speak,de'>Chur</span> (庫爾)** 車站
+	* (預留 36 分鐘轉乘緩衝)
+* **[08:28]** 搭乘 **Bernina Express 伯連納列車**
+	* Chur ➔ Tirano (景觀列車: Bernina Express)
+    * **<span action='speak,de'>Landwasser Viaduct</span>**: 列車會駛過高 65 公尺的石拱橋並直接進入隧道，這是軌道攝影經典。
+    * **<span action='speak,de'>Brusio Spiral Viaduct</span>**: 為了克服坡度設計的 360 度迴旋橋，世界文化遺產的工程之美。
+* **[12:49]** 抵達 **<span action='speak,it'>Tirano</span> (蒂拉諾)** (瑞士側)
+	* 步行 2 分鐘換至(義大利側)
+* **[14:08]** 搭乘 **RE8**
+	* <span action='speak,it'>Tirano</span> ➔ <span action='speak,it'>Milano Centrale</span>
+	* **時刻表**: [Trenitalia](https://www.trenitalia.com/en.html)
+* **[16:24]** 在 **<span action='speak,it'>Sesto San Giovanni</span>** 站下車
+	* 不要坐到終點站中央車站
+* 轉乘 **M1**
+	* 下車後尋找 「Metropolitana M1」 與 「Ascensore」(電梯) 標誌。
+	* 搭電梯下樓即抵達地鐵閘門與月台。
+	* 使用信用卡感應或購買 Mi1-Mi3 票。
+	* 搭乘往 <span action='speak,it'>Rho Fiera</span> / <span action='speak,it'>Bisceglie</span> 方向的列車。
+* **[16:40]** 抵達 **Turro**
+	* 步行約 3-5 分鐘抵達 <span action='speak,it'>Via Matteo Maria Boiardo 18</span>。|順利抵達米蘭住處。
+* 入住 **<span action='speak,it'>Duomo-Centrale Elegant two-room Nolo next to M1</span>**
 	* **時間**: 16:00 - 21:00
 	* **地址**: <span action='speak,it'>Via Matteo Maria Boiardo 18, 20127 Milano, Italy</span>
 	* **地圖**: <a href='https://maps.app.goo.gl/bqwRTp7W4fY97bv2A'>Google</a>
@@ -366,33 +488,84 @@ flowchart TB
 <section xlang='markdown'>
 ## 2026/2/17 (TUE) 🎂 生日紀念：大教堂與軌道情懷
 
-* **(交通) 飯店 $\rightarrow$ 米蘭大教堂 (<span action='speak,it'>Duomo</span>)**
-	* 搭乘地鐵 **M1 (紅線)** 直達。
+<button action="display" caption="交通路線圖" mermaid='
+flowchart TB
+	A[<span action="speak,it">Turro</span> M1] -->|M1| B[<span action="speak,it">Duomo</span>]
+	B -->|散策| C[<span action="speak,it">Cordusio</span>]
+	C <-->|Tram 1| D[<span action="speak,it">Arco della Pace</span> 和平門]
+	C -->|M1| A
+' style="float:right;font-size:200%;">🛤️</button>
 
-* **米蘭大教堂 景點說明**:
+* 下載 **ATM Milano App** 購買一張 **48 小時交通票** (€13)，這樣您可以隨時上下地鐵、電車與公車。
+* 2 月的米蘭氣溫約 3-10°C。既然要慶祝生日，建議穿一件保暖的大衣配圍巾，拍照會非常有義式文青感。
+
+* 上午：大教堂與慶生咖啡
+	* 搭乘 M1 從 Turro 到 Duomo 站。
 	* **登頂體驗**: 建議搭乘電梯直達頂樓，在石雕尖塔間遠眺阿爾卑斯山。
-	* **星巴克臻選工坊 (<span action='speak,it'>Reserve Roastery</span>)**: 位於前郵局，觀察精美的豆子運送軌道系統與銅製裝置。
+	* 參觀米蘭大教堂後，步行至 Pasticceria Marchesi 1824 (Galleria 2F) 享用生日蛋糕。
+		* 這家店由 Prada 集團經營，牆面的薄荷綠與精緻的櫥窗非常有文創美感。
+		* 雖然是歷史名店，但只要不坐下，點一杯 Espresso (約 €1.5) 加一塊生日小蛋糕 (Mignon, 約 €2-3)，在吧檯享用非常有儀式感且價格平實。
 
-* **(交通) 復古路面電車**:
-	* 搭乘 **1 號線** (1500 系列黃色木造電車)，坐在老木椅觀賞市區歷史建築。
+* 中午：步行至復古電車起點
+	* 步行 3 分鐘到 Galleria Vittorio Emanuele II（艾曼紐二世迴廊），仰望 19 世紀的鋼鐵與玻璃穹頂。
+	* 穿過艾曼紐二世迴廊，或沿著 Via Orefici 慢慢散步（約 400 公尺，5 分鐘）抵達 Cordusio 廣場。這段路您可以預先觀察 KIKO Milano (Via Dante) 的位置，但先別進去買。
+	* **星巴克臻選工坊 (<span action='speak,it'>Reserve Roastery</span>)**: 位於前郵局，觀察精美的豆子運送軌道系統與銅製裝置。
+* 下午：和平門地景藝術之旅
+	* 在 Cordusio 站牌搭乘 1 號路面電車 (Tram 1) 往 Roserio 方向。
+		* 體驗： 這種 1928 年型電車有著精美的木製內裝與燈飾。
+		* 這條路線會經過 斯卡拉大劇院、布雷拉藝術區 邊緣。
+	* 抵達 Arco della Pace (和平門)。您可以下車散步、拍照，在 Sempione 公園坐著休息，享受愜意的午後。這段路的地景開闊，非常適合生日留影。
+
+* 傍晚：壓軸購物與返程 (KIKO 點)
+	* 在和平門原站點搭乘 1 號電車 回到 Cordusio。
+	* Cordusio 剛好在大教堂與星巴克臻選店之間，建築極美。
+	* 採購： 下車後，直接進入 KIKO Milano (Via Dante, 2)。這家店就在電車站與地鐵站之間。
+		* KIKO Milano 特別優惠： 結帳時可以告知店員當天是您的生日，有時他們會有額外的小禮物或折扣。
+	* 買完後，轉個身步行不到 1 分鐘就是 Cordusio M1 地鐵站入口。搭乘紅線往 Sesto FS 方向，約 15 分鐘後即可回到 Turro，直接回飯店休息。
 </section>
 
 <section xlang='markdown'>
-## 2026/2/18 (WED) 米蘭文創與賦歸準備
+## 2026/2/18 (WED) 行程規劃：模擬動線、時尚洗禮、壓軸購物
 
-* **10 Corso Como 景點說明**:
-	* 隱身於老房子內的時尚文創地標，結合畫廊與概念店，極富設計感。
+<button action="display" caption="交通路線圖" mermaid='
+flowchart TB
+	A[<span action="speak,it">Turro</span> M1] <-->|M1| B[<span action="speak,it">Loreto</span>]
+	B -->|M2| C[<span action="speak,it">Centrale FS</span>]
+	C -->|M2| D[<span action="speak,it">Garibaldi FS</span>]
+	D -->|M2| B
+' style="float:right;font-size:200%;">🛤️</button>
 
-* **米蘭中央車站 景點說明**:
-	* 欣賞法西斯時期巨大的石造建築與半圓形鋼構穹頂。
+* 第一站：Milano Centrale (模擬清晨動線)
+	* 交通： 從 Turro 搭乘 M1 往 Rho Fiera/Bisceglie 方向，在 Loreto 站轉乘 M2 (綠線) 往 Assago/Abbiategrasso 方向，搭乘 2 站即抵達 Centrale FS。
+	* 演練要點：
+		* 電梯與手扶梯： 尋找地鐵出口往火車站大廳的電梯位置。
+		* 月台位置： 走到 2/19 預計搭車的月台區域。請注意米蘭中央車站的月台層在最頂層（地面層之上）。
+		* 行李走道： 觀察哪些通道較寬敞，適合推行大型行李。
+		* 尋找 MXP2 搭乘月台，購買車票
 
-* **購物**: 前往 **<span action='speak,it'>KIKO Milano</span>** 旗艦店購置物美價廉的義大利美妝品。
+* 第二站：Garibaldi FS &amp; 10 Corso Como (文創地景)
+	* 交通： 從 Centrale FS 繼續搭乘 M2 (綠線)，僅需 2 站即可抵達 Garibaldi FS。
+	* 從車站出來後，先穿過前衛的 Piazza Gae Aulenti 廣場看垂直森林。
+	* 步行約 5-8 分鐘抵達 10 Corso Como。
+	* 這是一座結合了設計、藝術與植栽的隱世花園，非常符合您對文創地景的喜好。
+
+* 第三站：Loreto &amp; Corso Buenos Aires (壓軸購物)
+	* 交通： 從 Garibaldi FS 搭乘 M2 (綠線) 返回 Loreto。
+	* Loreto 站緊鄰著米蘭著名的購物長廊 Corso Buenos Aires。
+	* 這條街上有許多平價品牌，如 Flying Tiger Copenhagen (趣味雜貨)、Nike、以及各式義大利本土服飾與藥妝店。
+	* 這裡的生活感很強，適合在回飯店前補齊伴手禮或日用品。
 </section>
 
 <section xlang='markdown'>
 ## 2026/2/19 (THU) 返程
 
 * **退房**: until 10:00
+
+* **[06:30]** 從飯店出發，步行至 M1 Turro 站
+* 搭乘 M1 至 Loreto
+* 轉乘 M2 至 Centrale FS
+* **[07:25]** 抵達中央車站，搭乘 Malpensa Express (MXP2)。
+* **[08:17]** 抵達機場
 
 * **航班編號**: BR096 (長榮航空)
 	* **起飛**: <span action='speak,zh'>米蘭馬爾彭薩機場</span> (<span action='speak,it'>MXP</span>)
