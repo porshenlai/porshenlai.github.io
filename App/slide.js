@@ -576,6 +576,11 @@ button:hover {border-color:#90a4ae;}
         } else alert('您的瀏覽器不支援 Speech Synthesis API。');
     }	// }}}
 
+	goto (e,key)
+	{	// {{{
+		console.log("goto:",key);
+	}	// }}}
+
 	set (name, value)
 	{	// set/unset parameters {{{
 		switch (name) {
