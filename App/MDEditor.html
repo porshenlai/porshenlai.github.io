@@ -286,7 +286,7 @@
 		isPreviewMode = target;
 
 		if (isPreviewMode) {
-			document.getElementById("TeX").syncMD(preview,textarea.value);
+			document.getElementById("TeX").value.renderMarkdown(preview,textarea.value);
 			preview.style.display = 'block';
 			textarea.style.display = 'none';
 			btn.textContent = "✎";

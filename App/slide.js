@@ -353,13 +353,14 @@ button:hover {border-color:#90a4ae;}
 [action="display"] { text-decoration:underline;color:blue; }
 [action="display"] [caption] { display:none; }
 
-.red { color:red; }
-.blue { color:blue; }
-.green { color:green; }
-.brown { color:brown; }
-.purple { color:purple; }
-.orange { color:orange; }
 .black { color:black; }
+.grey { color:grey; }
+.red { color:red; }
+.green { color:green; }
+.blue { color:blue; }
+.brown { color:brown; }
+.orange { color:orange; }
+.purple { color:purple; }
 `;
 			S.innerHTML=PAGE+SECTION+BASIC;
 			document.head.appendChild(S);
@@ -428,7 +429,7 @@ button:hover {border-color:#90a4ae;}
 			// filter sections, generate SIDs, and calc total number of pages
 			content.Keywords={}; // content.Keywords : 所有定義的 Keywords
 			content.PageCounts=Array.from(content.querySelectorAll('section')).reduce((r,s)=>{
-				const ks=(s.getAttribute('ks')||'').split(',').filter((v)=>v);
+				const ks=(s.getAttribute('ks')||'').split(/[,\s]/).filter((v)=>v);
 				ks.forEach((k)=>content.Keywords[k]=true);
 				if (selector&&(!selector.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)))) {
 					if (s.parentNode) s.parentNode.removeChild(s); // filter out pages
@@ -464,6 +465,7 @@ button:hover {border-color:#90a4ae;}
 					this.handleAction(e);
 					evt.stopPropagation();
 					evt.preventDefault();
+					break;
 				}
 				if (e.tagName==='SECTION') { this.activate(e); break; }
 			}
@@ -543,8 +545,28 @@ button:hover {border-color:#90a4ae;}
 
 	async display (e, text)
 	{	// {{{
+		let lang=e.getAttribute('lang'), code=e.getAttribute('code');
+		if (code) {
+			if (!lang) {
+				lang=document.body.querySelector(`[RID="${code}"]`);
+				code=lang.value;
+				lang=lang.getAttribute('lang');
+			}
+		} else {
+			code=e.querySelector('[caption]');
+			if (code) return this.Aside.open(code.cloneNode(true));
+		}
+			
 		const de=document.createElement("div");
 		de.appendChild(document.createElement("div"));
+
+		switch (lang) {
+		case 'mermaid':
+			await this.Plugins.TeX.renderMermaid(de.firstChild,code);
+			break;
+		default: return;
+		}
+
 		de.setAttribute('caption',e.getAttribute('caption')||"");
 		de.firstChild.style.textAlign='center';
 		de.firstChild.addEventListener('click',(evt)=>{
@@ -556,12 +578,6 @@ button:hover {border-color:#90a4ae;}
 				}
 			}
 		});
-
-		if (e.hasAttribute('mermaid')) {
-			console.log(this.Plugins);
-			await this.Plugins.TeX.renderMermaid(de.firstChild,e.getAttribute('mermaid'));
-		} else return this.Aside.open(e.querySelector('[caption]').cloneNode(true));
-
 		return this.Aside.open(de);
 	}	// }}}
 
@@ -578,7 +594,9 @@ button:hover {border-color:#90a4ae;}
 
 	goto (e,key)
 	{	// {{{
-		console.log("goto:",key);
+		let ts=this.Content.querySelector(`section[ks~="${key}"]`);
+		console.assert(ts,'goto() => target not found');
+		if (ts) this.activate(ts,true);
 	}	// }}}
 
 	set (name, value)
