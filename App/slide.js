@@ -323,7 +323,7 @@ class Slides
 * {box-sizing:border-box;}
 html {font-size:var(--base-font-size);scroll-behavior:smooth;}
 html, body {height:100%;}
-body {margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,Segoe UI,Arial;color:#222;background:#fff;line-height:1.6;display:flex;flex-direction:column;}
+body {margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,Segoe UI,Arial;color:#222;background:#fff;line-height:1.6;display:flex;flex-direction:column;opacity:0;}
 `;
 			const SECTION=`
 #content {flex:1;padding:0;overflow:hidden auto;background:#f0f0f0;}
@@ -622,6 +622,7 @@ button:hover {border-color:#90a4ae;}
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
 	const loading=document.createElement("div");
+	loading.beginTS=(new Date()).getTime();
 	loading.style.textAlign='center';
 	loading.textContent='Loading ...';
 	document.body.insertBefore(loading,document.body.firstChild);
@@ -681,6 +682,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		MS.activate(section, false);
 		loading.parentNode.removeChild(loading);
 		document.body.style.opacity='1';
+		console.log(`${(new Date()).getTime()-loading.beginTS} elapsed.`);
 	}, 1, MS.Content.querySelector(location.hash ? `section[SID="${location.hash.substr(1)}"]` : "section"));
 });	// }}}
 
