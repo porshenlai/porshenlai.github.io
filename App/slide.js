@@ -212,7 +212,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			E.setAttribute('style','display:none;flex-flow:column nowrap;position:absolute;left:5%;top:5%;right:5%;bottom:5%;overflow:hidden;');
 			E.innerHTML=`
 <div UID='Caption' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
-<div UID='View' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;border-radius:6px;overflow:hidden auto;'></div>
+<div UID='View' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;border-radius:6px;overflow:hidden;'></div>
 `;
 			this.Overlay.appendChild(E);
 			E.appendChild(E.Caption=E.querySelector('[UID="Caption"]'));
@@ -347,7 +347,6 @@ button:hover {border-color:#90a4ae;}
 #content[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
 #content[playmode="page"] section.full { margin:0;padding:0;border:0;height:100%;scroll-margin-top:0; }
 
-[uid="View"] img { object-fit:contain;width:100%;height:100%; }
 [action] { cursor:pointer; }
 [action]:hover { text-decoration:underline; }
 [action="display"] { text-decoration:underline;color:blue; }
@@ -543,7 +542,7 @@ button:hover {border-color:#90a4ae;}
 		});
 	}	// }}}
 
-	async display (e, text)
+	async show (e, text)
 	{	// {{{
 		let lang=e.getAttribute('lang'), code=e.getAttribute('code');
 		if (code) {
@@ -562,13 +561,19 @@ button:hover {border-color:#90a4ae;}
 
 		switch (lang) {
 		case 'mermaid':
+			de.firstChild.setAttribute('style','text-align:center');
 			await this.Plugins.TeX.renderMermaid(de.firstChild,code);
+			break;
+		case 'image':
+			de.firstChild.outerHTML=`<div style='overflow:auto;height:100%;'><img src='${code}' style='object-fit:none;'/></div>`
+			break;
+		case 'photo':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${code}' style='object-fit:contain;width:100%;height:100%;'/></div>`
 			break;
 		default: return;
 		}
 
 		de.setAttribute('caption',e.getAttribute('caption')||"");
-		de.firstChild.style.textAlign='center';
 		de.firstChild.addEventListener('click',(evt)=>{
 			for (let e=evt.target; e.nodeType===1; e=e.parentNode){
 				if (e.hasAttribute('action')) {

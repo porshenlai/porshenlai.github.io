@@ -5,8 +5,8 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <base target='_blank'/>
 <title>法瑞義 2026 實戰工具書</title>
-<!--script plugins='TeX' src='https://porshenlai.github.io/App/slide.js'></script-->
-<script plugins='TeX' src='/App/slide.js'></script>
+<script plugins='TeX' src='https://porshenlai.github.io/App/slide.js'></script>
+<!--script plugins='TeX' src='/App/slide.js'></script-->
 </head>
 <body>
 
@@ -177,6 +177,10 @@ graph TB
 
 <section><!-- Calendar {{{-->
 	<h2>計畫日曆</h2>
+	<div>
+		<button action='show' caption='M-4' code='images/M4.png' lang='image'>地鐵4號線</button>
+		<button action='show' caption='RER-C' code='images/RER-C.png' lang='image'>RER C 線</button>
+	</div>
 	<table style='margin:auto;width:auto;font-size:1vw;'><thead><tr>
 		<th colspan='7'>February, 2026</th>
 	</tr></thead><tbody><tr style='font-size:50%'>
@@ -246,7 +250,22 @@ graph TB
 ### 🚆 戴高樂機場 &gt; <span action='speak,fr'>Ermont</span> 埃爾蒙
 
 * **抵達**: 第一航廈 (<span action='speak,fr'>Terminal 1</span>)
-* **票務**: 前往火車站櫃檯購買 **<span action='speak,fr'>Navigo Découverte</span> 週卡** (涵蓋 1-5 區，可用於機場、<span action='speak,fr'>Ermont</span> 及凡爾賽)。
+* **票務**:
+	* 安裝 <a href='https://www.google.com/search?q=https://play.google.com/store/apps/details%3Fid%3Dcom.viamichelin.android.idf&authuser=1'>Île-de-France Mobilités</a> App.
+	* 打開 App 購買 Navigo Semaine (Zones 1-5)。
+	* 上傳照片並完成付款。
+	* <a href='https://www.ratp.fr/en/titres-et-tarifs/weekly-navigo-travel-passes'>Weekly Navigo Travel Passes</a>
+	<!-- * 前往火車站 **RATP/SNCF** 服務櫃台購買 **<span action='speak,fr'>Navigo Découverte</span> 週卡** (涵蓋 1-5 區，可用於機場、<span action='speak,fr'>Ermont</span> 及凡爾賽)。
+	* :&gt; 你好，我要買兩張 Navigo 周卡。
+		* <span action='speak,fr'>Bonjour, je voudrais acheter deux passes Navigo Semaine, s'il vous plaît.</span>
+		* **Hello**: <span action='speak,fr'>Bonjour</span>
+		* **I would like**: <span action='speak,fr'>je voudrais</span>
+		* **buy**: <span action='speak,fr'>acheter</span>
+		* **please**: <span action='speak,fr'>s'il vous plaît.</span>
+	* :&gt; 我想使用信用卡付款。
+		* <span action='speak,fr'>Je voudrais payer par carte bancaire, s'il vous plaît.</span>
+		* **credit card**: <span action='speak,fr'>carte bancaire</span>
+	-->
 * **接駁**: 搭乘 **<span action='speak,fr'>CDGVAL</span>** 電車前往 **第二航廈 (<span action='speak,fr'>Terminal 2 - Gare TGV</span>)**。
 * **轉乘**: 搭乘 **<span action='speak,fr'>RER B</span>** 線 至 **巴黎北站 (<span action='speak,fr'>Paris Nord</span>)**。
 	* 往巴黎方向：<span action='speak,fr'>Direction Paris</span>
@@ -270,12 +289,12 @@ graph TB
 <section ks='20260206' xlang='markdown'><!--{{{-->
 ## 2026/2/6 (FRI) 聖母院與左岸深度散步
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> <span action='speak,fr'>Ermont</span> 埃爾蒙 &gt; <span action='speak,fr'>Île de la Cité</span> 西堤島
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> <span action='speak,fr'>Ermont</span> 埃爾蒙 &gt; <span action='speak,fr'>Île de la Cité</span> 西堤島
 
 ### 🚩 <span action='speak,fr'>Notre-Dame de Paris</span> 聖母院
 * 觀摩 2019 大火後的修復成果，重點在於石雕工藝與哥德式建築結構。
 
-### <button caption="交通路線圖" action="display" code="Paris">🚶</button> 左岸散策: 聖母院 &gt; 聖日耳曼德佩
+### <button caption="交通路線圖" action='show' code="Paris">🚶</button> 左岸散策: 聖母院 &gt; 聖日耳曼德佩
 1. 從 **小橋 (<span action='speak,fr'>Petit Pont</span>)** 跨越塞納河抵達左岸。
 2. 抵達 **莎士比亞書店 (<span action='speak,fr'>Shakespeare and Company</span>)**，旁邊有巴黎最老的樹 (1601年)。
 3. 穿過 **聖安德烈藝術街 (<span action='speak,fr'>Rue Saint-André des Arts</span>)**，觀賞老建築窗花。
@@ -286,56 +305,61 @@ graph TB
 * **地址**: <span action='speak,fr'>26 Rue du Four</span> (地鐵 <span action='speak,fr'>Saint-Germain-des-Prés</span> 站旁)。
 * 巴黎著名的「藥妝神殿」，Bonnie 可在此購足美妝用品。
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 聖日耳曼德佩 &gt; 里昂車站
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 聖日耳曼德佩 &gt; 里昂車站
 
 ### 🚩 <span action='speak,fr'>Gare de Lyon</span> 里昂車站
 * 觀察地鐵站如何連接到 **TGV 乘車大廳 (Hall 1/2)**，確認電梯位置。
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 里昂車站 &gt; 埃爾蒙
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 里昂車站 &gt; 埃爾蒙
 
 </section><!--}}}-->
 
 <section ks='20260207' xlang='markdown'><!--{{{-->
 ## 2026/2/7 (SAT) 凡爾賽宮與地面電車
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 埃爾蒙 &gt; 戰神廣場
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 埃爾蒙 &gt; 戰神廣場
 
 ### 🚩 戰神廣場車站
 * 確認月台編號： 雖然通常是同月台轉乘，但由於 RER C 的軌道配置偶爾會微調，建議下車後立刻抬頭看告示牌。只要目的地顯示 VICK (Versailles Château Rive Gauche) 就可以上車。
 * 這座車站的部分路段是露天的，你可以利用等車的 15 分鐘，走到月台靠近塞納河的那一端，在那裡可以拍到 RER C 雙層列車與艾菲爾鐵塔同框的經典畫面，這對航空、軌道愛好者來說是不可多得的取景點。
 * 注意廣播： 雖然你偏好老建築與設計，但 RER C 的法語/英語廣播會提醒目前的列車代碼。記住你要找的是 首字母為 "V" 的列車。
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 戰神廣場 &gt; 凡爾賽宮
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 戰神廣場 &gt; 凡爾賽宮
 
 ### 🚩 凡爾賽宮 (<span action='speak,fr'>Château de Versailles</span>
 * 推薦租借**高爾夫球車**遊覽花園以節省體力。
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 凡爾賽宮 &gt; 馬約門
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 凡爾賽宮 &gt; 馬約門
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 馬約門 &gt; Porte de Clichy
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 馬約門 &gt; Porte de Clichy
 * 🚆 地面電車 T3b
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> Porte de Clichy &gt; 埃爾蒙
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> Porte de Clichy &gt; 埃爾蒙
 
 </section><!--}}}-->
 
 <section ks='20260208' xlang='markdown'><!--{{{-->
 ## 2026/2/8 (SUN) 奧維爾小鎮 - 梵谷之蹤
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 埃爾蒙 &gt; 奧維爾
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 埃爾蒙 &gt; 奧維爾
 
 ### 🚩 奧維爾小鎮 <span action='speak,fr'>Auvers-sur-Oise</span>
 * 梵谷最後居所，步調極慢且路徑平緩。
 * **奧維爾教堂**: 實地對比梵谷畫作中的哥德式建築。
 * **梵谷故居 (<span action='speak,fr'>Auberge Ravoux</span>)**: 觀賞 19 世紀法式鄉村老房子與田園風情。
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 奧維爾 &gt; 埃爾蒙
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 奧維爾 &gt; 埃爾蒙
 </section><!--}}}-->
 
 <section ks='20260209' xlang='markdown'><!--{{{-->
 ## 2026/2/9 (MON) 巴黎地標水陸整合：凱旋門、香榭大道與艾菲爾鐵塔
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 埃爾蒙 &gt; 凱旋門
+* Navigo 周票已過期，改用 App 購買單程票
+	* 在 Ermont 車站使用手機 App 各自購買 3 張「單程票 (Single Ticket)」 存入虛擬卡中。
+	* 單張費用：數位版單程票為 €2.00。
+	* 分配：1張用於 Ermont 到市區，1張用於市區萬一要搭地鐵，1張用於回 Ermont。
+
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 埃爾蒙 &gt; 凱旋門
 * **凱旋門** (M1) <span action='speak,fr'>Charles de Gaulle – Étoile</span>
 
 ### 🚩 凱旋門 與 香榭大道
@@ -344,13 +368,16 @@ graph TB
 
 ### 🚩 協和廣場 與 Batobus 碼頭
 * 在碼頭售票處出示 Navigo Découverte 卡，以 特惠價 (約 €18) 購買 24 小時無限搭乘票。
-* 您好，我想要買兩張 24 小時票，麻煩了。這是我的 Navigo 卡。<div action='speak,fr'>Bonjour, je voudrais deux pass 24 heures, s'il vous plaît. Voici mon Pass Navigo.</div>
+* 您好，我想要買兩張 24 小時票，麻煩了。這是我的 Navigo 卡。
+	* <span action='speak,fr'>Bonjour, je voudrais deux pass 24 heures, s'il vous plaît. Voici mon Pass Navigo.</span>
+* 你好，請給我一張優惠票。這是我的殘障證明。
+	* <span action='speak,fr'>Bonjour, un billet tarif réduit, s'il vous plaît. Voici ma carte d'invalidité.</span>
 
 ### ⛴️ 午間巡航
 * 上船後可先坐在暖氣船艙內「完整坐一圈」，在船上欣賞**羅浮宮**、**聖母院**、**奧賽美術館**等河岸景觀，作為體力緩衝。
 * 在 Batobus <span action='speak,fr'>Tour Eiffel</span> 站 下船。
 
-### <button caption="交通路線圖" action="display" code="Paris">⛴️</button> 協和廣場 &gt; 艾菲爾鐵塔
+### <button caption="交通路線圖" action='show' code="Paris">⛴️</button> 協和廣場 &gt; 艾菲爾鐵塔
 * 協和廣場 (BatuBus) <span action='speak,fr'>Place de la Concorde</span>
 * 艾菲爾鐵塔 (BatuBus) <span action='speak,fr'>Tour Eiffel</span>
 
@@ -359,14 +386,14 @@ graph TB
 * 🚶 登塔後往南走入 戰神廣場 (Champ de Mars)，拍攝亮燈後的鐵塔全景。
 * 🛒 前往 <span action='speak,fr'>Cora Ermont</span> 大型量販店，補足前往瑞士所需的乾糧、零食、水與起司。
 
-### <button caption="交通路線圖" action="display" code="Paris">⛴️</button> 艾菲爾鐵塔 &gt; 羅浮宮
+### <button caption="交通路線圖" action='show' code="Paris">⛴️</button> 艾菲爾鐵塔 &gt; 羅浮宮
 * 羅浮宮 (BatuBus) <span action='speak,fr'>Louvre-Rivoli</span>
 
 ### 🛒 莎瑪麗丹百貨
 * **建築**: 結合「新藝術」與「裝飾藝術」的綜合體，必看金屬階梯與黃銅扶手。
 * **體驗**: Bonnie 逛美妝區，Porshen 可在頂樓坐看 **新橋 (<span action='speak,fr'>Pont Neuf</span>)** 景色。
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 羅浮宮 &gt; 埃爾蒙
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 羅浮宮 &gt; 埃爾蒙
 
 </section><!--}}}-->
 
@@ -375,7 +402,7 @@ graph TB
 
 ### 🏠 8:30 - 10:00 **退房**
 
-### <button caption="交通路線圖" action="display" code="Paris">🚆</button> 埃爾蒙 &gt; 里昂車站
+### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 埃爾蒙 &gt; 里昂車站
 
 ### 🚆 法國 &gt; 瑞士
 * **車班** : <span action='speak,fr'>TGV Lyria</span>
@@ -388,7 +415,7 @@ graph TB
 * 在車站附近的 **Schweizerhof** 喝茶。
 * 若體力許可，搭路面電車 5 分鐘可看萊茵河景。
 
-### <button caption="交通路線圖" action="display" code="Thun">🚆</button> 巴賽爾 &gt; 圖恩
+### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 巴賽爾 &gt; 圖恩
 * <a href='https://www.sbb.ch/en/'>SBB</a>
 * **常用標示：**
 	* 出口：<span action='speak,de'>Ausgang</span> (德文) —— 在火車站尋找這個字。
@@ -412,7 +439,7 @@ graph TB
 <section ks='20260211' xlang='markdown'><!--{{{-->
 ## 2026/2/11 (WED) 少女峰工程奇蹟
 
-### <button caption="交通路線圖" action="display" code="Thun">🚆</button> 圖恩 &gt; 少女峰 
+### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 圖恩 &gt; 少女峰 
 * <a href='https://www.sbb.ch/en/'>SBB</a>
 	* 起: <span action='speak,de'>Thun</span>
 	* 迄: <span action='speak,de'>Interlaken Ost</span>
@@ -430,7 +457,7 @@ graph TB
 ### 少女峰
 	* 頂峰全程設有電梯與電動步道，對心臟負擔極小。
 
-### <button caption="交通路線圖" action="display" code="Thun">🚆</button> 少女峰 &gt; 圖恩
+### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 少女峰 &gt; 圖恩
 * JB: Jungfrau Railway
 	* 起: <span action='speak,de'>Junfraujoch</span> 少女峰頂
 	* 迄: <span action='speak,de'>Kleine Scheidegg</span>
@@ -450,14 +477,14 @@ graph TB
 <section ks='20260212' xlang='markdown'><!--{{{-->
 ## 2026/2/12 (THU) 伯恩老城與噴泉藝術
 
-### <button caption="交通路線圖" action="display" code="Thun">🚆</button> 圖恩 &gt; 伯恩
+### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 圖恩 &gt; 伯恩
 
-### <button caption="路線圖" action='display' code='Thun'>🚶</button> <span action='speak,de'>Bern</span> 伯恩 散策:
+### <button caption="路線圖" action='show' code='Thun'>🚶</button> <span action='speak,de'>Bern</span> 伯恩 散策:
 * **UNESCO 老城**: 6 公里長的石造拱廊，適合緩慢步行避雨。
 * **天文鐘塔 (<span action='speak,de'>Zytglogge</span>)**: 觀察 13 世紀機械工藝。
 * **聯邦宮 (<span action='speak,de'>Bundeshaus</span>)**: 欣賞穹頂設計與廣場水景藝術。
 
-### <button caption="交通路線圖" action="display" code="Thun">🚆</button> 伯恩 &gt; 圖恩 
+### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 伯恩 &gt; 圖恩 
 </section><!--}}}-->
 
 <section ks='20260213' xlang='markdown'><!--{{{-->
@@ -465,7 +492,7 @@ graph TB
 
 ### 🏠 11:00前 **退房**:
 
-### <button caption="交通路線圖" action="display" code="Thun">🚆</button> 圖恩 &gt; 蘇黎世
+### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 圖恩 &gt; 蘇黎世
 
 * <span class='time'>13:00-14:30</span> 從圖恩搭乘 IC8/IC81 抵達蘇黎世總站。
 	* 推薦將行李寄存在 **<span action='speak,de'>Zurich HB</span>** 寄物櫃。
@@ -485,7 +512,7 @@ graph TB
 <section ks='20260214' xlang='markdown'><!--{{{-->
 ## 2026/2/14 (SAT)：經典蘇黎世與湖景
 
-### <button caption="交通路線圖" action="display" code="Zurich">🚆</button> 前往 <span action='speak,de'>Augustinergasse</span> 奧古斯丁巷。
+### <button caption="交通路線圖" action='show' code="Zurich">🚆</button> 前往 <span action='speak,de'>Augustinergasse</span> 奧古斯丁巷。
 
 ### 🚩 <span action='speak,de'>Augustinergasse</span> 奧古斯丁巷
 * 重點： 這裡是蘇黎世最美的彩色小巷，路面平坦。
@@ -505,20 +532,20 @@ graph TB
 ### 🚩 Bürkliplatz 湖畔碼頭。
 * 坐著吹海風、看天鵝與遠方的阿爾卑斯山。
 
-### <button caption="交通路線圖" action="display" code="Zurich">🚆</button> 返回飯店
+### <button caption="交通路線圖" action='show' code="Zurich">🚆</button> 返回飯店
 </section><!--}}}-->
 
 <section ks='20260215' xlang='markdown'><!--{{{-->
 ## 2026/2/15 (SUN) ⛴️  蘇黎世湖水路之旅
 
-### <button caption="交通路線圖" action="display" code="Zurich">🚆</button> 前往 <span action='speak,de'>Zurich HB</span> 蘇黎世總站
+### <button caption="交通路線圖" action='show' code="Zurich">🚆</button> 前往 <span action='speak,de'>Zurich HB</span> 蘇黎世總站
 * 從飯店步行約 8 分鐘抵達 Opfikon 站
 * 搭乘 S7 往蘇黎世總站
 * 抵達 Zürich HB 地下月台後，不要出站，請在月台上尋找 「Lift」(電梯) 標誌
 * 搭電梯上到 地面層 (Level 0)
 * 找到往 Tracks 5–18（地面長途車月台）的大廳。確認這段路走多久、電梯位置在哪 (場勘)
 
-### <button caption="交通路線圖" action="display" code="Zurich">🚆</button> 前往瑞士蓮巧克力之家
+### <button caption="交通路線圖" action='show' code="Zurich">🚆</button> 前往瑞士蓮巧克力之家
 * <span class='time'>10:30 - 11:30</span> 搭乘 Tram 11 電車至 Bürkliplatz
 * <span class='time'>11:30 - 12:15</span> <a href='https://www.zsg.ch/en/'>ZSG Ferry</a>
 	* 登船與啟航： 在 Bürkliplatz 碼頭登船（持一日券配合半價卡可直接上船）。
@@ -528,7 +555,7 @@ graph TB
 ### 🚩 <a href='https://www.lindt-home-of-chocolate.com/en/'>瑞士蓮巧克力之家</a>
 * 巧克力感官之旅： 參觀博物館、看巨大噴泉、買伴手禮。館內沙發區很多，累了隨時可以坐下。
 
-### <button caption="交通路線圖" action="display" code="Zurich">🚆</button> 賦歸
+### <button caption="交通路線圖" action='show' code="Zurich">🚆</button> 賦歸
 * <span class='time'>15:00 - 16:00</span> <a href='https://www.zsg.ch/en/'>ZSG Ferry</a>
 	* 原路慢步回 Kilchberg 碼頭。
 	* 搭船回到 Bürkliplatz，剛好可以看傍晚的湖景。
@@ -579,7 +606,7 @@ graph TB
 <section ks='20260217' xlang='markdown'><!--{{{-->
 ## 2026/2/17 (TUE) 🎂 生日紀念：大教堂與軌道情懷
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> 前往 <span action='speak,de'>Duomo</span> 米蘭大教堂
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 前往 <span action='speak,de'>Duomo</span> 米蘭大教堂
 * 下載 **ATM Milano App** 購買一張 **48 小時交通票** (€13)
 * 搭乘 M1 從 Turro 到 Duomo 站。
 
@@ -597,7 +624,7 @@ graph TB
 * KIKO Milano 特別優惠： 結帳時可以告知店員當天是您的生日，有時他們會有額外的小禮物或折扣。
 * 買完後，轉個身步行不到 1 分鐘就是 Cordusio M1 地鐵站入口。
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> 懷舊路面電車
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 懷舊路面電車
 * 在 Cordusio 站牌搭乘 1 號路面電車 (Tram 1) 往 Roserio 方向。
 * 體驗： 這種 1928 年型電車有著精美的木製內裝與燈飾。
 * 這條路線會經過 斯卡拉大劇院、布雷拉藝術區 邊緣。
@@ -607,24 +634,24 @@ graph TB
 * 您可以下車散步、拍照，在 Sempione 公園坐著休息，享受愜意的午後。
 * 這段路的地景開闊，非常適合生日留影。
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> 前往 Cadorna
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 前往 Cadorna
 * 在和平門原站點搭乘 1 號電車 前往 Cadorna。
 
 ### 🚩 Milan Cadorna 前往機場的轉運站
 * 確認前往機場的 Malpensa Express 的搭乘方式
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> 賦歸
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 賦歸
 * 搭乘 M1 地鐵返回 Turro
 </section><!--}}}-->
 
 <section ks='20260218' xlang='markdown'><!--{{{-->
 ## 2026/2/18 (WED) 時尚洗禮、壓軸購物
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> 前往 <span action='speak,de'>Milano Centrale</span>
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 前往 <span action='speak,de'>Milano Centrale</span>
 * 從 Turro 搭乘 M1 往 Rho Fiera/Bisceglie 方向
 * 在 Loreto 站轉乘 M2 (綠線) 往 Assago/Abbiategrasso 方向
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> 前往 <span action='speak,de'>Garibaldi FS</span>
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 前往 <span action='speak,de'>Garibaldi FS</span>
 * 從 Centrale FS 繼續搭乘 M2 (綠線)，僅需 2 站即可抵達 Garibaldi FS。
 
 ### 🚩 10 Corso Como (文創地景)
@@ -632,7 +659,7 @@ graph TB
 * 步行約 5-8 分鐘抵達 10 Corso Como。
 * 這是一座結合了設計、藝術與植栽的隱世花園，非常符合您對文創地景的喜好。
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> 前往 <span action='speak,de'>Loreto</span>
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 前往 <span action='speak,de'>Loreto</span>
 * 從 Garibaldi FS 搭乘 M2 (綠線) 返回 Loreto
  
 ### 🛒 Corso Buenos Aires
@@ -640,7 +667,7 @@ graph TB
 * 這條街上有許多平價品牌，如 Flying Tiger Copenhagen (趣味雜貨)、Nike、以及各式義大利本土服飾與藥妝店。
 * 這裡的生活感很強，適合在回飯店前補齊伴手禮或日用品。
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> 賦歸
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 賦歸
 * 搭乘 M1 地鐵返回 Turro
 </section><!--}}}-->
 
@@ -649,10 +676,10 @@ graph TB
 
 ### 🏠 10點前 **退房**
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> Turro &lt; <span action='speak,de'>Milano Cadorna</span>
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> Turro &lt; <span action='speak,de'>Milano Cadorna</span>
 * <span class='time'>&lt;7:10</span> 搭乘 M1 紅線，車程約 18 分鐘
 
-### <button caption="交通路線圖" action="display" code="Milan">🚆</button> <span action='speak,it'>Milano Cadorna</span> &lt; <span action='speak,de'>Malpensa Aeroporto</span>
+### <button caption="交通路線圖" action='show' code="Milan">🚆</button> <span action='speak,it'>Milano Cadorna</span> &lt; <span action='speak,de'>Malpensa Aeroporto</span>
 * 緩衝時間：我特別為您空出了 近 30 分鐘 的時間。
 * 購票建議：建議提前在官網或 App 買好 <span action='speak,en'>Malpensa Express</span> 車票，或在站內自動販票機購買，減少排隊壓力。
 * 車站設施：<span action='speak,it'>Cadorna</span> 站與機場車站均設有完善的電梯設施。若需尋找電梯位置，可留意標示為「<span action='speak,it'>Ascensore</span>」的標牌。
