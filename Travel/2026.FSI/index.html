@@ -5,8 +5,8 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <base target='_blank'/>
 <title>法瑞義 2026 實戰工具書</title>
-<script plugins='TeX' src='https://porshenlai.github.io/App/slide.js'></script>
-<!--script plugins='TeX' src='/App/slide.js'></script-->
+<!--script plugins='TeX' src='https://porshenlai.github.io/App/slide.js'></script-->
+<script plugins='TeX' src='/App/slide.js'></script>
 </head>
 <body>
 
@@ -229,9 +229,101 @@ graph TB
 	<div>[場景] 在 Monoprix 買零食</div>
 	<div>我想要這個，謝謝</div>
 	<div action="speak,fr">🔈
-		Je <span lt="v" zh="想要" en="would like">voudrais</span>
-		<span lt="n" zh="這個" en="this">ceci</span>,
-		<span lt="n" zh="謝謝" en="thank you">merci</span>.
+		Je <span x="V-想要;would like">voudrais</span>
+		<span x="N-這個;this">ceci</span>,
+		<span x="N-謝謝;thank you">merci</span>.
+	</div>
+</div>
+<!--}}}-->
+<!--{{{-->
+<div RID='C:DE' style='padding:8px;'>
+	<h3>在巴塞爾轉乘 SBB</h3>
+	<div>請問去圖恩的火車在哪個月台？</div>
+	<div>Which platform for the train to Thun ?</div>
+	<div action="speak,de">🔈
+		<span x="哪個月台;Which platform">
+			Welches <span x="N-月台;platform">Gleis</span>
+		</span>
+		<span x="給火車;for the train">
+			für den <span x="N-火車;train">Zug</span>
+		</span>
+		<span x="往圖恩;towards Thun">
+			nach <span x="N-圖恩;Thun">Thun</span>
+		</span>
+		<span x="出發;departs">
+			<span x="V-出發;departs">fährt</span> ab?
+		</span>
+	</div>
+	<hr/>
+	<div>我的陪同者有折扣嗎？</div>
+	<div>Is there a discount for my companion ?</div>
+	<div action="speak,de">🔈
+		<span x="有一份折扣嗎;Is there a discount">
+			Gibt es eine <span x="N-折扣;discount">Ermässigung</span>
+		</span>
+		<span x="為了我的;for my">
+			für meine
+		</span>
+		<span x="陪同者;companion">
+			<span x="N-陪同者;companion">Begleitperson</span>?
+		</span>
+	</div>
+	<h3>買票</h3>
+	<div>我可以用半價卡買110和150區的票嗎？</div>
+	<div>Can I buy a ticket for zones 110 and 150 with Half Fare ?</div>
+	<div action="speak,de">🔈
+		<span x="我想要;I would like">
+			Ich <span x="V-想要;would like">möchte</span>
+		</span>
+		<span x="一張票;a ticket">
+			eine <span x="N-票;ticket">Tageskarte</span>
+		</span>
+		<span x="給區域;for zones">
+			für die <span x="110和150區;Zones 110 & 150">Zonen 110 und 150</span>
+		</span>
+		<span x="使用半價;with half fare">
+			mit <span x="N-半價;half fare">Halbtax</span>
+		</span>
+	</div>
+	<h3>詢問無障礙車廂</h3>
+	<div action="speak,de">🔈
+		Wo <span x="V-是;is">ist</span>
+		der <span x="N-無障礙;accessible">barrierefreie</span>
+		<span x="N-車廂;carriage">Wagon</span> ?
+	</div>
+	<h3>飯店辦理入住</h3>
+	<div action="speak,de">🔈
+		Ich <span x="V-想要;would like">möchte</span>
+		<span x="V-辦理入住;check in">einchecken</span>,
+		ich <span x="V-有;have">habe</span>
+		eine <span x="N-訂房;reservation">Reservierung</span>.
+	</div>
+	<h3>在瑞士超市尋找物品</h3>
+	<div action="speak,de">🔈
+		Wo <span x="V-可以找到;can find">finde</span>
+		ich <span x="N-水;water">Wasser</span>
+		und <span x="N-麵包;bread">Brot</span>?
+	</div>
+</div>
+<!--}}}-->
+<!--{{{-->
+<div RID='C:IT' style='padding:8px;'>
+	<h3>米蘭大教堂</h3>
+	<div>請問大教堂登頂的電梯在哪裡？</div>
+	<div>Where is the elevator for the Cathedral rooftop ?</div>
+	<div action="speak,it">🔈
+		<span x="在哪裡是;Where is">
+			<span x="V-在哪裡;Where">Dove</span> è
+		</span>
+		<span x="電梯;the elevator">
+			l'<span x="N-電梯;elevator">ascensore</span>
+		</span>
+		<span x="為了樓頂;for the rooftop">
+			per le <span x="N-露台/樓頂;terraces">terrazze</span>
+		</span>
+		<span x="大教堂的;of the Cathedral">
+			del <span x="N-大教堂;Cathedral">Duomo</span> ?
+		</span>
 	</div>
 </div>
 <!--}}}-->
@@ -483,7 +575,7 @@ graph TB
 ### 🏠 8:30 - 10:00 **退房**
 
 ### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 埃爾蒙 &gt; 里昂車站
-* <button action='show' code='C:FR' caption='找月臺'>💬 法文對話</button>
+* <button action='show' code='C:FR' caption='法文會話'>💬 法文會話</button>
 
 ### 🚆 法國 &gt; 瑞士
 * **車班** : <span action='speak,fr'>TGV Lyria</span>
@@ -495,6 +587,7 @@ graph TB
 * **Marktplatz**: 步行 10 分鐘觀賞紅色市政廳。
 * 在車站附近的 **Schweizerhof** 喝茶。
 * 若體力許可，搭路面電車 5 分鐘可看萊茵河景。
+* <button action='show' code='C:DE' caption='德文會話'>💬 德文對話</button>
 
 ### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 巴賽爾 &gt; 圖恩
 * <a href='https://www.sbb.ch/en/'>SBB</a>
@@ -668,6 +761,7 @@ graph TB
 * <span class='time'>14:08</span> 搭乘 **RE8**
 	* <span action='speak,it'>Tirano</span> ➔ <span action='speak,it'>Milano Centrale</span>
 	* **時刻表**: [Trenitalia](https://www.trenitalia.com/en.html)
+	* <button action='show' code='C:IT' caption='義大利文會話'>💬 義大利文會話</button>
 * <span class='time'>16:24</span> 在 **<span action='speak,it'>Sesto San Giovanni</span>** 站下車
 	* 不要坐到終點站中央車站
 * 轉乘 **M1**
