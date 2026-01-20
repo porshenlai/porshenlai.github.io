@@ -558,6 +558,7 @@ button:hover {border-color:#90a4ae;}
 			
 		const de=document.createElement("div");
 		de.appendChild(document.createElement("div"));
+		de.firstChild.style.overflow="auto";
 
 		switch (lang) {
 		case 'mermaid':
@@ -593,7 +594,7 @@ button:hover {border-color:#90a4ae;}
 		let e,text;
 		for(e=event.target;e!==te&&(!e.hasAttribute('x'));e=e.parentNode);
 		text=e.getAttribute('text') || e.textContent;
-		text=text.replace('🔈','').split(/\s+/).filter((v)=>v).join(' ');
+		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
 			utterance.lang = lang; // 根據語言代碼設定發音引擎
