@@ -461,7 +461,7 @@ button:hover {border-color:#90a4ae;}
 		content.addEventListener('click', (evt) => {
 			for (let e=evt.target; e!==content; e=e.parentNode){
 				if (e.hasAttribute('action')) {
-					this.handleAction(e);
+					this.handleAction(e,evt);
 					evt.stopPropagation();
 					evt.preventDefault();
 					break;
@@ -548,7 +548,7 @@ button:hover {border-color:#90a4ae;}
 		if (code) {
 			if (!lang) {
 				lang=document.body.querySelector(`[RID="${code}"]`);
-				code=lang.value;
+				code=lang.value || lang.cloneNode(true); 
 				lang=lang.getAttribute('lang');
 			}
 		} else {
@@ -570,7 +570,9 @@ button:hover {border-color:#90a4ae;}
 		case 'photo':
 			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${code}' style='object-fit:contain;width:100%;height:100%;'/></div>`
 			break;
-		default: return;
+		default:
+			if (code.nodeType===1) de.firstChild.appendChild(code); else return;
+			break;
 		}
 
 		de.setAttribute('caption',e.getAttribute('caption')||"");
@@ -586,14 +588,19 @@ button:hover {border-color:#90a4ae;}
 		return this.Aside.open(de);
 	}	// }}}
 
-	speak (e,lang='en')
+	speak (te,lang='en')
 	{	// {{{
-		const text=e.getAttribute('text') || e.textContent;
+		let e,text;
+		for(e=event.target;e!==te&&(!e.hasAttribute('x'));e=e.parentNode);
+		text=e.getAttribute('text') || e.textContent;
+		text=text.replace('🔈','').split(/\s+/).filter((v)=>v).join(' ');
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
 			utterance.lang = lang; // 根據語言代碼設定發音引擎
 			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
 			speechSynthesis.speak (utterance);
+			if (e.hasAttribute('x'))
+				alert(e.getAttribute('x').replace(/;/,'\n')+'\n'+text);
         } else alert('您的瀏覽器不支援 Speech Synthesis API。');
     }	// }}}
 
