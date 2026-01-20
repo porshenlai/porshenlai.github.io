@@ -157,6 +157,7 @@ graph TB
 <!--}}}-->
 <!--{{{-->
 <div RID='C:FR' style='padding:8px;'>
+	<div>[場景] 2/9 在碼頭櫃檯出示英文證明購買 Batobus 身障優惠票</div>
 	<div>憑這張殘障手冊可以買一張優惠票嗎？</div>
 	<div>Can I have a reduced price ticket with this disability card ?</div>
 	<div action='speak,fr'>🔈
@@ -191,6 +192,7 @@ graph TB
 		</span>
 	</div>
 	<hr/>
+	<div>[場景] 2/10 在里昂車站尋找 TGV Lyria 月台</div>
 	<div>請問前往瑞士的 TGV Lyria 在哪個月台搭乘？</div>
 	<div>Which platform does the TGV Lyria to Switzerland depart from ?</div>
 	<div action="speak,fr">🔈
@@ -206,6 +208,30 @@ graph TB
 		<span x="出發;departs">
 			🔈<span x="V-出發;depart">part</span>-il ?
 		</span>
+	</div>
+	<hr/>
+	<div>[場景] 尋找電梯 (帶行李時)</div>
+	<div>是往月台的電梯嗎？</div>
+	<div action="speak,fr">🔈
+		Où <span x='V-是;is'>est</span>
+		l'<span x='N-電梯;elevator'>ascenseur</span>
+		pour le <span x='N-月台;platform'>quai</span> ?
+	</div>
+	<hr/> 
+	<div>[場景] 上車前再次確認這班 Line H 或 RER C 是否開往巴黎市中心</div>
+	<div>這是去巴黎北站的火車嗎？</div>
+	<div action='speak,fr'>🔈
+		Ce <span x='N-火車;train'>train</span>
+		<span x='V-去;goes'>va</span>-t-il
+		à <span x='N-巴黎北站;Gare du Nord'>Gare du Nord</span> ?
+	</div>
+	<hr/> 
+	<div>[場景] 在 Monoprix 買零食</div>
+	<div>我想要這個，謝謝</div>
+	<div action="speak,fr">🔈
+		Je <span lt="v" zh="想要" en="would like">voudrais</span>
+		<span lt="n" zh="這個" en="this">ceci</span>,
+		<span lt="n" zh="謝謝" en="thank you">merci</span>.
 	</div>
 </div>
 <!--}}}-->
@@ -457,13 +483,12 @@ graph TB
 ### 🏠 8:30 - 10:00 **退房**
 
 ### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 埃爾蒙 &gt; 里昂車站
+* <button action='show' code='C:FR' caption='找月臺'>💬 法文對話</button>
 
 ### 🚆 法國 &gt; 瑞士
 * **車班** : <span action='speak,fr'>TGV Lyria</span>
 * **起** : <span action='speak,fr'>Paris Gare de Lyon</span> 巴黎里昂車站
 * **迄** : <span action='speak,de'>Basel</span> 巴賽爾
-
-* <button action='show' code='C:FR' caption='找月臺'>💬</button>
 
 ### 🚩 巴賽爾 <span action='speak,fr'>Basel</span>
 * 車站本身是歷史與現代融合的典範，具備著名的玻璃天橋。

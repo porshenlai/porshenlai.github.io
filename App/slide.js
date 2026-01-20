@@ -559,6 +559,7 @@ button:hover {border-color:#90a4ae;}
 		const de=document.createElement("div");
 		de.appendChild(document.createElement("div"));
 		de.firstChild.style.overflow="auto";
+		de.firstChild.style.width=de.firstChild.style.height="100%";
 
 		switch (lang) {
 		case 'mermaid':
