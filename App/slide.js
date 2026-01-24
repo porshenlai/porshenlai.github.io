@@ -48,12 +48,9 @@ class sw {
 }	// }}}
 
 const Plugins={
-	"TeX":async function (slide) { // {{{
-		let r = await loadScript(jsPrefix+'TeX.js');
-		for (let s of Array.from(slide.Content.querySelectorAll('section')))
-			await r.resolve(s);
-		return r;
-	}, // }}}
+	"TeX":async function (slide) {
+		return await loadScript(jsPrefix+'TeX.js');
+	},
 	"tab":async function (slide) { // {{{
 		const es=Array.from(document.body.querySelectorAll('#content .tab'));
 		if (es.length<=0)
@@ -212,11 +209,11 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 			E.setAttribute('style','display:none;flex-flow:column nowrap;position:absolute;left:5%;top:5%;right:5%;bottom:5%;overflow:hidden;');
 			E.innerHTML=`
 <div UID='Caption' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
-<div UID='View' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;border-radius:6px;overflow:hidden;'></div>
+<section style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
 `;
 			this.Overlay.appendChild(E);
 			E.appendChild(E.Caption=E.querySelector('[UID="Caption"]'));
-			E.appendChild(E.View=E.querySelector('[UID="View"]'));
+			E.appendChild(E.View=E.querySelector('section'));
 			E.View.addEventListener('click',(evt)=>{
 				evt.stopPropagation();
 				evt.preventDefault();
@@ -241,14 +238,15 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 		const tl=this.E.querySelector('[tab="toc"]>ol');
 		Array.from(content.querySelectorAll('section'))
 		.forEach((sec, idx) => {
-			const h = sec.querySelector('h1') || sec.querySelector('h2');
-			if (h) {
-				const title = h.textContent.trim();
+			let t=sec.getAttribute("title") || sec.querySelector('h1') || sec.querySelector('h2');
+			if (t) {
+				if (t.nodeType===1)
+					t=t.textContent.trim();
 				const li = document.createElement('li');
 				while (li.firstChild) li.removeChild(li.firstChild);
 				const a = document.createElement('a');
 				//a.href = '#' + sec.getAttribute('SID');
-				a.textContent = title;
+				a.textContent = t;
 				a.dataset.sid = sec.getAttribute('SID');
 				li.appendChild(a);
 				tl.appendChild(li);
@@ -470,6 +468,16 @@ button:hover {border-color:#90a4ae;}
 			}
 		});
 
+		content.addEventListener('change', (evt) => {
+			for (let e=evt.target; e!==content; e=e.parentNode){
+				if (e.hasAttribute('action')) {
+					this.handleAction(e,evt);
+					evt.stopPropagation();
+					break;
+				}
+			}
+		});
+
 		content.addEventListener('scrollend', (evt) => { // auto activate page when current slide out of viewport
 			let s,x=this.Content.getBoundingClientRect().height/3;
 			for (s=this.Content.firstChild; s; s=s.nextSibling) if(s.nodeType===1) {
@@ -504,6 +512,7 @@ button:hover {border-color:#90a4ae;}
 			// Update current section class tag
 			Array.from(section.parentNode.querySelectorAll('.current-section')).forEach((s)=>s.classList.remove('current-section'));
 			section.classList.add('current-section');
+			this.Plugins.TeX.resolve(section).then(console.log,console.log);
 			if (this.Aside) this.Aside.update(parseInt(section.getAttribute('SID')), section.parentNode.PageCounts);
 			// Update URL hash and scroll into view
 			if (history.replaceState)
@@ -522,6 +531,26 @@ button:hover {border-color:#90a4ae;}
 		//if ((eb.top+50>this.Content.clientHeight)||(eb.top+eb.height<50))
 	}	// }}}
 
+	set (name, value)
+	{	// set/unset parameters {{{
+		switch (name) {
+		case 'pagemode':
+			this.Content.setAttribute("playmode",value ? "page" : "continuous");
+		}
+	}	// }}}
+
+	regEventHook (cat, name, handler)
+	{	// (un)schedule a tick callback {{{
+		let eh=this.EventHook[cat]||(this.EventHook[cat]={});
+		if(handler) eh[name]=handler;
+		else delete eh[name];
+	}	// }}}
+
+	async install (name, handler)
+	{	// install page plugin {{{
+		this.Plugins[name]=await Promise.resolve(handler(this));
+	}	// }}}
+
 	applyFontSize (scale)
 	{	// apply font size {{{
 		const DEFAULT_FONT_SIZE=((w,h)=>w>h ? Math.floor(h/26) : Math.floor(w/30))(window.innerWidth,window.innerHeight);
@@ -535,6 +564,7 @@ button:hover {border-color:#90a4ae;}
 
 	handleAction (e)
 	{ // {{{
+		console.log("handleAction-",e);
 		(e.getAttribute('action')||"").split(";").forEach((a)=>{
 			a=(a||"").split(',');
 			const cmd=a[0]; a[0]=e;
@@ -542,9 +572,43 @@ button:hover {border-color:#90a4ae;}
 		});
 	}	// }}}
 
-	async show (e, text)
-	{	// {{{
-		let lang=e.getAttribute('lang'), code=e.getAttribute('code');
+	tab (e, name='tab', cls='hide')
+	{ // <select action='tab,tab,hide'> {{{
+		const key=e.value;
+		let se=this.Content;
+		for (se=e;se&&se.tagName!=='SECTION';se=se.parentNode);
+		for (let te of Array.from(se.querySelectorAll(`[${name}]`)))
+			te.classList[te.getAttribute(name)===key ? 'remove' : 'add'](cls);
+	} // }}}
+
+	speak (te, lang='en')
+	{	// <span action='speak,fr'>bonjour</span> {{{
+		let e,text;
+		for(e=event.target;e!==te&&(!e.hasAttribute('x'));e=e.parentNode);
+		text=e.getAttribute('text') || e.textContent;
+		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
+		if ('speechSynthesis' in window) {
+			const utterance = new SpeechSynthesisUtterance(text);
+			utterance.lang = lang; // 根據語言代碼設定發音引擎
+			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
+			speechSynthesis.speak (utterance);
+			if (e.getAttribute('x'))
+				alert(e.getAttribute('x').replace(/;/,'\n')+'\n'+text);
+        } else alert('您的瀏覽器不支援 Speech Synthesis API。');
+    }	// }}}
+
+	goto (e, key)
+	{	// <button action='goto,keyword'> {{{
+		let ts=this.Content.querySelector(`section[ks~="${key}"]`);
+		console.assert(ts,'goto() => target not found');
+		if (ts) this.activate(ts,true);
+	}	// }}}
+
+	async show (e, code)
+	{	// <button action='show,RID_Key'> {{{
+		//console.log(this.Plugins.TeX.resolve());
+		let lang=e.getAttribute('lang');
+		if (!code) code=e.getAttribute('code');
 		if (code) {
 			if (!lang) {
 				lang=document.body.querySelector(`[RID="${code}"]`);
@@ -588,49 +652,6 @@ button:hover {border-color:#90a4ae;}
 			}
 		});
 		return this.Aside.open(de);
-	}	// }}}
-
-	speak (te,lang='en')
-	{	// {{{
-		let e,text;
-		for(e=event.target;e!==te&&(!e.hasAttribute('x'));e=e.parentNode);
-		text=e.getAttribute('text') || e.textContent;
-		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
-		if ('speechSynthesis' in window) {
-			const utterance = new SpeechSynthesisUtterance(text);
-			utterance.lang = lang; // 根據語言代碼設定發音引擎
-			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
-			speechSynthesis.speak (utterance);
-			if (e.hasAttribute('x'))
-				alert(e.getAttribute('x').replace(/;/,'\n')+'\n'+text);
-        } else alert('您的瀏覽器不支援 Speech Synthesis API。');
-    }	// }}}
-
-	goto (e,key)
-	{	// {{{
-		let ts=this.Content.querySelector(`section[ks~="${key}"]`);
-		console.assert(ts,'goto() => target not found');
-		if (ts) this.activate(ts,true);
-	}	// }}}
-
-	set (name, value)
-	{	// set/unset parameters {{{
-		switch (name) {
-		case 'pagemode':
-			this.Content.setAttribute("playmode",value ? "page" : "continuous");
-		}
-	}	// }}}
-
-	regEventHook (cat, name, handler)
-	{	// (un)schedule a tick callback {{{
-		let eh=this.EventHook[cat]||(this.EventHook[cat]={});
-		if(handler) eh[name]=handler;
-		else delete eh[name];
-	}	// }}}
-
-	async install (name, handler)
-	{	// install page plugin {{{
-		this.Plugins[name]=await Promise.resolve(handler(this));
 	}	// }}}
 }
 

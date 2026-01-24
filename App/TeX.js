@@ -34,7 +34,14 @@
 					await this.renderMarkdown(cw,cw.getAttribute('markdown')||cw.innerHTML);
 					break;
 				case 'mermaid':
-					await this.renderMermaid(cw,cw.getAttribute('mermaid')||cw.innerHTML);
+					if (cw.tagName==="TEXTAREA") {
+						let ncw=document.createElement("div");
+						ncw.editor=cw;
+						cw.parentNode.insertBefore(ncw,cw);
+						await this.renderMermaid(ncw,cw.value);
+						cw.parentNode.removeChild(cw);
+					} else
+						await this.renderMermaid(cw,cw.getAttribute('mermaid')||cw.innerHTML);
 					break;
 				}
 				cw.removeAttribute(LANGTAG);
@@ -64,6 +71,7 @@
 					mermaid.initialize({ startOnLoad: false, theme: 'default' });
 				}); // https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
 			await this.DiagramInit;
+			console.log("DEBUG=====>",cw,lang);
 			if (lang)
 				cw.innerHTML=(await mermaid.render('graphDiv',lang)).svg;
 			else {

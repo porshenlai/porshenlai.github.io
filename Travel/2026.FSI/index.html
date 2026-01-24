@@ -5,334 +5,20 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <base target='_blank'/>
 <title>2026 法瑞義 實戰工具書</title>
-<script plugins='TeX' src='https://porshenlai.github.io/App/slide.js'></script>
-<!--script plugins='TeX' src='/App/slide.js'></script-->
+<!--script plugins='TeX' src='https://porshenlai.github.io/App/slide.js'></script-->
+<script plugins='TeX' src='../../App/slide.js'></script>
 </head>
 <body>
 
-<div class='hide'>
-<!--{{{-->
-<textarea RID='Paris' lang='mermaid'>
-graph TB
-	HA[奧維爾<div action='speak,fr'>Auvers-sur-Oise</div>]
-	HC[埃爾蒙<div action='speak,fr'>Ermont-Eaubonne</div>]
-	HN[巴黎北站<div action='speak,fr'>Gare du Nord</div>]
-	HC---|Line-H|HN
-	HC---|Line-H|HA
-	%% HC
-	CP[<span action='speak,fr'>Porte de Clichy</span>]
-	CM[馬約門<div action='speak,fr'>Neuilly-Porte Maillot</div>]
-	CC[戰神廣場<div action='speak,fr'>Champ de Mars</div>]
-	CV[凡爾賽宮<div action='speak,fr' style='white-space:nowrap'>Versailles Château Rive Gauche</div>]
-	CS[<span action='speak,fr'>Saint-Martin dÉtampes</span>]
-	HC---|RER-C|CP
-	CP===|RER-C,T3b|CM
-	CM---|RER-C|CC
-	CC---|RER-C|CV
-	CC---|RER-C|CS
-	%% HN
-	M4C[<span action='speak,fr'>Châtelet</span> 沙特雷]
-	M4I[聖母院<br/><span action='speak,fr'>Île de la Cité</span>]
-	M4S[聖日耳曼德佩<div action='speak,fr'>Saint-Germain-des-Prés</div>]
-	HN---|M4|M4C
-	M4C---|M4|M4I
-	M4I===|M4,散策|M4S
-	%% HN
-	DL[里昂車站<br/><span action='speak,fr'>Gare de Lyon</span>]
-	DL---|RER-D <span action='speak,fr'>Creil</span>/<span action='speak,fr'>Orry-la-Ville</span>|HN
-	M4C---|M14|DL
-	BC[凱旋門<br/><span action='speak,fr'>Charles de Gaulle – Étoile</span>]
-	BL[[羅浮宮<br/><span action='speak,fr'>Louvre-Rivoli</span>]]
-	BP[[協和廣場<br/><span action='speak,fr'>Place de la Concorde</span>]]
-	BE[[艾菲爾鐵塔<br/>Tour Eiffel]]
-	BP---|Batobus|BE
-	BP---|Batobus|BL
-	BE---|Batobus|BL
-	M4C---|M1|BC
-	BL---|M1|CM
-	BC-.-|散策|BP
-	BE-.-|散策|CC
-
-	style HC fill:#000,color:yellow;
-	style HA fill:#ffd;
-	classDef S0206 fill:#fee;
-	classDef S0207 fill:#efe;
-	classDef S0209 fill:#def;
-	class M4I,M4S,DL S0206;
-	class CC,CV,CP,CM S0207;
-	class BC,BL,BP,BE S0209;
-</textarea>
-<!--}}}-->
-<!--{{{-->
-<textarea RID='Thun' lang='mermaid'>
-graph TB
-	Basel[<span action='speak,de'>Basel</span> 巴塞爾]
-	Bern[<span action='speak,de'>Bern</span> 伯恩]
-	Thun[<span action='speak,de'>Thun</span> 圖恩]
-	Zurich[<span action='speak,de'>Zürich,HB</span> 蘇黎世]
-	Basel---|IC6/ICE|Bern
-	Bern---|IC6/ICE/IC8/IC81|Thun
-	Bern---|IC8/IC81|Zurich
-
-	IO[<span action='speak,de'>Interlaken Ost</span>]
-	GT(<span action='speak,de'>Grindelwald Terminal</span>)
-	EG(<span action='speak,de'>Eigergletscher</span>)
-	JFJ[<span action='speak,de'>Jungfraujoch</span> 少女峰頂]
-	KS(<span action='speak,de'>Kleine Scheidegg</span>)
-	LB(<span action='speak,de'>Lauterbrunnen</span>)
-	Thun <-->|SBB| IO
-	IO ---|BOB| GT
-	GT ---|Eiger Express 纜車| EG
-	EG ---|JB| JFJ
-	JFJ ---|JB| KS
-	KS ---|WAB| LB
-	LB ---|BOB| IO
-
-	RG[玫瑰花園/最高點]
-	Bear[熊公園/河邊]
-	Bell[鐘樓/平地拱廊]
-	Bern ---|Bus 10| RG
-	RG ---|Bus 10| Bear
-	Bear ---|Bus 12| Bell
-	Bell ---|Walk| Bern
-
-	ZB[<span action="speak,de">Zürich, Bahnhofplatz</span>]
-	GZ[<span action='speak,de'>Glattbrugg, Zentrum</span>]
-	Zurich ---|Walk|ZB
-	ZB ---|Tram 11|GZ
-</textarea>
-<!--}}}-->
-<!--{{{-->
-<textarea RID="Zurich" lang='mermaid'>
-graph TB
-	AL[<span action="speak,de">Amanthos Living</span> 飯店]
-	GZ[<span action="speak,de">Glattbrugg, Zentrum</span> 站]
-	Opf[<span action="speak,de">Opfikon</span> 地鐵站]
-	Aug[<span action="speak,de">Augustinergasse</span> 奧古斯丁巷<br/><span action="speak,de">Paradeplatz</span> 閱兵廣場]
-	Fra[<span action="speak,de">Fraumünster</span> 聖母大教堂]
-	Bur[<span action="speak,de">Bürkliplatz</span> 湖畔碼頭]
-	Kil[<span action="speak,de">Kilchberg</span> 碼頭]
-	Lindt[<span action="speak,de">Lindt home of chocolate</span> 巧克力之家]
-	ZHB[<span action="speak,de">Zurich HB</span>蘇黎世總站]
-
-	AL ---|350m| GZ
-	GZ ---|Tram 11| Aug
-	Aug ---|5min| Fra
-	Fra ---|3min| Bur
-	Bur ---|Tram 11| GZ
-
-	AL ---|8min| Opf
-	Opf ---|S7| ZHB
-	ZHB ---|Tram 11| Bur
-
-	Bur ---|Ferry ZSG| Kil
-	Kil ---|15min| Lindt
-</textarea>
-<!--}}}-->
-<!--{{{-->
-<textarea RID="Milan" lang='mermaid'>
-graph TB
-	Turro[<span action="speak,it">Turro</span> M1]
-	Duomo[<span action="speak,it">Duomo</span>]
-	Cordusio[<span action="speak,it">Cordusio</span>]
-	ADP[<span action="speak,it">Arco della Pace</span> 和平門]
-	Turro ---|M1| Duomo
-	Duomo ---|散策| Cordusio
-	Cordusio ---|Tram 1| ADP
-	ADP ---|Tram 1| MC
-
-	Loreto[<span action="speak,it">Loreto</span>]
-	CFS[<span action="speak,it">Centrale FS</span>]
-	GFS[<span action="speak,it">Garibaldi FS</span>]
-	Turro ---|M1| Loreto
-	Loreto ---|M2| CFS
-	CFS ---|M2| GFS
-	GFS ---|M2| Loreto
-
-	MC[<span action='speak,it'>Milan Cadorna</span>]
-	MXP[<span action='speak,it'>Malpensa Aeroporto</span>]
-	Turro ---|M1| MC
-	MC ---|MXP1|MXP
-</textarea>
-<!--}}}-->
-<!--{{{-->
-<div RID='C:FR' style='padding:8px;'>
-	<div>[場景] 2/9 在碼頭櫃檯出示英文證明購買 Batobus 身障優惠票</div>
-	<div>憑這張殘障手冊可以買一張優惠票嗎？</div>
-	<div>Can I have a reduced price ticket with this disability card ?</div>
-	<div action='speak,fr'>🔈
-		<span x='一張票;A ticket'>
-			🔈Un <span x='N-票;ticket'>billet</span>
-		</span>
-		<span x='以優惠價;at a reduced rate'>
-			🔈à <span x='N-優惠價;reduced rate'>tarif réduit</span>
-		</span>
-		<span x='憑這張卡;with this card'>
-			🔈avec cette <span x='N-手冊;card'>carte d'invalidité</span>,
-		</span>
-		<span x='請;please'>
-			🔈s'il vous <span x='V-請;please'>plaît</span>.
-		</span>
-	</div>
-	<hr/>
-	<div>你好，我想要辦理入住，我有預約。</div>
-	<div>Hello, I would like to check in, I have a reservation.</div>
-	<div action="speak,fr">🔈
-		<span x="我想要;I would like">
-			🔈Ich <span x="V-想要;would like">möchte</span>
-		</span>
-		<span x="辦理入住;to check in">
-			🔈<span x="V-辦理入住;check in">einchecken</span>,
-		</span>
-		<span x="我有;I have">
-			🔈ich <span x="V-有;have">habe</span>
-		</span>
-		<span x="一個預約;a reservation">
-			🔈eine <span x="N-預約;reservation">Reservierung</span>.
-		</span>
-	</div>
-	<hr/>
-	<div>[場景] 2/10 在里昂車站尋找 TGV Lyria 月台</div>
-	<div>請問前往瑞士的 TGV Lyria 在哪個月台搭乘？</div>
-	<div>Which platform does the TGV Lyria to Switzerland depart from ?</div>
-	<div action="speak,fr">🔈
-		<span x="在哪個月台;On which platform">
-			🔈Quel <span x="N-月台;platform">quai</span>
-		</span>
-		<span x="the TGV Lyria">
-			🔈pour le <span x="TGV Lyria">TGV Lyria</span>
-		</span>
-		<span x="往瑞士;towards Switzerland">
-			🔈vers la <span x="N-瑞士;Switzerland">Suisse</span>
-		</span>
-		<span x="出發;departs">
-			🔈<span x="V-出發;depart">part</span>-il ?
-		</span>
-	</div>
-	<hr/>
-	<div>[場景] 尋找電梯 (帶行李時)</div>
-	<div>是往月台的電梯嗎？</div>
-	<div action="speak,fr">🔈
-		Où <span x='V-是;is'>est</span>
-		l'<span x='N-電梯;elevator'>ascenseur</span>
-		pour le <span x='N-月台;platform'>quai</span> ?
-	</div>
-	<hr/> 
-	<div>[場景] 上車前再次確認這班 Line H 或 RER C 是否開往巴黎市中心</div>
-	<div>這是去巴黎北站的火車嗎？</div>
-	<div action='speak,fr'>🔈
-		Ce <span x='N-火車;train'>train</span>
-		<span x='V-去;goes'>va</span>-t-il
-		à <span x='N-巴黎北站;Gare du Nord'>Gare du Nord</span> ?
-	</div>
-	<hr/> 
-	<div>[場景] 在 Monoprix 買零食</div>
-	<div>我想要這個，謝謝</div>
-	<div action="speak,fr">🔈
-		Je <span x="V-想要;would like">voudrais</span>
-		<span x="N-這個;this">ceci</span>,
-		<span x="N-謝謝;thank you">merci</span>.
-	</div>
-</div>
-<!--}}}-->
-<!--{{{-->
-<div RID='C:DE' style='padding:8px;'>
-	<h3>在巴塞爾轉乘 SBB</h3>
-	<div>請問去圖恩的火車在哪個月台？</div>
-	<div>Which platform for the train to Thun ?</div>
-	<div action="speak,de">🔈
-		<span x="哪個月台;Which platform">
-			Welches <span x="N-月台;platform">Gleis</span>
-		</span>
-		<span x="給火車;for the train">
-			für den <span x="N-火車;train">Zug</span>
-		</span>
-		<span x="往圖恩;towards Thun">
-			nach <span x="N-圖恩;Thun">Thun</span>
-		</span>
-		<span x="出發;departs">
-			<span x="V-出發;departs">fährt</span> ab?
-		</span>
-	</div>
-	<hr/>
-	<div>我的陪同者有折扣嗎？</div>
-	<div>Is there a discount for my companion ?</div>
-	<div action="speak,de">🔈
-		<span x="有一份折扣嗎;Is there a discount">
-			Gibt es eine <span x="N-折扣;discount">Ermässigung</span>
-		</span>
-		<span x="為了我的;for my">
-			für meine
-		</span>
-		<span x="陪同者;companion">
-			<span x="N-陪同者;companion">Begleitperson</span>?
-		</span>
-	</div>
-	<h3>買票</h3>
-	<div>我可以用半價卡買110和150區的票嗎？</div>
-	<div>Can I buy a ticket for zones 110 and 150 with Half Fare ?</div>
-	<div action="speak,de">🔈
-		<span x="我想要;I would like">
-			Ich <span x="V-想要;would like">möchte</span>
-		</span>
-		<span x="一張票;a ticket">
-			eine <span x="N-票;ticket">Tageskarte</span>
-		</span>
-		<span x="給區域;for zones">
-			für die <span x="110和150區;Zones 110 & 150">Zonen 110 und 150</span>
-		</span>
-		<span x="使用半價;with half fare">
-			mit <span x="N-半價;half fare">Halbtax</span>
-		</span>
-	</div>
-	<h3>詢問無障礙車廂</h3>
-	<div action="speak,de">🔈
-		Wo <span x="V-是;is">ist</span>
-		der <span x="N-無障礙;accessible">barrierefreie</span>
-		<span x="N-車廂;carriage">Wagon</span> ?
-	</div>
-	<h3>飯店辦理入住</h3>
-	<div action="speak,de">🔈
-		Ich <span x="V-想要;would like">möchte</span>
-		<span x="V-辦理入住;check in">einchecken</span>,
-		ich <span x="V-有;have">habe</span>
-		eine <span x="N-訂房;reservation">Reservierung</span>.
-	</div>
-	<h3>在瑞士超市尋找物品</h3>
-	<div action="speak,de">🔈
-		Wo <span x="V-可以找到;can find">finde</span>
-		ich <span x="N-水;water">Wasser</span>
-		und <span x="N-麵包;bread">Brot</span>?
-	</div>
-</div>
-<!--}}}-->
-<!--{{{-->
-<div RID='C:IT' style='padding:8px;'>
-	<h3>米蘭大教堂</h3>
-	<div>請問大教堂登頂的電梯在哪裡？</div>
-	<div>Where is the elevator for the Cathedral rooftop ?</div>
-	<div action="speak,it">🔈
-		<span x="在哪裡是;Where is">
-			<span x="V-在哪裡;Where">Dove</span> è
-		</span>
-		<span x="電梯;the elevator">
-			l'<span x="N-電梯;elevator">ascensore</span>
-		</span>
-		<span x="為了樓頂;for the rooftop">
-			per le <span x="N-露台/樓頂;terraces">terrazze</span>
-		</span>
-		<span x="大教堂的;of the Cathedral">
-			del <span x="N-大教堂;Cathedral">Duomo</span> ?
-		</span>
-	</div>
-</div>
-<!--}}}-->
-</div>
 <style>
 .weekend { border:2px solid red; vertical-align:top; padding:2px 8px; }
 .weekday { border:2px solid black; vertical-align:top; padding:2px 8px; }
 .monday { border:2px solid brown; vertical-align:top; padding:2px 8px; }
 .time { border:1px solid red;color:red; }
+
+.cardbox { display:flex;flex-flow:row wrap;justify-content:space-between; }
+.card { border:2px solid silver;padding:0 8px;border-radius:8px;margin:4px;flex:1 1 auto; }
+.card [action] { border-top:2px solid blue; }
 </style>
 
 <div id='content'>
@@ -385,8 +71,8 @@ graph TB
 	</tr></tbody></table>
 </section><!--}}}-->
 
-<section ks='20260204 Paris' xlang='markdown'><!--{{{-->
-## 2026/2/4 (WED) 啟程
+<section ks='20260204 Paris' xlang='markdown' title='Feb 4: Taiwan to Paris'><!--{{{-->
+<h2>2026/2/4 (WED) 啟程</h2>
 	
 ### ✈ 台北 &gt; BR087 &gt; 巴黎
 
@@ -416,8 +102,159 @@ graph TB
 	* 售票處: <span action='speak,fr'>Billetterie</span> / <span action='speak,fr'>Vente</span>
 </section><!--}}}-->
 
-<section ks='20260205' xlang='markdown'><!--{{{-->
-## 2026/2/5 (THU) 抵達與 <span action='speak,fr'>Ermont</span> 生活體驗
+<section ks='lang FR' RID='C:FR' title='法文'><!--{{{-->
+	<h2>法文會話<select action='tab' style='float:right;font-size:100%;border:0;background:white;'>
+		<option value='hello' selected>打招呼</option>
+		<option value='conversation'>對話</option>
+		<option value='numbers'>數字</option>
+		<option value='direction'>方向</option>
+		<option value='time'>時間</option>
+	</select></h2>
+	<div tab='hello'><div class='cardbox'>
+		<div class='card'><div>謝謝</div><div>Thank you</div><div action='speak,fr'>Merci</div></div>
+		<div class='card'><div>對不起</div><div>Sorry</div><div action='speak,fr'>Pardon</div></div>
+		<div class='card'><div>借過</div><div>Excuse Me</div><div action='speak,fr'>Excusez-moi</div></div>
+		<div class='card'><div>你好</div><div>Hello</div><div action='speak,fr'>Bonjour</div></div>
+		<div class='card'><div>請</div><div>Please</div><div action='speak,fr'>S'il vous plaît</div></div>
+		<div class='card'><div>身障</div><div>Handicape</div><div action='speak,fr'>Handicapé</div></div>
+		<div class='card'><div>陪伴者</div><div>Accompany</div><div action='speak,fr'>Accompagnateur</div></div>
+	</div><div class='cardbox'>
+		<div class='card'>
+			<div>我來自台灣</div>
+			<div>I am from Taiwan</div>
+			<div action='speak,fr'>Je viens de Taïwan</div>
+		</div>
+		<div class='card'>
+			<div>我來觀光的</div>
+			<div>I am here for sightseeing</div>
+			<div action='speak,fr'>C’est pour le tourisme</div>
+		</div>
+	</div><div class='cardbox'>
+		<div class='card'>
+			<div>我是財金系教授兼軟體工程師</div>
+			<div>I am a professor of Financial department and a software engineering</div>
+			<div action='speak,fr'>Je suis professeur de finance et ingénieur logiciel</div>
+		</div>
+	</div><div class='cardbox'>
+		<div class='card'>
+			<div>我老婆是護士</div>
+			<div>My wife is a nurse</div>
+			<div action='speak,fr'>Ma femme est une infirmière à la retraite</div>
+		</div>
+		<div class='card'>
+			<div>我心臟衰竭,需要老婆照顧</div>
+			<div>I have a weak beating heart, I need my wife to take care of me.</div>
+			<div action='speak,fr'>J'ai une insuffisance cardiaque, ma femme doit s'occuper de moi</div>
+		</div>
+		<div class='card'>
+			<div>這是我的殘障證明</div>
+			<div>This is my disability certificate</div>
+			<div action='speak,fr'>Voici ma carte d'invalidité</div>
+		</div>
+	</div></div>
+
+	<div tab='numbers' class='hide'><div class='cardbox'>
+		<div class='card'><div>1</div><div action='speak,fr'>un</div></div>
+		<div class='card'><div>2</div><div action='speak,fr'>deux</div></div>
+		<div class='card'><div>3</div><div action='speak,fr'>trois</div></div>
+		<div class='card'><div>4</div><div action='speak,fr'>quatre</div></div>
+		<div class='card'><div>5</div><div action='speak,fr'>cinq</div></div>
+		<div class='card'><div>6</div><div action='speak,fr'>six</div></div>
+		<div class='card'><div>7</div><div action='speak,fr'>sept</div></div>
+		<div class='card'><div>8</div><div action='speak,fr'>huit</div></div>
+		<div class='card'><div>9</div><div action='speak,fr'>neuf</div></div>
+		<div class='card'><div>10</div><div action='speak,fr'>dix</div></div>
+		<div class='card'><div>11</div><div action='speak,fr'>onze</div></div>
+		<div class='card'><div>12</div><div action='speak,fr'>douze</div></div>
+	</div><div class='cardbox'>
+		<div class='card'><div>How Many ?</div><div action='speak,fr'>Combien ?</div></div>
+		<div class='card'><div>How Much ?</div><div action='speak,fr'>C'est combien ?</div></div>
+	</div></div>
+
+	<div tab='direction' class='hide'><div class='cardbox'>
+		<div class='card'><div>東</div><div>East</div><div action='speak,fr'>Est</div></div>
+		<div class='card'><div>南</div><div>South</div><div action='speak,fr'>Sud</div></div>
+		<div class='card'><div>西</div><div>West</div><div action='speak,fr'>Ouest</div></div>
+		<div class='card'><div>北</div><div>North</div><div action='speak,fr'>Nord</div></div>
+	</div><div class='cardbox'>
+		<div class='card'><div>上</div><div>Up</div><div action='speak,fr'>Haut</div></div>
+		<div class='card'><div>下</div><div>Down</div><div action='speak,fr'>Bas</div></div>
+		<div class='card'><div>前</div><div>Ahead</div><div action='speak,fr'>Devant</div></div>
+		<div class='card'><div>後</div><div>After</div><div action='speak,fr'>Derrièr</div></div>
+	</div></div>
+
+	<div tab='time' class='hide'><div class='cardbox'>
+		<div class='card'><div>Sunday</div><div action='speak,fr'>dimanche</div></div>
+		<div class='card'><div>Monday</div><div action='speak,fr'>lundi</div></div>
+		<div class='card'><div>Tuesday</div><div action='speak,fr'>mardi</div></div>
+		<div class='card'><div>Wednesday</div><div action='speak,fr'>mercredi</div></div>
+		<div class='card'><div>Thursday</div><div action='speak,fr'>jeudi</div></div>
+		<div class='card'><div>Friday</div><div action='speak,fr'>vendredi</div></div>
+		<div class='card'><div>Saturday</div><div action='speak,fr'>samedi</div></div>
+	</div><div class='cardbox'>
+		<div class='card'><div>半小時</div><div>Half Hour</div><div action='speak,fr'>une demi-heure</div></div>
+		<div class='card'><div>五分鐘</div><div>Five Minutes</div><div action='speak,fr'>cinq minutes</div></div>
+	</div>
+
+	<div tab='conversation' class='hide'>
+		<h3>購票</h3>
+		<div class='card'>
+			<span x="一個預約;a reservation">🔈eine <span x="N-預約;reservation">Reservierung</span>.</span>
+		</div>
+
+		<h3>[場景] 在車站</h3>
+		<div class='card'>
+			<div>月台在哪?</div>
+			<div action='speak,fr'>C’est quel quai pour le train vers Pontoise ?</div>
+		</div>
+		<div class='card'>
+			<div>請問前往瑞士的 TGV Lyria 在哪個月台搭乘？</div>
+			<div>Which platform does the TGV Lyria to Switzerland depart from ?</div>
+			<div action="speak,fr">🔈
+				<span x="在哪個月台;On which platform">🔈Quel <span x="N-月台;platform">quai</span></span>
+				<span x="the TGV Lyria">🔈pour le <span x="TGV Lyria">TGV Lyria</span></span>
+				<span x="往瑞士;towards Switzerland">🔈vers la <span x="N-瑞士;Switzerland">Suisse</span></span>
+				<span x="出發;departs">🔈<span x="V-出發;depart">part</span>-il ?</span>
+			</div>
+		</div>
+
+		<h3>[場景] 移動中</h3>
+		<div class='card'>
+			<div>是往月台的電梯嗎？</div>
+			<div action="speak,fr">🔈
+				Où <span x='V-是;is'>est</span>
+				l'<span x='N-電梯;elevator'>ascenseur</span>
+				pour le <span x='N-月台;platform'>quai</span> ?
+			</div>
+		</div>
+
+		<h3>[場景] 列車上</h3>
+		<div class='card'>
+			<div>這是去巴黎北站的火車嗎？</div>
+			<div action='speak,fr'>🔈
+				Ce <span x='N-火車;train'>train</span>
+				<span x='V-去;goes'>va</span>-t-il
+				à <span x='N-巴黎北站;Gare du Nord'>Gare du Nord</span> ?
+			</div>
+		</div><div class='card'>
+			<div>這是護照與車票</div>
+			<div action='speak,fr'>Voici nos tickets et nos passeports.</div>
+		</div>
+
+		<h3>[場景] 在商店</h3>
+		<div class='card'>
+			<div>我想要這個，謝謝</div>
+			<div action="speak,fr">🔈
+				Je <span x="V-想要;would like">voudrais</span>
+				<span x="N-這個;this">ceci</span>,
+				<span x="N-謝謝;thank you">merci</span>.
+			</div>
+		</div>
+	</div>
+</section><!--}}}-->
+
+<section ks='20260205' xlang='markdown' title='Feb 5: Arriving'><!--{{{-->
+<h2>2026/2/5 (THU) 抵達 Paris</h2>
 
 ### 🚆 戴高樂機場 &gt; <span action='speak,fr'>Ermont</span> 埃爾蒙
 
@@ -458,8 +295,61 @@ graph TB
 * **電話**: +33 1 76 29 77 63
 </section><!--}}}-->
 
-<section ks='20260206' xlang='markdown'><!--{{{-->
-## 2026/2/6 (FRI) 聖母院與左岸深度散步
+<section ks='map Paris' title='巴黎交通'><!--{{{-->
+<h2>巴黎交通簡圖</h2>
+<textarea xlang='mermaid' RID='Paris'>graph TB
+	HA[奧維爾<div action='speak,fr'>Auvers-sur-Oise</div>]
+	HC[埃爾蒙<div action='speak,fr'>Ermont-Eaubonne</div>]
+	HN[巴黎北站<div action='speak,fr'>Gare du Nord</div>]
+	HC---|Line-H|HN
+	HC---|Line-H|HA
+	%% HC
+	CP[<span action='speak,fr'>Porte de Clichy</span>]
+	CM[馬約門<div action='speak,fr'>Neuilly-Porte Maillot</div>]
+	CC[戰神廣場<div action='speak,fr'>Champ de Mars</div>]
+	CV[凡爾賽宮<div action='speak,fr' style='white-space:nowrap'>Versailles Château Rive Gauche</div>]
+	CS[<span action='speak,fr'>Saint-Martin dÉtampes</span>]
+	HC---|RER-C|CP
+	CP===|RER-C,T3b|CM
+	CM---|RER-C|CC
+	CC---|RER-C|CV
+	CC---|RER-C|CS
+	%% HN
+	M4C[<span action='speak,fr'>Châtelet</span> 沙特雷]
+	M4I[聖母院<br/><span action='speak,fr'>Île de la Cité</span>]
+	M4S[聖日耳曼德佩<div action='speak,fr'>Saint-Germain-des-Prés</div>]
+	HN---|M4|M4C
+	M4C---|M4|M4I
+	M4I===|M4,散策|M4S
+	%% HN
+	DL[里昂車站<br/><span action='speak,fr'>Gare de Lyon</span>]
+	DL---|RER-D <span action='speak,fr'>Creil</span>/<span action='speak,fr'>Orry-la-Ville</span>|HN
+	M4C---|M14|DL
+	BC[凱旋門<br/><span action='speak,fr'>Charles de Gaulle – Étoile</span>]
+	BL[[羅浮宮<br/><span action='speak,fr'>Louvre-Rivoli</span>]]
+	BP[[協和廣場<br/><span action='speak,fr'>Place de la Concorde</span>]]
+	BE[[艾菲爾鐵塔<br/>Tour Eiffel]]
+	BP---|Batobus|BE
+	BP---|Batobus|BL
+	BE---|Batobus|BL
+	M4C---|M1|BC
+	BL---|M1|CM
+	BC-.-|散策|BP
+	BE-.-|散策|CC
+
+	style HC fill:#000,color:yellow;
+	style HA fill:#ffd;
+	classDef S0206 fill:#fee;
+	classDef S0207 fill:#efe;
+	classDef S0209 fill:#def;
+	class M4I,M4S,DL S0206;
+	class CC,CV,CP,CM S0207;
+	class BC,BL,BP,BE S0209;
+</textarea>
+</section><!--}}}-->
+
+<section ks='20260206' xlang='markdown' title='Feb 6: 左岸散步'><!--{{{-->
+<h2>2026/2/6 (FRI) 聖母院與左岸深度散步</h2>
 
 ### <button caption="交通路線圖" action='show' code="Paris">🚆</button> <span action='speak,fr'>Ermont</span> 埃爾蒙 &gt; <span action='speak,fr'>Île de la Cité</span> 西堤島
 
@@ -486,8 +376,8 @@ graph TB
 
 </section><!--}}}-->
 
-<section ks='20260207' xlang='markdown'><!--{{{-->
-## 2026/2/7 (SAT) 凡爾賽宮與地面電車
+<section ks='20260207' xlang='markdown' title='Feb 7: 凡爾賽宮'><!--{{{-->
+<h2>2026/2/7 (SAT) 凡爾賽宮與地面電車</h2>
 
 ### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 埃爾蒙 &gt; 戰神廣場
 
@@ -510,8 +400,8 @@ graph TB
 
 </section><!--}}}-->
 
-<section ks='20260208' xlang='markdown'><!--{{{-->
-## 2026/2/8 (SUN) 奧維爾小鎮 - 梵谷之蹤
+<section ks='20260208' xlang='markdown' title='Feb 8: 梵谷故居'><!--{{{-->
+<h2>2026/2/8 (SUN) 奧維爾小鎮 - 梵谷之蹤</h2>
 
 ### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 埃爾蒙 &gt; 奧維爾
 
@@ -523,8 +413,8 @@ graph TB
 ### <button caption="交通路線圖" action='show' code="Paris">🚆</button> 奧維爾 &gt; 埃爾蒙
 </section><!--}}}-->
 
-<section ks='20260209' xlang='markdown'><!--{{{-->
-## 2026/2/9 (MON) 巴黎地標水陸整合：凱旋門、香榭大道與艾菲爾鐵塔
+<section ks='20260209' xlang='markdown' title='Feb 9: 塞納水上遊船'><!--{{{-->
+<h2>2026/2/9 (MON) 巴黎地標水陸整合：凱旋門、香榭大道與艾菲爾鐵塔</h2>
 
 * Navigo 周票已過期，改用 App 購買單程票
 	* 在 Ermont 車站使用手機 App 各自購買 3 張「單程票 (Single Ticket)」 存入虛擬卡中。
@@ -569,8 +459,8 @@ graph TB
 
 </section><!--}}}-->
 
-<section ks='20260210' xlang='markdown'><!--{{{-->
-## 2026/2/10 (TUE) 巴黎 $\rightarrow$ 巴塞爾 $\rightarrow$ 圖恩
+<section ks='20260210' xlang='markdown' title='Feb 10: Paris to Thun'><!--{{{-->
+<h2>2026/2/10 (TUE) 巴黎 &gt; 巴塞爾 &gt; 圖恩</h2>
 
 ### 🏠 8:30 - 10:00 **退房**
 
@@ -610,8 +500,184 @@ graph TB
 * **電話**: +41 33 227 50 50
 </section><!--}}}-->
 
-<section ks='20260211' xlang='markdown'><!--{{{-->
-## 2026/2/11 (WED) 少女峰工程奇蹟
+<section ks='lang DE' RID='C:DE' title='德文'><!--{{{-->
+<h2>德文會話<select action='tab' style='float:right;font-size:100%;border:0;background:white;'>
+	<option value='hello' selected>打招呼</option>
+	<option value='conversation'>對話</option>
+	<option value='numbers'>數字</option>
+	<option value='direction'>方向</option>
+	<option value='time'>時間</option>
+</select></h2>
+<div tab='hello'>
+	<div>謝謝 / Thank you<div action='speak,de'>Danke</div></div>
+	<div>對不起 / Sorry<div action='speak,de'>Entschuldigung</div></div>
+	<div>借過 / Excuse Me<div action='speak,de'>Darf ich mal durch?</div></div>
+	<div>你好 / Hello<div action='speak,de'>Grüezi</div></div>
+	<div>請 / Please<div action='speak,de'>Bitte</div></div>
+	<div>這是半價卡<div action='speak,de'>Hier sind unsere Halbtax-Abos.</div></div>
+
+	<div>我來自台灣 / I am from Taiwan<div action='speak,de'>Ich komme aus Taiwan</div></div>
+	<div>我來觀光的 / I am here for sightseeing<div action='speak,de'>Ich bin als Tourist hier</div></div>
+	<div>我是財金系教授兼軟體工程師<br/>
+		I am a professor of Financial department and a software engineering
+		<div action='speak,de'>Ich bin Finanzprofessor und Softwareentwickler</div>
+	</div>
+	<div>我老婆是退休護士<br/>My wife is a retired nurse
+		<div action='speak,de'>Meine Frau ist Krankenschwester im Ruhestand</div>
+	</div>
+	<div>我心臟衰竭,需要老婆照顧<br/>I have a weak beating heart, I need my wife to take care of me.
+		<div action='speak,de'>Ich habe Herzinsuffizienz, meine Frau kümmert sich um mich</div>
+	</div>
+	<div>這是我的殘障證明<br/>This is my disability certificate
+		<div action='speak,de'>Hier ist mein Behindertenausweis</div>
+	</div>
+</div>
+<div tab='numbers'>
+	<table border='1' border='8' cellspacing='0' align='center'>
+	<tr><th></th><th colspan='3' align='left'>
+		<div>多少 / How Many ?</div><div action='speak,de'>Wie viele?</div>
+	</th><th colspan='3' align='right'>
+		<div>多少 / How Much ?<div action='speak,de'>Wie viel kostet das?</div></div>
+	</th></tr>
+	<tr><th></th>
+		<th>1 / One</th><th>2 / Two</th><th>3 / Three</th>
+		<th>4 / Four</th><th>5 / Five</th><th>6 / Six</th>
+	</tr>
+	<tr action='speak,de'><th>🔈</th>
+		<th x>eins</th><th x>zwei</th><th x>drei</th>
+		<th x>vier</th><th x>fünf</th><th x>sechs</th>
+	</tr>
+		<tr><th></th>
+			<th>7 / One</th><th>8 / Two</th><th>9 / Nine</th>
+			<th>10 / Four</th><th>11 / Five</th><th>6 / Six</th>
+		</tr>
+		<tr action='speak,de'><th>🔈</th>
+			<th x>sieben</th><th x>acht</th><th x>neun</th>
+			<th x>zehn</th><th x>elf</th><th x>zwolf</th>
+		</tr>
+		</table>
+	</div>
+	<div tab='time'>
+		<table border='1' border='8' cellspacing='0' align='center'>
+		<tr><th colspan='4' align='left'>
+			半小時 / Half Hour<div action='speak,fr'>une demi-heure</div>
+		</th><th colspan='4' align='right'>
+			五分鐘 / Five Minutes<div action='speak,fr'>cinq minutes</div>
+		</th></tr>
+		<tr><th></th><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr>
+		<tr action='speak,fr'><th>🔈</th>
+			<th action='speak,fr'>dimanche</th><th action='speak,fr'>lundi</th><th action='speak,fr'>mardi</th>
+			<th action='speak,fr'>mercredi</th><th action='speak,fr'>jeudi</th><th action='speak,fr'>vendredi</th>
+			<th action='speak,fr'>samedi</th>
+		</tr>
+		</table>
+		<div>半小時 / Half Hour<div action='speak,de'>eine halbe Stunde</div></div>
+		<div>五分鐘 / Five Minutes<div action='speak,de'>fünf Minuten</div></div>
+		<div>星期天 / Sunday<div action='speak,de'>Sonntag</div></div>
+		<div>星期一 / Monday<div action='speak,de'>Montag</div></div>
+		<div>星期二 / Tuesday<div action='speak,de'>Dienstag</div></div>
+		<div>星期三 / Wednesday<div action='speak,de'>Mittwoch</div></div>
+		<div>星期四 / Thursday<div action='speak,de'>Donnerstag</div></div>
+		<div>星期五 / Friday<div action='speak,de'>Freitag</div></div>
+		<div>星期六 / Saturday<div action='speak,de'>Samstag</div></div>
+	</div>
+	<div tab='direction'>
+		<div>東 / East<div action='speak,de'>Osten</div></div>
+		<div>南 / South<div action='speak,de'>Süden</div></div>
+		<div>西 / West<div action='speak,de'>Westen</div></div>
+		<div>北 / North<div action='speak,de'>Norden</div></div>
+		<div>上 / Up<div action='speak,de'>Oben</div></div>
+		<div>下 / Down<div action='speak,de'>Unten</div></div>
+		<div>前 / Ahead<div action='speak,de'>Vorwärts</div></div>
+		<div>後 / After<div action='speak,de'>Hinten</div></div>
+	</div>
+	<div tab='conversation'>
+		<h3>在車站</h3>
+		<div>我可以用半價卡買110和150區的票嗎？<br/>Can I buy a ticket for zones 110 and 150 with Half Fare ?
+			<div action="speak,de">🔈
+				<span x="我想要;I would like">Ich <span x="V-想要;would like">möchte</span></span>
+				<span x="一張票;a ticket">eine <span x="N-票;ticket">Tageskarte</span></span>
+				<span x="給區域;for zones">für die <span x="110和150區;Zones 110 & 150">Zonen 110 und 150</span></span>
+				<span x="使用半價;with half fare">mit <span x="N-半價;half fare">Halbtax</span></span>
+			</div>
+		</div>
+		<div>我的陪同者有折扣嗎？<br/>Is there a discount for my companion ?
+			<div action="speak,de">🔈
+				<span x="有一份折扣嗎;Is there a discount">Gibt es eine <span x="N-折扣;discount">Ermässigung</span></span>
+				<span x="為了我的;for my">für meine</span>
+				<span x="陪同者;companion"><span x="N-陪同者;companion">Begleitperson</span>?</span>
+			</div>
+		</div>
+		<div>請問去圖恩的火車在哪個月台？<br/>Which platform for the train to Thun ?
+			<div action="speak,de">🔈
+				<span x="哪個月台;Which platform">Welches <span x="N-月台;platform">Gleis</span></span>
+				<span x="給火車;for the train">für den <span x="N-火車;train">Zug</span></span>
+				<span x="往圖恩;towards Thun">nach <span x="N-圖恩;Thun">Thun</span></span>
+				<span x="出發;departs"><span x="V-出發;departs">fährt</span> ab?</span>
+			</div>
+		</div>
+		<h3>在飯店</h3>
+		<div>有訂房，想要辦理入住
+			<div action="speak,de">🔈
+				Ich <span x="V-想要;would like">möchte</span>
+				<span x="V-辦理入住;check in">einchecken</span>,
+				ich <span x="V-有;have">habe</span>
+				eine <span x="N-訂房;reservation">Reservierung</span>.
+			</div>
+		</div>
+		<h3>在超市</h3>
+		<div>哪邊有水跟麵包
+			<div action="speak,de">🔈
+				Wo <span x="V-可以找到;can find">finde</span>
+				ich <span x="N-水;water">Wasser</span>
+				und <span x="N-麵包;bread">Brot</span>?
+			</div>
+		</div>
+	</div>
+</section><!--}}}-->
+
+<section ks='map bern' title='伯恩高地交通'><!--{{{-->
+<h2>伯恩高地交通簡圖</h2>
+<textarea xlang='mermaid' RID='Thun'>graph TB
+	Basel[<span action='speak,de'>Basel</span> 巴塞爾]
+	Bern[<span action='speak,de'>Bern</span> 伯恩]
+	Thun[<span action='speak,de'>Thun</span> 圖恩]
+	Zurich[<span action='speak,de'>Zürich,HB</span> 蘇黎世]
+	Basel---|IC6/ICE|Bern
+	Bern---|IC6/ICE/IC8/IC81|Thun
+	Bern---|IC8/IC81|Zurich
+
+	IO[<span action='speak,de'>Interlaken Ost</span>]
+	GT(<span action='speak,de'>Grindelwald Terminal</span>)
+	EG(<span action='speak,de'>Eigergletscher</span>)
+	JFJ[<span action='speak,de'>Jungfraujoch</span> 少女峰頂]
+	KS(<span action='speak,de'>Kleine Scheidegg</span>)
+	LB(<span action='speak,de'>Lauterbrunnen</span>)
+	Thun ---|SBB| IO
+	IO ---|BOB| GT
+	GT ---|Eiger Express 纜車| EG
+	EG ---|JB| JFJ
+	JFJ ---|JB| KS
+	KS ---|WAB| LB
+	LB ---|BOB| IO
+
+	RG[玫瑰花園/最高點]
+	Bear[熊公園/河邊]
+	Bell[鐘樓/平地拱廊]
+	Bern ---|Bus 10| RG
+	RG ---|Bus 10| Bear
+	Bear ---|Bus 12| Bell
+	Bell ---|Walk| Bern
+
+	ZB[<span action="speak,de">Zürich, Bahnhofplatz</span>]
+	GZ[<span action='speak,de'>Glattbrugg, Zentrum</span>]
+	Zurich ---|Walk|ZB
+	ZB ---|Tram 11|GZ
+</textarea>
+</section><!--}}}-->
+
+<section ks='20260211' xlang='markdown' title='Feb 11: 少女峰'><!--{{{-->
+<h2>2026/2/11 (WED) 少女峰工程奇蹟</h2>
 
 ### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 圖恩 &gt; 少女峰 
 * <a href='https://www.sbb.ch/en/'>SBB</a>
@@ -645,11 +711,10 @@ graph TB
 * <a href='https://www.sbb.ch/en/'>SBB</a>
 	* 起: <span action='speak,de'>Interlaken Ost</span>
 	* 迄: <span action='speak,de'>Thun</span>
-
 </section><!--}}}-->
 
-<section ks='20260212' xlang='markdown'><!--{{{-->
-## 2026/2/12 (THU) 伯恩老城與噴泉藝術
+<section ks='20260212' xlang='markdown' title='Feb 12: Bern City'><!--{{{-->
+<h2>2026/2/12 (THU) 伯恩老城與噴泉藝術</h2>
 
 ### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 圖恩 &gt; 伯恩
 
@@ -661,8 +726,36 @@ graph TB
 ### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 伯恩 &gt; 圖恩 
 </section><!--}}}-->
 
-<section ks='20260213' xlang='markdown'><!--{{{-->
-## 2026/2/13 (FRI) 圖恩 $\rightarrow$ 蘇黎世
+<section ks='map zurich' title='蘇黎世交通'><!--{{{-->
+<h2>蘇黎世交通簡圖</h2>
+<textarea xlang='mermaid' RID='Zurich'>graph TB
+	AL[<span action="speak,de">Amanthos Living</span> 飯店]
+	GZ[<span action="speak,de">Glattbrugg, Zentrum</span> 站]
+	Opf[<span action="speak,de">Opfikon</span> 地鐵站]
+	Aug[<span action="speak,de">Augustinergasse</span> 奧古斯丁巷<br/><span action="speak,de">Paradeplatz</span> 閱兵廣場]
+	Fra[<span action="speak,de">Fraumünster</span> 聖母大教堂]
+	Bur[<span action="speak,de">Bürkliplatz</span> 湖畔碼頭]
+	Kil[<span action="speak,de">Kilchberg</span> 碼頭]
+	Lindt[<span action="speak,de">Lindt home of chocolate</span> 巧克力之家]
+	ZHB[<span action="speak,de">Zurich HB</span>蘇黎世總站]
+
+	AL ---|350m| GZ
+	GZ ---|Tram 11| Aug
+	Aug ---|5min| Fra
+	Fra ---|3min| Bur
+	Bur ---|Tram 11| GZ
+
+	AL ---|8min| Opf
+	Opf ---|S7| ZHB
+	ZHB ---|Tram 11| Bur
+
+	Bur ---|Ferry ZSG| Kil
+	Kil ---|15min| Lindt
+</textarea>
+</section><!--}}}-->
+
+<section ks='20260213' xlang='markdown' title='Feb 13: Thun to Zurich'><!--{{{-->
+<h2>2026/2/13 (FRI) 圖恩 &gt; 蘇黎世</h2>
 
 ### 🏠 11:00前 **退房**:
 
@@ -683,8 +776,8 @@ graph TB
 * **電話**: +41 43 217 86 94
 </section><!--}}}-->
 
-<section ks='20260214' xlang='markdown'><!--{{{-->
-## 2026/2/14 (SAT)：經典蘇黎世與湖景
+<section ks='20260214' xlang='markdown' title='Feb 14: Zurich City'><!--{{{-->
+<h2>2026/2/14 (SAT)：蘇黎世歷史巡禮</h2>
 
 ### <button caption="交通路線圖" action='show' code="Zurich">🚆</button> 前往 <span action='speak,de'>Augustinergasse</span> 奧古斯丁巷。
 
@@ -709,8 +802,8 @@ graph TB
 ### <button caption="交通路線圖" action='show' code="Zurich">🚆</button> 返回飯店
 </section><!--}}}-->
 
-<section ks='20260215' xlang='markdown'><!--{{{-->
-## 2026/2/15 (SUN) ⛴️  蘇黎世湖水路之旅
+<section ks='20260215' xlang='markdown' title='Feb 15: Zurich Lake'><!--{{{-->
+<h2>2026/2/15 (SUN) ⛴️  蘇黎世湖水路之旅</h2>
 
 ### <button caption="交通路線圖" action='show' code="Zurich">🚆</button> 前往 <span action='speak,de'>Zurich HB</span> 蘇黎世總站
 * 從飯店步行約 8 分鐘抵達 Opfikon 站
@@ -737,8 +830,8 @@ graph TB
 
 </section><!--}}}-->
 
-<section ks='20260216' xlang='markdown'><!--{{{-->
-## 2026/2/16 (MON) 伯連納列車 - 工程奇蹟
+<section ks='20260216' xlang='markdown' title='Feb 16: Bernina Express'><!--{{{-->
+<h2>2026/2/16 (MON) 伯連納列車 - 工程奇蹟</h2>
 
 ### 🏠 **退房**
 ### 🚆 <span action='speak,de'>Zurich</span> 蘇黎世 &gt; 翻越阿爾卑斯山 &gt; <span action='speak,it'>Milano</span> 米蘭
@@ -778,8 +871,118 @@ graph TB
 	* **電話**: +39 380 755 8998
 </section><!--}}}-->
 
-<section ks='20260217' xlang='markdown'><!--{{{-->
-## 2026/2/17 (TUE) 🎂 生日紀念：大教堂與軌道情懷
+<section ks='lang it' RID='C:IT' title='義大利文'><!--{{{-->
+	<h2>義大利文會話<select action='tab' style='float:right;font-size:100%;border:0;background:white;'>
+		<option value='hello' selected>打招呼</option>
+		<option value='conversation'>對話</option>
+		<option value='numbers'>數字</option>
+		<option value='direction'>方向</option>
+		<option value='time'>時間</option>
+	</select></h2>
+	<div tab='hello'>
+		<div>謝謝 / Thank you<div action='speak,it'>Grazie</div></div>
+		<div>對不起 / Sorry<div action='speak,it'>Mi dispiace</div></div>
+		<div>借過 / Excuse Me<div action='speak,it'>Permesso</div></div>
+		<div>你好 / Hello<div action='speak,it'>Buongiorno</div></div>
+		<div>請 / Please<div action='speak,it'>Per favore</div></div>
+		<div>身障<div action='speak,it'>Disabile</div></div>
+		<div>陪伴者<div action='speak,it'>Accompagnatore</div></div>
+
+		<div>我來自台灣 / I am from Taiwan<div action='speak,it'>Vengo da Taiwan</div></div>
+		<div>我來觀光的 / I am here for sightseeing<div action='speak,it'>Sono qui per turismo</div></div>
+		<div>我是財金系教授兼軟體工程師<br/>
+			I am a professor of Financial department and a software engineering
+			<div action='speak,it'>Sono professore di finanza e ingegnere informatico</div>
+		</div>
+		<div>我老婆是退休護士<br/>My wife is a retired nurse
+			<div action='speak,it'>Mia moglie è un'infermiera in pensione</div>
+		</div>
+		<div>我心臟衰竭,需要老婆照顧<br/>I have a weak beating heart, I need my wife to take care of me.
+			<div action='speak,it'>Ho un'insufficienza cardiaca, mia moglie si prende cura di me</div>
+		</div>
+		<div>這是我的殘障證明<br/>This is my disability certificate
+			<div action='speak,it'>Ecco il mio certificato di disabilità</div>
+		</div>
+	</div>
+	<div tab='numbers'>
+		<div>多少 / How Many ?<div action='speak,it'>Quanti?</div></div>
+		<div>多少 / How Much ?<div action='speak,it'>Quanto costa?</div></div>
+		<div>1 / One<div action='speak,it'>uno</div></div>
+		<div>2 / Two<div action='speak,it'>due</div></div>
+		<div>3 / Three<div action='speak,it'>tre</div></div>
+		<div>4 / Four<div action='speak,it'>quattro</div></div>
+		<div>5 / Five<div action='speak,it'>cinque</div></div>
+		<div>6 / Six<div action='speak,it'>sei</div></div>
+		<div>7 / Seven<div action='speak,it'>sette</div></div>
+		<div>8 / Eight<div action='speak,it'>otto</div></div>
+		<div>9 / Nine<div action='speak,it'>nove</div></div>
+		<div>10 / Ten<div action='speak,it'>dieci</div></div>
+		<div>11 / Eleven<div action='speak,it'>undici</div></div>
+		<div>12 / Twelve<div action='speak,it'>dodici</div></div>
+	</div>
+	<div tab='direction'>
+		<div>東 / East<div action='speak,it'>Est</div></div>
+		<div>南 / South<div action='speak,it'>Sud</div></div>
+		<div>西 / West<div action='speak,it'>Ovest</div></div>
+		<div>北 / North<div action='speak,it'>Nord</div></div>
+		<div>上 / Up<div action='speak,it'>Su</div></div>
+		<div>下 / Down<div action='speak,it'>Giù</div></div>
+		<div>前 / Ahead<div action='speak,it'>Avanti</div></div>
+		<div>後 / After<div action='speak,it'>Dietro</div></div>
+	</div>
+	<div tab='time'>
+		<div>半小時 / Half Hour<div action='speak,it'>mezz'ora</div></div>
+		<div>五分鐘 / Five Minutes<div action='speak,it'>cinque minuti</div></div>
+		<div>星期天 / Sunday<div action='speak,it'>domenica</div></div>
+		<div>星期一 / Monday<div action='speak,it'>lunedì</div></div>
+		<div>星期二 / Tuesday<div action='speak,it'>martedì</div></div>
+		<div>星期三 / Wednesday<div action='speak,it'>mercoledì</div></div>
+		<div>星期四 / Thursday<div action='speak,it'>giovedì</div></div>
+		<div>星期五 / Friday<div action='speak,it'>venerdì</div></div>
+		<div>星期六 / Saturday<div action='speak,it'>sabato</div></div>
+	</div>
+	<div tab='conversation'>
+		<div>請問大教堂登頂的電梯在哪裡？<br/>
+			Where is the elevator for the Cathedral rooftop ?
+			<div action="speak,it">🔈
+				<span x="在哪裡是;Where is"><span x="V-在哪裡;Where">Dove</span> è</span>
+				<span x="電梯;the elevator">l'<span x="N-電梯;elevator">ascensore</span></span>
+				<span x="為了樓頂;for the rooftop">per le <span x="N-露台/樓頂;terraces">terrazze</span></span>
+				<span x="大教堂的;of the Cathedral">del <span x="N-大教堂;Cathedral">Duomo</span> ?</span>
+			</div>
+		</div>
+	</div>
+</section><!--}}}-->
+
+<section ks='map milan' title='米蘭交通'><!--{{{-->
+<h2>米蘭交通簡圖</h2>
+<textarea xlang='mermaid' RID='Milan'>graph TB
+	Turro[<span action="speak,it">Turro</span> M1]
+	Duomo[<span action="speak,it">Duomo</span>]
+	Cordusio[<span action="speak,it">Cordusio</span>]
+	ADP[<span action="speak,it">Arco della Pace</span> 和平門]
+	Turro ---|M1| Duomo
+	Duomo ---|散策| Cordusio
+	Cordusio ---|Tram 1| ADP
+	ADP ---|Tram 1| MC
+
+	Loreto[<span action="speak,it">Loreto</span>]
+	CFS[<span action="speak,it">Centrale FS</span>]
+	GFS[<span action="speak,it">Garibaldi FS</span>]
+	Turro ---|M1| Loreto
+	Loreto ---|M2| CFS
+	CFS ---|M2| GFS
+	GFS ---|M2| Loreto
+
+	MC[<span action='speak,it'>Milan Cadorna</span>]
+	MXP[<span action='speak,it'>Malpensa Aeroporto</span>]
+	Turro ---|M1| MC
+	MC ---|MXP1|MXP
+</textarea>
+</section><!--}}}-->
+
+<section ks='20260217' xlang='markdown' title='Feb 17: 大教堂'><!--{{{-->
+<h2>2026/2/17 (TUE) 🎂 生日紀念：大教堂與軌道情懷</h2>
 
 ### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 前往 <span action='speak,de'>Duomo</span> 米蘭大教堂
 * 下載 **ATM Milano App** 購買一張 **48 小時交通票** (€13)
@@ -819,8 +1022,8 @@ graph TB
 * 搭乘 M1 地鐵返回 Turro
 </section><!--}}}-->
 
-<section ks='20260218' xlang='markdown'><!--{{{-->
-## 2026/2/18 (WED) 時尚洗禮、壓軸購物
+<section ks='20260218' xlang='markdown' title='Feb 18: 購物'><!--{{{-->
+<h2>2026/2/18 (WED) 時尚洗禮、壓軸購物</h2>
 
 ### <button caption="交通路線圖" action='show' code="Milan">🚆</button> 前往 <span action='speak,de'>Milano Centrale</span>
 * 從 Turro 搭乘 M1 往 Rho Fiera/Bisceglie 方向
@@ -846,8 +1049,8 @@ graph TB
 * 搭乘 M1 地鐵返回 Turro
 </section><!--}}}-->
 
-<section ks='20260219' xlang='markdown'>
-## 2026/2/19 (THU) 返程
+<section ks='20260219' xlang='markdown' title='Feb 19: Milan to Taiwan'><!--{{{-->
+<h2>2026/2/19 (THU) 返程</h2>
 
 ### 🏠 10點前 **退房**
 
@@ -871,25 +1074,7 @@ graph TB
 	* 第一航廈 | 2026/2/19 11:00
 * **降落**: TPE / 臺灣桃園機場
 	* 2026/2/20 06:10
-</section>
-
-<section xlang='markdown'>
-## 實戰對話與海關應對 (Practical Dialogues)
-
-* **購票與諮詢 (At the Station)**
-	* 買週卡: <span action='speak,fr'>Je voudrais deux passes Navigo Découverte, s'il vous plaît.</span>
-	* 全 1-5 區: <span action='speak,fr'>Toutes zones, de un à cinq.</span>
-	* 月台在哪?: <span action='speak,fr'>C’est quel quai pour le train vers Pontoise ?</span>
-
-* **查票應對 (Ticket Inspection)**
-	* 這是護照與車票: <span action='speak,fr'>Voici nos tickets et nos passeports.</span>
-	* (瑞士) 這是半價卡: <span action='speak,de'>Hier sind unsere Halbtax-Abos.</span>
-</section>
-
-<section>
-法文：Handicapé (身障) / Accompagnateur (陪伴者)
-義大利文：Disabile (身障) / Accompagnatore (陪伴者)
-</section>
+</section><!--}}}-->
 
 </div></body>
 </html>
