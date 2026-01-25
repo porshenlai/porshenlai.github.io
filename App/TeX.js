@@ -26,6 +26,10 @@
 		constructor () {
 			this.MDInit=this.MathInit=this.DiagramInit=undefined;
 		}
+		getCode (e,vn) {
+			if (e.tagName==="TEXTAREA" || e.tagName==="INPUT") return e;
+			if (vn&&(vn in e)) return e[vn];
+		}
 		async resolve (cw) {
 			cw=Element(cw);
 			if (cw.hasAttribute(LANGTAG)) {
@@ -34,7 +38,7 @@
 					await this.renderMarkdown(cw,cw.getAttribute('markdown')||cw.innerHTML);
 					break;
 				case 'mermaid':
-					if (cw.tagName==="TEXTAREA") {
+					if (cw.tagName==="TEXTAREA"||cw.tagName==="INPUT") {
 						let ncw=document.createElement("div");
 						ncw.editor=cw;
 						cw.parentNode.insertBefore(ncw,cw);
