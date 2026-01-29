@@ -261,8 +261,10 @@
 <textarea xlang='mermaid' RID='Paris'>graph TB
 	HA[奧維爾<div action='speak,fr'>Auvers-sur-Oise</div>]
 	HC[埃爾蒙<div action='speak,fr'>Ermont-Eaubonne</div>]
+	SD[<div action='speak,fr'>Saint-Denis</div>]
 	HN[巴黎北站<div action='speak,fr'>Gare du Nord</div>]
-	HC---|Line-H|HN
+	HC---|Line-H|SD
+	SD---|Line-H,RER-D|HN
 	HC---|Line-H|HA
 	%% HC
 	CP[<span action='speak,fr'>Porte de Clichy</span>]
@@ -284,7 +286,7 @@
 	M4I===|M4,散策|M4S
 	%% HN
 	DL[里昂車站<br/><span action='speak,fr'>Gare de Lyon</span>]
-	DL---|RER-D <span action='speak,fr'>Creil</span>/<span action='speak,fr'>Orry-la-Ville</span>|HN
+	DL---|RER-D|HN
 	M4C---|M14|DL
 	BC[凱旋門<br/><span action='speak,fr'>Charles de Gaulle – Étoile</span>]
 	BL[[羅浮宮<br/><span action='speak,fr'>Louvre-Rivoli</span>]]
@@ -312,8 +314,23 @@
 <section ks='map Paris' RID='T:FR' title='巴黎大眾運輸'><!--{{{-->
 	<h2>巴黎大眾運輸</h2>
 	<div>
-		<button action='show' caption='M-4' code='images/M4.png' lang='image'>地鐵4號線</button>
-		<button action='show' caption='RER-C' code='images/RER-C.png' lang='image'>RER C 線</button>
+		<h3>RER</h3>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/rer/plan-de-ligne_rer_ligne-b.1740960333.png' ref='https://www.ratp.fr/en/plans-lignes/rer/b'>RER-B</a>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/rer/plan-de-ligne_rer_ligne-c.1727094784.png' ref='https://www.ratp.fr/en/plans-lignes/rer/c'>RER-C</a>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/rer/plan-de-ligne_rer_ligne-d.1727094829.png' ref='https://www.ratp.fr/en/plans-lignes/rer/d'>RER-D</a>
+
+		<h3>Transilien</h3>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/sncf/plan-de-ligne_sncf_ligne-h.1727963004.png' ref='https://www.ratp.fr/en/plans-lignes/transilien/h'>Transilien-H</a>
+
+		<h3>Metro</h3>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/metro/plan-de-ligne_metro_ligne-1.1732616017.png' ref='https://www.ratp.fr/en/plans-lignes/metro/1'>M-1</a>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/metro/plan-de-ligne_metro_ligne-4.1740960332.png' ref='https://www.ratp.fr/en/plans-lignes/metro/4'>M-4</a>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/metro/plan-de-ligne_metro_ligne-14.1740960332.png' ref='https://www.ratp.fr/en/plans-lignes/metro/14'>M-14</a>
+
+		<h3>Tram</h3>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/tram/plan-de-ligne_tram_ligne-t1.1736425255.png' ref='https://www.ratp.fr/en/plans-lignes/tram/t1'>Tram-1</a>
+		<a href='https://www.ratp.fr/sites/default/files/lines-assets/plan-de-ligne/tram/plan-de-ligne_tram_ligne-t3a.1740960333.png' ref='https://www.ratp.fr/en/plans-lignes/tram/t3a'>Tram-3a</a>
+		
 	</div>
 </section><!--}}}-->
 
@@ -344,7 +361,6 @@
 	* 往巴黎方向：<span action='speak,fr'>Direction Paris</span>
 	* 往南郊方向（這是 RER B 穿過市區後的終點站）：<span action='speak,fr'>Direction Robinson</span>
 	* 往南郊方向（這是 RER B 穿過市區後的終點站）：<span action='speak,fr'>Direction Saint-Rémy-lès-Chevreuse</span>
-	* 實戰口訣：只要看到標示上有 <span action='speak,fr'>Paris</span> 或 <span action='speak,fr'>Sud</span> (南) 字樣的月台，就是往市區的方向。
 * **抵達**: 不出站轉乘 **<span action='speak,fr'>Transilien Line H</span>** (往 <span action='speak,fr'>Pontoise</span>) 至 **埃爾蒙-歐博訥 (<span action='speak,fr'>Ermont-Eaubonne</span>)** 站。
 
 ### 🚩 <span action='speak,fr'>Ermont</span> 埃爾蒙 
@@ -482,6 +498,7 @@
 * **車班** : <span action='speak,fr'>TGV Lyria</span>
 * **起** : <span action='speak,fr'>Paris Gare de Lyon</span> 巴黎里昂車站
 * **迄** : <span action='speak,de'>Basel</span> 巴賽爾
+* **車票** : <a href="private/PARIS_GARE_DE_LYON-BALE_SBB_10-02-26_LAI_POR_SHEN_LELVHF_PRT9SykQ3zny2KKscKp8.pdf">Porshen Lai</a>, <a href="private/PARIS_GARE_DE_LYON-BALE_SBB_10-02-26_CHU_YING_HSUAN_LELVHF_nqM0K5uoH7HONnnHXhff.pdf">Yinghsuan Chu</a>
 
 ### 🚩 巴賽爾 <span action='speak,fr'>Basel</span>
 * 車站本身是歷史與現代融合的典範，具備著名的玻璃天橋。
@@ -492,13 +509,7 @@
 
 ### <button caption="交通路線圖" action='show' code="Thun">🚆</button> 巴賽爾 &gt; 圖恩
 * <a href='https://www.sbb.ch/en/'>SBB</a>
-* **常用標示：**
-	* 出口：<span action='speak,de'>Ausgang</span> (德文) —— 在火車站尋找這個字。
-	* 入口：<span action='speak,de'>Eingang</span>。
-	* 月台：<span action='speak,de'>Gleis</span> (例如：Gleis 41)。
-* **禮貌用語：**
-	* 你好：<span action='speak,de'>Grüezi</span> (瑞士德語特有的打招呼方式，發音類似 "咕列漆")。
-	* 謝謝：<span action='speak,de'>Danke</span>。
+* **半價卡**: <button action='show' caption='Half Fare Card: Porshen Lai' code='private/SBB_HalfFareCard_Lai.jpg' lang='image'>Porshen Lai</button> <button action='show' caption='Half Fare Card: Yinghsuan Chu' code='private/SBB_HalfFareCard_Chu.jpg' lang='image'>Yinghsuan Chu</button>
 
 ### 🚩 圖恩 <span action='speak,de'>Thun</span>
 * 飯店位於 <span action='speak,de'>Aare</span> 河邊，非常漂亮。
@@ -601,6 +612,9 @@
 
 <div tab='交通' class='hide'>
 	<div class='cardbox'>
+		<div class='card'>出口<div action='speak,de'>Ausgang</div></div>
+		<div class='card'>入口<div action='speak,de'>Eingang</div></div>
+		<div class='card'>月台<div action='speak,de'>Gleis</div></div>
 		<div class='card'>East<div action='speak,de'>Osten</div></div>
 		<div class='card'>South<div action='speak,de'>Süden</div></div>
 		<div class='card'>West<div action='speak,de'>Westen</div></div>
@@ -876,6 +890,7 @@
 	* (預留 36 分鐘轉乘緩衝)
 * <span class='time'>08:28</span> 搭乘 **Bernina Express 伯連納列車**
 	* Chur ➔ Tirano (景觀列車: Bernina Express)
+	* <a href='private/BerninaExpress_1900297648.pdf'>劃位</a>
 	* **<span action='speak,de'>Landwasser Viaduct</span>**: 列車會駛過高 65 公尺的石拱橋並直接進入隧道，這是軌道攝影經典。
 	* **<span action='speak,de'>Brusio Spiral Viaduct</span>**: 為了克服坡度設計的 360 度迴旋橋，世界文化遺產的工程之美。
 * <span class='time'>12:49</span> 抵達 **<span action='speak,it'>Tirano</span> (蒂拉諾)** (瑞士側)
