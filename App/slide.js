@@ -206,7 +206,7 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 		})(this.E=document.createElement("aside")); // }}}
 
 		((E) => { // Dialog Element {{{
-			E.setAttribute('style','display:none;flex-flow:column nowrap;position:absolute;left:5%;top:5%;right:5%;bottom:5%;overflow:hidden;');
+			E.setAttribute('style','display:none;flex-flow:column nowrap;position:absolute;left:8px;top:8px;right:8px;bottom:8px;overflow:hidden;');
 			E.innerHTML=`
 <div UID='Caption' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
 <section style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
@@ -635,6 +635,9 @@ button:hover {border-color:#90a4ae;}
 			break;
 		case 'photo':
 			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${code}' style='object-fit:contain;width:100%;height:100%;'/></div>`
+			break;
+		case 'embed':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><embed src='${code}' style='width:100%;height:100%;'/></div>`
 			break;
 		default:
 			if (code.nodeType===1) de.firstChild.appendChild(code); else return;
