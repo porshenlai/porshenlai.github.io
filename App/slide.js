@@ -564,7 +564,6 @@ button:hover {border-color:#90a4ae;}
 
 	handleAction (e)
 	{ // {{{
-		console.log("handleAction-",e);
 		(e.getAttribute('action')||"").split(";").forEach((a)=>{
 			a=(a||"").split(',');
 			const cmd=a[0]; a[0]=e;
@@ -636,8 +635,8 @@ button:hover {border-color:#90a4ae;}
 		case 'photo':
 			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${code}' style='object-fit:contain;width:100%;height:100%;'/></div>`
 			break;
-		case 'embed':
-			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><embed src='${code}' style='width:100%;height:100%;'/></div>`
+		case 'obj':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><iframe src='${code}' style='width:100%;height:100%;'><a href='${code}'>Not support, download to open</a></iframe></div>`
 			break;
 		default:
 			if (code.nodeType===1) de.firstChild.appendChild(code); else return;
