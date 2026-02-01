@@ -630,13 +630,16 @@ button:hover {border-color:#90a4ae;}
 			await this.Plugins.TeX.renderMermaid(de.firstChild,code);
 			break;
 		case 'image':
-			de.firstChild.outerHTML=`<div style='overflow:hidden;height:100%;'><img src='${code}' style='object-fit:cover;width:auto;height:auto;'/></div>`
-			setTimeout((v)=>{
-				const img=v.querySelector('img'), cr=v.getBoundingClientRect();
-				const as=(img.width*cr.height > img.height*cr.width)?['height','overflow-x']:['width','overflow-y']
- 				img.style[as[0]]='100%';
-				v.style[as[1]]='auto';
-			},1,de.firstChild);
+			de.firstChild.outerHTML=`<div style='overflow:hidden;height:100%;'><img src='${code}' style='object-fit:cover;width:auto;height:auto;'/></div>`;
+			((v)=>{
+				const img=v.querySelector('img');
+				img.addEventListener('load',()=>{
+					const cr=v.getBoundingClientRect();
+					const as=(img.width*cr.height > img.height*cr.width) ? ['height','overflow-x'] : ['width','overflow-y'];
+ 					img.style[as[0]]='100%';
+					v.style[as[1]]='auto';
+				});
+			})(de.firstChild);
 			break;
 		case 'photo':
 			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${code}' style='object-fit:contain;width:100%;height:100%;'/></div>`
