@@ -15,7 +15,11 @@
 			background:black url('https://porshenlai.github.io/res/cyberpiers.jpg') no-repeat center center/cover;
 			color:white;
 		}
-		div[page] { position:absolute; left:0; top:0; right:0; bottom:0; overflow:hidden; }
+		div[page] {
+			position:absolute; overflow:hidden;
+			left:0; top:0; right:0; bottom:0;
+			text-shadow: -1px -1px 0 orange, 1px -1px 0 orange, -1px 1px 0 orange, 1px 1px 0 orange;
+		}
 		div[page] [onclick] { border:1px solid grey; }
 		div[page] [onclick]:hover { border:1px solid gold; }
 		div[page] td {
