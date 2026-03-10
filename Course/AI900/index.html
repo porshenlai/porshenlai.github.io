@@ -727,9 +727,9 @@
 				<li>資料集的欄位稱為 特徵 (feature)</li>
 				<li>指定為標籤的欄位稱為 標籤 或 目標</li>
 				<li>為資料指定標籤的動作稱為 標記 或 預定義</li>
-				<li>分成 <span action='show' caption='分類(classification)' code='AI900/2_D.jpg' lang='photo'>分類</span> 和 <span action='show' caption='迴歸(regression)' code='AI900/2_E.jpg' lang='photo'>迴歸</span> 兩大類</li>
+				<li>分成 <span action='show' caption='分類(classification)' code='images/2_D.jpg' lang='photo'>分類</span> 和 <span action='show' caption='迴歸(regression)' code='images/2_E.jpg' lang='photo'>迴歸</span> 兩大類</li>
 				<li class='example'>例如: 輸入500張附有貓和老虎標籤的圖片，作為模型的定型資料訓練後，再輸入新的沒有標籤的圖片，驗證模型是否能正確辨識出是貓還是老虎。
-					<span action='show' caption='貓和老虎' code='AI900/2_C.jpg' lang='photo'>[1]</span>
+					<span action='show' caption='貓和老虎' code='images/2_C.jpg' lang='photo'>[1]</span>
 				</li>
 			</ul>
 		</td>
@@ -739,7 +739,7 @@
 			<ul>
 				<li>沒有標記標籤，模型自己探索資料間的規律，找出資料特徵，達成解答未知資料的目標。</li>
 				<li>叢集分析式式非監督式學習最常見的方法，會根據特徵由演算法計算資料間的相似度，將資料區分為不同群組。
-					<span action='show' caption='非監督式學習' code='AI900/2_F.png' lang='photo'>[1]</span></li>
+					<span action='show' caption='非監督式學習' code='images/2_F.png' lang='photo'>[1]</span></li>
 			</ul>
 		</td>
 	</tr><tr>
@@ -748,7 +748,7 @@
 			<ul>
 				<li>介於監督式與非監督式間的機器學習</li>
 				<li>透過少量有標籤的資料找出特徵，就能對其它大量無標籤的資料進行預測
-					<span action='show' caption='半監督式學習' code='AI900/2_G.jpg' lang='photo'>[1]</span>
+					<span action='show' caption='半監督式學習' code='images/2_G.jpg' lang='photo'>[1]</span>
 				</li>
 				<li>可以減少標記資料的時間和人力，又能預測出準確的結果</li>
 			</ul>
@@ -758,7 +758,7 @@
 			<h3>增強學習</h3>
 			<ul>
 				<li>電腦經由和動態環境不停互動來學習正確完成任務的過程
-					<span action='show' caption='半監督式學習' code='AI900/2_H.jpg' lang='photo'>[1]</span>
+					<span action='show' caption='半監督式學習' code='images/2_H.jpg' lang='photo'>[1]</span>
 				</li>
 				<li>嘗試錯誤 (trial and error)</li>
 				<li>根據外界的回饋資料隨時修正行動，反覆嘗試錯誤來獲得最大報酬</li>
@@ -791,7 +791,7 @@ flowchart TD
 	<h2>分類模型: 羅吉斯回歸</h2><!--{{{-->
 	<ul>
 		<li>監督式學習，運用於分類模型
-			<span action='show' caption='羅吉斯回歸' code='AI900/2_J.jpg' lang='photo'>[1]</span>
+			<span action='show' caption='羅吉斯回歸' code='images/2_J.jpg' lang='photo'>[1]</span>
 		</li>
 		<li>找出一條能夠將所有資料清楚地分開的直線</li>
 		<li>預測範圍 0 ~ 1 代表目標值為 「是」或「否」的機率</li>
@@ -805,7 +805,7 @@ flowchart TD
 	<ul>
 		<li>監督式學習</li>
 		<li>可以畫出最能分隔資料的邊界，適用於分類，迴歸和偵測離群值
-			<span action='show' caption='支援向量機' code='AI900/2_K.jpg' lang='photo'>[1]</span>
+			<span action='show' caption='支援向量機' code='images/2_K.jpg' lang='photo'>[1]</span>
 		</li>
 		<li>適合多高維度，訓練資料少的資料集。</li>
 	</ul>
@@ -819,7 +819,7 @@ flowchart TD
 		<li>將資料轉為向量，再用資料間的距離來換算成資料的近似度</li>
 		<li>根據近似度作為分類的標準</li>
 		<li>選取近似度最高的Ｋ筆資料所屬最多的分類
-			<span action='show' caption='K-NN' code='AI900/2_L.jpg' lang='photo'>[1]</span>
+			<span action='show' caption='K-NN' code='images/2_L.jpg' lang='photo'>[1]</span>
 		</li>
 		<li>各分類樣本數量差異多時易錯誤</li>
 	</ul>
@@ -880,8 +880,8 @@ flowchart TD
 	<li>必須使用有標記的資料</li>
 	<li>所預測的目標值為數值</li>
 	<li>常用的演算法<ul>
-		<li>線性迴歸演算法<span action='show' caption='線性迴歸演算法' code='AI900/2_Ma.jpg' lang='photo'>[1]</span></li>
-		<li>多項式迴歸演算法<span action='show' caption='多項式迴歸演算法' code='AI900/2_Mb.jpg' lang='photo'>[2]</span></li>
+		<li>線性迴歸演算法<span action='show' caption='線性迴歸演算法' code='images/2_Ma.jpg' lang='photo'>[1]</span></li>
+		<li>多項式迴歸演算法<span action='show' caption='多項式迴歸演算法' code='images/2_Mb.jpg' lang='photo'>[2]</span></li>
 	</ul></li>
 	</ul>
 	<!--}}}-->
@@ -893,7 +893,7 @@ flowchart TD
 	<li>不用標記標籤資料</li>
 	<li>根據共同特性（特徵值）進行項目分組</li>
 	<li>常用演算法：<ul>
-		<li>Ｋ－Ｍｅａｎｓ<span action='show' caption='K-Means' code='AI900/2_N.jpg' lang='photo'>[1]</span></li>
+		<li>Ｋ－Ｍｅａｎｓ<span action='show' caption='K-Means' code='images/2_N.jpg' lang='photo'>[1]</span></li>
 		<li>Ｇａｕｓｓｉａｎ　Ｍｉｘｔｕｒｅ</li>
 	</ul></li>
 	</ul>
@@ -969,7 +969,7 @@ flowchart TD
 				<li>特徵選擇 (feature selection)<ul>
 					<li>根據機器學習模型的目標，分析挑選重要的特徵。</li>
 					<li class="example">例如: 購物網站若要預測推薦的商品，應該使用「產品名稱」作為特徵，因為產品名稱和消費習慣相關。</li>
-					<div class='AI900'><img src="AI900/2_B.jpg" style="width:50%;"></img></div>
+					<div class='AI900'><img src="images/2_B.jpg" style="width:50%;"></img></div>
 				</ul></li>
 			</ul></li>
 			<li>資料分割 (data split)<ul>
@@ -1009,7 +1009,7 @@ flowchart TD
 
 <section ks='ML'>
 	<h2>機器學習的工作流程</h2><!--{{{-->
-	<div style="text-align:center;"><img src="AI900/2_A.svg" style="width:80%;"></img></div>
+	<div style="text-align:center;"><img src="images/2_A.svg" style="width:80%;"></img></div>
 	<!--}}}-->
 </section>
 
@@ -1040,7 +1040,7 @@ flowchart TD
 
 <section ks='ML'>
 	<h2>Azure Machine Learning 方案的生命週期</h2><!--{{{-->
-	<div style="text-align:center;"><img src="AI900/2_O.svg"/></div>
+	<div style="text-align:center;"><img src="images/2_O.svg"/></div>
 	<!--}}}-->
 </section>
 
@@ -1074,7 +1074,7 @@ flowchart TD
 	<li>可以隨時儲存管線草稿</li>
 	<li>管線規劃完成後，執行前選取功能表右邊的「設定」功能，來設定進行機器學習模型計算的資源。</li>
 	<li>發佈推斷管線時，應設定REST端點，驗證金鑰兩個參數來存取 Web Service。</li>
-	<li><img src="AI900/2_P.svg"/></li>
+	<li><img src="images/2_P.svg"/></li>
 	</ul>
 	<!--}}}-->
 </section>
@@ -1639,7 +1639,7 @@ flowchart TD
 	<h2>Azure Machine Learning 設計工具</h2><!--{{{-->
 	<div>您需要使用 Azure Machine Learning 設計工具建置一個能預測單車價格的模型。</div>
 	<div>請問下圖 A, B, C 中應該使用哪種模組類型來完成此模型？</div>
-	<div style="text-align:center;"><img src="AI900/2a.jpg" style="width:80%"></img></div>
+	<div style="text-align:center;"><img src="images/2a.jpg" style="width:80%"></img></div>
 	<div qt='s' ___='4'>
 		<div>A</div>
 		<div qo='1'>轉換為 CSV</div>
@@ -1690,7 +1690,7 @@ flowchart TD
 		<td>內容組織</td><td>醫療保健</td>
 	</tr><tr>
 		<td>文字擷取</td>
-		<td>空間分析<span action='show' caption='識別人員在某個空間中遵守社交距離' code='AI900/3_A.png' lang='photo'>[1]</span></td>
+		<td>空間分析<span action='show' caption='識別人員在某個空間中遵守社交距離' code='images/3_A.png' lang='photo'>[1]</span></td>
 	</tr><tr>
 		<td>擴增實境</td><td>運動</td>
 	</tr><tr>
@@ -1700,7 +1700,7 @@ flowchart TD
 	</tr><tr>
 		<td>自動型交通工具</td>
 		<td>臉部識別
-			<span action='show' caption='臉部辨識與空間分析可偵測某個人是否戴著口罩' code='AI900/3_B.png' lang='photo'>[1]</span>
+			<span action='show' caption='臉部辨識與空間分析可偵測某個人是否戴著口罩' code='images/3_B.png' lang='photo'>[1]</span>
 			<span action='show'>[2]<div class='dialog' caption='臉部識別的功能'>
 				<div style='padding:8px;width:100%;height:100%;'><table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
 					<td>門禁管理</td><td>人員進出管理，智能門鎖，醫療智慧藥櫃</td>
@@ -1723,13 +1723,13 @@ flowchart TD
 	<h2>影像分析的功能</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
 		<td>影像描述 (說明影像)</td>
-		<td>光學字元辨識<span action='show' caption='光學字元辨識可偵測影像中的文字資料' code='AI900/3_D.png' lang='photo'>[1]</span></td>
+		<td>光學字元辨識<span action='show' caption='光學字元辨識可偵測影像中的文字資料' code='images/3_D.png' lang='photo'>[1]</span></td>
 	</tr><tr>
-		<td>標記視覺特徵<span action='show' caption='標記視覺特徵取得影像中包含的標籤與信賴分數' code='AI900/3_C.jpg' lang='photo'>[1]</span></td>
+		<td>標記視覺特徵<span action='show' caption='標記視覺特徵取得影像中包含的標籤與信賴分數' code='images/3_C.jpg' lang='photo'>[1]</span></td>
 		<td>偵測品牌</td>
 	</tr><tr>
 		<td>影像分類</td>
-		<td>臉部偵測 <span action='show' caption='透過臉部服務識別影像中人員的年齡和性別' code='AI900/3_E.png' lang='photo'>[1]</span></td>
+		<td>臉部偵測 <span action='show' caption='透過臉部服務識別影像中人員的年齡和性別' code='images/3_E.png' lang='photo'>[1]</span></td>
 	</tr><tr>
 		<td>物件偵測</td><td>偵測特定領域內容 (名人，地標)</td>
 	</tr><tr>
@@ -1756,7 +1756,7 @@ flowchart TD
 		<li>文件智慧服務專注於從文件中擷取結構化資料</li>
 		<li>知識採礦則是一個更全面的解決方案</li>
 		<li>結合兩者，可從結構化與非結構化資料中提取有價值的知識和見解</li>
-		<li>例如:<span action='show' caption='表單辨識器與發票模型可分析發票中的資訊' code='AI900/3_F.png'>[辨識發票]</span>,<span action='show' caption='表單辨識器與名片模型可分析名片中的資訊' code='AI900/3_G.png' lang='photo'>[辨識名片]</span></li>
+		<li>例如:<span action='show' caption='表單辨識器與發票模型可分析發票中的資訊' code='images/3_F.png'>[辨識發票]</span>,<span action='show' caption='表單辨識器與名片模型可分析名片中的資訊' code='images/3_G.png' lang='photo'>[辨識名片]</span></li>
 	</ul>
 	<!--}}}-->
 </section>
@@ -1765,7 +1765,7 @@ flowchart TD
 	<h2>自訂視覺</h2><!--{{{-->
 	<ul>
 		<li>Custom Vision</li>
-		<li>是一項影像辨識服務 <span action='show' caption='物件偵測可辨識每個物件在影像中的座標位置' code='AI900/3_H.png' lang='photo'>[*]</span></li>
+		<li>是一項影像辨識服務 <span action='show' caption='物件偵測可辨識每個物件在影像中的座標位置' code='images/3_H.png' lang='photo'>[*]</span></li>
 		<li>開發人員可以透過自訂視覺服務，針對特定影像內的「物件」指定「標籤」來建置，部署專屬的自訂影像分類及物件偵測模型</li>
 		<li>包括「影像分類」與「物件偵測」兩種功能
 			<div><table border='1' cellspacing='0' cellpadding='8' align='center' width='100%'><tr>
@@ -1801,7 +1801,7 @@ flowchart TD
 			<li>人臉的相似度</li>
 		</ul></li>
 		<li>臉部偵測: 臉部矩形, 臉部驗證, 相似性</li>
-		<li>臉部辨識: <span action='show' caption='27個臉部特徵點' code='AI900/3_I.png' lang='photo'>臉部特徵點</span>, 屬性, 相似性</li>
+		<li>臉部辨識: <span action='show' caption='27個臉部特徵點' code='images/3_I.png' lang='photo'>臉部特徵點</span>, 屬性, 相似性</li>
 	</ul>
 	<!--}}}-->
 </section>
@@ -1820,11 +1820,11 @@ flowchart TD
 <section ks='CV'>
 	<h2>臉部識別應用實例</h2><!--{{{-->
 	<ul>
-		<li>「<span action='show' caption='人臉辨識技術應用於出勤管理系統' code='AI900/3_J.png' lang='photo'>出勤管理系統</span>」，若保全使用了臉部偵測和臉部辨識電腦視覺，保全系統會分析 CCTV 影像，讓經過授權的人員能夠進入管制區域。<ul>
+		<li>「<span action='show' caption='人臉辨識技術應用於出勤管理系統' code='images/3_J.png' lang='photo'>出勤管理系統</span>」，若保全使用了臉部偵測和臉部辨識電腦視覺，保全系統會分析 CCTV 影像，讓經過授權的人員能夠進入管制區域。<ul>
 			<li>人員到達工作場所，入口處攝像機取像，影像資料傳送至後端出勤管理系統</li>
 			<li>伺服器 API 或資料庫的人臉辨識以驗證結果立即傳出是否可開門的決策。</li>
 		</ul></li>
-		<li>「<span action='show' caption='臉部識別應用實例' code='AI900/3_K.png' lang='photo'>人臉辨識尋人系統</span>」透過無人機從人群中拍攝人臉影像，將資訊傳送至人臉辨識系統，比對資料庫內所指定的人臉影像，可即時列出要找尋的人物。</li>
+		<li>「<span action='show' caption='臉部識別應用實例' code='images/3_K.png' lang='photo'>人臉辨識尋人系統</span>」透過無人機從人群中拍攝人臉影像，將資訊傳送至人臉辨識系統，比對資料庫內所指定的人臉影像，可即時列出要找尋的人物。</li>
 	</ul>
 	<!--}}}-->
 </section>
@@ -2297,7 +2297,7 @@ flowchart TD
 	<!--{{{-->
 	<div qt='s' ___='1'>
 		您將一張影像送至電腦視覺 API，並收到如下圖所示的標註影像。
-		<div><img src="AI900/3_Q1.jpg" style="width:60%"/></div>
+		<div><img src="images/3_Q1.jpg" style="width:60%"/></div>
 		請問此處使用了哪種類型的電腦視覺？ 
 		<div qo='1'>物件偵測</div>
 		<div qo='2'>臉部偵測</div>
@@ -2736,7 +2736,7 @@ flowchart TD
 <section ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div>您要使用自然語言處理來處理 Microsoft 新聞報導的文字。您收到如下所示輸出。</div>
-	<div><img src="AI900/4_Q1.jpg" style="width:50%"/></div>
+	<div><img src="images/4_Q1.jpg" style="width:50%"/></div>
 	<div qt='s' ___='4'>
 		請問您執行了下列何種類型的自然語言處理 ？
 		<div qo='1'>翻譯</div>
@@ -2750,7 +2750,7 @@ flowchart TD
 
 <section ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
-	<div><img src="AI900/4_Q2.jpg" style="width:90%"/></div>
+	<div><img src="images/4_Q2.jpg" style="width:90%"/></div>
 	<div qt='s' ___='2'>
 		圖中顯示下列哪一種類型的 AI 解決方案 ？
 		<div qo='1'>機器學習模型</div>
@@ -3155,15 +3155,15 @@ flowchart TD
 			<li>解碼器負責生成新的文字序列</li>
 		</ol></li>
 	</ul>
-	<div style='text-align:center;'><img src="AI900/5.2a.png" style="width:80%;"/></div>
+	<div style='text-align:center;'><img src="images/5.2a.png" style="width:80%;"/></div>
 	<h3>Token 化 (Tokenization)</h3>
-	<div style='text-align:center;'><img src="AI900/5.2b.png" style="width:80%;"/></div>
+	<div style='text-align:center;'><img src="images/5.2b.png" style="width:80%;"/></div>
 	<h3>內嵌計算 (Embeddings)</h3>
 	<ul>
 		<li>為每個 token 定義一個向量 (vector) 來表示 token 的語意關聯性，這個技術稱為內嵌計算</li>
 		<li>語意相關的 token 在空間中的距離回更相近</li>
 	</ul>
-	<div style='text-align:center;'><img src='AI900/5.2c.png' style='width:40%;'/></div>
+	<div style='text-align:center;'><img src='images/5.2c.png' style='width:40%;'/></div>
 	<h3>下一個 token 預測 (Next Token)</h3>
 	<ul>
 		<li>轉換器模型中的編碼器和解碼器區塊包含多層，組成模型的類神經網路</li>

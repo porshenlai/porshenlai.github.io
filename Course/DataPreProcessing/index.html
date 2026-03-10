@@ -136,7 +136,7 @@
 		<li><strong>定義：</strong> 異常值是數據集中與其他觀測值有顯著差異的數值，可能代表測量錯誤、數據輸入錯誤，或真實但極端的事件。</li>
 	</ul>
 	<div qi="2-2" qt="s" ___='2'>
-		<p>假設您使用 箱形圖 (Box Plot) <div><img src="DataPreProcessing/boxplot.jfif" /></div> 來視覺化「產品成本」欄位的分佈。您觀察到有幾個點遠遠超出了上方的「鬍鬚」（Whisker）。</p>
+		<p>假設您使用 箱形圖 (Box Plot) <div><img src="images/boxplot.jfif" /></div> 來視覺化「產品成本」欄位的分佈。您觀察到有幾個點遠遠超出了上方的「鬍鬚」（Whisker）。</p>
 		<p>在不直接刪除這些異常值的前提下，如果您想對這些極端值進行<strong>處理</strong>，使其對模型的影響降低，您可能會採用以下哪種方法？</p>
 		<div qo="1"><strong>直接將這些異常值刪除</strong>，因為它們會影響模型訓練。</div>
 		<div qo="2"><strong>將異常值的值替換成</strong>靠近「鬍鬚」邊界的<strong>最大值或最小值</strong>（這個方法被稱為<strong>Winsorization</strong> 或<strong>截尾</strong>）。</div>
