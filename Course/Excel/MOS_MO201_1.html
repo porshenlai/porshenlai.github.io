@@ -12,6 +12,23 @@
 		section [scope] {
 			border:1px solid silver; padding:4px 4px; margin:2px;
 		}
+		[DN="Q"].active [key="red"] { color:red;font-weight:bold; }
+		[DN="Q"].active [key="blue"] { color:blue;font-weight:bold; }
+		[DN="Q"].active [key="green"] { color:green;font-weight:bold; }
+
+		section [DN="S"] {
+			color:black;
+			background:#DDD;padding-top:12px;padding-bottom:12px;
+		}
+		section [DN="S"] * {
+			margin-bottom:2vmin;
+		}
+		section [DN="S"] *:hover {
+			text-decoration:underline;
+		}
+		section [DN="S"] .active {
+			color:red; font-weight:bold;
+		}
 	</style>
 </head>
 <body>
@@ -20,8 +37,10 @@
 		<h1><a href="attach/F1P1_樂活瑜珈.xlsm">📥</a> 樂活瑜珈</h1>
 		<div scope="管理與格式化資料" target="格式化合驗證資料" page="3-2">
 			<div DN="Q">
-				請在「南區教室」 工作表上，使用資料小記功能的操作，計算出每位講師的課程總時數與講師費總額。
-				如有必要，請先排序資料，以確保每個類別只會有一個小記。
+				請在「<span key="blue">南區教室</span>」 工作表上，
+				使用<span key="red">資料小記</span>功能的操作，
+				計算出每位講師的<span key="blue">課程總時數</span>與<span key="blue">講師費</span>總額。
+				如有必要，請先<span key="red">排序資料</span>，以確保每個類別只會有一個小記。
 				最後資料下方呈現總計。
 			</div>
 			<ol DN="S">
@@ -35,7 +54,7 @@
 		</div>
 		<div scope="管理與格式化資料" target="套用進階的設定格式化的條件和篩選" page="3-5">
 			<div DN="Q">
-				在「 講師」 工作表上，修改套用於儲存格 F4:F25 的「 設定格式化的條件規則」，將紅色斜粗體字形套用至包含文字入門的儲存格，而且不必填滿色彩。
+				在「<span key="blue">講師</span>」 工作表上，修改套用於儲存格 <span key="blue">F4:F25</span> 的「<span key="red">設定格式化的條件規則</span>」，將<span key="green">紅色斜粗體字形</span>套用至包含文字入門的儲存格，而且<span key="green">不必填滿色彩</span>。
 			</div>
 			<ol DN="S">
 				<li>選取 講師!F4:F25</li>
@@ -45,8 +64,8 @@
 		</div>
 		<div scope="建立進階公式與巨集" target="使用進階的日期和時間函數" page="3-9">
 			<div DN="Q">
-				在「開幕活動」 工作表上的儲存格 B12 中，使用函數來計算樂活 2021 年開幕日期是星期幾。
-				注意：該儲存格以格式化危險是星期幾的名稱。
+				在「<span key="blue">開幕活動</span>」 工作表上的儲存格 <span key="blue">B12</span> 中，使用<span key="red">函數</span>來計算樂活 2021 年開幕日期是<span key="green">星期幾</span>。
+				注意：該儲存格已<span key="green">格式化為顯示星期幾的名稱</span>。
 			</div>
 			<ol DN="S">
 				<li>選取 開幕活動!B12</li>
@@ -55,23 +74,23 @@
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改進階圖表" page="3-13">
 			<div DN="Q">
-				在「營收目標」工作表上建立一份圖表，此圖表以「折線圖」顯示每個課程的「去年營收」，
-				並在相同軸上以「群組直條圖」顯示「今年目標」。
+				在「<span key="blue">營收目標</span>」工作表上<span key="red">建立一份圖表</span>，此圖表以「<span key="green">折線圖</span>」顯示每個課程的「<span key="blue">去年營收</span>」，
+				並在相同軸上以「<span key="green">群組直條圖</span>」顯示「<span key="blue">今年目標</span>」。
 				圖表的大小和位置使用預設值即可。
 			</div>
 			<ol DN="S">
 				<li>選取 營收目標!A3:A11</li>
-				<li>使用Ctrl鍵，複選 C3:D11</li>
+				<li>使用 Ctrl 鍵，複選 C3:D11</li>
 				<li>選單「插入/圖表/右側的展開圖示」</li>
 				<li>對話框「所有圖表/組合圖, 去年營收&gt;折線圖, 今年目標&gt;群組直條圖」</li>
 			</ol>
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改樞紐分析圖" page="3-15">
 			<div DN="Q">
-				在「學員完課統計」工作表上修改圖表，
-				請套用「版面配置9」和「樣式5」，
-				並將圖表色彩變更為「單色的調色盤6」，
-				然後設定圖表標題為「完課統計」。
+				在「<span key="blue">學員完課統計</span>」工作表上修改<span key="blue">圖表</span>，
+				請套用「<span key="green">版面配置9</span>」和「<span key="green">樣式5</span>」，
+				並將<span key="red">圖表色彩變更</span>為「<span key="green">單色的調色盤6</span>」，
+				然後<span key="red">設定圖表標題</span>為「<span key="green">完課統計</span>」。
 			</div>
 			<ol DN="S">
 				<li>選取 學員完課統計![統計圖表]</li>
@@ -86,7 +105,7 @@
 		<h1><a href="attach/F1P2_樂活健身中心.xlsm">📥</a> 樂活健身中心</h1>
 		<div scope="管理活頁簿選項與設定" target="準備活頁簿以進行共同作業" page="3-18">
 			<div DN="Q">
-				請設定 Excel 僅在儲存活頁簿時會自動重算公式，而不是在每次資料變更時進行重算。
+				請<span key="red">設定</span> <span key="blue">Excel</span> 僅在儲存活頁簿時會<span key="green">自動重算公式</span>，而不是在每次資料變更時進行重算。
 			</div>
 			<ol DN="S">
 				<li>選單「檔案/選項」</li>
@@ -95,7 +114,7 @@
 		</div>
 		<div scope="管理活頁簿選項與設定" target="管理活頁簿" page="3-19"> 
 			<div DN="Q">
-				請設定 Excel 在建立新的活頁簿時，預設字形為微軟正黑體、 字的大小為 11。
+				請<span key="red">設定</span> <span key="blue">Excel</span> 在建立新的活頁簿時，<span key="blue">預設字形</span>為<span key="green">微軟正黑體</span>、 字的<span key="blue">大小</span>為 <span key="green">11</span>。
 			</div>
 			<ol DN="S">
 				<li>選單「檔案/選項」</li>
@@ -108,7 +127,7 @@
 		<h1><a href="attach/F1P3_訂單資料.xlsx">📥</a> 訂單資料</h1>
 		<div scope="管理活頁簿選項與設定" target="管理活頁簿" page="3-20">
 			<div DN="Q">
-				請設定 Excel 停用活頁簿中的所有巨集，並且不會發出通知。
+				請<span key="red">設定</span> <span key="blue">Excel</span> <span key="green">停用</span>活頁簿中的所有<span key="blue">巨集</span>，並且<span key="green">不會發出通知</span>。
 			</div>
 			<ol DN="S">
 				<li>選單「檔案/選項」</li>
@@ -118,7 +137,7 @@
 		</div>
 		<div scope="管理活頁簿選項與設定" target="準備活頁簿以進行共同作業" page="3-22">
 			<div DN="Q">
-				請設定此活頁簿，要求使用者輸入密碼「123456」，才能對活頁簿進行結構性的變更。
+				請<span key="red">設定</span>此<span key="blue">活頁簿</span>，要求使用者輸入<span key="green">密碼「123456」</span>，才能對活頁簿進行結構性的變更。
 			</div>
 			<ol DN="S">
 				<li>選單「校閱/保護/保護活頁簿」</li>
@@ -126,8 +145,8 @@
 		</div>
 		<div scope="建立進階公式與巨集" target="在公式中執行邏輯運算" page="3-23">
 			<div DN="Q">
-				在「訂單」工作表上的儲存格 R3 中，輸入公式以計算出所有訂單其「稅後總金額」的平均值，
-				但是必須符合「交易方式」為「現金」且「運送方式」為「包裹」。 
+				在「<span key="blue">訂單</span>」工作表上的儲存格 <span key="blue">R3</span> 中，<span key="red">輸入公式</span>以計算出所有訂單其「<span key="blue">稅後總金額</span>」的平均值，
+				但是必須符合「<span key="blue">交易方式</span>」為「<span key="green">現金</span>」且「<span key="blue">運送方式</span>」為「<span key="green">包裹</span>」。 
 			</div>
 			<ol DN="S">
 				<li>選取 訂單!R3</li>
@@ -136,7 +155,7 @@
 		</div>
 		<div scope="建立進階公式與巨集" target="疑難排解公式" page="3-27">
 			<div DN="Q">
-				在「訂單」工作表，使用錯誤檢查找出與附近不一致的公式。更正錯誤。 
+				在「<span key="blue">訂單</span>」工作表，使用<span key="red">錯誤檢查</span>找出與附近不一致的公式，<span key="red">更正錯誤</span>。 
 			</div>
 			<ol DN="S">
 				<li>選單「公式/公式稽核/錯誤檢查」</li>
@@ -144,8 +163,8 @@
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改樞紐分析表" page="3-29">
 			<div DN="Q">
- 				在「績效」工作表上，插入可讓您依照「交易方式」來篩選樞紐分析表的交叉分析篩選器。
-				使用交叉分析篩選器僅顯示「交易方式」為「信用卡」的紀錄。
+ 				在「<span key="blue">績效</span>」工作表上，插入可讓您依照「交易方式」來篩選樞紐分析表的<span key="red">交叉分析篩選器</span>。
+				使用交叉分析篩選器僅顯示<span key="green">「交易方式」為「信用卡」</span>的紀錄。
 				交叉分析篩選器大小和位置不重要。
 			</div>
 			<ol DN="S">
@@ -159,7 +178,7 @@
 		<h1><a href="attach/F1P4_香醇咖啡.xlsm">📥</a> 香醇咖啡</h1>
 		<div scope="管理活頁簿選項與設定" target="使用和設定語言選項" page="3-31"> 
 			<div DN="Q">
-				請設定 Excel 讓您可以使用哈薩克文作為編輯語言來編輯內容。
+				請<span key="red">設定</span> <span key="blue">Excel</span> 讓您可以使用<span key="green">哈薩克文</span>作為編輯語言來編輯內容。
 				請勿將哈薩克文設為預設編輯語言。
 				如果系統提示您重新啟動 Office，請關閉提示，不要重新啟動 Excel。
 			</div>
@@ -170,7 +189,7 @@
 		</div>
 		<div scope="管理與格式化資料" target="格式化與驗證資料" page="3-34"> 
 			<div DN="Q">
-				在「三年各季業績」工作表上，使用 Excel 功能從「三年各季業績」範圍 (儲存格 A3:N67) 移除重複的紀錄。
+				在「<span key="blue">三年各季業績</span>」工作表上，使用 Excel 功能從「<span key="blue">三年各季業績</span>」範圍 (儲存格 <span key="blue">A3:N67</span>) <span key="red">移除重複的紀錄</span>。
 			</div>
 			<ol DN="S">
 				<li>選取 三年各季業績!C6</li>
@@ -180,8 +199,8 @@
 		</div>
 		<div scope="建立進階公式與巨集" target="在公式中執行邏輯運算" page="3-36">
 			<div DN="Q">
-				在「銷售統計」工作表上的儲存格 P4 中，計算交易筆數，
-				其中「品名」為「提拉米蘇」，「銷售量」超過 300 個。
+				在「<span key="blue">銷售統計</span>」工作表上的儲存格 <span key="blue">P4</span> 中，<span key="red">計算交易筆數</span>，
+				其中<span key="green">「品名」為「提拉米蘇」，「銷售量」超過 300 個<span>。
 			</div>
 			<ol DN="S">
 				<li>選取 銷售統計!P4</li>
@@ -334,5 +353,26 @@
 		</div>
 	</section>
 </div>
+<script>
+	Array.from(document.querySelectorAll('[DN="S"]'))
+	.forEach((SE)=>{
+		SE.addEventListener("click",(evt)=>{
+			let e,i,cancel=false;
+			for (e=evt.target; e.parentNode&&e.parentNode!=SE; e=e.parentNode);
+			if (!e.parentNode) return;
+			if (e.classList.contains("active")) cancel=true;
+			for (i=e.parentNode.firstChild; i; i=i.nextSibling)
+				if(i.classList) i.classList.remove("active");
+			if (!cancel) e.classList.add("active");
+		});
+	});
+	Array.from(document.querySelectorAll('[DN="Q"]'))
+	.forEach((QE)=>{
+		QE.addEventListener("click",(evt)=>{
+			QE.classList.toggle("active");
+			evt.stopPropagation();
+		});
+	});
+</script>
 </body>
 </html>
