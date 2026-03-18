@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+	<title>MO201 - 例題</title>
+	<style>
+		body { font-size:2.5vmin; }
+		section {
+			border:2px solid darkblue; padding:8px 1px; margin:8px;
+		}
+		section [scope] {
+			border:1px solid silver; padding:4px 4px; margin:2px;
+		}
+		[DN="Q"].active [key="red"] { color:red;font-weight:bold; }
+		[DN="Q"].active [key="blue"] { color:blue;font-weight:bold; }
+		[DN="Q"].active [key="green"] { color:green;font-weight:bold; }
+
+		section [DN="S"] {
+			color:black;
+			background:#DDD;padding-top:12px;padding-bottom:12px;
+		}
+		section [DN="S"] * {
+			margin-bottom:2vmin;
+		}
+		section [DN="S"] *:hover {
+			text-decoration:underline;
+		}
+		section [DN="S"] .active {
+			color:red; font-weight:bold;
+		}
+		.menu { color:blue; }
+		.dialog { color:green; }
+		.settings { color:black; border:1px solid silver; }
+		.settings li { margin:0;background:#eee; }
+		.sheet { color:red; }
+	</style>
+</head>
+<body>
+<div id="Content">
+	<section CID="專案一">
+		<h1><a href="attach/EE01 會員折扣.xlsx">📥</a> 會員折扣</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您任職於 Andy 水果行的會計部門。您正在分析折扣資料。
+				請設定 Excel 以停用活頁簿中的所有巨集,而不發出通知。
+			</div>
+			<ol DN="S">
+				<li class="menu">檔案 / 選項</li>
+				<li class="dialog">[Excel 選項] 自訂功能區<ul>
+					 <li>開發人員: O</li>
+				</ul></li>
+				<li class="menu">開發人員 / 巨集安全性</li>
+				<li class="dialog">[信任中心] 巨集設定<ul class="settings">
+					<li>停用所有巨集(不事先通知): O</li>
+				</ul></li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				要求使用者輸入密碼「789」,才能對活頁簿進行結構性變更。
+			</div>
+			<ol DN="S">
+				<li class="menu">檔案 / 資訊 / 保護活頁簿 / 保護活頁簿結構</li>
+				<li class="dialog">[保護結構及視窗]<ul class="settings">
+					<li>輸入密碼: 789</li>
+					<li>結構: O</li>
+				</ul></li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「折扣」工作表上的儲存格 K3 中，
+				輸入針對 A 會員的產品「折扣」的平均值公式，其中
+				「會員等級」為「A」，
+				「產品名稱」為「櫻桃禮盒」。
+			</div>
+			<ol DN="S">
+				<li class="sheet">折扣!K3<ul class="settings">
+					<li>K3: =AVERAGEIFS(F2:F101,C2:C101,"A",B2:B101,"櫻桃禮盒")</li>
+				</ul></li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「折扣」工作表，使用錯誤檢查功能找出與附近不一致的公式。
+				更正錯誤。
+			</div>
+			<ol DN="S">
+				<li class="sheet">折扣!</li>
+				<li class="menu">公式 / 錯誤檢查</li>
+				<li class="dialog">[錯誤檢查]<ul class='settings'>
+					<li>從上方複製公式: O</li>
+				</ul></li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「折扣分析」工作表上，
+				插入一個可以讓您依照「會員等級」來篩選樞紐分析表的交叉分析篩選器。
+				使用此交叉分析篩選器來篩選並僅顯示「會員等級」為「A」的記錄。
+				交叉分析篩選器的大小和位置不重要。
+			</div>
+			<ol DN="S">
+				<li class="sheet">折扣分析!</li>
+				<li class="menu">公式 / 錯誤檢查</li>
+				<li class="menu">樞紐分析表分析 / 插入交叉分析篩選器</li>
+				<li class="dialog">[插入交叉分析篩選器]<ul class="settings">
+					<li>會員等級: O</li>
+				</ul></li>
+				<li class="sheet">[交叉分析篩選器] / A</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案二">
+		<h1><a href="attach/EE02 禮盒銷售.xlsx">📥</a> 禮盒銷售</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您正在為 Andy 水果行分析禮盒銷售。
+				請在「禮盒銷售表」工作表上，
+				使用資料小計功能來計算出每位銷售員的總數量與總金額。
+				在資料下方顯示每位銷售員的總數量與總金額。
+				如有必要，請先排序資料，以確保每個欄位只有一個小計。
+			</div>
+			<ol DN="S">
+				<li>點到禮盒銷售表→資料→銷售員名稱欄位→排序 A~Z→小計→分組小計欄位:銷售員名稱,使用函數:加總,新增小計位置:勾選數量、金額並確定</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「銷售員」工作表上，
+				修改套用於儲存格 B4:B7 的設定格式化的條件規則，
+				將[粗體]字型套用至包含文字「週末」的儲存格，且不填滿色彩。
+			</div>
+			<ol DN="S">
+				<li>選到銷售員工作表的 B4:B7→常用→條件式格式設定→管理規則→編輯規則→格式→字型→字型樣式→粗體→填滿→無色彩→確定</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「銷售日期」工作表上的儲存格 B9 中，
+				使用函數來計算水果行的開始銷售日期是星期幾。
+				注意:該儲存格已格式化為顯示星期幾的名稱。
+			</div>
+			<ol DN="S">
+				<li>點到銷售日期工作表→輸入=WEEKDAY(B8)</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「收入」工作表上建立一份圖表，
+				以折線圖顯示每位銷售員的「基本薪資」，
+				並在相同軸上以群組直條圖顯示「加給獎金」。
+				圖表的大小和位置不重要。
+			</div>
+			<ol DN="S">
+				<li>點到收入工作表→選取範圍→插入→組合圖→基本薪資:折線圖,加給獎金:群組直條圖並確定</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「分析」工作表上，
+				修改圖表以使用[版面配置 8]和[樣式 6]。
+				將圖表色彩變更為[單色的調色盤 4]，
+				並將圖表標題變更為「禮盒收入」。
+			</div>
+			<ol DN="S">
+				<li>點到分析工作表的圖表→圖表設計→快速版面配置:版面配置 8→圖表樣式:樣式 6→變更色彩:單色的調色盤 4→點到圖表標題,更改為”禮盒收入”</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案三">
+		<h1><a href="attach/EE03 五月銷售.xlsx">📥</a> 五月銷售</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				請設定 Excel 僅在儲存活頁簿時自動重算公式，
+				而不是在每次資料變更時才重算公式。
+			</div>
+			<ol DN="S">
+				<li>檔案→選項→公式→活頁簿計算→點選手動,並勾選儲存活頁簿前自動重算</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案四">
+		<h1><a href="attach/EE04 銷售.xlsm">📥</a> 銷售</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您正在為 Andy 水果行的銷售會議建立活頁簿。
+				在「總銷售額」工作表上的儲存格 D4:E7 中，
+				利用填滿數列功能，
+				以每季「40000」的等差級數成長來完成銷售額的預估。
+			</div>
+			<ol DN="S">
+				<li>點到總銷售額工作表→選取 B4:C7→右下填滿控點向右拉到 D4:E7</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「職員」工作表上的儲存格 C4 中，
+				輸入公式，使其藉由 B 欄「區域」的內容，進行完全相符的比對，
+				傳回來自「連絡電話」儲存格範圍內的電話號碼。
+			</div>
+			<ol DN="S">
+				<li>點到職員工作表→輸入=HLOOKUP([@區域],連絡電話,3,0)</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				從「職員」工作表中，建立名為「主題」的巨集。
+				並在目前的活頁簿中儲存巨集。
+				設定此巨集可以在使用中的工作表之頁首中間區段裡顯示文字「Andy 水果行」。
+			</div>
+			<ol DN="S">
+				<li>開發人員→錄製巨集→巨集名稱:主題,將巨集儲存在:限用活頁簿→檢視→整頁模式→在頁首中央打上:Andy 水果行</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「方案分析」工作表上，修改樞紐分析表，
+				使其依照「售價」欄位裡的值將資料進行分組。
+				分組時以「250」為間距(從「1」開始到「500」結束)。
+			</div>
+			<ol DN="S">
+				<li>點到方案分析工作表的樞紐分析表→點到 A 欄(售價內)→右鍵→組成群組→都不打勾勾→開始點:1,結束點:500,間距值:250</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案五">
+		<h1><a href="attach/EE05 銷售資料.xlsm">📥</a> 銷售資料</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您正在研究本公司的產品銷售情況。
+				在「2020 年銷售數量」工作表上，
+				將儲存格 I4:I31 的資料驗證錯誤訊息變更為「請輸入 1 到 28 之間的數字」。
+			</div>
+			<ol DN="S">
+				<li>選到 I4:I31→資料→資料驗證→錯誤訊息→訊息內容:請輸入 1 到 28 之間的數字</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「2020 年銷售數量」工作表上的儲存格 F4:F31 中，
+				建立使用三色色階格式樣式的設定格式化的條件規則，
+				以橙色顯示最小值，
+				以黃色顯示中間點，
+				並以淺藍色顯示最大值。
+			</div>
+			<ol DN="S">
+				<li>選到 F4:F31→常用→條件式格式設定→色階→格式樣式:三色色階,最小值:橙色,中間點:黃色,最大值:淺藍色</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「2020 年銷售數量」工作表上的 H 欄中，
+				輸入公式使其可運用「第四季」工作表的資料，
+				傳回產品的銷售數量。
+			</div>
+			<ol DN="S">
+				<li>點到 H4→輸入=VLOOKUP([@水果名稱],表 1[[水果名稱]:[銷售數量]],2,0)</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「數量變化」工作表上的樞紐分析表中，
+				建立名為「差異」的計算欄位，
+				顯示 第一季 到 第二季的銷售數量。
+			</div>
+			<ol DN="S">
+				<li>點到數量變化工作表的樞紐分析表→欄位項目與集→計算欄位→名稱:差異,公式:= 第二季銷售數量- 第一季銷售數量</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案六">
+		<h1><a href="attach/EE06 水果價格.xlsx">📥</a> 水果價格</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您是 Andy 水果行的行銷經理。
+				請設定 Excel 可以讓您使用[法文(比利時)]作為編輯語言來編輯內容。
+				請勿將法文(比利時)設為預設編輯語言。
+				如果系統提示您重新啟動 Office，請關閉提示，不要重新啟動 Excel。
+			</div>
+			<ol DN="S">
+				<li>檔案→選項→語言→新增語言→[法文(比利時)]→跳出視窗直接打叉叉</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「售價」工作表上，
+				使用 Excel 功能從「產品名稱」範圍(儲存格 A4:M37)移除重複的記錄。
+			</div>
+			<ol DN="S">
+				<li>點到售價工作表→選取 A3:M37→資料→移除重複項→只勾選產品名稱</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「顧客」工作表上的儲存格 H4 中計算客戶數量，其中
+				「水果喜好」為「蘋果」，
+				「一個月內購買次數」超過 10 次。
+			</div>
+			<ol DN="S">
+				<li>點到顧客工作表的 H4→輸入=COUNTIFS(B4:B98,"蘋果",C4:C98,">10")</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「水果行拓展」工作表的儲存格 B7 中，
+				使用函數來計算繳清貸款所需的月份數。
+			</div>
+			<ol DN="S">
+				<li>點到水果行拓展工作表的 B7→輸入=NPER(B4/12,B5,B3)</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「行銷活動」工作表上，
+				建立顯示「1 月」行銷活動資料的群組橫條圖，
+				並在圖表左側顯示描述。
+				將圖表標題變更為「一月活動」。
+				圖表的大小和位置不重要。
+			</div>
+			<ol DN="S">
+				<li>點到行銷活動工作表→選取 A3:B7→插入圖表對話方塊→橫條圖-群組橫條圖→圖表標題:一月活動</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「顧客分析」工作表上，
+				建立一個可以顯示樞紐分析表資料的立體群組直條圖樞紐分析圖。
+				篩選圖表僅顯示銷售員為「Joe」的資料。
+				圖表的大小和位置不重要。
+			</div>
+			<ol DN="S">
+				<li>點到顧客分析工作表→樞紐分析圖→直條圖-立體群組直條圖→銷售員篩選:Joe</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案七">
+		<h1><a href="attach/EE07 全球50大港口.xlsx">📥</a> 全球 50 大港口</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您正在分析全球 50 大港口貨櫃量資料。
+				在「2021 年」工作表上，修改設定格式化的條件規則，
+				使其格式化表格的資料列為「20 呎」超過 10，000 貨櫃的港口。
+			</div>
+			<ol DN="S">
+				<li>常用→格式化條件設定→管理規則→編輯規則→$D5>10000</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「摘要」工作表上，
+				從儲存格 A5 開始，
+				合併彙算「2018 年」和「2019 年」工作表中的資料。
+				顯示每個「地區」的「貨櫃量」合計值。在頂端列和最左欄中使用標籤名稱。
+				從合併後的資料中刪除空白的「港口」欄。
+			</div>
+			<ol DN="S">
+				<li>點到 A5→資料→合併彙算→參照位置→'2018 年'!$A$4:$C$54→新增→'2019 年'!$A$4:$C$54→新增→勾選頂端列跟最左欄→確定→刪除空白欄位</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「貨櫃量分析圖」圖表上，向上縮小資料以顯示每季的貨櫃量。
+			</div>
+			<ol DN="S">
+				<li>點選圖表上【-】(摺疊欄位)</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案八">
+		<h1><a href="attach/EE08 Pooh運輸股份公司.xlsx">📥</a> Pooh 運輸股份公司</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您正在為 Pooh 運輸有限公司的年度業務會議建立活頁簿。
+				在「業務會議」工作表上，
+				將儲存格 A4:A10 設定為僅允許 1 到 7 的整數。
+				否則，顯示[警告] 錯誤警訊，
+				標題為「Error」，
+				訊息內容為「請輸入 1 到 7」。
+			</div>
+			<ol DN="S">
+				<li>資料→資料驗證→整數→最小值 1→最大值 7→錯誤提醒→標題→Error→訊息內容→請輸入 1 到 7</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「年度銷售量」工作表上的儲存格 L5:L13 中輸入公式，
+				可計算並傳回與 J 欄裡的「地區」相符，
+				並且與 K 欄裡的「代表編號」相符的「銷售量總計」之平均值。
+			</div>
+			<ol DN="S">
+				<li>=AVERAGEIFS(H4:H25,B4:B25,J5,A4:A25,K5)</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「業務會議」工作表上的「報名期限」欄位中，
+				使用函數計算報名截止日期。
+				此報名期限是在 E 欄會議日期之前的 20 個工作日。
+				在計算過程中應排除名為「休假日」範圍裡所指定的假日。
+			</div>
+			<ol DN="S">
+				<li>=WORKDAY.INTL(E4,-20,,休假日)</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「銷售摘要」工作表上建立一份圖表，
+				以直條圖圖表顯示每位代表的「銷售總計」，
+				並在副座標軸以折線圖圖表顯示「總計百分比」。
+				圖表的大小和位置不重要。
+			</div>
+			<ol DN="S">
+				<li>選取 A4:A10、F3:F10、G3:10→插入→組合式圖表→總計百分比勾選副座標軸</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「地區銷售量」工作表上，修改樞紐分析表使其在各地區底下逐列顯示每一個「縣市」。
+			</div>
+			<ol DN="S">
+				<li>將縣市欄位拉至列→確定</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案九">
+		<h1><a href="attach/EE09 Buzz科技.xlsx">📥</a> Buzz 科技</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您正在為 Buzz 科技公司 建立產品活頁簿。
+				在「激勵金」工作表上的儲存格 E4 中，
+				輸入可從「銷售量激勵金」表格中傳回該員工獎金的公式。
+				請調整公式，然後將其複製到儲存格 E4:E20。
+			</div>
+			<ol DN="S">
+				<li>=VLOOKUP(C4,$G$2:$H$6,2,1)</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「主機板」工作表上建立長條圖圖表，
+				並以 $2000 元為間隔寬度來顯示主機板的「售價」。
+				圖表的大小和位置不重要。
+			</div>
+			<ol DN="S">
+				<li>新增長條圖圖表→座標軸上點選右鍵→座標軸選項→間隔寬度→2000</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案十">
+		<h1><a href="attach/EE10 FOOD外送.xlsx">📥</a> FOOD 外送</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您正在為 FOOD 外送公司 的外送量分析 建立活頁簿。
+				在「縣市銷售量」工作表上的儲存格 D4:G6 中利用填滿數列功能，
+				以每年「300，000」的等差級數成長來完成銷售量的預估。
+			</div>
+			<ol DN="S">
+				<li>選取 B4:C7→往右拉到 D4:G6</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「熱門類別」工作表上，
+				為儲存格 B4:E15 建立設定格式化的條件規則，
+				以粗體藍色字型顯示最高的 3 個值。
+			</div>
+			<ol DN="S">
+				<li>格式化條件→新贈規則只格式化排在最前面或最後面的值→前→3→格式→字型→粗體→藍色</li>
+			</ol>
+		</div>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				在「外送員」工作表上的儲存格 C4 中，
+				輸入公式，使其藉由 B 欄「縣市」的內容，進行完全相符的比對，
+				傳回來自「各縣市連絡電話」儲存格範圍內的連絡電話號碼。
+			</div>
+			<ol DN="S">
+				<li>=HLOOKUP(B4,$G$2:$J$4,3,0)</li>
+			</ol>
+		</div>
+	</section>
+
+	<section CID="專案十一">
+		<h1><a href="attach/EE11 Mickey 電影製作.xlsx">📥</a> Mickey 電影製作</h1>
+		<div scope="" target="" page="">
+			<div DN="Q">
+				您任職於 Mickey 電影製作公司。
+				您正在為公司的電影彙編銷售量和版權資料。
+				在「電影」工作表上，
+				為儲存格 E4:E11 建立並套用自訂數字格式，
+				並以「2020-Jan-01」的格式來顯示日期。
+			</div>
+			<ol DN="S">
+				<li>選取儲存格 E4:E11,右鍵儲存格格式,自訂輸入:yyyy-mmm-dd</li>
+			</ol>
+		</div>
+	</section>
+</div>
+<script>
+	Array.from(document.querySelectorAll('[DN="S"]'))
+	.forEach((SE)=>{
+		SE.addEventListener("click",(evt)=>{
+			let e,i,cancel=false;
+			for (e=evt.target; e.parentNode&&e.parentNode!=SE; e=e.parentNode);
+			if (!e.parentNode) return;
+			if (e.classList.contains("active")) cancel=true;
+			for (i=e.parentNode.firstChild; i; i=i.nextSibling)
+				if(i.classList) i.classList.remove("active");
+			if (!cancel) e.classList.add("active");
+		});
+	});
+	Array.from(document.querySelectorAll('[DN="Q"]'))
+	.forEach((QE)=>{
+		QE.addEventListener("click",(evt)=>{
+			QE.classList.toggle("active");
+			evt.stopPropagation();
+		});
+	});
+</script>
+</body>
+</html>
