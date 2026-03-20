@@ -3,41 +3,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
-	<title>MO201 - 例題</title>
-	<style>
-		body { font-size:2.5vmin; }
-		section {
-			border:2px solid darkblue; padding:8px 1px; margin:8px;
-		}
-		section [scope] {
-			border:1px solid silver; padding:4px 4px; margin:2px;
-		}
-		[DN="Q"].active [key="red"] { color:red;font-weight:bold; }
-		[DN="Q"].active [key="blue"] { color:blue;font-weight:bold; }
-		[DN="Q"].active [key="green"] { color:green;font-weight:bold; }
-
-		section [DN="S"] {
-			color:black;
-			background:#DDD;padding-top:12px;padding-bottom:12px;
-		}
-		section [DN="S"] * {
-			margin-bottom:2vmin;
-		}
-		section [DN="S"] *:hover {
-			text-decoration:underline;
-		}
-		section [DN="S"] .active {
-			color:red; font-weight:bold;
-		}
-		.menu { color:blue; }
-		.dialog { color:green; }
-		.settings { color:black; border:1px solid silver; }
-		.settings li { margin:0;background:#eee; }
-		.sheet { color:red; }
-	</style>
+	<title>MO201 - 例題 EX</title>
+	<link rel="stylesheet" href="index.css">
 </head>
 <body>
+<div UIE="PATH"></div>
 <div id="Content">
+	<h1></h1>
 	<section CID="專案一">
 		<h1><a href="attach/EE01 會員折扣.xlsx">📥</a> 會員折扣</h1>
 		<div scope="" target="" page="">
@@ -507,26 +479,6 @@
 		</div>
 	</section>
 </div>
-<script>
-	Array.from(document.querySelectorAll('[DN="S"]'))
-	.forEach((SE)=>{
-		SE.addEventListener("click",(evt)=>{
-			let e,i,cancel=false;
-			for (e=evt.target; e.parentNode&&e.parentNode!=SE; e=e.parentNode);
-			if (!e.parentNode) return;
-			if (e.classList.contains("active")) cancel=true;
-			for (i=e.parentNode.firstChild; i; i=i.nextSibling)
-				if(i.classList) i.classList.remove("active");
-			if (!cancel) e.classList.add("active");
-		});
-	});
-	Array.from(document.querySelectorAll('[DN="Q"]'))
-	.forEach((QE)=>{
-		QE.addEventListener("click",(evt)=>{
-			QE.classList.toggle("active");
-			evt.stopPropagation();
-		});
-	});
-</script>
+<script src="index.js"></script>
 </body>
 </html>

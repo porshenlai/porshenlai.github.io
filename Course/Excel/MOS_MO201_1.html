@@ -4,52 +4,32 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
 	<title>MO201 - 例題</title>
-	<style>
-		body { font-size:2.5vmin; }
-		section {
-			border:2px solid darkblue; padding:8px 1px; margin:8px;
-		}
-		section [scope] {
-			border:1px solid silver; padding:4px 4px; margin:2px;
-		}
-		[DN="Q"].active [key="red"] { color:red;font-weight:bold; }
-		[DN="Q"].active [key="blue"] { color:blue;font-weight:bold; }
-		[DN="Q"].active [key="green"] { color:green;font-weight:bold; }
-
-		section [DN="S"] {
-			color:black;
-			background:#DDD;padding-top:12px;padding-bottom:12px;
-		}
-		section [DN="S"] * {
-			margin-bottom:2vmin;
-		}
-		section [DN="S"] *:hover {
-			text-decoration:underline;
-		}
-		section [DN="S"] .active {
-			color:red; font-weight:bold;
-		}
-	</style>
+	<link rel="stylesheet" href="index.css?1">
 </head>
 <body>
+<div UIE="PATH"></div>
 <div id="Content">
 	<section CID="專案一">
 		<h1><a href="attach/F1P1_樂活瑜珈.xlsm">📥</a> 樂活瑜珈</h1>
 		<div scope="管理與格式化資料" target="格式化合驗證資料" page="3-2">
 			<div DN="Q">
-				請在「<span key="blue">南區教室</span>」 工作表上，
-				使用<span key="red">資料小記</span>功能的操作，
-				計算出每位講師的<span key="blue">課程總時數</span>與<span key="blue">講師費</span>總額。
-				如有必要，請先<span key="red">排序資料</span>，以確保每個類別只會有一個小記。
+				請在「<span class="sheet">南區教室</span>」 工作表上，
+				使用<span class="menu">資料小記</span>功能的操作，
+				計算出每位講師的<span class="dialog">課程總時數</span>與<span class="dialog">講師費</span>總額。
+				如有必要，請先<span class="menu">排序資料</span>，以確保每個類別只會有一個小記。
 				最後資料下方呈現總計。
 			</div>
 			<ol DN="S">
-				<li>選取 南區教室!A3:K3</li>
-				<li>選單「資料/排序與篩選/篩選」</li>
-				<li>點選 K 欄旁的篩選按鈕</li>
-				<li>選取「從 A 到 Z 排序」選項</li>
-				<li>選單「資料/大綱/小計」</li>
-				<li>對話框「分組小計欄位&gt;講師，使用函數&gt;加總，新增小計欄位&gt;課程時數+講師費總額」
+				<li class='sheet'>南區教室!A3:K3</li>
+				<li class='menu'>資料 / 排序與篩選 / 篩選</li>
+				<li class='sheet'>K3 [篩選按鈕 / 從 A 到 Z 排序]</li>
+				<li class='menu'>資料 / 大綱 / 小計</li>
+				<li class='dialog'>[小計]<ul class="settings">
+					<li>分組小計欄位: 講師</li>
+					<li>使用函數: 加總</li>
+					<li>小計欄位 / 課程時數: O</li>
+					<li>小計欄位 / 講師費總額: O</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="管理與格式化資料" target="套用進階的設定格式化的條件和篩選" page="3-5">
@@ -57,9 +37,14 @@
 				在「<span key="blue">講師</span>」 工作表上，修改套用於儲存格 <span key="blue">F4:F25</span> 的「<span key="red">設定格式化的條件規則</span>」，將<span key="green">紅色斜粗體字形</span>套用至包含文字入門的儲存格，而且<span key="green">不必填滿色彩</span>。
 			</div>
 			<ol DN="S">
-				<li>選取 講師!F4:F25</li>
-				<li>選單「常用/樣式/條件式格式設定/管理規則」</li>
-				<li>對話框「選取 儲存格值=入門/編輯規則/格式」</li>
+				<li class='sheet'>講師!F4:F25</li>
+				<li class='menu'>常用 / 樣式 / 條件式格式設定 / 管理規則</li>
+				<li class='dialog'>[設定格式化的條件規則管理員] (儲存格值=入門) / 編輯規則 / 格式</li>
+				<li class='dialog'>[設定儲存格格式]<ul class="settings">
+					<li>字型 / 字形樣式: 粗斜體</li>
+					<li>字型 / 色彩: 紅色</li>
+					<li>填滿 / 無色彩</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="建立進階公式與巨集" target="使用進階的日期和時間函數" page="3-9">
@@ -68,8 +53,7 @@
 				注意：該儲存格已<span key="green">格式化為顯示星期幾的名稱</span>。
 			</div>
 			<ol DN="S">
-				<li>選取 開幕活動!B12</li>
-				<li>輸入 <pre>=WEEKDAY(B11)</pre></li>
+				<li class='sheet'>開幕活動!B12 <pre class='settings'>=WEEKDAY(B11)</pre></li>
 			</ol>
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改進階圖表" page="3-13">
@@ -79,10 +63,12 @@
 				圖表的大小和位置使用預設值即可。
 			</div>
 			<ol DN="S">
-				<li>選取 營收目標!A3:A11</li>
-				<li>使用 Ctrl 鍵，複選 C3:D11</li>
-				<li>選單「插入/圖表/右側的展開圖示」</li>
-				<li>對話框「所有圖表/組合圖, 去年營收&gt;折線圖, 今年目標&gt;群組直條圖」</li>
+				<li class='sheet'>營收目標!A3:A11, C3:D11</li>
+				<li class='menu'>插入 / 圖表 / 建議的圖表</li>
+				<li class='dialog'>[插入圖表] 所有圖表 / 組合圖<ul class='settings'>
+					<li>去年營收: 折線圖</li>
+					<li>今年目標: 群組直條圖</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改樞紐分析圖" page="3-15">
@@ -93,11 +79,12 @@
 				然後<span key="red">設定圖表標題</span>為「<span key="green">完課統計</span>」。
 			</div>
 			<ol DN="S">
-				<li>選取 學員完課統計![統計圖表]</li>
-				<li>選單「圖表工具/設計/圖表版面配置/快速版面配置/版面配置9」</li>
-				<li>選單「圖表工具/設計/圖表樣式/樣式5」</li>
-				<li>選單「圖表工具/設計/圖表樣式/變更色彩/單色的調色盤6」</li>
-				<li>圖表「圖表標題&gt;完課統計」</li>
+				<li class='sheet'>學員完課統計![圖表]<ul class='settings'>
+					<li>圖表標題: 完課統計</li>
+				</ul></li>
+				<li class='menu'>圖表工具 / 設計 / 圖表版面配置 / 快速版面配置 / 版面配置9</li>
+				<li class='menu'>圖表工具 / 設計 / 圖表樣式 / 樣式5</li>
+				<li class='menu'>圖表工具 / 設計 / 圖表樣式 / 變更色彩 / 單色的調色盤6</li>
 			</ol>
 		</div>
 	</section>
@@ -108,8 +95,10 @@
 				請<span key="red">設定</span> <span key="blue">Excel</span> 僅在儲存活頁簿時會<span key="green">自動重算公式</span>，而不是在每次資料變更時進行重算。
 			</div>
 			<ol DN="S">
-				<li>選單「檔案/選項」</li>
-				<li>對話框「公式/計算選項/手動/儲存活頁簿前自動重算」</li>
+				<li class='menu'>檔案 / 選項</li>
+				<li class='dialog'>[Excel 選項] 公式 / 計算選項<ul class='settings'>
+					<li>手動 / 儲存活頁簿前自動重算: O</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="管理活頁簿選項與設定" target="管理活頁簿" page="3-19"> 
@@ -117,9 +106,11 @@
 				請<span key="red">設定</span> <span key="blue">Excel</span> 在建立新的活頁簿時，<span key="blue">預設字形</span>為<span key="green">微軟正黑體</span>、 字的<span key="blue">大小</span>為 <span key="green">11</span>。
 			</div>
 			<ol DN="S">
-				<li>選單「檔案/選項」</li>
-				<li>對話框「一般/建立新活頁表時/以此作為預設字形/微軟正黑體」</li>
-				<li>選擇字型大小為 11</li>
+				<li class='menu'>檔案 / 選項」</li>
+				<li class='dialog'>[Excel 選項] 一般 / 建立新活頁表時<ul class='settings'>
+					<li>以此作為預設字形: 微軟正黑體</li>
+					<li>字型大小: 11</li>
+				</ul></li>
 			</ol>
 		</div>
 	</section>
@@ -130,9 +121,10 @@
 				請<span key="red">設定</span> <span key="blue">Excel</span> <span key="green">停用</span>活頁簿中的所有<span key="blue">巨集</span>，並且<span key="green">不會發出通知</span>。
 			</div>
 			<ol DN="S">
-				<li>選單「檔案/選項」</li>
-				<li>對話框「信任中心/信任中心設定」</li>
-				<li>對話框「巨集設定/停用所有巨集(不事先通知)」</li>
+				<li class='menu'>檔案 / 選項</li>
+				<li class='dialog'>[Excel 選項] 信任中心 / 信任中心設定<ul class='settings'>
+					<li>巨集設定: 停用所有巨集(不事先通知)</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="管理活頁簿選項與設定" target="準備活頁簿以進行共同作業" page="3-22">
@@ -140,7 +132,11 @@
 				請<span key="red">設定</span>此<span key="blue">活頁簿</span>，要求使用者輸入<span key="green">密碼「123456」</span>，才能對活頁簿進行結構性的變更。
 			</div>
 			<ol DN="S">
-				<li>選單「校閱/保護/保護活頁簿」</li>
+				<li class='menu'>校閱 / 保護 / 保護活頁簿</li>
+				<li class='dialog'>保護結構及視窗<ul class='settings'>
+					<li>密碼: 123456</li>
+					<li>結構: O</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="建立進階公式與巨集" target="在公式中執行邏輯運算" page="3-23">
@@ -149,8 +145,7 @@
 				但是必須符合「<span key="blue">交易方式</span>」為「<span key="green">現金</span>」且「<span key="blue">運送方式</span>」為「<span key="green">包裹</span>」。 
 			</div>
 			<ol DN="S">
-				<li>選取 訂單!R3</li>
-				<li>輸入 <pre>=AVERAGEIFS(L3:L374,G3:G374,"現金",J3:J374,"包裹")</pre></li>
+				<li class='sheet'>訂單!R3<pre class='settings'>=AVERAGEIFS(L3:L374,G3:G374,"現金",J3:J374,"包裹")</pre></li>
 			</ol>
 		</div>
 		<div scope="建立進階公式與巨集" target="疑難排解公式" page="3-27">
@@ -158,7 +153,11 @@
 				在「<span key="blue">訂單</span>」工作表，使用<span key="red">錯誤檢查</span>找出與附近不一致的公式，<span key="red">更正錯誤</span>。 
 			</div>
 			<ol DN="S">
-				<li>選單「公式/公式稽核/錯誤檢查」</li>
+				<li class='sheet'>訂單!</li>
+				<li class='menu'>公式 / 公式稽核 / 錯誤檢查</li>
+				<li class='dialog'>[錯誤檢查]<ul class='settings'>
+					<li>從上方複製公式</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改樞紐分析表" page="3-29">
@@ -168,9 +167,11 @@
 				交叉分析篩選器大小和位置不重要。
 			</div>
 			<ol DN="S">
-				<li>選取 績效!C6</li>
-				<li>選單「樞紐分析表工具/分析」</li>
-				<li>對話框「篩選/插入交叉分析篩選器/交易方式」</li>
+				<li class='sheet'>績效!C6</li>
+				<li class='menu'>樞紐分析表工具 / 篩選 / 插入交叉分析篩選器</li>
+				<li class='dialog'>[插入交叉分析篩選器]<ul class='settings'>
+					<li>交易方式: O</li>
+				</ul></li>
 			</ol>
 		</div>
 	</section>
@@ -183,8 +184,10 @@
 				如果系統提示您重新啟動 Office，請關閉提示，不要重新啟動 Excel。
 			</div>
 			<ol DN="S">
-				<li>選單「檔案/選項」</li>
-				<li>對話框「語言/新增」</li>
+				<li class='menu'>檔案 / 選項</li>
+				<li class='dialog'>[Excel 選項] 語言 / Office 撰寫語言與校訂<ul class='settings'>
+					<li>新增語言: 哈薩克文</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="管理與格式化資料" target="格式化與驗證資料" page="3-34"> 
@@ -192,9 +195,10 @@
 				在「<span key="blue">三年各季業績</span>」工作表上，使用 Excel 功能從「<span key="blue">三年各季業績</span>」範圍 (儲存格 <span key="blue">A3:N67</span>) <span key="red">移除重複的紀錄</span>。
 			</div>
 			<ol DN="S">
-				<li>選取 三年各季業績!C6</li>
-				<li>工作表左上角選取三年各季業績</li>
-				<li>選單「資料/資料工具/移除重複項」</li>
+				<li class='sheet'>三年各季業績!<ul class='settings'>
+					<li>名稱方塊: 三年各季業績</li>
+				</ul></li>
+				<li class='menu'>資料 / 資料工具 / 移除重複項</li>
 			</ol>
 		</div>
 		<div scope="建立進階公式與巨集" target="在公式中執行邏輯運算" page="3-36">
@@ -203,17 +207,20 @@
 				其中<span key="green">「品名」為「提拉米蘇」，「銷售量」超過 300 個<span>。
 			</div>
 			<ol DN="S">
-				<li>選取 銷售統計!P4</li>
-				<li>輸入 <pre>=COUNTIFS(D4:D123,"提拉米蘇",I4:I123,"&gt;300")</pre></li>
+				<li class='sheet'>銷售統計!P4
+					<pre class='settings'>=COUNTIFS(D4:D123,"提拉米蘇",I4:I123,"&gt;300")</pre>
+				</li>
 			</ol>
 		</div>
 		<div scope="建立進階公式與巨集" target="執行資料分析" page="3-39">
 			<div DN="Q">
-				在「烘培機貸款分析」工作表的儲存格 B11 中，使用函數來計算貸款採購咖啡機時繳清貸款所需的月份數。
+				在「烘培機貸款分析」工作表的儲存格 B11 中，
+				使用函數來計算貸款採購咖啡機時繳清貸款所需的月份數。
 			</div>
 			<ol DN="S">
-				<li>選取 烘培機貸款分析!B11</li>
-				<li>輸入 <pre>=NPER(B7/B9,B8,B6)</pre></li>
+				<li class='sheet'>烘培機貸款分析!B11
+					<pre class='settings'>=NPER(B7/B9,B8,B6)</pre>
+				</li>
 			</ol>
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改進階圖表" page="3-46">
@@ -224,10 +231,11 @@
 				圖表的大小和位置不重要。
 			</div>
 			<ol DN="S">
-				<li>選取 第一季營業額!B3:B18</li>
-				<li>複選 E3:E18</li>
-				<li>選單「插入/圖表/瀑布圖、漏斗圖、股票圖、曲面圖或雷達圖/漏斗圖」</li>
-				<li>圖表「圖表標題&gt;三月營業成果」</li>
+				<li class='sheet'>第一季營業額!B3:B18, E3:E18</li>
+				<li class='menu'>插入 / 圖表 / 瀑布圖、漏斗圖、股票圖、曲面圖或雷達圖/漏斗圖</li>
+				<li class='sheet'>[圖表]<ul class='settings'>
+					<li>圖表標題: 三月營業成果</li>
+				</ul></li>
 			</ol>
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改樞紐分析圖" page="3-48">
@@ -237,8 +245,9 @@
 				圖表的大小和位置不重要。
 			</div>
 			<ol DN="S">
-				<li>選取 銷售分析!B4</li>
-				<li>選單「插入/圖表/圓形圖或環圈圖/立體圓形圖」</li>
+				<li class='sheet'>銷售分析!B4</li>
+				<li class='menu'>插入 / 圖表 / 圓形圖或環圈圖 / 立體圓形圖</li>
+				<li class='sheet'>銷售分析![]</li>
 				<li>圖表「商品類別&gt;飲品類」</li>
 			</ol>
 		</div>
@@ -353,26 +362,6 @@
 		</div>
 	</section>
 </div>
-<script>
-	Array.from(document.querySelectorAll('[DN="S"]'))
-	.forEach((SE)=>{
-		SE.addEventListener("click",(evt)=>{
-			let e,i,cancel=false;
-			for (e=evt.target; e.parentNode&&e.parentNode!=SE; e=e.parentNode);
-			if (!e.parentNode) return;
-			if (e.classList.contains("active")) cancel=true;
-			for (i=e.parentNode.firstChild; i; i=i.nextSibling)
-				if(i.classList) i.classList.remove("active");
-			if (!cancel) e.classList.add("active");
-		});
-	});
-	Array.from(document.querySelectorAll('[DN="Q"]'))
-	.forEach((QE)=>{
-		QE.addEventListener("click",(evt)=>{
-			QE.classList.toggle("active");
-			evt.stopPropagation();
-		});
-	});
-</script>
+<script src="index.js?1"></script>
 </body>
 </html>

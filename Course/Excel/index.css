@@ -1,0 +1,47 @@
+body {
+	font-size:2.5vmin;
+}
+section {
+	border:2px solid darkblue;
+	padding:8px 1px;
+	margin:8px;
+}
+section [scope] {
+	border:1px solid silver;
+	padding:4px 4px;
+	margin:2px;
+}
+
+section [DN="S"] {
+	color:black;
+	background:#DDD;
+	padding-top:12px;
+	padding-bottom:12px;
+}
+section [DN="S"] * {
+	margin-bottom:2vmin;
+}
+section [DN="S"] *:hover {
+	text-decoration:underline;
+}
+section [DN="S"] .active {
+	background:#ffd;
+	border:2px solid orange;
+}
+.hidden { display:none; }
+.menu {
+	color:blue;
+}
+.dialog {
+	color:green;
+}
+.settings {
+	color:black;
+	background:#eee;
+}
+.settings li {
+	margin:0;
+}
+.sheet {
+	color:red;
+}
