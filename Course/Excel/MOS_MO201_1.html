@@ -4,7 +4,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
 	<title>MO201 - 例題</title>
-	<link rel="stylesheet" href="index.css?1">
 </head>
 <body>
 <div UIE="PATH"></div>
@@ -12,7 +11,7 @@
 	<section CID="專案一">
 		<h1><a href="attach/F1P1_樂活瑜珈.xlsm">📥</a> 樂活瑜珈</h1>
 		<div scope="管理與格式化資料" target="格式化合驗證資料" page="3-2">
-			<div DN="Q">
+			<div DN="Q" class='focus'>
 				請在「<span class="sheet">南區教室</span>」 工作表上，
 				使用<span class="menu">資料小記</span>功能的操作，
 				計算出每位講師的<span class="dialog">課程總時數</span>與<span class="dialog">講師費</span>總額。
@@ -22,13 +21,16 @@
 			<ol DN="S">
 				<li class='sheet'>南區教室!A3:K3</li>
 				<li class='menu'>資料 / 排序與篩選 / 篩選</li>
-				<li class='sheet'>K3 [篩選按鈕 / 從 A 到 Z 排序]</li>
+				<li class='sheet'>南區教室!K3<ul>
+					<li class='menu'>篩選按鈕 / 從 A 到 Z 排序</li>
+				</ul></li>
 				<li class='menu'>資料 / 大綱 / 小計</li>
 				<li class='dialog'>[小計]<ul class="settings">
 					<li>分組小計欄位: 講師</li>
 					<li>使用函數: 加總</li>
 					<li>小計欄位 / 課程時數: O</li>
 					<li>小計欄位 / 講師費總額: O</li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -39,11 +41,16 @@
 			<ol DN="S">
 				<li class='sheet'>講師!F4:F25</li>
 				<li class='menu'>常用 / 樣式 / 條件式格式設定 / 管理規則</li>
-				<li class='dialog'>[設定格式化的條件規則管理員] (儲存格值=入門) / 編輯規則 / 格式</li>
-				<li class='dialog'>[設定儲存格格式]<ul class="settings">
-					<li>字型 / 字形樣式: 粗斜體</li>
-					<li>字型 / 色彩: 紅色</li>
-					<li>填滿 / 無色彩</li>
+				<li class='dialog'>[設定格式化的條件規則管理員] 儲存格值=入門<ul class='settings'>
+					<li>編輯規則 / 格式</li>
+					<li class='dialog'>[設定儲存格格式] 字型<ul class="settings">
+						<li>字形樣式: 粗斜體</li>
+						<li>色彩: 紅色</li>
+					</ul></li>
+					<li class='dialog'>[設定儲存格格式] 填滿<ul class="settings">
+						<li>無色彩</li>
+						<li>確定</li>
+					</ul></li>
 				</ul></li>
 			</ol>
 		</div>
@@ -68,6 +75,7 @@
 				<li class='dialog'>[插入圖表] 所有圖表 / 組合圖<ul class='settings'>
 					<li>去年營收: 折線圖</li>
 					<li>今年目標: 群組直條圖</li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -90,14 +98,17 @@
 	</section>
 	<section CID="專案二">
 		<h1><a href="attach/F1P2_樂活健身中心.xlsm">📥</a> 樂活健身中心</h1>
-		<div scope="管理活頁簿選項與設定" target="準備活頁簿以進行共同作業" page="3-18">
+		<div scope="Excel 選項" target="自動重算" page="3-18">
 			<div DN="Q">
 				請<span key="red">設定</span> <span key="blue">Excel</span> 僅在儲存活頁簿時會<span key="green">自動重算公式</span>，而不是在每次資料變更時進行重算。
 			</div>
 			<ol DN="S">
 				<li class='menu'>檔案 / 選項</li>
-				<li class='dialog'>[Excel 選項] 公式 / 計算選項<ul class='settings'>
-					<li>手動 / 儲存活頁簿前自動重算: O</li>
+				<li class='dialog'>[Excel 選項] 公式<ul class='settings'>
+					 <li>計算選項: 手動<ul class='settings'>
+						<li>儲存活頁簿前自動重算: O</li>
+					</ul></li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>

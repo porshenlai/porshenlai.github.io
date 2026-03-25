@@ -5,6 +5,27 @@ const Topics=[
 	["例題EX", 'MOS_MO201_4.html']
 ];
 
+((CSS)=>{
+	if(CSS) return;
+	CSS=document.createElement("style");
+	CSS.innerHTML=`
+body { font-size:2.5vmin; }
+section { border:2px solid darkblue; padding:8px 1px; margin:8px; }
+section [scope] { border:1px solid silver; padding:4px 4px; margin:2px; }
+section [DN="S"] { color:black; background:#DDD; padding-top:12px; padding-bottom:12px; }
+section [DN="S"] * { margin-bottom:2vmin; }
+section [DN="S"] *:hover { text-decoration:underline; }
+section [DN="S"] .active { background:#ffd; border:2px solid orange; }
+.hidden { display:none; }
+.menu { color:blue; }
+.sheet { color:red; }
+.dialog { color:green; }
+.settings { color:black; background:#eee; margin:0; }
+.settings li, .settings li ul, .settings li ol { margin:0; }
+`;
+	document.head.appendChild(CSS);
+})(document.querySelector('link[UIE="IJCSS"]'));
+
 ((BE)=>{
 	if(!BE) return;
 	let cur=Topics.findIndex((i)=>location.pathname.endsWith(i[1]));

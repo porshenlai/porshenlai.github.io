@@ -4,7 +4,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
 	<title>MO201 - 例題</title>
-	<link rel="stylesheet" href="index.css">
 </head>
 <body>
 <div UIE="PATH"></div>
@@ -19,10 +18,10 @@
 				請關閉提示，不要重新啟動 Excel。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='menu'>檔案 / 選項</li>
+				<li class='dialog'>[Excel 選項] 語言<ul class='settings'>
+					<li>新增其他編輯語言: 烏克蘭文</li>
+					<li>新增</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -32,10 +31,13 @@
 				使其格式化表格的資料列為獎牌總數超過 100 的國家地區。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>近四屆統計!</li>
+				<li class='menu'>常用 / 樣式 / 條件式格式設定 / 管理規則</li>
+				<li class='dialog'>[設定格式化的條件規則管理員]<ul class='settings'>
+					<li>顯示格式化規則: 這個表格</li>
+					<li>公式=$F4&gt;50</li>
+					<li>編輯規則</li>
+					<li>格式化在此公式為 True 的值: =$F4&gt;100</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -47,11 +49,20 @@
 				從合併的資料中刪除空白的「國家地區﹝編碼﹞」欄。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>彙整!A4</li>
+				<li class='menu'>資料 / 資料工具 / 合併彙算</li>
+				<li class='dialog'>[合併彙算]<ul class='settings'>
+					<li>函數: 平均值</li>
+					<li>參照位址: <span class='sheet'>2012年夏季奧運!A3-F3↓</span></li>
+					<li>新增</li>
+					<li>參照位址: <span class='sheet'>2016年夏季奧運!A3-F3↓</span></li>
+					<li>新增</li>
+					<li>頂端欄: O</li>
+					<li>最左欄: O</li>
+					<li>確定</li>
 				</ul></li>
+				<li class='sheet'>彙整!B ()</li>
+				<li class='menu'>選區區右鍵選單 / 刪除</li>
 			</ol>
 		</div>
 		<div scope="" target="" page="">
@@ -60,17 +71,16 @@
 				向下切入資料以顯示每一年每一季的預購張數。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
-				</ul></li>
+				<li class='sheet'>預售票分析!:[圖表]<ul>
+					<li>X軸 + (展開欄位)</li>
+					<li>X軸 + (展開欄位)</li>
+				</ul>
 			</ol>
 		</div>
 	</section>
 	<section CID="專案二">
 		<h1><a href="attach/F2P2_極限健身中心.xlsx">📥</a> 極限健身中心</h1>
-		<div scope="" target="" page="">
+		<div scope="Excel 選項" target="自動重算" page="">
 			<div DN="Q">
 				您是教育訓練中心資料部門的工作人員。
 				正在進行處理活頁簿的環境設定。
@@ -78,10 +88,12 @@
 				而不是在每次資料變更時才進行重算。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='menu'>檔案 / 選項</li>
+				<li class='dialog'>[Excel 選項] 公式<ul class='settings'>
+					 <li>計算選項: 手動<ul class='settings'>
+						<li>儲存活頁簿前自動重算: O</li>
+					</ul></li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -91,11 +103,10 @@
 				以指出依據 B7 的值進行計算的其他儲存格值。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
-				</ul></li>
+				<li class='sheet'>各中心人數!B7</li>
+				<li class='menu'>公式 / 公式稽核 / 追蹤前導參照
+					<div>(持續執行至沒顯示新藍色箭頭為止)</div>
+				</li>
 			</ol>
 		</div>
 		<div scope="" target="" page="">
@@ -103,10 +114,14 @@
 				僅啟用經過數位簽章的巨集。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='menu'>檔案 / 選項</li>
+				<li class='dialog'>[Excel 選項] 信任中心<ul class='settings'>
+					<li>信任中心設定</li>
+					<li class='dialog'>[信任中心] 巨集設定<ul class='settings'>
+						<li>除了經數位簽章的巨集外，停用所有巨集: O</li>
+						<li>確定</li>
+					</ul></li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -118,10 +133,14 @@
 				請設定 Excel 停用活頁簿中的所有巨集且不發出通知。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='menu'>檔案 / 選項</li>
+				<li class='dialog'>[Excel 選項] 信任中心<ul class='settings'>
+					<li>信任中心設定</li>
+					<li class='dialog'>[信任中心] 巨集設定<ul class='settings'>
+						<li>停用所有巨集 (不事先通知): O</li>
+						<li>確定</li>
+					</ul></li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -132,10 +151,14 @@
 				並以「01 月 20 日週三」的格式來顯示日期。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>Q1 銷售!B4:B51</li>
+				<li class='menu'>常用 / 數值 / 數字格式</li>
+				<li class='dialog'>[設定儲存格格式] 數值<ul class='settings'>
+					<li>類別: 日期</li>
+					<li>類型: 星期三</li>
+					<li>類別: 自訂</li>
+					<li>類型: [$-zh-TW]mm"月"dd"日"aaaa;@</li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -148,10 +171,8 @@
 				否則就傳為應得的年資積分。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>員工年資積分統計!F4<ul class='settings'>
+					<li>= IF(D4*2+E4&gt;48, 48, D4*2+E4)</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -163,10 +184,11 @@
 				交叉分析篩選器的大小和位置不重要。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>Q1 摘要分析!A6</li>
+				<li class='menu'>樞紐分析表工具 / 分析 / 篩選 / 插入交叉分析篩選器</li>
+				<li class='dialog'>[插入交叉分析篩選器]<ul class='settings'>
+					<li>口味: O</li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -177,10 +199,11 @@
 				將篩選套用於圖表，並僅顯示縣市為「台中市」的結果。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>員工居住地分析![樞紐分析圖]</li>
+				<li class='menu'>樞紐分析表工具 / 分析 / 顯示隱藏 / 欄位清單</li>
+				<li class='dialog'>[樞紐分析圖欄位]<ul class='settings'>
+					<li>拖曳「縣市」至「篩選」區域</li>
+					<li>切換縣市欄位篩選為「台中市」</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -193,10 +216,16 @@
 				才能對活頁簿進行解構性變更。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='menu'>校閱 / 保護 / 保護活頁簿</li>
+				<li class='dialog'>[保護結構及視窗]<ul class='settings'>
+					<li>密碼: MyP@ssword</li>
+					<li>結構: O</li>
+					<li>確定<ul class='settings'>
+						<li class='dialog'>[確認密碼]<ul class='settings'>
+							<li>請再輸入一次密碼: MyP@ssword</li>
+						</ul></li>
+						<li>確定</li>
+					</ul></li>
 				</ul></li>
 			</ol>
 		</div>
@@ -209,10 +238,19 @@
 				訊息內容為「請輸入 1 到 12」。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>新商品預購!A4:A15</li>
+				<li class='menu'>資料 / 資料工具 / 資料驗證</li>
+				<li class='dialog'>[資料驗證] 設定<ul class='settings'>
+					<li>儲存格內允許: 整數</li>
+					<li>資料: 介於</li>
+					<li>最小值: 1</li>
+					<li>最大值: 12</li>
+				</ul></li>
+				<li class='dialog'>[資料驗證] 錯誤提醒<ul class='settings'>
+					<li>樣式: 警告</li>
+					<li>標題文字: 無效輸入</li>
+					<li>訊息內如: 請輸入 1 到 12</li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -223,10 +261,8 @@
 				並且與 M 欄裡的「方案」相符的「使用量總計」之平均值。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>5G 客戶本期傳輸量!N4:N30<ul class='settings'>
+					<li>=AVERAGEIFS($I$4:$I$65,$C$4:$C$65,$L$4,$E$4:$E$65,$M$4)</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -238,10 +274,8 @@
 				在計算過程中必須排除名為「假日清單」範圍裡所指定的特定假日。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>新商品預購!F4<ul class='settings'>
+					<li>=WORKDAY(H4,-52,假日清單)</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -253,10 +287,13 @@
 				圖表的大小與位置不重要。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>總使用量占比!A3:A12, E3:F12</li>
+				<li class='menu'>插入 / 圖表 / 查看所有圖表</li>
+				<li class='dialog'>[插入圖表] 所有圖表 / 組合圖<ul class='settings'>
+					<li>總使用量: 群組直條圖</li>
+					<li>總使用量占比: 含有資料標記的折線圖</li>
+					<li>總使用量占比.副座標軸: O</li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -266,10 +303,10 @@
 				使其在各地區底下逐列顯示每一個「鄉鎮區」
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>各縣市用戶人數!A4</li>
+				<li class='menu'>樞紐分析表工具 / 分析 / 顯示 / 欄位清單</li>
+				<li class='dialog'>[樞紐分析表欄位]<ul class='settings'>
+					<li>拖曳「鄉鎮區」至「列」縣市下方</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -282,10 +319,10 @@
 				使用 Excel 功能從「暢銷排行」儲存格範圍移除重複的紀錄。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>銷售量排行!暢銷排行</li>
+				<li class='menu'>資料 / 資料工具 / 移除重複項</li>
+				<li class='dialog'>[移除重複項]<ul class='settings'>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -296,10 +333,9 @@
 				請調整公式，然後將其複製到儲存格 E5:E19。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>獎金分配!E4<ul class='settings'>
+					<li>=VLOOKUP(D4,$I$4:$J$10,2,TRUE)</li>
+					<li>拖曳 E4:E19</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -311,10 +347,14 @@
 				圖表的大小和位置不重要。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>新書出版!E4↓</li>
+				<li class='menu'>插入 / 圖表 / 插入統計資料圖表 / 長條圖</li>
+				<li class='sheet'>新書出版![圖表 水平座標軸]</li>
+				<li class='dialog'>[座標軸格式] 座標軸選項<ul class='settings'>
+					 <li>間隔寬度: 100</li>
+				</ul></li>
+				<li class='sheet'>新書出版![圖表]<ul>
+					<li class='menu'>+ /圖表標籤/終點外側]</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -328,10 +368,13 @@
 				以每年  4000 的等差級數成長來完成逐年的費用預估。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>新車銷量預估!C4:F13</li>
+				<li class='menu'>常用 / 編輯 / 填滿 / 數列</li>
+				<li class='dialog'>[數列]<ul class='settings'>
+					<li>數列資料取自: 列</li>
+					<li>類型: 等差級數</li>
+					<li>間距值: 4,000</li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
@@ -343,10 +386,28 @@
 				顯示最高的六個值。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>近三年銷售摘要!D4:F33</li>
+				<li class='menu'>常用 / 樣式 / 條件式格式設定 / 前段後段項目規則 / 前10個項目</li>
+				<li class='dialog'>[前10個項目]<ul class='settings'>
+					<li>格式化排在最前面的儲存格: 6</li>
+					<li>顯示為: 自訂格式</li>
+					<li class='dialog'>[設定儲存格格式] 字型<ul class='settings'>
+						<li>字型樣式: 粗體</li>
+						<li>字型色彩: 紅色</li>
+					</ul></li>
+					<li class='dialog'>[設定儲存格格式] 填滿<ul class='settings'>
+						<li>其他色彩</li>
+						<li class='dialog'>[色彩] 自訂<ul class='settings'>
+							<li>色彩模式: RGB三原色</li>
+							<li>紅色: 255</li>
+							<li>綠色: 255</li>
+							<li>藍色: 203</li>
+							<li>確定</li>
+						</ul></li>
+						<li>確定</li>
+					</ul></li>
+					<li>確定</li>
+				</ul></li>
 				</ul></li>
 			</ol>
 		</div>
@@ -358,10 +419,8 @@
 				傳回來自「會員優惠」儲存格範圍內的會員折扣。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>會員資料!G4<ul class='settings'>
+					<li>=HLOOKUP(F4,會員優惠,4,FALSE)
 				</ul></li>
 			</ol>
 		</div>
@@ -375,11 +434,25 @@
 				右側區域顯示頁碼。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>自行車款庫存與銷售!</li>
+				<li class='menu'>檢視 / 巨集 / 錄製巨集</li>
+				<li class='dialog'>[錄製巨集]<ul class='settings'>
+					<li>巨集名稱: 頁首訊息</li>
+					<li>將巨集儲存在: 現用活頁簿</li>
+					<li>確定</li>
 				</ul></li>
+				<li class='menu'>版面配置 / 版面設定</li>
+				<li class='dialog'>[版面設定] / 頁首頁尾<ul class='settings'>
+					<li>自訂頁首</li>
+					<li class='dialog'>[頁首]<ul class='settings'>
+						<li>左: &amp;[日期]</li>
+						<li>中: BIKES銷售與庫存</li>
+						<li>右: &amp;[頁碼]</li>
+						<li>確定</li>
+					</ul></li>
+					<li>確定</li>
+				</ul></li>
+				<li class='menu'>檢視 / 巨集 / 停止錄製</li>
 			</ol>
 		</div>
 		<div scope="" target="" page="">
@@ -389,10 +462,13 @@
 				分組時從 1 開始到 800000 結束，並以 50000 為間隔。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>!:[]</li>
-				<li class='menu'>/</li>
-				<li class='dialog'>[]<ul>
-					 <li></li>
+				<li class='sheet'>售價區間分析!A7</li>
+				<li class='menu'>樞紐分析表工具 / 分析 / 群組 / 將選取項目組成群組</li>
+				<li class='dialog'>[群組]<ul class='settings'>
+					<li>開始點: 1</li>
+					<li>結束點: 800,000</li>
+					<li>間距值: 50,000</li>
+					<li>確定</li>
 				</ul></li>
 			</ol>
 		</div>
