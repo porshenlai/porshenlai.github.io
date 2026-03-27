@@ -5,7 +5,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <base target='_blank'/>
 <title>簡報頁面測試</title>
-<script plugins='card,quiz,anim' src='/App/slide.js'></script>
+<script src='/App/slide.js'></script>
 <style>
 	select { font-size:100%; }
 </style>
@@ -23,7 +23,7 @@
 </section>
 
 <section class='full'>
-	<div ani="Test-1">
+	<div X="Player:1" ani="Test-1">
 		<div class='af' dur='0'>
 			<h2>Slider with music</h2>
 			<div><span dvalue='position'></span>/<span dvalue='duration'></span>=<span dvalue='ratio'></span>%</div>
@@ -54,14 +54,14 @@
 
 <section>
 	<h2>Quiz Test</h2>
-	<div qt='s' ___='1'>
+	<div X='Q' qt='s' ___='1'>
 		單選題
 		<span qo='1'>選項壹</span>
 		<span qo='2'>選項貳</span>
 		<span qo='3'>選項參</span>
 		<span qo='4'>選項肆</span>
 	</div>
-	<div qt='s' ___='1'>
+	<div X='Q' qt='s' ___='1'>
 		單選題
 		<select qo='value'>
 		<option>請選擇</option>
@@ -71,7 +71,7 @@
 		<option value='4'>選項肆</option>
 		</select>
 	</div>
-	<div qt='m' ___='5'>
+	<div X='Q' qt='m' ___='5'>
 		複選題
 		<span qo='1'>選項壹</span>
 		<span qo='2'>選項貳</span>
@@ -87,10 +87,10 @@
 		<button action='speak' lang='fr'>Bonjour</button>
 	</div>
 	<div style='display:flex;flex-flow:row wrap;gap:1vw 2%;'>
-		<div class='card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
-		<div class='card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
-		<div class='card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
-		<div class='card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
+		<div X='Card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
+		<div X='Card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
+		<div X='Card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
+		<div X='Card' style='width:32%;padding-top:32%;'><div class='front'>正面</div><div class='back'>背面</div></div>
 	</div>
 </section>
 
