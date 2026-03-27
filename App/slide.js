@@ -310,7 +310,8 @@ class Slides
 		this.current=undefined;
 		this.fontScale=1.0;
 		this.NextSID=0;
-		this.Plugins={};
+		this.Plugins={}; // deprecated. Xs will replace this one by storing promise.
+		this.Xs={};
 		this.EventHook={};
 		this.Content=RE.querySelector('#content');
 
@@ -421,6 +422,11 @@ button:hover {border-color:#90a4ae;}
 
 		const content=this.Content;
 
+		await Promise.all(Array.from(content.querySelectorAll('[X]')).reduce((R,e)=>{
+			R.push(this.applyX(e.getAttribute('X').split(':')[0],e));
+			return R;
+		},[]));
+
 		// A. fix sections
 		((selector) => {
 			// filter sections, generate SIDs, and calc total number of pages
@@ -512,7 +518,7 @@ button:hover {border-color:#90a4ae;}
 			// Update current section class tag
 			Array.from(section.parentNode.querySelectorAll('.current-section')).forEach((s)=>s.classList.remove('current-section'));
 			section.classList.add('current-section');
-			this.Plugins.TeX.resolve(section).then(console.log,console.log);
+			if (this.Plugins.TeX) this.Plugins.TeX.resolve(section).then(console.log,console.log);
 			if (this.Aside) this.Aside.update(parseInt(section.getAttribute('SID')), section.parentNode.PageCounts);
 			// Update URL hash and scroll into view
 			if (history.replaceState)
@@ -550,6 +556,15 @@ button:hover {border-color:#90a4ae;}
 	{	// install page plugin {{{
 		this.Plugins[name]=await Promise.resolve(handler(this));
 	}	// }}}
+
+	async applyX (name, e) // apply eXtension
+	{
+		if (!this.Xs[name])
+			this.Xs[name] = name in Plugins ?
+				Promise.resolve(Plugins[name](this)) :
+				loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${name}.js`)) ;
+		(await this.Xs[name])(this,e);
+	}
 
 	applyFontSize (scale)
 	{	// apply font size {{{
