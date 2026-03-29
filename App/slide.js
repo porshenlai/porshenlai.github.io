@@ -457,7 +457,7 @@ button:hover {border-color:#90a4ae;}
 		// B. install styles for sections
 		content.insertBefore(((s)=>{
 			s.innerHTML=`
-.cb { white-space: nowrap; padding-left:48px; font-weight:bolder; overflow-x:auto; }
+.cb { white-space: nowrap; padding-left:3vw; font-weight:bolder; overflow-x:auto; }
 `;
 			return s;
 		})(document.createElement("style")),content.firstChild);

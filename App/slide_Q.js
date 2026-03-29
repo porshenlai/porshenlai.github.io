@@ -21,9 +21,9 @@ class Quiz
 	font-size:100%;
 }
 [X="Q"] [qo] {
-	padding:4px;
-	margin:4px;
-	border:2px solid lightgrey;
+	padding:.3vw;
+	margin:.1vw;
+	border:1px solid lightgrey;
 	background-image:linear-gradient(white 60%,lightgrey);
 }
 [X="Q"] [qo]:hover {
@@ -31,10 +31,10 @@ class Quiz
 	background-image:linear-gradient(white 60%,grey);
 }
 [X="Q"][qt] {
-	border:2px solid blue;
-	border-radius:8px;
-	padding:8px;
-	margin:2px 0;
+	border:1px solid blue;
+	border-radius:.5vw;
+	padding:.3vw;
+	margin:.1vw 0;
 }
 [X="Q"][qr="x"] {
 	border-color:red;
@@ -45,16 +45,18 @@ class Quiz
 	background-image:
 	linear-gradient(to right,white 60%,lightgreen);
 }
-[X="Q"][qr='o'] :not(.QS)[qo] {
-	display:none;
-}
-[X="Q"][qt]:not([qr='o']) .answer {
-	display:none;
-}
+
+[X="Q"][qr='o'] :not(.QS)[qo],
+[X="Q"][qt]:not([qr='o']) .answer,
+[X="Q"][qr='_']>:not(.HT),
+[X="Q"]:not([qr='_'])>.HT
+{ display:none; }
+
 [X="Q"] :not([qo="value"]).QS {
 	color:blue;
 	font-weight:bolder;
 }
+.HT { border:1px outset silver;padding:2px;text-align:center; }
 `;
 			document.head.appendChild(SE);
 		})();
@@ -135,13 +137,24 @@ class Quiz
 
 		if (!e._Q_on_click_) {
 			e._Q_on_click_=(evt)=>{
-				let v=findParent(evt.target,'[qo]');
-				if (!v) return;
-				if (v.getAttribute('qo')!=='value') {
-					evt.preventDefault();
-					evt.stopPropagation();
-					this.answer(v);
-				}
+				try {
+					let e=evt.target;
+					while (e) {
+						if (e.matches('[qo]')) {
+							if (e.getAttribute('qo')!=='value') {
+								evt.preventDefault();
+								evt.stopPropagation();
+								this.answer(e);
+							}
+							break;
+						}else
+						if (e.matches('.HT')) {
+							findParent(e,'[X="Q"]').setAttribute("qr","-");
+							break;
+						}
+						e=e.parentNode;
+					}
+				} catch (x) {}
 			}
 			e.addEventListener('click',e._Q_on_click_);
 		}
