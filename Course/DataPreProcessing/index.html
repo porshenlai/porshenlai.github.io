@@ -136,7 +136,7 @@
 		<li><strong>定義：</strong> 異常值是數據集中與其他觀測值有顯著差異的數值，可能代表測量錯誤、數據輸入錯誤，或真實但極端的事件。</li>
 	</ul>
 	<div qi="2-2" X='Q' qt="s" ___='2'>
-		<p>假設您使用 箱形圖 (Box Plot) <div><img src="images/boxplot.jfif" /></div> 來視覺化「產品成本」欄位的分佈。您觀察到有幾個點遠遠超出了上方的「鬍鬚」（Whisker）。</p>
+		<p>假設您使用 箱形圖 (Box Plot) <div><img src="https://freesvg.org/img/Boxplot.png" style='max-width:80vw;max-height:80vh;'/></div> 來視覺化「產品成本」欄位的分佈。您觀察到有幾個點遠遠超出了上方的「鬍鬚」（Whisker）。</p>
 		<p>在不直接刪除這些異常值的前提下，如果您想對這些極端值進行<strong>處理</strong>，使其對模型的影響降低，您可能會採用以下哪種方法？</p>
 		<div qo="1"><strong>直接將這些異常值刪除</strong>，因為它們會影響模型訓練。</div>
 		<div qo="2"><strong>將異常值的值替換成</strong>靠近「鬍鬚」邊界的<strong>最大值或最小值</strong>（這個方法被稱為<strong>Winsorization</strong> 或<strong>截尾</strong>）。</div>
@@ -182,7 +182,7 @@
 	<h2>(2-4) 處理雜訊與錯誤資料 (Noise &amp; Error Data)</h2>
 	<p>在處理完遺失值、異常值和文本不一致性後，我們還有一個關鍵的清洗步驟：處理<strong>雜訊 (Noise)</strong> 或<strong>錯誤資料 (Error Data)</strong>。</p>
 	<ul>
-		<li><strong>定義：</strong> 雜訊通常指的是隨機誤差或測量誤差；而錯誤資料則是指明顯不符合實際情況的數值（例如 $\text{Age} = \text{200}$）。</li>
+		<li><strong>定義：</strong> 雜訊通常指的是隨機誤差或測量誤差；而錯誤資料則是指明顯不符合實際情況的數值（例如 Age = 200）。</li>
 	</ul>
 	<div qi="2-4" X='Q' qt="s" ___='1'>
 		<p>假設我們正在處理一個「年齡」（Age）欄位。如果您發現某筆紀錄的年齡是 <strong>200</strong> 歲，這顯然是一個<strong>錯誤資料</strong>。</p>
@@ -194,8 +194,8 @@
 			<p><strong>實施業務規則驗證 (Business Rule Validation)</strong> 💡 是處理這類明顯錯誤資料（Error Data）最直接且系統化的方法。</p>
 			<p><strong>原因</strong>：</p>
 			<ul>
-				<li><strong>業務規則驗證</strong>：是依據<strong>常識</strong>或<strong>領域知識</strong>設定邏輯邊界（如：年齡上限 $\text{120}$ 歲），能快速且有效地標記出不可能的數值。</li>
-				<li><strong>複雜演算法 (KNN/Isolation Forest)</strong>：雖然它們能找出統計上的異常值，但對於像 $\text{200}$ 歲這種<strong>明顯違反現實世界規則</strong>的錯誤，設定簡單的規則更有效率。</li>
+				<li><strong>業務規則驗證</strong>：是依據<strong>常識</strong>或<strong>領域知識</strong>設定邏輯邊界（如：年齡上限 120 歲），能快速且有效地標記出不可能的數值。</li>
+				<li><strong>複雜演算法 (KNN/Isolation Forest)</strong>：雖然它們能找出統計上的異常值，但對於像 200 歲這種<strong>明顯違反現實世界規則</strong>的錯誤，設定簡單的規則更有效率。</li>
 			</ul>
 		</div>
 	</ol></div>
@@ -216,8 +216,8 @@
 	<p>數據轉換的第一個重點，是處理<strong>數值型數據 (Numerical Data)</strong> 的<strong>尺度</strong>問題。</p>
 	<p>假設您的資料中有兩個數值欄位：</p>
 	<ol>
-		<li><strong>年收入 (Annual Income)</strong>：範圍從 $\text{30,000}$ 到 $\text{500,000}$ 元。</li>
-		<li><strong>年齡 (Age)</strong>：範圍從 $\text{18}$ 到 $\text{90}$ 歲。</li>
+		<li><strong>年收入 (Annual Income)</strong>：範圍從 30,000 到 500,000 元。</li>
+		<li><strong>年齡 (Age)</strong>：範圍從 18 到 90 歲。</li>
 	</ol>
 	<div qi="3-1a" X='Q' qt="s" ___='2'>
 		<p>如果您直接將這兩個欄位送入某些機器學習模型（例如 K-Nearest Neighbors 或支持向量機 SVM），會發生什麼問題？</p>
@@ -231,7 +231,7 @@
 	</ol></div>
 	<h3>選擇合適的縮放方法</h3>
 	<p>特徵縮放主要有兩大方法，它們的處理方式略有不同：</p>
-	<ol>
+	<ol X='Math'>
 		<li><strong>正規化 (Normalization) / 最小-最大縮放 (Min-Max Scaling)：</strong> 將數據線性地縮放到一個固定的範圍內，通常是 $[\text{0}, \text{1}]$。<ul>
 			<li>公式：$X' = \frac{X - X_{\text{min}}}{X_{\text{max}} - X_{\text{min}}}$</li>
 		</ul></li>
