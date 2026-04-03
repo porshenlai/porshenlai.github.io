@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+	<title>Cyberpiers: Calculator</title>
+	<style>
+		html,body {
+			position: absolute; margin: 0; padding: 0; border: 0;
+			width:100%; height:100%;
+			background: white; color: black;
+			font-size:5vmin;
+		}
+		table { width:90%; margin:auto; }
+		table thead th { padding:8px 0; text-align:right; }
+		table thead th input { border:0; font-size:100%; }
+		table thead th button { padding:8px;margin:0 8px;font-size:80%; }
+		table tbody td { border:2px outset silver; text-align:center; vertical-align:middle; padding:8px; }
+	</style>
+</head>
+<body>
+	<table><thead><tr>
+		<th colspan='5' style='white-space:nowrap;'><input UID="Equation" type='text' value='(75,000-8,3.545*4)%(2**3)' style='text-align:right'></input><button act='calc'>=</button><span UID="Answer"></span></th>
+	</tr><tr>
+		<th width='20%' style='background:blue'></th>
+		<th width='20%' style='background:blue'></th>
+		<th width='20%' style='background:blue'></th>
+		<th width='20%' style='background:green'></th>
+		<th width='20%' style='background:green'></th>
+	</tr><tr>
+	</tr></thead><tbody><tr>
+		<td act='clear'>C</td>
+		<td act='add'>(</td>
+		<td act='add'>)</td>
+		<td colspan='2' act='bs'>B</td>
+	</tr><tr>
+		<td act='add'>7</td>
+		<td act='add'>8</td>
+		<td act='add'>9</td>
+		<td act='add'>+</td>
+		<td>-</td>
+	</tr><tr>
+		<td act='add'>4</td>
+		<td act='add'>5</td>
+		<td act='add'>6</td>
+		<td act='add'>*</td>
+		<td>/</td>
+	</tr><tr>
+		<td act='add'>1</td>
+		<td act='add'>2</td>
+		<td act='add'>3</td>
+		<td act='add'>%</td>
+		<td>**</td>
+	</tr><tr>
+		<td act='add'>0</td>
+		<td act='add'>.</td>
+		<td colspan='3' act='calc'>=</td>
+	</tr></tbody></table>
+	<script>
+((RE)=>{
+	let Calc=new (class {
+		constructor () {
+		}
+		verifyEquation (eq) {
+			return eq.replaceAll(/[^0-9+\-\*\/%\.\(\)]/g,'');
+		}
+		calculate (eq) {
+			try {
+				eval('this.LastValue='+eq);
+				return this.LastValue;
+			} catch (x) {
+				return undefined;
+			}
+		}
+	})();
+	const EQ=RE.querySelector('[UID="Equation"]');
+	const EA=RE.querySelector('[UID="Answer"]');
+	document.querySelector('table').addEventListener('click', (evt)=>{
+		try {
+			let e=evt.target;
+			do {
+				if (e.hasAttribute('act')) {
+					switch(e.getAttribute('act')) {
+					case 'calc':
+						const eqn=EQ.value=Calc.verifyEquation(EQ.value);
+						const ans=Calc.calculate(eqn);
+						EA.textContent=ans ? parseInt(ans*1000)/1000 : "";
+						break;
+					case 'clear':
+						EQ.value=EA.textContent="";
+						break;
+					case 'bs':
+						EQ.value=EQ.value.substring(0,EQ.value.length-1);
+						break;
+					case 'add':
+						EQ.value+=e.textContent.trim();
+						break;
+					}
+					break;
+				}
+			} while(e=e.parentNode);
+		} catch (x) { }
+	});
+	RE.addEventListener('change',(evt)=>document.querySelector('[act="calc"]').click());
+})(document.currentScript.parentNode);
+	</script>
+</body>
+</html>

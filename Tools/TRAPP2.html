@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+<title>臺鐵 PP 自強號座位查詢</title>
+<head>
+<style type="text/css">
+
+body { background:white; color:black; }
+body, td, th, select {
+	font-size:2.4vh;
+}
+
+[CabinType] th, [CabinType] td {
+	text-align:center;
+	border:3px solid #d0d0d0;
+}
+.R3>th,.R3>td { border-color: black #d0d0d0;cursor:pointer; }
+.R1>th,.R1>td { border-top-color: black;cursor:pointer; }
+.R2>th,.R2>td { border-bottom-color: black;cursor:pointer; }
+[CabinType] .AISLE { border:3px solid #FFFFFF; }
+
+[CabinType] { display:none; }
+[Cur="N1"] [CabinType="N-PPC1400"], [Cur="N7"] [CabinType="N-PPC1400"],
+[Cur="N3"] [CabinType="N-PPH1300"], [Cur="N8"] [CabinType="N-PPH1300"],
+[Cur="N2"] [CabinType="N-PPT1000"], [Cur="N4"] [CabinType="N-PPT1000"],
+[Cur="N5"] [CabinType="N-PPT1000"], [Cur="N6"] [CabinType="N-PPT1000"],
+[Cur="N9"] [CabinType="N-PPT1000"], [Cur="N10"] [CabinType="N-PPT1000"],
+[Cur="N11"] [CabinType="N-PPT1000"], [Cur="N12"] [CabinType="N-PPP2500"],
+[Cur="S1"] [CabinType="S-PPC1400"], [Cur="S7"] [CabinType="S-PPC1400"],
+[Cur="S3"] [CabinType="S-PPH1300"], [Cur="S8"] [CabinType="S-PPH1300"],
+[Cur="S2"] [CabinType="S-PPT1000"], [Cur="S4"] [CabinType="S-PPT1000"],
+[Cur="S5"] [CabinType="S-PPT1000"], [Cur="S6"] [CabinType="S-PPT1000"],
+[Cur="S9"] [CabinType="S-PPT1000"], [Cur="S10"] [CabinType="S-PPT1000"],
+[Cur="S11"] [CabinType="S-PPT1000"], [Cur="S12"] [CabinType="S-PPP2500"],
+[Cur="N13"] [CabinType="N-PPT2000"], [Cur="S13"] [CabinType="S-PPT2000"]
+{ display:table-row-group; width:100%;  }
+
+[Bar] { text-align:center; margin:16px 4px; padding:4px; border:1px solid silver; }
+[Focused="yes"] { background:lightblue; }
+</style>
+<script>
+	let lastClick=undefined,
+		dict={
+			"N":"北上", "S":"南下",
+			"1":"一車", "2":"二車", "3":"三車", "4":"四車", "5":"五車", "6":"六車",
+			"7":"七車", "8":"八車", "9":"九車", "10":"十車", "11":"十一車", "12":"十二車",
+			"13":"2,4,5,6,9,10,11 隨機出現"
+		};
+	function btnSwap(btn){
+		if(lastClick)
+			lastClick.removeAttribute("Focused");
+		if(lastClick=btn)
+			lastClick.setAttribute("Focused","yes");
+	}
+	function showInfo(event){
+		let btn=event.target,
+			msg=document.body.querySelector('[Bar="Message"]'),
+			cur=/([A-Z])(.*)/.exec(document.body.querySelector('table[Cur]').getAttribute("Cur"));
+
+		if (cur[1]==='N')
+			msg.firstChild.textContent=(cur[2]==='12' ? "最前端" : cur[2]==='1' ? "最尾端" : "");
+		else
+			msg.firstChild.textContent=(cur[2]==='1' ? "最前端" : cur[2]==='12' ? "最尾端" : "");
+
+		msg.firstChild.textContent+=" "+dict[cur[1]]+"/第"+dict[cur[2]];
+		msg.lastChild.textContent="";
+		if (!btn) return;
+
+		let rtype=parseInt((btn.parentNode.getAttribute("class")||"X0")[1]);
+		btnSwap(btn);
+		if(!parseInt(btn.textContent)){
+			msg.lastChild.textContent=btn.getAttribute("Info") || "";
+			return;
+		}
+		msg.firstChild.textContent+="/"+btn.textContent+"號";
+		msg.lastChild.textContent	= "第"+btn.parentNode.getAttribute("pos")+"排 "
+									+ (btn.tagName==="TH" ? "靠窗" : "靠道") + " "
+									+ (rtype&0x1===1?"有掛勾":"沒掛勾") ;
+	}
+	function ChangeCabin(panel, shift) {
+		let bound=panel.querySelector('[OptType="Bound"]').value,
+			cabin=parseInt(panel.querySelector('[OptType="Cabin"]').value);
+		if (shift) {
+			cabin+=(bound==="S"?shift:-shift);
+			if(cabin<1) cabin=1;
+			if(cabin>12) cabin=12;
+			panel.querySelector('[OptType="Cabin"]').value=cabin;
+		}
+		document.body.querySelector('table[Cur]').setAttribute("Cur",bound+cabin);
+		((msg)=>{
+			showInfo({});
+		})(document.body.querySelector('[Bar="Message"]'));
+		btnSwap();
+	}
+</script>
+</head>
+<body>
+<div Bar="Control" onchange="ChangeCabin(this)">
+	<select OptType="Bound">
+		<option value="N">北上</option><option value="S">南下</option>
+	</select>
+	<select OptType="Cabin">
+		<option value="1">一</option><option value="2">二</option><option value="3">三</option>
+		<option value="4">四</option><option value="5">五</option><option value="6">六</option>
+		<option value="7">七</option><option value="8">八</option><option value="9">九</option>
+		<option value="10">十</option><option value="11">十一</option><option value="12">十二</option>
+		<option value="13">機動調度</option>
+	</select>
+	車
+	<button onclick="ChangeCabin(this.parentNode,-1)">前</button>
+	<button onclick="ChangeCabin(this.parentNode,1)">後</button>
+</div>
+<table onclick="showInfo(event)" border="0" align="center" style="width:90vw;border:3px solid black;" Cur="">
+<tbody CabinType="N-PPC1400">
+<tr class="R3" pos="1/13">
+	<th>1</th><td>3</td>
+	<td rowspan="14" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<td>4</td><th>2</th>
+</tr>
+<tr class="R3" pos="2/13"><th>5</th><td>7</td><td>8</td><th>6</th></tr>
+<tr class="R1" pos="3/13"><th>9</th><td>11</td><td>12</td><th>10</th></tr>
+<tr class="R2" pos="4/13"><th>13</th><td>15</td><td>16</td><th>14</th></tr>
+<tr class="R1" pos="5/13"><th>17</th><td>19</td><td>20</td><th>18</th></tr>
+<tr class="R2" pos="6/13"><th>21</th><td>23</td><td>24</td><th>22</th></tr>
+<tr class="R1" pos="7/13"><th>25</th><td>27</td><td>28</td><th>26</th></tr>
+<tr class="R2" pos="8/13"><th>29</th><td>31</td><td>32</td><th>30</th></tr>
+<tr class="R1" pos="9/13"><th>33</th><td>35</td><td>36</td><th>34</th></tr>
+<tr class="R2" pos="10/13"><th>37</th><td>39</td><td>40</td><th>38</th></tr>
+<tr class="R1" pos="11/13"><th>41</th><td>43</td><td>44</td><th>42</th></tr>
+<tr class="R2" pos="12/13"><th>45</th><td>47</td><td>48</td><th>46</th></tr>
+<tr class="R3" pos="13/13"><th>49</th><td>51</td><td>52</td><th>50</th></tr>
+<tr><th colspan="2" info="列車大師的小房間">車長室</th>
+	<th colspan="2" info="喝茶哺乳服處">茶服哺</th>
+</tr>
+</tbody>
+<tbody CabinType="S-PPC1400">
+<tr><th colspan="2" info="喝茶哺乳服處">茶服哺</th>
+	<td rowspan="14" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<th colspan="2" info="列車大師的小房間">車長室</th>
+</tr>
+<tr class="R3" pos="1/13"><th>50</th><td>52</td><td>51</td><th>49</th></tr>
+<tr class="R1" pos="2/13"><th>46</th><td>48</td><td>47</td><th>45</th></tr>
+<tr class="R2" pos="3/13"><th>42</th><td>44</td><td>43</td><th>41</th></tr>
+<tr class="R1" pos="4/13"><th>38</th><td>40</td><td>39</td><th>37</th></tr>
+<tr class="R2" pos="5/13"><th>34</th><td>36</td><td>35</td><th>33</th></tr>
+<tr class="R1" pos="6/13"><th>30</th><td>32</td><td>31</td><th>29</th></tr>
+<tr class="R2" pos="7/13"><th>26</th><td>28</td><td>27</td><th>25</th></tr>
+<tr class="R1" pos="8/13"><th>22</th><td>24</td><td>23</td><th>21</th></tr>
+<tr class="R2" pos="9/13"><th>18</th><td>20</td><td>19</td><th>17</th></tr>
+<tr class="R1" pos="10/13"><th>14</th><td>16</td><td>15</td><th>13</th></tr>
+<tr class="R2" pos="11/13"><th>10</th><td>12</td><td>11</td><th>9</th></tr>
+<tr class="R3" pos="12/13"><th>6</th><td>8</td><td>7</td><th>5</th></tr>
+<tr class="R3" pos="13/13"><th>2</th><td>4</td><td>3</td><th>1</th></tr>
+</tbody>
+<tbody CabinType="N-PPH1300">
+<tr class="R3" pos="1/12">
+	<th>46</th><td>48</td>
+	<td rowspan="12" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<td>47</td><th>45</th>
+</tr>
+<tr class="R3" pos="2/12"><th>42</th><td>44</td><td>43</td><th>41</th></tr>
+<tr class="R1" pos="3/12"><th>38</th><td>40</td><td>39</td><th>37</th></tr>
+<tr class="R2" pos="4/12"><th>34</th><td>36</td><td>35</td><th>33</th></tr>
+<tr class="R1" pos="5/12"><th>30</th><td>32</td><td>31</td><th>29</th></tr>
+<tr class="R2" pos="6/12"><th>26</th><td>28</td><td>27</td><th>25</th></tr>
+<tr class="R1" pos="7/12"><th>22</th><td>24</td><td>23</td><th>21</th></tr>
+<tr class="R2" pos="8/12"><th>18</th><td>20</td><td>19</td><th>17</th></tr>
+<tr class="R1" pos="9/12"><th>14</th><td>16</td><td>15</td><th>13</th></tr>
+<tr class="R2" pos="10/12"><th>10</th><td>12</td><td>11</td><th>9</th></tr>
+<tr class="R3" pos="11/12"><th>6</th><td>8</td><td>7</td><th>5</th></tr>
+<tr class="R3" pos="12/12">
+	<th>2</th><td>4</td>
+	<td class="AISLE" info="擠滿人的擁擠通道"></td>
+	<th info="可停泊有輪子的椅子">輪椅</th>
+</tr>
+<tr><th colspan="3" info="遍地黃金的寶地">廁所</th>
+	<th colspan="2" class="AISLE" info="擠滿人的擁擠通道"></th>
+</tr>
+</tbody>
+<tbody CabinType="S-PPH1300">
+<tr><th colspan="2" class="AISLE" info="擠滿人的擁擠通道"></th>
+	<th colspan="3" info="遍地黃金的寶地">廁所</th>
+</tr>
+<tr class="R3" pos="1/12">
+	<th info="可停泊有輪子的椅子">輪椅</th>
+	<td class="AISLE" info="擠滿人的擁擠通道"></td>
+	<td rowspan="14" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<td>4</td><th>2</th>
+</tr>
+<tr class="R3" pos="2/12"><th>5</th><td>7</td><td>8</td><th>6</th></tr>
+<tr class="R1" pos="3/12"><th>9</th><td>11</td><td>12</td><th>10</th></tr>
+<tr class="R2" pos="4/12"><th>13</th><td>15</td><td>16</td><th>14</th></tr>
+<tr class="R1" pos="5/12"><th>17</th><td>19</td><td>20</td><th>18</th></tr>
+<tr class="R2" pos="6/12"><th>21</th><td>23</td><td>24</td><th>22</th></tr>
+<tr class="R1" pos="7/12"><th>25</th><td>27</td><td>28</td><th>26</th></tr>
+<tr class="R2" pos="8/12"><th>29</th><td>31</td><td>32</td><th>30</th></tr>
+<tr class="R1" pos="9/12"><th>33</th><td>35</td><td>36</td><th>34</th></tr>
+<tr class="R2" pos="10/12"><th>37</th><td>39</td><td>40</td><th>38</th></tr>
+<tr class="R3" pos="11/12"><th>41</th><td>43</td><td>44</td><th>42</th></tr>
+<tr class="R3" pos="12/12"><th>45</th><td>47</td><td>48</td><th>46</th></tr>
+</tbody>
+<tbody CabinType="N-PPT1000">
+<tr class="R3" pos="1/13">
+	<th>50</th><td>52</td>
+	<td rowspan="14" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<td>51</td><th>49</th>
+</tr>
+<tr class="R3" pos="2/13"><th>46</th><td>48</td><td>47</td><th>45</th></tr>
+<tr class="R1" pos="3/13"><th>42</th><td>44</td><td>43</td><th>41</th></tr>
+<tr class="R2" pos="4/13"><th>38</th><td>40</td><td>39</td><th>37</th></tr>
+<tr class="R1" pos="5/13"><th>34</th><td>36</td><td>35</td><th>33</th></tr>
+<tr class="R2" pos="6/13"><th>30</th><td>32</td><td>31</td><th>29</th></tr>
+<tr class="R1" pos="7/13"><th>26</th><td>28</td><td>27</td><th>25</th></tr>
+<tr class="R2" pos="8/13"><th>22</th><td>24</td><td>23</td><th>21</th></tr>
+<tr class="R1" pos="9/13"><th>18</th><td>20</td><td>19</td><th>17</th></tr>
+<tr class="R2" pos="10/13"><th>14</th><td>18</td><td>15</td><th>13</th></tr>
+<tr class="R1" pos="11/13"><th>10</th><td>12</td><td>11</td><th>9</th></tr>
+<tr class="R2" pos="12/13"><th>6</th><td>8</td><td>7</td><th>5</th></tr>
+<tr class="R3" pos="13/13"><th>2</th><td>4</td><td>3</td><th>1</th></tr>
+<tr><th colspan="2" info="遍地黃金的寶地">廁所</th><th colspan="2" info="遍地黃金的寶地">廁所</th></tr>
+</tbody>
+<tbody CabinType="S-PPT1000">
+<tr><th colspan="2" info="遍地黃金的寶地">廁所</th>
+	<td rowspan="14" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<th colspan="2" info="遍地黃金的寶地">廁所</th></tr>
+<tr class="R3" pos="1/13"><th>1</th><td>3</td><td>4</td><th>2</th></tr>
+<tr class="R1" pos="2/13"><th>5</th><td>7</td><td>8</td><th>6</th></tr>
+<tr class="R2" pos="3/13"><th>9</th><td>11</td><td>12</td><th>10</th></tr>
+<tr class="R1" pos="4/13"><th>13</th><td>15</td><td>16</td><th>14</th></tr>
+<tr class="R2" pos="5/13"><th>17</th><td>19</td><td>20</td><th>18</th></tr>
+<tr class="R1" pos="6/13"><th>21</th><td>23</td><td>24</td><th>22</th></tr>
+<tr class="R2" pos="7/13"><th>25</th><td>27</td><td>28</td><th>26</th></tr>
+<tr class="R1" pos="8/13"><th>29</th><td>31</td><td>32</td><th>30</th></tr>
+<tr class="R2" pos="9/13"><th>33</th><td>35</td><td>36</td><th>34</th></tr>
+<tr class="R1" pos="10/13"><th>37</th><td>39</td><td>40</td><th>38</th></tr>
+<tr class="R2" pos="11/13"><th>41</th><td>43</td><td>44</td><th>42</th></tr>
+<tr class="R3" pos="12/13"><th>45</th><td>47</td><td>48</td><th>46</th></tr>
+<tr class="R3" pos="13/13"><th>49</th><td>51</td><td>52</td><th>50</th></tr>
+</tbody>
+<tbody CabinType="N-PPP2500">
+<tr><th colspan="5" info="有很多功能的區域">哺集乳輪椅自行車</th></tr>
+<tr class="R1" pos="1/4">
+	<th>5</th><td>7</td>
+	<td rowspan="4" colspan="2" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<th>4</th>
+</tr>
+<tr class="R2" pos="2/4"><th>9</th><td>11</td><th>8</th></tr>
+<tr class="R1" pos="3/4"><th>13</th><td>15</td><th>12</th></tr>
+<tr class="R2" pos="4/4"><th>17</th><td>19</td><th>16</th></tr>
+<tr><th colspan="3" info="遍地黃金的寶地">廁所</th>
+	<th colspan="2" class="AISLE" info="擠滿人的擁擠通道"></th>
+</tr>
+</tbody>
+<tbody CabinType="S-PPP2500">
+<tr><th colspan="2" class="AISLE" info="擠滿人的擁擠通道"></th>
+	<th colspan="3" info="遍地黃金的寶地">廁所</th></tr>
+<tr class="R1" pos="1/4">
+	<th>16</th>
+	<td rowspan="4" colspan="2" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<td>19</td><th>17</th>
+</tr>
+<tr class="R2" pos="2/4"><th>12</th><td>15</td><th>13</th></tr>
+<tr class="R1" pos="3/4"><th>8</th><td>11</td><th>9</th></tr>
+<tr class="R2" pos="4/4"><th>4</th><td>7</td><th>5</th></tr>
+<tr><th colspan="5" info="有很多功能的區域">哺集乳輪椅自行車</th></tr>
+</tbody>
+<tbody CabinType="N-PPT2000">
+<tr><th colspan="2" info="遍地黃金的寶地">廁所</th>
+	<td rowspan="14" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<th colspan="2" info="遍地黃金的寶地">廁所</th></tr>
+<tr class="R3" pos="1/13"><th>1</th><td>3</td><td>4</td><th>2</th></tr>
+<tr class="R1" pos="2/13"><th>5</th><td>7</td><td>8</td><th>6</th></tr>
+<tr class="R2" pos="3/13"><th>9</th><td>11</td><td>12</td><th>10</th></tr>
+<tr class="R1" pos="4/13"><th>13</th><td>15</td><td>16</td><th>14</th></tr>
+<tr class="R2" pos="5/13"><th>17</th><td>19</td><td>20</td><th>18</th></tr>
+<tr class="R1" pos="6/13"><th>21</th><td>23</td><td>24</td><th>22</th></tr>
+<tr class="R2" pos="7/13"><th>25</th><td>27</td><td>28</td><th>26</th></tr>
+<tr class="R1" pos="8/13"><th>29</th><td>31</td><td>32</td><th>30</th></tr>
+<tr class="R2" pos="9/13"><th>33</th><td>35</td><td>36</td><th>34</th></tr>
+<tr class="R1" pos="10/13"><th>37</th><td>39</td><td>40</td><th>38</th></tr>
+<tr class="R2" pos="11/13"><th>41</th><td>43</td><td>44</td><th>42</th></tr>
+<tr class="R3" pos="12/13"><th>45</th><td>47</td><td>48</td><th>46</th></tr>
+<tr class="R3" pos="13/13"><th>49</th><td>51</td><td>52</td><th>50</th></tr>
+</tbody>
+<tbody CabinType="S-PPT2000">
+<tr class="R3" pos="1/13">
+	<th>50</th><td>52</td>
+	<td rowspan="14" class="AISLE" info="擠滿人的擁擠通道"></td>
+	<td>51</td><th>49</th>
+</tr>
+<tr class="R3" pos="2/13"><th>46</th><td>48</td><td>47</td><th>45</th></tr>
+<tr class="R1" pos="3/13"><th>42</th><td>44</td><td>43</td><th>41</th></tr>
+<tr class="R2" pos="4/13"><th>38</th><td>40</td><td>39</td><th>37</th></tr>
+<tr class="R1" pos="5/13"><th>34</th><td>36</td><td>35</td><th>33</th></tr>
+<tr class="R2" pos="6/13"><th>30</th><td>32</td><td>31</td><th>29</th></tr>
+<tr class="R1" pos="7/13"><th>26</th><td>28</td><td>27</td><th>25</th></tr>
+<tr class="R2" pos="8/13"><th>22</th><td>24</td><td>23</td><th>21</th></tr>
+<tr class="R1" pos="9/13"><th>18</th><td>20</td><td>19</td><th>17</th></tr>
+<tr class="R2" pos="10/13"><th>14</th><td>18</td><td>15</td><th>13</th></tr>
+<tr class="R1" pos="11/13"><th>10</th><td>12</td><td>11</td><th>9</th></tr>
+<tr class="R2" pos="12/13"><th>6</th><td>8</td><td>7</td><th>5</th></tr>
+<tr class="R3" pos="13/13"><th>2</th><td>4</td><td>3</td><th>1</th></tr>
+<tr><th colspan="2" info="遍地黃金的寶地">廁所</th><th colspan="2" info="遍地黃金的寶地">廁所</th></tr>
+</tbody>
+</table>
+<div Bar="Message"><div></div><div></div></diV>
+<script>
+	ChangeCabin(document.body.querySelector('[OptType="Bound"]').parentNode);
+</script>
+</body>
+</html>
