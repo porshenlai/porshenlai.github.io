@@ -15,15 +15,19 @@
 				請設定 Excel 停用活頁簿中的所有巨集，並且不會發出通知。
 			</div>
 			<ol DN="S">
-				<li class='menu'>檔案 / 選項</li>
-				<li class='dialog'>[Excel 選項] 信任中心<ul class='settings'>
-					<li>信任中心設定</li>
-					<li class='dialog'>[信任中心] 巨集設定<ul class='settings'>
-						<li>停用所有巨集 (不事先通知): O</li>
-						<li>確定</li>
-					</ul></li>
-					<li>確定</li>
-				</ul></li>
+				<li class='menu'><b>檔案</b><b>選項</b>
+					<div class='dialog'>[Excel 選項]<ul class='settings'>
+						<li class='tab'>信任中心</li>
+						<li><b>信任中心設定</b>
+							<div class='dialog'>[信任中心]<ul class='settings'>
+								<li class='tab'>巨集設定</li>
+								<li>✓ <i>停用所有巨集 (不事先通知)</i></li>
+								<li><b>確定</b></li>
+							</ul></div>
+						</li>
+						<li><b>確定</b></li>
+					</ul></div>
+				</li>
 			</ol>
 		</div>
 		<div scope="" target="" page="">
@@ -31,19 +35,22 @@
 				在「北部各行政區資料」工作表上，修改「設定格式化的條件」規則，使其格式化表格的資料列為「體育活動支出」超過 40000 的國家地區。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>北部各行政區資料!</li>
-				<li class='menu'>常用 / 樣式 / 設定格式化的條件 / 管理規則</li>
-				<li class='dialog'>[設定格式化的條件規則管理員]<ul class='settings'>
-					<li>顯示格式化規則: 這個表格</li>
-					<li>規則: 公式=$F4&gt;30000</li>
-					<li>編輯規則</li>
-					<li class='dialog'>[編輯格式化規則]<ul class='settings'>
-						<li>規則類型: 使用公式來決定要格式化那些儲存格</li>
-						<li>格式化在此公式為 True 的值: =$F4&gt;40000</li>
-						<li>確定</li>
-					</ul></li>
-					<li>確定</li>
-				</ul></li>
+				<li class='sheet'>北部各行政區資料!
+					<div class='menu'><b>常用</b><b>樣式</b><b>設定格式化的條件</b><b>管理規則</b>
+						<div class='dialog'>[設定格式化的條件規則管理員]<ul class='settings'>
+							<li>顯示格式化規則: <i>這個表格</i></li>
+							<li>規則: <i>公式=$F4&gt;30000</i></li>
+							<li><b>編輯規則</b>
+								<div class='dialog'>[編輯格式化規則]<ul class='settings'>
+									<li>規則類型: <i>使用公式來決定要格式化那些儲存格</i></li>
+									<li>格式化在此公式為 True 的值: <i>=$F4&gt;40000</i></li>
+									<li><b>確定</b></li>
+								</ul></div>
+							</li>
+							<li><b>確定</b></li>
+						</ul></div>
+					</div>
+				</li>
 			</ol>
 		</div>
 		<div scope="資料" target="合併彙算" page="">
@@ -51,20 +58,23 @@
 				在「人數彙總」工作表上，從儲存格 A4 開始，合併彙算「2019慢跑活動」和「2020慢跑活動」工作表中的資料。顯示每個「地區」每一次競賽報名人數的加總值。在頂端列和最左欄中使用標籤名稱。從合併的資料中刪除空白的「縣市」與「鄉鎮區」欄位。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>人數彙總!A4</li>
-				<li class='menu'>資料 / 資料工具 / 合併彙算</li>
-				<li class='dialog'>[合併彙算]<ul class='settings'>
-					<li>函數: 加總</li>
-					<li>參照位址: <span class='sheet'>2019慢跑活動!A3-G3↓</span></li>
-					<li>新增</li>
-					<li>參照位址: <span class='sheet'>2020慢跑活動!A3-G3↓</span></li>
-					<li>新增</li>
-					<li>頂端欄: O</li>
-					<li>最左欄: O</li>
-					<li>確定</li>
-				</ul></li>
-				<li class='sheet'>人數彙整!B:C</li>
-				<li class='menu'>選取區右鍵選單 / 刪除</li>
+				<li class='sheet'>人數彙總!A4
+					<div class='menu'><b>資料</b><b>資料工具</b><b>合併彙算</b>
+						<div class='dialog'>[合併彙算]<ul class='settings'>
+							<li>函數: <i>加總</i></li>
+							<li>參照位址: <span class='sheet'>2019慢跑活動!A3-G3↓</span></li>
+							<li><b>新增</b></li>
+							<li>參照位址: <span class='sheet'>2020慢跑活動!A3-G3↓</span></li>
+							<li><b>新增</b></li>
+							<li>✓ <i>頂端欄</i></li>
+							<li>✓ <i>最左欄</i></li>
+							<li><b>確定</b></li>
+						</ul></div>
+					</div>
+				</li>
+				<li class='sheet'>人數彙整!B:C
+					<div class='menu'><b>右鍵選單</b><b>刪除</b></div>
+				</li>
 			</ol>
 		</div>
 		<div scope="圖表" target="展開欄位" page="">
@@ -72,9 +82,9 @@
 				在「各縣市統計」圖表工作表上，向下切入資料以顯示每一個縣市的參加人數統計。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>各縣市統計![統計圖表]<ul>
-					<li>X軸 + (展開欄位)</li>
-					<li>X軸 + (展開欄位)</li>
+				<li class='sheet'>各縣市統計![統計圖表]<ul class='settings'>
+					<li><b>X軸 + (展開欄位)</b></li>
+					<li><b>X軸 + (展開欄位)</b></li>
 				</ul></li>
 			</ol>
 		</div>
@@ -86,21 +96,24 @@
 				針對「各校總投入經費」工作表。防止使用者在此工作表上進行資料的變更。除非輸入密碼「MyPassword」。不過，若未輸入密碼者。仍可以選取儲存格、欄、列並進行格式化。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>各校總投入經費!</li>
-				<li class='menu'>校閱 / 變更 / 保護工作表</li>
-				<li class='dialog'>[保護工作表]<ul class='settings'>
-					<li>選取鎖定的儲存格: O</li>
-					<li>選取未鎖定的儲存格: O</li>
-					<li>設定儲存格格式: O</li>
-					<li>設定欄格式: O</li>
-					<li>設定列格式: O</li>
-					<li>密碼: MyPassword</li>
-					<li>確定</li>
-					<li class='dialog'>[確認密碼]<ul class='settings'>
-						<li>確認密碼: MyPassword</li>
-						<li>確定</li>
-					</ul></li>
-				</ul></li>
+				<li class='sheet'>各校總投入經費!
+				</li>
+				<div class='menu'><b>校閱</b><b>變更</b><b>保護工作表</b>
+					<div class='dialog'>[保護工作表]<ul class='settings'>
+						<li>✓ <i>選取鎖定的儲存格</i></li>
+						<li>✓ <i>選取未鎖定的儲存格</i></li>
+						<li>✓ <i>設定儲存格格式</i></li>
+						<li>✓ <i>設定欄格式</i></li>
+						<li>✓ <i>設定列格式</i></li>
+						<li>密碼: <i>MyPassword</i></li>
+						<li><b>確定</b>
+							<div class='dialog'>[確認密碼]<ul class='settings'>
+								<li>確認密碼: <i>MyPassword</i></li>
+								<li><b>確定</b></li>
+							</div></li>
+						</li>
+					</ul></div>
+				</div>
 			</ol>
 		</div>
 		<div scope="樣式" target="條件化格式設定" page="5-15">
@@ -108,23 +121,29 @@
 				在「各校各學習領域投入經費」工作表上，對儲存格範圍 A2:F13 套用設定格式化的條件規則，使得學習領域總投入經費超過 $100 萬的學校名稱與資料列，可以填滿以下的 RGB 色彩: "188", "255", "235"。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>各校各學習領域投入經費!A2:F13</li>
-				<li class='menu'>常用 / 樣式 / 條件化格式設定 / 新增規則</li>
-				<li class='dialog'>[新增格式化規則]<ul class='settings'>
-					<li>規則類型: 使用公式來決定要格式化那些儲存格</li>
-					<li>格式化在此公式為 True 的值: =SUM($B2:$F2)&gt;100</li>
-					<li class='dialog'>(格式)→[儲存格格式] 填滿<ul class='settings'>
-						<li class='dialog'>(其他色彩)→[色彩]<ul class='settings'>
-							<li>色彩模式: RGB 三原色</li>
-							<li>紅色: 188</li>
-							<li>綠色: 255</li>
-							<li>藍色: 235</li>
-							<li>確定</li>
-						</ul></li>	
-						<li>確定</li>
-					</ul></li>
-					<li>確定</li>
-				</ul></li>
+				<li class='sheet'>各校各學習領域投入經費!A2:F13
+				</li>
+				<div class='menu'><b>常用</b><b>樣式</b><b>條件化格式設定</b><b>新增規則</b>
+					<div class='dialog'>[新增格式化規則]<ul class='settings'>
+						<li>規則類型: <i>使用公式來決定要格式化那些儲存格</i></li>
+						<li>格式化在此公式為 True 的值: <i>=SUM($B2:$F2)&gt;100</i></li>
+						<li><b>格式</b>
+							<div class='dialog'>[儲存格格式]<ul class='settings'>
+								<li class='tab'>填滿</li>
+								<li><b>其他色彩</b>
+									<div class='dialog'>[色彩]<ul class='settings'>
+										<li>色彩模式: <i>RGB 三原色</i></li>
+										<li>紅色: <i>188</i></li>
+										<li>綠色: <i>255</i></li>
+										<li>藍色: <i>235</i></li>
+										<li><b>確定</b></li>
+									</ul></div>	
+								</li>
+								<li><b>確定</b></li>
+							</ul></div>
+						<li><b>確定</b></li>
+					</ul></div>
+				</div>
 			</ol>
 		</div>
 		<div scope="Excel 選項" target="自動重算" page="5-18">
@@ -132,13 +151,14 @@
 				修改 Excel 選項設定，當資料有所異動時，公式並不會自動重新計算，但是，在儲存活頁簿時便會自動重新計算。
 			</div>
 			<ol DN="S">
-				<li class='menu'>檔案 / 選項</li>
-				<li class='dialog'>[Excel 選項] 公式<ul class='settings'>
-					 <li>計算選項: 手動<ul class='settings'>
-						<li>儲存活頁簿前自動重算: O</li>
-					</ul></li>
-					<li>確定</li>
-				</ul></li>
+				<li class='menu'><b>檔案</b><b>選項</b>
+					<div class='dialog'>[Excel 選項] 公式<ul class='settings'>
+						<li>計算選項: <i>手動</i><ul class='settings'>
+							<li>✓ 儲存活頁簿前自動重算</li>
+						</ul></li>
+						<li><b>確定</b></li>
+					</ul></div>
+				</li>
 			</ol>
 		</div>
 		<div scope="Excel 選項" target="" page="">
@@ -146,11 +166,13 @@
 				請設定您的 Excel 操作環境，在使用樞紐分析表的群組功能時，停止使用樞紐分析表中針對日期與時間資料欄位的自動群組功能。
 			</div>
 			<ol DN="S">
-				<li class='menu'>檔案 / 選項</li>
-				<li class='dialog'>[Excel 選項] 資料<ul class='settings'>
-					<li>資料選項: +停用樞紐分析表中的日期/時間欄的自動群組功能。</li>
-					<li>確定</li>
-				</ul></li>
+				<li class='menu'><b>檔案</b><b>選項</b>
+					<div class='dialog'>[Excel 選項]<ul class='settings'>
+						<li class='tab'>資料</li>
+						<li>資料選項: ✓ <i>停用樞紐分析表中的日期/時間欄的自動群組功能。</i></li>
+						<li><b>確定</b></li>
+					</ul></div>
+				</li>
 			</ol>
 		</div>
 	</section>
