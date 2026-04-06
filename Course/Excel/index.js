@@ -17,11 +17,16 @@ section [DN="S"] * { margin-bottom:2vmin; }
 section [DN="S"] *:hover { text-decoration:underline; }
 section [DN="S"] .active { background:#ffd; border:2px solid orange; }
 .hidden { display:none; }
-.menu { color:blue; }
+.menu { color:blue; margin:4px 4px 0 4px; padding:4px 4px 0 4px; }
+.menu b,.settings b { border:1px solid blue; padding:2px; margin:2px; }
+.menu b:hover,.settings b:hover { border-color:red; }
 .sheet { color:red; }
-.dialog { color:green; }
+.dialog { color:green; margin:4px 4px 0 4px; padding:4px 4px 0 4px; }
 .settings { color:black; background:#eee; margin:0; }
 .settings li, .settings li ul, .settings li ol { margin:0; }
+.settings i { color:darkgreen; text-decoration:underline; }
+.settings .click { font-weight:bolder }
+.settings .tab { border:2px solid black; border-bottom:0; padding:0 4px; font-weight:bolder; }
 `;
 	document.head.appendChild(CSS);
 })(document.querySelector('link[UIE="IJCSS"]'));
