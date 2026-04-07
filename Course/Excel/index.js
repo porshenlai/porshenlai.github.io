@@ -13,20 +13,32 @@ body { font-size:2.5vmin; }
 section { border:2px solid darkblue; padding:8px 1px; margin:8px; }
 section [scope] { border:1px solid silver; padding:4px 4px; margin:2px; }
 section [DN="S"] { color:black; background:#DDD; padding-top:12px; padding-bottom:12px; }
-section [DN="S"] * { margin-bottom:2vmin; }
-section [DN="S"] *:hover { text-decoration:underline; }
 section [DN="S"] .active { background:#ffd; border:2px solid orange; }
 .hidden { display:none; }
-.menu { color:blue; margin:4px 4px 0 4px; padding:4px 4px 0 4px; }
-.menu b,.settings b { border:1px solid blue; padding:2px; margin:2px; }
-.menu b:hover,.settings b:hover { border-color:red; }
 .sheet { color:red; }
-.dialog { color:green; margin:4px 4px 0 4px; padding:4px 4px 0 4px; }
-.settings { color:black; background:#eee; margin:0; }
+.menu { background:white; color:darkgreen; border-radius:4px; margin:2px 4px; padding:4px; }
+.dialog { background:white; color:blue; border-radius:4px; margin:4px; padding:4px; }
+.dialog b { border:2px solid blue; margin:1px; padding:1px 4px; }
+.dialog b:hover { border-color:red; }
+.dialog .tab {
+	border:2px solid black; border-bottom:0; padding:0 4px;
+}
+.dialog .input, .sheet .input { background:white; color:black; padding:4px 0; }
+figure {
+	background:white; color:black;
+	border-radius:4px; border:solid; border-width:0 0 0 2px; margin:4px; padding:4px; }
+figure>figcaption { margin:4px 0; padding:2px 0; color:blue; background:linear-gradient(#fff 0,#eef 85%,#00f 100%); }
+figure>div { padding:4px 0; }
+figure>div div { padding-left:32px; }
+figure>div.tab {
+	color:darkgreen; padding:0 8px;
+	font-weight:bolder; background:linear-gradient(#0d0 0,#8f8 20%,#fff 100%); }
+figure b { color:blue; border:2px solid blue; margin:1px; padding:1px 4px; }
+figure b:hover { border-color:red; }
+.settings { border:1px solid silver; background:white; color:black; border-radius:4px; margin:2px 4px; padding:4px; }
 .settings li, .settings li ul, .settings li ol { margin:0; }
 .settings i { color:darkgreen; text-decoration:underline; }
 .settings .click { font-weight:bolder }
-.settings .tab { border:2px solid black; border-bottom:0; padding:0 4px; font-weight:bolder; }
 `;
 	document.head.appendChild(CSS);
 })(document.querySelector('link[UIE="IJCSS"]'));

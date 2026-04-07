@@ -19,41 +19,44 @@
 				最後資料下方呈現總計。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>南區教室!A3:K3</li>
-				<li class='menu'><b>資料</b><b>排序與篩選</b><b>篩選</b></li>
-				<li class='sheet'>南區教室!K3<ul>
-					<li class='menu'><b>篩選按鈕</b><b>從 A 到 Z 排序</b></li>
-				</ul></li>
-				<li class='menu'><b>資料</b><b>大綱</b><b>小計</b></li>
-				<li class='dialog'>[小計]<ul class="settings">
-					<li>分組小計欄位: 講師</li>
-					<li>使用函數: 加總</li>
-					<li>小計欄位: 課程時數, 講師費總額</li>
-					<li>確定</li>
-				</ul></li>
+				<li class='sheet'>南區教室!A3:K3<figure>
+					<div><b>資料</b><b>排序與篩選</b><b>篩選</b></div>
+				</figure></li>
+				<li class='sheet'>南區教室!K3<figure>
+					<div><b>篩選按鈕</b><b>從 A 到 Z 排序</b></div>
+					<figcaption>(小計) <b>資料</b><b>大綱</b><b>小計</b></figcaption>
+					<div>分組小計欄位: <i>講師</i></div>
+					<div>使用函數: <i>加總</i></div>
+					<div>小計欄位: <i>課程時數, 講師費總額</i></div>
+					<div><b>確定</b></div>
+				</figure></li>
 			</ol>
 		</div>
 		<div scope="管理與格式化資料" target="套用進階的設定格式化的條件和篩選" page="3-5">
 			<div DN="Q">
-				在「<span key="blue">講師</span>」 工作表上，修改套用於儲存格 <span key="blue">F4:F25</span> 的「<span key="red">設定格式化的條件規則</span>」，將<span key="green">紅色斜粗體字形</span>套用至包含文字入門的儲存格，而且<span key="green">不必填滿色彩</span>。
+				在「<span key="blue">講師</span>」 工作表上，
+				修改套用於儲存格 <span key="blue">F4:F25</span> 的「<span key="red">設定格式化的條件規則</span>」，
+				將<span key="green">紅色斜粗體字形</span>套用至包含文字入門的儲存格，
+				而且<span key="green">不必填滿色彩</span>。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>講師!F4:F25</li>
-				<li class='menu'><b>常用</b><b>樣式</b><b>條件式格式設定</b><b>管理規則</b></li>
-				<li class='dialog'>[設定格式化的條件規則管理員]<ul class='settings'>
-					<li>儲存格值=入門</li>
-					<li>編輯規則</li>
-					<li class='dialog'>[格式]<ul class='settings'>
-						<li class='dialog'>[設定儲存格格式]<ul class="settings">
-							<li>&lt;字形&gt;</li>
-							<li>字形樣式: <i>粗斜體</i></li>
-							<li>色彩: <i>紅色</i></li>
-							<li>&lt;填滿&gt;</li>
-							<li><i>無色彩</i></li>
-							<li>確定</li>
-						</ul></li>
-					</ul></li>
-				</ul></li>
+				<li class='sheet'>講師!F4:F25<figure>
+					<figcaption>(設定格式化的條件規則管理員) <b>常用</b><b>樣式</b><b>條件式格式設定</b><b>管理規則</b></figcaption>
+					<figure>
+						<figcaption>(編輯格式化規則) <b>儲存格值=入門</b><b>編輯規則</b></figcaption>
+						<figure>
+							<figcaption>(設定儲存格格式) <b>格式</b></figcaption>
+							<div class='tab'>字形</div>
+							<div>字形樣式: <i>粗斜體</i></div>
+							<div>色彩: <i>紅色</i></div>
+							<div class='tab'>填滿</div>
+							<div><i>無色彩</i></div>
+							<div><b>確定</b></div>
+						</figure>
+						<div><b>確定</b></div>
+					</figure>
+					<div><b>確定</b></div>
+				</figure></li>
 			</ol>
 		</div>
 		<div scope="建立進階公式與巨集" target="使用進階的日期和時間函數" page="3-9">
@@ -62,7 +65,9 @@
 				注意：該儲存格已<span key="green">格式化為顯示星期幾的名稱</span>。
 			</div>
 			<ol DN="S">
-				<li class='sheet'>開幕活動!B12 <pre class='settings'>=WEEKDAY(B11)</pre></li>
+				<li class='sheet'>開幕活動!B12<figure>
+					<div><i>=WEEKDAY(B11)</i></div>
+				</figure></li>
 			</ol>
 		</div>
 		<div scope="管理進階圖表與表格" target="建立和修改進階圖表" page="3-13">
