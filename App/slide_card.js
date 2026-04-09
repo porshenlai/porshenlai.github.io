@@ -22,7 +22,7 @@ class Cards
 				const SE=document.createElement("style");
 				SE.setAttribute('STYID','Card');
 				SE.innerHTML=`
-[X="Card"] {
+[data-x="card"] {
 	background-color:transparent;
 	width:30%;
 	height:0;
@@ -30,24 +30,24 @@ class Cards
 	border:1px solid #f1f1f1;
 	perspective:1000px;
 }
-[X="Card"] .front,
-[X="Card"] .back {
+[data-x="card"] .front,
+[data-x="card"] .back {
 	position:absolute;
 	width:100%;
 	height:100%;
 	overflow:hidden auto;
 	backface-visibility:hidden;
 }
-[X="Card"] .front {
+[data-x="card"] .front {
 	background-color:#bbb;
 	color:black;
 }
-[X="Card"] .back {
+[data-x="card"] .back {
 	background-color:#2980b9;
 	color:white;
 	transform:rotateX(180deg);
 }
-[X="Card"]>div {
+[data-x="card"]>div {
 	position:absolute;
 	left:0; top:0; width:100%; height:100%;
 	text-align:center;
@@ -55,7 +55,7 @@ class Cards
 	transform-style:preserve-3d;
 	box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
 }
-[X="Card"]>div.flipped {
+[data-x="card"]>div.flipped {
 	transform: rotateX(180deg);
 }
 `;
@@ -75,7 +75,7 @@ class Cards
 
 		if (!E._card_on_click_) { // install event handler
 			E._card_on_click_= (evt) => {
-				let e=findParent(evt.target,'[X="Card"]>div');
+				let e=findParent(evt.target,'[data-x="card"]>div');
 				if (e) e.classList.toggle('flipped');
 				evt.stopPropagation();
 			};

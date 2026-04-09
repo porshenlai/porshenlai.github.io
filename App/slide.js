@@ -427,6 +427,11 @@ button:hover {border-color:#90a4ae;}
 			return R;
 		},[]));
 
+		await Promise.all(Array.from(content.querySelectorAll('[data-x]')).reduce((R,e)=>{
+			R.push(this.applyX(e.dataset.x.split(':')[0],e));
+			return R;
+		},[]));
+
 		// A. fix sections
 		((selector) => {
 			// filter sections, generate SIDs, and calc total number of pages
