@@ -114,6 +114,11 @@ aside li {margin: 4px 0;}
 aside a {color:#0d5ea8;text-decoration:none;display:block;padding:6px 10px;border-radius:6px;font-size:20px;}
 aside a:hover {background-color:#f0f5fa;}
 aside a.active {font-weight:700;background-color:#e3f2fd;}
+aside .Setting { border:1px solid silver;padding:2px;margin:2px; }
+aside .Setting>label { color:#222;font-size:20px; }
+aside .Options { display:flex;flex-flow:row wrap;justify-content:space-between;align-items:center; }
+aside .Options>div { flex:1 1 auto;border-bottom:1px solid black;margin:1px 4px; }
+aside .Options>div:hover { color:blue;border-color:blue; }
 [current="settings"] [tab="toc"], [current="toc"] [tab="settings"] {display:none;};
 [tab="toc"], [tab="settings"] {flex:1;overflow-y:auto;padding:1rem;}
 </style>
@@ -129,13 +134,13 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 <div style="flex:1 1 auto;overflow-y:auto;width:100%;padding:32px;">
 	<nav tab='toc'><ol></ol></nav>
 	<div tab='settings'>
-		<div UID='fontsize' style='display:flex;justify-content:space-between;align-items:flex-start;'>
-			<label style="color:#222;font-size:20px;">字型大小</label>
-			<div style="display:flex;align-items:center;gap:0.5rem;">
-				<button action="fontDecreaseBtn" title="縮小字型">-</button>
-				<span action="fontDisplay">100%</span>
-				<button action="fontIncreaseBtn" title="放大字型">+</button>
-			</div>
+		<div class='Setting Pages'>
+			<label>頁面選擇器</label>
+			<div class='Options'></div>
+		</div>
+		<div class='Setting FontSize' UID='fontsize'>
+			<label>字型大小</label>
+			<input handle='changeFontScale' style='width:98%;' type='range' min='0.8' max='1.5' step='0.1' value='1'/>
 		</div>
 		<div UID='queryKws'><div>
 			<span action='openFilter'></span> <select handle='addValue'></select>
@@ -161,6 +166,9 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 					})(e.parentNode.querySelector('span'),e.value);
 					e.value='-';
 					break;
+				case "changeFontScale":
+					if (CB.applyFontSize) CB.applyFontSize(e.value);
+					break;
 				}
 			});
 			E.addEventListener('click', (evt) => {
@@ -171,12 +179,6 @@ aside a.active {font-weight:700;background-color:#e3f2fd;}
 					if (CB.activate) CB.activate(-1); break;
 				case "nextBtn":
 					if (CB.activate) CB.activate(1); break;
-					break;
-				case "fontDecreaseBtn":
-					if (CB.applyFontScale) CB.applyFontScale(-0.05);
-					break;
-				case "fontIncreaseBtn":
-					if (CB.applyFontScale) CB.applyFontScale(0.05);
 					break;
 				case 'openFilter':
 					window.open(
@@ -371,7 +373,7 @@ button:hover {border-color:#90a4ae;}
 					if(!document.fullscreenElement) document.body.requestFullscreen();
 				} else if(document.fullscreenElement) document.exitFullscreen();
 			},
-			"applyFontScale": (scale) => this.applyFontSize(this.fontScale + scale)
+			"applyFontSize": (scale) => this.applyFontSize(scale)
 		});
 
 		((E)=>{ // Launch PAD {{{
@@ -437,7 +439,7 @@ button:hover {border-color:#90a4ae;}
 			// filter sections, generate SIDs, and calc total number of pages
 			content.Keywords={}; // content.Keywords : 所有定義的 Keywords
 			content.PageCounts=Array.from(content.querySelectorAll('section')).reduce((r,s)=>{
-				const ks=(s.getAttribute('ks')||'').split(/[,\s]/).filter((v)=>v);
+				const ks=(s.dataset.ks||s.getAttribute('ks')||'').split(/[,\s]/).filter((v)=>v);
 				ks.forEach((k)=>content.Keywords[k]=true);
 				if (selector&&(!selector.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)))) {
 					if (s.parentNode) s.parentNode.removeChild(s); // filter out pages
@@ -449,6 +451,13 @@ button:hover {border-color:#90a4ae;}
 			}, 0);
 
 			content.Keywords=Object.keys(content.Keywords);
+			((CE)=>{
+				CE.querySelector('.Options').innerHTML=content.Keywords.reduce((C,k)=>{
+					return C+`<div><input type='checkbox'/> ${k}</div>`;
+				},"");
+				console.log(CE,content.Keywords,selector);
+			})(document.body.querySelector('aside .Setting.Pages'));
+
 			// fill title values
 			((te)=>{
 				if (te) return;
@@ -579,7 +588,6 @@ button:hover {border-color:#90a4ae;}
 			'--base-font-size',
 			`${DEFAULT_FONT_SIZE * this.fontScale}px`
 		);
-		this.Aside.E.querySelector('[action="fontDisplay"]').textContent = `${Math.round(this.fontScale * 100)}%`;
 	}	// }}}
 
 	handleAction (e)
