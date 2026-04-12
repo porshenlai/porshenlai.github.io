@@ -294,7 +294,7 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 		const pe=this.E.querySelector('[data-uid="aside:tab:Settings"]');
 		if (pe !== elem.parentNode) pe.appendChild(elem);
 	}	// }}}
-	open (dialog)
+	open (dialog, caption)
 	{	// launch aside bar {{{
 		// if (document.fullscreenElement) document.exitFullscreen();
 		((S)=>{ // [CSS] opacity:1; visiblity:visible;
@@ -303,8 +303,8 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 		})(this.Overlay.style);
 		if (dialog) {
 			this.E.style.transform='translateX(100%)';
-			if (dialog.hasAttribute('caption'))
-				this.DE.Caption.textContent=dialog.getAttribute('caption');
+			if (caption)
+				this.DE.Caption.textContent=caption;
 			while(dialog.firstChild) this.DE.View.appendChild(dialog.firstChild);
 			this.DE.style.display='flex';
 		} else {
@@ -515,10 +515,10 @@ button:hover {border-color:#90a4ae;}
 			content.__handler__ = (evt)=>{
 				for (let e=evt.target; e!==content; e=e.parentNode){
 					if (e.dataset.h) {
-						const task=e.dataset.h.split(':');
-						// TODO 
-						console.log(e.dataset.h, task);
-						//this.handleAction(e,evt);
+						const args=e.dataset.h.split(':'), cmd=args.shift();
+						if (cmd in this && 'function' === typeof(this[cmd])) {
+							this[cmd].apply(this,args).then(console.log,console.log);
+						} else continue;
 						evt.stopPropagation();
 						// evt.preventDefault(); // default handler essential to change events
 						break;
@@ -671,6 +671,52 @@ button:hover {border-color:#90a4ae;}
 		let ts=this.Content.querySelector(`section[data-ks~="${key}"]`);
 		console.assert(ts,'goto() => target not found');
 		if (ts) ts.click();
+	}	// }}}
+
+	async dialog (mtype, tgt, capt)
+	{	// {{{
+		const de=document.createElement("div");
+		de.appendChild(document.createElement("div"));
+		de.firstChild.style.overflow="auto";
+		de.firstChild.style.width=de.firstChild.style.height="100%";
+
+		switch (mtype) {
+		case 'mermaid':
+			de.firstChild.setAttribute('style', 'text-align:center');
+			await this.Plugins.TeX.renderMermaid(de.firstChild, tgt);
+			break;
+		case 'image':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;height:100%;'><img src='${tgt}' style='object-fit:cover;width:auto;height:auto;'/></div>`;
+			((v)=>{
+				const img=v.querySelector('img');
+				img.addEventListener('load',()=>{
+					const cr=v.getBoundingClientRect();
+					const as=(img.width*cr.height > img.height*cr.width) ? ['height','overflow-x'] : ['width','overflow-y'];
+ 					img.style[as[0]]='100%';
+					v.style[as[1]]='auto';
+				});
+			})(de.firstChild);
+			break;
+		case 'photo':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${tgt}' style='object-fit:contain;width:100%;height:100%;'/></div>`
+			break;
+		case 'obj':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><iframe src='${tgt}' style='width:100%;height:100%;'><a href='${tgt}'>Not support, download to open</a></iframe></div>`
+			break;
+		default:
+			if (code.nodeType===1) de.firstChild.appendChild(code); else return;
+			break;
+		}
+		de.firstChild.addEventListener('click',(evt)=>{
+			for (let e=evt.target; e.nodeType===1; e=e.parentNode){
+				if (e.dataset.h) {
+					console.log(e.dataset.h)
+					evt.stopPropagation();
+					evt.preventDefault();
+				}
+			}
+		});
+		return this.Aside.open(de, capt||"");
 	}	// }}}
 
 	async show (e, code)
