@@ -108,14 +108,14 @@ class Aside
 			E.innerHTML=`
 <style>
 aside {position:fixed;top:0;right:0;bottom:0;width:640px;max-width:80vw;font-size:24px;background:#fff;border-left:1px solid #eee;box-shadow:-2px 0 10px rgba(0,0,0,0.1);z-index:10002;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:center;}
-aside button {font-size:24px;border-radius:12px;padding:4px 12px;}
+aside button {font-size:90%;border-radius:8px;padding:2px 4px;}
 aside ol {list-style:none;padding:0;margin:0;}
 aside li {margin: 4px 0;}
 aside a {color:#0d5ea8;text-decoration:none;display:block;padding:6px 10px;border-radius:6px;font-size:20px;}
 aside a:hover {background-color:#f0f5fa;}
 aside a.active {font-weight:700;background-color:#e3f2fd;}
 aside .Setting { border:1px solid silver;padding:2px;margin:2px; }
-aside .Setting>label { color:#222;font-size:20px; }
+aside .Setting label, aside .Setting [data-h] { color:#222;font-size:20px; }
 aside .Options { display:flex;flex-flow:row wrap;justify-content:space-between;align-items:center; }
 aside .Options>div { flex:1 1 auto;border-bottom:1px solid black;margin:1px 4px; }
 aside .Options>div:hover { color:blue;border-color:blue; }
@@ -124,85 +124,94 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 </style>
 <div style="padding:0.5rem 1rem;border-bottom:1px solid #eee;width:100%;">
 	<h3 style="margin:0;color:#0d5ea8;white-space:nowrap;">
-		[<input type='checkbox' action="fsToggle" style='width:24px;height:24px;'></input>]
-		<button tab="settings" action="showTOC">導覽</button>
+		[<input type='checkbox' data-h="fsToggle" style='width:24px;height:24px;'></input>]
+		<button tab="settings" data-h="showTOC">導覽</button>
 		<span tab="settings">設定</span>
 		<span tab="toc">導覽</span>
-		<button tab="toc" action="showSettings">設定</button>
+		<button tab="toc" data-h="showSettings">設定</button>
 	</h3>
 </div>
 <div style="flex:1 1 auto;overflow-y:auto;width:100%;padding:32px;">
 	<nav tab='toc'><ol></ol></nav>
 	<div tab='settings'>
 		<div class='Setting Pages'>
-			<label>頁面選擇器</label>
+			<div style='display:flex;flex-flow:row nowrap;justify-content:space-between;padding:2px 6px;'>
+				<span data-h='filter:add'>➕</span>
+				<label>頁面選擇器</label>
+				<span data-h='filter:run'>➤</span>
+			</div>
 			<div class='Options'></div>
 		</div>
 		<div class='Setting FontSize' UID='fontsize'>
 			<label>字型大小</label>
-			<input handle='changeFontScale' style='width:98%;' type='range' min='0.8' max='1.5' step='0.1' value='1'/>
+			<div style='display:flex;flex-flow:row nowrap;'>
+				<input data-h='slide:changeFontScale' type='range' min='0.8' max='1.5' step='0.1' value='1' style='flex:1 1 auto;width:100%'/>
+				<span style='min-width:32px;text-align:center;'>1</span>
+			</div>
 		</div>
-		<div UID='queryKws'><div>
-			<span action='openFilter'></span> <select handle='addValue'></select>
-		</div></div>
 	</div>
 </div>
 <div style="padding:0.5rem 1rem;border-top:1px solid #eee;background:#fcfcfc;width:100%;display:flex;flex-flow:row nowrap;justify-content:space-between;">
 	<span style='width:0px;overflow:display;white-space:nowrap;'>© 2025 Porshen Lai</span>
 	<span style='background:#fff;gap:10px;'>
-		<button action="prevBtn" title="上一節 Prev (←)">←</button>
+		<button data-h="prevBtn" title="上一節 Prev (←)">←</button>
 		<span uid="counter" style='{font-size:20px;color:#666;width:100%;text-align:center;}'></span>
-		<button action="nextBtn" title="下一節 Next (→)">→</button>
+		<button data-h="nextBtn" title="下一節 Next (→)">→</button>
 	</span>
 </div>`;
-			E.addEventListener('change', (evt) => {
-				let e = evt.target;
-				switch(e.getAttribute("handle")){
-				case 'addValue':
-					((se,val)=>{
-						const vs=se.textContent.split('.').filter((v)=>v);
-						vs.push(val);
-						se.textContent=vs.join('.');
-					})(e.parentNode.querySelector('span'),e.value);
-					e.value='-';
-					break;
-				case "changeFontScale":
-					if (CB.applyFontSize) CB.applyFontSize(e.value);
-					break;
-				}
-			});
-			E.addEventListener('click', (evt) => {
-				let e = evt.target;
-				switch(e.getAttribute("action")){
-				case "fsToggle": if(CB.fullscreen) CB.fullscreen(e.checked); break;
-				case "prevBtn":
-					if (CB.activate) CB.activate(-1); break;
-				case "nextBtn":
-					if (CB.activate) CB.activate(1); break;
-					break;
-				case 'openFilter':
-					window.open(
-						location.href.replace(location.hash,'')+
-						'?s='+e.textContent+
-						location.hash
-					);
-					break;
-				case "showTOC":
-					this.E.setAttribute("current","toc");
-					break;
-				case "showSettings":
-					this.E.setAttribute("current","settings");
-					break;
-				default:
-					if (e.dataset.sid) {
-						evt.preventDefault();
-						if (CB.activate) CB.activate(e.dataset.sid);
-						this.close();
+			if (!E.__handler__) {
+				E.__handler__ = (evt) => {
+					let e = evt.target;
+					switch(e.dataset.h){
+					case 'addValue':
+						((se,val)=>{
+							const vs=se.textContent.split('.').filter((v)=>v);
+							vs.push(val);
+							se.textContent=vs.join('.');
+						})(e.parentNode.querySelector('span'),e.value);
+						e.value='-';
+						break;
+					case "changeFontScale":
+						e.parentNode.querySelector('span').textContent=e.value;
+						if (CB.applyFontSize) CB.applyFontSize(e.value);
+						break;
+					case "fsToggle":
+						if (CB.fullscreen) CB.fullscreen(e.checked);
+						break;
+					case "prevBtn":
+						if (CB.activate) CB.activate(-1);
+						break;
+					case "nextBtn":
+						if (CB.activate) CB.activate(1);
+						break;
+					case 'addFilter':
+						break;
+					case 'openFilter':
+						window.open(
+							location.href.replace(location.hash,'')+
+							'?s='+e.textContent+
+							location.hash
+						);
+						break;
+					case "showTOC":
+						this.E.setAttribute("current","toc");
+						break;
+					case "showSettings":
+						this.E.setAttribute("current","settings");
+						break;
+					default:
+						if (e.dataset.sid) {
+							evt.preventDefault();
+							if (CB.activate) CB.activate(e.dataset.sid);
+							this.close();
+						}
+						break;
 					}
-					break;
-				}
-				evt.stopPropagation();
-			});
+					evt.stopPropagation();
+				};
+			}
+			E.addEventListener('change', E.__handler__);
+			E.addEventListener('click', E.__handler__);
 			this.Overlay.appendChild(E);
 			return E;
 		})(this.E=document.createElement("aside")); // }}}
@@ -228,12 +237,12 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 	{	// update status information {{{
 		if (index&&total) {
 			this.E.querySelector('[uid="counter"]').textContent=index+' / '+total;
-			this.E.querySelector('[action="prevBtn"]').disabled=(index===1);
-			this.E.querySelector('[action="nextBtn"]').disabled=(index===total);
+			this.E.querySelector('[data-h="prevBtn"]').disabled=(index===1);
+			this.E.querySelector('[data-h="nextBtn"]').disabled=(index===total);
 			Array.from(this.E.querySelectorAll('[tab="toc"]>ol a'))
 				.forEach((link, i) => link.classList.toggle('active', i === index-1));
 		}
-		this.E.querySelector('[action="fsToggle"]').checked = !!document.fullscreenElement;
+		this.E.querySelector('[data-h="fsToggle"]').checked = !!document.fullscreenElement;
 	}	// }}}
 	install (content)
 	{	// install TOC table {{{
@@ -254,13 +263,6 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 				tl.appendChild(li);
 			}
 		});
-		// install keywords selector
-		((E)=>{
-			E.querySelector('select[handle="addValue"]').innerHTML=content.Keywords.reduce(
-				(r,v)=>r+'<option>'+v+'</option>',
-				'<option value="-">+</option>'
-			);
-		})(this.E.querySelector('[UID="queryKws"]'));
 	}	// }}}
 	installSetting (elem)
 	{	// {{{
@@ -348,10 +350,10 @@ button:hover {border-color:#90a4ae;}
 #content[playmode="page"] section.cm { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;}
 #content[playmode="page"] section.full { margin:0;padding:0;border:0;height:100%;scroll-margin-top:0; }
 
-[action] { cursor:pointer; }
-[action]:hover { text-decoration:underline; }
-[action="display"] { text-decoration:underline;color:blue; }
-[action="display"] [caption] { display:none; }
+[data-h] { cursor:pointer; }
+[data-h]:hover { text-decoration:underline; }
+[data-h="display"] { text-decoration:underline;color:blue; }
+[data-h="display"] [caption] { display:none; }
 
 .black { color:black; }
 .grey { color:grey; }
@@ -381,37 +383,42 @@ button:hover {border-color:#90a4ae;}
 			E.innerHTML=`
 <style>
 #control-panel {position:fixed;bottom:0;left:0;display:flex;flex-flow:row wrap;width:150px;padding:10px;z-index:10000;pointer-events:none;}
-#control-panel [action] {width:50px;height:50px;margin:5px;display:flex;justify-content:center;align-items:center;background-color:#3498db;color:white;font-weight:bold;font-size:20px;border-radius:5px;user-select:none;cursor:pointer;pointer-events:auto;}
-#control-panel>[action="none"] {background:rgba(0,0,0,0);border:1px solid silver;}
-#control-panel:not(.active) :not([action="none"]) {display:none;}
+#control-panel [data-h] {width:50px;height:50px;margin:5px;display:flex;justify-content:center;align-items:center;background-color:#3498db;color:white;font-weight:bold;font-size:20px;border-radius:5px;user-select:none;cursor:pointer;pointer-events:auto;}
+#control-panel>[data-h="none"] {background:rgba(0,0,0,0);border:1px solid silver;}
+#control-panel:not(.active) :not([data-h="none"]) {display:none;}
 </style>
-<div action="prev">◀</div>
-<div action="menu">☰</div>
-<div action="none"> </div>
-<div action="next">▶</div>
+<div data-h="prev">◀</div>
+<div data-h="menu">☰</div>
+<div data-h="none"> </div>
+<div data-h="next">▶</div>
 `;
 			E.addEventListener('mouseover',(evt)=>E.classList.add('active'));
-			E.addEventListener('click',(evt)=>{
-				const func=evt.target.getAttribute('action');
-				switch(func){
-				case 'none':
-					E.classList.toggle('active');
-					break;
-				case 'menu':
-					E.classList.remove('active'); this.Aside.open(); break;
-				case 'prev':
-					E.classList.remove('active');
-					this.activate(-1, true);
-					break;
-				case 'next':
-					E.classList.remove('active');
-					this.activate(1, true);
-					break;
-				default:
-					return;
-				}
-				evt.preventDefault();
-			});
+			if (!E.__handler__) {
+				E.__handler__ = (evt) => {
+					const func=evt.target.dataset.h;
+					switch(func){
+					case 'none':
+						E.classList.toggle('active');
+						break;
+					case 'menu':
+						E.classList.remove('active');
+						this.Aside.open();
+						break;
+					case 'prev':
+						E.classList.remove('active');
+						this.activate(-1, true);
+						break;
+					case 'next':
+						E.classList.remove('active');
+						this.activate(1, true);
+						break;
+					default:
+						return;
+					}
+					evt.preventDefault();
+				};
+				E.addEventListener('click',E.__handler__);
+			}
 			this.Content.appendChild(E);
 		})(document.createElement("div")); // }}}
 
@@ -452,9 +459,12 @@ button:hover {border-color:#90a4ae;}
 
 			content.Keywords=Object.keys(content.Keywords);
 			((CE)=>{
-				CE.querySelector('.Options').innerHTML=content.Keywords.reduce((C,k)=>{
+				const opt=CE.querySelector('.Options');
+				opt.innerHTML=content.Keywords.reduce((C,k)=>{
 					return C+`<div><input type='checkbox'/> ${k}</div>`;
 				},"");
+				//selector.reduce((ks)=>{
+				//});
 				console.log(CE,content.Keywords,selector);
 			})(document.body.querySelector('aside .Setting.Pages'));
 
@@ -478,7 +488,7 @@ button:hover {border-color:#90a4ae;}
 
 		content.addEventListener('click', (evt) => {
 			for (let e=evt.target; e!==content; e=e.parentNode){
-				if (e.hasAttribute('action')) {
+				if (e.dataset.h) {
 					this.handleAction(e,evt);
 					evt.stopPropagation();
 					evt.preventDefault();
@@ -490,7 +500,7 @@ button:hover {border-color:#90a4ae;}
 
 		content.addEventListener('change', (evt) => {
 			for (let e=evt.target; e!==content; e=e.parentNode){
-				if (e.hasAttribute('action')) {
+				if (e.dataset.h) {
 					this.handleAction(e,evt);
 					evt.stopPropagation();
 					break;
@@ -542,6 +552,7 @@ button:hover {border-color:#90a4ae;}
 
 		if (scroll!==undefined){
 			setTimeout(()=>{
+				console.log("AAAAAAAAAAAAAAA",scroll);
 				this.current.scrollIntoView({ behavior: scroll ? 'smooth' : 'auto', block: 'start' });
 				this.current.scrollTop=0;
 				//setTimeout(()=>(this.Content.getAttribute('playmode')==='page'?this.current:this.Content).focus(),1000);
@@ -592,7 +603,7 @@ button:hover {border-color:#90a4ae;}
 
 	handleAction (e)
 	{ // {{{
-		(e.getAttribute('action')||"").split(";").forEach((a)=>{
+		(e.dataset.h||"").split(";").forEach((a)=>{
 			a=(a||"").split(',');
 			const cmd=a[0]; a[0]=e;
 			if(cmd) this[cmd].apply(this,a);	
@@ -600,7 +611,7 @@ button:hover {border-color:#90a4ae;}
 	}	// }}}
 
 	tab (e, name='tab', cls='hide')
-	{ // <select action='tab,tab,hide'> {{{
+	{ // <select data-h='tab,tab,hide'> {{{
 		const key=e.value;
 		let se=this.Content;
 		for (se=e;se&&se.tagName!=='SECTION';se=se.parentNode);
@@ -609,7 +620,7 @@ button:hover {border-color:#90a4ae;}
 	} // }}}
 
 	speak (te, lang='en')
-	{	// <span action='speak,fr'>bonjour</span> {{{
+	{	// <span data-h='speak,fr'>bonjour</span> {{{
 		let e,text;
 		for(e=event.target;e!==te&&(!e.hasAttribute('x'));e=e.parentNode);
 		text=e.getAttribute('text') || e.textContent;
@@ -625,14 +636,14 @@ button:hover {border-color:#90a4ae;}
     }	// }}}
 
 	goto (e, key)
-	{	// <button action='goto,keyword'> {{{
+	{	// <button data-h='goto,keyword'> {{{
 		let ts=this.Content.querySelector(`section[ks~="${key}"]`);
 		console.assert(ts,'goto() => target not found');
 		if (ts) this.activate(ts,true);
 	}	// }}}
 
 	async show (e, code)
-	{	// <button action='show,RID_Key'> {{{
+	{	// <button data-h='show,RID_Key'> {{{
 		//console.log(this.Plugins.TeX.resolve());
 		let lang=e.getAttribute('lang');
 		if (!code) code=e.getAttribute('code');
@@ -683,7 +694,7 @@ button:hover {border-color:#90a4ae;}
 		de.setAttribute('caption',e.getAttribute('caption')||"");
 		de.firstChild.addEventListener('click',(evt)=>{
 			for (let e=evt.target; e.nodeType===1; e=e.parentNode){
-				if (e.hasAttribute('action')) {
+				if (e.dataset.h) {
 					this.handleAction(e);
 					evt.stopPropagation();
 					evt.preventDefault();
