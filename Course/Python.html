@@ -933,69 +933,84 @@ Grapes  10.2 10.96</pre>
 <section data-ks='P_FC'>
 	<h2>條件式</h2><!--{{{-->
 	<div class='frame'>
-		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
-			<td rowspan='2' valign='middle'
-				action='show' lang='photo' code='Python/3_IF.svg' caption='IF.'>
-				<img src='Python/3_IF.svg' style='width:128px;height:128px;'/>
-			</td>
-			<th><span class='K'>如果</span></th>
-			<th><span class='V'>下雨</span></th>
-			<th><span class='K'>就</span></th>
-			<th><span class='V'>待在家裡睡覺</th>
-		</tr><tr>
-			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
-		</tr></table>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+			<tr><th colspan='4' align='right' valign='middle'>
+				<span style='float:left'>IF</span>
+				<span data-h='dialog:photo:Python/3_IF.svg:IF.'>&lt;流程圖&gt;</span>
+			</th></tr>
+			<tr>
+				<th><span class='K'>如果</span></th>
+				<th><span class='V'>下雨</span></th>
+				<th><span class='K'>就</span></th>
+				<th><span class='V'>待在家裡睡覺</th>
+			</tr>
+			<tr>
+				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+			</tr>
+		</table>
 	</div>
 
 	<div class='frame'>
-		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
-			<td rowspan='4' valign='middle'
-				action='show' lang='photo' code='Python/3_IFELSE.svg' caption='IF.ELSE.'>
-				<img src='Python/3_IFELSE.svg' style='width:128px;height:128px;'/>
-			</td>
-			<th><span class='K'>如果</span></th>
-			<th><span class='V'>下雨</span></th>
-			<th><span class='K'>就</span></th>
-			<th><span class='V'>待在家裡睡覺</span></th>
-		</tr><tr>
-			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
-		</tr><tr>
-			<th><span class='K'>否則</span></th>
-			<th></th>
-			<th><span class='K'>就</span></th>
-			<th><span class='V'>去逛街</span></th>
-		</tr><tr>
-			<th>else</th><th></th><th>:</th><th>shop()</th>
-		</tr></table>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+			<tr><th colspan='4' align='right'>
+				<span style='float:left'>IF ... ELSE ...</span>
+				<span data-h='dialog:photo:Python/3_IFELSE.svg:IF.ELSE.'>&lt;流程圖&gt;</span>
+			</th></tr>
+			<tr>
+				<th><span class='K'>如果</span></th>
+				<th><span class='V'>下雨</span></th>
+				<th><span class='K'>就</span></th>
+				<th><span class='V'>待在家裡睡覺</span></th>
+			</tr>
+			<tr>
+				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+			</tr>
+			<tr>
+				<th><span class='K'>否則</span></th>
+				<th></th>
+				<th><span class='K'>就</span></th>
+				<th><span class='V'>去逛街</span></th>
+			</tr>
+			<tr>
+				<th>else</th><th></th><th>:</th><th>shop()</th>
+			</tr>
+		</table>
 	</div>
 
 	<div class='frame'>
-		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
-			<td rowspan='6' valign='middle'
-				action='show' lang='photo' code='Python/3_IFELIFELSE.svg' caption='IF.ELIF.ELSE.'>
-				<img src='Python/3_IFELIFELSE.svg' style='width:128px;height:128px;'/>
-			</td>
-			<th><span class='K'>如果</span></th>
-			<th><span class='V'>下雨</span></th>
-			<th><span class='K'>就</span></th>
-			<th><span class='V'>待在家裡睡覺</span></th>
-		</tr><tr>
-			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
-		</tr><tr>
-			<th><span class='K'>沒有的話如果</span></th>
-			<th><span class='V'>淹大水</span></th>
-			<th><span class='K'>就</span></th>
-			<th><span class='V'>去划船</span></th>
-		</tr><tr>
-			<th>elif</th><th>(FLOODED)</th><th>:</th><th>boating()</th>
-		</tr><tr>
-			<th><span class='K'>否則</span></th>
-			<th></th>
-			<th><span class='K'>就</span></th>
-			<th><span class='V'>去逛街</span></th>
-		</tr><tr>
-			<th>else</th><th></th><th>:</th><th>shop()</th>
-		</tr></table>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+			<tr><th colspan='4' align='right'>
+				<span style='float:left'>IF ... ELIF ... ELSE ...</span>
+				<span data-h='dialog:photo:Python/3_IFELIFELSE.svg:IF.ELIF.ELSE.'>流程圖</span>
+			</th></tr>
+			<tr>
+				<th><span class='K'>如果</span></th>
+				<th><span class='V'>下雨</span></th>
+				<th><span class='K'>就</span></th>
+				<th><span class='V'>待在家裡睡覺</span></th>
+			</tr>
+			<tr>
+				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+			</tr>
+			<tr>
+				<th><span class='K'>沒有的話如果</span></th>
+				<th><span class='V'>淹大水</span></th>
+				<th><span class='K'>就</span></th>
+				<th><span class='V'>去划船</span></th>
+			</tr>
+			<tr>
+				<th>elif</th><th>(FLOODED)</th><th>:</th><th>boating()</th>
+			</tr>
+			<tr>
+				<th><span class='K'>否則</span></th>
+				<th></th>
+				<th><span class='K'>就</span></th>
+				<th><span class='V'>去逛街</span></th>
+			</tr>
+			<tr>
+				<th>else</th><th></th><th>:</th><th>shop()</th>
+			</tr>
+		</table>
 	</div>
 	<!--}}}-->
 </section>
@@ -1004,8 +1019,7 @@ Grapes  10.2 10.96</pre>
 	<h2>迴圈</h2><!--{{{-->
 	<div class='frame'>
 		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
-			<td rowspan='2' valign='middle'
-				action='show' lang='photo' code='Python/3_WHILE.svg' caption='WHILE.'>
+			<td rowspan='2' valign='middle' data-h='dialog:photo:Python/3_WHILE.svg:WHILE.'>
 				<img src='Python/3_WHILE.svg' style='width:128px;height:128px;'/>
 			</td>
 			<th><span class='K'>當持續</span></th>
@@ -1018,8 +1032,7 @@ Grapes  10.2 10.96</pre>
 	</div>
 	<div class='frame'>
 		<table border='0' cellspacing='8' cellpadding='8' class='syntax'><tr>
-			<td rowspan='2' valign='middle'
-				action='show' lang='photo' code='Python/3_FOR.svg' caption='FOR'>
+			<td rowspan='2' valign='middle' data-h='dialog:photo:Python/3_FOR.svg:FOR'>
 				<img src='Python/3_FOR.svg' style='width:128px;height:128px;'/>
 			</td>
 			<th><span class='K'>對</span></th>

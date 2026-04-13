@@ -84,7 +84,7 @@ Usaeg:
 
 class Aside
 {	// Aside tutorial bar
-	constructor (RE=document.body, CB={})
+	constructor (RE=document.body)
 	{	// {{{
 		this.RE=RE;
 
@@ -107,34 +107,45 @@ class Aside
 			E.setAttribute("current","toc");
 			E.innerHTML=`
 <style>
-aside {position:fixed;top:0;right:0;bottom:0;width:640px;max-width:80vw;font-size:24px;background:#fff;border-left:1px solid #eee;box-shadow:-2px 0 10px rgba(0,0,0,0.1);z-index:10002;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:center;}
-aside button {font-size:90%;border-radius:8px;padding:2px 4px;}
-aside ol {list-style:none;padding:0;margin:0;}
-aside li {margin: 4px 0;}
-aside a {color:#0d5ea8;text-decoration:none;display:block;padding:6px 10px;border-radius:6px;font-size:20px;}
-aside a:hover {background-color:#f0f5fa;}
-aside a.active {font-weight:700;background-color:#e3f2fd;}
-aside .Setting { border:1px solid silver;padding:2px;margin:2px; }
-aside .Setting label, aside .Setting [data-h] { color:#222;font-size:20px; }
+aside {
+	position:fixed; top:0; right:0; bottom:0; width:100vh; max-width:80vw; z-index:10002;
+	border-left:1px solid #eee;
+	font-size:2vmin; box-shadow:-2px 0 10px rgba(0,0,0,0.1);
+	background:#fff;
+	transform:translateX(100%);transition:transform 0.3s ease;
+	display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:center;
+}
+aside button {font-size:2vmin;border-radius:1vmin;padding:0.5vmin 1vmin;}
+aside nav ol { list-style:none; padding:0; margin:0;}
+aside nav li { margin: 4px 0; padding:2px; border:1px solid white; }
+aside nav li:hover { border-color:orange; }
+aside [data-h^="aside:tab:"] {
+	flex:1 1 auto;
+	text-align:center;
+	border-radius:0.5vmin; border:1px solid blue; margin:1px;
+	font-size:120%; font-weight:bold;
+}
+aside [data-h^="aside:tab:"].selected { border-color:white; }
+aside [data-h^="aside:tab:"]:not(.selected):hover { background:lightblue; }
+aside [data-uid^="aside:tab:"] { flex:1; overflow-y:auto; height:100%; background:#eee; }
+aside [data-uid^="aside:tab:"]:not(.selected) { display:none; }
+aside [data-uid^="aside:Settings:"] {
+	border:1px solid silver; border-radius:4px;
+	padding:2px; margin:2px;
+	background:white;
+}
 aside .Options { display:flex;flex-flow:row wrap;justify-content:space-between;align-items:center; }
 aside .Options>div { flex:1 1 auto;border-bottom:1px solid black;margin:1px 4px; }
 aside .Options>div:hover { color:blue;border-color:blue; }
-[current="settings"] [tab="toc"], [current="toc"] [tab="settings"] {display:none;};
-[tab="toc"], [tab="settings"] {flex:1;overflow-y:auto;padding:1rem;}
 </style>
-<div style="padding:0.5rem 1rem;border-bottom:1px solid #eee;width:100%;">
-	<h3 style="margin:0;color:#0d5ea8;white-space:nowrap;">
-		[<input type='checkbox' data-h="fsToggle" style='width:24px;height:24px;'></input>]
-		<button tab="settings" data-h="showTOC">導覽</button>
-		<span tab="settings">設定</span>
-		<span tab="toc">導覽</span>
-		<button tab="toc" data-h="showSettings">設定</button>
-	</h3>
+<div style="padding:2px 8px;border-bottom:1px solid #eee;display:flex;flex-flow:row nowrap;width:100%;">
+	<div data-h="aside:tab:TOC">導覽</div>
+	<div data-h="aside:tab:Settings">設定</div>
 </div>
-<div style="flex:1 1 auto;overflow-y:auto;width:100%;padding:32px;">
-	<nav tab='toc'><ol></ol></nav>
-	<div tab='settings'>
-		<div class='Setting Pages'>
+<div style="flex:1 1 auto;overflow-y:auto;width:100%;padding:2px; 8px;">
+	<nav data-uid='aside:tab:TOC'></nav>
+	<div data-uid='aside:tab:Settings'>
+		<div data-uid='aside:Settings:Filter'>
 			<div style='display:flex;flex-flow:row nowrap;justify-content:space-between;padding:2px 6px;'>
 				<span data-h='filter:add'>➕</span>
 				<label>頁面選擇器</label>
@@ -142,27 +153,56 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 			</div>
 			<div class='Options'></div>
 		</div>
-		<div class='Setting FontSize' UID='fontsize'>
+		<div data-uid='aside:Settings:FontSize'>
 			<label>字型大小</label>
 			<div style='display:flex;flex-flow:row nowrap;'>
-				<input data-h='slide:changeFontScale' type='range' min='0.8' max='1.5' step='0.1' value='1' style='flex:1 1 auto;width:100%'/>
+				<input data-h='slide:resize' type='range' min='0.8' max='1.5' step='0.1' value='1' style='flex:1 1 auto;width:100%'/>
 				<span style='min-width:32px;text-align:center;'>1</span>
 			</div>
 		</div>
 	</div>
 </div>
-<div style="padding:0.5rem 1rem;border-top:1px solid #eee;background:#fcfcfc;width:100%;display:flex;flex-flow:row nowrap;justify-content:space-between;">
-	<span style='width:0px;overflow:display;white-space:nowrap;'>© 2025 Porshen Lai</span>
-	<span style='background:#fff;gap:10px;'>
-		<button data-h="prevBtn" title="上一節 Prev (←)">←</button>
-		<span uid="counter" style='{font-size:20px;color:#666;width:100%;text-align:center;}'></span>
-		<button data-h="nextBtn" title="下一節 Next (→)">→</button>
+<div style="padding:0.5rem 1rem;border-top:1px solid #eee;width:100%;display:flex;flex-flow:row nowrap;justify-content:space-between;">
+	<span style='width:0px;overflow:display;white-space:nowrap;'>© Porshen &amp; Cyberpiers 2026</span>
+	<span id='Aside_Pager' style='background:#fff;gap:10px;'>
+		<input data-h='slide:goto' type='number' min='1' step='1' style='font-size:90%;text-align:right;'/> /
+		<span style='color:#666;'></span>
 	</span>
 </div>`;
 			if (!E.__handler__) {
 				E.__handler__ = (evt) => {
-					let e = evt.target;
-					switch(e.dataset.h){
+					const e = evt.target;
+					const f = (e.dataset.h||"").split(',');
+					switch (f[0]) {
+					case 'aside:tab:TOC':
+					case 'aside:tab:Settings':
+						Array.from(e.parentNode.querySelectorAll('[data-h^="aside:tab:"]'))
+							.forEach((e)=>e.classList.remove('selected'));
+						e.classList.add('selected');
+						Array.from(E.querySelectorAll('[data-uid^="aside:tab:"]'))
+							.forEach((c)=>c.classList[c.dataset.uid===e.dataset.h?"add":"remove"]('selected'));
+						break;
+					case "slide:resize":
+						e.parentNode.querySelector('span').textContent=e.value;
+						document.applyFontSize(e.value);
+						break;
+/*
+			"fullscreen": (mode) => {
+				if (mode) {
+					if(!document.fullscreenElement) document.body.requestFullscreen();
+				} else if(document.fullscreenElement) document.exitFullscreen();
+			},
+*/
+					case "slide:goto":
+						if (f[1]) {
+							document.querySelector(`#${f[1]}`).click();
+							this.close();
+						} else {
+							document.querySelector(
+								`#__slide_${e.parentNode.querySelector('input').value}__`
+							).click();
+						}
+						break;
 					case 'addValue':
 						((se,val)=>{
 							const vs=se.textContent.split('.').filter((v)=>v);
@@ -170,19 +210,6 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 							se.textContent=vs.join('.');
 						})(e.parentNode.querySelector('span'),e.value);
 						e.value='-';
-						break;
-					case "changeFontScale":
-						e.parentNode.querySelector('span').textContent=e.value;
-						if (CB.applyFontSize) CB.applyFontSize(e.value);
-						break;
-					case "fsToggle":
-						if (CB.fullscreen) CB.fullscreen(e.checked);
-						break;
-					case "prevBtn":
-						if (CB.activate) CB.activate(-1);
-						break;
-					case "nextBtn":
-						if (CB.activate) CB.activate(1);
 						break;
 					case 'addFilter':
 						break;
@@ -193,19 +220,6 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 							location.hash
 						);
 						break;
-					case "showTOC":
-						this.E.setAttribute("current","toc");
-						break;
-					case "showSettings":
-						this.E.setAttribute("current","settings");
-						break;
-					default:
-						if (e.dataset.sid) {
-							evt.preventDefault();
-							if (CB.activate) CB.activate(e.dataset.sid);
-							this.close();
-						}
-						break;
 					}
 					evt.stopPropagation();
 				};
@@ -213,6 +227,7 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 			E.addEventListener('change', E.__handler__);
 			E.addEventListener('click', E.__handler__);
 			this.Overlay.appendChild(E);
+			document.querySelector('[data-h^="aside:tab:"]').click();
 			return E;
 		})(this.E=document.createElement("aside")); // }}}
 
@@ -236,42 +251,48 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 	update (index, total)
 	{	// update status information {{{
 		if (index&&total) {
-			this.E.querySelector('[uid="counter"]').textContent=index+' / '+total;
-			this.E.querySelector('[data-h="prevBtn"]').disabled=(index===1);
-			this.E.querySelector('[data-h="nextBtn"]').disabled=(index===total);
+			((pager)=>{
+				pager.querySelector('span').textContent=total;
+				((ipt)=>{
+					ipt.value=index;
+					ipt.setAttribute('max',total);
+				})(pager.querySelector('input'));
+			})(this.E.querySelector('#Aside_Pager'));
 			Array.from(this.E.querySelectorAll('[tab="toc"]>ol a'))
 				.forEach((link, i) => link.classList.toggle('active', i === index-1));
 		}
-		this.E.querySelector('[data-h="fsToggle"]').checked = !!document.fullscreenElement;
+		//this.E.querySelector('[data-h="fsToggle"]').checked = !!document.fullscreenElement;
 	}	// }}}
 	install (content)
 	{	// install TOC table {{{
-		const tl=this.E.querySelector('[tab="toc"]>ol');
-		Array.from(content.querySelectorAll('section'))
-		.forEach((sec, idx) => {
-			let t=sec.getAttribute("title") || sec.querySelector('h1') || sec.querySelector('h2');
+		const tl=this.E.querySelector('[data-uid="aside:tab:TOC"]');
+		tl.innerHTML="<ol>"+Array.from(content.querySelectorAll('section'))
+		.reduce((rs, sec, idx) => {
+			let t=sec.querySelector('h1') || sec.querySelector('h2');
 			if (t) {
+				t=t.textContent;
+				rs+=`<li data-h="slide:goto,${sec.id}">${t}</li>`;
+/*
 				if (t.nodeType===1)
 					t=t.textContent.trim();
 				const li = document.createElement('li');
 				while (li.firstChild) li.removeChild(li.firstChild);
 				const a = document.createElement('a');
-				//a.href = '#' + sec.getAttribute('SID');
+				//a.href = '#' + sec.dataset.sid;
 				a.textContent = t;
-				a.dataset.sid = sec.getAttribute('SID');
 				li.appendChild(a);
 				tl.appendChild(li);
+*/
 			}
-		});
+			return rs;
+		}, "")+"</ol>";
 	}	// }}}
 	installSetting (elem)
 	{	// {{{
-		const pe=this.E.querySelector('div[tab="settings"]'),
-		      oe=pe.querySelector(`[UID=${elem.getAttribute("UID")}]`);
-		pe.insertBefore(elem,oe);
-		if(oe) pe.removeChild(oe);
+		const pe=this.E.querySelector('[data-uid="aside:tab:Settings"]');
+		if (pe !== elem.parentNode) pe.appendChild(elem);
 	}	// }}}
-	open (dialog)
+	open (dialog, caption)
 	{	// launch aside bar {{{
 		// if (document.fullscreenElement) document.exitFullscreen();
 		((S)=>{ // [CSS] opacity:1; visiblity:visible;
@@ -280,8 +301,8 @@ aside .Options>div:hover { color:blue;border-color:blue; }
 		})(this.Overlay.style);
 		if (dialog) {
 			this.E.style.transform='translateX(100%)';
-			if (dialog.hasAttribute('caption'))
-				this.DE.Caption.textContent=dialog.getAttribute('caption');
+			if (caption)
+				this.DE.Caption.textContent=caption;
 			while(dialog.firstChild) this.DE.View.appendChild(dialog.firstChild);
 			this.DE.style.display='flex';
 		} else {
@@ -368,22 +389,21 @@ button:hover {border-color:#90a4ae;}
 			document.head.appendChild(S);
 		})(); // }}}
 
-		this.Aside=new Aside(document.body, {
-			"activate": (s) => this.activate(s, true),
-			"fullscreen": (mode) => {
-				if (mode) {
-					if(!document.fullscreenElement) document.body.requestFullscreen();
-				} else if(document.fullscreenElement) document.exitFullscreen();
-			},
-			"applyFontSize": (scale) => this.applyFontSize(scale)
-		});
-
 		((E)=>{ // Launch PAD {{{
 			E.id="control-panel";
 			E.innerHTML=`
 <style>
-#control-panel {position:fixed;bottom:0;left:0;display:flex;flex-flow:row wrap;width:150px;padding:10px;z-index:10000;pointer-events:none;}
-#control-panel [data-h] {width:50px;height:50px;margin:5px;display:flex;justify-content:center;align-items:center;background-color:#3498db;color:white;font-weight:bold;font-size:20px;border-radius:5px;user-select:none;cursor:pointer;pointer-events:auto;}
+#control-panel {
+	position:fixed;bottom:0;left:0;width:14vmin;padding:0.5vmin;z-index:10000;
+	display:flex;flex-flow:row wrap;pointer-events:none;
+}
+#control-panel [data-h] {
+	width:6vmin;height:6vmin;margin:0.2vmin;border-radius:0.2vmin;
+	display:flex;justify-content:center;align-items:center;
+	background-color:#3498db;color:white;
+	font-weight:bold;font-size:3vmin;
+	user-select:none;cursor:pointer;pointer-events:auto;
+}
 #control-panel>[data-h="none"] {background:rgba(0,0,0,0);border:1px solid silver;}
 #control-panel:not(.active) :not([data-h="none"]) {display:none;}
 </style>
@@ -392,7 +412,6 @@ button:hover {border-color:#90a4ae;}
 <div data-h="none"> </div>
 <div data-h="next">▶</div>
 `;
-			E.addEventListener('mouseover',(evt)=>E.classList.add('active'));
 			if (!E.__handler__) {
 				E.__handler__ = (evt) => {
 					const func=evt.target.dataset.h;
@@ -418,9 +437,12 @@ button:hover {border-color:#90a4ae;}
 					evt.preventDefault();
 				};
 				E.addEventListener('click',E.__handler__);
+				E.addEventListener('mouseover',(evt)=>E.classList.add('active'));
 			}
 			this.Content.appendChild(E);
 		})(document.createElement("div")); // }}}
+
+		this.Aside=new Aside(document.body);
 
 		setInterval(()=>{ let eh=this.EventHook.tick; if(eh) for(let n in eh) eh[n](); },1000)
 	}	// }}}
@@ -431,10 +453,12 @@ button:hover {border-color:#90a4ae;}
 
 		const content=this.Content;
 
+		// TOREMOVE {{{
 		await Promise.all(Array.from(content.querySelectorAll('[X]')).reduce((R,e)=>{
 			R.push(this.applyX(e.getAttribute('X').split(':')[0],e));
 			return R;
 		},[]));
+		// }}}
 
 		await Promise.all(Array.from(content.querySelectorAll('[data-x]')).reduce((R,e)=>{
 			R.push(this.applyX(e.dataset.x.split(':')[0],e));
@@ -446,20 +470,21 @@ button:hover {border-color:#90a4ae;}
 			// filter sections, generate SIDs, and calc total number of pages
 			content.Keywords={}; // content.Keywords : 所有定義的 Keywords
 			content.PageCounts=Array.from(content.querySelectorAll('section')).reduce((r,s)=>{
-				const ks=(s.dataset.ks||s.getAttribute('ks')||'').split(/[,\s]/).filter((v)=>v);
+				const ks=(s.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
 				ks.forEach((k)=>content.Keywords[k]=true);
 				if (selector&&(!selector.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)))) {
-					if (s.parentNode) s.parentNode.removeChild(s); // filter out pages
+					// 直接刪除 DOM 內過濾掉的元素
+					if (s.parentNode) s.parentNode.removeChild(s);
 				} else {
 					r++;
-					if (!s.hasAttribute('SID')) s.setAttribute('SID',r);
+					s.id=`__slide_${r}__`;
 				}
 				return r;
 			}, 0);
 
 			content.Keywords=Object.keys(content.Keywords);
 			((CE)=>{
-				const opt=CE.querySelector('.Options');
+				const opt=document.querySelector('[data-uid^="aside:Settings"] .Options');
 				opt.innerHTML=content.Keywords.reduce((C,k)=>{
 					return C+`<div><input type='checkbox'/> ${k}</div>`;
 				},"");
@@ -486,27 +511,24 @@ button:hover {border-color:#90a4ae;}
 			return s;
 		})(document.createElement("style")),content.firstChild);
 
-		content.addEventListener('click', (evt) => {
-			for (let e=evt.target; e!==content; e=e.parentNode){
-				if (e.dataset.h) {
-					this.handleAction(e,evt);
-					evt.stopPropagation();
-					evt.preventDefault();
-					break;
+		if (!content.__handler__) {
+			content.__handler__ = (evt)=>{
+				for (let e=evt.target; e!==content; e=e.parentNode){
+					if (e.dataset.h) {
+						const args=e.dataset.h.split(':'), cmd=args.shift();
+						if (cmd in this && 'function' === typeof(this[cmd])) {
+							this[cmd].apply(this,args).then(console.log,console.log);
+						} else continue;
+						evt.stopPropagation();
+						// evt.preventDefault(); // default handler essential to change events
+						break;
+					}
+					if (e.tagName==='SECTION') { this.activate(e, true); break; }
 				}
-				if (e.tagName==='SECTION') { this.activate(e); break; }
-			}
-		});
-
-		content.addEventListener('change', (evt) => {
-			for (let e=evt.target; e!==content; e=e.parentNode){
-				if (e.dataset.h) {
-					this.handleAction(e,evt);
-					evt.stopPropagation();
-					break;
-				}
-			}
-		});
+			};
+			content.addEventListener('click', content.__handler__);
+			content.addEventListener('change', content.__handler__);
+		}
 
 		content.addEventListener('scrollend', (evt) => { // auto activate page when current slide out of viewport
 			let s,x=this.Content.getBoundingClientRect().height/3;
@@ -516,50 +538,68 @@ button:hover {border-color:#90a4ae;}
 			}
 			if (s&&document.fullscreenElement) this.activate(s);
 		});
+		console.log("INIT Completed");
+	}	// }}}
+
+	get (section)
+	{	// get section element by hints (1,-1,"id") {{{
+		switch (section) {
+		case 1 :
+			for (let s=this.current.nextSibling; s; s=s.nextSibling)
+				if (s.tagName === 'SECTION') return s;
+			return;
+		case -1 :
+			for (let s=this.Content.firstChild,h=[]; s; s=s.nextSibling)
+				if (s.tagName === 'SECTION') {
+					if (s === this.current) return h.pop(); else h.push(s);
+				}
+			return;
+		default:
+			if ('string' === typeof(section))
+				section = this.Content.querySelector(`#${section}`); 
+			return section;
+		}
 	}	// }}}
 
 	activate (section, scroll)
 	{	// activate specified section {{{
-		section = (()=>{
-			switch (section) {
-			case 1 :
-				for (let s=this.current.nextSibling; s; s=s.nextSibling) if (s.tagName==='SECTION') return s;
-				return;
-			case -1 :
-				for (let s=this.Content.firstChild,h=[]; s; s=s.nextSibling) if (s.tagName==='SECTION') {
-					if (s===this.current) return h.pop(); else h.push(s);
-				}
-				return;
-			default:
-				if ('string'===typeof(section)) section=this.Content.querySelector(`[SID="${section}"]`); 
-				return section;
-			}
-		})();
+		section = this.get(section);
 		if (!section) return;
 
-		if (section!==this.current) {
+		if (section !== this.current) {
 			this.current=section;
-			// Update current section class tag
-			Array.from(section.parentNode.querySelectorAll('.current-section')).forEach((s)=>s.classList.remove('current-section'));
+
+			// move .current-section to new section element
+			Array.from(
+				section.parentNode.querySelectorAll('.current-section')
+			).forEach((s)=>s.classList.remove('current-section'));
 			section.classList.add('current-section');
-			if (this.Plugins.TeX) this.Plugins.TeX.resolve(section).then(console.log,console.log);
-			if (this.Aside) this.Aside.update(parseInt(section.getAttribute('SID')), section.parentNode.PageCounts);
+
+			//if (this.Plugins.TeX) this.Plugins.TeX.resolve(section).then(console.log,console.log);
+
+			if (this.Aside)
+				this.Aside.update(
+					parseInt(/__slide_([0-9]+)__/.exec(section.id)[1]),
+					section.parentNode.PageCounts
+				);
+
 			// Update URL hash and scroll into view
 			if (history.replaceState)
-				history.replaceState(null, null, '#' + section.getAttribute('SID'));
-			else location.hash = '#' + section.getAttribute('SID');
-		}
+				history.replaceState(null, null, '#' + section.id);
+			else location.hash = '#' + section.id;
 
-		if (scroll!==undefined){
-			setTimeout(()=>{
-				console.log("AAAAAAAAAAAAAAA",scroll);
-				this.current.scrollIntoView({ behavior: scroll ? 'smooth' : 'auto', block: 'start' });
-				this.current.scrollTop=0;
-				//setTimeout(()=>(this.Content.getAttribute('playmode')==='page'?this.current:this.Content).focus(),1000);
-			},1);
+			if (scroll !== undefined) {
+				setTimeout(() => {
+					this.current.scrollIntoView({
+						behavior: scroll ? 'smooth' : 'auto',
+						block: 'start'
+					});
+					this.current.scrollTop=0;
+					// Do we need focus() ? 
+					// setTimeout(()=>(this.Content.getAttribute('playmode')==='page'?this.current:this.Content).focus(),1000);
+				}, 1);
+			}
 		}
-		//const eb=section.getBoundingClientRect();
-		//if ((eb.top+50>this.Content.clientHeight)||(eb.top+eb.height<50))
 	}	// }}}
 
 	set (name, value)
@@ -590,16 +630,6 @@ button:hover {border-color:#90a4ae;}
 				loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${name}.js`)) ;
 		(await this.Xs[name])(this,e);
 	}
-
-	applyFontSize (scale)
-	{	// apply font size {{{
-		const DEFAULT_FONT_SIZE=((w,h)=>w>h ? Math.floor(h/26) : Math.floor(w/30))(window.innerWidth,window.innerHeight);
-		if(scale) this.fontScale = Math.max(0.8, Math.min(1.5, scale));
-		document.documentElement.style.setProperty(
-			'--base-font-size',
-			`${DEFAULT_FONT_SIZE * this.fontScale}px`
-		);
-	}	// }}}
 
 	handleAction (e)
 	{ // {{{
@@ -637,16 +667,62 @@ button:hover {border-color:#90a4ae;}
 
 	goto (e, key)
 	{	// <button data-h='goto,keyword'> {{{
-		let ts=this.Content.querySelector(`section[ks~="${key}"]`);
+		let ts=this.Content.querySelector(`section[data-ks~="${key}"]`);
 		console.assert(ts,'goto() => target not found');
-		if (ts) this.activate(ts,true);
+		if (ts) ts.click();
+	}	// }}}
+
+	async dialog (mtype, tgt, capt)
+	{	// {{{
+		const de=document.createElement("div");
+		de.appendChild(document.createElement("div"));
+		de.firstChild.style.overflow="auto";
+		de.firstChild.style.width=de.firstChild.style.height="100%";
+
+		switch (mtype) {
+		case 'mermaid':
+			de.firstChild.setAttribute('style', 'text-align:center');
+			await this.Plugins.TeX.renderMermaid(de.firstChild, tgt);
+			break;
+		case 'image':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;height:100%;'><img src='${tgt}' style='object-fit:cover;width:auto;height:auto;'/></div>`;
+			((v)=>{
+				const img=v.querySelector('img');
+				img.addEventListener('load',()=>{
+					const cr=v.getBoundingClientRect();
+					const as=(img.width*cr.height > img.height*cr.width) ? ['height','overflow-x'] : ['width','overflow-y'];
+ 					img.style[as[0]]='100%';
+					v.style[as[1]]='auto';
+				});
+			})(de.firstChild);
+			break;
+		case 'photo':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${tgt}' style='object-fit:contain;width:100%;height:100%;'/></div>`
+			break;
+		case 'obj':
+			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><iframe src='${tgt}' style='width:100%;height:100%;'><a href='${tgt}'>Not support, download to open</a></iframe></div>`
+			break;
+		default:
+			if (code.nodeType===1) de.firstChild.appendChild(code); else return;
+			break;
+		}
+		de.firstChild.addEventListener('click',(evt)=>{
+			for (let e=evt.target; e.nodeType===1; e=e.parentNode){
+				if (e.dataset.h) {
+					console.log(e.dataset.h)
+					evt.stopPropagation();
+					evt.preventDefault();
+				}
+			}
+		});
+		return this.Aside.open(de, capt||"");
 	}	// }}}
 
 	async show (e, code)
 	{	// <button data-h='show,RID_Key'> {{{
 		//console.log(this.Plugins.TeX.resolve());
-		let lang=e.getAttribute('lang');
-		if (!code) code=e.getAttribute('code');
+		let lang = e.getAttribute('lang');
+		if (!code) code = e.getAttribute('code');
 		if (code) {
 			if (!lang) {
 				lang=document.body.querySelector(`[RID="${code}"]`);
@@ -706,69 +782,90 @@ button:hover {border-color:#90a4ae;}
 }
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
-	const loading=document.createElement("div");
-	loading.beginTS=(new Date()).getTime();
-	loading.style.textAlign='center';
-	loading.textContent='Loading ...';
+	const loading = document.createElement("div");
+	loading.beginTS = (new Date()).getTime();
+	loading.style.textAlign = 'center';
+	loading.textContent = 'Loading ...';
 	document.body.insertBefore(loading,document.body.firstChild);
 
 	// 1. Create {args} according to {location.search}
-	const args=(location.search||'?').substr(1).split('&').reduce((r,a)=>{
-		const pa=/^([^=]+)=(.*)$/.exec(a);
+	const args = (location.search||'?').substr(1).split('&').reduce((r,a) => {
+		const pa = /^([^=]+)=(.*)$/.exec(a);
 		if (pa) {
 			switch (pa[1]) {
 			case 's' :
-				r[pa[1]]=decodeURIComponent(pa[2]).split('|').map((v)=>v.split('.')); break;
+				r[pa[1]] = decodeURIComponent(pa[2]).split('|').map((v) => v.split('.'));
+				break;
 			default:
-				r[pa[1]]=decodeURIComponent(pa[2]); break;
+				r[pa[1]] = decodeURIComponent(pa[2]);
+				break;
 			}
 		} else r[a] = true;
 		return r;
-	},{});
+	}, {});
 
 	// 2. Create Slide Instance
-	let MS=window.App=new Slides(document.body);
+	let MS = window.App = new Slides(document.body);
 	await MS.init(args);
 
 	// 3. Install slide plugins
 	for (const name of (CS.getAttribute('plugins')||"").split(',')) {
 		if (name in Plugins)
-			await MS.install(name,Plugins[name]);
+			await MS.install(
+				name,
+				Plugins[name]
+			);
 		else if(name)
-			await MS.install(name,await loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${name}.js`)));
+			await MS.install(
+				name,
+				await loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${name}.js`))
+			);
 	}
 	MS.Aside.install(MS.Content);
 
 	// 4. Bind Events
-	document.addEventListener('fullscreenchange', ()=>{
+	document.addEventListener('fullscreenchange', () => {
 		if (document.fullscreenElement) {
 			MS.set('pagemode', true);
 			MS.Aside.update();
 			MS.Aside.close();
-			setTimeout(()=>MS.activate(MS.current, true),1000);
+			setTimeout(() => MS.current.click(), 1000);
 		}
 	});
+
 	window.addEventListener('keydown', (e) => {
 		if (e.key==='ArrowLeft') {
-			MS.activate(-1, true);
+			MS.get(-1).click();
 		} else if (e.key==='ArrowRight') {
-			MS.activate(1, true);
+			MS.get(1).click();
 		} else if (e.key==='Escape')
 			MS.Aside.toggle();
 		else return;
 		e.preventDefault();
 	});
-	window.addEventListener('resize',(e) => MS.applyFontSize());
+	document.applyFontSize=(scale)=>{
+		const DEFAULT_FONT_SIZE=(
+			(w,h)=>w>h ? Math.floor(h/26) : Math.floor(w/30)
+		)(
+			window.innerWidth,
+			window.innerHeight
+		);
+		document.documentElement.style.setProperty(
+			'--base-font-size',
+			`${DEFAULT_FONT_SIZE * scale}px`
+		);
+	};
+	window.addEventListener('resize', (e) => document.applyFontSize(1.0));
 
 	// 5.1 Initialize the font size of play session
-	MS.applyFontSize (1.0);
+	document.applyFontSize(1.0);
 	// 5.2 Initialize the page hash to latest viewed page
-	setTimeout((section)=>{
-		MS.activate(section, false);
+	setTimeout( (section) => {
+		MS.get(section).click();
 		loading.parentNode.removeChild(loading);
 		document.body.style.opacity='1';
 		console.log(`${(new Date()).getTime()-loading.beginTS} elapsed.`);
-	}, 1, MS.Content.querySelector(location.hash ? `section[SID="${location.hash.substr(1)}"]` : "section"));
+	}, 1, MS.Content.querySelector(location.hash ? `section#${location.hash.substr(1)}` : "section"));
 });	// }}}
 
 })(document.currentScript);

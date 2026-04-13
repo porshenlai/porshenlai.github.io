@@ -64,15 +64,18 @@ class Quiz
 		// install utilities services of Quiz.
 		if (app) app.Aside.installSetting((()=>{
 			const E=document.createElement("div");
-			E.setAttribute("SID","quiz:default");
-			E.innerHTML=`
-	QUIZ: <button action='downloadDLC'>下載數位學院CSV</button>
-`;
+			E.innerHTML=`<div data-uid="aside:Settings:Quiz">
+	<label>QUIZ</label>
+	<div class='Options'>
+		<button data-h='downloadDLC'>下載數位學院CSV</button>
+	</div>
+</div>`;
 			E.addEventListener('click',(evt)=>{
 				for (let e=evt.target; e!==E; e=e.parentNode) {
-					if (!e.hasAttribute('action')) continue;
-					switch (e.getAttribute('action')) {
-					case 'downloadDLC': this.downloadDLC(); break;
+					switch (e.dataset.h) {
+					case 'downloadDLC':
+						this.downloadDLC();
+						break;
 					}
 					evt.stopPropagation();
 					evt.preventDefault();
