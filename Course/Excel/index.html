@@ -24,6 +24,9 @@ figure>div.tab {
 figure b { color:blue; border:2px solid blue; margin:1px; padding:1px 4px; }
 figure b:hover { border-color:red; }
 .Pages { text-align:right; font-size:80%; text-decoration:underline; }
+
+.Def { margin:auto; }
+.Def td,.Def th { border:1px solid silver; }
 </style>
 </head>
 <body>
@@ -98,6 +101,26 @@ figure b:hover { border-color:red; }
 
 <section>
 	<h2>快捷鍵與操作技巧</h2> <!-- {{{ -->
+
+	<table class='Def'><thead><tr>
+		<th>按鍵組合</th><th>動作效果</th>
+	</tr></thead><tbody><tr>
+		<td>滑鼠點擊</td><td>選取單一儲存格</td>
+	</tr><tr>
+		<td>Ctrl + 點擊</td><td>選取「不連續」多格</td>
+	</tr><tr>
+		<td>Shift + 點擊</td><td>選取「頭尾之間」範圍</td>
+	</tr><tr>
+		<td>Ctrl + 方向鍵</td><td>快速「跳」到資料邊界</td>
+	</tr><tr>
+		<td>Shift + 方向鍵</td><td>慢慢「擴展」選取格數</td>
+	</tr><tr>
+		<td>Ctrl + Shift + 方向鍵</td><td>一口氣「選到底」</td>
+	</tr><tr>
+		<td>Ctrl + A</td><td>選取整塊資料區域</td>
+	</tr></tbody></table>
+	<hr/>
+
 	<div data-x='quiz:s'>
 		<div>如果我想同時選取「不連續」的多個儲存格（例如 A1, C5, E10），應該如何操作？</div>
 		<div data-o='O'>按住 Ctrl 鍵並依序點擊儲存格</div>

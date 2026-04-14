@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div id="content">
+<div id='content'>
 
 <section class="cm">
 	<h1 class="title">💻 資料預處理</h1>
@@ -52,10 +52,10 @@
 	</ul>
 	<p><strong>主要方法：</strong> <strong>資料模式匹配 (Schema Matching) 和實體識別 (Entity Identification)</strong></p>
 	<p>在這個整合階段，我們需要一個方法來判斷不同數據集中的欄位是否應該合併，以及如何合併。</p>
-	<div qi="1-1" X='Q' qt="s" ___='2'>
+	<div id'"Quiz-1-1' data-x='quiz:s'>
 		<p>為了將這些結構不一致的資料集成功合併成一個乾淨的表格，我們必須先做哪項基礎工作？ </p>
-		<div qo="1"><strong>修改所有資料表的欄位名稱</strong>，讓它們完全一致。</div>
-		<div qo="2"><strong>確定並統一「關鍵識別碼」（Key Identifier）</strong>，以確保我們能正確地將不同表格中的同一實體 (entity) 連結起來。</div>
+		<div data-o='X'><strong>修改所有資料表的欄位名稱</strong>，讓它們完全一致。</div>
+		<div data-o='O'><strong>確定並統一「關鍵識別碼」（Key Identifier）</strong>，以確保我們能正確地將不同表格中的同一實體 (entity) 連結起來。</div>
 		<div class="answer">
 			<p>在資料科學中，這個過程稱為<strong>連接 (Joining)</strong> 或<strong>合併 (Merging)</strong> 兩個資料表。如果沒有統一的識別碼（例如，將 Customer_ID 和 ClientID 都轉換成一個共同的 Unified_Customer_Key），您將無法準確地將同一個客戶的紀錄從不同表格中拼湊起來，會導致資料混亂。</p>
 		</div>
@@ -71,11 +71,11 @@
 			<li><strong>表格 B</strong>：以<strong>每筆交易</strong>為單位，記錄詳細的交易細節（商品、時間、數量）。</li>
 		</ul></li>
 	</ul>
-	<div qi="1-2" X='Q' qt="s" ___='2'>
+	<div id='Quiz-1-2' data-x='quiz:s'>
 		<p><strong>目標問題</strong>：要將「每日總銷售額」的資料表（表格 A）和「每筆交易細節」的資料表（表格 B）整合起來，使它們能用<strong>天</strong>作為共同的識別鍵 (Key)，我們應該對哪個資料表進行處理，將其調整到「天」這個層級？</p>
-		<div qo="1">對<strong>表格 A</strong>（每日總銷售額）進行聚合（Aggregation）。</div>
-		<div qo="2">對<strong>表格 B</strong>（每筆交易細節）進行聚合。</div>
-		<div qo="3">兩個表格都需要進行處理。</div>
+		<div data-o='X'>對<strong>表格 A</strong>（每日總銷售額）進行聚合（Aggregation）。</div>
+		<div data-o='O'>對<strong>表格 B</strong>（每筆交易細節）進行聚合。</div>
+		<div data-o='X'>兩個表格都需要進行處理。</div>
 		<div class="answer">
 			我們需要對 <strong>表格 B</strong>（每筆交易細節）進行<strong>聚合 (Aggregation)</strong>。只有將更細粒度的數據（每筆交易）加總或計算到更粗粒度的層次（每天的總銷售額），才能確保兩個表格的<strong>粒度 (Granularity)</strong> 保持一致，才能準確地用「日期」這個鍵進行連接。
 		</div>
@@ -97,10 +97,10 @@
 	<h2>(2-1) 遺失值處理 (Handling Missing Values)</h2>
 	<p>數據清洗的第一大挑戰是處理<strong>遺失值 (Missing Values)</strong>，也就是資料表格中的空白、NA 或 Null。</p>
 	<p>假設您在一個重要的數值欄位（例如「產品成本」）發現了一些遺失值。如果我們決定<strong>不刪除</strong>任何記錄，而是要<strong>填補 (Imputation)</strong> 這些遺失值，請問最簡單且常用的<strong>填補方法</strong>是利用什麼值來替代空白？</p>
-	<div qi="2-1" X='Q' qt="s" ___='2'>
-		<div qo="1">使用一個<strong>固定值</strong>，例如 0 或 -1。</div>
-		<div qo="2">使用該欄位中所有現有數據的<strong>平均數（Mean）或中位數（Median）</strong>。</div>
-		<div qo="3">使用一個<strong>隨機生成</strong>的數字。</div>
+	<div id='Quiz-2-1' data-x='quiz:s'>
+		<div data-o='X'>使用一個<strong>固定值</strong>，例如 0 或 -1。</div>
+		<div data-o='O'>使用該欄位中所有現有數據的<strong>平均數（Mean）或中位數（Median）</strong>。</div>
+		<div data-o='X'>使用一個<strong>隨機生成</strong>的數字。</div>
 		<div class="answer">
 			<strong>使用該欄位中所有現有數據的平均數（Mean）或中位數（Median）</strong>，這是一個非常好的選擇，也是業界最標準的處理數值型遺失值的方法之一！👍
 		</div>
@@ -135,12 +135,12 @@
 	<ul>
 		<li><strong>定義：</strong> 異常值是數據集中與其他觀測值有顯著差異的數值，可能代表測量錯誤、數據輸入錯誤，或真實但極端的事件。</li>
 	</ul>
-	<div qi="2-2" X='Q' qt="s" ___='2'>
+	<div id='Quiz-2-2' data-x='quiz:s'>
 		<p>假設您使用 箱形圖 (Box Plot) <div><img src="https://freesvg.org/img/Boxplot.png" style='max-width:80vw;max-height:80vh;'/></div> 來視覺化「產品成本」欄位的分佈。您觀察到有幾個點遠遠超出了上方的「鬍鬚」（Whisker）。</p>
 		<p>在不直接刪除這些異常值的前提下，如果您想對這些極端值進行<strong>處理</strong>，使其對模型的影響降低，您可能會採用以下哪種方法？</p>
-		<div qo="1"><strong>直接將這些異常值刪除</strong>，因為它們會影響模型訓練。</div>
-		<div qo="2"><strong>將異常值的值替換成</strong>靠近「鬍鬚」邊界的<strong>最大值或最小值</strong>（這個方法被稱為<strong>Winsorization</strong> 或<strong>截尾</strong>）。</div>
-		<div qo="3"><strong>忽略它們</strong>，直接進入模型訓練，相信模型能夠自行學習它們。</div>
+		<div data-o='X'><strong>直接將這些異常值刪除</strong>，因為它們會影響模型訓練。</div>
+		<div data-o='O'><strong>將異常值的值替換成</strong>靠近「鬍鬚」邊界的<strong>最大值或最小值</strong>（這個方法被稱為<strong>Winsorization</strong> 或<strong>截尾</strong>）。</div>
+		<div data-o='X'><strong>忽略它們</strong>，直接進入模型訓練，相信模型能夠自行學習它們。</div>
 		<div class="answer">
 			將極端值替換為一個靠近分佈邊界的數值（例如該欄位的 95 或 99 百分位數）。
 			這個技術稱為<strong>Winsorization</strong>。
@@ -151,7 +151,7 @@
 
 <section>
 	<h2>(2-3) 數據不一致性 (Data Inconsistency)</h2>
-	<div qi="2-3" X='Q' qt="s" ___='1'>
+	<div id='Quiz-2-3' data-x='quiz:s'>
 		<p>假設您正在處理一個名為「國家」的<strong>類別型 (Categorical)</strong> 欄位。您發現了以下幾種不同的輸入格式，但它們都指的是同一個國家：</p>
 		<ul>
 			<li>U.S.A.</li>
@@ -160,15 +160,15 @@
 			<li>united states</li>
 		</ul>
 		<p>這會對模型訓練造成什麼樣的問題？而我們應該採取什麼方法來處理這種<strong>文本不一致</strong>？</p>
-		<div qo="1">
+		<div data-o='O'>
 			<div><strong>問題：</strong> 模型會將它們識別為<strong>四個不同的國家</strong>。</div>
 			<div><strong>方法：</strong> 執行<strong>文本標準化 (Text Normalization)</strong>，將它們全部轉換為一個統一的值，例如 USA。</div>
 		</div>
-		<div qo="2">
+		<div data-o='X'>
 			<div><strong>問題：</strong> 模型無法處理非數值資料。</div>
 			<div><strong>方法：</strong> 直接將所有文本轉換為它們在資料庫中的<strong>索引值 (Index)</strong>。</div>
 		</div>
-		<div qo="3">
+		<div data-o='X'>
 			<div><strong>問題：</strong> 這些是重複的紀錄。</div>
 			<div><strong>方法：</strong> 直接刪除除了 United States 之外的所有變體。</div>
 		</div>
@@ -184,12 +184,12 @@
 	<ul>
 		<li><strong>定義：</strong> 雜訊通常指的是隨機誤差或測量誤差；而錯誤資料則是指明顯不符合實際情況的數值（例如 Age = 200）。</li>
 	</ul>
-	<div qi="2-4" X='Q' qt="s" ___='1'>
+	<div id='Quiz-2-4' data-x='quiz:s'>
 		<p>假設我們正在處理一個「年齡」（Age）欄位。如果您發現某筆紀錄的年齡是 <strong>200</strong> 歲，這顯然是一個<strong>錯誤資料</strong>。</p>
 		<p>在數據清洗階段，為了有效地<strong>識別</strong>並<strong>修正</strong>這種明顯的錯誤，除了直接刪除該筆紀錄外，最系統化、最科學的方法是什麼？</p>
-		<div qo="1"><strong>實施業務規則驗證 (Business Rule Validation)：</strong> 定義年齡欄位的<strong>有效範圍</strong>（例如 0 到 120 歲），超出這個範圍的值即視為錯誤，並用中位數等方法進行填補。</div>
-		<div qo="2"><strong>使用更複雜的異常值偵測演算法：</strong> 例如 K-Nearest Neighbors (KNN) 或 Isolation Forest 來自動找出所有異常點。</div>
-		<div qo="3"><strong>將欄位轉換為對數刻度 (Log Scale)：</strong> 縮小數值範圍，讓 200 和 20 歲之間的差距在視覺上看起來不那麼巨大。</div>
+		<div data-o='O'><strong>實施業務規則驗證 (Business Rule Validation)：</strong> 定義年齡欄位的<strong>有效範圍</strong>（例如 0 到 120 歲），超出這個範圍的值即視為錯誤，並用中位數等方法進行填補。</div>
+		<div data-o='X'><strong>使用更複雜的異常值偵測演算法：</strong> 例如 K-Nearest Neighbors (KNN) 或 Isolation Forest 來自動找出所有異常點。</div>
+		<div data-o='X'><strong>將欄位轉換為對數刻度 (Log Scale)：</strong> 縮小數值範圍，讓 200 和 20 歲之間的差距在視覺上看起來不那麼巨大。</div>
 		<div class="answer">
 			<p><strong>實施業務規則驗證 (Business Rule Validation)</strong> 💡 是處理這類明顯錯誤資料（Error Data）最直接且系統化的方法。</p>
 			<p><strong>原因</strong>：</p>
@@ -219,11 +219,11 @@
 		<li><strong>年收入 (Annual Income)</strong>：範圍從 30,000 到 500,000 元。</li>
 		<li><strong>年齡 (Age)</strong>：範圍從 18 到 90 歲。</li>
 	</ol>
-	<div qi="3-1a" X='Q' qt="s" ___='2'>
+	<div id='Quiz-3-1a' data-x='quiz:s'>
 		<p>如果您直接將這兩個欄位送入某些機器學習模型（例如 K-Nearest Neighbors 或支持向量機 SVM），會發生什麼問題？</p>
-		<div qo="1">模型會花更多時間處理「年收入」，因為它的數值範圍較大，導致訓練時間變長。</div>
-		<div qo="2"><strong>「年收入」的尺度過大</strong>，將會<strong>主導 (Dominate)</strong> 模型的距離計算，導致模型過分關注收入，而忽略了年齡這個重要特徵。</div>
-		<div qo="3">模型會將數值資料自動轉換為類別資料，因此不需要特別處理。</div>
+		<div data-o='X'>模型會花更多時間處理「年收入」，因為它的數值範圍較大，導致訓練時間變長。</div>
+		<div data-o='O'><strong>「年收入」的尺度過大</strong>，將會<strong>主導 (Dominate)</strong> 模型的距離計算，導致模型過分關注收入，而忽略了年齡這個重要特徵。</div>
+		<div data-o='X'>模型會將數值資料自動轉換為類別資料，因此不需要特別處理。</div>
 		<div class="answer">
 			<p>如果直接使用未經調整的數值，像 $\text{500,000}$ 元的「年收入」在距離計算上將遠遠主導 $90$ 歲的「年齡」，模型會誤以為收入的差異比年齡的差異重要得多，這就造成了<strong>特徵支配 (Feature Dominance)</strong>。</p>
 			<p>解決這個問題的<strong>主要方法</strong>就是<strong>特徵縮放 (Feature Scaling)</strong>，確保所有數值特徵在同一個尺度上，讓模型能公平地對待所有變數。</p>
@@ -231,7 +231,7 @@
 	</ol></div>
 	<h3>選擇合適的縮放方法</h3>
 	<p>特徵縮放主要有兩大方法，它們的處理方式略有不同：</p>
-	<ol X='Math'>
+	<ol data-x='math'>
 		<li><strong>正規化 (Normalization) / 最小-最大縮放 (Min-Max Scaling)：</strong> 將數據線性地縮放到一個固定的範圍內，通常是 $[\text{0}, \text{1}]$。<ul>
 			<li>公式：$X' = \frac{X - X_{\text{min}}}{X_{\text{max}} - X_{\text{min}}}$</li>
 		</ul></li>
@@ -240,10 +240,10 @@
 		</ul></li>
 	</ol>
 	<p>現在考慮這個情境：您的「年收入」數據在清洗階段中，我們保留了一些<strong>輕微的異常值</strong>（例如：一位頂級經理的極高收入）。</p>
-	<div qi="3-1b" X='Q' qt="s" ___='1'>
+	<div id='Quiz-3-1b' data-x='quiz:s'>
 		<p>請問，哪一種方法<strong>對異常值更敏感</strong>，在這種情況下可能會被極端值<strong>嚴重拉伸</strong>，導致大多數數據點被壓縮到一個很小的範圍內？</p>
-		<div qo="1"><strong>正規化 (Normalization)</strong></div>
-		<div qo="2"><strong>標準化 (Standardization)</strong></div>
+		<div data-o='O'><strong>正規化 (Normalization)</strong></div>
+		<div data-o='X'><strong>標準化 (Standardization)</strong></div>
 		<div class="answer">
 			<p><strong>正規化 (Normalization)</strong> 對異常值是更敏感的。</p>
 			<p>這是因為正規化是基於數據的<strong>絕對最大值</strong> ($\text{Max}$) 和<strong>最小值</strong> ($\text{Min}$) 來縮放。一個極端的異常值會極大地拉伸 $\text{Max} - \text{Min}$ 這個範圍，導致大部分非異常數據被壓縮到新的 $[\text{0}, \text{1}]$ 範圍內的一個很小的子區間，進而降低了數據的變異性，影響模型學習。</p><p>這就是為什麼在數據分佈接近常態（Normal）或有輕微異常值時，<strong>標準化 (Standardization)</strong> 通常是更穩健的選擇，因為它主要依賴平均數和標準差，對極端值的抗性較高。</p>
@@ -259,14 +259,14 @@
 		<li><strong>名目型類別 (Nominal Categories)：</strong> 類別之間沒有順序或等級關係（例如：國家、顏色）。</li>
 		<li><strong>序數型類別 (Ordinal Categories)：</strong> 類別之間有明確的順序或等級關係（例如：教育程度：高中 &lt; 大學 &lt; 碩士）。</li>
 	</ol>
-	<div qi='3-2a' X='Q' qt='s' ___='1'>
+	<div id='Quiz-3-2a' data-x='quiz:s'>
 		<p>假設我們現在要處理<strong>名目型</strong>的「國家」欄位，它有 $\text{10}$ 個不同的值（如 $\text{USA}$, $\text{CAN}$, $\text{JPN}$）。</p>
 		<p>如果我們將每個國家直接編碼成一個數字（$\text{USA} = 1$, $\text{CAN} = 2$, $\text{JPN} = 3$），會對模型造成什麼樣的<strong>誤解</strong>？以及我們應該使用哪種編碼方法來解決這個問題？</p>
-		<div qo='1'>
+		<div data-o='O'>
 			<strong>誤解：</strong> 模型會錯誤地認為 $\text{JPN}$（$\text{3}$）比 $\text{USA}$（$\text{1}$）<strong>大或更好</strong>，從而引入<strong>錯誤的順序性</strong>。<br/>
 			<strong>解決方法：</strong> <strong>獨熱編碼 (One-Hot Encoding)</strong>，將 $\text{1}$ 個欄位變成 $\text{10}$ 個二元 (Binary) 欄位。
 		</div>
-		<div qo='2'>
+		<div data-o='X'>
 			<strong>誤解：</strong> 模型無法處理 $\text{1}$ 到 $\text{10}$ 之間的數字。<br/>
 			<strong>解決方法：</strong> <strong>目標編碼 (Target Encoding)</strong>，用該類別的目標變數平均值來代替。
 		</div>
@@ -276,11 +276,11 @@
 	</div>
 
 	<p>現在，讓我們來看看另一種情況：<strong>序數型類別 (Ordinal Categories)</strong>。</p>
-	<div qi='3-2b' X='Q' qt='s' ___='2'>
+	<div id='Quiz-3-2b' data-x='quiz:s'>
 		<p>假設您的資料中有一個 滿意度 欄位，只有三個值：<strong>很不滿意</strong>、<strong>滿意</strong>、<strong>非常滿意</strong>。這個欄位有明確的等級關係（$\text{非常滿意} &gt; \text{滿意} &gt; \text{很不滿意}$）。</p>
 		<p>對於這種序數型類別，我們應該採用什麼樣的編碼策略，才能<strong>保留它們的順序性</strong>，而又不至於像獨熱編碼那樣增加大量欄位？</p>
-		<div qo='1'>繼續使用<strong>獨熱編碼 (One-Hot Encoding)</strong>，將 $\text{1}$ 個欄位變成 $\text{3}$ 個獨立欄位。</div>
-		<div qo='2'>進行<strong>序數編碼 (Ordinal Encoding)</strong>：手動將 $\text{很不滿意}$ 映射為 $\text{1}$，$\text{滿意}$ 映射為 $\text{2}$，$\text{非常滿意}$ 映射為 $\text{3}$。</div>
+		<div data-o='X'>繼續使用<strong>獨熱編碼 (One-Hot Encoding)</strong>，將 $\text{1}$ 個欄位變成 $\text{3}$ 個獨立欄位。</div>
+		<div data-o='O'>進行<strong>序數編碼 (Ordinal Encoding)</strong>：手動將 $\text{很不滿意}$ 映射為 $\text{1}$，$\text{滿意}$ 映射為 $\text{2}$，$\text{非常滿意}$ 映射為 $\text{3}$。</div>
 		<div class="answer">
 			<p>對於具有<strong>內在順序或等級關係</strong>的類別，例如 滿意度、教育程度 或 T-shirt 尺寸 ($\text{S} &lt; \text{M} &lt; \text{L}$)，我們就應該使用<strong>序數編碼</strong>（選項 2）。</p>
 			<ul>
@@ -293,22 +293,22 @@
 <section>
 	<h2>(3-3) 特徵工程 (Feature Engineering) 🛠️</h2>
 	<p>數據轉換的最後一個關鍵步驟是<strong>特徵工程</strong>。我們的目標是<strong>從現有特徵中創造新的、更有用的特徵</strong>，以提高模型的預測能力。</p>
-	<div qi='3-3a' X='Q' qt='s' ___='1'>
+	<div id='Quiz-3-3a' data-x='quiz:s'>
 		<p>假設您的資料中有一個交易時間戳 (Timestamp) 欄位，精確到秒。雖然模型可以直接使用這個時間戳，但通常效果不佳。</p>
 		<p>請問，為了更好地捕捉客戶的<strong>購買習慣</strong>或<strong>週期性模式</strong>，我們可以從這個交易時間戳 欄位中提取出哪些新的、獨立的<strong>時間相關特徵</strong>？（請從以下選項中選出兩個最能體現「週期性模式」的特徵）</p>
-		<div qo='1'><strong>星期幾 (Day of Week)</strong></div>
-		<div qo='2'><strong>交易編號 (Transaction ID)</strong></div>
-		<div qo='3'><strong>月份 (Month)</strong></div>
-		<div qo='4'><strong>交易發生的秒數 (Seconds of Transaction)</strong></div>
+		<div data-o='O'><strong>星期幾 (Day of Week)</strong></div>
+		<div data-o='X'><strong>交易編號 (Transaction ID)</strong></div>
+		<div data-o='X'><strong>月份 (Month)</strong></div>
+		<div data-o='X'><strong>交易發生的秒數 (Seconds of Transaction)</strong></div>
 		<div class="answer">
 			<p><strong>星期幾</strong> (Day of Week) 能夠捕捉到<strong>一週內</strong>的週期性模式（例如：週末銷售額較高），這是個很棒的特徵！</p>
 		</div>
 	</div>
-	<div qi='3-3b' X='Q' qt='s' ___='2'>
+	<div id='Quiz-3-3b' data-x='quiz:s'>
 		<p>很好，現在請您從剩下的選項中，選出另一個能代表<strong>更長週期性模式</strong>（例如：<strong>季節性</strong>或<strong>年度</strong>週期）的特徵。這樣我們就能從時間戳中提取出兩個關鍵的週期性模式。</p>
-		<div qo='1'><strong>交易編號 (Transaction ID)</strong></div>
-		<div qo='2'><strong>月份 (Month)</strong></div>
-		<div qo='3'><strong>交易發生的秒數 (Seconds of Transaction)</strong></div>
+		<div data-o='X'><strong>交易編號 (Transaction ID)</strong></div>
+		<div data-o='O'><strong>月份 (Month)</strong></div>
+		<div data-o='X'><strong>交易發生的秒數 (Seconds of Transaction)</strong></div>
 		<div class='answer'>
 			<strong>月份 (Month)</strong> 能夠捕捉到<strong>更長期的週期性</strong>（例如：聖誕節前的 $\text{12}$ 月銷售高峰，或夏季的旅遊旺季），這是一種完美的<strong>季節性 (Seasonality)</strong> 特徵。</p><p>因此，從 交易時間戳 欄位中提取 <strong>星期幾</strong> 和 <strong>月份</strong> 是特徵工程的絕佳範例，因為它們將一個複雜的原始特徵轉換成了兩個極具預測能力的<strong>週期性特徵</strong>。
 		</div>
@@ -322,11 +322,11 @@
 		<li>違反某些線性模型的<strong>常態分佈假設 (Normality Assumption)</strong>。</li>
 	</ol>
 	<p>為了解決這種<strong>正偏態 (Positive Skew)</strong> 問題，最常見的<strong>數學函數轉換</strong>是使用<strong>對數轉換 (Log Transformation)</strong>。</p>
-	<div qi='3-3c' X='Q' qt='s' ___='2'>
+	<div id='Quiz-3-3c' data-x='quiz:s'>
 		<p>請問，<strong>對數轉換 $X' = \log(X)$</strong> 如何幫助改善這種極度偏態的數據分佈？</p>
-		<div qo='1'>它能將所有數值<strong>線性</strong>地縮放到 $\text{0}$ 到 $\text{1}$ 之間，使其變成常態分佈。</div>
-		<div qo='2'>它是一種<strong>非線性</strong>轉換，能<strong>大幅度地壓縮</strong>較大的數值（例如 $\text{500,000}$），同時<strong>溫和地拉伸</strong>較小的數值，從而使數據分佈更接近對稱（常態）。</div>
-		<div qo='3'>它會消除所有的異常值，使數據的平均數變成 $\text{0}$。</div>
+		<div data-o='X'>它能將所有數值<strong>線性</strong>地縮放到 $\text{0}$ 到 $\text{1}$ 之間，使其變成常態分佈。</div>
+		<div data-o='O'>它是一種<strong>非線性</strong>轉換，能<strong>大幅度地壓縮</strong>較大的數值（例如 $\text{500,000}$），同時<strong>溫和地拉伸</strong>較小的數值，從而使數據分佈更接近對稱（常態）。</div>
+		<div data-o='X'>它會消除所有的異常值，使數據的平均數變成 $\text{0}$。</div>
 		<div class='answer'>$\log(X)$ 是一種</strong>非線性<strong>轉換，能</strong>大幅度地壓縮<strong>較大的數值（例如 $\text{500,000}$），同時</strong>溫和地拉伸**較小的數值，從而使數據分佈更接近對稱（常態）。</div>
 	</div>
 	<p>想像一下：</p>
@@ -345,17 +345,17 @@
 
 <section>
 	<h2>4-1 處理高維度 (High Dimensionality)</h2>
-	<div qi="4-1" X='Q' qt='s' ___='2'>
+	<div id='Quiz-4-1' data-x='quiz:s'>
 		<p>假設在您完成獨熱編碼後，您的數據表格從原本的 $\text{50}$ 個欄位暴增到 $\text{500}$ 個欄位。這種<strong>維度災難 (Curse of Dimensionality)</strong> 會導致什麼問題？以及我們應該用哪種方法來解決？</p>
-		<div qo='1'>
+		<div data-o='X'>
 			<p><strong>問題：</strong> 維度增加會使模型訓練速度變快，但會讓預測結果過於簡單（欠擬合）。</p>
 			<p><strong>方法：</strong> 刪除所有獨熱編碼的欄位。</p>
 		</div>
-		<div qo='2'>
+		<div data-o='O'>
 			<p><strong>問題：</strong> 增加的欄位會讓模型訓練<strong>變慢</strong>，並可能導致<strong>過度擬合 (Overfitting)</strong>。</p>
 			<p><strong>方法：</strong> 使用<strong>主成分分析 (Principal Component Analysis, PCA)</strong> 等降維技術。</p>
 		</div>
-		<div qo='3'>
+		<div data-o='X'>
 			<p><strong>問題：</strong> 許多新欄位是<strong>稀疏 (Sparse)</strong> 的（大部分值為 $\text{0}$），模型無法處理 $\text{0}$ 值。</p>
 			<p><strong>方法：</strong> 將所有 $\text{0}$ 值替換為平均數。</p>
 		</div>
@@ -374,10 +374,10 @@
 	<p>PCA 是一種<strong>轉換 (Transformation)</strong> 的降維方法，它會改變原始特徵的意義。</p>
 	<p>另一種更直接、更常規的簡化方法是<strong>特徵選擇</strong>，其目標是識別並移除<strong>冗餘 (Redundant)</strong> 或<strong>不重要 (Irrelevant)</strong> 的特徵。</p>
 	<p>假設您的資料中有兩個數值欄位：$\text{A}$（房屋總價）和 $\text{B}$（房屋每平方公尺的單價）。如果 $\text{總價} = \text{單價} \times \text{面積}$，這兩個欄位在邏輯上是<strong>重複或高度相關</strong>的。</p>
-	<div qi='4-2' X='Q' qt='s' ___='2'>
+	<div id='Quiz-4-2' data-x='quiz:s'>
 		<p>請問，當兩個欄位高度相關時，為了簡化模型並減少<strong>多重共線性 (Multicollinearity)</strong>（這會使模型難以確定單個特徵的真實影響），我們最簡單的處理方法是什麼？</p>
-		<div qo='1'>將 $\text{總價}$ 和 $\text{單價}$ 這兩個欄位<strong>直接相加</strong>，生成一個新的特徵。</div>
-		<div qo='2'><strong>只保留其中一個欄位</strong>，並移除另一個（例如只保留 $\text{總價}$，移除 $\text{單價}$）。</div>
+		<div data-o='X'>將 $\text{總價}$ 和 $\text{單價}$ 這兩個欄位<strong>直接相加</strong>，生成一個新的特徵。</div>
+		<div data-o='O'><strong>只保留其中一個欄位</strong>，並移除另一個（例如只保留 $\text{總價}$，移除 $\text{單價}$）。</div>
 		<div class="answer">只保留其中一個欄位</strong> (例如只保留 $\text{總價}$，移除 $\text{單價}$)。這就是最簡單有效的解決方案。</div>
 	</div>
 </section>
@@ -406,145 +406,164 @@
 </section>
 
 <section>
-<div qi='1' X='Q' qt='s' qc='Preprocessing,GIGO' ___='2'>
+<div id='Quiz-1' data-x='quiz:s'>
 	在資料前處理中，常提到 "GIGO" 原則，它代表什麼意思？
-	<div qo='1'>Good In, Good Out (好資料進，好資料出)</div>
-	<div qo='2'>Garbage In, Garbage Out (垃圾進，垃圾出)</div>
-	<div qo='3'>Great Input, Great Output (好輸入，好輸出)</div>
-	<div qo='4'>General Input, General Output (一般輸入，一般輸出)</div>
+	<div data-o='X'>Good In, Good Out (好資料進，好資料出)</div>
+	<div data-o='O'>Garbage In, Garbage Out (垃圾進，垃圾出)</div>
+	<div data-o='X'>Great Input, Great Output (好輸入，好輸出)</div>
+	<div data-o='X'>General Input, General Output (一般輸入，一般輸出)</div>
 </div>
-<div qi='2' X='Q' qt='s' qc='Missing Data,Imputation' ___='1'>
+<br/>
+<div id='Quiz-2' data-x='quiz:s'>
 	當資料中存在遺失值 (Missing Values) 時，使用「平均數、中位數或眾數」來填補遺失欄位的方法稱為什麼？
-	<div qo='1'>填補 (Imputation)</div>
-	<div qo='2'>刪除 (Deletion)</div>
-	<div qo='3'>標準化 (Standardization)</div>
-	<div qo='4'>編碼 (Encoding)</div>
+	<div data-o='O'>填補 (Imputation)</div>
+	<div data-o='X'>刪除 (Deletion)</div>
+	<div data-o='X'>標準化 (Standardization)</div>
+	<div data-o='X'>編碼 (Encoding)</div>
 </div>
-<div qi='3' X='Q' qt='s' qc='Missing Data,Deletion' ___='3'>
+<br/>
+<div id='Quiz-3' data-x='quiz:s'>
 	處理遺失值時，若決定將「整筆」含有遺失值的資料刪除，這種方法稱為？
-	<div qo='1'>眾數填補 (Mode Imputation)</div>
-	<div qo='2'>成對刪除 (Pairwise Deletion)</div>
-	<div qo='3'>列表刪除 (Listwise Deletion)</div>
-	<div qo='4'>標籤編碼 (Label Encoding)</div>
+	<div data-o='X'>眾數填補 (Mode Imputation)</div>
+	<div data-o='X'>成對刪除 (Pairwise Deletion)</div>
+	<div data-o='O'>列表刪除 (Listwise Deletion)</div>
+	<div data-o='X'>標籤編碼 (Label Encoding)</div>
 </div>
-<div qi='4' X='Q' qt='s' qc='Missing Data,Imputation,Outlier' ___='2'>
+<br/>
+<div id='Quiz-4' data-x='quiz:s'>
 	當特徵資料中存在「極端值」(Outliers) 時，使用下列何者來填補遺失值通常比使用「平均數」更穩健 (robust)？
-	<div qo='1'>最小值 (Minimum)</div>
-	<div qo='2'>中位數 (Median)</div>
-	<div qo='3'>零 (Zero)</div>
-	<div qo='4'>標準差 (Standard Deviation)</div>
+	<div data-o='X'>最小值 (Minimum)</div>
+	<div data-o='O'>中位數 (Median)</div>
+	<div data-o='X'>零 (Zero)</div>
+	<div data-o='X'>標準差 (Standard Deviation)</div>
 </div>
-<div qi='5' X='Q' qt='s' qc='Categorical Data,Encoding' ___='3'>
+<br/>
+<div id='Quiz-5' data-x='quiz:s'>
 	處理像「紅、綠、藍」這樣的類別資料，需要將其轉換為數值形式，這個過程統稱為什麼？
-	<div qo='1'>特徵縮放 (Feature Scaling)</div>
-	<div qo='2'>特徵工程 (Feature Engineering)</div>
-	<div qo='3'>編碼 (Encoding)</div>
-	<div qo='4'>降維 (Dimensionality Reduction)</div>
+	<div data-o='X'>特徵縮放 (Feature Scaling)</div>
+	<div data-o='X'>特徵工程 (Feature Engineering)</div>
+	<div data-o='O'>編碼 (Encoding)</div>
+	<div data-o='X'>降維 (Dimensionality Reduction)</div>
 </div>
-<div qi='6' X='Q' qt='s' qc='Categorical Data,Label Encoding' ___='1'>
+<br/>
+<div id='Quiz-6' data-x='quiz:s'>
 	將「低、中、高」三個類別轉換為「0, 1, 2」的數值，這種保留了「順序性」的編碼方式是？
-	<div qo='1'>標籤編碼 (Label Encoding)</div>
-	<div qo='2'>獨熱編碼 (One-Hot Encoding)</div>
-	<div qo='3'>目標編碼 (Target Encoding)</div>
-	<div qo='4'>Z-score 標準化</div>
+	<div data-o='O'>標籤編碼 (Label Encoding)</div>
+	<div data-o='X'>獨熱編碼 (One-Hot Encoding)</div>
+	<div data-o='X'>目標編碼 (Target Encoding)</div>
+	<div data-o='X'>Z-score 標準化</div>
 </div>
-<div qi='7' X='Q' qt='s' qc='Categorical Data,One-Hot Encoding' ___='3'>
+<br/>
+<div id='Quiz-7' data-x='quiz:s'>
 	若將「台北、台中、高雄」三個無順序關係的類別，轉換成 [1,0,0], [0,1,0], [0,0,1] 這種向量，此方法稱為什麼？
-	<div qo='1'>標籤編碼 (Label Encoding)</div>
-	<div qo='2'>主成分分析 (PCA)</div>
-	<div qo='3'>獨熱編碼 (One-Hot Encoding)</div>
-	<div qo='4'>最小-最大正規化 (Min-Max)</div>
+	<div data-o='X'>標籤編碼 (Label Encoding)</div>
+	<div data-o='X'>主成分分析 (PCA)</div>
+	<div data-o='O'>獨熱編碼 (One-Hot Encoding)</div>
+	<div data-o='X'>最小-最大正規化 (Min-Max)</div>
 </div>
-<div qi='8' X='Q' qt='s' qc='Categorical Data,One-Hot Encoding' ___='2'>
+<br/>
+<div id='Quiz-8' data-x='quiz:s'>
 	使用獨熱編碼 (One-Hot Encoding) 時，如果 K 個類別產生了 K 個新特徵，可能會導致「共線性」(Collinearity)，這稱為什麼？
-	<div qo='1'>過度擬合 (Overfitting)</div>
-	<div qo='2'>虛擬變數陷阱 (Dummy Variable Trap)</div>
-	<div qo='3'>維度詛咒 (Curse of Dimensionality)</div>
-	<div qo='4'>梯度消失 (Vanishing Gradient)</div>
+	<div data-o='X'>過度擬合 (Overfitting)</div>
+	<div data-o='O'>虛擬變數陷阱 (Dummy Variable Trap)</div>
+	<div data-o='X'>維度詛咒 (Curse of Dimensionality)</div>
+	<div data-o='X'>梯度消失 (Vanishing Gradient)</div>
 </div>
-<div qi='9' X='Q' qt='s' qc='Feature Scaling' ___='3'>
+<br/>
+<div id='Quiz-9' data-x='quiz:s'>
 	為何需要對特徵進行縮放 (Scaling)？例如將「身高 (cm)」和「年齡 (歲)」進行處理？
-	<div qo='1'>為了讓資料符合常態分佈</div>
-	<div qo='2'>為了增加資料的維度</div>
-	<div qo='3'>為了避免模型過度偏重「數值範圍較大」的特徵</div>
-	<div qo='4'>為了移除離群值</div>
+	<div data-o='X'>為了讓資料符合常態分佈</div>
+	<div data-o='X'>為了增加資料的維度</div>
+	<div data-o='O'>為了避免模型過度偏重「數值範圍較大」的特徵</div>
+	<div data-o='X'>為了移除離群值</div>
 </div>
-<div qi='10' X='Q' qt='s' qc='Feature Scaling,Normalization' ___='1'>
+<br/>
+<div id='Quiz-10' data-x='quiz:s'>
 	將資料特徵縮放到 [0, 1] 或 [-1, 1] 的特定區間內，這種方法稱為什麼？
-	<div qo='1'>正規化 (Normalization / Min-Max Scaling)</div>
-	<div qo='2'>標準化 (Standardization / Z-score)</div>
-	<div qo='3'>類別化 (Categorization)</div>
-	<div qo='4'>離散化 (Discretization)</div>
+	<div data-o='O'>正規化 (Normalization / Min-Max Scaling)</div>
+	<div data-o='X'>標準化 (Standardization / Z-score)</div>
+	<div data-o='X'>類別化 (Categorization)</div>
+	<div data-o='X'>離散化 (Discretization)</div>
 </div>
-<div qi='11' X='Q' qt='s' qc='Feature Scaling,Standardization' ___='2'>
+<br/>
+<div id='Quiz-11' data-x='quiz:s'>
 	將資料特徵轉換為平均值為 0、標準差為 1 的分佈，這種方法稱為什麼？
-	<div qo='1'>正規化 (Normalization / Min-Max Scaling)</div>
-	<div qo='2'>標準化 (Standardization / Z-score)</div>
-	<div qo='3'>標籤編碼 (Label Encoding)</div>
-	<div qo='4'>填補 (Imputation)</div>
+	<div data-o='X'>正規化 (Normalization / Min-Max Scaling)</div>
+	<div data-o='O'>標準化 (Standardization / Z-score)</div>
+	<div data-o='X'>標籤編碼 (Label Encoding)</div>
+	<div data-o='X'>填補 (Imputation)</div>
 </div>
-<div qi='12' X='Q' qt='s' qc='Train/Test Split,Overfitting' ___='3'>
+<br/>
+<div id='Quiz-12' data-x='quiz:s'>
 	將資料集分為「訓練集」和「測試集」的主要目的是什麼？
-	<div qo='1'>讓模型訓練得更快</div>
-	<div qo='2'>增加資料的多樣性</div>
-	<div qo='3'>評估模型對「未見過」資料的泛化能力 (Generalization)，以偵測過度擬合</div>
-	<div qo='4'>簡化資料清理的難度</div>
+	<div data-o='X'>讓模型訓練得更快</div>
+	<div data-o='X'>增加資料的多樣性</div>
+	<div data-o='O'>評估模型對「未見過」資料的泛化能力 (Generalization)，以偵測過度擬合</div>
+	<div data-o='X'>簡化資料清理的難度</div>
 </div>
-<div qi='13' X='Q' qt='s' qc='Overfitting,Model Evaluation' ___='3'>
+<br/>
+<div id='Quiz-13' data-x='quiz:s'>
 	當一個模型在「訓練集」上表現極好，但在「測試集」上表現很差時，稱為什麼情況？
-	<div qo='1'>擬合不足 (Underfitting)</div>
-	<div qo='2'>演算法偏誤 (Bias)</div>
-	<div qo='3'>過度擬合 (Overfitting)</div>
-	<div qo='4'>資料洩漏 (Data Leakage)</div>
+	<div data-o='X'>擬合不足 (Underfitting)</div>
+	<div data-o='X'>演算法偏誤 (Bias)</div>
+	<div data-o='O'>過度擬合 (Overfitting)</div>
+	<div data-o='X'>資料洩漏 (Data Leakage)</div>
 </div>
-<div qi='14' X='Q' qt='s' qc='Underfitting,Model Evaluation' ___='1'>
+<br/>
+<div id='Quiz-14' data-x='quiz:s'>
 	當一個模型結構過於簡單，導致在「訓練集」和「測試集」上表現都不好時，稱為什麼情況？
-	<div qo='1'>擬合不足 (Underfitting)</div>
-	<div qo='2'>過度擬合 (Overfitting)</div>
-	<div qo='3'>高變異數 (High Variance)</div>
-	<div qo='4'>維度詛咒 (Curse of Dimensionality)</div>
+	<div data-o='O'>擬合不足 (Underfitting)</div>
+	<div data-o='X'>過度擬合 (Overfitting)</div>
+	<div data-o='X'>高變異數 (High Variance)</div>
+	<div data-o='X'>維度詛咒 (Curse of Dimensionality)</div>
 </div>
-<div qi='15' X='Q' qt='s' qc='Outlier,IQR' ___='2'>
+<br/>
+<div id='Quiz-15' data-x='quiz:s'>
 	在資料前處理中，使用「四分位距」(IQR) 的主要目的是什麼？
-	<div qo='1'>填補遺失值</div>
-	<div qo='2'>偵測與移除離群值 (Outliers)</div>
-	<div qo='3'>進行特徵編碼</div>
-	<div qo='4'>縮放特徵範圍</div>
+	<div data-o='X'>填補遺失值</div>
+	<div data-o='O'>偵測與移除離群值 (Outliers)</div>
+	<div data-o='X'>進行特徵編碼</div>
+	<div data-o='X'>縮放特徵範圍</div>
 </div>
-<div qi='16' X='Q' qt='s' qc='Feature Engineering' ___='2'>
+<br/>
+<div id='Quiz-16' data-x='quiz:s'>
 	從現有的資料中（例如「出生日期」）創造出新的、對模型可能有幫助的特徵（例如「年齡」或「是否為週末」）的過程，稱為什麼？
-	<div qo='1'>特徵縮放 (Feature Scaling)</div>
-	<div qo='2'>特徵工程 (Feature Engineering)</div>
-	<div qo='3'>特徵選取 (Feature Selection)</div>
-	<div qo='4'>特徵編碼 (Feature Encoding)</div>
+	<div data-o='X'>特徵縮放 (Feature Scaling)</div>
+	<div data-o='X'>特徵工程 (Feature Engineering)</div>
+	<div data-o='X'>特徵選取 (Feature Selection)</div>
+	<div data-o='X'>特徵編碼 (Feature Encoding)</div>
 </div>
-<div qi='17' X='Q' qt='s' qc='Feature Selection' ___='3'>
+<br/>
+<div id='Quiz-17' data-x='quiz:s'>
 	從眾多特徵中，移除不相關或冗餘的特徵，只保留對預測最有幫助的子集，這個過程稱為什麼？
-	<div qo='1'>特徵工程 (Feature Engineering)</div>
-	<div qo='2'>特徵縮放 (Feature Scaling)</div>
-	<div qo='3'>特徵選取 (Feature Selection)</div>
-	<div qo='4'>獨熱編碼 (One-Hot Encoding)</div>
+	<div data-o='X'>特徵工程 (Feature Engineering)</div>
+	<div data-o='X'>特徵縮放 (Feature Scaling)</div>
+	<div data-o='O'>特徵選取 (Feature Selection)</div>
+	<div data-o='X'>獨熱編碼 (One-Hot Encoding)</div>
 </div>
-<div qi='18' X='Q' qt='s' qc='Dimensionality Reduction,Curse of Dimensionality' ___='2'>
+<br/>
+<div id='Quiz-18' data-x='quiz:s'>
 	當特徵維度過高時，可能導致資料稀疏、計算量大增等問題，這稱為「維度詛ZS」。下列何者是解決此問題的常用技術？
-	<div qo='1'>獨熱編碼 (One-Hot Encoding)</div>
-	<div qo='2'>降維 (Dimensionality Reduction)，例如 PCA</div>
-	<div qo='3'>遺失值填補 (Imputation)</div>
-	<div qo='4'>離群值移除 (Outlier Removal)</div>
+	<div data-o='X'>獨熱編碼 (One-Hot Encoding)</div>
+	<div data-o='X'>降維 (Dimensionality Reduction)，例如 PCA</div>
+	<div data-o='X'>遺失值填補 (Imputation)</div>
+	<div data-o='X'>離群值移除 (Outlier Removal)</div>
 </div>
-<div qi='19' X='Q' qt='s' qc='Dimensionality Reduction,PCA' ___='2'>
+<br/>
+<div id='Quiz-19' data-x='quiz:s'>
 	PCA (Principal Component Analysis) 是一種常見的降維技術，它屬於哪一類學習方法？
-	<div qo='1'>監督式學習 (Supervised Learning)</div>
-	<div qo='2'>非監督式學習 (Unsupervised Learning)</div>
-	<div qo='3'>強化學習 (Reinforcement Learning)</div>
-	<div qo='4'>半監督式學習 (Semi-supervised Learning)</div>
+	<div data-o='X'>監督式學習 (Supervised Learning)</div>
+	<div data-o='O'>非監督式學習 (Unsupervised Learning)</div>
+	<div data-o='X'>強化學習 (Reinforcement Learning)</div>
+	<div data-o='X'>半監督式學習 (Semi-supervised Learning)</div>
 </div>
-<div qi='20' X='Q' qt='s' qc='Data Augmentation,Imbalanced Data' ___='3'>
+<br/>
+<div id='Quiz-20' data-x='quiz:s'>
 	在影像辨識中，將現有圖片進行「旋轉、翻轉、裁剪」以產生更多訓練樣本；或在不平衡資料中，對「少數類別」進行「過採樣」(Oversampling)，這些技術統稱為什麼？
-	<div qo='1'>資料清理 (Data Cleaning)</div>
-	<div qo='2'>特徵選取 (Feature Selection)</div>
-	<div qo='3'>資料增強 (Data Augmentation) 或 資料擴增</div>
-	<div qo='4'>正規化 (Normalization)</div>
+	<div data-o='X'>資料清理 (Data Cleaning)</div>
+	<div data-o='X'>特徵選取 (Feature Selection)</div>
+	<div data-o='O'>資料增強 (Data Augmentation) 或 資料擴增</div>
+	<div data-o='X'>正規化 (Normalization)</div>
 </div>
 </section>
 
