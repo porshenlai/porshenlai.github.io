@@ -171,7 +171,209 @@ figure b:hover { border-color:red; }
 </section> <!-- }}} -->
 
 <section>
-	<h2><a href="attach/F1P1_樂活瑜珈.xlst">📥 例題 A/1</a> 樂活瑜珈</h2>
+	<h2>公式</h2><!--{{{-->
+
+	<div data-x='quiz:s'>
+		欲比對的成績等第對照表如下，請問應使用哪個公式來查表將等第轉換成分數 ?
+		<table border='1' cellspacing='0' cellpadding='4'><tbody>
+			<tr><th>A</th><th>B</th><th>C</th><th>F</th></tr>
+			<tr><th>95</th><th>85</th><th>75</th><th>59</th></tr>
+		</tbody></table>
+		<div data-o='O'>HLOOKUP</div>
+		<div data-o='X'>VLOOKUP</div>
+		<div data-o='X'>MATCH</div>
+		<div data-o='X'>FIND</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		欲比對的成績等第對照表如下，請問應使用哪個公式來查表將等第轉換成分數 ?
+		<table border='1' cellspacing='0' cellpadding='4'><tbody>
+			<tr><th>A</th><th>95</th></tr>
+			<tr><th>B</th><th>85</th></tr>
+			<tr><th>C</th><th>75</th></tr>
+			<tr><th>F</th><th>59</th></tr>
+		</tbody></table>
+		<div data-o='O'>VLOOKUP</div>
+		<div data-o='X'>HLOOKUP</div>
+		<div data-o='X'>MATCH</div>
+		<div data-o='X'>FIND</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		使用 VLOOKUP 去查找一個3欄3列的範圍時，緊跟在第二個參數(查找範圍)後的第三個參數(整數)是什麼?
+		<div data-o='O'>傳回比對到的 row 的第幾個 column</div>
+		<div data-o='X'>傳回比對到的 column 的第幾個 row</div>
+		<div data-o='X'>傳回多少個最佳比對到的結果</div>
+		<div data-o='X'>比對不到時要傳回什麼資料</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		AVERAGEIFS, COUNTIFS, SUMIFS 都是根據條件進行統計數值的計算。第一個參數是欲計算的範圍，緊跟在後兩兩的欄位則是篩選的條件。當有多組條件欄為時，請問這些條件間的邏輯關係為何 ?
+		<div data-o='O'>AND (交集)</div>
+		<div data-o='X'>OR (聯集)</div>
+		<div data-o='X'>XOR</div>
+		<div data-o='X'>NOT</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		IFS 的語法規則如下，請問 logical_test1, logical_test2, .... 等多組條件式的關係為何 ?
+		<div>=IFS(logical_test1, value_if_true1, [logical_test2, value_if_true2], ...)</div>
+		<div data-o='O'>由左至右直到有條件成立為止</div>
+		<div data-o='X'>由右至左直到有條件成立為止</div>
+		<div data-o='X'>全部條件都要成立</div>
+		<div data-o='X'>任何一個條件成立即可</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		公式 WEEKDAY 的功能為何 ?
+		<div data-o='O'>計算儲存格的日期是星期幾 ?</div>
+		<div data-o='X'>計算一個星期有機天 ?</div>
+		<div data-o='X'>計算距離周末還有幾天 ?</div>
+		<div data-o='X'>找出一個星期裡哪一天最弱 ?</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		公式 WORKDAY 的功能為何 ?
+		<div data-o='O'>計算扣除周末與假日，自起始日後一段時間內有多少工作日</div>
+		<div data-o='X'>計算完成工作需要多少工作日</div>
+		<div data-o='X'>計算每月薪資對應的工作日有多少</div>
+		<div data-o='X'>計算每日有多少工作</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		公式 NPER 的功能為何 ?
+		<div data-o='O'>計算在利率恆定且還款額一致的情況下，償還貸款或達到投資目標所需的期數（月、年等）</div>
+		<div data-o='X'>驗證是否為 NP Hard 的問題</div>
+		<div data-o='X'>計算 NPC 單位的數量</div>
+		<div data-o='X'>計算字串中有多少個 N 出現</div>
+	</div>
+
+	<h3>稽核</h3>
+	<div data-x='quiz:s'>
+		<div data-o='?'>公式 / 公式稽核 / 錯誤檢查</div>
+		<div data-o='?'>從上方複製公式</div>
+	</div>
+</section><!--}}}-->
+
+<section>
+	<h2>格式</h2><!--{{{-->
+	<ul><li>格式 : 1</li><li>格式:條件 : 7</li><li>資料:驗證 : 6</li></ul>
+	<div data-x='quiz:s'>
+		條件式格式設定可以從下列哪個選單的路經開啟 ?
+		<div data-o='O'>常用 / 樣式 / 條件式格式設定</div>
+		<div data-o='X'>格式 / 條件式 / 條件式格式設定</div>
+		<div data-o='X'>常用 / 設定 / 條件式格式設定</div>
+		<div data-o='X'>樣式 / 設定 / 條件式格式設定</div>
+	</div>
+</section><!--}}}-->
+
+<section>
+	<h2>資料生成</h2><!--{{{-->
+	<ul><li>合併彙算 : 2</li><li>移除重複項 : 3</li><li>排序與篩選 : 1</li><li>數列 : 2</li></ul>
+
+	<h3>小計</h3>
+	<div data-x='quiz:s'>
+		使用小計功能時，為確保每個類別只會有一個小記。必須先使用哪個功能對資料進行整理。
+		<div data-o='O'>排序資料</div>
+		<div data-o='X'>去除重複資料</div>
+		<div data-o='X'>檢查錯誤</div>
+		<div data-o='X'>過濾資料</div>
+	</div>
+</section><!--}}}-->
+
+<section>
+	<h2>圖表</h2><!--{{{-->
+	<ul><li>圖表 : 10</li></ul>
+
+	<div data-x='quiz:s'>
+		要新增一個同時繪製多筆數據的圖表時，要如何操作 ?
+		<div data-o='O'>利用 Ctrl鍵搭配滑鼠選取多個數據範圍，再從選單中呼叫插入圖表的功能。</div>
+		<div data-o='X'>先各自建立不同的圖表，在將圖表拖曳至一起合併之。</div>
+		<div data-o='X'>圖表一次只能顯示一筆資料，無法建立。</div>
+	</div>
+</section><!--}}}-->
+
+<section>
+	<h2>樞紐分析</h2><!--{{{-->
+	<ul>
+		<li>樞紐分析 : 7</li>
+		<li>樞紐分析:群組 : 2</li>
+		<li>樞紐分析:計算欄位 : 1</li>
+	</ul>
+	<div data-x='quiz:s'>
+		樞紐分析表工具只有在選取之儲存格何種格式時才會出現 ?
+		<div data-o='O'>樞紐分析表格</div>
+		<div data-o='X'>表格</div>
+		<div data-o='X'>範圍</div>
+		<div data-o='X'>圖表</div>
+	</div>
+</section><!--}}}-->
+
+<section>
+	<h2>選項</h2><!--{{{-->
+
+	<div data-x='quiz:s'>
+		巨集功能的開關功能要在哪個頁面設定 ?
+		<div data-o='O'>信任中心對話框 的 巨集設定 頁籤</div>
+		<div data-o='X'>檢視/巨集/錄製巨集 功能選單</div>
+		<div data-o='X'>檔案/選項/Excel 選項 對話框</div>
+		<div data-o='X'>開發人員選單</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		要在哪邊設定保護活頁簿的密碼 ?
+		<div data-o='O'>校閱/保護活頁簿</div>
+		<div data-o='X'>校閱/保護工作表</div>
+		<div data-o='X'>檔案/保護活頁簿</div>
+		<div data-o='X'>檔案/保護工作表</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		要在哪邊變更 Excel 預測使用的語言 ?
+		<div data-o='O'>Excel 選項/語言書籤</div>
+		<div data-o='X'>Excel 選項/一般書籤</div>
+		<div data-o='X'>Excel 選項/資料書籤</div>
+		<div data-o='X'>Excel 選項/儲存書籤</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		自動重算功能要從哪邊設定 ?
+		<div data-o='O'>Excel 選項對話框裡的公式頁。</div>
+		<div data-o='X'>Excel 選項對話框裡的巨集頁。</div>
+		<div data-o='X'>公式選單的設定頁。</div>
+		<div data-o='X'>常用選單的格式頁。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		Excel 使用的預設字形格式要再哪裡設定 ?
+		<div data-o='O'>Excel 選項對話框裡的一般頁。</div>
+		<div data-o='X'>Excel 選項對話框裡的特別頁。</div>
+		<div data-o='X'>常用選單的樣式。</div>
+		<div data-o='X'>常用選單的格式。</div>
+	</div>
+</section><!--}}}-->
+
+<section>
+	<h2>其他</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		錄製巨集的相關功能要從那邊執行 ?
+		<div data-o='O'>檢視/巨集/錄製巨集</div>
+		<div data-o='X'>公式/巨集/錄製巨集</div>
+		<div data-o='X'>檔案/巨集/錄製巨集</div>
+		<div data-o='X'>信任中心/巨集/錄製巨集</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		頁首頁尾的內容要再哪邊設定 ?
+		<div data-o='O'>頁面配置/版面設定 對話框的 頁首頁尾 頁籤</div>
+		<div data-o='X'>檢視/版面 對話框的 頁首頁尾 頁簽</div>
+		<div data-o='X'>檔案/版面 對話框的 頁首頁尾 頁簽</div>
+		<div data-o='X'>設定/版面 對話框的 頁首頁尾 頁簽</div>
+	</div>
+</section><!--}}}-->
+
+<section>
+	<h2><a href="attach/F1P1_樂活瑜珈.xlsx">📥 例題 A/1</a> 樂活瑜珈</h2>
 	<div data-ks="排序與篩選,小計"><!--{{{-->
 		<div class='Pages'>3-2</div>
 		<div class='Quest'>
@@ -275,7 +477,7 @@ figure b:hover { border-color:red; }
 </section>
 
 <section>
-	<h2><a href="attach/F1P2_樂活健身中心.xlst">📥 例題 A/2</a> 樂活健身中心</h2>
+	<h2><a href="attach/F1P2_樂活健身中心.xlsx">📥 例題 A/2</a> 樂活健身中心</h2>
 	<div data-ks="選項:重算"><!--{{{-->
 		<div class='Pages'>3-18</div>
 		<div class='Quest'>
@@ -355,7 +557,7 @@ figure b:hover { border-color:red; }
 			</figure></li>
 		</ol>
 	</div><!--}}}-->
-	<div data-ks="錯誤:檢查"><!--{{{-->
+	<div data-ks="公式:稽核"><!--{{{-->
 		<div class='Pages'>3-27</div>
 		<div class='Quest'>
 			在「<span key="blue">訂單</span>」工作表，使用<span key="red">錯誤檢查</span>找出與附近不一致的公式，<span key="red">更正錯誤</span>。 
@@ -384,7 +586,7 @@ figure b:hover { border-color:red; }
 </section>
 
 <section>
-	<h2><a href="attach/F1P4_香醇咖啡.xlst">📥 例題 A/4</a> 香醇咖啡</h2>
+	<h2><a href="attach/F1P4_香醇咖啡.xlsx">📥 例題 A/4</a> 香醇咖啡</h2>
 	<div data-ks="選項:語言"><!--{{{-->
 		<div class='Pages'>3-31</div>
 		<div class='Quest'>
@@ -472,7 +674,7 @@ figure b:hover { border-color:red; }
 </section>
 
 <section>
-	<h2><a href="attach/F1P5_台灣鄉鎮市人口.xlst">📥 例題 A/5</a> 台灣鄉鎮市人口</h2>
+	<h2><a href="attach/F1P5_台灣鄉鎮市人口.xlsx">📥 例題 A/5</a> 台灣鄉鎮市人口</h2>
 	<div data-ks="資料:驗證"><!--{{{-->
 		<div class='Pages'>3-51</div>
 		<div class='Quest'>
@@ -514,7 +716,7 @@ figure b:hover { border-color:red; }
 			</figure></li>
 		</ol>
 	</div><!--}}}-->
-	<div data-ks="計算欄位"><!--{{{-->
+	<div data-ks="樞紐分析:計算欄位"><!--{{{-->
 		<div class='Pages'>3-66</div>
  		<div class='Quest'>
 			在「百萬人口城市」工作表上的樞紐分析表中，建立名為「人口變更」的計算欄位， 顯示 107 年人口到 109 年人口的成長變化。
@@ -527,10 +729,10 @@ figure b:hover { border-color:red; }
 			</figure></li>
 		</ol>
 	</div><!--}}}-->
-</section> <!-- }}} -->
+</section>
 
 <section>
-	<h2><a href="attach/F1P6_電器材料公司.xlst">📥 例題 A/6</a> 電器材料公司</h2>
+	<h2><a href="attach/F1P6_電器材料公司.xlsx">📥 例題 A/6</a> 電器材料公司</h2>
 	<div data-ks="數列"><!--{{{-->
 		<div class='Pages'>3-69</div>
 		<div class='Quest'>
@@ -600,7 +802,7 @@ figure b:hover { border-color:red; }
 				<div>將巨集儲存在: <i>現用活頁簿</i></div>
 				<div><b>確定</b></div>
 			</figure><figure>
-				<figcaption>(版面設定) <b>版面配置</b><b>版面設定</b></figcaption>
+				<figcaption>(版面設定) <b>頁面配置</b><b>版面設定</b></figcaption>
 				<div class='tab'>頁首頁尾</div>
 				<figure>
 					<figcaption>(頁首) <b>自訂頁尾</b></figcaption>
@@ -724,7 +926,7 @@ figure b:hover { border-color:red; }
 			</figure></li>
 		</ol>
 	</div><!--}}}-->
-	<div data-ks="公式稽核"><!--{{{-->
+	<div data-ks="公式:稽核"><!--{{{-->
 		<div class='Quest'>
 			在「各中心人數」工作表上顯示箭頭，
 			以指出依據 B7 的值進行計算的其他儲存格值。
@@ -1382,11 +1584,10 @@ figure b:hover { border-color:red; }
 				<figcaption>(插入交叉分析篩選器) <b>樞紐分析工具</b><b>分析</b><b>篩選</b><b>插入交叉分析篩選器</b></figcaption>
 				<div class='input'>✓ 經手人</div>
 				<div><b>確定</b></div>
-			</figure><figure>
-				<figcaption>() <b>樞紐分析工具</b><b>選項</b></figcaption>
-				<div class='input'>按鈕 / 欄: <i>2</i></div>
-				<div><b>交叉分析篩選器樣式</b><b>淺黃</b></div>
-				<div><b>交叉分析篩選器樣式</b><b>淺色4</b></div>
+			</figure></li>
+			<li class='sheet'>各縣市銷售分析![交叉分析篩選器]<figure>
+				<div><b>樞紐分析工具</b><b>選項</b><span>按鈕/欄: <i>2</i></span></div>
+				<div><b>樞紐分析工具</b><b>選項</b><b>交叉分析篩選器樣式</b><b>淺黃4</b></div>
 			</figure></li>
 			<li class='sheet'>各縣市銷售分析![交叉分析篩選器]<figure>
 				<div class='input'>✓ 黃本豪</div>
@@ -1404,7 +1605,7 @@ figure b:hover { border-color:red; }
 		</div>
 		<ol class='Solution'>
 			<li class='sheet'>獎金核撥清單!C4<figure>
-				<div class='input'><i>=VLOOKUP(B4,$J$4:$M$10,2,TRUE)</i></div>
+				<div class='input'><i>=B4*VLOOKUP(B4,$J$4:$M$10,2,TRUE)</i></div>
 			</figure></li>
 		</ol>
 	</div><!--}}}-->
@@ -1705,7 +1906,7 @@ figure b:hover { border-color:red; }
 </section>
 
 <section>
-	<h2><a href="attach/EE04 銷售.xlst">📥 例題 X/4</a> 銷售</h2>
+	<h2><a href="attach/EE04 銷售.xlsx">📥 例題 X/4</a> 銷售</h2>
 	<div><!--{{{-->
 		<div class='Quest'>
 			您正在為 Andy 水果行的銷售會議建立活頁簿。
@@ -1750,7 +1951,7 @@ figure b:hover { border-color:red; }
 </section>
 
 <section>
-	<h2><a href="attach/EE05 銷售資料.xlst">📥 例題 X/5</a> 銷售資料</h2>
+	<h2><a href="attach/EE05 銷售資料.xlsx">📥 例題 X/5</a> 銷售資料</h2>
 	<div><!--{{{-->
 		<div class='Quest'>
 			您正在研究本公司的產品銷售情況。
@@ -2027,128 +2228,6 @@ figure b:hover { border-color:red; }
 			<li>選取儲存格 E4:E11,右鍵儲存格格式,自訂輸入:yyyy-mmm-dd</li>
 		</ol>
 	</div><!--}}}-->
-</section>
-
-<section>
-	<h2>練習題</h2>
-	<div style='border:1px dotted black;padding:8px;'>
-		公式:VLOOKUP : 4<br/>
-		公式:HLOOKUP : 3<br/>
-		公式:AVERAGEIFS : 2<br/>
-		公式:COUNTIFS : 2<br/>
-		公式:SUMIFS : 2<br/>
-		公式:WEEKDAY : 1<br/>
-		公式:WORKDAY : 1<br/>
-		公式:INDEX : 1<br/>
-		公式:MATCH : 1<br/>
-		公式:NPER : 1<br/>
-		公式:IF : 1<br/>
-		<div data-x='quiz:s'>
-			公式 WEEKDAY 的功能為何 ?
-			<div data-o='O'>計算儲存格的日期是星期幾 ?</div>
-			<div data-o='X'>計算一個星期有機天 ?</div>
-			<div data-o='X'>計算距離周末還有幾天 ?</div>
-			<div data-o='X'>找出一個星期裡哪一天最弱 ?</div>
-		</div>
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		格式 : 1<br/>
-		格式:條件 : 7<br/>
-		<div data-x='quiz:s'>
-			條件式格式設定可以從下列哪個選單的路經開啟 ?
-			<div data-o='O'>常用 / 樣式 / 條件式格式設定</div>
-			<div data-o='X'>格式 / 條件式 / 條件式格式設定</div>
-			<div data-o='X'>常用 / 設定 / 條件式格式設定</div>
-			<div data-o='X'>樣式 / 設定 / 條件式格式設定</div>
-		</div>
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		圖表 : 10<br/>
-		<div data-x='quiz:s'>
-			要新增一個同時繪製多筆數據的圖表時，要如何操作 ?
-			<div data-o='O'>利用 Ctrl鍵搭配滑鼠選取多個數據範圍，再從選單中呼叫插入圖表的功能。</div>
-			<div data-o='X'>先各自建立不同的圖表，在將圖表拖曳至一起合併之。</div>
-			<div data-o='X'>圖表一次只能顯示一筆資料，無法建立。</div>
-		</div>
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		樞紐分析 : 7<br/>
-		樞紐分析:群組 : 2<br/>
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		資料:驗證 : 6<br/>
-	</div>
-	<br/>
-	<div data-x='quiz:s'>
-		使用小計功能時，為確保每個類別只會有一個小記。必須先使用哪個功能對資料進行整理。
-		<div data-o='O'>排序資料</div>
-		<div data-o='X'>去除重複資料</div>
-		<div data-o='X'>檢查錯誤</div>
-		<div data-o='X'>過濾資料</div>
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		選項:重算 : 3<br/>
-		<div data-x='quiz:s'>
-			自動重算功能要從哪邊設定 ?
-			<div data-o='O'>Excel 選項對話框裡的公式頁。</div>
-			<div data-o='X'>Excel 選項對話框裡的巨集頁。</div>
-			<div data-o='X'>公式選單的設定頁。</div>
-			<div data-o='X'>常用選單的格式頁。</div>
-		</div>
-		選項:預設字形 : 1<br/>
-		<div data-x='quiz:s'>
-			Excel 使用的預設字形格式要再哪裡設定 ?
-			<div data-o='O'>Excel 選項對話框裡的一般頁。</div>
-			<div data-o='X'>Excel 選項對話框裡的特別頁。</div>
-			<div data-o='X'>常用選單的樣式。</div>
-			<div data-o='X'>常用選單的格式。</div>
-		</div>
-		選項:巨集 : 4<br/>
-		選項:保護 : 3<br/>
-		選項:語言 : 2<br/>
-		選項:資料 : 1<br/>
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		公式稽核 : 1
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		合併彙算 : 2
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		巨集 : 2
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		排序與篩選 : 1
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		數列 : 2
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		移除重複項 : 3
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		錯誤:檢查 : 1
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		計算欄位 : 1
-	</div>
-	<br/>
-	<div style='border:1px dotted black;padding:8px;'>
-		頁首頁尾 : 2
-	</div>
 </section>
 
 </div>
