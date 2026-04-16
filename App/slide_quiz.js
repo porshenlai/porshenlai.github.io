@@ -46,6 +46,9 @@ class Quiz
 	linear-gradient(to right,white 60%,lightgreen);
 }
 
+[data-x^="quiz:"] .cols { display:flex; flex-flow:rows nowrap; }
+[data-x^="quiz:"] .cols>div { flex:1 1 auto;text-align:center; }
+
 [data-x^="quiz:"].QRO [data-o]:not(.QS),
 [data-x^="quiz:"]:not(.QRO) .answer,
 [data-x^="quiz:"].QR_>:not(.HT),
