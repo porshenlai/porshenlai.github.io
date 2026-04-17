@@ -99,8 +99,11 @@ class Quiz
 			window.URL.revokeObjectURL(url);
 		})(document.createElement('a'));
 	}
-	downloadDLC (tag='2025-0-1-0-0') {
+	downloadDLC (tag='2026-0-1-0-0') {
 		let table=[];
+
+		const shuffle = (a)=>a.map((e)=>[Math.random(),e]).sort((a,b)=>a[0]-b[0]).map((e)=>e[1]);
+
 		for (let k in this.QEs) {
 			let q=this.QEs[k];
 			// 題目類型(2:單選,3:複選,6:組合),
@@ -110,9 +113,10 @@ class Quiz
 			// 說明,
 			// 標籤(2025-0-3-0-0),
 			// 難易度(3)
-			let xq=q.cloneNode(true), qt=xq.getAttribute('qt'), xo, difficulty="3", explain="";
-			xo=Array.from(xq.querySelectorAll('[data-o]')).reduce((r,e)=>{
+			let xq=q.cloneNode(true), qt=xq.dataset.x.substring(5), xa=[], xo, difficulty="3", explain="";
+			xo=shuffle(Array.from(xq.querySelectorAll('[data-o]'))).reduce((r,e,i)=>{
 				r.push(e.textContent);
+				if (e.dataset.o==='O') xa.push(i);
 				e.parentNode.removeChild(e);
 				return r;
 			},[]).join(" || ");
@@ -123,13 +127,7 @@ class Quiz
 			},[]).join("\n");
 			table.push([
 				qt==='m'?'3':'2',
-				((a)=>{
-					if (qt==='s') return a;
-					let ta=[];
-					for (let i=1,j=1; i<a; i*=2,j++)
-						if ((a&i)>0) ta.push(j);
-					return ta.join(',');
-				})(xq.getAttribute('___')),
+				xa.join(','),
 				xq.innerHTML.trim(), xo, explain, tag, difficulty
 			]);
 		}
