@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script plugins="TeX,tab" src="/App/slide.js"></script>
+<script src="/App/slide.js"></script>
 <style>
 	.CAT { color:brown; font-weight:bolder; font-size:120%; }
 	.QMix { display:flex;overflow:auto;align-items:center; }
@@ -23,7 +23,7 @@
 	<div>2025, Winter</div>
 </section>
 
-<section class="cm" ks='literacy'>
+<section class="cm" data-ks='literacy'>
 	<h1 class="title">💻 人工智慧工作負載與考慮</h1>
 	<h2>for MCF AI900 Certification</h2>
 	<br/>
@@ -35,7 +35,7 @@
 
 <!-- {{{ literacy -->
 
-<section ks='literacy'>
+<section data-ks='literacy'>
 	<h2>人工智慧工作負載</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' width='95%' align='center'><tbody><tr><th>
 		<div class='CAT'>異常偵測</div>
@@ -69,7 +69,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy'>
+<section data-ks='literacy'>
 	<h2>異常偵測器</h2><!--{{{-->
 	<ul>
 		<li>異常偵測器可以監視和偵測時間序列資料中的異常狀況。</li>
@@ -82,7 +82,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy'>
+<section data-ks='literacy'>
 	<h2>Azure AI 內容安全</h2><!--{{{-->
 	<ul>
 		<li>可以由文字，影像和影片中，偵測出潛在具有冒犯意思，惡意，風險或不當的資料內容。</li>
@@ -95,7 +95,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy'>
+<section data-ks='literacy'>
 	<h2>Azure 視覺 API (Vision APIs)</h2><!--{{{-->
 	<div class='tab'>
 		<div>
@@ -146,7 +146,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy'>
+<section data-ks='literacy'>
 	<h2>Azure 語音 API (Speech APIs)</h2><!--{{{-->
 	<ul>
 		<h3>語音轉換文字 Speech to Text</h3>
@@ -169,7 +169,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy'>
+<section data-ks='literacy'>
 	<h2>Azure 語言 API (Language APIs)</h2><!--{{{-->
 	<div class='tab'>
 	<div>
@@ -231,7 +231,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy,Q_AI900'>
+<section data-ks='literacy,Q_AI900'>
 	<h2>Q: 將 AI 工作負載類型與適當的案例進行配對。</h2><!--{{{-->
 	<div data-x='quiz:s'>
 		回答退款及換貨問題的自動化聊天機器人，屬於何種AI工作負載類型？
@@ -397,7 +397,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy,Q_AI900'>
+<section data-ks='literacy,Q_AI900'>
 	<h2>Q: 關於自然語言處理 (NLP) 的應用</h2><!--{{{-->
 	<div data-x='quiz:s'>
 		監視線上服務的評論是否包含不雅用語為一項自然語言處理範例。
@@ -443,7 +443,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy,Q_AI900'>
+<section data-ks='literacy,Q_AI900'>
 	<h2>Q: 異常偵測 (Anomaly Detection)</h2><!--{{{-->
 	<div data-x='quiz:s'>
 		根據歷史資料預測房價為異常偵測範例。
@@ -463,7 +463,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy'>
+<section data-ks='literacy'>
 	<h2>負責任的 AI</h2><!--{{{-->
 	<div class='tab'>
 	<div>
@@ -532,7 +532,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy,Q_AI900'>
+<section data-ks='literacy,Q_AI900'>
 	<h2>Q: 負責任的 AI</h2><!--{{{-->
 	<div data-x='quiz:s'>
 		說明用以定型模型的資料來源是哪一項責任 AI 準則的範例？
@@ -647,7 +647,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='literacy,Q_AI900'>
+<section data-ks='literacy,Q_AI900'>
 	<h2>Q: 負責任 AI 的實踐</h2><!--{{{-->
 	<div data-x='quiz:m'>
 		<div>您正在建置 AI 應用程式。您需要確保應用程式使用負責任 AI 的準則。</div>
@@ -705,7 +705,7 @@
 
 <!--- }}} -->
 
-<section class="cm" ks='ML'>
+<section class="cm" data-ks='ML'>
 	<h1 class="title">💻 機器學習的基本準則</h1>
 	<h2>for MCF AI900 Certification</h2>
 	<br/>
@@ -717,7 +717,7 @@
 
 <!-- {{{ machine learning -->
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>模型的種類</h2><!--{{{-->
 	<table class="tab" border='1' cellspacing='0' cellpadding='3' width='100%'>
 	<thead><tr>
@@ -775,7 +775,7 @@
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>分類模型: 決策樹 (Decision Tree)</h2><!--{{{-->
 	<ul>
 		<li>監督式學習，標籤值為「是」或「否」</li>
@@ -793,7 +793,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>分類模型: 羅吉斯回歸</h2><!--{{{-->
 	<ul>
 		<li>監督式學習，運用於分類模型
@@ -806,7 +806,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>分類模型: 支援向量機 (SVM)</h2><!--{{{-->
 	<ul>
 		<li>監督式學習</li>
@@ -818,7 +818,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>分類模型: K 近鄰 (K-NN)</h2><!--{{{-->
 	<ul>
 		<li>監督式學習，分類模型</li>
@@ -832,7 +832,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>分類模型: 貝氏分類器 (Naive Bayes Classifier)</h2><!--{{{-->
 	<ul>
 		<li>根據事件的發生次數，來計算事件發生的機率。</li>
@@ -843,7 +843,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>評估分類模型常用的指標</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' class='ac'><tr>
 		<th>預測值\真實值</th>
@@ -879,7 +879,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>迴歸模型</h2><!--{{{-->
 	<ul>
 	<li>用來預測一段時間後的連續數值資料</li>
@@ -893,7 +893,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>叢集模型</h2><!--{{{-->
 	<ul>
 	<li>不用標記標籤資料</li>
@@ -906,7 +906,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>機器學習的工作流程</h2><!--{{{-->
 	<table class="tab" border='1' cellspacing='0' cellpadding='3' width='100%'>
 	<thead><tr>
@@ -1013,13 +1013,13 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>機器學習的工作流程</h2><!--{{{-->
 	<div style="text-align:center;"><img src="images/2_A.svg" style="width:80%;"></img></div>
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>Azure 機器學習服務 (Machine Learning Service)</h2><!--{{{-->
 	<ul>
 	<li>內建多種模型開發方式<ul>
@@ -1044,13 +1044,13 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>Azure Machine Learning 方案的生命週期</h2><!--{{{-->
 	<div style="text-align:center;"><img src="images/2_O.svg"/></div>
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>Azure Machine Learning Studio 建立模型的方式</h2><!--{{{-->
 	<ul>
 	<li>筆記本<ul>
@@ -1074,7 +1074,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML'>
+<section data-ks='ML'>
 	<h2>使用設計工具建立模型管線</h2><!--{{{-->
 	<ul>
 	<li>可以隨時儲存管線草稿</li>
@@ -1085,7 +1085,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>Q: 迴歸，分類，與叢集</h2><!--{{{-->
 
 	<div data-x='quiz:s'>
@@ -1280,7 +1280,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>關於叢集 (Clustering) 模型的運用實例</h2><!--{{{-->
 	<div data-x='quiz:s' ___="1">
 		<div>根據不同使用量來統計資料分組文件，為叢集模型的運用實例。</div>
@@ -1300,7 +1300,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>Q: 標籤與特徵</h2><!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		<div>您有一個資料集，其中包含指定時間內發生的計程車行程訊息。</div>
@@ -1363,7 +1363,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>Q: 關於特徵 (Feature) 和標籤 (Label)</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
 		<th>日期</th><th>時間</th><th>質量(公斤)</th><th>溫度(°C)</th><th>品質測試 (通過/不通過)</th>
@@ -1393,7 +1393,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>Q: 關於特徵 (Feature) 和標籤 (Label)</h2><!--{{{-->
 	<div>您計劃使用下面資料集，訓練一個預測房價類別的模型。</div>
 	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
@@ -1418,7 +1418,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>Q: 機器學習的程序</h2><!--{{{-->
 	<div data-x='quiz:s' ___='4'>
 		關於機器學習的過程，應如何分割用於訓練和評估的資料？
@@ -1508,7 +1508,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>Q: Azure Machine Learning 設計工具</h2><!--{{{-->
 	<div data-x='quiz:s' ___="1">
 		<div>Azure Machine Learning 設計工具提供拖放視覺效果畫布，以供建置、測試和部署機器學習模型。</div>
@@ -1585,7 +1585,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>Q: 自動化機器學習 (Automated ML, AutoML)</h2><!--{{{-->
 	<div data-x='quiz:s' ___="1">
 		<div>自動化機器學習讓您能夠將自訂 Python 程式碼包含在訓練管線中。</div>
@@ -1661,7 +1661,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='ML,Q_AI900'>
+<section data-ks='ML,Q_AI900'>
 	<h2>Q: Azure Machine Learning 設計工具</h2><!--{{{-->
 	<div>您需要使用 Azure Machine Learning 設計工具建置一個能預測單車價格的模型。</div>
 	<div>請問下圖 A, B, C 中應該使用哪種模組類型來完成此模型？</div>
@@ -1698,7 +1698,7 @@ flowchart TD
 
 <!-- }}} -->
 
-<section class="cm" ks='CV'>
+<section class="cm" data-ks='CV'>
 	<h1 class="title">💻 電腦視覺工作負載功能</h1>
 	<h2>for MCF AI900 Certification</h2>
 	<br/>
@@ -1710,7 +1710,7 @@ flowchart TD
 
 <!-- {{{ computer vision -->
 
-<section ks='CV'>
+<section data-ks='CV'>
 	<h2>電腦視覺的用途</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
 		<td>內容組織</td><td>醫療保健</td>
@@ -1745,7 +1745,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV'>
+<section data-ks='CV'>
 	<h2>影像分析的功能</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
 		<td>影像描述 (說明影像)</td>
@@ -1764,7 +1764,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV'>
+<section data-ks='CV'>
 	<h2>光學文字識別 (OCR)</h2><!--{{{-->
 	<ul>
 		<li>偵測和讀取影像中的文字</li>
@@ -1774,7 +1774,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV'>
+<section data-ks='CV'>
 	<h2>文件智慧服務和知識採礦</h2><!--{{{-->
 	<ul>
 		<li>先前稱為 Azure 表格辨識器</li>
@@ -1787,7 +1787,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV'>
+<section data-ks='CV'>
 	<h2>自訂視覺</h2><!--{{{-->
 	<ul>
 		<li>Custom Vision</li>
@@ -1816,7 +1816,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV'>
+<section data-ks='CV'>
 	<h2>臉部辨識服務</h2><!--{{{-->
 	<div>臉部辨識服務功能大致分成兩大部分：</div>
 	<ul>
@@ -1832,7 +1832,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV'>
+<section data-ks='CV'>
 	<h2>臉部識別原理</h2><!--{{{-->
 	<ul>
 		<li>生物辨識技術有指紋辨識，虹膜辨識，聲音辨識，人臉辨識... 等</li>
@@ -1843,7 +1843,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV'>
+<section data-ks='CV'>
 	<h2>臉部識別應用實例</h2><!--{{{-->
 	<ul>
 		<li>「<span action='show' caption='人臉辨識技術應用於出勤管理系統' code='images/3_J.png' lang='photo'>出勤管理系統</span>」，若保全使用了臉部偵測和臉部辨識電腦視覺，保全系統會分析 CCTV 影像，讓經過授權的人員能夠進入管制區域。<ul>
@@ -1855,7 +1855,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		請問哪一個電腦視覺功能可以為數位相片產生<em>「自動標題」</em>？
@@ -1868,7 +1868,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>要籌辦一場慈善活動。</div>
 	<div>需要確保符合下列 A、B 兩點要求的相片:<ul>
@@ -1885,7 +1885,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='4'>
 		下列何者可用於讀取輸送帶上的產品標籤？
@@ -1898,7 +1898,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		下列何者用於在一個影像中識別多種項目？
@@ -1911,7 +1911,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>您為社交媒體建置影像標記解決方案，以便自動標記朋友的影像。<div>
 	<div data-x='quiz:s' ___='1'>
@@ -1925,7 +1925,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	請將電腦視覺工作負載類型與適當的案例配對。
 	<div data-x='quiz:s' ___='1'>
@@ -1949,7 +1949,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>當您在處理馬拉松賽跑比賽的相片時，為辨識相片中的跑者身份，必須讀取跑者運動衫上的號碼。</div>
 	<div data-x='quiz:s' ___='3'>
@@ -1963,7 +1963,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		下列何項服務的功能可從手寫文件中擷取文字？
@@ -1976,7 +1976,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='4'>
 		下列哪一個範例是根據影片摘要計算某區域的動物數目？
@@ -1989,7 +1989,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<h2>關於物件偵測</h2>
 	<div data-x='quiz:s' ___='1'>
@@ -2013,7 +2013,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:m' ___='10'>
 		<div>使用 Azure 視覺可執行下列哪兩項工作？ (多選)</div>
@@ -2026,7 +2026,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		<div>判斷影像中汽車位置，並估計車與車之間的距離。</div>
@@ -2040,7 +2040,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		<div>要建置一個會識別影像中名人的應用程式，</div>
@@ -2054,7 +2054,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		<div>若要識別影像中名人。</div>
@@ -2067,7 +2067,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>您的公司專門製造小工具，您擁有 2000 張小工具的數位相片。</div>
 	<div data-x='quiz:s' ___='2'>
@@ -2085,7 +2085,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		<div>您可以透過下列何項服務，使用自己的影像來定型物件偵測模型？</div>
@@ -2098,7 +2098,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		<div>AI 解決方案可協助攝影師取得更佳人像相片，方法是提供下列哪一項臉部功能範例之曝光、</div>
@@ -2111,7 +2111,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:m' ___='17'>
 		使用電腦視覺可執行下列哪兩項工作？ (多選)
@@ -2128,7 +2128,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:m' ___='3'>
 		在下列哪兩種情況可以使用 Azure AI 文件智慧服務？ (多選)
@@ -2141,7 +2141,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>您正在建置工具來處理零售商店的影像，使能夠識別競爭對手的產品。</div>
 	<div>其解決方案是必須使用您公司提供的影像來定型。</div>
@@ -2156,7 +2156,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='4'>
 		下列哪項服務可用於擷取駕照上的資訊以填入資料庫中？
@@ -2169,7 +2169,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		哪一項 Azure 認知服務可用來找出包含敏感資訊的文件？
@@ -2180,7 +2180,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		電腦視覺功能可部署來？
@@ -2193,7 +2193,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		您需要建置一個會建立影像描述的應用程式。您應該使用哪一項服務？
@@ -2206,7 +2206,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>您需要建立一個模型，為個人數位相片加上標籤。</div>
 	<div data-x='quiz:s' ___='2'>
@@ -2220,7 +2220,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>Azure AI 自訂視覺模型如果可從共 100 張包含柳橙的影像中，正確識別 70 張包含柳橙的影像。</div>
 	<div data-x='quiz:s' ___='3'>
@@ -2236,7 +2236,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		使用 Azure AI 文件智慧服務中預建收據模型可以處理影像大小上限為和？
@@ -2248,7 +2248,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		使用 Azure AI 電腦視覺服務可以執行哪一項動作？
@@ -2261,7 +2261,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>你需要實作一套預先建置的解決方案以識別數位相片中的知名品牌。</div>
 	<div data-x='quiz:s' ___='2'>
@@ -2274,7 +2274,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		交通流量監視系統從監視器影片中收集車牌號碼是 Azure AI 電腦視覺服務中哪個範例？
@@ -2287,7 +2287,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		哪一項 Azure 服務可以使用 Azure AI 文件智慧服務中的預建收據模型 ？
@@ -2307,7 +2307,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		在表格辨識器中使用自訂模型有何優點 ？
@@ -2319,7 +2319,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		您將一張影像送至電腦視覺 API，並收到如下圖所示的標註影像。
@@ -2334,7 +2334,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div>小明有一個在全連超市貨架影像中識別產品座標的應用程式。</div>
 	<div data-x='quiz:s' ___='2'>
@@ -2352,7 +2352,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		請問您應該使用哪一個 Azure AI 文件智慧服務預建模型，從法律文件中擷取當事人和司法管轄區？
@@ -2365,7 +2365,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='CV,Q_AI900'>
+<section data-ks='CV,Q_AI900'>
 	<!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		藉由監視資訊站的視訊摘要來識別資訊站使用者是否感到困擾，是以下何者的範例？
@@ -2380,7 +2380,7 @@ flowchart TD
 
 <!-- }}} -->
 
-<section class="cm" ks='NLP'>
+<section class="cm" data-ks='NLP'>
 	<h1 class="title">💻 自然語言處理</h1>
 	<h2>for MCF AI900 Certification</h2>
 	<br/>
@@ -2392,7 +2392,7 @@ flowchart TD
 
 <!-- {{{ Natural Language Processing -->
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>自然語言處理</h2><!--{{{-->
 
 	<h3>Natural Language Processing (NLP)</h3>
@@ -2420,7 +2420,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>語言認知服務</h2><!--{{{-->
 	<ul>
 	<li>Microsoft Azure 語言認知服務有下列功能：<ul>
@@ -2437,7 +2437,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>語言偵測</h2><!--{{{-->
 	<ul>
 	<li>語言偵測功能可以辨識出文章使用的語言，系統偵測後將回傳下列資料：<ul>
@@ -2449,7 +2449,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>情感分析</h2><!--{{{-->
 	<ul>
 	<li>評估文件後傳回文件的情感分數和標籤</li>
@@ -2459,7 +2459,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>關鍵片語擷取 (KPE)</h2><!--{{{-->
 	<ul>
 	<li>自動辨識出文件內有意義且具代表性的片語，應用範圍包刮：<ul>
@@ -2473,7 +2473,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>具名實體辨識 (NER)</h2><!--{{{-->
 	<ul>
 	<li>NER: Named Entity Recognition</li>
@@ -2499,7 +2499,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>語音服務</h2><!--{{{-->
 	<div>語音服務包含下列應用程式開發介面 (API)<ul>
 		<li>語音轉換文字</li>
@@ -2509,7 +2509,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>語音辨識</h2><!--{{{-->
 	<ul>
 	<li><table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
@@ -2537,7 +2537,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>語音合成</h2><!--{{{-->
 	<ul>
 	<li>進行語音合成，需要下列資訊：<ul>
@@ -2563,7 +2563,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>翻譯服務</h2><!--{{{-->
 	<ul>
 	<li>Azure 提供支援翻譯的認知服務，包括<ul>
@@ -2578,7 +2578,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>使用交談語言理解建立語言模型</h2><!--{{{-->
 	<ul>
 	<li>電腦不僅能接受輸入的語言，也能夠解讀輸入語言的語義。</li>
@@ -2596,7 +2596,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP'>
+<section data-ks='NLP'>
 	<h2>使用 Azure 機器人服務 建構 機器人</h2><!--{{{-->
 	<ul>
 	<li>透過多種通訊通道，以交談方式與使用者互動，提供第一線自動化支援</li>
@@ -2615,7 +2615,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<div data-x='quiz:s' ___='2'>
 		下列何種情況應該使用關鍵片語擷取？
 		<div data-o='1'>將一些文件從英文翻譯成德文</div>
@@ -2626,7 +2626,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q: 關鍵片語擷取與具名實體辨識</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		具名實體辨識 (NER) 可用來擷取文件字串中的日期與時間。
@@ -2648,7 +2648,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q: 關於 Azure Bot Service 與聊天機器人</h2><!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		聊天機器人只能使用自訂程式碼來建置。
@@ -2668,7 +2668,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q: 關於 Azure AI 翻譯工具</h2><!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
@@ -2690,7 +2690,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<div data-x='quiz:s' ___='4'>
 		您可以使用下列哪一種 AI 服務，擷取使用者輸入意圖 (例如「稍後請回電」)？
 		<div data-o='1'>Azure 認知搜尋</div>
@@ -2701,7 +2701,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<div data-x='quiz:s' ___='1'>
 		自然語言處理可用於
 		<div data-o='1'>將 E-Mail 分類為工作郵件或個人郵件。</div>
@@ -2712,7 +2712,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<div data-x='quiz:m' ___='3'>
 		您可以在下列哪兩種情況中使用語音合成解決方案？ (多選)
 		<div data-o='1'>使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。</div>
@@ -2723,7 +2723,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<div>您建置一套問題解答解決方案，並建立了一個使用知識庫回應客戶要求的機器人。</div>
 	<div>您需要確認在不新增額外技能的情況下，該機器人可以執行的工作。</div>
 	<div data-x='quiz:s' ___='1'>
@@ -2736,7 +2736,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<div>您要使用自然語言處理來處理 Microsoft 新聞報導的文字。您收到如下所示輸出。</div>
 	<div><img src="images/4_Q1.jpg" style="width:50%"/></div>
 	<div data-x='quiz:s' ___='4'>
@@ -2749,7 +2749,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<div><img src="images/4_Q2.jpg" style="width:90%"/></div>
 	<div data-x='quiz:s' ___='2'>
 		圖中顯示下列哪一種類型的 AI 解決方案 ？
@@ -2760,7 +2760,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>將 Azure 認知服務與適當的工作配對。</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		將使用者的語音轉換為文字
@@ -2786,7 +2786,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q: 聊天機器人</h2><!--{{{-->
 	<div>下列各項敘述如果成立，請輸入是，否則請輸入否。</div>
 	<div data-x='quiz:s' ___='1'>
@@ -2854,7 +2854,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<div>您管理一個包含客戶評論的網站。</div>
 	<div>您需要儲存這些評論的英文版，然後辨識每位使用者的地理位置，並以當地語言向使用者展示評論。</div>
 	<div data-x='quiz:s' ___='2'>
@@ -2867,7 +2867,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>將 Azure AI 語言服務 API 功能與適當的自然語言處理案例配對。</h2>
 	<div data-x='quiz:s' ___='4'>
 		根據支援報修中所包含文字了解客戶的不滿意程度
@@ -2895,7 +2895,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		識別電話號碼時，會使用哪種類型的自然語言處理 (NLP) 實體？
@@ -2908,7 +2908,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div>您有一個 Azure 機器人。您要新增常見問題集 (FAQ) 的支援。</div>
 	<div data-x='quiz:s' ___='3'>
@@ -2922,7 +2922,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>關於 Azure AI 語言服務的問題解答</h2><!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		您可以使用 Azure AI 語言服務的問題解答 查詢 Azure SQL 資料庫。
@@ -2942,7 +2942,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>關於 Azure AI 語言服務的功能</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		Azure AI 語言服務可以識別文字是以何種語言撰寫。
@@ -2962,7 +2962,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div>您使用常見問題集 (FAQ) 頁面建置 Azure AI 語言服務的問題解答機器人。</div>
 	<div>您需要新增專業的問候語及其他回應，使機器人能夠更友善地與使用者互動。</div>
@@ -2977,7 +2977,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>關於 Azure AI 語音服務</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		您可以使用 Azure AI 語音服務將通話轉譯為文字。
@@ -2997,7 +2997,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div>小明正在撰寫一個交談語言理解應用程式。</div>
 	<div>小明希望使用者能夠詢問預定節目的相關問題，例如：「主舞台現在正在進行哪一場表演？」。</div>
@@ -3011,7 +3011,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>關於 Azure AI 語言服務的進階功能</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		Azure AI 語言服務可用來從文件中擷取關鍵片語。
@@ -3031,7 +3031,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div>Jasper 正在使用 Azure AI 語言服務的自訂解答功能建置知識庫。</div>
 	<div data-x='quiz:s' ___='2'>
@@ -3047,7 +3047,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div>Anita 正在為電子商務企業建置交談語言理解模型。</div>
 	<div>Anita 需要確保當語句超出範圍時，該模型仍可偵測。</div>
@@ -3063,7 +3063,7 @@ flowchart TD
 </section>
 
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div>您有一個根據問題解答知識庫提供回應的網路聊天機器人。</div>
 	<div>您需要確保該機器人會利用使用者意見反應隨著時間改善回應的相關性。</div>
@@ -3078,7 +3078,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		哪一項自然語言處理功能可用於識別客戶意見反應問卷中的主要話題？
@@ -3091,7 +3091,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='NLP,Q_AI900'>
+<section data-ks='NLP,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div>您擁有 100 部「不」包含任何音訊的教學影片。</div>
 	<div>每部教學影片都有一份腳本。</div>
@@ -3109,7 +3109,7 @@ flowchart TD
 
 <!-- }}} -->
 
-<section class="cm" ks='GAI'>
+<section class="cm" data-ks='GAI'>
 	<h1 class="title">💻 生成式 AI</h1>
 	<h2>for MCF AI900 Certification</h2>
 	<br/>
@@ -3121,7 +3121,7 @@ flowchart TD
 
 <!-- {{{ Generative AI -->
 
-<section ks='GAI'>
+<section data-ks='GAI'>
 	<h2>何謂生成式 AI</h2><!--{{{-->
 	<div>可以理解使用者所輸入的自然語言內容，然後產生適當的文字，影像，電腦程式碼...等回應。</div>
 	<ol>
@@ -3142,7 +3142,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI'>
+<section data-ks='GAI'>
 	<h2>大語言模型</h2><!--{{{-->
 	<div>LLM 是一種特殊類型的機器學習模型，用來執行自然語言處理工作，包含情感判斷，分類，文字摘要，比較多個文字來源的語意相似性，產生新的自然語言...等。</div>
 	<h3>基礎架構 - 轉換器模型(Transformer models)</h3>
@@ -3175,7 +3175,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI'>
+<section data-ks='GAI'>
 	<h2>Azure Open AI</h2><!--{{{-->
 	<ul>
 		<li>直接使用 Azure OpenAI 模型<div>
@@ -3204,7 +3204,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI'>
+<section data-ks='GAI'>
 	<h2>Copilot</h2><!--{{{-->
 	<ul>
 		<li>源起於 Microsoft</li>
@@ -3221,7 +3221,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI'>
+<section data-ks='GAI'>
 	<h2>提示工程</h2><!--{{{-->
 	<ul>
 		<li>定義系統訊息<ul>
@@ -3240,13 +3240,13 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI'>
+<section data-ks='GAI'>
 	<h2>主要服務供應商:</h2><!--{{{-->
 	<a href='../GAI_Services.html' target='_blank'><button>開啟</button></a>
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q: 請填入「是」或「否」</h2><!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		OpenAI 的GPT-3.5 Turbo 模型能將語音轉成文字。
@@ -3265,7 +3265,7 @@ flowchart TD
 	</div>
 	<!--}}}-->
 </section>
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q: Transformer Model</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		轉換器模型架構中包含編碼器和解碼器兩個區塊。 
@@ -3287,7 +3287,7 @@ flowchart TD
 	</div>
 	<!--}}}-->
 </section>
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q: Azure OpenAI 與負責任 AI</h2><!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		必須自己建置和訓練模型，才能建立符合 Microsoft 負責任 AI 準則的解決方案。
@@ -3310,7 +3310,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		下列何者可以依據使用者所輸入的句子生成文字段落回應？
@@ -3323,7 +3323,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		想要以文字描述產生宣傳手冊中的卡通插畫，應該使用下列哪一個 Azure OpenAI 模型？
@@ -3336,7 +3336,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		在 Microsoft Visual Studio Code 整合開發環境中，下列哪個延伸模組會使用 OpenAI Codex 模型？
@@ -3349,7 +3349,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		在聊天解決方案中使用 Azure OpenAI GPT-3.5 模型時，應該設定下列哪個參數，才能生成更多樣化的 Token 回應？
@@ -3368,7 +3368,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='3'>
 		想依據使用者所輸入的文字提示生成影像，應該使用下列哪個 Azure OpenAI 模型？
@@ -3381,7 +3381,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='2'>
 		請問哪一個 Azure OpenAI 模型可用於開發程式碼？
@@ -3394,7 +3394,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		以下何者可用來建置為網站創作短篇文章的 AI 模型？
@@ -3407,7 +3407,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		以下哪一個詞彙是用來描述上傳您自己的資料以自訂 Azure OpenAI 模型？
@@ -3420,7 +3420,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:m' ___='14'>
 		轉換器模型架構中的三個階段為何？ (多選題，通常指關鍵處理步驟)
@@ -3439,7 +3439,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:m' ___='6'>
 		使用 Azure OpenAI 生成式 AI 應用程式可以產生下列哪兩種類型的內容？ (多選) 
@@ -3452,7 +3452,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:m' ___='6'>
 		使用 Azure OpenAI DALL·E 模型可以執行下列哪兩項任務？ (多選)
@@ -3466,7 +3466,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:m' ___='5'>
 		想要呼叫 Azure OpenAI 服務，可以使用下列哪兩個工具？ (多選)
@@ -3479,7 +3479,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{--> 
 	<div data-x='quiz:m' ___='6'>
 		您有一個使用 Azure OpenAI GPT-3.5 大型語言模型 (LLM) 回答技術性問題的聊天機器人。下列哪兩個敘述正確描述了該聊天機器人？ (多選)
@@ -3498,7 +3498,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:</h2><!--{{{-->
 	<div data-x='quiz:m' ___='12'>
 		您可以使用哪兩個資源來分析程式碼並產生程式碼函式的說明和程式碼註解？ (多選)
@@ -3511,7 +3511,7 @@ flowchart TD
 	<!--}}}-->
 </section> 
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<h2>Q:將 Azure OpenAI 大型語言模型的程序和工作做配對。</h2><!--{{{-->
 	<div data-x='quiz:s' ___='1'>
 		辨識文學作品所屬的類型是這種任務
@@ -3528,7 +3528,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='1'>
 		請問如何才能確保 Azure OpenAI 模型會產生包含最近事件的準確回應？
 		<div data-o='1'> 新增基礎知識資料 (Grounding Data)</div>
@@ -3540,7 +3540,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='4'>
 		請問提供情境資訊以改善生成式 AI 解決方案的品質是下列哪種提示工程技術的範例？
 		<div data-o='1'>提供範例</div>
@@ -3551,7 +3551,7 @@ flowchart TD
 	<!--}}}-->
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='4'>
 	您應該設定哪一個參數，才能透過使用 Azure OpenAI GPT-3.5 模型的聊天解決方案產生更多樣化的回應？
 		<div data-o='1'>回應上限</div>
@@ -3562,7 +3562,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='1' style='white-space:nowrap;'> 
 		使用系統輸入和額外內容來緩解生成式 AI 模型的有害輸出的是什麼層？
 		<div data-o='1'>中繼提示和基礎知識</div>
@@ -3572,7 +3572,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='2'>
 		<div>請問您應該實作下列哪一項以防止生成式 AI 解決方案傳回仇恨回應？</div>
 		<div data-o='1'>微調</div>
@@ -3583,7 +3583,7 @@ flowchart TD
 	</div>
 </section> 
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='1'>
 		您有下列 REST API 要求。
 		<div class='frame'>
@@ -3605,7 +3605,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:m' ___='5'> 
 		請問生成式 AI 模型有兩種類型？
 		<div data-o='1'>DALL·E</div>
@@ -3616,7 +3616,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='3'>
 		請問應該使用哪個 Azure OpenAI 模型以摘要處理文件中的文字？
 		<div data-o='1'> DALL·E</div>
@@ -3627,7 +3627,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='1'>
 		在大型語言模型 (LLM) 中指派給每個字詞或權杖的多維度向量指的是？
 		<div data-o='1'>內嵌</div>
@@ -3638,7 +3638,7 @@ flowchart TD
 	</div>
 </section>
 
-<section ks='GAI,Q_AI900'>
+<section data-ks='GAI,Q_AI900'>
 	<div data-x='quiz:s' ___='1'>
 		Anita 部署了 Azure OpenAI 服務以產生影像。Anita 需要確保該服務會提供最高等級的保護能力，防範有害內容。請問您應該協助 Anita 採取什麼措施？
 		<div data-o='1'> 設定內容篩選設定</div>
