@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1A2B 聯機對戰系統</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #9b59b6;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background-color: #f0f3f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--dark);
+        }
+
+        .container {
+            background: white;
+            width: 90%;
+            max-width: 480px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .role-badge {
+            font-size: 0.85rem;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+
+        .mode-badge {
+            background: var(--secondary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+        }
+
+        .status-box {
+            background: #fff9db;
+            border: 1px solid #ffe066;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+            min-height: 1.2rem;
+        }
+
+        /* 區塊顯示控制 */
+        .hidden { display: none !important; }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 5px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.9; }
+        button:disabled { background: #bdc3c7; cursor: not-allowed; }
+
+        #log {
+            height: 300px;
+            overflow-y: auto;
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .log-item {
+            margin: 4px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            border-left: 5px solid #ccc;
+        }
+
+        .my-log {
+            background: #e3f2fd;
+            border-left-color: var(--primary);
+            align-self: flex-start;
+            width: 85%;
+        }
+
+        .op-log {
+            background: #fff3e0;
+            border-left-color: #e67e22;
+            align-self: flex-end;
+            width: 85%;
+            text-align: right;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <span id="roleTitle" class="role-badge">連線中...</span>
+        <span id="modeTag" class="mode-badge">載入模式...</span>
+    </div>
+
+    <div id="status" class="status-box">正在與伺服器建立連線...</div>
+
+    <div id="setupArea">
+        <p style="margin-top:0">請設定你的 4 位不重複謎底：</p>
+        <div class="input-group">
+            <input type="text" id="mySecret" maxlength="4" placeholder="0-9">
+            <button onclick="setSecret()">確認</button>
+        </div>
+        <p style="font-size: 0.8rem; color: #7f8c8d;">這將是讓對手猜測的數字。</p>
+    </div>
+
+    <div id="gameArea" class="hidden">
+        <div class="input-group">
+            <input type="text" id="myGuess" maxlength="4" placeholder="猜數字">
+            <button id="btnGuess" onclick="sendGuess()">送出</button>
+        </div>
+        <div id="log">
+            </div>
+    </div>
+</div>
+
+<script>
+    // 取得網址參數
+    const params = new URLSearchParams(window.location.search);
+    const gameId = params.get('game') || 'lobby';
+    const mode = params.get('mode') || 'speed';
+
+    // 建立 WebSocket 連線 (支援不同 Host)
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const ws = new WebSocket(`${protocol}//${window.location.host}/ws?game=${gameId}&mode=${mode}`);
+    
+    let myRole = "";
+
+    ws.onopen = () => {
+        console.log("Connected to Game Server");
+    };
+
+    ws.onmessage = (e) => {
+        const d = JSON.parse(e.data);
+        const status = document.getElementById('status');
+        const log = document.getElementById('log');
+
+        switch(d.type) {
+            case 'init':
+                myRole = d.role;
+                document.getElementById('roleTitle').innerText = (myRole === 'p1' ? '玩家 1' : '玩家 2');
+                document.getElementById('modeTag').innerText = d.mode === 'speed' ? '🏁 競速模式' : '🎯 次數挑戰';
+                status.innerText = "連線成功，請設定你的謎底";
+                break;
+
+            case 'start':
+                status.innerText = "🚀 雙方準備完畢，遊戲開始！";
+                document.getElementById('setupArea').classList.add('hidden');
+                document.getElementById('gameArea').classList.remove('hidden');
+                document.getElementById('myGuess').focus();
+                break;
+
+            case 'status':
+                status.innerHTML = `<span style="color:#d35400">⚡ ${d.msg}</span>`;
+                break;
+
+            case 'res':
+                const isMe = (d.role === myRole);
+                const item = document.createElement('div');
+                item.className = `log-item ${isMe ? 'my-log' : 'op-log'}`;
+                
+                const label = isMe ? "我" : "對手";
+                item.innerHTML = `
+                    <span class="tag">${label} - 第 ${d.count} 次</span>
+                    <strong>${d.guess}</strong> ➔ <span style="color:#e74c3c">${d.a}A${d.b}B</span>
+                `;
+                log.prepend(item); // 最新的放在最上面
+                break;
+
+            case 'over':
+                status.innerHTML = `<b style="font-size:1.3rem; color:var(--success)">${d.winner}</b>`;
+                document.getElementById('btnGuess').disabled = true;
+                document.getElementById('myGuess').disabled = true;
+                break;
+
+            case 'error':
+                alert("錯誤: " + d.msg);
+                status.innerText = "發生錯誤，請重新整理頁面。";
+                break;
+        }
+    };
+
+    ws.onclose = () => {
+        document.getElementById('status').innerText = "❌ 已斷開連線";
+    };
+
+    // 功能函式：送出謎底
+    function setSecret() {
+        const val = document.getElementById('mySecret').value;
+        if (!/^\d{4}$/.test(val) || new Set(val).size !== 4) {
+            alert("請輸入 4 位「不重複」的數字！");
+            return;
+        }
+        ws.send(JSON.stringify({type: "set_secret", val: val}));
+        document.getElementById('setupArea').innerHTML = `
+            <div style="text-align:center; padding:20px;">
+                <p>已設定謎底：<b>${val}</b></p>
+                <p style="color:#7f8c8d">等待對手設定中...</p>
+            </div>
+        `;
+    }
+
+    // 功能函式：送出猜題
+    function sendGuess() {
+        const input = document.getElementById('myGuess');
+        const val = input.value;
+        if (!/^\d{4}$/.test(val)) return;
+        
+        ws.send(JSON.stringify({type: "guess", val: val}));
+        input.value = "";
+        input.focus();
+    }
+
+    // 支援 Enter 鍵
+    document.getElementById('myGuess').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendGuess();
+    });
+    document.getElementById('mySecret').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') setSecret();
+    });
+</script>
+
+</body>
+</html>

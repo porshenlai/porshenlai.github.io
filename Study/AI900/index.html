@@ -1,0 +1,3662 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/App/page.js"></script>
+<style>
+	.CAT { color:brown; font-weight:bolder; font-size:120%; }
+	.QMix { display:flex;overflow:auto;align-items:center; }
+</style>
+</head>
+<body style='opacity:0'>
+
+<!--header>
+<div>Cyberpiers</div>
+<div>Login</div>
+</header-->
+
+<section class='cfbox'>
+	<h1>💻 人工智慧</h1>
+	<h3>for MCF AI900 Certification</h3>
+	<div class='frame'>
+		<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+		<div>Department of Finance</div>
+		<div>Chihlee University of Technology</div>
+		<div class='signature'>2026, Spring</div>
+	</div>
+</section>
+
+<section class='cfbox' data-ks='literacy'>
+	<h1>💻 人工智慧工作負載與考慮</h1>
+	<h3>for MCF AI900 Certification</h3>
+	<div class='frame'>
+		<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+		<div>Department of Finance</div>
+		<div>Chihlee University of Technology</div>
+		<div class='signature'>2026, Spring</div>
+	</div>
+</section>
+
+<!-- {{{ literacy -->
+
+<section data-ks='literacy'>
+	<h2>人工智慧工作負載</h2><!--{{{-->
+	<table border='1' cellspacing='0' cellpadding='8' width='95%' align='center'><tbody><tr><th>
+		<div class='CAT'>異常偵測</div>
+		<hr/>
+		<div class='CAT'>內容安全</div>
+		<hr/>
+		<div class='CAT'>視覺</div>
+		<div>電腦視覺</div>
+		<div>自訂視覺</div>
+		<div>臉部辨識</div>
+	</th><th>
+		<div class='CAT'>機器學習</div>
+		<div>Regression (回歸):</div>
+		<div style='color:green'>預測下個月玩具銷售量</div>
+		<div>Clustering (叢集):</div>
+		<div style='color:green'>根據多個尺寸將動物分類</div>
+		<div>Classification (分類):</div>
+		<div style='color:green'>預測貸款是否償還的銀行系統</div>
+	</th><th>
+		<div class='CAT'>語音</div>
+		<div>語音文字相互轉換</div>
+		<div>語音翻譯</div>
+		<div>語音助理</div>
+		<div>說話者辨識</div>
+		<hr/>
+		<div class='CAT'>語言</div>
+		<div>文字分析 (情感，片語，實體)</div>
+		<div>交談語言理解 CLU</div>
+		<div>問題解答</div>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy'>
+	<h2>異常偵測器</h2><!--{{{-->
+	<ul>
+		<li>異常偵測器可以監視和偵測時間序列資料中的異常狀況。</li>
+	</ul>
+	<ul style="color:green;">
+		<li>例如:識別詐欺性的信用卡支付</li>
+		<li>例如:透過查找與通常模式的偏差來識別可疑登錄</li>
+		<li>例如:在監視工業製程感應器結合AI來偵測發生潛在問題的狀況</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy'>
+	<h2>Azure AI 內容安全</h2><!--{{{-->
+	<ul>
+		<li>可以由文字，影像和影片中，偵測出潛在具有冒犯意思，惡意，風險或不當的資料內容。</li>
+	</ul>
+	<ul style="color:green">
+		<li>例如:為學生與授課者篩選掉不當的教育內容</li>
+		<li>例如:為社群軟體對使用者新增的影像，文字和影片進行內容仲裁</li>
+		<li>例如:為遊戲公司對使用者產生的遊戲成品和聊天室進行內容仲裁</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy'>
+	<h2>Azure 視覺 API (Vision APIs)</h2><!--{{{-->
+	<div style="border:2px solid silver;">
+		<div data-h='tab:A' style='display:flex;flex-flow:rows nowrap;width:100%;'>
+			<div data-o='電腦視覺' class='selected'>電腦視覺</div>
+			<div data-o='自訂視覺'>自訂視覺</div>
+			<div data-o='人臉辨識'>人臉辨識</div>
+		</div>
+		<div data-uid='A:電腦視覺'>
+			<ul><h3>光學文字辨識 Optical Character Recognition</h3>
+			<li>可以從相片和文件(發票，名片，信件等)中擷取其中印刷和手寫的文字。</li>
+			</ul><ul style='color:green'>
+			<li>例如:識別手寫字母。</li>
+			</ul>
+			<ul><h3>影像分析 Image Analysis</h3>
+			<li>從影像中擷取視覺特徵(物件，臉部，特定品牌，成人內容等)</li>
+			<li>自動產生標記 (Tag) 描述。</li>
+			</ul><ul style='color:green'>
+			<li>例如:刪除含成人內容的圖片</li>
+			<li>例如:偵測圖片中狗的影像並取得其座標</li>
+			</ul>
+			<ul><h3>空間分析 Spatial Analysis</h3>
+			<li>從影片中偵測人員的存在和移動，並產生事件供其他程式做事當回應。</li>
+			<li>其功能包括計算進入指定空間的人數，偵測人員是否戴口罩，以及人員之間的距離。</li>
+			</ul><ul style='color:green'>
+			<li>例如:當空間中超過指定的人數時就產生警示</li>
+			<li>例如:偵測空間中人員是否遵循社交距離</li>
+			</ul>
+		</div>
+		<div data-uid='A:自訂視覺' class='hide'>
+			<ul><h3>自訂視覺 Custom Vision</h3>
+			<li>自行建置，部署和改善專屬的影像識別工具模型。</li>
+			<li>自訂視覺可以自行指定標籤，提交加上標籤的影像群組，訓練定型，測試，重新定型等步驟來訓練自訂模型。</li>
+			</ul><ul style='color:green'>
+			<li>例如:使用自己的影像來訓練物件偵測</li>
+			<li>例如:使用自訂模型由零售商店的影像中辨識出競爭對手的產品</li>
+			</ul>
+		</div>
+		<div data-uid='A:人臉辨識' class='hide'>
+			<ul><h3>臉部辨識 Face Recognition</h3>
+			<li>提供進階的臉部辨識演算法，來偵測和辨識影像中人類臉部的屬性。</li>
+			<li>其臉部偵測功能可以感知臉部特徵和屬性(眼鏡，化妝等)。</li>
+			<li>臉部驗證功能可以根據信賴分數來判斷兩張人臉是否為同一個人。</li>
+			</ul><ul style='color:green'>
+			<li>例如:在社群媒體中的自動標記朋友的圖像</li>
+			</ul>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy'>
+	<h2>Azure 語音 API (Speech APIs)</h2><!--{{{-->
+	<ul>
+		<h3>語音轉換文字 Speech to Text</h3>
+		<li>將音訊串流或本機檔案即時轉譯為文字。</li>
+		<li style='color:green'>例如:製作通話或會議記錄</li>
+		<h3>文字轉換語音 Text to Speech</h3>
+		<li>使用語音合成標記語言(SSML)將輸入的文字轉換成人工合成語音。</li>
+		<li style='color:green'>例如:要錄製或直播視頻提供隱藏式字幕</li>
+		<h3>語音翻譯 Speech Recognition</h3>
+		<li>將語音即時翻譯成多種語言。</li>
+		<li style='color:green'>例如:在國際會議中將各國發言人的內容即時翻譯成英語</li>
+		<h3>語音助理</h3>
+		<li>可以開發類似人類自然對話的使用者介面。</li>
+		<li style='color:green'>例如:使用語音命令打開收音機</li>
+		<li style='color:green'>例如:語音式的客戶服務專線</li>
+		<h3>語者辨識 Speaker Recognition</h3>
+		<li>根據演算法由個人獨特的語音特性，來驗證和識別出說話者的身分。</li>
+		<li style='color:green'>例如:根據語音可以辨識出人員是否在參加會議名單中？</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy'>
+	<h2>Azure 語言 API (Language APIs)</h2><!--{{{-->
+	<div data-h='tab:B'>
+		<div data-o='文字分析' class='selected'>文字分析</div>
+		<div data-o='語言理解'>語言理解</div>
+		<div data-o='問題解答'>問題解答</div>
+	</div>
+	<div TAB='文字分析'>
+		<ul><h3>情感分析</h3>
+		<li>可以分析出文章是屬於正面，中性或負面情感。</li>
+		</ul><ul style='color:green'>
+		<li>例如:確定評論是屬於正面還是負面</li>
+		<li>例如:根據支援票證中包含的文本了解客戶的不安程度</li>
+		<li>例如:按照正負尺度評估本文</li>
+		<li>例如:預測社交媒體貼文的情感</li>
+		<li>例如:分析客戶評論，並確定每個評論的正面或負面影響</li>
+		</ul>
+		<ul><h3>關鍵片語擷取</h3>
+		<li>可以從文章中以擷取關鍵片語方式，快速識別出文章的主要概念。</li>
+		</ul><ul style='color:green;'>
+		<li>例如:確定那些文檔提供了有關相同主題的資訊</li>
+		<li>例如:確定文件集合中的主要討論點</li>
+		<li>例如:總結支援票證中的重要資訊</li>
+		<li>例如:確定某些文件中的主要話題為何？</li>
+		</ul>
+		<ul><h3>具名實體辨識 Named Entity Recognition (NER)</h3>
+		<li>可以識別並分類非結構化文字中的實體。</li>
+		</ul><ul style='color:green;'>
+		<li>例如:從支援票證中提取關鍵日期</li>
+		<li>例如:從文本中提取人員，地點和組織等資訊。</li>
+		</ul>
+	</div>
+	<div TAB='語言理解'>
+		<ul><h3>交談語言理解 Conversational Language Understanding (CLU)</h3>
+		<li>可以將自訂機器學習智慧套用到交談式或自然語言文字，用來預測整體意義並從中提取相關資訊。</li>
+		</ul><ul style='color:green'>
+		<li>例如:以自動聊天方式回答有關退款和兌換問題</li>
+		<li>例如:輸入問題並互動式回答作為應用程式的一部分</li>
+		<li>例如:家用智慧設備可以回答諸如 “今天天氣會如何？” 之類的問題</li>
+		<li>例如:使用知識庫以交互方式回答使用者問題的網站</li>
+		<li>例如:讓使用者能夠自行在網站上尋找答案的聊天機器人</li>
+		<li>例如:透過在公用網站中爬文來建立 FAQ 的服務</li>
+		<li>例如:餐廳可以使用聊天機器人提供預訂服務與回答問題</li>
+		</ul>
+	</div>
+	<div TAB='問題解答'>
+		<ul><h3>問題解答</h3>
+		<li>使用者用自然語言提出問題，再由 AI 系統給予適當的答案。<li>
+		<li>問題解答可讓你定義可使用自然語言輸入查詢的問答組知識庫。</li>
+		<li>多回合交談可在呈現明確答案前，從使用者引出更多資訊。</li>
+		</ul><ul style='color:green'>
+		<li>例如:使用自然語言來查詢知識庫</li>
+		<li>例如:讓知識庫為提供相同的答案給相似提問</li>
+		<li>例如:已有FAQ PDF檔，根據FAQ建立對話支援</li>
+		<li>例如:基於 FAQ 創建機器人</li>
+		</ul>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy,Q_AI900'>
+	<h2>Q: 將 AI 工作負載類型與適當的案例進行配對。</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		回答退款及換貨問題的自動化聊天機器人，屬於何種AI工作負載類型？
+		<div data-o='X'>異常偵測</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='O'>自然語言處理</div>
+		<div class="answer">處理自然語言問答。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		判斷相片中是否有人物，屬於何種AI工作負載類型？
+		<div data-o='X'>異常偵測</div>
+		<div data-o='O'>電腦視覺</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='X'>自然語言處理</div>
+		<div class="answer">處理影像內容。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		判斷評論為正面或負面，屬於何種AI工作負載類型？
+		<div data-o='X'>異常偵測</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='O'>自然語言處理</div>
+		<div class="answer">情感分析，屬於 NLP。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您需要根據客戶在聊天機器人中鍵入的內容，偵測客戶何時感到沮喪。</div>
+		<div>您應該使用下列哪一種類型的 AI 工作負載？</div>
+		<div data-o='X'>迴歸</div>
+		<div data-o='O'>自然語言處理</div>
+		<div data-o='X'>異常偵測</div>
+		<div data-o='X'>電腦視覺</div>
+		<div class="answer">偵測文字中的情緒（如沮喪）是 情感分析，屬於 NLP 工作負載。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>貴公司想要打造瓶罐回收機。此回收機必須能夠自動識別正確形狀的瓶罐，拒收所有其他項目。</div>
+		<div>公司應該使用哪種 AI 工作負載？</div>
+		<div data-o='X'>自然語言處理</div>
+		<div data-o='O'>電腦視覺</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='X'>異常偵測</div>
+		<div class="answer">識別影像中物體的形狀和類別是電腦視覺的任務（通常是影像分類或物件偵測）。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		建立錄音的文字記錄是下列何者的範例:
+		<div data-o='X'>電腦視覺工作負載</div>
+		<div data-o='X'>知識採礦工作負載</div>
+		<div data-o='O'>自然語言處理 (NLP) 工作負載</div>
+		<div data-o='X'>生成式 AI 工作負載</div>
+		<div class="answer">語音轉文字 (Speech-to-Text) 雖然涉及語音服務，但在 AI 工作負載類型中，它屬於自然語言處理領域（因為結果是文字/語言處理）。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		可以回答「台積電股票價格是多少？」這種問題的智慧型裝置是哪一種 AI 工作負載的範例？
+		<div data-o='X'>異常偵測</div>
+		<div data-o='O'>自然語言處理</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='X'>知識採礦</div>
+		<div class="answer">處理自然語言問句和理解問題意圖是 NLP 的應用。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		從大量非結構化資料中擷取資料間的關聯性，是哪一種 AI 工作負載類型？
+		<div data-o='O'>知識採礦</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='X'>自然語言處理</div>
+		<div data-o='X'>異常偵測</div>
+		<div class="answer">知識採礦利用 AI 服務 (如認知搜索) 從非結構化內容中找到隱藏的洞察和關係。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		請問您應該使用哪一種 Azure AI 工作負載，根據文章的文字創作插圖？
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='O'>生成式 AI</div>
+		<div data-o='X'>自然語言處理</div>
+		<div data-o='X'>Azure AI 文件智慧服務</div>
+		<div class="answer">根據文字生成新的內容（如插圖/影像）是 生成式 AI 的應用 (例如 DALL·E)</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		根據關鍵字建立社交媒體貼文，應使用何種 AI 解決方案？
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='O'>生成式 AI</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='X'>自然語言處理</div>
+		<div class="answer">生成新內容。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		從社交媒體貼文中擷取關鍵字，應使用何種 AI 解決方案 
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='X'>生成式 AI</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='O'>自然語言處理</div>
+		<div class="answer">分析和擷取文字資訊。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		從掃描的文件中擷取文字，應使用何種 AI 解決方案 
+		<div data-o='O'>電腦視覺</div>
+		<div data-o='X'>生成式 AI</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='X'>自然語言處理</div>
+		<div class="answer">OCR，屬於電腦視覺。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		詢問聊天機器人是否即將下雨，是哪一種工作？
+		<div data-o='X'>異常偵測</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='O'>自然語言處理</div>
+		<div data-o='X'>預測</div>
+		<div class="answer">處理自然語言的問句<b>(詢問聊天機器人)</b>是 NLP 的任務。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		從醫療人院表單中取得資料以匯入到病患追蹤資料庫。
+		應使用哪種 AI 服務。
+		<div data-o='O'>Azure AI 文件智慧服務</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='X'>生成式 AI</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='X'>自然語言處理</div>
+		<div class="answer">專門用於結構化文件擷取。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		自動生成每月行銷文案的草稿
+		應使用哪種 AI 服務。
+		<div data-o='X'>Azure AI 文件智慧服務</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='O'>生成式 AI</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='X'>自然語言處理</div>
+		<div class="answer">生成新內容。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		分析空照相片識別淹水區域
+		應使用哪種 AI 服務。
+		<div data-o='X'>Azure AI 文件智慧服務</div>
+		<div data-o='O'>電腦視覺</div>
+		<div data-o='X'>生成式 AI</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='X'>自然語言處理</div>
+		<div class="answer">處理和理解影像內容。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您有一些儲存成文字檔案的保險理賠報表。</div>
+		<div>您需要從報表中擷取關鍵字詞以產生摘要。</div>
+		<div>您應該使用下列哪一種類型的 AI 工作負載？</div>
+		<div data-o='X'>異常偵測</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='O'>自然語言處理</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy,Q_AI900'>
+	<h2>Q: 關於自然語言處理 (NLP) 的應用</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		監視線上服務的評論是否包含不雅用語為一項自然語言處理範例。
+		<div data-o='O'>是</div><div data-o='X'>否</div>
+		<div class="answer">偵測不雅用語是文字分類或內容篩選的任務，屬於 NLP。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		辨識影像中品牌標誌為一項自然語言處理範例。
+		<div data-o='X'>是</div><div data-o='O'>否</div>
+		<div class="answer">這是電腦視覺的任務。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		監視公開新聞網站是否包含產品負面陳述為一項自然語言處理範例。
+		<div data-o='O'>是</div><div data-o='X'>否</div>
+		<div class="answer">偵測負面陳述是情感分析的任務，屬於 NLP。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		會回答諸如「我的下一場約會是何時？」等問題的家用智慧服務裝置為交談式 AI 的範例。
+		<div data-o='O'>是</div><div data-o='X'>否</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		公司網站上的互動式網路聊天功能可以使用 Azure Bot Service 實作。
+		<div data-o='O'>是</div><div data-o='X'>否</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		未預先錄製影片自動產生字幕式是交談式 AI 的範例。 
+		<div data-o='X'>是</div><div data-o='O'>否</div>
+	</div>
+	<br/>
+	<div data-x='quiz:m'>
+		下列哪兩個案例是自然語言處理 (NLP) 工作負載範例？ (多選)
+		<div data-o='X'>監控機器溫度，以在溫度達到特定閾值時打開風扇</div>
+		<div data-o='O'>可以回答諸如「今天天氣如何？」等問題的家用智慧型裝置</div>
+		<div data-o='X'>自動將車前燈插入汽車的生產線機械</div>
+		<div data-o='O'>使用知識庫以互動方式回答使用者問題的網站</div>
+		<div class="answer">處理問題和回答、理解使用者輸入是 NLP 的核心應用。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy,Q_AI900'>
+	<h2>Q: 異常偵測 (Anomaly Detection)</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		根據歷史資料預測房價為異常偵測範例。
+		<div data-o='X'>是</div><div data-o='O'>否</div>
+		<div class="answer">這是迴歸模型的範例。</div>
+	</div>
+	<div data-x='quiz:s'>
+		在慣常模式中尋找偏差藉以識別可疑的登入為異常偵測範例。
+		<div data-o='O'>是</div><div data-o='X'>否</div>
+		<div class="answer">異常偵測的核心就是識別與「慣常模式」顯著不同的數據點。</div>
+	</div>
+	<div data-x='quiz:s'>
+		根據患者的病歷預測患者是否會罹患糖尿病為異常偵測範例。
+		<div data-o='X'>是</div><div data-o='O'>否</div>
+		<div class="answer">這是分類模型的範例 (預測「是」或「否」)。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy'>
+	<h2>負責任的 AI</h2><!--{{{-->
+	<div class='tab'>
+	<div>
+		<button TID='公平性'>公平性</button>
+		<button TID='包容性'>包容性</button>
+		<button TID='可靠性'>可靠性</button>
+		<button TID='隱私權'>隱私權</button>
+		<button TID='透明度'>透明度</button>
+		<button TID='權責性'>權責性</button>
+	</div>
+	<div TAB='公平性'>
+		<ul><h3>公平性</h3>
+		<li>AI 應用程式應該公平的對待所有人，不得因為性別，年齡，種族，宗教或其他因素而影像預測結果。</li>
+		<li>訓練 AI 系統資料集的偏差，不應該反映於 AI 系統的結果就是遵守公平性原則。</li>
+		</ul><ul style='color:green;'>
+		<li>例如:建立機器學習模型來支援銀行申請貸款的核准時，不得有任何性別，種族，宗教或其他因素的偏見，導致特定族群的客戶獲得不公平的優勢或劣勢。</li>
+		<li>例如:按不同銷售目標區域有不同定價。</li>
+		</ul>
+	</div>
+	<div TAB='可靠性'>
+		<ul><h3>可靠性與安全性</h3>
+		<li>開發 AI 應用程式時，必須嚴格遵守測試和部署的管理程序，確保能如預期運作才能發行。</li>
+		<li>發行後仍然必須持續監視和追蹤模型，必要時須重新訓練建立新模型，來確保系統的可靠性與安全性。</li>
+		</ul><ul style='color:green;'>
+		<li>為自動駕駛汽車開發 AI 系統時，要確保系統在其使用壽命內能持續運行</li>
+		<li>機器學習模型用於診斷病患症狀並建議處方</li>
+		</ul>
+	</div>
+	<div TAB='透明度'>
+		<ul><h3>透明度</h3>
+		<li>AI 應用程式應該是公開透明，預測的結果是可以被了解和解釋。</li>
+		<li>無論是專家或使用者，都要能夠明確了解AI系統的用途和運作方式，以及預測的限制。</li>
+		</ul><ul style='color:green;'>
+		<li>例如:處理提供給 AI 系統的異常值或缺失值</li>
+		<li>例如:自動決策程序必須加以記錄，已便已核准使用者可以了解決策制定原因</li>
+		<li>例如:評估是否應該核准貸款的 AI 系統時，制定決策所用的因素要可以解釋</li>
+		</ul>
+	</div>
+	<div TAB='包容性'>
+		<ul><h3>包容性</h3>
+		<li>AI 裝置應改造福社會中的每個人，AI 設計應考慮所有人類的各種情況。開發系統時不只遵守技術規範，還要兼顧倫理與同理心的需求。</li>
+		</ul><ul style='color:green'>
+		<li>例如:給予所有人許可權的AI系統，包括有聽覺，視覺和其他障礙的人</li>
+		<li>例如:預測性應用程式會為視覺不便的使用者提供音訊輸出</li>
+		<li>例如:探索語音辨識技術在智慧型家用裝置中的使用，可找出無意間遺漏特定使用者群組的任何頻障</li>
+		</ul>
+	</div>
+	<div TAB='隱私權'>
+		<ul><h3>隱私權與安全性</h3>
+		<li>必須保護及保障個人與企業資訊。</li>
+		</ul><ul style='color:green;'>
+		<li>例如:為消費者提供有關其數據的收集，使用和儲存的資訊和控制。</li>
+		<li>例如:只有已核准的特定使用者可以看見個人資料。</li>
+		</ul>
+	</div>
+	<div TAB='權責性'>
+		<ul><h3>權責性</h3>
+		<li>以 AI 為基礎的解決方案，設計和開發人員應該在有明確準則的組織架構中工作。</li>
+		<li>確保方案符合道德和法律標準。</li>
+		<li>設計和部屬 AI 系統的人員，必須為 AI 的動作和預測負責，尤其是當不斷發展更多系統時，更需注重權責。</li>
+		</ul><ul style='color:green;'>
+		<li>例如:實施過程以確保 AI 系統所做的決定可以被人類推翻。</li>
+		</ul>
+	</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy,Q_AI900'>
+	<h2>Q: 負責任的 AI</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		說明用以定型模型的資料來源是哪一項責任 AI 準則的範例？
+		<div data-o='X'>隱私權與安全性</div>
+		<div data-o='X'>公平性</div>
+		<div data-o='X'>可靠性和安全性</div>
+		<div data-o='O'>透明度</div>
+		<div class="answer">透明度要求 AI 系統應公開其目的、運作方式和訓練數據來源，以便使用者理解其局限性。</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>公司正在探索語音辨識技術在其智慧型家用裝置中的使用。</div>
+		<div>公司想要找出可能無意間遺漏特定使用者群組的任何屏障。</div>
+		<div>這是下列何者責任 AI 的 Microsoft 指導準則範例？</div>
+		<div data-o='X'>權責</div>
+		<div data-o='X'>公平性</div>
+		<div data-o='X'>隱私權與安全性</div>
+		<div data-o='O'>包容性</div>
+		<div class="answer">包容性旨在確保 AI 系統應考慮到人類的多樣性，消除潛在的排斥或障礙。</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>AI 系統不應反映用於為訓練系統的資料集偏差。</div>
+		<div>這是下列哪個 Microsoft 責任 AI 的準則？</div>
+		<div data-o='X'>權責性</div>
+		<div data-o='O'>公平性</div>
+		<div data-o='X'>包容性</div>
+		<div data-o='X'>透明度</div>
+		<div class="answer">公平性旨在防止 AI 系統對不同群體產生系統性偏差或不公平的結果。</div>
+	</div>
+
+	<div data-x='quiz:m'>
+		<div>Microsoft 責任 AI 的指導準則是哪三項？ (多選)</div>
+		<div data-o='X'>決斷性</div>
+		<div data-o='X'>固執性</div>
+		<div data-o='X'>知識性</div>
+		<div data-o='O'>公平性</div>
+		<div data-o='O'>包容性</div>
+		<div data-o='O'>可靠性和安全性</div>
+		<div class="answer">Microsoft 責任 AI 的六大準則為：公平性、包容性、可靠性和安全性、透明度、隱私權與安全性和權責性。</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>當重要欄位包含不尋常或缺少值時，確保 AI 系統不會提供預測，是負責任 AI 的什麼準則？</div>
+		<div data-o='X'>包容性</div>
+		<div data-o='X'>隱私權與安全性</div>
+		<div data-o='O'>可靠性與安全性</div>
+		<div data-o='X'>透明度</div>
+		<div class="answer">可靠性確保 AI 系統在所有情況下都能以一致且可靠的方式運行，包括在面對不完整的或異常的輸入時。</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>必須記錄決策流程，讓相關人員得以確認特定報價與根據，</div>
+		<div>屬於哪一項負責任 AI 的工作。</div>
+		<div data-o="X">權責</div>
+		<div data-o="X">公平性</div>
+		<div data-o="X">包容性</div>
+		<div data-o="X">隱私性和安全性</div>
+		<div data-o="X">可靠性和安全性</div>
+		<div data-o="O">透明度</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>只有決策流程相關人員可以看到客戶個人資訊，</div>
+		<div>屬於哪一項負責任 AI 的工作。</div>
+		<div data-o="X">權責</div>
+		<div data-o="X">公平性</div>
+		<div data-o="X">包容性</div>
+		<div data-o="O">隱私性和安全性</div>
+		<div data-o="X">可靠性和安全性</div>
+		<div data-o="X">透明度</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>使用螢幕助讀程式或其他輔助技術的使用者必須能存取此系統，</div>
+		<div>屬於哪一項負責任 AI 的工作。</div>
+		<div data-o="X">權責</div>
+		<div data-o="X">公平性</div>
+		<div data-o="O">包容性</div>
+		<div data-o="X">隱私性和安全性</div>
+		<div data-o="X">可靠性和安全性</div>
+		<div data-o="X">透明度</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>開發 AI 自動駕駛汽車系統時，應套用哪個 Microsoft 責任 AI 的準則，以確保系統在生命週期內維持一致的作業？</div>
+		<div data-o='X'>公平性</div>
+		<div data-o='O'>可靠性和安全性</div>
+		<div data-o='X'>權責性</div>
+		<div data-o='X'>包容性</div>
+		<div class="answer">可靠性和安全性準則強調 AI 系統在部署的整個生命週期中，必須持續且安全地運作。</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>在使用生成式 AI 的聊天解決方案中實作篩選以封鎖有害內容是 Microsoft 負責任 AI 準則的範例。</div>
+		<div data-o='O'>權責性</div>
+		<div data-o='X'>公平性</div>
+		<div data-o='X'>隱私權和安全性</div>
+		<div data-o='X'>透明度</div>
+		<div class="answer"></div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>使用未經許可取得資料建立的自然語言處理 (NLP) 模型。</div>
+		<div>此違規行為屬於下面哪項 Microsoft 責任 AI 的準則？</div>
+		<div data-o='X'>可靠性和安全性</div>
+		<div data-o='X'>透明度</div>
+		<div data-o='O'>隱私權和安全性</div>
+		<div data-o='X'>包容性</div>
+		<div class="answer">未經許可取得資料直接違反了數據的隱私權和使用權規定。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='literacy,Q_AI900'>
+	<h2>Q: 負責任 AI 的實踐</h2><!--{{{-->
+	<div data-x='quiz:m'>
+		<div>您正在建置 AI 應用程式。您需要確保應用程式使用負責任 AI 的準則。</div>
+		<div>請問您應該遵循下列哪兩個準則？</div>
+		<div data-o='X'>實作敏捷式軟體開發 (Agile Software Development) 方法 </div>
+		<div data-o='O'>建立風險治理委員會，包括合法小組的成員，風險治理小組的成員，以及隱私保護專員</div>
+		<div data-o='X'>防止洩漏使用 AI 演算法自動做出決策</div>
+		<div data-o='O'>實作 AI 模型驗證的程序，作為軟體檢閱程序的一部分。</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>您要建置AI系統，系統該包含哪項工作以協助服務符合 Microsoft 責任 AI 透明度準則？</div>
+		<div data-o='O'>確定定型資料集具有母體代表性。</div>
+		<div data-o='X'>提供文件以利開發人員偵錯程式碼。</div>
+		<div data-o='X'>啟用自動調整功能，以確保服務能根據需求調整。</div>
+		<div data-o='X'>確定所有視覺效果都有可供螢幕助讀程式讀取的相關聯文字。</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>你正在開發一套系統以預測英國駕駛的保險價格。</div>
+		<div>你需要盡量將系統的非預期偏差降至最低。</div>
+		<div>請問你應該採取什麼措施？</div>
+		<div data-o='X'>取得完全隨機的定型樣本</div>
+		<div data-o='X'>使用全球保險公司的資料建立定型資料集</div>
+		<div data-o='X'>從資料中移除受保護特性的相關資訊，然後再進行取樣</div>
+		<div data-o='O'>取得代表英國人口的定型樣本</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>下列哪一項敘述是 Microsoft 責任 AI 準則的範例？</div>
+		<div data-o='X'>AI 系統必須只能使用公開提供的資料</div>
+		<div data-o='X'>AI 系統必須保障公司的利益</div>
+		<div data-o='O'>AI 系統必須易於理解</div>
+		<div data-o='X'>AI 系統必須將個人詳細資料公開</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>下列哪一項敘述是 Microsoft 責任 AI 準則的範例？</div>
+		<div data-o='O'>AI 系統必須透明且包容</div>
+		<div data-o='X'>AI 系統必須保障公司的利益</div>
+		<div data-o='X'>AI 系統必須只使用公開提供的資料</div>
+		<div data-o='X'>AI 系統必須將個人詳細資料公開</div>
+	</div>
+
+	<div data-x='quiz:s'>
+		<div>以下何者是 Microsoft 負責任 AI 準則的範例？</div>
+		<div data-o='X'>AI 系統應該讓個人詳細資料方便存取</div>
+		<div data-o='X'>AI 系統應該屬於公眾領域</div>
+		<div data-o='O'>AI 系統應該是安全的，並且尊重隱私權</div>
+		<div data-o='X'>AI 系統應該保障開發人員的利益</div>
+		<div class="answer">隱私權與安全性是六大責任 AI 準則之一。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<!--- }}} -->
+
+<section class="cfbox" data-ks='ML'>
+	<h1>💻 機器學習的基本準則</h1>
+	<h2>for MCF AI900 Certification</h2>
+	<div class='frame'>
+		<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+		<div>Department of Finance</div>
+		<div>Chihlee University of Technology</div>
+		<div>2026, Spring</div>
+	</div>
+</section>
+
+<!-- {{{ machine learning -->
+
+<section data-ks='ML'>
+	<h2>模型的種類</h2><!--{{{-->
+	<table class="tab" border='1' cellspacing='0' cellpadding='3' width='100%'>
+	<thead><tr>
+		<th TID='1'><button>監督式學習</button></th>
+		<th TID='2'><button>非監督式學習</button></th>
+		<th TID='3'><button>半監督式學習</button></th>
+		<th TID='4'><button>增強學習</button></th>
+	</tr></thead><tbody><tr>
+		<td TAB='1' colspan='4'>
+			<h3>監督式學習</h3>
+			<ul>
+				<li>將附上 標籤 (label) 的資料，交給機器學習模型定型來找出最佳解答</li>
+				<li>資料集的欄位稱為 特徵 (feature)</li>
+				<li>指定為標籤的欄位稱為 標籤 或 目標</li>
+				<li>為資料指定標籤的動作稱為 標記 或 預定義</li>
+				<li>分成 <span data-h='playPhoto:2_D.jpg:分類(classification)'>[分類]</span> 和 <span data-h='playPhoto:2_E.jpg:迴歸(regression)'>[迴歸]</span> 兩大類</li>
+				<li class='example'>例如: 輸入500張附有貓和老虎標籤的圖片，作為模型的定型資料訓練後，再輸入新的沒有標籤的圖片，驗證模型是否能正確辨識出是貓還是老虎。
+					<span data-h='playPhoto:2_C.jpg:貓和老虎'>[1]</span>
+				</li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='2' colspan='4'>
+			<h3>非監督式學習</h3>
+			<ul>
+				<li>沒有標記標籤，模型自己探索資料間的規律，找出資料特徵，達成解答未知資料的目標。</li>
+				<li>叢集分析式式非監督式學習最常見的方法，會根據特徵由演算法計算資料間的相似度，將資料區分為不同群組。
+					<span data-h='playPhoto:2_F.png:非監督式學習'>[1]</span></li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='3' colspan='4'>
+			<h3>半監督式學習</h3>
+			<ul>
+				<li>介於監督式與非監督式間的機器學習</li>
+				<li>透過少量有標籤的資料找出特徵，就能對其它大量無標籤的資料進行預測
+					<span data-h='playPhoto:2_G.jpg:半監督式學習'>[1]</span></li>
+				<li>可以減少標記資料的時間和人力，又能預測出準確的結果</li>
+			</ul>
+		</td>
+	</tr><tr>
+		<td TAB='4' colspan='4'>
+			<h3>增強學習</h3>
+			<ul>
+				<li>電腦經由和動態環境不停互動來學習正確完成任務的過程
+					<span data-h='playPhoto:2_H.jpg:半監督式學習'>[1]</span></li>
+				<li>嘗試錯誤 (trial and error)</li>
+				<li>根據外界的回饋資料隨時修正行動，反覆嘗試錯誤來獲得最大報酬</li>
+			</ul>
+		</td>
+	</tr></tbody>
+	</table>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>分類模型: 決策樹 (Decision Tree)</h2><!--{{{-->
+	<ul>
+		<li>監督式學習，標籤值為「是」或「否」</li>
+		<li>可適用於分類或迴歸模型</li>
+		<li>算法接近人類的<span data-h='playMermaid:
+flowchart TD
+	A{下大雨} -->|YES| C[停賽]
+	A -->|NO| B
+	B{颳大風} -->|YES| D[停賽]
+	B -->|NO| E[比賽]
+:決策樹'>思考邏輯</span>，容易理解運算原理與預測結果</li>
+		<li>速度快，適合處理大數據</li>
+		<li>深度過深時容易擬合過度</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>分類模型: 羅吉斯回歸</h2><!--{{{-->
+	<ul>
+		<li>監督式學習，運用於分類模型
+			<span action='show' caption='羅吉斯回歸' code='2_J.jpg' lang='photo'>[1]</span>
+		</li>
+		<li>找出一條能夠將所有資料清楚地分開的直線</li>
+		<li>預測範圍 0 ~ 1 代表目標值為 「是」或「否」的機率</li>
+		<li>不是合解決非線性問題</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>分類模型: 支援向量機 (SVM)</h2><!--{{{-->
+	<ul>
+		<li>監督式學習</li>
+		<li>可以畫出最能分隔資料的邊界，適用於分類，迴歸和偵測離群值
+			<span action='show' caption='支援向量機' code='2_K.jpg' lang='photo'>[1]</span>
+		</li>
+		<li>適合多高維度，訓練資料少的資料集。</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>分類模型: K 近鄰 (K-NN)</h2><!--{{{-->
+	<ul>
+		<li>監督式學習，分類模型</li>
+		<li>將資料轉為向量，再用資料間的距離來換算成資料的近似度</li>
+		<li>根據近似度作為分類的標準</li>
+		<li>選取近似度最高的Ｋ筆資料所屬最多的分類
+			<span action='show' caption='K-NN' code='2_L.jpg' lang='photo'>[1]</span>
+		</li>
+		<li>各分類樣本數量差異多時易錯誤</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>分類模型: 貝氏分類器 (Naive Bayes Classifier)</h2><!--{{{-->
+	<ul>
+		<li>根據事件的發生次數，來計算事件發生的機率。</li>
+		<li>貝氏分類為貝氏定理 (Bayes’ theorem) 的應用。模型中假設所有的特徵都是獨立不會相互影響，所以使得計算大大簡化。</li>
+		<li>經過計算可以得知某筆資料對各標籤目標的發生機率，機率最高的標籤就是所屬的分類。</li>
+		<li>資料量夠多時，簡單又有效，不易過度擬合。特徵數多時，易有運算誤差。</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>評估分類模型常用的指標</h2><!--{{{-->
+	<table border='1' cellspacing='0' cellpadding='8' class='ac'><tr>
+		<th>預測值\真實值</th>
+		<th>真</th>
+		<th>假</th>
+		<td rowspan='3' style='text-align:left'>
+			<div>T: 預測正確(True)</div>
+			<div>F: 預測錯誤(False)</div>
+			<div>P: 陽性(Positive)</div>
+			<div>N: 陰性(Negative)</div>
+		</td>
+	</tr><tr>
+		<th>真</th>
+		<td>TP<br/>真陽性</td>
+		<td>FP<br/>假陽性</td>
+	</tr><tr>
+		<th>假</th>
+		<td>FN<br/>假陰性</td>
+		<td>TN<br/>真應性</td>
+	</tr></table>
+	<br/>
+	<table border='1' cellspacing='0' cellpadding='8'><tr>
+		<th>準確率</th><td>(TP+TN) / (TP+FP+FN+TN)</td>
+	</tr><tr>
+		<th>精確率</th><td>TP / (TP+FP)</td>
+	</tr><tr>
+		<th>召回率</th><td>TP / (TP+FN)</td>
+	</tr><tr>
+		<th>F值</th><td>((a^2+1) *精確率*召回率) / (a^2*精確率+召回率)</td>
+	</tr><tr>
+		<th>曲線下面積</th><td><a href="https://zh.wikipedia.org/wiki/ROC%E6%9B%B2%E7%BA%BF" target="_blank">ROC曲線</a>下的面積，ROC X座標為假陽率，Y座標為真陽率。</td>
+	</tr></table>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>迴歸模型</h2><!--{{{-->
+	<ul>
+	<li>用來預測一段時間後的連續數值資料</li>
+	<li>必須使用有標記的資料</li>
+	<li>所預測的目標值為數值</li>
+	<li>常用的演算法<ul>
+		<li>線性迴歸演算法<span action='show' caption='線性迴歸演算法' code='2_Ma.jpg' lang='photo'>[1]</span></li>
+		<li>多項式迴歸演算法<span action='show' caption='多項式迴歸演算法' code='2_Mb.jpg' lang='photo'>[2]</span></li>
+	</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>叢集模型</h2><!--{{{-->
+	<ul>
+	<li>不用標記標籤資料</li>
+	<li>根據共同特性（特徵值）進行項目分組</li>
+	<li>常用演算法：<ul>
+		<li>Ｋ－Ｍｅａｎｓ<span action='show' caption='K-Means' code='2_N.jpg' lang='photo'>[1]</span></li>
+		<li>Ｇａｕｓｓｉａｎ　Ｍｉｘｔｕｒｅ</li>
+	</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>機器學習的工作流程</h2><!--{{{-->
+	<table class="tab" border='1' cellspacing='0' cellpadding='3' width='100%'>
+	<thead><tr>
+		<th TID='1'><button>問題定義</button></th>
+		<th TID='2'><button>資料蒐集</button></th>
+		<th TID='3'><button>資料準備</button></th>
+		<th TID='4'><button>模型選擇</button></th>
+		<th TID='5'><button>模型定型</button></th>
+		<th TID='5'><button>模型評估</button></th>
+		<th TID='7'><button>參數調整</button></th>
+		<th TID='8'><button>模型部屬</button></th>
+	</tr></thead><tbody>
+	<tr><td TAB='1' colspan='8'>
+			<h3>問題定義</h3>
+			<ul>
+				<li>了解問題</li>
+				<li>將方案的抽象目標轉化成可以量化的具體項目</li>
+				<li class='example'>例如:將「降低工廠營業成本」轉化成「預測下個月的最適當生產量」。</li>
+			</ul>
+		</td></tr>
+	<tr><td TAB='2' colspan='8'>
+			<h3>資料蒐集</h3>
+			<ul>
+				<li>收集資料的集合稱為資料集 (dataset)</li>
+				<li>將多個資料集合併成單一的資料集</li>
+				<li>確保資料集中的資料值具有相似規模，避免超出正常範圍的離群值</li>
+				<li class='example'>例如: 開發預測美國汽車駕駛人保險金額的機器學習模型時，想降低系統的偏差就要取得代表美國人口的定型樣本資料集，而不是日本或全球的樣本。</li>
+				<li>
+			<table border='1' cellspacing='0' cellpadding='8' class="ac">
+			<thead><tr>
+				<th>編號</th><th>姓名</th><th>年齡</th><th>職業</th><th style='color:red'>年收入</th>
+			</tr></thead><tbody><tr>
+				<td>A001</td><td>陳全</td><td>45</td><td>自由業</td><td style='color:red'>900,000</td>
+			</tr><tr>
+				<td>A002</td><td>王雙</td><td>36</td><td>業務員</td><td style='color:red'>1,050,000</td>
+			</tr><tr>
+				<td>A003</td><td>張三</td><td>32</td><td>服務業</td><td style='color:red'>750,000</td>
+			</tr><tr style="background:yellow">
+				<td>A004</td><td>李四</td><td>28</td><td>工程師</td><td style='color:red'>1,200,000</td>
+			</tr><tr>
+				<td colspan='5'><div>…</div><div>
+					<span style="background:yellow">row 資料行</span>
+					<span style="color:red">column 資料欄 資料列</span>
+				</div></td>
+			</tr></tbody>
+			</table>
+				</li>
+			</ul>
+		</td></tr>
+	<tr><td TAB='3' colspan='8'>
+		<h3>資料準備</h3>
+		<ul>
+			<li>資料清理 (data clearing)<ul>
+				<li>資料正規化 (normalization)</li>
+				<li>資料標準化 (standardization)</li>
+				<li>移除異常資料 (遺漏值，無效值，離群值)</li>
+			</ul></li>
+			<li>特徵工程 (feature engineering)<ul>
+				<li>將原始資料處理成為「特徵」</li>
+				<li>學習模型以特徵為輸入的資料，以標籤為輸出的預測</li>
+				<li>特徵是觀察對象中獨立且可測量的屬性，代表模型所處理的實際項目。</li>
+				<li>特徵抽取 (feature extraction)<ul>
+					<li>從資料集中發掘可用的特徵。</li>
+					<li>轉化出量化的多維度資料。</li>
+				</ul></li>
+				<li>特徵選擇 (feature selection)<ul>
+					<li>根據機器學習模型的目標，分析挑選重要的特徵。</li>
+					<li class="example">例如: 購物網站若要預測推薦的商品，應該使用「產品名稱」作為特徵，因為產品名稱和消費習慣相關。</li>
+					<div class='AI900'><img src="2_B.jpg" style="width:50%;"></img></div>
+				</ul></li>
+			</ul></li>
+			<li>資料分割 (data split)<ul>
+				<li>70~80% 訓練(定型)資料，20~30% 測試(評估)資料</li>
+			</ul></li>
+		</td></tr>
+	<tr><td TAB='4' colspan='8'>
+		<h3>模型選擇</h3>
+		<ul>
+			<li>機器學習的目標是找出解決問題的最佳方案</li>
+			<li>依照問題的性質，資料量，資料類型，運算效能等情況全面衡量，來選擇最合適的模型。</li>
+			<li>模型種類有: 1) 分類，2) 迴歸，3) 叢集等。</li>
+		</ul>
+		</td></tr>
+	<tr><td TAB='5' colspan='8'>
+		<h3>模型定型與模型評估</h3>
+		<ul>
+			<li>使用分割出來的訓練(定型)資料集，對機器學習模型進行訓練(定型)。</li>
+			<li>使用分割除來的測試(評估)資料集，來測試模型的準確性與執行效能。</li>
+			<li>預測結果的準確性很低時，就必須重新定型模型。</li>
+		</ul>
+		</td></tr>
+	<tr><td TAB='7' colspan='8'>
+		<h3>參數調整</h3>
+		<ul>
+			<li>調整模型演算法中的 超參數 (hyperparameter)，讓模型預測結果更真實。</li>
+			<li>定義模型的相關屬性或定型過程的參數就稱為 超參數</li>
+			<li>參數過度調整可能會造成 凝合過度 (overfitting)</li>
+		</ul>
+		</td></tr>
+	<tr><td TAB='8' colspan='8'>
+		<h3>模型部署</h3>
+		</td></tr>
+	</tbody></table>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>機器學習的工作流程</h2><!--{{{-->
+	<div style="text-align:center;"><img src="2_A.svg" style="width:80%;"></img></div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>Azure 機器學習服務 (Machine Learning Service)</h2><!--{{{-->
+	<ul>
+	<li>內建多種模型開發方式<ul>
+		<li>機器學習設計工具, 自動化機器學習, Jupyter 筆記本共同作業</li>
+		<li>開放原始碼架構, 程式庫, 特徵工程, 超參數調整, 偵錯工具, 分析工具</li>
+	</ul></li>
+	<li>可靠的機器學習作業 (MLOps)<ul>
+		<li>Machine Learnng Operations</li>
+		<li>在內部，邊緣和多重雲端環境中，部署及管理眾多模型</li>
+		<li>快速部屬，評分機器學習模型，使用即時和批次方式進行預測</li>
+		<li>MLOps 工具持續監視模型效能計量，偵測資料變動，重新定型以改善模型效能</li>
+		<li>追蹤紀錄，查核管理</li>
+	</ul></li>
+	<li>提供完整的模型評估功能</li>
+	<li>平台多元，安全並符合規範<ul>
+		<li>Azure 自動化機器學習 (Automated Machine Learning)</li>
+		<li>Azure 機器學習設計工具 (Azure Machine Learning Designer)</li>
+		<li>資料和計算管理</li>
+		<li>管線 (Pipelines)</li>
+	</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>Azure Machine Learning 方案的生命週期</h2><!--{{{-->
+	<div style="text-align:center;"><img src="2_O.svg"/></div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>Azure Machine Learning Studio 建立模型的方式</h2><!--{{{-->
+	<ul>
+	<li>筆記本<ul>
+		<li>使用 Python 或 R語言自行編寫程式碼</li>
+	</ul></li>
+	<li>自動化 ML<ul>
+		<li>使用精靈透握一連串對話方塊，引導設定模型的條件</li>
+	</ul></li>
+	<li>設計工具<ul>
+		<li>可視的畫布介面，拖拉元件，管線，和資料集的方式建立 ML管線</li>
+		<li><table border='1' cellspacing='0' cellpadding='8'><tr>
+ 			<th width='16%'>開啟<br/>ML 服務</th>
+			<th width='16%'>建立<br/>ML 工作區</th>
+			<th width='16%'>建立<br/>管線</th>
+			<th width='16%'>提交<br/>管線</th>
+			<th width='16%'>評估<br/>模型</th>
+			<th width='16%'>部署<br/>模型</th>
+		</tr></table></li>
+	</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML'>
+	<h2>使用設計工具建立模型管線</h2><!--{{{-->
+	<ul>
+	<li>可以隨時儲存管線草稿</li>
+	<li>管線規劃完成後，執行前選取功能表右邊的「設定」功能，來設定進行機器學習模型計算的資源。</li>
+	<li>發佈推斷管線時，應設定REST端點，驗證金鑰兩個參數來存取 Web Service。</li>
+	<li><img src="2_P.svg"/></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>Q: 迴歸，分類，與叢集</h2><!--{{{-->
+
+	<div data-x='quiz:s'>
+		<div>您使用未標記的資料定型迴歸模型。</div>
+		<div data-o="X">是</div><div data-o="O">否</div>
+		<div class="answer">迴歸是監督式學習，必須使用標記的資料集 (即有特徵和標籤)。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>分類技術用來預測一段時間後的連續數值。</div>
+		<div data-o="X">是</div><div data-o="O">否</div>
+		<div class="answer">預測連續數值是迴歸；分類是用來預測類別/類別標籤。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>依共同特性分組項目為叢集範例。</div>
+		<div data-o="O">是</div><div data-o="X">否</div>
+		<div class="answer">叢集 (Clustering) 是非監督式學習，目的是根據相似性將資料點分組。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>若為迴歸模型，標籤必須是數值。</div>
+		<div data-o="O">是</div><div data-o="X">否</div>
+		<div class="answer">迴歸模型預測連續數值 (例如價格、溫度)。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>若為叢集模型，必須提供標籤。</div>
+		<div data-o="X">是</div><div data-o="O">否</div>
+		<div class="answer">叢集是非監督式學習，不需要標籤。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>若為分類模型，標籤必須為數值。</div>
+		<div data-o="X">是</div><div data-o="O">否</div>
+		<div class="answer">分類模型的標籤是類別 (Category)，例如「是/否」、「通過/不通過」。雖然在電腦中可能用 0 和 1 表示，但概念上它是離散的類別。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		預測貸款是否償還的銀行系統是哪個類型的機器學習範例？
+		<div data-o='O'>分類</div>
+		<div data-o='X'>叢集</div>
+		<div data-o='X'>迴歸</div>
+		<div class="answer">預測「是」（償還）或「否」（不償還）是預測離散類別，因此是分類。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>根據人口統計資料為乘客指派類別。</div>
+		<div>應使用何種類型的模型？</div>
+		<div data-o="O">分類</div><div data-o="X">迴歸</div><div data-o="X">叢集</div>
+		<div class="answer">預測類別。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>根據飛行距離預測消耗的燃油量。</div>
+		<div>應使用何種類型的模型？</div>
+		<div data-o="X">分類</div><div data-o="O">迴歸</div><div data-o="X">叢集</div>
+		<div class="answer">預測連續數值 (燃油量)。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>根據人口統計資料預測乘客是否會錯過他們的航班。</div>
+		<div>應使用何種類型的模型？</div>
+		<div data-o="O">分類</div><div data-o="X">迴歸</div><div data-o="X">叢集</div>
+		<div class="answer">預測類別 (會/不會錯過)。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		下列哪個模型可用以預測拍賣品售價？
+		<div data-o='X'>分類</div><div data-o='O'>迴歸</div><div data-o='X'>叢集</div>
+		<div class="answer">售價是一個連續數值，因此使用迴歸模型。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		您該使用哪種機器學習類型預測下個月售出的禮品卡數量？
+		<div data-o='X'>分類</div><div data-o='O'>迴歸</div><div data-o='X'>叢集</div>
+		<div class="answer">數量是一個數值，因此使用迴歸模型。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您需要預測某個區域的動物族群規模。</div>
+		<div>應該使用下列哪一種 Azure Machine Learning 類型？</div>
+		<div data-o='X'>分類</div><div data-o='O'>迴歸</div><div data-o='X'>叢集</div>
+		<div class="answer">族群規模是一個數值，因此使用迴歸模型。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您想預測某國家公園內動物的數量。</div>
+		<div>應該使用下列哪種類型的 Azure Machine Learning 模型類型？</div>
+		<div data-o='X'>分類</div><div data-o='O'>迴歸</div><div data-o='X'>叢集</div>
+		<div class="answer">數量是一個數值，因此使用迴歸模型。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您想找出具有相似購物習慣的人員族群。</div>
+		<div>該使用下列哪種機器學習類型？</div>
+		<div data-o='X'>分類</div><div data-o='X'>迴歸</div><div data-o='O'>叢集</div>
+		<div class="answer">找出相似性並分群是叢集模型的應用。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>使用上次的消費日期、消費頻率、消費金額 (RFM) 值，來識別客戶群中的客層。</div>
+		<div>為下列何種機器學習模型的範例？</div>
+		<div data-o='X'>分類</div><div data-o='X'>迴歸</div><div data-o='O'>叢集</div><div data-o='4'>正規化</div>
+		<div class="answer">識別客戶群或區隔客層是根據相似的消費行為進行分群，這是叢集模型的典型應用。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>資料集包含下圖資料行</div>
+		<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
+			<th>名稱</th><th>類型</th>
+		</tr></thead><tbody><tr>
+			<td>Column A</td><td>整數</td>
+		</tr><tr>
+			<td>Column B</td><td>數值</td>
+		</tr><tr>
+			<td>Column C</td><td>數值</td>
+		</tr><tr>
+			<td>Column D</td><td>數值</td>
+		</tr><tr>
+			<td>Column E</td><td>數值</td>
+		</tr></tbody></table>
+		<div>你有一個根據其他數值資料行預測 ColumnE 值的機器學習模型。</div>
+		<div>請問是下列哪一種模型？</div>
+		<div data-o='O'>迴歸</div><div data-o='X'>分析</div><div data-o='X'>叢集</div>
+		<div class="answer">預測數值 (ColumnE 是數值) 是迴歸模型的任務。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您有一個資料集，包含銷售資料，並定義了標籤。</div>
+		<div>您需要建立一個模型以根據銷售資料分類客戶類型。</div>
+		<div>該使用哪種機器學習類型？</div>
+		<div data-o='O'>分類</div><div data-o='X'>叢集</div><div data-o='X'>迴歸</div>
+		<div class="answer">分類是用於預測離散類別 (客戶類型) 的監督式學習。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您有一個資料集，包含了燃油樣本的實驗資料。</div>
+		<div>您需要根據測量的密度預測可從樣本中取得的能量 (千焦耳)。</div>
+		<div>您應該使用下列哪一種類型的 AI 工作負載？</div>
+		<div data-o='X'>分類</div>
+		<div data-o='X'>叢集</div>
+		<div data-o='O'>迴歸</div>
+		<div class="answer">能量 (千焦耳) 是一個連續數值，因此使用迴歸。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>小明有汽車銷售的大型資料集。</div>
+		<div>他需要根據汽車類型訓練自動化機器學習(自動化ML)模型，以預測汽車銷售額。</div>
+		<div>試問要使用下列哪像工作？</div>
+		<div data-o='X'>自然語言處理</div>
+		<div data-o='X'>電腦視覺</div>
+		<div data-o='O'>迴歸</div>
+		<div data-o='X'>預測時間序列</div>
+		<div data-o='X'>分類</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>預測數值的監督式機器學習模型。</div>
+		<div>屬於何種類型？</div>
+		<div data-o='X'>分類</div>
+		<div data-o='O'>迴歸</div>
+		<div data-o='X'>叢集</div>
+		<div class="answer">迴歸 | 預測連續數值。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>預測類別的監督式機器學習模型。</div>
+		<div>屬於何種類型？</div>
+		<div data-o='O'>分類</div>
+		<div data-o='X'>迴歸</div>
+		<div data-o='X'>叢集</div>
+		<div class="answer">分類 | 預測離散類別。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>根據特徵將相似實體進行分組，屬於非監督式機器學習模型。</div>
+		<div>是何種類型？</div>
+		<div data-o='X'>分類</div>
+		<div data-o='X'>迴歸</div>
+		<div data-o='O'>叢集</div>
+		<div class="answer">叢集 | 非監督式學習的分組。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>根據接單數，下列哪一項可用來預測外送員將會加班的時數？</div>
+		<div data-o='X'>分類</div>
+		<div data-o='X'>叢集</div>
+		<div data-o='O'>迴歸</div>
+		<div class="answer">加班時數是一個連續數值，因此使用迴歸模型。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>關於叢集 (Clustering) 模型的運用實例</h2><!--{{{-->
+	<div data-x='quiz:s' ___="1">
+		<div>根據不同使用量來統計資料分組文件，為叢集模型的運用實例。</div>
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">分組是叢集的核心目的。</div>
+	</div>
+	<div data-x='quiz:s' ___="1">
+		根據症狀和診斷測試結果分組相似的病患，為叢集模型的運用實例。
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">分組相似實體是叢集的另一個典型應用。</div>
+	</div>
+	<div data-x='quiz:s' ___="2">
+		根據花粉數預測某人會罹患輕度、中度還是嚴重的過敏症狀，為叢集模型的運用實例。
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">這是分類 (預測類別) 的運用實例。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>Q: 標籤與特徵</h2><!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		<div>您有一個資料集，其中包含指定時間內發生的計程車行程訊息。</div>
+		<div>您需要訓練一個模型來預測計程車行程的費用，應該用什麼選項作為特徵？</div>
+		<div data-o='1'>各計程車行程的車費</div>
+		<div data-o='2'>各計程車行程的單程距離</div>
+		<div data-o='3'>資料集中的計程車行程數</div>
+		<div data-o='4'>各計程車行程的單程 ID</div>
+		<div class="answer"><ul>
+			<li>標籤 (Label) 是「車費」 (預測目標)。</li>
+			<li>特徵 (Feature) 是用來預測車費的輸入變數，其中單程距離通常與車費呈正相關。</li>
+		</ul></div>
+	</div>
+
+	<div data-x='quiz:m' ___='20'>
+		<div>您需要使用以下資料集來預測指定客戶的收入範圍。</div>
+		<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
+			<th>名字</th><th>姓氏</th><th>年齡</th><th>教育程度</th><th>收入範圍</th>
+		</tr></thead><tbody><tr>
+			<td>Jack</td><td>Chang</td><td>42</td><td>大專</td><td>25,000-50,000</td>
+		</tr><tr>
+			<td>Mary</td><td>Natti</td><td>38</td><td>高中</td><td>25,000-50,000</td>
+		</tr><tr>
+			<td>David</td><td>Shelton</td><td>54</td><td>大專</td><td>50,000-75,000</td>
+		</tr><tr>
+			<td>Max</td><td>Adler</td><td>25</td><td>大專</td><td>75,000-100,000</td>
+		</tr><tr>
+			<td>Erice</td><td>Jansen</td><td>72</td><td>高中</td><td>50,000-75,000</td>
+		</tr></tbody></table>
+		<div>應該將下列哪兩個欄位用作特徵？ (多選)</div>
+		<div data-o='1'>名字</div>
+		<div data-o='2'>姓氏</div>
+		<div data-o='4'>教育程度</div>
+		<div data-o='8'>收入範圍</div>
+		<div data-o='16'>年齡</div>
+		<div class="answer"><ul>
+			<li>標籤 (Label) 是「收入範圍」 (預測目標)。</li>
+			<li>特徵 (Feature) 是用來預測收入範圍的輸入變數，通常是與收入相關的資訊，例如年齡和教育程度。</li>
+			<li>名字/姓氏通常不是預測模型的有效特徵。</li>
+		</ul></div>
+	</div>
+
+	<div data-x='quiz:s' ___='3'>
+		<div>機器學習建立迴歸模型時，標籤應該使用哪種資料型別？</div>
+		<div data-o='1'>布林值</div>
+		<div data-o='2'>日期時間</div>
+		<div data-o='3'>數值</div>
+		<div data-o='4'>文字</div>
+		<div class="answer">迴歸模型的輸出（標籤）是連續數值。</div>
+	</div>
+
+	<div data-x='quiz:s' ___='1'>
+		<div>機器學習模型中，用來當做輸入使用的各組資料值稱為？</div>
+		<div data-o='1'>特徵</div>
+		<div data-o='2'>函式</div>
+		<div data-o='3'>標籤</div>
+		<div data-o='4'>執行個體</div>
+		<div class="answer">特徵是模型的輸入變數。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>Q: 關於特徵 (Feature) 和標籤 (Label)</h2><!--{{{-->
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
+		<th>日期</th><th>時間</th><th>質量(公斤)</th><th>溫度(°C)</th><th>品質測試 (通過/不通過)</th>
+	</tr></thead><tbody><tr>
+		<td>2022年11月26日</td><td>18:32:07</td><td>2.109</td><td>62.4</td><td>通過</td>
+	</tr><tr>
+		<td>2022年11月26日</td><td>18:32:49</td><td>2.102</td><td>62.5</td><td>通過</td>
+	</tr><tr>
+		<td>2022年11月27日</td><td>02:31:56</td><td>2.097</td><td>66.5</td><td>不通過</td>
+	</tr></tbody></table>
+
+	<div data-x='quiz:s' ___="1">
+		「質量(公斤)」為特徵。
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">質量、溫度等是用來預測結果 (品質測試) 的輸入變數。</div>
+	</div>
+	<div data-x='quiz:s' ___="1">
+		「品質測試」為標籤。
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">品質測試的結果 (通過/不通過) 是模型要預測的目標變數。</div>
+	</div>
+	<div data-x='quiz:s' ___="2">
+		「溫度(°C)」為標籤。
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">溫度是特徵。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>Q: 關於特徵 (Feature) 和標籤 (Label)</h2><!--{{{-->
+	<div>您計劃使用下面資料集，訓練一個預測房價類別的模型。</div>
+	<table border='1' cellspacing='0' cellpadding='8' align='center'><thead><tr>
+		<th>家庭收入</th><th>郵遞區號</th><th>房價類別</th>
+	</tr></thead><tbody><tr>
+		<td>20,000</td><td>42055</td><td>低</td>
+	</tr><tr>
+		<td>23,000</td><td>52041</td><td>中</td>
+	</tr><tr>
+		<td>80,000</td><td>78960</td><td>高</td>
+	</tr></tbody></table>
+	<div data-x='quiz:s' ___='1'>
+		<div>請問家庭收入屬於下列何者？</div>
+		<div data-o='1'>特徵</div><div data-o='2'>標籤</div>
+		<div class="answer">家庭收入：用來預測房價類別的輸入變數 =&gt; 特徵。</div>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		<div>請問房價類別屬於下列何者？</div>
+		<div data-o='1'>特徵</div><div data-o='2'>標籤</div>
+		<div class="answer">房價類別：模型要預測的目標變數 =&gt; 標籤。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>Q: 機器學習的程序</h2><!--{{{-->
+	<div data-x='quiz:s' ___='4'>
+		關於機器學習的過程，應如何分割用於訓練和評估的資料？
+		<div data-o='1'>用特徵進行訓練，標籤則用來進行評估。</div>
+		<div data-o='2'>用標籤進行訓練，特徵則用來進行評估。</div>
+		<div data-o='3'>將資料隨機分割為訓練資料行和評估資料行。</div>
+		<div data-o='4'>將資料隨機分割為訓練資料列和評估資料列。</div>
+		<div class="answer">訓練和評估資料應從原始資料集的資料列 (樣本/記錄) 中隨機抽取，以確保兩組資料能代表整體。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='4'>
+		針對下列何者，您可使用資料集的其中一部分來準備機器學習模型並保持資料集平衡，以驗證結果。
+		<div data-o='1'>時間限制</div>
+		<div data-o='2'>特徵工程</div>
+		<div data-o='3'>MLflow 模型</div>
+		<div data-o='4'>模型定型</div>
+		<div class="answer">模型定型 (Training) 和驗證 (Validation) 過程會使用到資料集的分割部分 (訓練集和驗證集)，並且需要確保資料集平衡。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		評估模型效能時，下列何者使用 0 和 1 值的網格顯示預測和實際的正負值。
+		<div data-o='1'>AUC 計量</div>
+		<div data-o='2'>混淆矩陣 (Confusion Matrix)</div>
+		<div data-o='3'>ROC 曲線</div>
+		<div data-o='4'>閾值</div>
+		<div class="answer">混淆矩陣是一個表格，用於視覺化分類演算法的性能，它顯示了真陽性 (TP)、真陰性 (TN)、假陽性 (FP) 和假陰性 (FN) 的數量。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		請問您應該採取什麼措施以減少機器學習分類模型所產生的誤判為真之數目？
+		<div data-o='1'>增加定型反覆運算的數目</div>
+		<div data-o='2'>修改有利於錯誤否定的閥值</div>
+		<div data-o='3'>修改有利於誤判為真的閥值</div>
+		<div data-o='4'>在定型資料中納入測試資料</div>
+		<div class="answer"><ul>
+			<li>誤判為真 (False Positive, FP)：實際為否，但模型預測為是。</li>
+			<li>要減少 FP，必須提高模型判斷為「是」的門檻 (閥值)，這樣會讓模型更「保守」，從而增加「誤判為否 (False Negative, FN)」（錯誤否定）的數量。因此，這個調整有利於錯誤否定。</li>
+		</ul></div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='1'>
+		您有一個 Azure Machine Learning 管線，其中包含一個分割資料模組。
+		分割資料模組會輸出至定型模型模組和評分模型模組。
+		以下何者為分割資料模組的功能？
+		<div data-o='1'>建立定型和驗證資料集</div>
+		<div data-o='2'>選取必須包含在模型中的資料行</div>
+		<div data-o='3'>轉移具有缺少資料的紀錄</div>
+		<div data-o='4'>調整數值變數，將它們保持在一致的數值範圍內</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='3'>
+		Jasper 有一個 Azure Machine Learning 模型，使用臨床資料預測患者是否患有某種疾病。
+		Jasper 清理並轉換了臨床資料。
+		Jasper 需要確保模型準確度可進行驗證。請問您要協助 Jasper 接下來做什麼？
+		<div data-o='1'>使用臨床資料訓練模型</div>
+		<div data-o='2'>使用自動化機器學習(自動化 ML)</div>
+		<div data-o='3'>將臨床資料分割成兩個資料集</div>
+		<div data-o='4'>使用臨床資料驗證模型</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='1'>
+		小明有 Azure Machine Learning 模型會產生大量的錯誤否定。
+		他需要再不重新訓練模型的情況下降低錯誤否定的數量。
+		請問應該採取什麼措施？
+		<div data-o='1'>調整閥值</div>
+		<div data-o='2'>增加訓練資料量</div>
+		<div data-o='3'>增加定型反覆運算的數目</div>
+		<div data-o='4'>使用其他機器學習模型</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='1'>
+		在機器學習的過程中，您何時該檢閱評估計量？
+		<div data-o='1'>使用驗證資料測試模型之後。</div>
+		<div data-o='2'>清理資料之後。</div>
+		<div data-o='3'>定型模型之前。</div>
+		<div data-o='4'>選擇模型的類型之前。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='4'>
+		從資料集中隨機抽取的子資料集。
+		<div>子資料集通常用於協助模型進行什麼任務？</div>
+		<div data-o='1'>演算法</div>
+		<div data-o='2'>特徵</div>
+		<div data-o='3'>標籤</div>
+		<div data-o='4'>驗證</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>Q: Azure Machine Learning 設計工具</h2><!--{{{-->
+	<div data-x='quiz:s' ___="1">
+		<div>Azure Machine Learning 設計工具提供拖放視覺效果畫布，以供建置、測試和部署機器學習模型。</div>
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">Designer 的核心功能就是視覺化的拖放介面。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___="1">
+		<div>Azure Machine Learning 設計工具提供可將進度儲存為管線草稿。</div>
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">在 Designer 中建立的工作流程稱為管線 (Pipeline)。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___="2">
+		<div>Azure Machine Learning 設計工具可併入自訂的 JavaScript 函式。</div>
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">Designer 主要支援 Python/R 程式碼模組，不直接支援 JavaScript 函式。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='3'>
+		<div>您必須利用現有的資料集建立訓練資料集和驗證資料集。</div>
+		<div>您應該使用 Azure Machine Learning 設計工具的哪些模組？</div>
+		<div data-o='1'>選取資料集中的資料行</div>
+		<div data-o='2'>合併資料</div>
+		<div data-o='3'>分割資料 (Split Data)</div>
+		<div data-o='4'>新增資料列</div>
+		<div class="answer">分割資料 (Split Data) 模組專門用於將一個資料集劃分為兩個或多個子集，例如訓練集和測試/驗證集。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		<div>應該如何使用 Azure Machine Learning 設計工具建立叢集模型並評估該模型？</div>
+		<div data-o='1'>將原始資料集分割成特徵和標籤資料集，使用特徵資料集進行評估。</div>
+		<div data-o='2'>將原始資料集分割成定型和測試資料集，使用測試資料集進行評估。</div>
+		<div data-o='3'>將原始資料集分割成定型和測試資料集，使用定型資料集進行評估。</div>
+		<div data-o='4'>使用原始資料集進行定型和評估。</div>
+		<div class="answer">無論是監督式 (分類/迴歸) 還是非監督式 (叢集) 模型，標準流程都是：將資料分割為訓練集和測試集 (或稱驗證集)，用訓練集定型模型，用測試集評估模型效能。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:sort' ___='1523'>
+		<div>想要使用 Azure Machine Learning 設計工具部署機器學習模型，您應依序執行下列哪四項動作？</div>
+		<div data-o='1'>載入及準備資料集</div>
+		<div data-o='2'>定型模型</div>
+		<div data-o='3'>對驗證資料集評估模型</div>
+		<div data-o='4'>對原始資料集評估模型</div>
+		<div data-o='5'>將資料隨機分割為訓練資料與驗證資料</div>
+	</div>
+	<br/>
+	<div data-x='quiz:m' ___='6'>
+		<div>使用 Azure Machine Learning 設計工具發佈推斷管線時，您應該使用下列哪兩個參數來存取 Web 服務？ (多選)</div>
+		<div data-o='1'>模型名稱</div>
+		<div data-o='2'>REST 端點</div>
+		<div data-o='4'>驗證金鑰</div>
+		<div data-o='8'>定型端點</div>
+		<div class="answer">部署為 Web 服務後，外部應用程式需要知道服務的 REST 端點 URL 和用於安全連線的 驗證金鑰 (或 token) 才能呼叫。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='3'>
+		<div>在 Azure Machine Learning 設計工具中，您可以使用下列何者，以探索潛在特徵資料行中值的分佈。</div>
+		<div data-o='1'>Normalize Data (正常化資料) 模組</div>
+		<div data-o='2'>Select Columns in Dataset (選取資料集中的資料行) 模組</div>
+		<div data-o='3'>資料集輸出視覺化特徵</div>
+		<div data-o='4'>評估結果視覺化特徵</div>
+		<div class="answer">在 Designer 中，右鍵點擊資料集模組的輸出並選擇「視覺化」，可以查看資料集的統計摘要和資料行中值的分佈，這對特徵探索至關重要。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='1'>
+		<div>Azure Machine Learning 設計工具可讓您建立機器學習模型，是藉由下列何者。</div>
+		<div data-o='1'>在視覺效果畫布上新增與連結模組</div>
+		<div data-o='2'>自動執行一般資料準備工作</div>
+		<div data-o='3'>自動選取演算法以建置最精確的模型</div>
+		<div data-o='4'>使用 Code First 筆記本體驗</div>
+		<div class="answer">Designer 的核心是視覺化畫布和模組。選項 ② 和 ③ 是 AutoML 的特點；選項 ④ 是 SDK 的特點。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>Q: 自動化機器學習 (Automated ML, AutoML)</h2><!--{{{-->
+	<div data-x='quiz:s' ___="1">
+		<div>自動化機器學習讓您能夠將自訂 Python 程式碼包含在訓練管線中。</div>
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">AutoML 允許使用者在訓練前/後加入自訂腳本來處理資料或結果。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___="1">
+		<div>自動化機器學習實作機器學習解決方案無需程式設計經驗。</div>
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">AutoML 的主要優勢是自動選擇演算法和超參數，降低了對程式設計經驗的要求。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___="2">
+		<div>自動化機器學習使您能夠在互動式畫布中以視覺方式連接資料集和模組。</div>
+		<div data-o="1">是</div><div data-o="2">否</div>
+		<div class="answer">這是 Designer 的功能。AutoML 則是以配置式或程式碼為主的介面。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		<div>您想要使用 Azure Machine Learning 自動化機器學習 (自動化 ML)、建置一個模型並加以訓練。</div>
+		<div>您應該先建立下列哪一項？</div>
+		<div data-o='1'>Jupyter Notebook</div>
+		<div data-o='2'>資料集</div>
+		<div data-o='3'>已註冊的資料集</div>
+		<div data-o='4'>Machine Learning 設計工具管線</div>
+		<div class="answer">無論使用 AutoML 或 Designer，訓練模型的第一步都是載入/建立用於訓練的資料集。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		<div>您使用自動化機器學習使用者介面(UI)建置機器學習模型。</div>
+		<div>您必須確保此模型符合 Microsoft 責任 AI 透明度準則。</div>
+		<div>試問您應該如何做？</div>
+		<div data-o='1'>將並行反覆運算上限設為 [0]</div>
+		<div data-o='2'>啟用最佳解釋模型</div>
+		<div data-o='3'>將驗證類型設為 [自動]</div>
+		<div data-o='4'>將主要計量設為 [精確度]</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		<div>你需要追蹤數個使用 Azure Machine Learning 進行訓練的模型版本。</div>
+		<div>請問你該怎麼做？</div>
+		<div data-o='1'>解釋模型</div>
+		<div data-o='2'>註冊模型</div>
+		<div data-o='3'>佈建推斷叢集</div>
+		<div data-o='4'>註冊訓練資料</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		<div>下列何者可以用來在實際執行環境中裝載自動化機器學習(自動化ML)模型？</div>
+		<div data-o='1'>Azure Data Factory</div>
+		<div data-o='2'>Azure 自動化</div>
+		<div data-o='3'>Azure Kubernetes Service (AKS)</div>
+		<div data-o='4'>Azure Logic Apps</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='1'>
+		<div>您有一個資料集，您需要建置一個 Azure Machine Learning 分類模型來識別瑕疵產品。</div>
+		<div>您應該先採取什麼措施？</div>
+		<div data-o='1'>載入資料集</div>
+		<div data-o='2'>建立叢集模型</div>
+		<div data-o='3'>將資料分割成定型和測試資料集</div>
+		<div data-o='4'>建立分類模型</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='4'>
+		<div>下列何者會針對指定的計算目標執行工作，並且為實驗和工作流程進行系統化追蹤？</div>
+		<div data-o='1'>元件</div>
+		<div data-o='2'>資料集</div>
+		<div data-o='3'>管線</div>
+		<div data-o='4'>Azure Machine Learning 作業</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='ML,Q_AI900'>
+	<h2>Q: Azure Machine Learning 設計工具</h2><!--{{{-->
+	<div>您需要使用 Azure Machine Learning 設計工具建置一個能預測單車價格的模型。</div>
+	<div>請問下圖 A, B, C 中應該使用哪種模組類型來完成此模型？</div>
+	<div style="text-align:center;"><img src="2a.jpg" style="width:80%"></img></div>
+	<div data-x='quiz:s' ___='4'>
+		<div>A</div>
+		<div data-o='1'>轉換為 CSV</div>
+		<div data-o='2'>K 均值叢集</div>
+		<div data-o='3'>線性迴歸</div>
+		<div data-o='4'>選擇資料集中的資料行</div>
+		<div data-o='5'>分割資料</div>
+		<div data-o='6'>摘要資料</div>
+	</div>
+	<div data-x='quiz:s' ___='5'>
+		<div>B</div>
+		<div data-o='1'>轉換為 CSV</div>
+		<div data-o='2'>K 均值叢集</div>
+		<div data-o='3'>線性迴歸</div>
+		<div data-o='4'>選擇資料集中的資料行</div>
+		<div data-o='5'>分割資料</div>
+		<div data-o='6'>摘要資料</div>
+	</div>
+	<div data-x='quiz:s' ___='3'>
+		<div>C</div>
+		<div data-o='1'>轉換為 CSV</div>
+		<div data-o='2'>K 均值叢集</div>
+		<div data-o='3'>線性迴歸</div>
+		<div data-o='4'>選擇資料集中的資料行</div>
+		<div data-o='5'>分割資料</div>
+		<div data-o='6'>摘要資料</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<!-- }}} -->
+
+<section class="cfbox" data-ks='CV'>
+	<h1>💻 電腦視覺工作負載功能</h1>
+	<h2>for MCF AI900 Certification</h2>
+	<div class='frame'>
+		<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+		<div>Department of Finance</div>
+		<div>Chihlee University of Technology</div>
+		<div>2026, Spring</div>
+	</div>
+</section>
+
+<!-- {{{ computer vision -->
+
+<section data-ks='CV'>
+	<h2>電腦視覺的用途</h2><!--{{{-->
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<td>內容組織</td><td>醫療保健</td>
+	</tr><tr>
+		<td>文字擷取</td>
+		<td>空間分析<span action='show' caption='識別人員在某個空間中遵守社交距離' code='3_A.png' lang='photo'>[1]</span></td>
+	</tr><tr>
+		<td>擴增實境</td><td>運動</td>
+	</tr><tr>
+		<td>農業</td><td>製造業</td>
+	</tr><tr>
+		<td>智慧城市</td><td>零售商店的購物者分析</td>
+	</tr><tr>
+		<td>自動型交通工具</td>
+		<td>臉部識別
+			<span action='show' caption='臉部辨識與空間分析可偵測某個人是否戴著口罩' code='3_B.png' lang='photo'>[1]</span>
+			<span action='show'>[2]<div class='dialog' caption='臉部識別的功能'>
+				<div style='padding:8px;width:100%;height:100%;'><table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+					<td>門禁管理</td><td>人員進出管理，智能門鎖，醫療智慧藥櫃</td>
+				</tr><tr>
+					<td>監控安全系統</td><td>倉庫區域偵測是否有未授權人士出現</td>
+				</tr><tr>
+					<td>身分驗證</td><td>VIP，登記的訪客，阻擋名單人員</td>
+				</tr><tr>
+					<td>智慧零售</td><td>蒐集來電顧客的性別，年齡，情緒等數據</td>
+				</tr><tr>
+					<td>健康控管</td><td>檢測口罩是否正確配戴</td>
+				</tr></tbody></table></div>
+			</div></span>
+		</td>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV'>
+	<h2>影像分析的功能</h2><!--{{{-->
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<td>影像描述 (說明影像)</td>
+		<td>光學字元辨識<span action='show' caption='光學字元辨識可偵測影像中的文字資料' code='3_D.png' lang='photo'>[1]</span></td>
+	</tr><tr>
+		<td>標記視覺特徵<span action='show' caption='標記視覺特徵取得影像中包含的標籤與信賴分數' code='3_C.jpg' lang='photo'>[1]</span></td>
+		<td>偵測品牌</td>
+	</tr><tr>
+		<td>影像分類</td>
+		<td>臉部偵測 <span action='show' caption='透過臉部服務識別影像中人員的年齡和性別' code='3_E.png' lang='photo'>[1]</span></td>
+	</tr><tr>
+		<td>物件偵測</td><td>偵測特定領域內容 (名人，地標)</td>
+	</tr><tr>
+		<td>語意分割</td><td>偵測影像類型，偵測影像色彩配置，產生縮圖，內容仲裁等</td>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV'>
+	<h2>光學文字識別 (OCR)</h2><!--{{{-->
+	<ul>
+		<li>偵測和讀取影像中的文字</li>
+		<li>偵測和讀取 PDF 文件檔中的文字</li>
+		<li>偵測和讀取相片中的手寫文字</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV'>
+	<h2>文件智慧服務和知識採礦</h2><!--{{{-->
+	<ul>
+		<li>先前稱為 Azure 表格辨識器</li>
+		<li>使用機器學習模型從您的圖檔中擷取索引鍵/值組，文字和資料表</li>
+		<li>文件智慧服務專注於從文件中擷取結構化資料</li>
+		<li>知識採礦則是一個更全面的解決方案</li>
+		<li>結合兩者，可從結構化與非結構化資料中提取有價值的知識和見解</li>
+		<li>例如:<span action='show' caption='表單辨識器與發票模型可分析發票中的資訊' code='3_F.png'>[辨識發票]</span>,<span action='show' caption='表單辨識器與名片模型可分析名片中的資訊' code='3_G.png' lang='photo'>[辨識名片]</span></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV'>
+	<h2>自訂視覺</h2><!--{{{-->
+	<ul>
+		<li>Custom Vision</li>
+		<li>是一項影像辨識服務 <span action='show' caption='物件偵測可辨識每個物件在影像中的座標位置' code='3_H.png' lang='photo'>[*]</span></li>
+		<li>開發人員可以透過自訂視覺服務，針對特定影像內的「物件」指定「標籤」來建置，部署專屬的自訂影像分類及物件偵測模型</li>
+		<li>包括「影像分類」與「物件偵測」兩種功能
+			<div><table border='1' cellspacing='0' cellpadding='8' align='center' width='100%'><tr>
+				<th>自訂視覺影像分類</th><th>自訂視覺物件偵測</th>
+			</tr><tr>
+				<td valign='top'><ul>
+					<li>產品識別</li>
+					<li>醫療診斷</li>
+					<li>災害調查</li>
+				</ul></td>
+				<td valign='top'><ul>
+					<li>檢查建物安全</li>
+					<li>保護野生動物</li>
+					<li>檢測腫瘤</li>
+					<li>自動化結帳</li>
+					<li>駕駛輔助</li>
+					<li>異常偵測</li>
+				</ul></td>
+			</table></div>
+		</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV'>
+	<h2>臉部辨識服務</h2><!--{{{-->
+	<div>臉部辨識服務功能大致分成兩大部分：</div>
+	<ul>
+		<li>針對單一臉部作偵測，可以得知這些臉部的相關資訊<ul>
+			<li>年齡，性別，是否佩戴眼鏡，表情</li>
+		</ul></li>
+		<li>驗證影像中的「這兩張臉屬於同一個人嗎？」 <ul>
+			<li>人臉的相似度</li>
+		</ul></li>
+		<li>臉部偵測: 臉部矩形, 臉部驗證, 相似性</li>
+		<li>臉部辨識: <span action='show' caption='27個臉部特徵點' code='3_I.png' lang='photo'>臉部特徵點</span>, 屬性, 相似性</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV'>
+	<h2>臉部識別原理</h2><!--{{{-->
+	<ul>
+		<li>生物辨識技術有指紋辨識，虹膜辨識，聲音辨識，人臉辨識... 等</li>
+		<li>人臉辨識利用人臉五官輪廓的距離角度來建立3D結構模型，以向量方式擷取臉部特徵點偵測值，進行身分辨識</li>
+		<li>優點包括：非接觸式，攝像裝置普及，辨識速度快，不易已照片作假，不受裝扮物件影像，直接取像，不需使用者配合。</li>
+		<li>臉部識別功能：身分識別, 存取授權, 顧客分析, 健康管理</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV'>
+	<h2>臉部識別應用實例</h2><!--{{{-->
+	<ul>
+		<li>「<span action='show' caption='人臉辨識技術應用於出勤管理系統' code='3_J.png' lang='photo'>出勤管理系統</span>」，若保全使用了臉部偵測和臉部辨識電腦視覺，保全系統會分析 CCTV 影像，讓經過授權的人員能夠進入管制區域。<ul>
+			<li>人員到達工作場所，入口處攝像機取像，影像資料傳送至後端出勤管理系統</li>
+			<li>伺服器 API 或資料庫的人臉辨識以驗證結果立即傳出是否可開門的決策。</li>
+		</ul></li>
+		<li>「<span action='show' caption='臉部識別應用實例' code='3_K.png' lang='photo'>人臉辨識尋人系統</span>」透過無人機從人群中拍攝人臉影像，將資訊傳送至人臉辨識系統，比對資料庫內所指定的人臉影像，可即時列出要找尋的人物。</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		請問哪一個電腦視覺功能可以為數位相片產生<em>「自動標題」</em>？
+		<div data-o='1'>描述影像</div>
+		<div data-o='2'>偵測物件</div>
+		<div data-o='3'>辨識文字</div>
+		<div data-o='4'>找出感興趣的區域</div>
+		<div class="answer">描述影像（或稱影像標註/Image Captioning）是產生人類可讀的自然語言描述 (標題) 的功能。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>要籌辦一場慈善活動。</div>
+	<div>需要確保符合下列 A、B 兩點要求的相片:<ul>
+		<li>A: 包含一或多張臉部。</li>
+		<li>B: 包含至少一名戴著墨鏡的人。</li>
+	</ul></div>
+	<div data-x='quiz:s' ___='2'>
+		<div>您應該使用下列何者來分析影像？</div>
+		<div data-o='1'>Azure AI 電腦視覺服務中的 [描述影像] 作業</div>
+		<div data-o='2'>臉部服務中的 [偵測] 作業</div>
+		<div data-o='3'>Azure AI 電腦視覺服務中的 [分析影像] 作業</div>
+		<div data-o='4'>臉部服務中的 [驗證] 作業</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='4'>
+		下列何者可用於讀取輸送帶上的產品標籤？
+		<div data-o='1'>影像分類</div>
+		<div data-o='2'>影像處理</div>
+		<div data-o='3'>物件偵測</div>
+		<div data-o='4'>光學字元辨識</div>
+		<div class="answer">OCR (光學字元辨識) 專門用於從影像中讀取文字。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		下列何者用於在一個影像中識別多種項目？
+		<div data-o='1'>影像分類</div>
+		<div data-o='2'>影像描述</div>
+		<div data-o='3'>物件偵測</div>
+		<div data-o='4'>光學字元辨識</div>
+		<div class="answer">物件偵測可以識別影像中多個物件的類別和位置。影像分類只能識別影像的主要內容。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>您為社交媒體建置影像標記解決方案，以便自動標記朋友的影像。<div>
+	<div data-x='quiz:s' ___='1'>
+		<div>您應該使用哪一個 Azure AI 服務？</div>
+		<div data-o='1'>臉部</div>
+		<div data-o='2'>文件智慧服務</div>
+		<div data-o='3'>電腦視覺</div>
+		<div data-o='4'>語言</div>
+		<div class="answer">辨識朋友的身份或特定人物需要使用 臉部辨識 (Face Recognition)，這是 Azure AI 臉部服務的核心功能。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	請將電腦視覺工作負載類型與適當的案例配對。
+	<div data-x='quiz:s' ___='1'>
+		產生影像標題
+		<div data-o='1'>影像分類</div>
+		<div data-o='2'>物件偵測</div>
+		<div data-o='3'>光學字元辨識</div>
+	</div>
+	<div data-x='quiz:s' ___='3'>
+		擷取電影海報影像中的電影名稱
+		<div data-o='1'>影像分類</div>
+		<div data-o='2'>物件偵測</div>
+		<div data-o='3'>光學字元辨識</div>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		找到影像中的車輛
+		<div data-o='1'>影像分類</div>
+		<div data-o='2'>物件偵測</div>
+		<div data-o='3'>光學字元辨識</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>當您在處理馬拉松賽跑比賽的相片時，為辨識相片中的跑者身份，必須讀取跑者運動衫上的號碼。</div>
+	<div data-x='quiz:s' ___='3'>
+		您應該使用哪種電腦視覺類型？
+		<div data-o='1'>影像分類</div>
+		<div data-o='2'>物件偵測</div>
+		<div data-o='3'>光學字元辨識</div>
+		<div data-o='4'>臉部辨識</div>
+		<div class="answer">讀取影像中的文字（號碼）是 OCR 的任務。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		下列何項服務的功能可從手寫文件中擷取文字？
+		<div data-o='1'>臉部辨識</div>
+		<div data-o='2'>物件偵測</div>
+		<div data-o='3'>光學字元辨識</div>
+		<div data-o='4'>影像分類</div>
+		<div class="answer">Azure AI 視覺的 Read API (高階 OCR) 可以準確地從影像和文件中的手寫文字中擷取文字。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='4'>
+		下列哪一個範例是根據影片摘要計算某區域的動物數目？
+		<div data-o='1'>預測</div>
+		<div data-o='2'>異常偵測</div>
+		<div data-o='3'>知識採礦</div>
+		<div data-o='4'>電腦視覺</div>
+		<div class="answer">從影片中識別並計算物件（動物）的數量是電腦視覺的應用。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<h2>關於物件偵測</h2>
+	<div data-x='quiz:s' ___='1'>
+		物件偵測可以識別影像中受損產品的位置。
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<div class="answer">物件偵測會輸出物件類別和邊界方塊（位置）。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		物件偵測可以識別影像中受損產品的多個實例。
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<div class="answer">物件偵測的目標是識別影像中所有感興趣的物件。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		物件偵測可以識別影像中多種類型的受損產品。
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<div class="answer">只要模型經過訓練，它可以識別影像中多個已定義的物件類別。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:m' ___='10'>
+		<div>使用 Azure 視覺可執行下列哪兩項工作？ (多選)</div>
+		<div data-o='1'>將影像中的文字翻譯為不同語言。</div>
+		<div data-o='2'>辨識手寫文字。</div>
+		<div data-o='4'>訓練自訂影像分類模型。</div>
+		<div data-o='8'>偵測影像中臉部。</div>
+		<div class="answer"></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		<div>判斷影像中汽車位置，並估計車與車之間的距離。</div>
+		<div>應該使用哪種電腦視覺類型？</div>
+		<div data-o='1'>臉部分析</div>
+		<div data-o='2'>物件偵測</div>
+		<div data-o='3'>影像分類</div>
+		<div data-o='4'>光學字元辨識</div>
+		<div class="answer">判斷物件的位置 (汽車) 是 物件偵測 的核心功能。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		<div>要建置一個會識別影像中名人的應用程式，</div>
+		<div>應該使用哪一項服務？</div>
+		<div data-o='1'>Azure OpenAI 服務</div>
+		<div data-o='2'>Azure AI 視覺</div>
+		<div data-o='3'>交談語言理解</div>
+		<div data-o='4'>Azure Machine Learning</div>
+		<div class="answer">Azure AI 視覺服務中的影像分析功能可以識別影像中的名人。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		<div>若要識別影像中名人。</div>
+		<div>應該使用哪種電腦視覺工作負載類型？</div>
+		<div data-o='1'>臉部辨識</div>
+		<div data-o='2'>物件偵測</div>
+		<div data-o='3'>影像分類</div>
+		<div data-o='4'>光學字元辨識</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>您的公司專門製造小工具，您擁有 2000 張小工具的數位相片。</div>
+	<div data-x='quiz:s' ___='2'>
+		若您需要在這些相片中識別出小工具的位置，則您應該使用下列何者？
+		<div data-o='1'>Azure AI 電腦視覺空間分析</div>
+		<div data-o='2'>Azure AI 自訂視覺物件偵測</div>
+		<div data-o='3'>Azure AI 電腦視覺影像分析</div>
+		<div data-o='4'>Azure AI 自訂視覺分類</div>
+		<div class="answer"><ul>
+			<li>任務目標：識別物件的位置 -&gt; 物件偵測。</li>
+			<li>資料來源：您公司提供的特定小工具 -&gt; 需要自訂模型。</li>
+			<li>故選擇 Azure AI 自訂視覺物件偵測。</li>
+		</ul></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		<div>您可以透過下列何項服務，使用自己的影像來定型物件偵測模型？</div>
+		<div data-o='1'>Azure AI 電腦視覺</div>
+		<div data-o='2'>Azure AI 自訂視覺</div>
+		<div data-o='3'>Azure AI 文件智慧服務</div>
+		<div data-o='4'>媒體用影片分析器</div>
+		<div class="answer">Azure AI 自訂視覺 (Custom Vision) 專門用於讓用戶上傳自己的資料集來訓練自訂的影像分類或物件偵測模型。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		<div>AI 解決方案可協助攝影師取得更佳人像相片，方法是提供下列哪一項臉部功能範例之曝光、</div>
+		<div>雜訊與遮蔽的回饋？</div>
+		<div data-o='1'>分析</div>
+		<div data-o='2'>偵測</div>
+		<div data-o='3'>辨識</div>
+		<div class="answer">臉部分析功能用於提供臉部的屬性，例如情緒、年齡、姿勢，以及如曝光和遮蔽等影像品質相關的反饋。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:m' ___='17'>
+		使用電腦視覺可執行下列哪兩項工作？ (多選)
+		<div data-o='1'>偵測影像中的色彩配置</div>
+		<div data-o='2'>將文字翻譯為不同語言</div>
+		<div data-o='4'>擷取關鍵詞組</div>
+		<div data-o='8'>預測股票價格</div>
+		<div data-o='16'>偵測影像中的商標</div>
+		<div class="answer"><ul>
+			<li>偵測色彩配置是 Azure AI 視覺的影像分析功能之一。</li>
+			<li>偵測商標是 Azure AI 視覺的預建辨識功能。</li>
+		</ul></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:m' ___='3'>
+		在下列哪兩種情況可以使用 Azure AI 文件智慧服務？ (多選)
+		<div data-o='1'>從發票中擷取發票號碼</div>
+		<div data-o='2'>根據收據辨識零售商</div>
+		<div data-o='4'>在目錄中尋找產品影像</div>
+		<div data-o='8'>將表格從法文翻譯成英文</div>
+		<div class="answer">文件智慧服務 (Document Intelligence, 舊稱 Form Recognizer) 專門用於從文件（如發票、收據）中擷取結構化資料。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>您正在建置工具來處理零售商店的影像，使能夠識別競爭對手的產品。</div>
+	<div>其解決方案是必須使用您公司提供的影像來定型。</div>
+	<div data-x='quiz:s' ___='4'>
+		則您應該使用下列哪一項 Azure 認知服務？
+		<div data-o='1'>Azure AI 文件智慧服務</div>
+		<div data-o='2'>Azure AI 電腦視覺</div>
+		<div data-o='3'>臉部</div>
+		<div data-o='4'>Azure AI 自訂視覺</div>
+		<div class="answer">需要使用自己的影像來訓練自訂的物件識別模型 -&gt; Azure AI 自訂視覺。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='4'>
+		下列哪項服務可用於擷取駕照上的資訊以填入資料庫中？
+		<div data-o='1'>Azure AI 電腦視覺</div>
+		<div data-o='2'>交談語言理解</div>
+		<div data-o='3'>Azure AI 自訂視覺</div>
+		<div data-o='4'>Azure AI 文件智慧服務</div>
+		<div class="answer"></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		哪一項 Azure 認知服務可用來找出包含敏感資訊的文件？
+		<div data-o='1'>Azure AI 自訂視覺</div>
+		<div data-o='2'>Azure AI 文件智慧服務</div>
+		<div data-o='3'>交談語言理解</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		電腦視覺功能可部署來？
+		<div data-o='1'>網站部署文字聊天機器人</div>
+		<div data-o='2'>別線上商店的異常客戶行為</div>
+		<div data-o='3'>將臉部辨識功能整合到應用程式</div>
+		<div data-o='4'>建議對內送電子郵件的自動化回覆</div>
+		<div class="answer">臉部辨識功能是 Azure AI 臉部服務提供的電腦視覺功能。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		您需要建置一個會建立影像描述的應用程式。您應該使用哪一項服務？
+		<div data-o='1'>Azure OpenAI 服務</div>
+		<div data-o='2'>Azure AI 視覺</div>
+		<div data-o='3'>交談語言理解</div>
+		<div data-o='4'>Azure Machine Learning</div>
+		<div class="answer">Azure AI 視覺服務提供 [描述影像] 功能。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>您需要建立一個模型，為個人數位相片加上標籤。</div>
+	<div data-x='quiz:s' ___='2'>
+		您應該使用哪一項 Azure AI 服務？
+		<div data-o='1'>Azure AI 電腦視覺</div>
+		<div data-o='2'>Azure AI 自訂視覺</div>
+		<div data-o='3'>Azure AI 文件智慧服務</div>
+		<div data-o='4'>Azure AI 語言</div>
+		<div class="answer">Azure AI 視覺服務提供預建的影像標記功能，適用於通用影像（如個人相片）。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>Azure AI 自訂視覺模型如果可從共 100 張包含柳橙的影像中，正確識別 70 張包含柳橙的影像。</div>
+	<div data-x='quiz:s' ___='3'>
+		表示產生 70% 何者的計量？
+		<div data-o='1'>平均精確率</div>
+		<div data-o='2'>精確率</div>
+		<div data-o='3'>召回率</div>
+		<div class="answer"><ul>
+			<li>召回率 (Recall)：模型正確識別的正樣本數佔所有實際正樣本數的比例。</li>
+			<li>在這個簡化情境中 (100 張都是柳橙)，「正確識別 70 張」 可以被解釋為 召回率 (因為所有 100 張影像都是實際的正樣本，模型找回了 70 個)。</li>
+		</ul></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		使用 Azure AI 文件智慧服務中預建收據模型可以處理影像大小上限為和？
+		<div data-o='1'>5MB</div>
+		<div data-o='2'>10MB</div>
+		<div data-o='3'>50MB</div>
+		<div data-o='4'>100MB</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		使用 Azure AI 電腦視覺服務可以執行哪一項動作？
+		<div data-o='1'>識別直播影片中的動物品種</div>
+		<div data-o='2'>建立訓練影片的縮圖</div>
+		<div data-o='3'>擷取手寫信件中的資料</div>
+		<div data-o='4'>擷取文件中的關鍵片語</div>
+		<div class="answer">Azure AI 視覺的 Read API (OCR) 可以處理手寫文字的擷取。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>你需要實作一套預先建置的解決方案以識別數位相片中的知名品牌。</div>
+	<div data-x='quiz:s' ___='2'>
+		你應該使用哪一個 Azure 服務 ？
+		<div data-o='1'>Azure AI 文件智慧服務 </div>
+		<div data-o='2'>Azure AI 電腦視覺</div>
+		<div data-o='3'>Azure AI 自訂視覺</div>
+		<div data-o='4'>臉部</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		交通流量監視系統從監視器影片中收集車牌號碼是 Azure AI 電腦視覺服務中哪個範例？
+		<div data-o='1'>物件偵測</div>
+		<div data-o='2'>自然語言</div>
+		<div data-o='3'>光學字元辨識</div>
+		<div data-o='4'>影像描述</div>
+		<div class="answer">車牌號碼是影像中的文字，因此需要使用 OCR 來讀取。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		哪一項 Azure 服務可以使用 Azure AI 文件智慧服務中的預建收據模型 ？
+		<div data-o='1'>Azure AI 服務</div>
+		<div data-o='2'>Azure AI 自訂視覺</div>
+		<div data-o='3'>Azure Machine Learning</div>
+		<div data-o='4'>Azure AI 視覺</div>
+		<div class="answer">
+			<div>預建收據模型是 Azure AI Document Intelligence 的一部分，而該服務隸屬於 Azure AI 服務（原稱 Azure Cognitive Services）。</div>
+			<div>其他選項為何不正確：<ul>
+				<li>Azure AI 自訂視覺（Custom Vision）：用於影像分類或物件偵測，不處理收據文字抽取。</li>
+				<li>Azure Machine Learning：用於建立與管理 ML 模型，不提供預建收據抽取。</li>
+				<li>Azure AI 視覺（Computer Vision）：提供 OCR 等功能，但收據模型屬於 Document Intelligence，不屬於 Vision。</li>
+			</ul></div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		在表格辨識器中使用自訂模型有何優點 ？
+		<div data-o='1'>自訂模型可加以訓練來辨識各種表格類型。</div>
+		<div data-o='2'>自訂模型一律提供更高的精確度。</div>
+		<div data-o='3'>只有自訂模型可以部署在內部部署環境。</div>
+		<div data-o='4'>自訂模型比預建模型便宜。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		您將一張影像送至電腦視覺 API，並收到如下圖所示的標註影像。
+		<div><img src="3_Q1.jpg" style="width:60%"/></div>
+		請問此處使用了哪種類型的電腦視覺？ 
+		<div data-o='1'>物件偵測</div>
+		<div data-o='2'>臉部偵測</div>
+		<div data-o='3'>光學字元識別</div>
+		<div data-o='4'>影像分類</div>
+		<div class="answer">影像中多個物件被 邊界方塊 框出並標註類別 (如 Apple)，這是 物件偵測 的典型輸出。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div>小明有一個在全連超市貨架影像中識別產品座標的應用程式。</div>
+	<div data-x='quiz:s' ___='2'>
+		請問該應用程式使用了哪項服務？
+		<div data-o='1'>Azure AI 視覺光學字元辨識</div>
+		<div data-o='2'>Azure AI 自訂視覺物件偵測</div>
+		<div data-o='3'>Azure AI 自訂視覺分類</div>
+		<div data-o='4'>Azure AI 視覺讀取</div>
+		<div class="answer"><ul>
+			<li>識別座標 -&gt; 物件偵測。</li>
+			<li>產品（通常是特定品牌） -&gt; 需要自訂模型。</li>
+			<li>故選擇 Azure AI 自訂視覺物件偵測。</li>
+		</ul></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		請問您應該使用哪一個 Azure AI 文件智慧服務預建模型，從法律文件中擷取當事人和司法管轄區？
+		<div data-o='1'>合約</div>
+		<div data-o='2'>讀取</div>
+		<div data-o='3'>版面配置</div>
+		<div data-o='4'>一般文件</div>
+		<div class="answer">文件智慧服務提供合約的預建模型，專門用於擷取當事人、日期、司法管轄區等法律相關欄位。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='CV,Q_AI900'>
+	<!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		藉由監視資訊站的視訊摘要來識別資訊站使用者是否感到困擾，是以下何者的範例？
+		<div data-o='1'>臉部偵測</div>
+		<div data-o='2'>臉部分析</div>
+		<div data-o='3'>臉部辨識</div>
+		<div data-o='4'>光學字元辨識 </div>
+		<div class="answer">識別情緒（如困擾、快樂、悲傷）是臉部分析功能的一部分。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<!-- }}} -->
+
+<section class="cm" data-ks='NLP'>
+	<h1>💻 自然語言處理</h1>
+	<h2>for MCF AI900 Certification</h2>
+	<div class='frame'>
+		<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+		<div>Department of Finance</div>
+		<div>Chihlee University of Technology</div>
+		<div>2026, Spring</div>
+	</div>
+</section>
+
+<!-- {{{ Natural Language Processing -->
+
+<section data-ks='NLP'>
+	<h2>自然語言處理</h2><!--{{{-->
+
+	<h3>Natural Language Processing (NLP)</h3>
+	<div>機器接受到自然語言後先轉換成文字，在分解成字彙，理解其內容，最後做出世當的反應，這整個過程稱之為自然語言處理。</div>
+	<div>相關技術包刮: 斷詞處理, 列表, 詞類標記, 詞意消歧, 字頻, 語法剖析, 建立「向量化」模型 ......</div>
+
+	<h3>Microsoft Azure 認知服務</h3>
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tr>
+		<th>語言服務</th><th>語音服務</th>
+	</tr><tr>
+		<td valign='top'><ul>
+			<li>文字分析</li>
+			<li>翻譯工具</li>
+			<li>交談語言理解</li>
+			<li>問題解答</li>
+		</ul></td><td valign='top'><ul>
+			<li>語音轉換文字</li>
+			<li>文字轉換語音</li>
+			<li>語音翻譯</li>
+		</ul></td>
+	</tr></table>
+
+	<h3>Azure Bot Service</h3>
+	<div>Web 聊天，電子郵件，Microsoft Teams …</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>語言認知服務</h2><!--{{{-->
+	<ul>
+	<li>Microsoft Azure 語言認知服務有下列功能：<ul>
+		<li>判斷文字所使用的語言</li>
+		<li>對文字進行情感分析，以判斷內文是屬於正面或負面情感</li>
+		<li>從文字中擷取關鍵片語，並標註交談重點</li>
+		<li>識別並分類文字中的實體。實體可以是人，地，時，組織，及數量等的常用項目</li>
+	</ul></li>
+	<li>Microsoft Azure 語言認知服務可應用於下列案例中：<ul>
+		<li>社群媒體摘要分析，用於偵測有關政治情勢或市場產品的好感度</li>
+		<li>文件搜尋，用於擷取出關鍵片語，協助製作摘要文件或目錄</li>
+		<li>由文件或其他文字中擷取出品牌資訊或公司名稱，以供辨識之用</li>
+	</ul></li>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>語言偵測</h2><!--{{{-->
+	<ul>
+	<li>語言偵測功能可以辨識出文章使用的語言，系統偵測後將回傳下列資料：<ul>
+		<li>語言名稱: Chinese_Traditional | 繁體中文 | …</li>
+		<li>ISO 639-1 語言識別碼: zh_cht | unknown | …</li>
+		<li>信心指數: 信心指數值 | NaN</li>
+	</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>情感分析</h2><!--{{{-->
+	<ul>
+	<li>評估文件後傳回文件的情感分數和標籤</li>
+	<li>按「正負尺度」來評估文件</li>
+	<li>文件經情感分析後會傳回 0 到 1 之間的情感分數，接近 1 的值表示正向情感，接近 0 的值表示負面情感</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>關鍵片語擷取 (KPE)</h2><!--{{{-->
+	<ul>
+	<li>自動辨識出文件內有意義且具代表性的片語，應用範圍包刮：<ul>
+		<li>識別出文件中的表達重點，進行摘要說明</li>
+		<li>檢視電子郵件並分類為工作相關郵件，私人郵件或垃圾郵件</li>
+		<li>自動建立文件索引</li>
+		<li>文字自動過濾不雅字眼</li>
+		<li>相同主題的文件自動歸類</li>
+	</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>具名實體辨識 (NER)</h2><!--{{{-->
+	<ul>
+	<li>NER: Named Entity Recognition</li>
+	<li>專有名詞辨識</li>
+	<li>具名實體辨識</li>
+	<li>輸入一篇文章，服務會傳回該文件的「實體」清單<div class='frame'>
+		<div>「實體」是特定類型的項目或分類 (人員，地點，組織和時間等)。</div>
+		<div>如下表，類型還可以在細分為子類型</div>
+		<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+			<th>類型</th><th>子類型</th><th>範例</th>
+		</tr><tr>
+			<td>人</td><td>&nbsp;</td><td>徐則林</td>
+		</tr><tr>
+			<td>位置</td><td>&nbsp;</td><td>臺北市</td>
+		</tr><tr>
+			<td>數量</td><td>溫度</td><td>37.5 ⁰C</td>
+		</tr><tr>
+			<td>數量</td><td>數字</td><td>3,三</td>
+		</tr><tr>
+			<td>日期時間</td><td>日期</td><td>2024年10月28日</td>
+		</tr></tbody></table>
+	</div></li>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>語音服務</h2><!--{{{-->
+	<div>語音服務包含下列應用程式開發介面 (API)<ul>
+		<li>語音轉換文字</li>
+		<li>文字轉換語音</li>
+		<li>語音翻譯</li>
+	</ul></div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>語音辨識</h2><!--{{{-->
+	<ul>
+	<li><table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<th>「原音」模型</th>
+		<td>可以將音訊轉換成音素 (特定聲音的表示法)</td>
+	</tr><tr>
+		<th>「語言」模型</th>
+		<td>可以將音素對應到單字，通常會使用統計演算法，根據音素預測出最可能的單字序列</td>
+	</tr></table></li>
+	<li>語音辨識產出的文檔，可應用於：<ul>
+		<li>為影片提供字幕</li>
+		<li>建立通話或會議的逐字稿</li>
+		<li>自動化課程筆記</li>
+		<li>演講時的內容轉譯成字幕</li>
+	</ul></li>
+	</ul>
+	<h3>語音文字轉換API - 語音轉文字</h3>
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<th width='33%'>標準聽寫</th><th width='33%'>批次聽寫</th><th width='33%'>自訂語音</th>
+	</tr><tr>
+		<th>發言者識別</th><th>自動語言偵測</th><th>發音評量</th>
+	</tr><tr>
+		<th>連續辨識功能</th><th>不雅內容篩選器</th>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>語音合成</h2><!--{{{-->
+	<ul>
+	<li>進行語音合成，需要下列資訊：<ul>
+		<li>文字：要說出的內文</li>
+		<li>語言：以何種語言發聲</li>
+	</ul></li>
+	<li>可能用途<ul>
+		<li>產生使用者詢問問題的語音回答</li>
+		<li>電話總機系統的語音功能表</li>
+		<li>大聲朗誦出電子郵件或簡訊</li>
+		<li>公共場所之廣播通知</li>
+	</ul></li>
+	</ul>
+	<h3>語音文字轉換API - 文字轉語音</h3>
+	<div>可指定要用來說出文字的語音種類。目前可指定為以下三種語音：</div>
+	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
+		<td>標準語音</td><td>最類似人聲，最簡單且最符合成本效益的語音模型</td>
+	</tr><tr>
+		<td>神經語音</td><td>使用標準語音，再以類神經網路來調整合成中音調的部分，增強調和詞型變化的能力，進而產生更自然的發音</td>
+	</tr><tr>
+		<td>自定神經語音</td><td>使用自己的資料，建立獨一無二的自訂合成語音</td>
+	</tr></tbody></table>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>翻譯服務</h2><!--{{{-->
+	<ul>
+	<li>Azure 提供支援翻譯的認知服務，包括<ul>
+		<li>「文字翻譯」服務，執行文字到文字的翻譯</li>
+		<li>「語音翻譯」服務，執行語音轉換文字或語音轉換其他語音的翻譯</li>
+	</ul></li>
+	<li>使用 ISO 639-1 語言代碼來指定來源與目標語言，可同時指定多個目標語言來將來源語言同時翻譯成多種語言。例如:<div class='frame'>/translate？from=en&amp;to=ja&amp;to=ko</div></li>
+	<li>翻譯設定<ul>
+		<li>過濾不雅內容：可標示用詞不雅的文字</li>
+		<li>選擇性翻譯：可標示不要翻譯的內容</li>
+	</ul></li>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>使用交談語言理解建立語言模型</h2><!--{{{-->
+	<ul>
+	<li>電腦不僅能接受輸入的語言，也能夠解讀輸入語言的語義。</li>
+	<li>Azure 透過語言服務所提供的「交談語言理解」(CLU) 來處理</li>
+	<li>CLU 為「對話語言理解 (LUIS: Language Understanding) 的進階版。</li>
+	</ul>
+	<div class='frame'>
+		<div>能夠由對話中得到下列三核心概念<ul>
+			<li>表達方式 : 使用者所要表述的內容 (Ex: 好熱喔! 打開冷氣。)</li>
+			<li>實體 (Entity)：言語中所指稱的特定項目 (Ex: 冷氣)</li>
+			<li>意圖 (Intent)：期待得到的某項結果 (Ex: 啟動設備)</li>
+		</ul></div>
+		<div>無法辨識意圖時，預設為 None (無意圖) 會被視為後備的處理程序。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP'>
+	<h2>使用 Azure 機器人服務 建構 機器人</h2><!--{{{-->
+	<ul>
+	<li>透過多種通訊通道，以交談方式與使用者互動，提供第一線自動化支援</li>
+	<li>建立自訂知識庫 (KB: Knowledge Base)<ul>
+		<li>使用 Azure 語言服務的問題解答功能建立。</li>
+		<li>管理者匯入半結構化的靜態資料<div>
+			(FAQ網頁，PDF，Excel，手冊，文件等文字檔)。
+		</div></li>
+		<li>系統自動擷取資料中關聯性的相關資訊，整合建立問題與解答。</li>
+	</ul></li>
+	<li>問答配對內容包括:<ul>
+		<li>問題的所有替代形式</li>
+		<li>在搜尋期間用來篩選答案選擇的中繼資料標籤</li>
+		<li>後續提示，以備進階搜尋</li>
+	</ul></li>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<div data-x='quiz:s' ___='2'>
+		下列何種情況應該使用關鍵片語擷取？
+		<div data-o='1'>將一些文件從英文翻譯成德文</div>
+		<div data-o='2'>辨識哪些文件提供相同主題的資訊</div>
+		<div data-o='3'>辨識餐廳的評論為正面或負面</div>
+		<div data-o='4'>根據音軌為影片產生字幕</div>
+		<div class="answer">關鍵片語擷取 (KPE) 通過提取文件中的核心主題，幫助用戶快速理解文件內容或將文件分組以進行主題辨識。</div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q: 關鍵片語擷取與具名實體辨識</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		具名實體辨識 (NER) 可用來擷取文件字串中的日期與時間。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">日期、時間是 NER 可以識別的預建實體類型。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='1'>
+		關鍵片語擷取 (KPE) 可用來擷取文件字串中的重要片語。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">KPE 的主要功能就是識別文件中的核心主題和重要片語。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		關鍵片語擷取 可用來擷取文件字串中的所有城市名稱。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">城市名稱是具名實體 (NER) 的任務，而非 KPE。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q: 關於 Azure Bot Service 與聊天機器人</h2><!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		聊天機器人只能使用自訂程式碼來建置。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">可以使用如 Power Virtual Agents 等無程式碼平台或 Azure Bot Service 提供的工具建置。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		Azure Bot Service 提供用於裝載交談式機器人的服務。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">Azure Bot Service 提供了建置、連接和管理機器人的基礎設施。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		使用 Azure Bot Service 建置的機器人可與 Microsoft Teams 使用者交流。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">Bot Service 支援多種頻道 (Channels)，包括 Teams、網頁聊天、Line 等。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q: 關於 Azure AI 翻譯工具</h2><!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
+		<div><pre>/translate？from=it&amp;to=fr&amp;to=en</pre></div>
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">參數 from=it 表示輸入 (來源語言) 是義大利文。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
+		<div><pre>/translate？from=en&amp;to=fr&amp;to=it</pre></div>
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">參數 from=en 表示來源是英文；to=fr&amp;to=it 表示輸出是法文和義大利文。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		翻譯服務可用來將文件由英文翻譯為法文。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">這是翻譯服務的基本功能。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<div data-x='quiz:s' ___='4'>
+		您可以使用下列哪一種 AI 服務，擷取使用者輸入意圖 (例如「稍後請回電」)？
+		<div data-o='1'>Azure 認知搜尋</div>
+		<div data-o='2'>Azure AI 語音</div>
+		<div data-o='3'>Azure AI 翻譯工具</div>
+		<div data-o='4'>Azure AI 語言</div>
+		<div class="answer">Azure AI 語言服務下的交談語言理解 (CLU) (舊稱 LUIS) 用於識別使用者語句的意圖 (Intent)。</div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<div data-x='quiz:s' ___='1'>
+		自然語言處理可用於
+		<div data-o='1'>將 E-Mail 分類為工作郵件或個人郵件。</div>
+		<div data-o='2'>預測未來的租車數。</div>
+		<div data-o='3'>顯示溫度過高時停止工廠作業。</div>
+		<div data-o='4'>預測哪個網站的瀏覽者會執行交易。</div>
+		<div class="answer">分類 E-Mail 是 NLP 中文字分類的典型應用。其他選項為迴歸/傳統 ML/IoT 應用。</div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<div data-x='quiz:m' ___='3'>
+		您可以在下列哪兩種情況中使用語音合成解決方案？ (多選)
+		<div data-o='1'>使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。</div>
+		<div data-o='2'>可以用語音與玩家交談的電腦遊戲 AI 角色。</div>
+		<div data-o='3'>為新聞廣播產生即時字幕。</div>
+		<div data-o='4'>從會議錄音中擷取關鍵片語。</div>
+		<div class="answer">① 使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。② 可以用語音與玩家交談的電腦遊戲 AI 角色。</div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<div>您建置一套問題解答解決方案，並建立了一個使用知識庫回應客戶要求的機器人。</div>
+	<div>您需要確認在不新增額外技能的情況下，該機器人可以執行的工作。</div>
+	<div data-x='quiz:s' ___='1'>
+		您應該指定何者？
+		<div data-o='1'>同時回答多位使用者的問題</div>
+		<div data-o='2'>登記客戶購買的商品</div>
+		<div data-o='3'>為客戶提供退貨授權 (RMA) 號</div>
+		<div data-o='4'>登記客訴內容</div>
+		<div class="answer">問題解答解決方案基於知識庫，其基本功能是提供預先定義的答案。Bot Service 是一個可擴展的服務，可以同時處理多個會話。選項 ②、③、④ 涉及業務邏輯和資料庫操作，需要額外編程或與後端系統集成，超出基本 QnA 知識庫的功能。</div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<div>您要使用自然語言處理來處理 Microsoft 新聞報導的文字。您收到如下所示輸出。</div>
+	<div><img src="4_Q1.jpg" style="width:50%"/></div>
+	<div data-x='quiz:s' ___='4'>
+		請問您執行了下列何種類型的自然語言處理 ？
+		<div data-o='1'>翻譯</div>
+		<div data-o='2'>關鍵片語擷取</div>
+		<div data-o='3'>情感分析</div>
+		<div data-o='4'>實體辨識</div>
+		<div class="answer"></div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<div><img src="4_Q2.jpg" style="width:90%"/></div>
+	<div data-x='quiz:s' ___='2'>
+		圖中顯示下列哪一種類型的 AI 解決方案 ？
+		<div data-o='1'>機器學習模型</div>
+		<div data-o='2'>聊天機器人</div>
+		<div data-o='3'>情感分析解決方案</div>
+		<div data-o='4'>電腦視覺應用程式</div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>將 Azure 認知服務與適當的工作配對。</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		將使用者的語音轉換為文字
+		<div data-o='1'>Azure AI 語音</div>
+		<div data-o='2'>Azure AI 語言服務</div>
+		<div data-o='3'>Azure AI 翻譯工具文字</div>
+		<div class="answer">(語音轉文字) 是 語音服務 的功能。</div>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		識別使用者的意圖
+		<div data-o='1'>Azure AI 語音</div>
+		<div data-o='2'>Azure AI 語言服務</div>
+		<div data-o='3'>Azure AI 翻譯工具文字</div>
+		<div class="answer">(識別意圖) 是 語言服務 (CLU) 的功能。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		向使用者提供口語回應
+		<div data-o='1'>Azure AI 語音</div>
+		<div data-o='2'>Azure AI 語言服務</div>
+		<div data-o='3'>Azure AI 翻譯工具文字</div>
+		<div class="answer">(文字轉語音/口語回應) 是 語音服務 的功能。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q: 聊天機器人</h2><!--{{{-->
+	<div>下列各項敘述如果成立，請輸入是，否則請輸入否。</div>
+	<div data-x='quiz:s' ___='1'>
+		聊天機器人可以支援語音輸入。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		每一種溝通管道都需要一個不同聊天機器人。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		聊天機器人可以結合自然語言及受限的回應選項來管理交談程序。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+	</div>
+	<br/>
+	<div>關於與機器人交談的管道，</div>
+	<div data-x='quiz:s' ___='1'>
+		您可以使用語音啟動的虛擬助理與機器人交談。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">透過 Azure AI 語音服務，聊天機器人可以支援語音輸入。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		您可以使用 Microsoft Teams 與機器人交談。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">Teams 是 Azure Bot Service 支援的標準頻道。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		您可以使用網頁聊天介面與機器人交談。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">網頁聊天 (Web Chat) 是機器人最常見的部署管道之一。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:m' ___='11'>
+		您需要為商務聊天機器人提供內容，以協助其為使用者解答簡單的查詢。
+		下列哪三種方式是使用語言服務的問題解答來建立問與答文字？ (多選)
+		<div data-o='1'>從預先定義的資料來源匯入閒聊內容</div>
+		<div data-o='2'>手動輸入問題與答案</div>
+		<div data-o='4'>將機器人連線到 Cortana 頻道，並且用 Cortana 提問</div>
+		<div data-o='8'>從現有的網頁產生問題與答案</div>
+		<div data-o='16'>使用 Azure Machine Learning 自動化 ML, 根據包含問題與答案組的檔案來定型模型</div>
+		<div class="answer">問題解答知識庫的建立方法包括手動、從文件 (如 PDF、Word、Excel、TXT) 匯入、以及從 FAQ 網頁 匯入。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='2'>
+		您需要建立一套客戶支援解決方案，協助客戶存取資訊。
+		該解決方案必須支援電話、電子郵件與即時聊天式管道。
+		您應該使用下列哪一種 AI 解決方案？
+		<div data-o='1'>自然語言處理 (NLP)</div>
+		<div data-o='2'>聊天機器人</div>
+		<div data-o='3'>機器學習</div>
+		<div data-o='4'>電腦視覺</div>
+		<div class="answer">支援多個交談式管道以提供客戶支援服務，是聊天機器人 (Bot) 的核心功能。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s' ___='3'>
+		可以用來建置使用內建自然語言處理模型的無程式碼應用程式為？
+		<div data-o='1'>Azure Health Bot</div>
+		<div data-o='2'>Microsoft Bot Framework</div>
+		<div data-o='3'>Power Virtual Agents</div>
+		<div class="answer">Power Virtual Agents 是一個低程式碼/無程式碼平台，讓非開發人員也能夠建立功能強大的聊天機器人。</div>
+	</div>
+	<!--}}}-->
+</section>
+</section>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<div>您管理一個包含客戶評論的網站。</div>
+	<div>您需要儲存這些評論的英文版，然後辨識每位使用者的地理位置，並以當地語言向使用者展示評論。</div>
+	<div data-x='quiz:s' ___='2'>
+		您應該使用下列何種類型的自然語言處理工作負載？
+		<div data-o='1'>語言模組化</div>
+		<div data-o='2'>翻譯</div>
+		<div data-o='3'>語音辨識</div>
+		<div data-o='4'>關鍵片語擷取</div>
+		<div class="answer">將評論以當地語言向使用者展示，這需要使用 翻譯 服務。</div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>將 Azure AI 語言服務 API 功能與適當的自然語言處理案例配對。</h2>
+	<div data-x='quiz:s' ___='4'>
+		根據支援報修中所包含文字了解客戶的不滿意程度
+		<div data-o='1'>實體辨識</div>
+		<div data-o='2'>關鍵片語擷取</div>
+		<div data-o='3'>語言偵測</div>
+		<div data-o='4'>情感分析</div>
+		<div class="answer">(不滿意程度) : 情感分析。</div>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		彙總支援報修中重要資訊
+		<div data-o='1'>實體辨識</div>
+		<div data-o='2'>關鍵片語擷取</div>
+		<div data-o='3'>語言偵測</div>
+		<div data-o='4'>情感分析</div>
+		<div class="answer">(彙總重要資訊) : 關鍵片語擷取。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		從支援報修中擷取關鍵日期
+		<div data-o='1'>實體辨識</div>
+		<div data-o='2'>關鍵片語擷取</div>
+		<div data-o='3'>語言偵測</div>
+		<div data-o='4'>情感分析</div>
+		<div class="answer">(關鍵日期) : 實體辨識 (日期是實體)。</div>
+	</div>
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		識別電話號碼時，會使用哪種類型的自然語言處理 (NLP) 實體？
+		<div data-o='1'>規則運算式 (Regex)</div>
+		<div data-o='2'>Pattern.any</div>
+		<div data-o='3'>machine-learned</div>
+		<div data-o='4'>清單</div>
+		<div class="answer">電話號碼、信用卡號等有固定格式的實體，通常使用規則運算式 (Regex) 實體類型進行擷取。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div>您有一個 Azure 機器人。您要新增常見問題集 (FAQ) 的支援。</div>
+	<div data-x='quiz:s' ___='3'>
+		您該使用哪項 Azure AI 服務以支援常見問題集？
+		<div data-o='1'>Azure AI 翻譯工具</div>
+		<div data-o='2'>Azure AI 語音</div>
+		<div data-o='3'>Azure AI 語言</div>
+		<div data-o='4'>Azure AI 文件智慧服務</div>
+		<div class="answer">Azure AI 語言服務中的問題解答 (Question Answering) 功能專門用於建立和管理 FAQ 知識庫。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>關於 Azure AI 語言服務的問題解答</h2><!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		您可以使用 Azure AI 語言服務的問題解答 查詢 Azure SQL 資料庫。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">問題解答主要基於靜態知識庫（如文件、FAQ 網頁）提供答案，不直接查詢 SQL 資料庫。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		若您希望知識庫針對詢問類似問題的不同使用者，提供相同答案，則應該使用 Azure AI 語言服務的問題解答。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">問題解答會從知識庫中找出最相關的固定答案，適合 FAQ 應用。</div>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		Azure AI 語言服務的問題解答 可以判斷使用者語句的意圖。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">交談語言理解 (CLU) 或 LUIS 才是用於判斷意圖；問題解答只負責匹配問題與答案。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>關於 Azure AI 語言服務的功能</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		Azure AI 語言服務可以識別文字是以何種語言撰寫。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">這是語言偵測 (Language Detection) 功能。</div>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		Azure AI 語言服務可以偵測文件中的手寫簽名。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">這是電腦視覺或文件智慧服務的任務。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		Azure AI 語言服務可以識別文件中所提及的公司和組織。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">這是具名實體辨識 (NER) 的功能，公司和組織是常見的實體類型。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div>您使用常見問題集 (FAQ) 頁面建置 Azure AI 語言服務的問題解答機器人。</div>
+	<div>您需要新增專業的問候語及其他回應，使機器人能夠更友善地與使用者互動。</div>
+	<div data-x='quiz:s' ___='3'>
+		您應該採取什麼措施？
+		<div data-o='1'>提高回應的信賴等級閾值</div>
+		<div data-o='2'>啟用主動式學習</div>
+		<div data-o='3'>新增閒聊 (Chit-Chat)</div>
+		<div data-o='4'>建立多回合問題</div>
+		<div class="answer">閒聊 (Chit-Chat) 內容是一組預先定義的問候語、開場白和友好回應，旨在讓機器人對話更像人。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>關於 Azure AI 語音服務</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		您可以使用 Azure AI 語音服務將通話轉譯為文字。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">這是語音轉文字 (Speech-to-Text) 功能。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		您可以使用 Azure AI 語言服務從通話文字記錄中擷取關鍵實體。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">語音服務輸出文字後，語言服務可對其執行 NER。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		您可以使用 Azure AI 語音服務將通話音訊翻譯為其他語言。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">語音服務支援語音翻譯 (Speech Translation)，即時將語音翻譯為語音或文字。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div>小明正在撰寫一個交談語言理解應用程式。</div>
+	<div>小明希望使用者能夠詢問預定節目的相關問題，例如：「主舞台現在正在進行哪一場表演？」。</div>
+	<div data-x='quiz:s' ___='4'>
+		此問題是下列何種類型元素的範例？
+		<table width='100%'><tr>
+			<th data-o='1'>實體</th><th data-o='2'>意圖</th><th data-o='3'>領域</th><th data-o='4'>表達</th>
+		</tr></table>
+		<div class="answer">題目中的句子：「主舞台現在正在進行哪一場表演？」是使用者實際說出的自然語句，在對話式語言理解（NLU）中，這稱為「表達」(Utterance)。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>關於 Azure AI 語言服務的進階功能</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		Azure AI 語言服務可用來從文件中擷取關鍵片語。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">這是關鍵片語擷取 (KPE) 功能。</div>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		Azure AI 語言服務可用來根據使用者提示產生新聞稿。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">這是 Azure OpenAI 服務（如 GPT-4）的功能。</div>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		Azure AI 語言服務可用來建置情緒解決方案。
+		<table width='100%'><tr><th width='50%' data-o='1'>是</th><th width='50%' data-o='2'>否</th></tr></table>
+		<div class="answer">考量 AI-900 脈絡，情感分析是語言服務的核心功能，故此題應為是。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div>Jasper 正在使用 Azure AI 語言服務的自訂解答功能建置知識庫。</div>
+	<div data-x='quiz:s' ___='2'>
+		請問 Jasper 可以使用哪種檔案格式來填入知識庫？
+		<table width='100%'><tr>
+			<th width='25%' data-o='1'>JPGE</th>
+			<th width='25%' data-o='2'>PDF</th>
+			<th width='25%' data-o='3'>PPTX</th>
+			<th width='25%' data-o='4'>ZIP</th>
+		</tr></table>
+		<div class="answer">問題解答 (QnA Maker) 支援多種文件格式，包括 PDF、DOCX、TXT、TSV 等。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div>Anita 正在為電子商務企業建置交談語言理解模型。</div>
+	<div>Anita 需要確保當語句超出範圍時，該模型仍可偵測。</div>
+	<div data-x='quiz:s' ___='4'>
+		請問你要協助 Anita 怎麼處理？
+		<div data-o='1'>建立新的模型。</div>
+		<div data-o='2'>匯出模型。</div>
+		<div data-o='3'>建立預建工作實體。</div>
+		<div data-o='4'>將語句新增至 [無] 意圖 (None Intent)。</div>
+		<div class="answer">在交談語言理解 (CLU) 中，必須訓練一個**「無」(None)** 意圖，並為其提供許多與應用程式無關的語句。這樣當使用者說出不相關的內容時，模型能正確將其分類為超出範圍。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div>您有一個根據問題解答知識庫提供回應的網路聊天機器人。</div>
+	<div>您需要確保該機器人會利用使用者意見反應隨著時間改善回應的相關性。</div>
+	<div data-x='quiz:s' ___='1'>
+		您應該使用何者？
+		<div data-o='1'>主動式學習</div>
+		<div data-o='2'>情感分析</div>
+		<div data-o='3'>商務邏輯</div>
+		<div data-o='4'>關鍵片語擷取</div>
+		<div class="answer">主動式學習 (Active Learning) 是一種機制，它會分析使用者與知識庫的互動 (例如使用者對低信賴度回應的選擇)，以建議新的問題與答案配對，從而迭代改善知識庫。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		哪一項自然語言處理功能可用於識別客戶意見反應問卷中的主要話題？
+		<div data-o='1'>翻譯</div>
+		<div data-o='2'>關鍵片語擷取</div>
+		<div data-o='3'>語言偵測</div>
+		<div data-o='4'>實體辨識</div>
+		<div class="answer">關鍵片語擷取 (KPE) 旨在從文件中識別出描述主要話題或核心概念的短語。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div>您擁有 100 部「不」包含任何音訊的教學影片。</div>
+	<div>每部教學影片都有一份腳本。</div>
+	<div>您需要根據腳本，為每部影片產生旁白音訊檔案。</div>
+	<div data-x='quiz:s' ___='3'>
+		您應該使用下列何種工作負載？
+		<div data-o='1'>語言模組化</div>
+		<div data-o='2'>翻譯</div>
+		<div data-o='3'>語音合成</div>
+		<div data-o='4'>語音辨識</div>
+		<div class="answer">將文字腳本轉換為語音 (旁白音訊) 是語音合成的任務。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<!-- }}} -->
+
+<section class="cm" data-ks='GAI'>
+	<h1 class="title">💻 生成式 AI</h1>
+	<h2>for MCF AI900 Certification</h2>
+	<br/>
+	<div>Lecturer: <em><a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+	<div>Department of Finance</div>
+	<div>Chihlee University of Technology</div>
+	<div>2025, Winter</div>
+</section>
+
+<!-- {{{ Generative AI -->
+
+<section data-ks='GAI'>
+	<h2>何謂生成式 AI</h2><!--{{{-->
+	<div>可以理解使用者所輸入的自然語言內容，然後產生適當的文字，影像，電腦程式碼...等回應。</div>
+	<ol>
+	<li>生成自然語言<ul>
+		<li>聊天機器人可能會使用到不準確的資料，而做出不正確的回應。</li>
+		<li>聊天機器人不適合用來執行醫療診斷。</li>
+		<li>理論補充: <a href="../Attention.html" target="_blank">[注意力機制]</a></li>
+	</ul></li>
+	<li>生成影像<ul>
+		<li>例如提交: 建立台北101大樓天空七彩極光的影像。</li>
+		<li>理論補充: <a href="../Text2Image.html" target="_blank">[Text to Image]</a></li>
+	</ul></li>
+	<li>生成程式碼<ul>
+		<li>例如提交: 使用 Python 語言撰寫猜拳遊戲的程式碼。</li>
+	</ul></li>
+	<li>...</li>
+	</ol>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI'>
+	<h2>大語言模型</h2><!--{{{-->
+	<div>LLM 是一種特殊類型的機器學習模型，用來執行自然語言處理工作，包含情感判斷，分類，文字摘要，比較多個文字來源的語意相似性，產生新的自然語言...等。</div>
+	<h3>基礎架構 - 轉換器模型(Transformer models)</h3>
+	<ul>
+		<li>搭配 <b>token 化</b>，<b>內嵌計算</b>等技術，經深度學習完成生成自然語言的任務。</li>
+		<li>預先用大量的文字進行訓練，讓模型能夠解析單字之間的<b>語意關聯性</b>，並使用這些關聯性來判斷文字序列的意義。</li>
+		<li>包含 1) <b>編碼器(Encoder)</b> 與 2) <b>解碼器(Decoder)</b> 兩個區塊。<ol>
+			<li>編碼器負責建立 token 語意的向量編碼</li>
+			<li>解碼器負責生成新的文字序列</li>
+		</ol></li>
+	</ul>
+	<div style='text-align:center;'><img src="5.2a.png" style="width:80%;"/></div>
+	<h3>Token 化 (Tokenization)</h3>
+	<div style='text-align:center;'><img src="5.2b.png" style="width:80%;"/></div>
+	<h3>內嵌計算 (Embeddings)</h3>
+	<ul>
+		<li>為每個 token 定義一個向量 (vector) 來表示 token 的語意關聯性，這個技術稱為內嵌計算</li>
+		<li>語意相關的 token 在空間中的距離回更相近</li>
+	</ul>
+	<div style='text-align:center;'><img src='5.2c.png' style='width:40%;'/></div>
+	<h3>下一個 token 預測 (Next Token)</h3>
+	<ul>
+		<li>轉換器模型中的編碼器和解碼器區塊包含多層，組成模型的類神經網路</li>
+		<li>注意層 (attention layer) 用來檢查 token 向量序列的技術，並量化各 token 之間的關聯性強度。</li>
+		<li>自我注意力 (self-attention) 機制會考慮到整個文本序列中的所有 token，並計算之間的交互影響，如此能夠理解各 token 在上下文本中的具體含意，從而深入理解整個文本的語意。</li>
+		<li>注意層會仔細檢查句子中的每個 token，並判斷出其內嵌向量值。</li>
+		<li>向量值是用該 token，以及和其經常搭配的 token 間的關聯性為基礎，同一個字可能會有多個內嵌向量值，視使用的內容而定。</li>
+		<li>解碼器區塊中，注意層是用來預測輸出文字序列中的下一個 token，模型會考量採用哪個 token 會最具影響力。</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI'>
+	<h2>Azure Open AI</h2><!--{{{-->
+	<ul>
+		<li>直接使用 Azure OpenAI 模型<div>
+			<table border='0' cellspacing='10' cellpadding='5' align='center'><tbody><tr>
+				<td valign='top' width='50%' style="background:#fef;"><b>GPT-4 模型</b><hr/><ul>
+					<li>目前最新的生成式預先訓練模型</li>
+					<li>可根據自然語言提示產生文字和程式碼等回應</li>
+				</ul></td>
+				<td valign='top' width='50%' style="background:#fef;"><b>內嵌文字模型</b></div><hr/><ul>
+					<li>根據文字相似性將文字轉換為數值向量，適用於語言分析。</li>
+				</ul></td>
+			</tr><tr>
+				<td valign='top' style="background:#fef;"><b>GPT-3.5 模型</b><hr/><ul>
+					<li>可根據自然語言提示產生文字和程式碼等回應。</li>
+					<li>GPT-3.5-turbo 針對互動式聊天最佳化。</li>
+				</ul></td>
+				<td valign='top' style="background:#fef;"><b>DALL.E 模型</b><hr/><ul>
+					<li>根據自然語言提式來建立影像，修改影像。</li>
+				</ul></td>
+			</tr><tbody></table>
+		</div></li>
+		<li>上傳自己的資料進一步訓練自訂的模型 (微調: fine-tuning)</li>
+		<li>可在 Azure Open AI Studio 網路開發環境，部署，測試及管理大型語言模型。</li>
+		<li>也可以在 Chat playground 中，調整各種參數值進行測試。</li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI'>
+	<h2>Copilot</h2><!--{{{-->
+	<ul>
+		<li>源起於 Microsoft</li>
+		<li>讓生成式 AI 可以整合到其他應用程式，協助完成公作提升生產力和創意。</li>
+		<li>可協助產生初稿，資訊整合，策略規劃，聯繫人事物。</li>
+		<li>開發人員可為應用程式和服務建置自訂的 Copilot (第三方 Copilot)。</li>
+		<li>Visual Studio Code 開發環境(IDE)下，可以使用 Open AI Codex 延伸模組來解析自然語言並生成相應的代碼支援軟體開發。<ul>
+			<li>分析程式碼</li>
+			<li>註解說明程式碼</li>
+			<li>建立程式碼說明文件</li>
+			<li>產生新程式碼</li>
+		</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI'>
+	<h2>提示工程</h2><!--{{{-->
+	<ul>
+		<li>定義系統訊息<ul>
+			<li>例如: 你是一位資深的國小老師，能夠用簡單，親切的方式做出回應。</li>
+		</ul></li>
+		<li>撰寫良好的提示<ul>
+			<li>例如: 列出台北饒河夜市國際觀光客必吃的三種美食。</li>
+		</ul></li>
+		<li>提供範例<ul>
+			<li>例如: 以 Excel 表格產生含姓名，電話，電子郵件，三筆繁體中文客戶資料。</li>
+		</ul></li>
+		<li>基礎資料<ul>
+			<li>例如: 你是一位資深客服經理，根據下列客戶電子郵件撰寫回覆草稿。電子郵件:[這是郵件內容]。</li>
+		</ul></li>
+	</ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI'>
+	<h2>主要服務供應商:</h2><!--{{{-->
+	<a href='../GAI_Services.html' target='_blank'><button>開啟</button></a>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q: 請填入「是」或「否」</h2><!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		OpenAI 的GPT-3.5 Turbo 模型能將語音轉成文字。
+		<div data-o='1'>是</div><div data-o='2'>否</div>
+		<p class='answer'>Whisper 模型才是用於語音轉文字 (Speech-to-Text)。GPT-3.5 Turbo 主要是處理文字生成和理解。</p>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		Azure OpenAI 的內嵌文字模型能依據文字語義將文字轉換成數值向量。
+		<div data-o='1'>是</div><div data-o='2'>否</div>
+		<p class='answer'>這是內嵌 (Embeddings) 模型的核心功能，將文字轉換成電腦可理解的數值表示（向量）。</p>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		Azure OpenAI的DALL·E模型能根據文字提示產生對應的影像。
+		<div data-o='1'>是</div><div data-o='2'>否</div>
+		<p class='answer'>DALL·E 是一個文生圖 (Text-to-Image) 的生成式 AI 模型。</p>
+	</div>
+	<!--}}}-->
+</section>
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q: Transformer Model</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		轉換器模型架構中包含編碼器和解碼器兩個區塊。 
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<p class='answer'>原始的 Transformer 架構包含這兩大核心部分。</p>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		轉換器模型架構中會用到自我注意力 (Self-Attention)。
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<p class='answer'>自我注意力機制是 Transformer 能夠有效處理序列數據（如語言）的關鍵。</p>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		轉換器模型架構中包含加密和解密兩個區塊。
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<p class='answer'>這是密碼學的術語，與 AI 模型架構無關。</p>
+	</div>
+	<!--}}}-->
+</section>
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q: Azure OpenAI 與負責任 AI</h2><!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		必須自己建置和訓練模型，才能建立符合 Microsoft 負責任 AI 準則的解決方案。
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<p class='answer'>使用 Azure OpenAI 服務可以繼承其內建的負責任 AI 工具和內容篩選，無需從頭開始。</p>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		Azure OpenAI 使用預先訓練的生成式 AI 模型。
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<p class='answer'>Azure OpenAI 提供了如 GPT-4、GPT-3.5 Turbo 等已由 OpenAI 訓練好的基礎模型 (Foundation Models)。</p>
+	</div>
+	<div data-x='quiz:s' ___='1'>
+		開發者可使用自己的資料來微調 (Fine-tuning) Azure OpenAI 模型。
+		<div data-o='1'>是</div>
+		<div data-o='2'>否</div>
+		<p class='answer'>微調是使用特定資料集進一步訓練預先訓練模型，以提高特定任務性能的過程。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		下列何者可以依據使用者所輸入的句子生成文字段落回應？
+		<div data-o='1'>Azure AI</div>
+		<div data-o='2'>Azure AI 視覺</div>
+ 		<div data-o='3'>Azure OpenAI</div>
+ 		<div data-o='4'>Azure Machine Learning</div>
+		<p class='answer'>Azure OpenAI 服務提供了 GPT 系列模型（如 GPT-3.5 和 GPT-4），專門用於生成文字回應。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		想要以文字描述產生宣傳手冊中的卡通插畫，應該使用下列哪一個 Azure OpenAI 模型？
+		<div data-o='1'>GPT-4</div>
+ 		<div data-o='2'>GPT-3.5</div>
+		<div data-o='3'>DALL·E</div>
+ 		<div data-o='4'>Codex</div>
+		<p class='answer'>DALL·E 是 文生圖 (Text-to-Image) 模型。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		在 Microsoft Visual Studio Code 整合開發環境中，下列哪個延伸模組會使用 OpenAI Codex 模型？
+		<div data-o='1'>GitHub Copilot</div>
+		<div data-o='2'>GitHub 原始檔控制</div>
+ 		<div data-o='3'>Microsoft 365 Copilot</div>
+ 		<div data-o='4'>IntelliSense</div>
+		<p class='answer'>GitHub Copilot 是一種程式碼撰寫助手，它最初是基於 OpenAI 的 Codex 模型開發的，用於從自然語言提示生成程式碼。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		在聊天解決方案中使用 Azure OpenAI GPT-3.5 模型時，應該設定下列哪個參數，才能生成更多樣化的 Token 回應？
+		<div data-o='1'>存在懲罰</div>
+ 		<div data-o='2'>回應上限</div>
+		<div data-o='3'>包含過去訊息</div>
+		<div data-o='4'>停止序列</div>
+		<div class='answer'>
+			<ul>
+				<li>Max Tokens (回應上限)：限制回應長度。</li>
+				<li>Presence Penalty (存在懲罰)：減少重複使用已在文本中出現的詞彙。</li>
+				<li>Stop Sequence (停止序列)：定義模型停止生成回應的特定詞彙。</li>
+			</ul>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='3'>
+		想依據使用者所輸入的文字提示生成影像，應該使用下列哪個 Azure OpenAI 模型？
+		<div data-o='1'>GPT-4</div>
+		<div data-o='2'>GPT-3</div>
+ 		<div data-o='3'>DALL·E</div>
+		<div data-o='4'>Codex</div>
+		<p class='answer'>DALL·E 專門用於 文生圖。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='2'>
+		請問哪一個 Azure OpenAI 模型可用於開發程式碼？
+		<div data-o='1'>DALL·E</div>
+		<div data-o='2'>GPT-4-32k</div>
+		<div data-o='3'>Whisper</div>
+ 		<div data-o='4'>microsoft-swinv2-base-patch4-window12-192-22k</div>
+		<p class='answer'>GPT-4 模型（包括長上下文版本如 GPT-4-32k）具備理解和生成程式碼的能力。 Codex 是另一個專門用於程式碼的系列模型，但若選項中沒有 Codex，GPT-4 是最合適的通用大型語言模型 (LLM) 選項。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		以下何者可用來建置為網站創作短篇文章的 AI 模型？
+		<div data-o='1'>Azure OpenAI Studio</div>
+		<div data-o='2'>ChatGPT</div>
+		<div data-o='3'>文件智慧服務工作室</div>
+ 		<div data-o='4'>GitHub Copilot</div>
+		<p class='answer'>Azure OpenAI Studio 是一個網頁介面，允許開發人員使用 Azure OpenAI 模型（如 GPT-3.5、GPT-4）進行原型設計、測試和部署生成式 AI 應用程式，例如短篇文章生成器。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		以下哪一個詞彙是用來描述上傳您自己的資料以自訂 Azure OpenAI 模型？
+		<div data-o='1'>微調 (Fine-tuning)</div>
+		<div data-o='2'>完成 (Completion)</div>
+		<div data-o='3'>提示工程 (Prompt Engineering)</div>
+		<div data-o='4'>基礎知識 (Grounding)</div>
+		<p class='answer'>微調 是用特定資料集對基礎模型進行後續訓練，以客製化模型行為的過程。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:m' ___='14'>
+		轉換器模型架構中的三個階段為何？ (多選題，通常指關鍵處理步驟)
+		<div data-o='1'>物件偵測</div>
+		<div data-o='2'>下一個 Token 預測</div>
+		<div data-o='4'>Token 化</div>
+		<div data-o='8'>內嵌計算</div>
+		<div data-o='16'>匿名化</div>
+		<div class='answer'>Transformer 模型的核心步驟通常涵蓋：<ul>
+			<li>Token 化 (Tokenization)：將輸入文字切分成較小的單元 (Tokens)。</li>
+			<li>內嵌計算 (Embedding Calculation)：將 Tokens 轉換成數值向量 (Embeddings)。</li>
+			<li>注意力機制 (Attention)：處理 Tokens 之間的關係。</li>
+			<li>輸出生成 (例如：下一個 Token 預測)。</li>
+		</ul>雖然「下一個 Token 預測」是 LLM 的工作/目標，但 Token 化 和 內嵌計算 是處理輸入數據的基礎步驟。通常在討論 LLM 的工作流程時，這三個 (Tokenization, Embedding, 下一個 Token 預測/Attention) 都是非常關鍵的環節。</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:m' ___='6'>
+		使用 Azure OpenAI 生成式 AI 應用程式可以產生下列哪兩種類型的內容？ (多選) 
+		<div data-o='1'>音訊</div>
+		<div data-o='2'>文字</div>
+		<div data-o='4'>影像</div>
+		<div data-o='8'>影片</div>
+		<p class='answer'>Azure OpenAI 服務主要提供 文字 (GPT) 和 影像 (DALL·E) 的生成。Whisper 模型用於處理音訊，但不生成音訊。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:m' ___='6'>
+		使用 Azure OpenAI DALL·E 模型可以執行下列哪兩項任務？ (多選)
+		<div data-o='1'>偵測影像中的物件</div>
+		<div data-o='2'>建立影像</div>
+		<div data-o='4'>修改影像</div>
+		<div data-o='8'>光學字元辨識 (OCR)</div>
+ 		<div data-o='16'>產生影像的標題</div>
+		<p class='answer'>DALL·E 不僅能建立 (生成) 新影像，也支援如 Inpainting (修補)、Outpainting (擴展) 等修改影像的任務。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:m' ___='5'>
+		想要呼叫 Azure OpenAI 服務，可以使用下列哪兩個工具？ (多選)
+		<div data-o='1'> Azure REST API</div>
+		<div data-o='2'> 適用於 JavaScript 的 Azure SDK</diV>
+		<div data-o='4'> 適用於 Python 的 Azure SDK</div>
+		<div data-o='8'> Azure 命令列介面 (CLI)</div>
+		<p class='answer'>呼叫服務通常透過 REST API 或各種程式語言的 SDK (例如 Python、JavaScript)。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{--> 
+	<div data-x='quiz:m' ___='6'>
+		您有一個使用 Azure OpenAI GPT-3.5 大型語言模型 (LLM) 回答技術性問題的聊天機器人。下列哪兩個敘述正確描述了該聊天機器人？ (多選)
+		<div data-o='1'> 該聊天機器人能適切地執行醫療診斷。</div>
+		<div data-o='2'> 使用基礎知識資料可以限制聊天機器人的輸出。</div>
+		<div data-o='4'> 該聊天機器人可能會使用到不準確的資料做出回應。</div>
+		<div data-o='8'> 該聊天機器人提供的資料會一律準確。</div>
+		<p class='answer'>
+			<ul>
+				<li>LLM 不適合進行醫療診斷 (違反負責任 AI 準則)。</li>
+				<li>LLM 有時會產生不準確或捏造的資訊 (即幻覺/Hallucination)。</li>
+			</ul>
+			<div>基礎知識資料 (Grounding data) (或稱 RAG，檢索增強生成) 能將模型的回答限制在提供的外部資料範圍內，提高準確性。</div>
+		</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:</h2><!--{{{-->
+	<div data-x='quiz:m' ___='12'>
+		您可以使用哪兩個資源來分析程式碼並產生程式碼函式的說明和程式碼註解？ (多選)
+		<div data-o='1'> Azure OpenAI DALL·E 模型</div>
+		<div data-o='2'> Azure OpenAI Whisper 模型</div>
+		<div data-o='4'> Azure OpenAI GPT-4 模型</div>
+		<div data-o='8'> GitHub Copilot 服務</div>
+		<p class='answer'>GPT 系列模型（如 GPT-4）和基於 Codex 的 GitHub Copilot 都能理解、生成和分析程式碼。</p>
+	</div>
+	<!--}}}-->
+</section> 
+
+<section data-ks='GAI,Q_AI900'>
+	<h2>Q:將 Azure OpenAI 大型語言模型的程序和工作做配對。</h2><!--{{{-->
+	<div data-x='quiz:s' ___='1'>
+		辨識文學作品所屬的類型是這種任務
+		<div data-o='1'>分類</div><div data-o='2'>摘要</div><div data-o='3'>產生</div><div data-o='4'>翻譯</div>
+	</div>
+	<div data-x='quiz:s' ___='2'>
+		根據輸入的會議文字建立重點清單是何種任務
+		<div data-o='1'>分類</div><div data-o='2'>摘要</div><div data-o='3'>產生</div><div data-o='4'>翻譯</div>
+	</div>
+	<div data-x='quiz:s' ___='3'>
+		根據產品的文字描述建立廣告文案是何種任務
+		<div data-o='1'>分類</div><div data-o='2'>摘要</div><div data-o='3'>產生</div><div data-o='4'>翻譯</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='1'>
+		請問如何才能確保 Azure OpenAI 模型會產生包含最近事件的準確回應？
+		<div data-o='1'> 新增基礎知識資料 (Grounding Data)</div>
+		<div data-o='2'> 新增訓練作料</div>
+		<div data-o='3'> 新增小樣本學習</div>
+		<div data-o='4'> 修改系統訊息</div>
+		<p class='answer'>LLM 的訓練資料有截止日期，無法回答訓練截止日期之後的事件。基礎知識資料 (RAG) 允許模型存取外部/最新的資訊，從而提高時效性和準確性。</p>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='4'>
+		請問提供情境資訊以改善生成式 AI 解決方案的品質是下列哪種提示工程技術的範例？
+		<div data-o='1'>提供範例</div>
+		<div data-o='2'>微調</div>
+		<div data-o='3'>系統訊息</div>
+		<div data-o='4'>基礎知識資料</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='4'>
+	您應該設定哪一個參數，才能透過使用 Azure OpenAI GPT-3.5 模型的聊天解決方案產生更多樣化的回應？
+		<div data-o='1'>回應上限</div>
+		<div data-o='2'>存在懲罰</div>
+		<div data-o='3'>停止序列</div>
+		<div data-o='4'>溫度 (Temperature)</div>
+		<p class='answer'>溫度 (Temperature) 參數控制輸出的隨機性。高溫 (例如 1.0) 產生更多樣化和有創意的回應；低溫 (例如 0.2) 產生更確定性和聚焦的回應。</p>
+	</div>
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='1' style='white-space:nowrap;'> 
+		使用系統輸入和額外內容來緩解生成式 AI 模型的有害輸出的是什麼層？
+		<div data-o='1'>中繼提示和基礎知識</div>
+		<div data-o='2'>模型</div>
+		<div data-o='3'>安全系統</div>
+		<div data-o='4'>使用者體驗</div>
+	</div>
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='2'>
+		<div>請問您應該實作下列哪一項以防止生成式 AI 解決方案傳回仇恨回應？</div>
+		<div data-o='1'>微調</div>
+		<div data-o='2'>內容篩選 (Content Filtering)</div>
+		<div data-o='3'>濫用監視</div>
+		<div data-o='4'>提示工程</div>
+		<div class='answer'>內容篩選是 Azure OpenAI 服務的負責任 AI 功能之一，用於識別並過濾掉仇恨、色情、暴力等有害內容。</div>
+	</div>
+</section> 
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='1'>
+		您有下列 REST API 要求。
+		<div class='frame'>
+			<div>body = {</div>
+			<div class='cb'>
+				<div>"prompt": "A polar bear on the beach holding an icecream",</div>
+				<div>"size": "1024x1024",</div>
+				<div>"n": 1,</div>
+				<div>"style": "vivid"</div>
+			</div>
+			<div>}</div>
+		</div>
+		請問應該使用下列哪一個 Azure OpenAI 模型來處理要求？
+		<div data-o='1'>DALL·E</div>
+		<div data-o='2'>Codex</div>
+		<div data-o='3'>GPT</div>
+		<div data-o='4'>Whisper</div>
+		<div class='answer'>請求中包含 prompt (文字提示) 和 size (影像尺寸)，這明確是 DALL·E 模型用於 影像生成 的 API 格式。</div>
+	</div>
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:m' ___='5'> 
+		請問生成式 AI 模型有兩種類型？
+		<div data-o='1'>DALL·E</div>
+		<div data-o='2'>轉換器</div>
+		<div data-o='4'>GPT</div>
+		<div data-o='8'>電腦視覺</div>
+		<div class='answer'>生成式 AI 領域中的兩個最主要且最具影響力的模型類型/架構是 Transformer (LLM 的基礎架構) 和 GPT (Generative Pre-trained Transformer，一種 Transformer 的實作)。</div>
+	</div>
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='3'>
+		請問應該使用哪個 Azure OpenAI 模型以摘要處理文件中的文字？
+		<div data-o='1'> DALL·E</div>
+		<div data-o='2'> Codex</div>
+		<div data-o='3'> GPT</div>
+		<div data-o='4'> Whisper</div>
+		<div class='answer'>GPT 系列模型（如 GPT-3.5 和 GPT-4）是多功能的大型語言模型，最常用於文字相關的任務，例如摘要 (Summarization)。</div>
+	</div>
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='1'>
+		在大型語言模型 (LLM) 中指派給每個字詞或權杖的多維度向量指的是？
+		<div data-o='1'>內嵌</div>
+		<div data-o='2'>注意力</div>
+		<div data-o='3'>完成度</div>
+		<div data-o='4'>轉換器</div>
+		<div class='answer'>內嵌 (或稱詞嵌入/Word Embedding) 是一種將文字轉換為密集數值向量的技術，用於捕捉文字的語義關係</div>
+	</div>
+</section>
+
+<section data-ks='GAI,Q_AI900'>
+	<div data-x='quiz:s' ___='1'>
+		Anita 部署了 Azure OpenAI 服務以產生影像。Anita 需要確保該服務會提供最高等級的保護能力，防範有害內容。請問您應該協助 Anita 採取什麼措施？
+		<div data-o='1'> 設定內容篩選設定</div>
+		<div data-o='2'> 自訂大型語言模型 (LLM)</div>
+		<div data-o='3'> 設定系統提示</div>
+		<div data-o='4'> 變更 Azure OpenAI 服務所使用的模型</div>
+		<div class='answer'>內容篩選 是 Azure OpenAI 服務內建的負責任 AI 工具，用於監控和過濾模型輸入和輸出中的有害內容，並且可以調整其嚴格程度。</div>
+	</div>
+</section>
+
+<!--footer>
+<div>1</div>
+<div>900</div>
+</footer-->
+
+</body>
+</html>
