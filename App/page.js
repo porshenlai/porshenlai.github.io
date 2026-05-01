@@ -258,9 +258,9 @@ async function loadScript (src,attrs={})
 	return (await rv)||se;
 }	// }}}
 
-function installStyle (css, ukey, container)
-{	// installStyle (CSSText, "StylePage") {{{
-	// installStyle (CSSText, "StyleContent", this.Content)
+function loadStyle (css, ukey, container)
+{	// loadStyle (CSSText, "StylePage") {{{
+	// loadStyle (CSSText, "StyleContent", this.Content)
 	let be=undefined;
 	if (container) be=container.firstChild; else container=document.head;
 	if (!ukey || !container.querySelector(`#${ukey}`))
@@ -284,35 +284,6 @@ function queryContainer (e, cs)
 }	// }}}
 
 const Plugins={
-	"tab":async function (page) { // {{{
-		const es=Array.from(document.body.querySelectorAll('#content .tab'));
-		if (es.length<=0)
-			return console.log(`
-Usaeg:
-	<div class='tab'>
-		<div><button TID="1">ONE</button><button TID="2">TWO</button></div>
-		<div TAB="1">ONE ONE ONE</div>
-		<div TAB="2">TWO TWO TWO</div>
-	</div>
-`);	
-		es.forEach(function (C) {
-			C.addEventListener('click',function (evt) {
-				const tis=Array.from(C.querySelectorAll('[TID]')),
-				      ti=tis.find((e)=>e.contains(evt.target));
-				if(!ti) return;
-				const tid=ti.getAttribute('TID');
-				tis.forEach((e)=>e.classList[ti===e?'add':'remove']('active'));
-				Array.from(C.querySelectorAll('[TAB]')).forEach((tab) => {
-					setTimeout(()=>{
-					tab.classList[tid===tab.getAttribute('TAB')?'remove':'add']('hide');
-					},100);
-					evt.stopPropagation();
-					evt.preventDefault();
-				});
-			});
-			C.querySelector('[TID]').click();
-		});
-	}	// }}}
 };	// Built-in Plugins
 
 class EV {
@@ -325,11 +296,14 @@ class Player
 {
 	constructor (sections, filters)
 	{	// {{{
+		// ## CURRENT SECTION 
 		this.current=undefined;
 
-		installStyle(CSS_PAGE, 'CSS_PAGE');
-		installStyle(CSS_CONTENT, 'CSS_CONTENT', this.Content);
+		// ## ADD CSS DECLARATIONS
+		loadStyle(CSS_PAGE, 'CSS_PAGE');
+		loadStyle(CSS_CONTENT, 'CSS_CONTENT', this.Content);
 
+		// ## APPEND <MAIN>/id='content' ELEMENT TO HOLD SECTIONS
 		this.GC=(()=>{ // sections container
 			let e=document.createElement("main");
 			e.innerHTML=HTML_MAIN;
@@ -337,8 +311,9 @@ class Player
 			return e;
 		})();
 
+		// ## INSTALL SECTIONS
 		this.PageIndex=[];
-		((sections, filters)=>{ // Install Sections {{{
+		((sections, filters)=>{
 			// 1. complete id setting
 			// 2. filter data-ks with disabled class
 			// 3. update PageIndex and ksmap
@@ -366,15 +341,17 @@ class Player
 				return E;
 			}, this.Content);
 
+			// TODO move to Element Variable
 			this.GC.querySelector('[data-uid="Aside:Pager"] input')
 				.setAttribute("max",this.PageIndex.length);
 			this.GC.querySelector('[data-uid="Aside:Pager"] span')
 				.textContent=this.PageIndex.length;
 			this.Content.Keywords=Object.keys(ksmap);
-		})(sections, filters); // }}}
+		})(sections, filters);
 
+		// ## INSTALL EXTENSION MODULES (data-x="...") 
 		this.Xs={};
-		Promise.all(	// Install Extension Modules {{{
+		Promise.all(
 			Array.from(this.Content.querySelectorAll('[data-x]'))
 			.reduce((R,e)=>{
 				R.push((async (T, N, E)=>{
@@ -386,10 +363,11 @@ class Player
 				})(this, e.dataset.x.split(':')[0], e));
 				return R;
 			},[])
-		).then(()=>false,console.log); // }}}
+		).then(()=>false,console.log);
 
+		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
 		((Content)=>{
-			this.Settings={ // Parameter Settings {{{
+			this.Settings={ // Parameter Settings
 				"FontScale" : new EV(
 					this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
 					this.GC.querySelector('[data-uid="Settings:FontScale"] output') ),
@@ -445,11 +423,12 @@ class Player
 							.reduce((r,v)=>r.push(v.textContent.split('&'))&&r,[])
 					}
 				})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
-			}; // }}}
+			};
 		})(this.Content)
 		this.Settings.FontScale.set(1.0);
 
-		((sections)=>{	// Install Table of Contents {{{
+		// ## INSTALL TABLE of CONTENTS
+		((sections)=>{
 			const TOC=this.GC.querySelector('[data-uid="ASIDE:TOC"]');
 			TOC.innerHTML="<ol>"+sections.reduce((rs, sec, idx) => {
 				let t=sec.querySelector('h1') || sec.querySelector('h2');
@@ -459,8 +438,8 @@ class Player
 				}
 				return rs;
 			}, "")+"</ol>";
-		})(this.get('*'));	// }}}
-	}	// }}}
+		})(this.get('*'));
+	}	// constructor }}}
 
 	get ()
 	{	// get section element by hints (0,"id") {{{
@@ -698,6 +677,7 @@ class Player
 		de.firstChild.addEventListener('click',(evt)=>{
 			for (let e=evt.target; e.nodeType===1; e=e.parentNode){
 				if (e.dataset.h) {
+					console.log(e.dataset.h)
 					evt.stopPropagation();
 					evt.preventDefault();
 				}
@@ -767,6 +747,7 @@ class Player
 		});
 		return this.Aside.open(de);
 	}	// }}}
+<<<<<<< HEAD
 
 	tab (TK)
 	{	// {{{
