@@ -47,7 +47,7 @@ body>footer {
 	overflow:hidden scroll;
 	background:#f0f0f0;
 }
-#content.byPage {
+#content.PlayMode_1 {
 	scroll-snap-type:y mandatory;
 }`;	// }}}
 const CSS_CONTENT= // {{{
@@ -68,7 +68,7 @@ section.current-section {
 	box-shadow:0 4px 16px rgba(38, 166, 154, 0.2);
 	cursor:default;
 }
-.byPage section, section.cfbox {
+.PlayMode_1 section, section.cfbox {
 	min-height:calc(100% - 2 * var(--base-margin));
 }
 section.cfbox {
@@ -258,7 +258,7 @@ async function loadScript (src,attrs={})
 	return (await rv)||se;
 }	// }}}
 
-function loadStyle (css, ukey, container)
+async function loadStyle (css, ukey, container)
 {	// loadStyle (CSSText, "StylePage") {{{
 	// loadStyle (CSSText, "StyleContent", this.Content)
 	let be=undefined;
@@ -283,22 +283,51 @@ function queryContainer (e, cs)
 	}
 }	// }}}
 
+function findSelector(e, cs, xs)
+{	// {{{
+	try {
+		for (;e;e=e.parentNode){
+			if (e.matches(cs)) return e;
+			if (xs && e.matches(xs)) break;
+		}
+	} catch(x) { }
+}	// }}}
+
 const Plugins={
 };	// Built-in Plugins
 
 class EV {
+	// 1. constructed with multiple elements
+	// 2. set => fill into all elements
+	// 3. get <= read from the first element {{{
 	constructor () { this.QS=Array.from(arguments); }
 	set (value) { this.QS.forEach((q)=>q.value=value); }
 	get () { return this.QS[0].value; }
-}
+}	// }}}
+
+class EVSelect extends EV {
+	// <div><button data-o='1' class='selected'>ONE</button>
+	// 		<button data-o='2'>TWO</button>
+	// 		<button data-o='3'>THREE</button></div> {{{
+	set (v) {
+		this.QS.forEach((g)=>{
+			try {
+				g.querySelectorAll('[data-o].selected').forEach((e)=>e.classList.remove('selected'));
+				g.querySelector(`[data-o="${v}"]`).classList.add('selected');
+			} catch(x) { }
+		});
+	}
+	get () {
+		try {
+			return this.QS[0].querySelector('[data-o].selected').dataset.o;
+		} catch(x) { }
+	}
+}	// }}}
 
 class Player
 {
 	constructor (sections, filters)
 	{	// {{{
-		// ## CURRENT SECTION 
-		this.current=undefined;
-
 		// ## ADD CSS DECLARATIONS
 		loadStyle(CSS_PAGE, 'CSS_PAGE');
 		loadStyle(CSS_CONTENT, 'CSS_CONTENT', this.Content);
@@ -310,6 +339,125 @@ class Player
 			this.Content=e.querySelector('#content');
 			return e;
 		})();
+
+		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
+		((ThisPlayer)=>{
+			this.Settings={ // Parameter Settings
+				"FontScale" : new (class extends EV { // {{{
+					set (v) {
+						const DFS=((w,h)=>w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
+							window.innerWidth,
+							window.innerHeight
+						);
+						document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
+						return super.set(v);
+					}
+				})( this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
+					this.GC.querySelector('[data-uid="Settings:FontScale"] output') ), // }}}
+				"PlayMode" : new (class extends EVSelect {
+					// {{{
+					set (v) {
+						if (!v) v=findSelector(event.target,'[data-o]');
+						if (v instanceof Element) v=v.dataset.o;
+						((content)=>{
+							content.classList.remove.apply(
+								content.classList,
+								Array.from(this.QS[0].querySelectorAll('[data-o]')).map(
+									(oe)=>`PlayMode_${oe.dataset.o}`
+								)
+							);
+							content.classList.add(`PlayMode_${v}`);
+						})(ThisPlayer.Content);
+						console.log("11112",v);
+						return super.set(v);
+					}
+				})( this.GC.querySelector('[data-h="set:PlayMode"]') ), // }}}
+				"Page" : new (class extends EV {
+					// set('Page',50); set('Page','next); set('Page','prev');
+					// set('Page','#id'); set('Page',document.getElementById('#id')); set('Page');
+					// {{{
+					set (v) {
+						let k,pn,em;
+						if (!v) v=this.get();
+						if (v instanceof Element) {
+							em=v;
+						} else if ((""+v).startsWith('#')) {
+							k=v.substring(1);
+						} else if ('next' === v) {
+							pn=parseInt(this.get())+1;
+							if (pn>ThisPlayer.PageIndex.length) pn=ThisPlayer.PageIndex.length;
+						} else if ('prev' === v) {
+							pn=parseInt(this.get())-1;
+							if (pn<1) pn=1;
+						} else pn=parseInt(v);
+
+						if (k===undefined&&em!==undefined) k = em.id;
+						if (k===undefined&&pn!==undefined) k = ThisPlayer.PageIndex[pn-1];
+						if (pn===undefined&&k!==undefined) pn = ThisPlayer.PageIndex.indexOf(k)+1;
+						if (em===undefined&&k!==undefined) em = document.getElementById(k);
+
+						if ((!em) || em.classList.contains('.current-section')) return;
+
+						// MOVE .current-section flag to new current
+						let GC=ThisPlayer.GC, current=GC.querySelector('.current-section');
+						Array.from(GC.querySelectorAll('.current-section'))
+							.forEach((e)=>e.classList.remove('.current-section'));
+						em.classList.add('current-section');
+
+						// UPDATE URL HASH
+						if (history.replaceState)
+							history.replaceState(null, null, '#' + em.id);
+						else location.hash = '#' + em.id;
+
+						// SCROLL INTO VIEW
+						em.scrollIntoView({
+							behavior: scroll ? 'smooth' : 'auto',
+							block: 'start'
+						});
+						em.scrollTop=0;
+						return super.set(pn);
+					}
+				})( this.GC.querySelector('[data-uid="Aside:Pager"] input'),
+					this.GC.querySelector('[data-uid="Aside:Pager"] output') ), // }}}
+				"PageMax" : new (class extends EV {
+					// set('PageMax',120);
+					// {{{
+					set (v) {
+						this.QS[0].setAttribute("max")=parseInt(v);
+						this.QS[1].textContent=v;
+					}
+				})(	this.GC.querySelector('[data-uid="Aside:Pager"] input'),
+					this.GC.querySelector('[data-uid="Aside:Pager"] span') ), // }}}
+				"Keywords" : new (class extends EV {
+					// set('Keywords',['k1','k2',...]);
+					// {{{
+					set (a) {
+						this.QS[0].innerHTML = a.reduce((r,k) =>
+							r+`<div><input type='checkbox'/>${k}</div>`,'')
+							+ "<span data-h='filter:add'>➕</span>";
+					}
+					get () {
+						return Array.from(this.QS[0].querySelectorAll('input[type="checkbox"]'))
+							.filter((e)=>e.checked)
+							.map((e)=>e.parentNode.textContent);
+					}
+				})(this.GC.querySelector('[data-uid="Settings:Keywords"]')), // }}}
+				"Filters" : new (class extends EV {
+					// set('Filters',[[A1,A2,...],[A3,A4,...],...]);
+					// {{{
+					set (aa) {
+						this.QS[0].innerHTML = aa.reduce((r,a) =>
+							r+"<div class='OR'>"+a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')+"</div>", "");
+					}
+					get	 () {
+						return Array.from(this.QS[0].querySelectorAll("div"))
+							.reduce((r,v)=>r.push(v.textContent.split('&'))&&r,[])
+					}
+				})(this.GC.querySelector('[data-uid="Settings:Filters"]')) // }}}
+			};
+		})(this)
+		this.Settings.FontScale.set(1.0);
+		this.Settings.Filters.set(filters||[]);
 
 		// ## INSTALL SECTIONS
 		this.PageIndex=[];
@@ -346,7 +494,7 @@ class Player
 				.setAttribute("max",this.PageIndex.length);
 			this.GC.querySelector('[data-uid="Aside:Pager"] span')
 				.textContent=this.PageIndex.length;
-			this.Content.Keywords=Object.keys(ksmap);
+			this.Settings.Keywords.set(Object.keys(ksmap));
 		})(sections, filters);
 
 		// ## INSTALL EXTENSION MODULES (data-x="...") 
@@ -365,67 +513,6 @@ class Player
 			},[])
 		).then(()=>false,console.log);
 
-		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
-		((Content)=>{
-			this.Settings={ // Parameter Settings
-				"FontScale" : new EV(
-					this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
-					this.GC.querySelector('[data-uid="Settings:FontScale"] output') ),
-				"PlayMode" : new (class extends EV {
-					constructor (e) {
-						super(e);
-						this.set(this.get());
-					}
-					set (tv) {
-						console.log("TV is ",tv,event.target);
-						if (tv===undefined) tv=event.target.dataset.o;
-						console.log("TV is ",tv);
-						Array.from(this.QS[0].querySelectorAll('[data-o]'))
-						.forEach((e)=>e.classList[e.dataset.o===tv?"add":"remove"]('selected'));
-						const CNs=["PMCont","PMPage","PMAlone"];
-						Content.classList.remove.apply(Content.classList,CNs);
-						Content.classList.add(CNs[tv]);
-					}
-					get () {
-						return this.QS[0].querySelector('[data-o].selected').dataset.o;
-					}
-				})(this.GC.querySelector('[data-h="set:PlayMode"]')),
-				"Page" : new EV(
-					this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] output') ),
-				"Keywords" : new (class extends EV {
-					constructor (e) {
-						super(e);
-						this.set(Content.Keywords);
-					}
-					set (a) {
-						this.QS[0].innerHTML = a.reduce((r,k) =>
-							r+`<div><input type='checkbox'/>${k}</div>`,'')
-							+ "<span data-h='filter:add'>➕</span>";
-					}
-					get () {
-						return Array.from(this.QS[0].querySelectorAll('input[type="checkbox"]'))
-							.filter((e)=>e.checked)
-							.map((e)=>e.parentNode.textContent);
-					}
-				})(this.GC.querySelector('[data-uid="Settings:Keywords"]')),
-				"Filters" : new (class extends EV {
-					constructor (e) {
-						super(e);
-						this.set(filters||[]);
-					}
-					set (aa) {
-						this.QS[0].innerHTML = aa.reduce((r,a) =>
-							r+"<div class='OR'>"+a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')+"</div>", "");
-					}
-					get	 () {
-						return Array.from(this.QS[0].querySelectorAll("div"))
-							.reduce((r,v)=>r.push(v.textContent.split('&'))&&r,[])
-					}
-				})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
-			};
-		})(this.Content)
-		this.Settings.FontScale.set(1.0);
 
 		// ## INSTALL TABLE of CONTENTS
 		((sections)=>{
@@ -461,63 +548,7 @@ class Player
 
 	set (name, value)
 	{	// set/unset parameters {{{
-		switch (name) {
-		case 'Page':
-			((k)=>{
-				let pn=undefined, PNE=this.Settings.Page;
-				PNE.set(
-					k.startsWith('#') ? this.PageIndex.indexOf(k.substring(1))+1 :
-					k==='next' ? (parseInt(PNE.get())+1) :
-					k==='prev' ? (parseInt(PNE.get())-1) : PNE.get()
-				); 
-				document.getElementById(this.PageIndex[PNE.get()-1]).click();
-			})(value||this.Settings[name].get());
-			break;
-		case 'FontScale':
-			((v)=>{
-				this.Settings[name].set(v);
-				const DFS=((w,h)=>w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
-					window.innerWidth,
-					window.innerHeight
-				);
-				document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
-			})(value||this.Settings[name].get());
-			break;
-		case 'PlayMode':
-			this.Settings[name].set(value);
-			break;
-		}
-	}	// }}}
-
-	activate (section, scroll)
-	{	// activate specified section {{{
-		section = this.get(section);
-		if (!section) return;
-
-		if (section !== this.current) {
-			this.current=section;
-
-			// move .current-section to new section element
-			Array.from(
-				section.parentNode.querySelectorAll('.current-section')
-			).forEach((s)=>s.classList.remove('current-section'));
-			section.classList.add('current-section');
-
-			// Update URL hash and scroll into view
-			if (history.replaceState)
-				history.replaceState(null, null, '#' + section.id);
-			else location.hash = '#' + section.id;
-
-			this.Settings.Page.set(this.PageIndex.indexOf(section.id)+1);
-
-			if (scroll !== undefined) {
-				this.current.scrollIntoView({
-					behavior: scroll ? 'smooth' : 'auto',
-					block: 'start'
-				});
-				this.current.scrollTop=0;
-			}
-		}
+		return this.Settings[name].set(value);
 	}	// }}}
 
 	async install (name, handler)
@@ -686,6 +717,7 @@ class Player
 		return this.Aside.open(de, capt||"");
 	}	// }}}
 
+/*
 	async show (e, code)
 	{	// <button data-h='show,RID_Key'> {{{
 		//console.log(this.Plugins.TeX.resolve());
@@ -747,8 +779,7 @@ class Player
 		});
 		return this.Aside.open(de);
 	}	// }}}
-<<<<<<< HEAD
-
+*/
 	tab (TK)
 	{	// {{{
 		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
@@ -780,9 +811,6 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 				return e;
 			})(), undefined);
 			document.body.insertBefore(this.GC, document.body.querySelector('footer'));
-
-			if (args.byPage)
-				this.GC.classList.add("byPage");
 		}	// }}}
 		nop () { }
 		//	if(!document.fullscreenElement)
@@ -802,7 +830,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 						// evt.preventDefault(); // default handler essential to change events
 						break;
 					}
-					if (e.tagName==='SECTION') { this.activate(e, true); break; }
+					if (e.tagName==='SECTION'){ this.set('Page',e); break; }
 				}
 			} catch(x) { console.log("Exception:",x); }
 		}	// }}}
