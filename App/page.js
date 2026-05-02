@@ -47,9 +47,12 @@ body>footer {
 	overflow:hidden scroll;
 	background:#f0f0f0;
 }
-#content.PlayMode_1 {
+#content.PlayMode_1, #content.PlayMode_2 {
 	scroll-snap-type:y mandatory;
 }`;	// }}}
+// PlayMode_*: all sections compacted in continuous pages
+// PlayMode_1: all the minimal height of sections are greater than the page height 
+// PlayMode_2: all the section not currently displayed is hidden
 const CSS_CONTENT= // {{{
 `section {
 	margin:var(--base-margin);
@@ -63,12 +66,15 @@ const CSS_CONTENT= // {{{
 	cursor:pointer;
 }
 section:hover { border-color:#ccc; }
-section.current-section {
+.PlayMode_2 section:not(.current) {
+	display:none;
+}
+section.current {
 	border-color:#26A69A;
 	box-shadow:0 4px 16px rgba(38, 166, 154, 0.2);
 	cursor:default;
 }
-.PlayMode_1 section, section.cfbox {
+.PlayMode_1 section, .PlayMode_2 section, section.cfbox {
 	min-height:calc(100% - 2 * var(--base-margin));
 }
 section.cfbox {
@@ -79,18 +85,7 @@ section.cfbox {
 }
 
 [data-h] { cursor:pointer; }
-
-[data-h^="tab:"],[data-h="switch"] { display:flex; flex-flow:row nowrap; }
-[data-h^="tab:"] [data-o],
-[data-h="switch"] [data-o] {
-	flex:1 1 auto; border:2px solid silver; border-radius:4px;
-	margin:2px 1px 0 1px; background:white; text-align:center;
-}
-[data-h="switch"] [data-o].selected { color:blue; border-color:blue; }
-[data-h^="tab:"] [data-o].selected { border-bottom-color: transparent; }
-
 [data-h^="set:"] [data-o].selected { color:blue; }
-
 [data-h="display"] { text-decoration:underline;color:blue; }
 [data-h="display"] [caption] { display:none; }
 
@@ -138,6 +133,32 @@ h3 {
 .brown { color:brown; }
 .orange { color:orange; }
 .purple { color:purple; }
+
+.HSelect, .HTab {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	width: 100%;
+}
+.HSelect>[data-o],
+.HTab>[data-o] {
+	flex: 1 1 auto;
+	color:blue; text-align: center;
+	border: 1px solid blue; border-radius: 4px;
+	margin: 0 2px;
+}
+.HSelect>[data-o]:hover {
+	background: lightgrey;
+}
+.HSelect>[data-o].selected {
+	color: black;
+	border-color: black;
+}
+.HTab>[data-o].selected {
+	color: black;
+	border-bottom-color: transparent; 
+}
+
 `; // }}}
 
 const HTML_CONTROL= // {{{
@@ -201,18 +222,12 @@ aside nav li { border-bottom:1px solid silver; }
 		<div style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
 		<section style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
 	</div>
-<style>
-.HSelect { display:flex;flex-flow:row nowrap;align-items:center;width:100%; }
-.HSelect>[data-o] { flex:1 1 auto;text-align:center;border:1px solid black;border-radius:8px;margin:0 4px; }
-.HSelect>[data-o].selected { color:blue;border-color:blue; }
-.HSelect>[data-o]:hover { background:lightgrey; }
-</style>
-	<aside data-h='nop'>
-		<div data-h="tab:ASIDE" style='width:100%;background:white;'>
+	<aside data-h='tab:ASIDE' style='background:white;'>
+		<div class='HTab'>
 			<div data-o="TOC" class='selected'>導覽</div>
 			<div data-o="Settings">設定</div>
 		</div>
-		<div style="flex:1 1 auto;overflow:hidden auto;width:100%;height:100%;padding:2px 8px;margin:0;background:white;">
+		<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
 			<nav class='tabPage selected' data-uid='ASIDE:TOC'></nav>
 			<div class='tabPage' data-uid='ASIDE:Settings'>
 				<div data-uid='Settings:PlayMode'>
@@ -283,16 +298,6 @@ function queryContainer (e, cs)
 	}
 }	// }}}
 
-function findSelector(e, cs, xs)
-{	// {{{
-	try {
-		for (;e;e=e.parentNode){
-			if (e.matches(cs)) return e;
-			if (xs && e.matches(xs)) break;
-		}
-	} catch(x) { }
-}	// }}}
-
 const Plugins={
 };	// Built-in Plugins
 
@@ -345,6 +350,7 @@ class Player
 			this.Settings={ // Parameter Settings
 				"FontScale" : new (class extends EV { // {{{
 					set (v) {
+						if (!v) v=this.get();
 						const DFS=((w,h)=>w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
 							window.innerWidth,
 							window.innerHeight
@@ -357,7 +363,7 @@ class Player
 				"PlayMode" : new (class extends EVSelect {
 					// {{{
 					set (v) {
-						if (!v) v=findSelector(event.target,'[data-o]');
+						if (!v) v=queryContainer(event.target,'[data-o]');
 						if (v instanceof Element) v=v.dataset.o;
 						((content)=>{
 							content.classList.remove.apply(
@@ -396,13 +402,16 @@ class Player
 						if (pn===undefined&&k!==undefined) pn = ThisPlayer.PageIndex.indexOf(k)+1;
 						if (em===undefined&&k!==undefined) em = document.getElementById(k);
 
-						if ((!em) || em.classList.contains('.current-section')) return;
+						if ((!em) || em.classList.contains('current')) return;
 
 						// MOVE .current-section flag to new current
-						let GC=ThisPlayer.GC, current=GC.querySelector('.current-section');
-						Array.from(GC.querySelectorAll('.current-section'))
-							.forEach((e)=>e.classList.remove('.current-section'));
-						em.classList.add('current-section');
+						let GC=ThisPlayer.GC;
+						Array.from(GC.querySelectorAll('.current'))
+						.forEach((e)=>{
+							console.log(e);
+							e.classList.remove('current');
+						});
+						em.classList.add('current');
 
 						// UPDATE URL HASH
 						if (history.replaceState)
@@ -556,6 +565,27 @@ class Player
 		this.Plugins[name]=await Promise.resolve(handler(this));
 	}	// }}}
 
+	toggleAside (v)
+	{	// {{{
+		(	(v&&parseInt(v)>0) ? (CL) => { // ON
+				CL.add("menu");
+				CL.remove("dialog");
+			} : (CL) => CL.remove("menu","dialog") // OFF
+		)(this.GC.querySelector('[data-uid="Overlay"]').classList);
+	}	// }}}
+
+	openDialog (caption)
+	{	// {{{
+		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
+		CL.add("dialog");
+		CL.remove("menu");
+
+		return ((DLG)=>{
+			DLG.querySelector('div').textContent=caption;
+			return DLG.querySelector('section');
+		})(this.GC.querySelector('[data-uid="Dialog"]'));
+	}	// }}}
+
 	regEventHook (cat, name, handler)
 	{	// (un)schedule a tick callback {{{
 		let eh=this.EventHook[cat]||(this.EventHook[cat]={});
@@ -646,32 +676,23 @@ class Player
 		}
 	}	// }}}
 
-	toggleAside (v)
-	{	// {{{
-		(	(v&&parseInt(v)>0) ? (CL) => { // ON
-				CL.add("menu");
-				CL.remove("dialog");
-			} : (CL) => CL.remove("menu","dialog") // OFF
-		)(this.GC.querySelector('[data-uid="Overlay"]').classList);
-	}	// }}}
-
-	openDialog (caption)
-	{	// {{{
-		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
-		CL.add("dialog");
-		CL.remove("menu");
-
-		return ((DLG)=>{
-			DLG.querySelector('div').textContent=caption;
-			return DLG.querySelector('section');
-		})(this.GC.querySelector('[data-uid="Dialog"]'));
-	}	// }}}
-
 	search (key)
 	{	// {{{
 		let ts=this.Content.querySelector(`section[data-ks~="${key}"]`);
 		if (ts) ts.click();
 		this.toggleAside(0);
+	}	// }}}
+
+	tab (TK)
+	{	// {{{
+		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
+		if (K) {
+			tb.querySelectorAll(`[data-o]`)
+			.forEach((e)=>e.classList[event.target===e?"add":"remove"]("selected"));
+
+			tb.querySelectorAll(`[data-uid^=${TK}]`)
+			.forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
+		}
 	}	// }}}
 
 	async dialog (mtype, tgt, capt)
@@ -780,13 +801,6 @@ class Player
 		return this.Aside.open(de);
 	}	// }}}
 */
-	tab (TK)
-	{	// {{{
-		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
-		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("selected"));
-		const tabs=queryContainer(tb,['section','aside']);
-		tabs.querySelectorAll(`[data-uid^=${TK}]`).forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
-	}	// }}}
 }
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{

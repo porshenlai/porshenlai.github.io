@@ -7,6 +7,7 @@
 <style>
 	.CAT { color:brown; font-weight:bolder; font-size:120%; }
 	.QMix { display:flex;overflow:auto;align-items:center; }
+	[data-h^="tab:"] { border:1px solid black; border-radius:4px; padding:2px; }
 </style>
 </head>
 <body style='opacity:0'>
@@ -102,8 +103,8 @@
 
 <section data-ks='literacy'>
 	<h2>Azure 視覺 API (Vision APIs)</h2><!--{{{-->
-	<div style="border:2px solid silver;">
-		<div data-h='tab:A' style='display:flex;flex-flow:rows nowrap;width:100%;'>
+	<div data-h='tab:A'>
+		<div class='HTab'>
 			<div data-o='電腦視覺' class='selected'>電腦視覺</div>
 			<div data-o='自訂視覺'>自訂視覺</div>
 			<div data-o='人臉辨識'>人臉辨識</div>
@@ -176,60 +177,62 @@
 
 <section data-ks='literacy'>
 	<h2>Azure 語言 API (Language APIs)</h2><!--{{{-->
-	<div data-h='tab:B'>
-		<div data-o='文字分析' class='selected'>文字分析</div>
-		<div data-o='語言理解'>語言理解</div>
-		<div data-o='問題解答'>問題解答</div>
-	</div>
-	<div TAB='文字分析'>
-		<ul><h3>情感分析</h3>
-		<li>可以分析出文章是屬於正面，中性或負面情感。</li>
-		</ul><ul style='color:green'>
-		<li>例如:確定評論是屬於正面還是負面</li>
-		<li>例如:根據支援票證中包含的文本了解客戶的不安程度</li>
-		<li>例如:按照正負尺度評估本文</li>
-		<li>例如:預測社交媒體貼文的情感</li>
-		<li>例如:分析客戶評論，並確定每個評論的正面或負面影響</li>
-		</ul>
-		<ul><h3>關鍵片語擷取</h3>
-		<li>可以從文章中以擷取關鍵片語方式，快速識別出文章的主要概念。</li>
-		</ul><ul style='color:green;'>
-		<li>例如:確定那些文檔提供了有關相同主題的資訊</li>
-		<li>例如:確定文件集合中的主要討論點</li>
-		<li>例如:總結支援票證中的重要資訊</li>
-		<li>例如:確定某些文件中的主要話題為何？</li>
-		</ul>
-		<ul><h3>具名實體辨識 Named Entity Recognition (NER)</h3>
-		<li>可以識別並分類非結構化文字中的實體。</li>
-		</ul><ul style='color:green;'>
-		<li>例如:從支援票證中提取關鍵日期</li>
-		<li>例如:從文本中提取人員，地點和組織等資訊。</li>
-		</ul>
-	</div>
-	<div TAB='語言理解'>
-		<ul><h3>交談語言理解 Conversational Language Understanding (CLU)</h3>
-		<li>可以將自訂機器學習智慧套用到交談式或自然語言文字，用來預測整體意義並從中提取相關資訊。</li>
-		</ul><ul style='color:green'>
-		<li>例如:以自動聊天方式回答有關退款和兌換問題</li>
-		<li>例如:輸入問題並互動式回答作為應用程式的一部分</li>
-		<li>例如:家用智慧設備可以回答諸如 “今天天氣會如何？” 之類的問題</li>
-		<li>例如:使用知識庫以交互方式回答使用者問題的網站</li>
-		<li>例如:讓使用者能夠自行在網站上尋找答案的聊天機器人</li>
-		<li>例如:透過在公用網站中爬文來建立 FAQ 的服務</li>
-		<li>例如:餐廳可以使用聊天機器人提供預訂服務與回答問題</li>
-		</ul>
-	</div>
-	<div TAB='問題解答'>
-		<ul><h3>問題解答</h3>
-		<li>使用者用自然語言提出問題，再由 AI 系統給予適當的答案。<li>
-		<li>問題解答可讓你定義可使用自然語言輸入查詢的問答組知識庫。</li>
-		<li>多回合交談可在呈現明確答案前，從使用者引出更多資訊。</li>
-		</ul><ul style='color:green'>
-		<li>例如:使用自然語言來查詢知識庫</li>
-		<li>例如:讓知識庫為提供相同的答案給相似提問</li>
-		<li>例如:已有FAQ PDF檔，根據FAQ建立對話支援</li>
-		<li>例如:基於 FAQ 創建機器人</li>
-		</ul>
+	<div data-h='tab:A'>
+		<div class='HTab'>
+			<div data-o='文字分析' class='selected'>文字分析</div>
+			<div data-o='語言理解'>語言理解</div>
+			<div data-o='問題解答'>問題解答</div>
+		</div>
+		<div data-uid='A:文字分析'>
+			<ul><h3>情感分析</h3>
+			<li>可以分析出文章是屬於正面，中性或負面情感。</li>
+			</ul><ul style='color:green'>
+			<li>例如:確定評論是屬於正面還是負面</li>
+			<li>例如:根據支援票證中包含的文本了解客戶的不安程度</li>
+			<li>例如:按照正負尺度評估本文</li>
+			<li>例如:預測社交媒體貼文的情感</li>
+			<li>例如:分析客戶評論，並確定每個評論的正面或負面影響</li>
+			</ul>
+			<ul><h3>關鍵片語擷取</h3>
+			<li>可以從文章中以擷取關鍵片語方式，快速識別出文章的主要概念。</li>
+			</ul><ul style='color:green;'>
+			<li>例如:確定那些文檔提供了有關相同主題的資訊</li>
+			<li>例如:確定文件集合中的主要討論點</li>
+			<li>例如:總結支援票證中的重要資訊</li>
+			<li>例如:確定某些文件中的主要話題為何？</li>
+			</ul>
+			<ul><h3>具名實體辨識 Named Entity Recognition (NER)</h3>
+			<li>可以識別並分類非結構化文字中的實體。</li>
+			</ul><ul style='color:green;'>
+			<li>例如:從支援票證中提取關鍵日期</li>
+			<li>例如:從文本中提取人員，地點和組織等資訊。</li>
+			</ul>
+		</div>
+		<div data-uid='A:語言理解'>
+			<ul><h3>交談語言理解 Conversational Language Understanding (CLU)</h3>
+			<li>可以將自訂機器學習智慧套用到交談式或自然語言文字，用來預測整體意義並從中提取相關資訊。</li>
+			</ul><ul style='color:green'>
+			<li>例如:以自動聊天方式回答有關退款和兌換問題</li>
+			<li>例如:輸入問題並互動式回答作為應用程式的一部分</li>
+			<li>例如:家用智慧設備可以回答諸如 “今天天氣會如何？” 之類的問題</li>
+			<li>例如:使用知識庫以交互方式回答使用者問題的網站</li>
+			<li>例如:讓使用者能夠自行在網站上尋找答案的聊天機器人</li>
+			<li>例如:透過在公用網站中爬文來建立 FAQ 的服務</li>
+			<li>例如:餐廳可以使用聊天機器人提供預訂服務與回答問題</li>
+			</ul>
+		</div>
+		<div data-uid='A:問題解答'>
+			<ul><h3>問題解答</h3>
+			<li>使用者用自然語言提出問題，再由 AI 系統給予適當的答案。<li>
+			<li>問題解答可讓你定義可使用自然語言輸入查詢的問答組知識庫。</li>
+			<li>多回合交談可在呈現明確答案前，從使用者引出更多資訊。</li>
+			</ul><ul style='color:green'>
+			<li>例如:使用自然語言來查詢知識庫</li>
+			<li>例如:讓知識庫為提供相同的答案給相似提問</li>
+			<li>例如:已有FAQ PDF檔，根據FAQ建立對話支援</li>
+			<li>例如:基於 FAQ 創建機器人</li>
+			</ul>
+		</div>
 	</div>
 	<!--}}}-->
 </section>
@@ -723,14 +726,14 @@
 
 <section data-ks='ML'>
 	<h2>模型的種類</h2><!--{{{-->
-	<table class="tab" border='1' cellspacing='0' cellpadding='3' width='100%'>
-	<thead><tr>
-		<th TID='1'><button>監督式學習</button></th>
-		<th TID='2'><button>非監督式學習</button></th>
-		<th TID='3'><button>半監督式學習</button></th>
-		<th TID='4'><button>增強學習</button></th>
-	</tr></thead><tbody><tr>
-		<td TAB='1' colspan='4'>
+	<div data-h='tab:StType'>
+		<div class='HSelect'>
+			<div data-o='1' class='selected'>監督式學習</div>
+			<div data-o='2'>非監督式學習</div>
+			<div data-o='3'>半監督式學習</div>
+			<div data-o='4'>增強學習</div>
+		</div>
+		<div data-uid='StType:1'>
 			<h3>監督式學習</h3>
 			<ul>
 				<li>將附上 標籤 (label) 的資料，交給機器學習模型定型來找出最佳解答</li>
@@ -742,18 +745,16 @@
 					<span data-h='playPhoto:2_C.jpg:貓和老虎'>[1]</span>
 				</li>
 			</ul>
-		</td>
-	</tr><tr>
-		<td TAB='2' colspan='4'>
+		</div>
+		<div data-uid='StType:2' class='hide'>
 			<h3>非監督式學習</h3>
 			<ul>
 				<li>沒有標記標籤，模型自己探索資料間的規律，找出資料特徵，達成解答未知資料的目標。</li>
 				<li>叢集分析式式非監督式學習最常見的方法，會根據特徵由演算法計算資料間的相似度，將資料區分為不同群組。
 					<span data-h='playPhoto:2_F.png:非監督式學習'>[1]</span></li>
 			</ul>
-		</td>
-	</tr><tr>
-		<td TAB='3' colspan='4'>
+		</div>
+		<div data-uid='StType:3' class='hide'>
 			<h3>半監督式學習</h3>
 			<ul>
 				<li>介於監督式與非監督式間的機器學習</li>
@@ -761,9 +762,8 @@
 					<span data-h='playPhoto:2_G.jpg:半監督式學習'>[1]</span></li>
 				<li>可以減少標記資料的時間和人力，又能預測出準確的結果</li>
 			</ul>
-		</td>
-	</tr><tr>
-		<td TAB='4' colspan='4'>
+		</div>
+		<div data-uid='StType:4' class='hide'>
 			<h3>增強學習</h3>
 			<ul>
 				<li>電腦經由和動態環境不停互動來學習正確完成任務的過程
@@ -771,9 +771,8 @@
 				<li>嘗試錯誤 (trial and error)</li>
 				<li>根據外界的回饋資料隨時修正行動，反覆嘗試錯誤來獲得最大報酬</li>
 			</ul>
-		</td>
-	</tr></tbody>
-	</table>
+		</div>
+	</div>
 	<!--}}}-->
 </section>
 
