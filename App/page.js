@@ -618,6 +618,15 @@ class Player
         } else alert('您的瀏覽器不支援 Speech Synthesis API。');
     }	// }}}
 
+	playDOM (e, caption)
+	{	// {{{
+		((DE)=>{
+			e=e.querySelector('.hide').cloneNode(true);
+			e.classList.remove('hide');
+			DE.appendChild(e);
+		})(this.openDialog(caption));
+	}	// }}}
+
 	playPhoto (url, caption)
 	{	// {{{
 		((DE)=>{
@@ -838,7 +847,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 					if (e.dataset && e.dataset.h) {
 						const args=e.dataset.h.split(':'), cmd=args.shift();
 						if (cmd in this && 'function' === typeof(this[cmd])) {
-							this[cmd].apply(this,args);
+							this[cmd].apply(this,args.map((a)=>a==='this' ? e : a));
 						} else continue;
 						evt.stopPropagation();
 						// evt.preventDefault(); // default handler essential to change events
