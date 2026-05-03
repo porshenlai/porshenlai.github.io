@@ -407,16 +407,17 @@ class Player
 						// MOVE .current-section flag to new current
 						let GC=ThisPlayer.GC;
 						Array.from(GC.querySelectorAll('.current'))
-						.forEach((e)=>{
-							console.log(e);
-							e.classList.remove('current');
-						});
+						.forEach((e)=>e.classList.remove('current'));
 						em.classList.add('current');
 
 						// UPDATE URL HASH
 						if (history.replaceState)
 							history.replaceState(null, null, '#' + em.id);
 						else location.hash = '#' + em.id;
+
+						// Trigger module extend of section loading
+						let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
+						if(ms.length>0) ThisPlayer.extendMods(ms);
 
 						// SCROLL INTO VIEW
 						em.scrollIntoView({
@@ -508,20 +509,7 @@ class Player
 
 		// ## INSTALL EXTENSION MODULES (data-x="...") 
 		this.Xs={};
-		Promise.all(
-			Array.from(this.Content.querySelectorAll('[data-x]'))
-			.reduce((R,e)=>{
-				R.push((async (T, N, E)=>{
-					if (!T.Xs[N])
-						T.Xs[N] = N in Plugins ?
-							Promise.resolve(Plugins[N](T)) :
-							loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
-					(await (T.Xs[N]))(T, E);
-				})(this, e.dataset.x.split(':')[0], e));
-				return R;
-			},[])
-		).then(()=>false,console.log);
-
+		this.extendMods(Array.from(this.Content.querySelectorAll('[data-x]')));
 
 		// ## INSTALL TABLE of CONTENTS
 		((sections)=>{
@@ -560,9 +548,21 @@ class Player
 		return this.Settings[name].set(value);
 	}	// }}}
 
-	async install (name, handler)
-	{	// install page plugin {{{
-		this.Plugins[name]=await Promise.resolve(handler(this));
+	extendMods (a)
+	{	// {{{
+		Promise.all(
+			a.reduce((R,e)=>{
+				const x=e.dataset.x||e.dataset.xl||"";
+				R.push((async (T, N, E)=>{
+					if (!T.Xs[N])
+						T.Xs[N] = N in Plugins ?
+							Promise.resolve(Plugins[N](T)) :
+							loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
+					(await (T.Xs[N]))(T, E);
+				})(this, x.split(':')[0], e));
+				return R;
+			},[])
+		).then(()=>false,console.log);
 	}	// }}}
 
 	toggleAside (v)
