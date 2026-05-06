@@ -13,46 +13,49 @@ class Quiz
 	constructor (app)
 	{
 		this.QEs={};
-		if (!document.head.querySelector('style[STYID="Quiz"]')) (() => {
+		if (!document.head.querySelector('style[data-cssid="Quiz"]')) (() => {
 			const SE=document.createElement("style"); // install style for Quiz
-			SE.setAttribute('STYID','Quiz')
+			SE.dataset.cssid='Quiz';
 			SE.innerHTML=`
-[X="Q"] select {
+[data-x^="quiz:"] select {
 	font-size:100%;
 }
-[X="Q"] [qo] {
+[data-x^="quiz:"] [data-o] {
 	padding:.3vw;
 	margin:.1vw;
 	border:1px solid lightgrey;
 	background-image:linear-gradient(white 60%,lightgrey);
 }
-[X="Q"] [qo]:hover {
+[data-x^="quiz:"] [data-o]:hover {
 	border-color:grey;
 	background-image:linear-gradient(white 60%,grey);
 }
-[X="Q"][qt] {
+[data-x^="quiz:"] {
 	border:1px solid blue;
 	border-radius:.5vw;
 	padding:.3vw;
 	margin:.1vw 0;
 }
-[X="Q"][qr="x"] {
+[data-x^="quiz:"].QRX {
 	border-color:red;
 	background-image:linear-gradient(to right,white 60%,pink);
 }
-[X="Q"][qr="o"] {
+[data-x^="quiz:"].QRO {
 	border-color:green;
 	background-image:
 	linear-gradient(to right,white 60%,lightgreen);
 }
 
-[X="Q"][qr='o'] :not(.QS)[qo],
-[X="Q"][qt]:not([qr='o']) .answer,
-[X="Q"][qr='_']>:not(.HT),
-[X="Q"]:not([qr='_'])>.HT
+[data-x^="quiz:"] .cols { display:flex; flex-flow:rows nowrap; }
+[data-x^="quiz:"] .cols>div { flex:1 1 auto;text-align:center; }
+
+[data-x^="quiz:"].QRO [data-o]:not(.QS),
+[data-x^="quiz:"]:not(.QRO) .answer,
+[data-x^="quiz:"].QR_>:not(.HT),
+[data-x^="quiz:"]:not(.QR_)>.HT
 { display:none; }
 
-[X="Q"] :not([qo="value"]).QS {
+[data-x^="quiz:"] :not([data-o="value"]).QS {
 	color:blue;
 	font-weight:bolder;
 }
@@ -62,17 +65,21 @@ class Quiz
 		})();
 
 		// install utilities services of Quiz.
+/*
 		if (app) app.Aside.installSetting((()=>{
 			const E=document.createElement("div");
-			E.setAttribute("SID","quiz:default");
-			E.innerHTML=`
-	QUIZ: <button action='downloadDLC'>下載數位學院CSV</button>
-`;
+			E.innerHTML=`<div data-uid="aside:Settings:Quiz">
+	<label>QUIZ</label>
+	<div class='Options'>
+		<button data-h='downloadDLC'>下載數位學院CSV</button>
+	</div>
+</div>`;
 			E.addEventListener('click',(evt)=>{
 				for (let e=evt.target; e!==E; e=e.parentNode) {
-					if (!e.hasAttribute('action')) continue;
-					switch (e.getAttribute('action')) {
-					case 'downloadDLC': this.downloadDLC(); break;
+					switch (e.dataset.h) {
+					case 'downloadDLC':
+						this.downloadDLC();
+						break;
 					}
 					evt.stopPropagation();
 					evt.preventDefault();
@@ -80,6 +87,7 @@ class Quiz
 			});
 			return E;
 		})());
+*/
 	}
 	saveCSV (aa) {
 		const rst=aa.map((row)=>('"'+row.map((v)=>v.replaceAll('"','""')).join('","')+'"')).join('\n');
@@ -105,7 +113,7 @@ class Quiz
 			// 標籤(2025-0-3-0-0),
 			// 難易度(3)
 			let xq=q.cloneNode(true), qt=xq.getAttribute('qt'), xo, difficulty="3", explain="";
-			xo=Array.from(xq.querySelectorAll('[qo]')).reduce((r,e)=>{
+			xo=Array.from(xq.querySelectorAll('[data-o]')).reduce((r,e)=>{
 				r.push(e.textContent);
 				e.parentNode.removeChild(e);
 				return r;
@@ -129,6 +137,27 @@ class Quiz
 		}
 		this.saveCSV(table);
 	}
+
+	async __sha256__ (str) {
+    	const hashBuffer = await crypto.subtle.digest(
+			'SHA-256',
+			(new TextEncoder()).encode(str)
+		);
+    	return Array.from(new Uint8Array(hashBuffer));
+	}
+
+	__toHex__ (arr) {
+    	return arr.map(b => b.toString(16).padStart(2, '0')).join('')
+	}
+
+	__setStatus__ (qe, v) {
+		const p=/QR?/;
+		Array.from(qe.classList)
+			.filter((s)=>p.exec(s))
+			.forEach((s)=>qe.classList.remove(s));
+		qe.classList.add(`QR${v}`);
+	}
+
 	install (e) {
 		if (undefined===e._K_) e._K_=`${new Date().getTime().toString(36)}${Object.keys(this.QEs).length}`;
 		if (e._K_ in this.QEs) return;
@@ -140,8 +169,8 @@ class Quiz
 				try {
 					let e=evt.target;
 					while (e) {
-						if (e.matches('[qo]')) {
-							if (e.getAttribute('qo')!=='value') {
+						if (e.matches('[data-o]')) {
+							if (e.getAttribute('data-o')!=='value') {
 								evt.preventDefault();
 								evt.stopPropagation();
 								this.answer(e);
@@ -149,7 +178,7 @@ class Quiz
 							break;
 						}else
 						if (e.matches('.HT')) {
-							findParent(e,'[X="Q"]').setAttribute("qr","-");
+							this.__setStatus__(findParent(e,'[data-x^="quiz:"]'), '-');
 							break;
 						}
 						e=e.parentNode;
@@ -160,7 +189,7 @@ class Quiz
 		}
 		if (!e._Q_on_change_) {
 			e._Q_on_change_=(evt)=>{
-				let v=evt.target.getAttribute('qo');
+				let v=evt.target.dateset.o
 				if(v==='value') {
 					evt.preventDefault();
 					evt.stopPropagation();
@@ -175,33 +204,33 @@ class Quiz
 	answer (e, v)
 	{
 		// locate the quiz block
-		e=findParent(e,'[qo]');
-		const p=findParent(e,'[X="Q"]');
+		e=findParent(e,'[data-o]');
+		const p=findParent(e,'[data-x^="quiz:"]');
 		if (!p) return;
-		const ANSWER=parseInt(this.QEs[p._K_].getAttribute("___"));
-
-		switch(p.getAttribute('qt')){
+		switch (p.dataset.x.substring(5)) {
 		case 's':
 			if (e.classList.contains('QS')) {
+				console.log("RESET");
 				// click selected one, clear all
-				[... p.querySelectorAll('.QS')].forEach((e)=>e.classList.remove('QS'));
-				p.removeAttribute("qr");
-				p.removeAttribute("qa");
+				Array.from(p.querySelectorAll('.QS'))
+					.forEach((e)=>e.classList.remove('QS'));
+				this.__setStatus__(p, '-');
 			} else {
 				// click new answer, clear all, then select this one
-				[... p.querySelectorAll('.QS')].forEach((e)=>e.classList.remove('QS'));
+				Array.from(p.querySelectorAll('.QS'))
+					.forEach((e)=>e.classList.remove('QS'));
 				e.classList.add('QS');
-				if(!v) v=e.getAttribute('qo');
-				p.setAttribute("qa",v); // fill in the reply
-				if(ANSWER) p.setAttribute("qr",ANSWER===parseInt(v) ? 'o' : 'x');
+				this.__setStatus__(p, e.dataset.o.substring(0,1));
 			}
 			break;
 		case 'm':
 			(()=>{
 				e.classList.toggle('QS'); // toggle the flag of this answer
-				const ans=[... p.querySelectorAll('.QS')].reduce((r,e)=>r|parseInt(e.getAttribute('qo')),0); // compute the selection mask
-				p.setAttribute("qa",ans); // fill in the reply
-				if(ANSWER) p.setAttribute("qr",ANSWER===ans ? 'o' : ((~ANSWER)&ans)>0 ? 'x' : '-');
+				const re1 = Array.from(e.parentNode.querySelectorAll('[data-o].QS'))
+					.reduce((r,e) => r&&e.dataset.o==='O',true);
+				const re2 = Array.from(e.parentNode.querySelectorAll('[data-o]:not(.QS)'))
+					.reduce((r,e) => r&&e.dataset.o==='X',true);
+				this.__setStatus__(p, re1 && re2 ? 'O' : 'X');
 			})();
 			break;
 		case 'sort':
@@ -209,17 +238,13 @@ class Quiz
 				let c=e.parentNode;
 				e.classList.toggle('QS'); // toggle the flag of this answer
 				if (e.classList.contains('QS'))
-					c.insertBefore(e,c.querySelector('[qo]:not(.QS)'));
+					c.insertBefore(e,c.querySelector('[data-o]:not(.QS)'));
 				else c.appendChild(e);
-				const ans=parseInt(Array.from(c.querySelectorAll('[qo].QS')).reduce((r,e)=>{
-					r.push(e.getAttribute('qo'));
-					return r;
-				},[]).join(''));
-				p.setAttribute("qa",ans);
-				if(ANSWER) p.setAttribute(
-					"qr",ANSWER===ans ? 'o' :
-					 	ANSWER.toString().startsWith(ans.toString()) ? '-' : 'x'
-				);
+				const re1 = 0 == Array.from(p.querySelectorAll('[data-o].QS'))
+					.reduce((r,e,i) => r+Math.abs(parseInt(e.dataset.o)-i), 0);
+				const re2 = Array.from(c.querySelectorAll('[data-o]:not(.QS)'))
+					.reduce((r,e) => r&&e.dataset.o==='-',true);
+				this.__setStatus__(p, re1 ? re2 ? 'O' : '-' : 'X');
 			})();
 			break;
 		}
@@ -238,5 +263,6 @@ SCRIPT.value=async function (slide,elem) {
 	if (!H) H=new Quiz(slide);
 	H.install(elem);
 };
+
 
 })(document.currentScript);

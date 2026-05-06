@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1A2B 猜數字遊戲</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        h1 { color: #1a73e8; margin-bottom: 0.5rem; }
+        .instructions { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 1rem; }
+        input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 1.1rem; text-align: center; outline: none; }
+        input:focus { border-color: #1a73e8; }
+        button { padding: 10px 20px; background: #1a73e8; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #1557b0; }
+        #history { margin-top: 1.5rem; max-height: 300px; overflow-y: auto; text-align: left; border-top: 1px solid #eee; padding-top: 1rem; }
+        .record { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #fafafa; }
+        .record:nth-child(even) { background: #f9f9f9; }
+        .a-count { color: #28a745; font-weight: bold; }
+        .b-count { color: #fd7e14; font-weight: bold; }
+        .success { color: #28a745; font-weight: bold; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>1A2B 猜數字</h1>
+    <p class="instructions">請輸入 4 個不重複的數字</p>
+    
+    <div class="input-group">
+        <input type="text" id="guessInput" maxlength="4" placeholder="例如: 1234" autocomplete="off">
+        <button onclick="makeGuess()">送出</button>
+    </div>
+    
+    <div id="message" style="color: red; min-height: 1.2rem; font-size: 0.85rem;"></div>
+
+    <div id="history">
+        </div>
+
+    <button id="resetBtn" style="margin-top: 1rem; background: #6c757d; display: none;" onclick="resetGame()">重新開始</button>
+</div>
+
+<script>
+    let secret = "";
+    let attempts = 0;
+    let gameOver = false;
+
+    // 初始化遊戲
+    function resetGame() {
+        secret = "";
+        const nums = [0,1,2,3,4,5,6,7,8,9];
+        nums.sort(() => Math.random() - 0.5);
+        secret = nums.slice(0, 4).join('');
+        
+        attempts = 0;
+        gameOver = false;
+        document.getElementById('history').innerHTML = "";
+        document.getElementById('guessInput').value = "";
+        document.getElementById('message').innerText = "";
+        document.getElementById('resetBtn').style.display = "none";
+        document.getElementById('guessInput').disabled = false;
+        console.log("Secret for testing:", secret); // 除錯用
+    }
+
+    function makeGuess() {
+        if (gameOver) return;
+
+        const input = document.getElementById('guessInput');
+        const val = input.value.trim();
+        const msg = document.getElementById('message');
+
+        // 驗證
+        if (val.length !== 4 || isNaN(val) || new Set(val).size !== 4) {
+            msg.innerText = "請輸入 4 個不重複的數字！";
+            return;
+        }
+        msg.innerText = "";
+
+        attempts++;
+        let a = 0;
+        let b = 0;
+
+        for (let i = 0; i < 4; i++) {
+            if (val[i] === secret[i]) {
+                a++;
+            } else if (secret.includes(val[i])) {
+                b++;
+            }
+        }
+
+        const history = document.getElementById('history');
+        const record = document.createElement('div');
+        record.className = 'record';
+        record.innerHTML = `
+            <span>第 ${attempts} 次: <b>${val}</b></span>
+            <span><span class="a-count">${a}A</span> <span class="b-count">${b}B</span></span>
+        `;
+        history.prepend(record);
+
+        if (a === 4) {
+            msg.innerHTML = `<span class="success">🎉 恭喜答對！共花了 ${attempts} 次。</span>`;
+            gameOver = true;
+            document.getElementById('resetBtn').style.display = "inline-block";
+            input.disabled = true;
+        }
+
+        input.value = "";
+        input.focus();
+    }
+
+    // 支援 Enter 鍵
+    document.getElementById('guessInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') makeGuess();
+    });
+
+    // 啟動
+    resetGame();
+</script>
+
+</body>
+</html>
