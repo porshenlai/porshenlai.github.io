@@ -604,19 +604,15 @@ class Player
 		});
 	}	// }}}
 
-	async speak (te, lang='en')
+	async speak (text, lang='en')
 	{	// <span data-h='speak,fr'>bonjour</span> {{{
-		let e,text;
-		for(e=event.target;e!==te&&(!e.hasAttribute('x'));e=e.parentNode);
-		text=e.getAttribute('text') || e.textContent;
 		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
+		console.log(`Speak(${text})`);
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
 			utterance.lang = lang; // 根據語言代碼設定發音引擎
 			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
 			speechSynthesis.speak (utterance);
-			if (e.getAttribute('x'))
-				alert(e.getAttribute('x').replace(/;/,'\n')+'\n'+text);
         } else alert('您的瀏覽器不支援 Speech Synthesis API。');
     }	// }}}
 
@@ -849,7 +845,13 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 					if (e.dataset && e.dataset.h) {
 						const args=e.dataset.h.split(':'), cmd=args.shift();
 						if (cmd in this && 'function' === typeof(this[cmd])) {
-							this[cmd].apply(this,args.map((a)=>a==='this' ? e : a));
+							this[cmd].apply(this, args.map((a)=>{
+								switch (a) {
+								case '&this': return e;
+								case '&text': return e.textContent;
+								case '&value': return e.value;
+								default: return a; }
+							}));
 						} else continue;
 						evt.stopPropagation();
 						// evt.preventDefault(); // default handler essential to change events
