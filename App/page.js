@@ -53,6 +53,8 @@ body>footer {
 // PlayMode_*: all sections compacted in continuous pages
 // PlayMode_1: all the minimal height of sections are greater than the page height 
 // PlayMode_2: all the section not currently displayed is hidden
+// section.cfbox: force layout expand to full page
+//
 const CSS_CONTENT= // {{{
 `section {
 	margin:var(--base-margin);
