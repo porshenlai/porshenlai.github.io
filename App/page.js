@@ -3,6 +3,9 @@
 const currentScript = document.currentScript;
 const jsPrefix=(/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1];
 
+const Plugins={
+};	// Built-in Plugins
+
 const CSS_PAGE= // {{{
 `:root {
 	--base-font-size:24px;
@@ -283,9 +286,6 @@ function queryContainer (e, cs)
 	}
 }	// }}}
 
-const Plugins={
-};	// Built-in Plugins
-
 class EV {
 	constructor () { this.QS=Array.from(arguments); }
 	set (value) { this.QS.forEach((q)=>q.value=value); }
@@ -489,40 +489,21 @@ class Player
 		}
 	}	// }}}
 
-	activate (section, scroll)
-	{	// activate specified section {{{
-		section = this.get(section);
-		if (!section) return;
-
-		if (section !== this.current) {
-			this.current=section;
-
-			// move .current-section to new section element
-			Array.from(
-				section.parentNode.querySelectorAll('.current-section')
-			).forEach((s)=>s.classList.remove('current-section'));
-			section.classList.add('current-section');
-
-			// Update URL hash and scroll into view
-			if (history.replaceState)
-				history.replaceState(null, null, '#' + section.id);
-			else location.hash = '#' + section.id;
-
-			this.Settings.Page.set(this.PageIndex.indexOf(section.id)+1);
-
-			if (scroll !== undefined) {
-				this.current.scrollIntoView({
-					behavior: scroll ? 'smooth' : 'auto',
-					block: 'start'
-				});
-				this.current.scrollTop=0;
-			}
-		}
-	}	// }}}
-
 	async install (name, handler)
 	{	// install page plugin {{{
 		this.Plugins[name]=await Promise.resolve(handler(this));
+	}	// }}}
+
+	openDialog (caption)
+	{	// {{{
+		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
+		CL.add("dialog");
+		CL.remove("menu");
+
+		return ((DLG)=>{
+			DLG.querySelector('div').textContent=caption;
+			return DLG.querySelector('section');
+		})(this.GC.querySelector('[data-uid="Dialog"]'));
 	}	// }}}
 
 	regEventHook (cat, name, handler)
@@ -532,13 +513,12 @@ class Player
 		else delete eh[name];
 	}	// }}}
 
-	handleAction (e)
-	{ // {{{
-		(e.dataset.h||"").split(";").forEach((a)=>{
-			a=(a||"").split(',');
-			const cmd=a[0]; a[0]=e;
-			if(cmd) this[cmd].apply(this,a);	
-		});
+	tab (TK)
+	{	// {{{
+		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
+		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("selected"));
+		const tabs=queryContainer(tb,['section','aside']);
+		tabs.querySelectorAll(`[data-uid^=${TK}]`).forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
 	}	// }}}
 
 	async speak (te, lang='en')
@@ -624,23 +604,20 @@ class Player
 		)(this.GC.querySelector('[data-uid="Overlay"]').classList);
 	}	// }}}
 
-	openDialog (caption)
-	{	// {{{
-		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
-		CL.add("dialog");
-		CL.remove("menu");
-
-		return ((DLG)=>{
-			DLG.querySelector('div').textContent=caption;
-			return DLG.querySelector('section');
-		})(this.GC.querySelector('[data-uid="Dialog"]'));
-	}	// }}}
-
 	search (key)
 	{	// {{{
 		let ts=this.Content.querySelector(`section[data-ks~="${key}"]`);
 		if (ts) ts.click();
 		this.toggleAside(0);
+	}	// }}}
+/*
+	handleAction (e)
+	{ // {{{
+		(e.dataset.h||"").split(";").forEach((a)=>{
+			a=(a||"").split(',');
+			const cmd=a[0]; a[0]=e;
+			if(cmd) this[cmd].apply(this,a);	
+		});
 	}	// }}}
 
 	async dialog (mtype, tgt, capt)
@@ -747,15 +724,7 @@ class Player
 		});
 		return this.Aside.open(de);
 	}	// }}}
-<<<<<<< HEAD
-
-	tab (TK)
-	{	// {{{
-		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
-		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("selected"));
-		const tabs=queryContainer(tb,['section','aside']);
-		tabs.querySelectorAll(`[data-uid^=${TK}]`).forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
-	}	// }}}
+*/
 }
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
@@ -802,7 +771,38 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 						// evt.preventDefault(); // default handler essential to change events
 						break;
 					}
-					if (e.tagName==='SECTION') { this.activate(e, true); break; }
+					if (e.tagName==='SECTION') {
+						((section,smooth)=>{
+							section = this.get(section);
+							if (!section) return;
+
+							if (section !== this.current) {
+								this.current=section;
+
+								// move .current-section to new section element
+								Array.from(
+									section.parentNode.querySelectorAll('.current-section')
+								).forEach((s)=>s.classList.remove('current-section'));
+								section.classList.add('current-section');
+
+								// Update URL hash and scroll into view
+								if (history.replaceState)
+									history.replaceState(null, null, '#' + section.id);
+								else location.hash = '#' + section.id;
+
+								this.Settings.Page.set(this.PageIndex.indexOf(section.id)+1);
+
+								if (scroll !== undefined) {
+									this.current.scrollIntoView({
+										behavior: scroll ? 'smooth' : 'auto',
+										block: 'start'
+									});
+									this.current.scrollTop=0;
+								}
+							}
+						})(e,true);
+						break;
+					}
 				}
 			} catch(x) { console.log("Exception:",x); }
 		}	// }}}
