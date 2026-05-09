@@ -50,9 +50,14 @@ body>footer {
 	overflow:hidden scroll;
 	background:#f0f0f0;
 }
-#content.byPage {
+#content.PlayMode_1, #content.PlayMode_2 {
 	scroll-snap-type:y mandatory;
 }`;	// }}}
+// PlayMode_*: all sections compacted in continuous pages
+// PlayMode_1: all the minimal height of sections are greater than the page height 
+// PlayMode_2: all the section not currently displayed is hidden
+// section.cfbox: force layout expand to full page
+//
 const CSS_CONTENT= // {{{
 `section {
 	margin:var(--base-margin);
@@ -66,12 +71,15 @@ const CSS_CONTENT= // {{{
 	cursor:pointer;
 }
 section:hover { border-color:#ccc; }
-section.current-section {
+.PlayMode_2 section:not(.current) {
+	display:none;
+}
+section.current {
 	border-color:#26A69A;
 	box-shadow:0 4px 16px rgba(38, 166, 154, 0.2);
 	cursor:default;
 }
-.byPage section, section.cfbox {
+.PlayMode_1 section, .PlayMode_2 section, section.cfbox {
 	min-height:calc(100% - 2 * var(--base-margin));
 }
 section.cfbox {
@@ -82,18 +90,7 @@ section.cfbox {
 }
 
 [data-h] { cursor:pointer; }
-
-[data-h^="tab:"],[data-h="switch"] { display:flex; flex-flow:row nowrap; }
-[data-h^="tab:"] [data-o],
-[data-h="switch"] [data-o] {
-	flex:1 1 auto; border:2px solid silver; border-radius:4px;
-	margin:2px 1px 0 1px; background:white; text-align:center;
-}
-[data-h="switch"] [data-o].selected { color:blue; border-color:blue; }
-[data-h^="tab:"] [data-o].selected { border-bottom-color: transparent; }
-
 [data-h^="set:"] [data-o].selected { color:blue; }
-
 [data-h="display"] { text-decoration:underline;color:blue; }
 [data-h="display"] [caption] { display:none; }
 
@@ -141,6 +138,32 @@ h3 {
 .brown { color:brown; }
 .orange { color:orange; }
 .purple { color:purple; }
+
+.HSelect, .HTab {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	width: 100%;
+}
+.HSelect>[data-o],
+.HTab>[data-o] {
+	flex: 1 1 auto;
+	color:blue; text-align: center;
+	border: 1px solid blue; border-radius: 4px;
+	margin: 0 2px;
+}
+.HSelect>[data-o]:hover {
+	background: lightgrey;
+}
+.HSelect>[data-o].selected {
+	color: black;
+	border-color: black;
+}
+.HTab>[data-o].selected {
+	color: black;
+	border-bottom-color: transparent; 
+}
+
 `; // }}}
 
 const HTML_CONTROL= // {{{
@@ -204,18 +227,12 @@ aside nav li { border-bottom:1px solid silver; }
 		<div style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
 		<section style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
 	</div>
-<style>
-.HSelect { display:flex;flex-flow:row nowrap;align-items:center;width:100%; }
-.HSelect>[data-o] { flex:1 1 auto;text-align:center;border:1px solid black;border-radius:8px;margin:0 4px; }
-.HSelect>[data-o].selected { color:blue;border-color:blue; }
-.HSelect>[data-o]:hover { background:lightgrey; }
-</style>
-	<aside data-h='nop'>
-		<div data-h="tab:ASIDE" style='width:100%;background:white;'>
+	<aside data-h='tab:ASIDE' style='background:white;'>
+		<div class='HTab'>
 			<div data-o="TOC" class='selected'>導覽</div>
 			<div data-o="Settings">設定</div>
 		</div>
-		<div style="flex:1 1 auto;overflow:hidden auto;width:100%;height:100%;padding:2px 8px;margin:0;background:white;">
+		<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
 			<nav class='tabPage selected' data-uid='ASIDE:TOC'></nav>
 			<div class='tabPage' data-uid='ASIDE:Settings'>
 				<div data-uid='Settings:PlayMode'>
@@ -261,7 +278,7 @@ async function loadScript (src,attrs={})
 	return (await rv)||se;
 }	// }}}
 
-function loadStyle (css, ukey, container)
+async function loadStyle (css, ukey, container)
 {	// loadStyle (CSSText, "StylePage") {{{
 	// loadStyle (CSSText, "StyleContent", this.Content)
 	let be=undefined;
@@ -287,18 +304,37 @@ function queryContainer (e, cs)
 }	// }}}
 
 class EV {
+	// 1. constructed with multiple elements
+	// 2. set => fill into all elements
+	// 3. get <= read from the first element {{{
 	constructor () { this.QS=Array.from(arguments); }
 	set (value) { this.QS.forEach((q)=>q.value=value); }
 	get () { return this.QS[0].value; }
-}
+}	// }}}
+
+class EVSelect extends EV {
+	// <div><button data-o='1' class='selected'>ONE</button>
+	// 		<button data-o='2'>TWO</button>
+	// 		<button data-o='3'>THREE</button></div> {{{
+	set (v) {
+		this.QS.forEach((g)=>{
+			try {
+				g.querySelectorAll('[data-o].selected').forEach((e)=>e.classList.remove('selected'));
+				g.querySelector(`[data-o="${v}"]`).classList.add('selected');
+			} catch(x) { }
+		});
+	}
+	get () {
+		try {
+			return this.QS[0].querySelector('[data-o].selected').dataset.o;
+		} catch(x) { }
+	}
+}	// }}}
 
 class Player
 {
 	constructor (sections, filters)
 	{	// {{{
-		// ## CURRENT SECTION 
-		this.current=undefined;
-
 		// ## ADD CSS DECLARATIONS
 		loadStyle(CSS_PAGE, 'CSS_PAGE');
 		loadStyle(CSS_CONTENT, 'CSS_CONTENT', this.Content);
@@ -310,6 +346,130 @@ class Player
 			this.Content=e.querySelector('#content');
 			return e;
 		})();
+
+		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
+		((ThisPlayer)=>{
+			this.Settings={ // Parameter Settings
+				"FontScale" : new (class extends EV { // {{{
+					set (v) {
+						if (!v) v=this.get();
+						const DFS=((w,h)=>w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
+							window.innerWidth,
+							window.innerHeight
+						);
+						document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
+						return super.set(v);
+					}
+				})( this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
+					this.GC.querySelector('[data-uid="Settings:FontScale"] output') ), // }}}
+				"PlayMode" : new (class extends EVSelect {
+					// {{{
+					set (v) {
+						if (!v) v=queryContainer(event.target,'[data-o]');
+						if (v instanceof Element) v=v.dataset.o;
+						((content)=>{
+							content.classList.remove.apply(
+								content.classList,
+								Array.from(this.QS[0].querySelectorAll('[data-o]')).map(
+									(oe)=>`PlayMode_${oe.dataset.o}`
+								)
+							);
+							content.classList.add(`PlayMode_${v}`);
+						})(ThisPlayer.Content);
+						console.log("11112",v);
+						return super.set(v);
+					}
+				})( this.GC.querySelector('[data-h="set:PlayMode"]') ), // }}}
+				"Page" : new (class extends EV {
+					// set('Page',50); set('Page','next); set('Page','prev');
+					// set('Page','#id'); set('Page',document.getElementById('#id')); set('Page');
+					// {{{
+					set (v) {
+						let k,pn,em;
+						if (!v) v=this.get();
+						if (v instanceof Element) {
+							em=v;
+						} else if ((""+v).startsWith('#')) {
+							k=v.substring(1);
+						} else if ('next' === v) {
+							pn=parseInt(this.get())+1;
+							if (pn>ThisPlayer.PageIndex.length) pn=ThisPlayer.PageIndex.length;
+						} else if ('prev' === v) {
+							pn=parseInt(this.get())-1;
+							if (pn<1) pn=1;
+						} else pn=parseInt(v);
+
+						if (k===undefined&&em!==undefined) k = em.id;
+						if (k===undefined&&pn!==undefined) k = ThisPlayer.PageIndex[pn-1];
+						if (pn===undefined&&k!==undefined) pn = ThisPlayer.PageIndex.indexOf(k)+1;
+						if (em===undefined&&k!==undefined) em = document.getElementById(k);
+
+						if ((!em) || em.classList.contains('current')) return;
+
+						// MOVE .current-section flag to new current
+						let GC=ThisPlayer.GC;
+						Array.from(GC.querySelectorAll('.current'))
+						.forEach((e)=>e.classList.remove('current'));
+						em.classList.add('current');
+
+						// UPDATE URL HASH
+						if (history.replaceState)
+							history.replaceState(null, null, '#' + em.id);
+						else location.hash = '#' + em.id;
+
+						// Trigger module extend of section loading
+						let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
+						if(ms.length>0) ThisPlayer.extendMods(ms);
+
+						// SCROLL INTO VIEW
+						em.scrollIntoView({
+							behavior: scroll ? 'smooth' : 'auto',
+							block: 'start'
+						});
+						em.scrollTop=0;
+						return super.set(pn);
+					}
+				})( this.GC.querySelector('[data-uid="Aside:Pager"] input'),
+					this.GC.querySelector('[data-uid="Aside:Pager"] output') ), // }}}
+				"PageMax" : new (class extends EV {
+					// set('PageMax',120);
+					// {{{
+					set (v) {
+						this.QS[0].setAttribute("max")=parseInt(v);
+						this.QS[1].textContent=v;
+					}
+				})(	this.GC.querySelector('[data-uid="Aside:Pager"] input'),
+					this.GC.querySelector('[data-uid="Aside:Pager"] span') ), // }}}
+				"Keywords" : new (class extends EV {
+					// set('Keywords',['k1','k2',...]);
+					// {{{
+					set (a) {
+						this.QS[0].innerHTML = a.reduce((r,k) =>
+							r+`<div><input type='checkbox'/>${k}</div>`,'')
+							+ "<span data-h='filter:add'>➕</span>";
+					}
+					get () {
+						return Array.from(this.QS[0].querySelectorAll('input[type="checkbox"]'))
+							.filter((e)=>e.checked)
+							.map((e)=>e.parentNode.textContent);
+					}
+				})(this.GC.querySelector('[data-uid="Settings:Keywords"]')), // }}}
+				"Filters" : new (class extends EV {
+					// set('Filters',[[A1,A2,...],[A3,A4,...],...]);
+					// {{{
+					set (aa) {
+						this.QS[0].innerHTML = aa.reduce((r,a) =>
+							r+"<div class='OR'>"+a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')+"</div>", "");
+					}
+					get	 () {
+						return Array.from(this.QS[0].querySelectorAll("div"))
+							.reduce((r,v)=>r.push(v.textContent.split('&'))&&r,[])
+					}
+				})(this.GC.querySelector('[data-uid="Settings:Filters"]')) // }}}
+			};
+		})(this)
+		this.Settings.FontScale.set(1.0);
+		this.Settings.Filters.set(filters||[]);
 
 		// ## INSTALL SECTIONS
 		this.PageIndex=[];
@@ -346,86 +506,12 @@ class Player
 				.setAttribute("max",this.PageIndex.length);
 			this.GC.querySelector('[data-uid="Aside:Pager"] span')
 				.textContent=this.PageIndex.length;
-			this.Content.Keywords=Object.keys(ksmap);
+			this.Settings.Keywords.set(Object.keys(ksmap));
 		})(sections, filters);
 
 		// ## INSTALL EXTENSION MODULES (data-x="...") 
 		this.Xs={};
-		Promise.all(
-			Array.from(this.Content.querySelectorAll('[data-x]'))
-			.reduce((R,e)=>{
-				R.push((async (T, N, E)=>{
-					if (!T.Xs[N])
-						T.Xs[N] = N in Plugins ?
-							Promise.resolve(Plugins[N](T)) :
-							loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
-					(await (T.Xs[N]))(T, E);
-				})(this, e.dataset.x.split(':')[0], e));
-				return R;
-			},[])
-		).then(()=>false,console.log);
-
-		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
-		((Content)=>{
-			this.Settings={ // Parameter Settings
-				"FontScale" : new EV(
-					this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
-					this.GC.querySelector('[data-uid="Settings:FontScale"] output') ),
-				"PlayMode" : new (class extends EV {
-					constructor (e) {
-						super(e);
-						this.set(this.get());
-					}
-					set (tv) {
-						console.log("TV is ",tv,event.target);
-						if (tv===undefined) tv=event.target.dataset.o;
-						console.log("TV is ",tv);
-						Array.from(this.QS[0].querySelectorAll('[data-o]'))
-						.forEach((e)=>e.classList[e.dataset.o===tv?"add":"remove"]('selected'));
-						const CNs=["PMCont","PMPage","PMAlone"];
-						Content.classList.remove.apply(Content.classList,CNs);
-						Content.classList.add(CNs[tv]);
-					}
-					get () {
-						return this.QS[0].querySelector('[data-o].selected').dataset.o;
-					}
-				})(this.GC.querySelector('[data-h="set:PlayMode"]')),
-				"Page" : new EV(
-					this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] output') ),
-				"Keywords" : new (class extends EV {
-					constructor (e) {
-						super(e);
-						this.set(Content.Keywords);
-					}
-					set (a) {
-						this.QS[0].innerHTML = a.reduce((r,k) =>
-							r+`<div><input type='checkbox'/>${k}</div>`,'')
-							+ "<span data-h='filter:add'>➕</span>";
-					}
-					get () {
-						return Array.from(this.QS[0].querySelectorAll('input[type="checkbox"]'))
-							.filter((e)=>e.checked)
-							.map((e)=>e.parentNode.textContent);
-					}
-				})(this.GC.querySelector('[data-uid="Settings:Keywords"]')),
-				"Filters" : new (class extends EV {
-					constructor (e) {
-						super(e);
-						this.set(filters||[]);
-					}
-					set (aa) {
-						this.QS[0].innerHTML = aa.reduce((r,a) =>
-							r+"<div class='OR'>"+a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')+"</div>", "");
-					}
-					get	 () {
-						return Array.from(this.QS[0].querySelectorAll("div"))
-							.reduce((r,v)=>r.push(v.textContent.split('&'))&&r,[])
-					}
-				})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
-			};
-		})(this.Content)
-		this.Settings.FontScale.set(1.0);
+		this.extendMods(Array.from(this.Content.querySelectorAll('[data-x]')));
 
 		// ## INSTALL TABLE of CONTENTS
 		((sections)=>{
@@ -461,37 +547,33 @@ class Player
 
 	set (name, value)
 	{	// set/unset parameters {{{
-		switch (name) {
-		case 'Page':
-			((k)=>{
-				let pn=undefined, PNE=this.Settings.Page;
-				PNE.set(
-					k.startsWith('#') ? this.PageIndex.indexOf(k.substring(1))+1 :
-					k==='next' ? (parseInt(PNE.get())+1) :
-					k==='prev' ? (parseInt(PNE.get())-1) : PNE.get()
-				); 
-				document.getElementById(this.PageIndex[PNE.get()-1]).click();
-			})(value||this.Settings[name].get());
-			break;
-		case 'FontScale':
-			((v)=>{
-				this.Settings[name].set(v);
-				const DFS=((w,h)=>w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
-					window.innerWidth,
-					window.innerHeight
-				);
-				document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
-			})(value||this.Settings[name].get());
-			break;
-		case 'PlayMode':
-			this.Settings[name].set(value);
-			break;
-		}
+		return this.Settings[name].set(value);
 	}	// }}}
 
-	async install (name, handler)
-	{	// install page plugin {{{
-		this.Plugins[name]=await Promise.resolve(handler(this));
+	extendMods (a)
+	{	// {{{
+		Promise.all(
+			a.reduce((R,e)=>{
+				const x=e.dataset.x||e.dataset.xl||"";
+				R.push((async (T, N, E)=>{
+					if (!T.Xs[N])
+						T.Xs[N] = N in Plugins ?
+							Promise.resolve(Plugins[N](T)) :
+							loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
+					(await (T.Xs[N]))(T, E);
+				})(this, x.split(':')[0], e));
+				return R;
+			},[])
+		).then(()=>false,console.log);
+	}	// }}}
+
+	toggleAside (v)
+	{	// {{{
+		(	(v&&parseInt(v)>0) ? (CL) => { // ON
+				CL.add("menu");
+				CL.remove("dialog");
+			} : (CL) => CL.remove("menu","dialog") // OFF
+		)(this.GC.querySelector('[data-uid="Overlay"]').classList);
 	}	// }}}
 
 	openDialog (caption)
@@ -506,13 +588,6 @@ class Player
 		})(this.GC.querySelector('[data-uid="Dialog"]'));
 	}	// }}}
 
-	regEventHook (cat, name, handler)
-	{	// (un)schedule a tick callback {{{
-		let eh=this.EventHook[cat]||(this.EventHook[cat]={});
-		if(handler) eh[name]=handler;
-		else delete eh[name];
-	}	// }}}
-
 	tab (TK)
 	{	// {{{
 		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
@@ -521,21 +596,26 @@ class Player
 		tabs.querySelectorAll(`[data-uid^=${TK}]`).forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
 	}	// }}}
 
-	async speak (te, lang='en')
+	async speak (text, lang='en')
 	{	// <span data-h='speak,fr'>bonjour</span> {{{
-		let e,text;
-		for(e=event.target;e!==te&&(!e.hasAttribute('x'));e=e.parentNode);
-		text=e.getAttribute('text') || e.textContent;
 		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
+		console.log(`Speak(${text})`);
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
 			utterance.lang = lang; // 根據語言代碼設定發音引擎
 			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
 			speechSynthesis.speak (utterance);
-			if (e.getAttribute('x'))
-				alert(e.getAttribute('x').replace(/;/,'\n')+'\n'+text);
         } else alert('您的瀏覽器不支援 Speech Synthesis API。');
     }	// }}}
+
+	playDOM (e, caption)
+	{	// {{{
+		((DE)=>{
+			e=e.querySelector('.hide').cloneNode(true);
+			e.classList.remove('hide');
+			DE.appendChild(e);
+		})(this.openDialog(caption));
+	}	// }}}
 
 	playPhoto (url, caption)
 	{	// {{{
@@ -595,21 +675,13 @@ class Player
 		}
 	}	// }}}
 
-	toggleAside (v)
-	{	// {{{
-		(	(v&&parseInt(v)>0) ? (CL) => { // ON
-				CL.add("menu");
-				CL.remove("dialog");
-			} : (CL) => CL.remove("menu","dialog") // OFF
-		)(this.GC.querySelector('[data-uid="Overlay"]').classList);
-	}	// }}}
-
 	search (key)
 	{	// {{{
 		let ts=this.Content.querySelector(`section[data-ks~="${key}"]`);
 		if (ts) ts.click();
 		this.toggleAside(0);
 	}	// }}}
+
 /*
 	handleAction (e)
 	{ // {{{
@@ -749,9 +821,6 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 				return e;
 			})(), undefined);
 			document.body.insertBefore(this.GC, document.body.querySelector('footer'));
-
-			if (args.byPage)
-				this.GC.classList.add("byPage");
 		}	// }}}
 		nop () { }
 		//	if(!document.fullscreenElement)
@@ -765,7 +834,13 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 					if (e.dataset && e.dataset.h) {
 						const args=e.dataset.h.split(':'), cmd=args.shift();
 						if (cmd in this && 'function' === typeof(this[cmd])) {
-							this[cmd].apply(this,args);
+							this[cmd].apply(this, args.map((a)=>{
+								switch (a) {
+								case '&this': return e;
+								case '&text': return e.textContent;
+								case '&value': return e.value;
+								default: return a; }
+							}));
 						} else continue;
 						evt.stopPropagation();
 						// evt.preventDefault(); // default handler essential to change events

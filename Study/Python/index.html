@@ -3,10 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/App/page.js"></script>
+<script src="../../App/page.js"></script>
 </head>
 <body style='opacity:0'>
-<div id="content">
 
 <style>
 .sub { font-weight:bold; background:silver; }
@@ -54,7 +53,7 @@ table small { color:#666; }
 .QMix { display:flex;overflow:auto;align-items:center; }
 </style>
 
-<section class='cm'>
+<section class='cfbox'>
 	<h1 class="title">Python, An Introduction to</h1>
 	<div>
 		<p class="subtitle">for ITS Python Certification</p>
@@ -2186,6 +2185,31 @@ Grapes  10.2 10.96</pre>
 	<!--}}}-->
 </section>
 
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		您正在撰寫一個必須執行下列工作的 Python 函式：
+		<ol>
+		<li>接受清單和字串做為參數。</li>
+		<li>在清單中搜尋字串。</li>
+		<li>如果字串存在清單中，則列印一則訊息，指出找到字串，然後停止逐一查看清單。</li>
+		<li>如果字串不在清單中，則列印一則訊息，指出找不到字串。</li>
+		</ol>
+		請問您應該按什麼順序排列程式碼片段以完成此函式 ?
+		<div data-x='quiz:sort'>
+			<div data-o='0'>def search(items, term) :</div>
+			<div data-o='1'><div class='cb'>for i in range(len(items)) :</div></div>
+			<div data-o='2'><div class='cb'><div class='cb'>if items[i] == term :</div></div></div>
+			<div data-o='5'><div class='cb'><div class='cb'>else :</div></div></div>
+			<div data-o='3'><div class='cb'><div class='cb'><div class='cb'>print("{0} was found in the list.".format(term))</div></div></div></div>
+			<div data-o='6'><div class='cb'><div class='cb'><div class='cb'>print("{0} was not found in the list.".format(term))</div></div></div></div>
+			<div data-o='4'><div class='cb'><div class='cb'><div class='cb'>break</div></div></div></div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+
 <!--}}}-->
 
 <!--{{{ PART-3: Data Structure -->
@@ -3190,6 +3214,38 @@ Grapes  10.2 10.96</pre>
 				<div>count+=1</div>
 				<div>name=input("Please enter your name (Q to quit)? ")</div>
 			</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_CS,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:m'>
+		<div>您任職於某個遊戲開發團隊。</div>
+		<div>您需要撰寫程式碼來產生符合下列需求的隨機數字:</div>
+		<ul>
+			<li>此數字是5的倍數。</li>
+			<li>最低數字是5。</li>
+			<li>最高數字是100。</li>
+		</ul>
+		<div>請問哪兩個程式碼片段將符合需求? 每個正確答案都是一個完整的解決方案。</div>
+ 
+		<div data-o='X'>
+			<div>from random import randrange</div>
+			<div>print(randrange(0, 100, 5))</div>
+		</div>
+		<div data-o='O'>
+			<div>from random import randint</div>
+			<div>print(randint(1, 20) * 5)</div>
+		</div>
+		<div data-o='O'>
+			<div>from random import randrange</div>
+			<div>print(randrange(5, 105, 5))</div>
+		</div>
+		<div data-o='X'>
+			<div>from random import randint</div>
+			<div>print(randint(0, 20) * 5)</div>
 		</div>
 	</div>
 	<!--}}}-->
@@ -4426,6 +4482,5 @@ Grapes  10.2 10.96</pre>
 </section>
 <!--PART-X: GPIO }}}-->
 
-</div>
 </body>
 </html>
