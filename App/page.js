@@ -124,6 +124,7 @@ h3 {
 	margin:var(--base-margin);
 }
 
+.full { left:0;top:0;width:100%;height:100%;overflow:auto; }
 .hide { display:none; }
 .disabled { display:none; }
 .centerBox { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;margin:auto; }
@@ -569,11 +570,14 @@ class Player
 
 	toggleAside (v)
 	{	// {{{
-		(	(v&&parseInt(v)>0) ? (CL) => { // ON
-				CL.add("menu");
-				CL.remove("dialog");
-			} : (CL) => CL.remove("menu","dialog") // OFF
-		)(this.GC.querySelector('[data-uid="Overlay"]').classList);
+		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
+		if (v==undefined)
+			v=(CL.contains("menu")||CL.contains("dialog")) ? 0 : 1;
+		if (parseInt(v)>0) {
+			CL.add("menu");
+			CL.remove("dialog");
+		} else
+			CL.remove("menu","dialog"); // OFF
 	}	// }}}
 
 	openDialog (caption)
@@ -591,6 +595,7 @@ class Player
 	tab (TK)
 	{	// {{{
 		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
+		if (!K) return;
 		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("selected"));
 		const tabs=queryContainer(tb,['section','aside']);
 		tabs.querySelectorAll(`[data-uid^=${TK}]`).forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
@@ -656,9 +661,12 @@ class Player
 
 	playMermaid (code, caption)
 	{	// {{{
-		console.log(code, caption);
-		//de.firstChild.setAttribute('style', 'text-align:center');
-		//await this.Plugins.TeX.renderMermaid(de.firstChild, tgt);
+		const VE=document.createElement("div");
+		VE.dataset.xl='mermaid';
+		VE.classList.add("full");
+		VE.innerHTML=code;
+		this.extendMods([VE]);
+		((DE)=>{ DE.appendChild(VE); })(this.openDialog(caption));
 	}	// }}}
 
 	filter (cmd)
@@ -681,122 +689,6 @@ class Player
 		if (ts) ts.click();
 		this.toggleAside(0);
 	}	// }}}
-
-/*
-	handleAction (e)
-	{ // {{{
-		(e.dataset.h||"").split(";").forEach((a)=>{
-			a=(a||"").split(',');
-			const cmd=a[0]; a[0]=e;
-			if(cmd) this[cmd].apply(this,a);	
-		});
-	}	// }}}
-
-	async dialog (mtype, tgt, capt)
-	{	// {{{
-		const de=document.createElement("div");
-		de.appendChild(document.createElement("div"));
-		de.firstChild.style.overflow="auto";
-		de.firstChild.style.width=de.firstChild.style.height="100%";
-
-		switch (mtype) {
-		case 'mermaid':
-			de.firstChild.setAttribute('style', 'text-align:center');
-			await this.Plugins.TeX.renderMermaid(de.firstChild, tgt);
-			break;
-		case 'image':
-			de.firstChild.outerHTML=`<div style='overflow:hidden;height:100%;'><img src='${tgt}' style='object-fit:cover;width:auto;height:auto;'/></div>`;
-			((v)=>{
-				const img=v.querySelector('img');
-				img.addEventListener('load',()=>{
-					const cr=v.getBoundingClientRect();
-					const as=(img.width*cr.height > img.height*cr.width) ? ['height','overflow-x'] : ['width','overflow-y'];
- 					img.style[as[0]]='100%';
-					v.style[as[1]]='auto';
-				});
-			})(de.firstChild);
-			break;
-		case 'obj':
-			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><iframe src='${tgt}' style='width:100%;height:100%;'><a href='${tgt}'>Not support, download to open</a></iframe></div>`
-			break;
-		default:
-			if (code.nodeType===1) de.firstChild.appendChild(code); else return;
-			break;
-		}
-		de.firstChild.addEventListener('click',(evt)=>{
-			for (let e=evt.target; e.nodeType===1; e=e.parentNode){
-				if (e.dataset.h) {
-					console.log(e.dataset.h)
-					evt.stopPropagation();
-					evt.preventDefault();
-				}
-			}
-		});
-		return this.Aside.open(de, capt||"");
-	}	// }}}
-
-	async show (e, code)
-	{	// <button data-h='show,RID_Key'> {{{
-		//console.log(this.Plugins.TeX.resolve());
-		let lang = e.getAttribute('lang');
-		if (!code) code = e.getAttribute('code');
-		if (code) {
-			if (!lang) {
-				lang=document.body.querySelector(`[RID="${code}"]`);
-				code=lang.value || lang.cloneNode(true); 
-				lang=lang.getAttribute('lang');
-			}
-		} else {
-			code=e.querySelector('[caption]');
-			if (code) return this.Aside.open(code.cloneNode(true));
-		}
-			
-		const de=document.createElement("div");
-		de.appendChild(document.createElement("div"));
-		de.firstChild.style.overflow="auto";
-		de.firstChild.style.width=de.firstChild.style.height="100%";
-
-		switch (lang) {
-		case 'mermaid':
-			de.firstChild.setAttribute('style','text-align:center');
-			await this.Plugins.TeX.renderMermaid(de.firstChild,code);
-			break;
-		case 'image':
-			de.firstChild.outerHTML=`<div style='overflow:hidden;height:100%;'><img src='${code}' style='object-fit:cover;width:auto;height:auto;'/></div>`;
-			((v)=>{
-				const img=v.querySelector('img');
-				img.addEventListener('load',()=>{
-					const cr=v.getBoundingClientRect();
-					const as=(img.width*cr.height > img.height*cr.width) ? ['height','overflow-x'] : ['width','overflow-y'];
- 					img.style[as[0]]='100%';
-					v.style[as[1]]='auto';
-				});
-			})(de.firstChild);
-			break;
-		case 'photo':
-			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${code}' style='object-fit:contain;width:100%;height:100%;'/></div>`
-			break;
-		case 'obj':
-			de.firstChild.outerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><iframe src='${code}' style='width:100%;height:100%;'><a href='${code}'>Not support, download to open</a></iframe></div>`
-			break;
-		default:
-			if (code.nodeType===1) de.firstChild.appendChild(code); else return;
-			break;
-		}
-
-		de.setAttribute('caption',e.getAttribute('caption')||"");
-		de.firstChild.addEventListener('click',(evt)=>{
-			for (let e=evt.target; e.nodeType===1; e=e.parentNode){
-				if (e.dataset.h) {
-					this.handleAction(e);
-					evt.stopPropagation();
-					evt.preventDefault();
-				}
-			}
-		});
-		return this.Aside.open(de);
-	}	// }}}
-*/
 }
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
@@ -889,7 +781,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 				else if (evt.key==='ArrowRight')
 					this.set('Page','next');
 				else if (evt.key==='Escape')
-					this.toggleAside(1);
+					this.toggleAside();
 				else return;
 				evt.preventDefault();
 			} catch(x) { }
