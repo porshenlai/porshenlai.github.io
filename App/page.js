@@ -669,6 +669,16 @@ class Player
 		((DE)=>{ DE.appendChild(VE); })(this.openDialog(caption));
 	}	// }}}
 
+	playMarkdown (code, caption)
+	{	// {{{
+		const VE=document.createElement("div");
+		VE.dataset.xl='markdown';
+		VE.classList.add("full");
+		VE.innerHTML=code;
+		this.extendMods([VE]);
+		((DE)=>{ DE.appendChild(VE); })(this.openDialog(caption));
+	}	// }}}
+
 	filter (cmd)
 	{	// {{{
 		if (cmd==='add') {
