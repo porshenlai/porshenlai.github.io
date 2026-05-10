@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/App/page.js"></script>
+<style>
+</style>
+</head>
+<body style='opacity:0'>
+
+<section data-xl='markdown'>
+# TITLE
+## WAHAHA
+* 123
+* 4565
+* 789:Caption comes here
+</section>
+
+<section data-xl='mermaid'>
+flowchart TD
+	A{下大雨} -->|YES| C[停賽]
+	A -->|NO| B
+	B{颳大風} -->|YES| D[停賽]
+	B -->|NO| E[比賽]
+</section>
+
+<section>
+	<button data-h='play:markdown:
+# TITLE
+## WAHAHA
+* 123
+* 4565
+* 789
+:Caption comes here'>MARKDOWN</button>
+	<button data-h='play:mermaid:
+flowchart TD
+	A{下大雨} -->|YES| C[停賽]
+	A -->|NO| B
+	B{颳大風} -->|YES| D[停賽]
+	B -->|NO| E[比賽]
+:決策樹'>MERMAID</button>
+</section>
+
+</body>
+</html>

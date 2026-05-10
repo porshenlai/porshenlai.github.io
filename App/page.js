@@ -679,6 +679,21 @@ class Player
 		((DE)=>{ DE.appendChild(VE); })(this.openDialog(caption));
 	}	// }}}
 
+	play (mn, code, caption)
+	{	// {{{
+		const VE=document.createElement("div");
+		VE.dataset.xl=mn;
+		VE.classList.add("full");
+		if (code instanceof Element)
+			code=code.innerHTML;
+		VE.innerHTML=code;
+		this.extendMods([VE]);
+		((DE)=>{
+			while (DE.firstChild) DE.removeChild(DE.firstChild);
+			DE.appendChild(VE);
+		})(this.openDialog(caption));
+	}	// }}}
+
 	filter (cmd)
 	{	// {{{
 		if (cmd==='add') {
