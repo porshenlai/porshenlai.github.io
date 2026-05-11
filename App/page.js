@@ -633,43 +633,6 @@ class Player
 		})(this.openDialog(caption));
 	}	// }}}
 
-	playPhoto (url, caption)
-	{	// {{{
-		((DE)=>{
-			DE.innerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${url}' style='object-fit:contain;width:100%;height:100%;'/></div>`;
-		})(this.openDialog(caption));
-	}	// }}}
-
-	playImage (url, caption)
-	{	// {{{
-		((DE)=>{
-			DE.innerHTML=`
-<div style='overflow:hidden;height:100%;'>
-	<img src='${url}' style='object-fit:cover;width:auto;height:auto;'/>
-</div>`;
-			DE.querySelector('img').addEventListener('load',()=>{
-				const cr = DE.getBoundingClientRect();
-				const as = (img.width*cr.height > img.height*cr.width)
-						? ['height','overflow-x']
-						: ['width','overflow-y'] ;
- 				img.style[as[0]]='100%';
-				DE.style[as[1]]='auto';
-			})
-		})(this.openDialog(caption));
-	}	// }}}
-
-	playObj (url, caption)
-	{	// {{{
-		((DE)=>{
-			DE.innerHTML=`
-<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'>
-	<iframe src='${url}' style='width:100%;height:100%;'>
-		<a href='${url}'>Not support, download to open</a>
-	</iframe>
-</div>`;
-		})(this.openDialog(caption));
-	}	// }}}
-
 	play (mn, code, caption)
 	{	// {{{
 		const VE=document.createElement("div");
