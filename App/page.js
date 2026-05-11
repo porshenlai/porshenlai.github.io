@@ -23,27 +23,28 @@ body {
 	font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,Segoe UI,Arial;
 	line-height:1.5;
 	color:#222; background:#fff;
-	display:flex; flex-direction:column;
+	display:flex; flex-direction:row;
 	scroll-behavior:smooth; overflow:hidden;
 	opacity:0;
 }
-body>main {
-	flex:1 1 auto; width:100%; height:90%;
-}
-body>header,
+body>main { flex:1 1 auto; width:90%; height:100%; }
 body>footer {
-	display:flex; flex-direction:row;
+	color:black;background:silver;
+	display:flex; flex-direction:column;
 	justify-content:space-between; align-items:center;
 }
-[data-uid="ControlPanel"] { color:black;background:silver; }
-@media screen and (orientation: landscape) {
-	[data-uid="ControlPanel"] {
-		position:absolute;
-		bottom:0; width:100%;
-		color:silver;background:rgba(255,255,255,0.5);
+
+@media (max-aspect-ratio: 1/1) {
+	body { flex-direction:column; }
+	body>main { flex:1 1 auto; width:100%; height:90%; }
+	body>footer {
+		color:black;background:silver;
+		display:flex; flex-direction:row;
+		justify-content:space-between; align-items:center;
 	}
 }
-[data-uid="ControlPanel"] [data-h]:hover { color:blue; }
+
+[data-uid="ControlPanelP"] [data-h]:hover { color:blue; }
 
 #content {
 	width:100%; height:100%;
@@ -169,12 +170,12 @@ h3 {
 
 const HTML_CONTROL= // {{{
 `
-<span data-h="set:Page:prev">◀</span>
+<span data-h="set:Page:prev">⮴</span>
 <span>
 	<span data-h="toggleAside:1">☰</span>
-	<span>&copy; Porshen & Cyberpiers 2026</span>
+	<!--span>&copy; Porshen & Cyberpiers 2026</span-->
 </span>
-<span data-h="set:Page:next">▶</span>
+<span data-h="set:Page:next">⮷</span>
 `;	// }}}
 const HTML_MAIN= // {{{
 `
@@ -239,8 +240,8 @@ aside nav li { border-bottom:1px solid silver; }
 				<div data-uid='Settings:PlayMode'>
 					<label>播放模式</lable>
 					<div data-h='set:PlayMode' class='HSelect'>
-						<div data-o='0' class='selected'>連續</div>
-						<div data-o='1'>分頁</div>
+						<div data-o='0'>連續</div>
+						<div data-o='1' class='selected'>分頁</div>
 						<div data-o='2'>獨立</div>
 					</div>
 				</div>
@@ -351,7 +352,7 @@ class Player
 		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
 		((ThisPlayer)=>{
 			this.Settings={ // Parameter Settings
-				"FontScale" : new (class extends EV { // {{{
+				"FontScale" : new (class extends EV {
 					set (v) {
 						if (!v) v=this.get();
 						const DFS=((w,h)=>w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
@@ -362,10 +363,10 @@ class Player
 						return super.set(v);
 					}
 				})( this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
-					this.GC.querySelector('[data-uid="Settings:FontScale"] output') ), // }}}
+					this.GC.querySelector('[data-uid="Settings:FontScale"] output') ),
 				"PlayMode" : new (class extends EVSelect {
-					// {{{
 					set (v) {
+						console.log(new Date());
 						if (!v) v=queryContainer(event.target,'[data-o]');
 						if (v instanceof Element) v=v.dataset.o;
 						((content)=>{
@@ -376,15 +377,15 @@ class Player
 								)
 							);
 							content.classList.add(`PlayMode_${v}`);
+							this.QS[0].querySelector(`[data-o="${v}"]`).classList.add('selected');
+							console.log("PlayMode:set:",v,content,this.QS[0].querySelector(`[data-o="${v}"]`));
 						})(ThisPlayer.Content);
-						console.log("11112",v);
 						return super.set(v);
 					}
-				})( this.GC.querySelector('[data-h="set:PlayMode"]') ), // }}}
+				})( this.GC.querySelector('[data-h="set:PlayMode"]') ),
 				"Page" : new (class extends EV {
 					// set('Page',50); set('Page','next); set('Page','prev');
 					// set('Page','#id'); set('Page',document.getElementById('#id')); set('Page');
-					// {{{
 					set (v) {
 						let k,pn,em;
 						if (!v) v=this.get();
@@ -431,19 +432,16 @@ class Player
 						return super.set(pn);
 					}
 				})( this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] output') ), // }}}
+					this.GC.querySelector('[data-uid="Aside:Pager"] output') ),
 				"PageMax" : new (class extends EV {
-					// set('PageMax',120);
-					// {{{
 					set (v) {
-						this.QS[0].setAttribute("max")=parseInt(v);
+						this.QS[0].setAttribute("max",parseInt(v));
 						this.QS[1].textContent=v;
 					}
 				})(	this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] span') ), // }}}
+					this.GC.querySelector('[data-uid="Aside:Pager"] span') ),
 				"Keywords" : new (class extends EV {
 					// set('Keywords',['k1','k2',...]);
-					// {{{
 					set (a) {
 						this.QS[0].innerHTML = a.reduce((r,k) =>
 							r+`<div><input type='checkbox'/>${k}</div>`,'')
@@ -454,10 +452,9 @@ class Player
 							.filter((e)=>e.checked)
 							.map((e)=>e.parentNode.textContent);
 					}
-				})(this.GC.querySelector('[data-uid="Settings:Keywords"]')), // }}}
+				})(this.GC.querySelector('[data-uid="Settings:Keywords"]')),
 				"Filters" : new (class extends EV {
 					// set('Filters',[[A1,A2,...],[A3,A4,...],...]);
-					// {{{
 					set (aa) {
 						this.QS[0].innerHTML = aa.reduce((r,a) =>
 							r+"<div class='OR'>"+a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')+"</div>", "");
@@ -466,11 +463,9 @@ class Player
 						return Array.from(this.QS[0].querySelectorAll("div"))
 							.reduce((r,v)=>r.push(v.textContent.split('&'))&&r,[])
 					}
-				})(this.GC.querySelector('[data-uid="Settings:Filters"]')) // }}}
+				})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
 			};
 		})(this)
-		this.Settings.FontScale.set(1.0);
-		this.Settings.Filters.set(filters||[]);
 
 		// ## INSTALL SECTIONS
 		this.PageIndex=[];
@@ -502,12 +497,15 @@ class Player
 				return E;
 			}, this.Content);
 
-			// TODO move to Element Variable
+			// initialized values
+			for (let k in this.Settings)
+				this.Settings[k].set(this.Settings[k].get());
 			this.GC.querySelector('[data-uid="Aside:Pager"] input')
 				.setAttribute("max",this.PageIndex.length);
 			this.GC.querySelector('[data-uid="Aside:Pager"] span')
 				.textContent=this.PageIndex.length;
 			this.Settings.Keywords.set(Object.keys(ksmap));
+			this.Settings.Filters.set(filters||[]);
 		})(sections, filters);
 
 		// ## INSTALL EXTENSION MODULES (data-x="...") 
