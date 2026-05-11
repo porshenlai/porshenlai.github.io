@@ -349,10 +349,43 @@ class Player
 			return e;
 		})();
 
+		// ## INSTALL SECTIONS
+		let ksmap={};
+		this.PageIndex=[];
+		((sections, filters)=>{ // {{{
+			// 1. complete id setting
+			// 2. filter data-ks with disabled class
+			// 3. update PageIndex and ksmap
+			// 4. move sections to content box
+			if (!sections) sections=this.get('*');
+
+			this.PageIndex=[];
+			sections.reduce((E, se, k) => {
+				// Organize keywords from data-ks 
+				const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
+				ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
+
+				// ensure all sections has ID for location
+				if(!se.id) se.id=`__${k}__`;
+				E.appendChild(se);
+
+				// filtering sections
+				if (filters && (!filters.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)))) {
+					se.classList.add('disabled');
+				} else {
+					se.classList.remove('disabled');
+					this.PageIndex.push(se.id);
+				}
+				return E;
+			}, this.Content);
+		})(sections, filters); // }}}
+
 		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
-		((ThisPlayer)=>{
+		((ThisPlayer)=>{ // {{{
 			this.Settings={ // Parameter Settings
+
 				"FontScale" : new (class extends EV {
+					constructor (q1,q2,v=1.0) { super(q1,q2); this.set(v); }
 					set (v) {
 						if (!v) v=this.get();
 						const DFS=((w,h)=>w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
@@ -362,11 +395,15 @@ class Player
 						document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
 						return super.set(v);
 					}
-				})( this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
-					this.GC.querySelector('[data-uid="Settings:FontScale"] output') ),
+				})(
+					this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
+					this.GC.querySelector('[data-uid="Settings:FontScale"] output'),
+					1.0
+				),
+
 				"PlayMode" : new (class extends EVSelect {
+					constructor (q) { super(q); this.set(this.get()||'1'); }
 					set (v) {
-						console.log(new Date());
 						if (!v) v=queryContainer(event.target,'[data-o]');
 						if (v instanceof Element) v=v.dataset.o;
 						((content)=>{
@@ -378,11 +415,13 @@ class Player
 							);
 							content.classList.add(`PlayMode_${v}`);
 							this.QS[0].querySelector(`[data-o="${v}"]`).classList.add('selected');
-							console.log("PlayMode:set:",v,content,this.QS[0].querySelector(`[data-o="${v}"]`));
 						})(ThisPlayer.Content);
 						return super.set(v);
 					}
-				})( this.GC.querySelector('[data-h="set:PlayMode"]') ),
+				})(
+						this.GC.querySelector('[data-h="set:PlayMode"]')
+				),
+
 				"Page" : new (class extends EV {
 					// set('Page',50); set('Page','next); set('Page','prev');
 					// set('Page','#id'); set('Page',document.getElementById('#id')); set('Page');
@@ -433,15 +472,22 @@ class Player
 					}
 				})( this.GC.querySelector('[data-uid="Aside:Pager"] input'),
 					this.GC.querySelector('[data-uid="Aside:Pager"] output') ),
+
 				"PageMax" : new (class extends EV {
+					constructor (q1,q2,v) { super(q1,q2); this.set(v); }
 					set (v) {
 						this.QS[0].setAttribute("max",parseInt(v));
 						this.QS[1].textContent=v;
 					}
-				})(	this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] span') ),
+				})(
+					this.GC.querySelector('[data-uid="Aside:Pager"] input'),
+					this.GC.querySelector('[data-uid="Aside:Pager"] span'),
+					this.PageIndex.length
+				),
+
 				"Keywords" : new (class extends EV {
 					// set('Keywords',['k1','k2',...]);
+					constructor(e,v) { super(e); console.log(v); this.set(v); }
 					set (a) {
 						this.QS[0].innerHTML = a.reduce((r,k) =>
 							r+`<div><input type='checkbox'/>${k}</div>`,'')
@@ -452,9 +498,14 @@ class Player
 							.filter((e)=>e.checked)
 							.map((e)=>e.parentNode.textContent);
 					}
-				})(this.GC.querySelector('[data-uid="Settings:Keywords"]')),
+				})(
+					this.GC.querySelector('[data-uid="Settings:Keywords"]'),
+					Object.keys(ksmap)
+				),
+
 				"Filters" : new (class extends EV {
 					// set('Filters',[[A1,A2,...],[A3,A4,...],...]);
+					constructor(e,v) { super(e); this.set(v); }
 					set (aa) {
 						this.QS[0].innerHTML = aa.reduce((r,a) =>
 							r+"<div class='OR'>"+a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')+"</div>", "");
@@ -463,50 +514,12 @@ class Player
 						return Array.from(this.QS[0].querySelectorAll("div"))
 							.reduce((r,v)=>r.push(v.textContent.split('&'))&&r,[])
 					}
-				})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
+				})(
+					this.GC.querySelector('[data-uid="Settings:Filters"]'),
+					(filters||[])
+				)
 			};
-		})(this)
-
-		// ## INSTALL SECTIONS
-		this.PageIndex=[];
-		((sections, filters)=>{
-			// 1. complete id setting
-			// 2. filter data-ks with disabled class
-			// 3. update PageIndex and ksmap
-			// 4. move sections to content box
-			if (!sections) sections=this.get('*');
-
-			let ksmap={};
-			this.PageIndex=[];
-			sections.reduce((E, se, k) => {
-				// Organize keywords from data-ks 
-				const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
-				ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
-
-				// ensure all sections has ID for location
-				if(!se.id) se.id=`__${k}__`;
-				E.appendChild(se);
-
-				// filtering sections
-				if (filters && (!filters.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)))) {
-					se.classList.add('disabled');
-				} else {
-					se.classList.remove('disabled');
-					this.PageIndex.push(se.id);
-				}
-				return E;
-			}, this.Content);
-
-			// initialized values
-			for (let k in this.Settings)
-				this.Settings[k].set(this.Settings[k].get());
-			this.GC.querySelector('[data-uid="Aside:Pager"] input')
-				.setAttribute("max",this.PageIndex.length);
-			this.GC.querySelector('[data-uid="Aside:Pager"] span')
-				.textContent=this.PageIndex.length;
-			this.Settings.Keywords.set(Object.keys(ksmap));
-			this.Settings.Filters.set(filters||[]);
-		})(sections, filters);
+		})(this); // }}}
 
 		// ## INSTALL EXTENSION MODULES (data-x="...") 
 		this.Xs={};
@@ -608,8 +621,8 @@ class Player
 			utterance.lang = lang; // 根據語言代碼設定發音引擎
 			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
 			speechSynthesis.speak (utterance);
-        } else alert('您的瀏覽器不支援 Speech Synthesis API。');
-    }	// }}}
+		} else alert('您的瀏覽器不支援 Speech Synthesis API。');
+	}	// }}}
 
 	playDOM (e, caption)
 	{	// {{{
@@ -655,26 +668,6 @@ class Player
 	</iframe>
 </div>`;
 		})(this.openDialog(caption));
-	}	// }}}
-
-	playMermaid (code, caption)
-	{	// {{{
-		const VE=document.createElement("div");
-		VE.dataset.xl='mermaid';
-		VE.classList.add("full");
-		VE.innerHTML=code;
-		this.extendMods([VE]);
-		((DE)=>{ DE.appendChild(VE); })(this.openDialog(caption));
-	}	// }}}
-
-	playMarkdown (code, caption)
-	{	// {{{
-		const VE=document.createElement("div");
-		VE.dataset.xl='markdown';
-		VE.classList.add("full");
-		VE.innerHTML=code;
-		this.extendMods([VE]);
-		((DE)=>{ DE.appendChild(VE); })(this.openDialog(caption));
 	}	// }}}
 
 	play (mn, code, caption)
