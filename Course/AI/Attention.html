@@ -8,7 +8,7 @@
 	table th { vertical-align:middle; text-align:center; font-weight:bold; }
 	table td { vertical-align:top; text-align:left; border:2px solid silver; }
 </style>
-<script plugins='math' src="/App/slide.js"></script>
+<script src="/App/page.js"></script>
 </head>
 <body>
 
@@ -35,7 +35,7 @@
 <section>
 	<h2>自注意力機制 (Self-Attention)</h2>
 	<p>自注意力機制讓模型在處理一個序列時，能將序列中的每一個元素都與同一個序列中的所有其他元素進行關聯，從而為該元素產生一個更豐富的表示。</p>
-	<ul>
+	<ul data-x='math'>
 		<li><strong>定義與功能：</strong><ul>
 			<li><strong>查詢向量（Query, $Q$）：</strong> 來自於當前需要被關注的元素。它代表了我們正在尋找的「資訊」。</li>
 			<li><strong>鍵向量（Key, $K$）：</strong> 來自於序列中的所有元素。它代表了其他元素所「提供」的資訊。</li>
