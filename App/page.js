@@ -57,7 +57,8 @@ body>footer {
 // PlayMode_*: all sections compacted in continuous pages
 // PlayMode_1: all the minimal height of sections are greater than the page height 
 // PlayMode_2: all the section not currently displayed is hidden
-// section.cfbox: force layout expand to full page
+// section.cfbox: force layout expand to full page and centralize content
+// section.fbox: force layout expand to full page
 //
 const CSS_CONTENT= // {{{
 `section {
@@ -80,7 +81,7 @@ section.current {
 	box-shadow:0 4px 16px rgba(38, 166, 154, 0.2);
 	cursor:default;
 }
-.PlayMode_1 section, .PlayMode_2 section, section.cfbox {
+.PlayMode_1 section, .PlayMode_2 section {
 	min-height:calc(100% - 2 * var(--base-margin));
 }
 section.cfbox {
@@ -88,6 +89,10 @@ section.cfbox {
 	flex-flow:column nowrap;
 	justify-content:center;
 	align-items:center;
+}
+section.fbox, section.cfbox {
+	width:calc(100% - 2 * var(--base-margin));
+	height:calc(100% - 2 * var(--base-margin));
 }
 
 [data-h] { cursor:pointer; }
@@ -447,7 +452,7 @@ class Player
 
 						if ((!em) || em.classList.contains('current')) return;
 
-						// MOVE .current-section flag to new current
+						// MOVE .current flag to new current
 						let GC=ThisPlayer.GC;
 						Array.from(GC.querySelectorAll('.current'))
 						.forEach((e)=>e.classList.remove('current'));
@@ -724,20 +729,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 
 							if (section !== this.current) {
 								this.current=section;
-
-								// move .current-section to new section element
-								Array.from(
-									section.parentNode.querySelectorAll('.current-section')
-								).forEach((s)=>s.classList.remove('current-section'));
-								section.classList.add('current-section');
-
-								// Update URL hash and scroll into view
-								if (history.replaceState)
-									history.replaceState(null, null, '#' + section.id);
-								else location.hash = '#' + section.id;
-
 								this.Settings.Page.set(this.PageIndex.indexOf(section.id)+1);
-
 								if (scroll !== undefined) {
 									this.current.scrollIntoView({
 										behavior: scroll ? 'smooth' : 'auto',

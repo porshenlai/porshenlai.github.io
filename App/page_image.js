@@ -30,50 +30,58 @@ function fillContent(elem, url, type) {
 	elem.classList.add('resolved');
 }	// }}}
 
+class PlayList {
+	constructor (urls, canvas) {
+		this.Rs=(Array.isArray(urls) ? urls : urls.split(/[;,\n]/)).map((u)=>({"U":u}));
+		this.C=0;
+		this.I=canvas;
+		canvas.addEventListener('load',()=>{
+			const container = canvas.parentNode, cr = container.getBoundingClientRect();
+			const rec = this.Rs[this.C];
+			[rec.O,rec.R] = canvas.width*cr.height > canvas.height*cr.width ?
+				['width',100*cr.height*canvas.width/canvas.height/cr.width] :
+				['height',100*cr.width*canvas.height/canvas.width/cr.height] ;
+			canvas.style[rec.O]="100%";
+			canvas.style[rec.O]=rec.R+"%";
+			console.log(rec.R);
+			canvas.style[rec.O==='width'?'height':'width']='auto';
+			// container.style.overflow="";
+		});
+		this.go(0);
+	}
+	go (i) {
+		this.C=i;
+		this.I.src=this.Rs[i].U;
+	}
+}
+
 SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
-	if (!code){
-		if (elem.querySelector('img')) return;
-		code=elem.innerHTML;
-	}
-	code=code.split(/[;,\n]/);
-	//fillContent(elem,code,'photo');
-
-	elem.innerHTML=`<div style='overflow:hidden;height:100%;'>
-	<img src='${code[0]}' style='object-fit:cover;width:auto;height:auto;'/>
-	<div class='full hide mask' style='position:absolute;background:rgba(127,127,127,0.5);'>MENU COME HERE</div>
-</div>`;
-	((img)=>{
-		const container=img.parentNode;
-		img.addEventListener('load',()=>{
-			const cr = container.getBoundingClientRect();
-			const as = (img.width*cr.height > img.height*cr.width)
-				? ['height','overflow-x']
-				: ['width','overflow-y'] ;
- 			img.style[as[0]]='100%';
-			elem.style[as[1]]='auto';
-		});
-		container.addEventListener("click",(evt)=>{
-			for (let e=evt.target;e!==container;e=e.parentNode) if (e.dataset.h) {
-				switch(e.dataset.h){
-				default:
-					console.log("Trigger:",e.dataset.h);
-					break;
-				}
-				evt.stopPropagation();
-				evt.preventDefault();
-				return;
+	elem.classList.add('resolved');
+	if (!code) code=elem.innerHTML;
+	elem.innerHTML="<div class='full centerBox'><img/><div class='full hide mask' style='position:absolute;background:rgba(127,127,127,0.5);'>MENU COME HERE</div></div>";
+	elem.PlayList=new PlayList(code, elem.querySelector('img'));
+	const container=elem.PlayList.I.parentNode;
+	container.addEventListener("click",(evt)=>{
+		for (let e=evt.target;e!==container;e=e.parentNode) if (e.dataset.h) {
+			switch(e.dataset.h){
+			default:
+				console.log("Trigger:",e.dataset.h);
+				break;
 			}
-			let mask=elem.querySelector('.mask');
-			if (mask.classList.contains('hide')) {
-				let lts=(mask.lts||0),cts=new Date().getTime();
-				console.log(lts,cts,cts-lts);
-				if (cts-lts<500) {
-					mask.classList.remove('hide');
-				} else mask.lts=cts;
-			} else mask.classList.add('hide');
-		});
-	})(elem.querySelector('img'));
+			evt.stopPropagation();
+			evt.preventDefault();
+			return;
+		}
+		let mask=elem.querySelector('.mask');
+		if (mask.classList.contains('hide')) {
+			let lts=(mask.lts||0),cts=new Date().getTime();
+			console.log(lts,cts,cts-lts);
+			if (cts-lts<500) {
+				mask.classList.remove('hide');
+			} else mask.lts=cts;
+		} else mask.classList.add('hide');
+	});
 };
 
 })(document.currentScript);
