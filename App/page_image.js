@@ -40,6 +40,7 @@ function decodeArgs (e)
 	return e;
 }	// }}}
 
+let Scalar;
 
 class PlayList {
 	constructor (urls, canvas) {
@@ -50,8 +51,16 @@ class PlayList {
 		this.go(0);
 	}
 	go (i) {
-		this.C=i;
+		if ('string'===typeof(i)) {
+			if (i[0]==='+') i=Math.floor(this.C+parseFloat(i.substring(1)));
+			else if (i[0]==='-') i=Math.floor(this.C-parseFloat(i.substring(1)));
+			else if (i[0]==='*') i=Math.floor(this.C*parseFloat(i.substring(1)));
+			else if (i[0]==='/') i=Math.floor(this.C/parseFloat(i.substring(1)));
+			else i=parseInt(i);
+		}
+		this.C=i=(i+this.Rs.length)%this.Rs.length;
 		this.I.src=this.Rs[i].U;
+		this.I.parentNode.parentNode.querySelector('[data-uid="pager"]').value=(1+this.C);
 	}
 	resize () {
 		const fp2=(v)=>Math.floor(v*100)/100,
@@ -62,7 +71,7 @@ class PlayList {
 				cr = container.getBoundingClientRect(),
 				[iw,ih,cw,ch] = [this.I.width,this.I.height,cr.width,cr.height];
 			[rec.O,rec.R] = iw*ch > ih*cw ? [true, fp2(ch*iw/ih/cw-0.03)] : [false, fp2(cw*ih/iw/ch-0.03)] ;
-			this.scale(1);
+			this.scale(Scalar.get());
 		},1);
 	}
 	scale (v) {
@@ -95,20 +104,27 @@ SCRIPT.value=async function (slide, elem, code) {
 <div>
 	<img/>
 	<div class='full hide mask'>
-		<div data-h='scale' style='background:white;bottom:95%;padding:1% 5%;border:1px solid silver;margin:1%;'>
-			<input style='width:100%;' type='range' min='0.5' max='2' step='0.1'></input>
+		<div style='background:white;bottom:95%;padding:1% 5%;border:1px solid silver;margin:1%;'>
+			<input data-h='scale' style='width:100%;' type='range' min='0.5' max='2' step='0.1'></input>
 			<div class='hbar'>
-				<button data-h='scaleContain'>Contain</button>
-				<button data-h='scaleCover'>Cover</button>
-				<output type='number'></output>
+				<span>
+					<button data-h='prev'>&lt;</button>
+					<output data-uid='pager' type='number' value='1'></output>
+					<button data-h='next'>&gt;</button>
+				</span>
+				<span>
+					<button data-h='scaleContain'>Contain</button>
+					<button data-h='scaleCover'>Cover</button>
+					<output data-uid='scalar' type='number' value='1'></output>
+				</span>
 			</div>
 		</div>
 	</div>
 </div></div>`;
 
 	elem.PlayList=new PlayList(code, elem.querySelector('img'));
-	// Control Object: Scaler
-	const Scaler=new (class {
+	// Control Object: Scalar
+	Scalar=new (class {
 		constructor (es) { this.ES=es; this.set(1); }
 		get () { return this.ES[0].value; }
 		set (v) {
@@ -117,7 +133,7 @@ SCRIPT.value=async function (slide, elem, code) {
 		}
 	})([
 		elem.querySelector('input[type="range"]'),
-		elem.querySelector('output')
+		elem.querySelector('output[data-uid="scalar"]')
 	]);
 	// Install event handler
 	const container=elem.PlayList.I.parentNode;
@@ -126,9 +142,11 @@ SCRIPT.value=async function (slide, elem, code) {
 		evt.preventDefault();
 		for (let e=evt.target;e!==container;e=e.parentNode) if (e.dataset.h) {
 			switch(e.dataset.h){
-			case 'scale': Scaler.set(Scaler.get()); break;
-			case 'scaleContain': Scaler.set('contain'); break;
-			case 'scaleCover': Scaler.set('cover'); break;
+			case 'scale': Scalar.set(Scalar.get()); break;
+			case 'scaleContain': Scalar.set('contain'); break;
+			case 'scaleCover': Scalar.set('cover'); break;
+			case 'next': elem.PlayList.go('+1'); break;
+			case 'prev': elem.PlayList.go('-1'); break;
 			}
 			return;
 		}
