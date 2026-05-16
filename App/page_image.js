@@ -30,67 +30,84 @@ function fillContent(elem, url, type) {
 	elem.classList.add('resolved');
 }	// }}}
 
-function fp2(v) {
-	return Math.floor(v*100)/100;
-}
+function decodeArgs (e)
+{	// {{{
+	if (e instanceof Element)
+		e = e.textContent;
+	if ('string' === typeof(e))
+		e = e.split(/[;,\s]/).filter((e)=>e).map((u)=>({"U":u}));
+	console.log("ARGS is ",e);
+	return e;
+}	// }}}
+
 
 class PlayList {
 	constructor (urls, canvas) {
-		this.Rs=(Array.isArray(urls) ? urls : urls.split(/[;,\n]/)).map((u)=>({"U":u}));
+		this.Rs=urls;
 		this.C=0;
 		this.I=canvas;
-		canvas.addEventListener('load',()=>{
-			const container = canvas.parentNode, cr = container.getBoundingClientRect();
-			const rec = this.Rs[this.C];
-			[rec.O,rec.R] = canvas.width*cr.height > canvas.height*cr.width ?
-				[true, fp2(cr.height*canvas.width/canvas.height/cr.width-0.03)] :
-				[false, fp2(cr.width*canvas.height/canvas.width/cr.height-0.03)] ;
-			this.scale(1);
-			//this.scale(rec.R);
-		});
+		canvas.addEventListener('load',()=>this.resize());
 		this.go(0);
 	}
 	go (i) {
 		this.C=i;
 		this.I.src=this.Rs[i].U;
 	}
+	resize () {
+		const fp2=(v)=>Math.floor(v*100)/100,
+			container = this.I.parentNode;
+		((s)=>(s.width=s.height='100%'))(container.style);
+		setTimeout(()=>{
+			const rec = this.Rs[this.C],
+				cr = container.getBoundingClientRect(),
+				[iw,ih,cw,ch] = [this.I.width,this.I.height,cr.width,cr.height];
+			[rec.O,rec.R] = iw*ch > ih*cw ? [true, fp2(ch*iw/ih/cw-0.03)] : [false, fp2(cw*ih/iw/ch-0.03)] ;
+			this.scale(1);
+		},1);
+	}
 	scale (v) {
-		const container = this.I.parentNode, cr = container.getBoundingClientRect();
-		const rec = this.Rs[this.C];
-		switch (v) {
-		case 'contain': v=1.0; break;
-		case 'cover': v=rec.R; break;
-		}
+		const container = this.I.parentNode, rec = this.Rs[this.C];
+		v = v==='contain' ? 1.0 : v==='cover' ? rec.R : v;
 		if (rec.O) {
-			this.I.style.width=(v*100)+"%";
+			this.I.style.width= v>1 ? ((v*100)+"%") : '100%';
 			this.I.style.height='auto';
 			container.style.overflow = v>rec.R ? 'auto' : v>1 ? 'auto hidden' : 'hidden';
-			container.style.flexFlow = 'column nowrap';
+			container.style.height = v>rec.R ? '100%' : 'auto';
+			container.style.width = v>1 ? '100%' : ((v*100)+'%');
 		} else {
-			this.I.style.height=(v*100)+"%";
+			this.I.style.height= v>1 ? ((v*100)+"%") : '100%';
 			this.I.style.width='auto';
 			container.style.overflow = v>rec.R ? 'auto' : v>1 ? 'hidden auto' : 'hidden';
-			container.style.flexFlow = 'row nowrap';
+			container.style.width = v>rec.R ? '100%' : 'auto';
+			container.style.height = v>1 ? '100%' : ((v*100)+'%');
 		}
+		container.scrollLeft=Math.floor((container.scrollWidth-container.clientWidth)/2);
+		container.scrollTop=Math.floor((container.scrollHeight-container.clientHeight)/2);
 		return v;
 	}
 }
 
 SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
-	elem.classList.add('resolved');
-	if (!code) code=elem.innerHTML;
-	elem.innerHTML=`<div class='full centerBox'><img style='margin:auto;'/><div class='full hide mask' style='position:absolute;background:rgba(127,127,127,0.5);'>
-	<div data-h='scale' style='background:white;'>
-		<input type='range' min='0.5' max='2' step='0.1'></input>
-		<div>
-			<button data-h='scaleContain'>Contain</button>
-			<button data-h='scaleCover'>Cover</button>
-			<output type='number'></output>
+	code=decodeArgs(code||elem);
+	elem.classList.add('resolved','centerBox');
+	elem.innerHTML=`
+<div>
+	<img/>
+	<div class='full hide mask'>
+		<div data-h='scale' style='background:white;bottom:95%;padding:1% 5%;border:1px solid silver;margin:1%;'>
+			<input style='width:100%;' type='range' min='0.5' max='2' step='0.1'></input>
+			<div class='hbar'>
+				<button data-h='scaleContain'>Contain</button>
+				<button data-h='scaleCover'>Cover</button>
+				<output type='number'></output>
+			</div>
 		</div>
 	</div>
 </div></div>`;
+
 	elem.PlayList=new PlayList(code, elem.querySelector('img'));
+	// Control Object: Scaler
 	const Scaler=new (class {
 		constructor (es) { this.ES=es; this.set(1); }
 		get () { return this.ES[0].value; }
@@ -102,16 +119,17 @@ SCRIPT.value=async function (slide, elem, code) {
 		elem.querySelector('input[type="range"]'),
 		elem.querySelector('output')
 	]);
+	// Install event handler
 	const container=elem.PlayList.I.parentNode;
 	container.addEventListener("click",(evt)=>{
+		evt.stopPropagation();
+		evt.preventDefault();
 		for (let e=evt.target;e!==container;e=e.parentNode) if (e.dataset.h) {
 			switch(e.dataset.h){
 			case 'scale': Scaler.set(Scaler.get()); break;
 			case 'scaleContain': Scaler.set('contain'); break;
 			case 'scaleCover': Scaler.set('cover'); break;
 			}
-			evt.stopPropagation();
-			evt.preventDefault();
 			return;
 		}
 		let mask=elem.querySelector('.mask');

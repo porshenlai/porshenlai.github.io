@@ -130,9 +130,12 @@ h3 {
 	margin:var(--base-margin);
 }
 
-.full { left:0;top:0;width:100%;height:100%;overflow:auto; }
-.hide { display:none; }
-.disabled { display:none; }
+.hide,.disabled { display:none; }
+.full,.mask { left:0;top:0;width:100%;height:100%;overflow:auto; }
+.mask { position:absolute;background-color:rgba(255,255,255,0.5); }
+.hbar,.vbar { display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:center; }
+.vbar { flex-flow:column nowrap; }
+
 .centerBox { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;margin:auto; }
 .cb { white-space: nowrap; padding-left:var(--base-indent); font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
@@ -492,7 +495,7 @@ class Player
 
 				"Keywords" : new (class extends EV {
 					// set('Keywords',['k1','k2',...]);
-					constructor(e,v) { super(e); console.log(v); this.set(v); }
+					constructor(e,v) { super(e); this.set(v); }
 					set (a) {
 						this.QS[0].innerHTML = a.reduce((r,k) =>
 							r+`<div><input type='checkbox'/>${k}</div>`,'')
