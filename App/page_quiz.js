@@ -61,6 +61,7 @@ class Quiz
 }
 .answer { font-size:60%; font-style:italic; color:green; }
 .HT { border:1px outset silver;padding:2px;text-align:center; }
+.hbar [data-o] { flex:1 1 auto; text-align:center; }
 `;
 			document.head.appendChild(SE);
 		})();
