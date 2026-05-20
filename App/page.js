@@ -42,9 +42,10 @@ body>footer {
 		display:flex; flex-direction:row;
 		justify-content:space-between; align-items:center;
 	}
+	[data-uid="ControlPanel"] { line-height:172%; }
 }
 
-[data-uid="ControlPanelP"] [data-h]:hover { color:blue; }
+[data-uid="ControlPanel"] [data-h]:hover { color:blue; }
 
 #content {
 	width:100%; height:100%;
@@ -178,12 +179,13 @@ h3 {
 
 const HTML_CONTROL= // {{{
 `
-<span data-h="set:Page:prev">⮴</span>
+<span data-h='set:Page:prev'>◤</span>
+<output data-uid='PageNumber' style='font-size:50%'></output>
 <span>
-	<span data-h="toggleAside:1">☰</span>
-	<!--span>&copy; Porshen & Cyberpiers 2026</span-->
+	<span data-h='toggleAside:1'>☰</span>
 </span>
-<span data-h="set:Page:next">⮷</span>
+<output data-uid='PageCount' style='font-size:50%'></output>
+<span data-h='set:Page:next'>◢</span>
 `;	// }}}
 const HTML_MAIN= // {{{
 `
@@ -243,8 +245,8 @@ aside nav li { border-bottom:1px solid silver; }
 			<div data-o="Settings">設定</div>
 		</div>
 		<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
-			<nav class='tabPage selected' data-uid='ASIDE:TOC'></nav>
-			<div class='tabPage' data-uid='ASIDE:Settings'>
+			<nav class='tabPage' data-uid='ASIDE:TOC'></nav>
+			<div class='tabPage hide' data-uid='ASIDE:Settings'>
 				<div data-uid='Settings:PlayMode'>
 					<label>播放模式</lable>
 					<div data-h='set:PlayMode' class='HSelect'>
@@ -320,6 +322,7 @@ class EV {
 	constructor () { this.QS=Array.from(arguments); }
 	set (value) { this.QS.forEach((q)=>q.value=value); }
 	get () { return this.QS[0].value; }
+	add (q) { this.QS.push(q); q.value=this.get(); }
 }	// }}}
 
 class EVSelect extends EV {
@@ -692,14 +695,20 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 			);
 
 			// modify DOM to contain the player
+			let cp=document.createElement("footer");
 			document.body.insertBefore((()=>{
 				// guidance bar
-				let e=document.createElement("footer");
-				e.dataset.uid='ControlPanel';
-				e.innerHTML=HTML_CONTROL;
-				return e;
+				cp.dataset.uid='ControlPanel';
+				((s)=>{
+					s.padding='0.2%';
+				})(cp.style);
+				cp.innerHTML=HTML_CONTROL;
+				return cp;
 			})(), undefined);
 			document.body.insertBefore(this.GC, document.body.querySelector('footer'));
+
+			this.Settings.Page.add(cp.querySelector('[data-uid="PageNumber"]'));
+			this.Settings.PageMax.add(cp.querySelector('[data-uid="PageCount"]'));
 		}	// }}}
 		nop () { }
 		//	if(!document.fullscreenElement)
