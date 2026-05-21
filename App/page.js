@@ -258,7 +258,7 @@ aside nav li { border-bottom:1px solid silver; }
 				<div data-uid='Settings:FontScale'>
 					<label>字型縮放 (<output value='1'></output>)</label>
 					<div style='display:flex;flex-flow:row nowrap;align-items:center;'>
-						0.8 <input data-h='set:FontScale' type='range' min='0.8' max='1.5' step='0.1' value='1.0' style='flex:1 1 auto;width:100%'/> 1.5
+						0.8 <input data-h='set:FontScale:&value' type='range' min='0.8' max='1.5' step='0.1' value='1.0' style='flex:1 1 auto;width:100%'/> 1.5
 					</div>
 				</div>
 				<div data-uid='Settings:KWFilters'>
@@ -320,9 +320,23 @@ class EV {
 	// 2. set => fill into all elements
 	// 3. get <= read from the first element {{{
 	constructor () { this.QS=Array.from(arguments); }
-	set (value) { this.QS.forEach((q)=>q.value=value); }
-	get () { return this.QS[0].value; }
-	add (q) { this.QS.push(q); q.value=this.get(); }
+	__s__ (q,v) {
+		if (q instanceof Element)
+			q['value' in q ? 'value' : 'textContent'] = v;
+		else if(q.s) q.s(v);
+	}
+	__g__ (q) {
+		return q instanceof Element ?
+			q['value' in q ? 'value' : 'textContent'] :
+			q.g ? q.g() : '' ;
+	}
+	set (v) {
+		this.QS.forEach((q)=>this.__s__(q,v));
+		return this; }
+	get () {
+		return this.__g__(this.QS[0]); }
+	add (q) { this.QS.push(q); this.__s__(q,this.get()); return this; }
+	remove (q) { this.QS=this.QS.filter((e)=>e!==q); return this; }
 }	// }}}
 
 class EVSelect extends EV {
@@ -394,24 +408,66 @@ class Player
 		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
 		((ThisPlayer)=>{ // {{{
 			this.Settings={ // Parameter Settings
-
-				"FontScale" : new (class extends EV {
-					constructor (q1,q2,v=1.0) { super(q1,q2); this.set(v); }
-					set (v) {
-						if (!v) v=this.get();
-						const DFS=((w,h)=>w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
-							window.innerWidth,
-							window.innerHeight
-						);
-						document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
-						return super.set(v);
-					}
-				})(
+				"FontScale" : new EV(
 					this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
 					this.GC.querySelector('[data-uid="Settings:FontScale"] output'),
-					1.0
+					{
+						r: (w,h) => w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30),
+						s: function () {
+							const DFS=this.r(window.innerWidth, window.innerHeight);
+							document.documentElement.style.setProperty(
+								'--base-font-size',
+								`${DFS * v}px`
+							);
+						}
+					}
 				),
-
+				"PageCount" : new EV(
+					this.GC.querySelector('[data-uid="Aside:Pager"] span'),
+					{
+						e: this.GC.querySelector('[data-uid="Aside:Pager"] input'),
+						s: function(v){ this.e.setAttribute("max",parseInt(v)); }
+					}
+				),
+				"Keywords" : new EV(
+					{
+						e: this.GC.querySelector('[data-uid="Settings:Keywords"]'),
+						s: function(v){
+							this.e.innerHTML = a.reduce(
+								(r,k) => r+`<div><input type='checkbox'/>${k}</div>`,
+								''
+							) + "<span data-h='filter:add'>➕</span>";
+						},
+						g: function(){
+							return Array.from(
+								this.e.querySelectorAll('input[type="checkbox"]')
+							).filter((e)=>e.checked)
+							.map((e)=>e.parentNode.textContent);
+						}
+					}
+				),
+				"Filters" : new EV(
+					{
+						// set('Filters',[[A1,A2,...],[A3,A4,...],...]);
+						e: this.GC.querySelector('[data-uid="Settings:Filters"]'),
+						s: function(v) {
+							this.e.innerHTML = aa.reduce(
+								(r,a) => r + "<div class='OR'>"
+									+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
+									+ "</div>",
+								""
+							);
+						},
+						g: function() {
+							return Array.from(
+								this.e.querySelectorAll("div")
+							).reduce(
+								(r,v) => r.push(v.textContent.split('&'))&&r,
+								[]
+							);
+						}
+					}
+				),
 				"PlayMode" : new (class extends EVSelect {
 					constructor (q) { super(q); this.set(this.get()||'1'); }
 					set (v) {
@@ -432,7 +488,6 @@ class Player
 				})(
 						this.GC.querySelector('[data-h="set:PlayMode"]')
 				),
-
 				"Page" : new (class extends EV {
 					// set('Page',50); set('Page','next); set('Page','prev');
 					// set('Page','#id'); set('Page',document.getElementById('#id')); set('Page');
@@ -482,54 +537,12 @@ class Player
 						return super.set(pn);
 					}
 				})( this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] output') ),
-
-				"PageMax" : new (class extends EV {
-					constructor (q1,q2,v) { super(q1,q2); this.set(v); }
-					set (v) {
-						this.QS[0].setAttribute("max",parseInt(v));
-						this.QS[1].textContent=v;
-					}
-				})(
-					this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] span'),
-					this.PageIndex.length
-				),
-
-				"Keywords" : new (class extends EV {
-					// set('Keywords',['k1','k2',...]);
-					constructor(e,v) { super(e); this.set(v); }
-					set (a) {
-						this.QS[0].innerHTML = a.reduce((r,k) =>
-							r+`<div><input type='checkbox'/>${k}</div>`,'')
-							+ "<span data-h='filter:add'>➕</span>";
-					}
-					get () {
-						return Array.from(this.QS[0].querySelectorAll('input[type="checkbox"]'))
-							.filter((e)=>e.checked)
-							.map((e)=>e.parentNode.textContent);
-					}
-				})(
-					this.GC.querySelector('[data-uid="Settings:Keywords"]'),
-					Object.keys(ksmap)
-				),
-
-				"Filters" : new (class extends EV {
-					// set('Filters',[[A1,A2,...],[A3,A4,...],...]);
-					constructor(e,v) { super(e); this.set(v); }
-					set (aa) {
-						this.QS[0].innerHTML = aa.reduce((r,a) =>
-							r+"<div class='OR'>"+a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')+"</div>", "");
-					}
-					get	 () {
-						return Array.from(this.QS[0].querySelectorAll("div"))
-							.reduce((r,v)=>r.push(v.textContent.split('&'))&&r,[])
-					}
-				})(
-					this.GC.querySelector('[data-uid="Settings:Filters"]'),
-					(filters||[])
-				)
+					this.GC.querySelector('[data-uid="Aside:Pager"] output') )
 			};
+			this.Settings.FontScale.set(1.0);
+			this.Settings.PageCount.set(this.PageIndex.length);
+			this.Settings.Keywords.set(Object.keys(ksmap));
+			this.Settings.Filters.set(filters||[]);
 		})(this); // }}}
 
 		// ## INSTALL EXTENSION MODULES (data-x="...") 
