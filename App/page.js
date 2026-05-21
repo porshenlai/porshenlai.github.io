@@ -413,7 +413,7 @@ class Player
 					this.GC.querySelector('[data-uid="Settings:FontScale"] output'),
 					{
 						r: (w,h) => w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30),
-						s: function () {
+						s: function (v) {
 							const DFS=this.r(window.innerWidth, window.innerHeight);
 							document.documentElement.style.setProperty(
 								'--base-font-size',
@@ -432,7 +432,7 @@ class Player
 				"Keywords" : new EV(
 					{
 						e: this.GC.querySelector('[data-uid="Settings:Keywords"]'),
-						s: function(v){
+						s: function(a){
 							this.e.innerHTML = a.reduce(
 								(r,k) => r+`<div><input type='checkbox'/>${k}</div>`,
 								''
@@ -450,7 +450,7 @@ class Player
 					{
 						// set('Filters',[[A1,A2,...],[A3,A4,...],...]);
 						e: this.GC.querySelector('[data-uid="Settings:Filters"]'),
-						s: function(v) {
+						s: function(aa) {
 							this.e.innerHTML = aa.reduce(
 								(r,a) => r + "<div class='OR'>"
 									+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
@@ -721,7 +721,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 			document.body.insertBefore(this.GC, document.body.querySelector('footer'));
 
 			this.Settings.Page.add(cp.querySelector('[data-uid="PageNumber"]'));
-			this.Settings.PageMax.add(cp.querySelector('[data-uid="PageCount"]'));
+			this.Settings.PageCount.add(cp.querySelector('[data-uid="PageCount"]'));
 		}	// }}}
 		nop () { }
 		//	if(!document.fullscreenElement)
