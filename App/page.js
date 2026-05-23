@@ -97,7 +97,6 @@ section.fbox, section.cfbox {
 }
 
 [data-h] { cursor:pointer; }
-[data-h^="set:"] [data-o].selected { color:blue; }
 [data-h="display"] { text-decoration:underline;color:blue; }
 [data-h="display"] [caption] { display:none; }
 
@@ -156,21 +155,21 @@ h3 {
 	align-items: center;
 	width: 100%;
 }
-.HSelect>[data-o],
+.HSelect>[data-h],
 .HTab>[data-o] {
 	flex: 1 1 auto;
 	color:blue; text-align: center;
 	border: 1px solid blue; border-radius: 4px;
 	margin: 0 2px;
 }
-.HSelect>[data-o]:hover {
+.HSelect>[data-h]:hover {
 	background: lightgrey;
 }
-.HSelect>[data-o].selected {
+.HSelect>[data-h].current {
 	color: black;
 	border-color: black;
 }
-.HTab>[data-o].selected {
+.HTab>[data-o].current {
 	color: black;
 	border-bottom-color: transparent; 
 }
@@ -179,13 +178,13 @@ h3 {
 
 const HTML_CONTROL= // {{{
 `
-<span data-h='set:Page:prev'>◤</span>
+<span data-h='set:PageNumber:prev'>◤</span>
 <output data-uid='PageNumber' style='font-size:50%'></output>
 <span>
 	<span data-h='toggleAside:1'>☰</span>
 </span>
 <output data-uid='PageCount' style='font-size:50%'></output>
-<span data-h='set:Page:next'>◢</span>
+<span data-h='set:PageNumber:next'>◢</span>
 `;	// }}}
 const HTML_MAIN= // {{{
 `
@@ -241,7 +240,7 @@ aside nav li { border-bottom:1px solid silver; }
 	</div>
 	<aside data-h='tab:ASIDE' style='background:white;'>
 		<div class='HTab'>
-			<div data-o="TOC" class='selected'>導覽</div>
+			<div data-o="TOC" class='current'>導覽</div>
 			<div data-o="Settings">設定</div>
 		</div>
 		<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
@@ -249,10 +248,10 @@ aside nav li { border-bottom:1px solid silver; }
 			<div class='tabPage hide' data-uid='ASIDE:Settings'>
 				<div data-uid='Settings:PlayMode'>
 					<label>播放模式</lable>
-					<div data-h='set:PlayMode' class='HSelect'>
-						<div data-o='0'>連續</div>
-						<div data-o='1' class='selected'>分頁</div>
-						<div data-o='2'>獨立</div>
+					<div data-uid='Switch' class='HSelect'>
+						<div data-h='set:PlayMode:0'>連續</div>
+						<div data-h='set:PlayMode:1'>分頁</div>
+						<div data-h='set:PlayMode:2'>獨立</div>
 					</div>
 				</div>
 				<div data-uid='Settings:FontScale'>
@@ -272,7 +271,7 @@ aside nav li { border-bottom:1px solid silver; }
 			</div>
 		</div>
 		<div data-uid='Aside:Pager' style="width:100%;display:flex;flex-flow:row nowrap;align-items:center;background:#eee;">
-			<input style='flex:1 1 auto;width:100%;margin:0 4px;' data-h='set:Page' type='range' min='1'/>
+			<input style='flex:1 1 auto;width:100%;margin:0 4px;' data-h='set:PageNumber:&value' type='range' min='1'/>
 			<output style='margin:0 4px;'></output> /
 			<span></span>
 		</div>
@@ -318,45 +317,21 @@ function queryContainer (e, cs)
 class EV {
 	// 1. constructed with multiple elements
 	// 2. set => fill into all elements
-	// 3. get <= read from the first element {{{
-	constructor () { this.QS=Array.from(arguments); }
+	// 3. get <= read from the first element
+	constructor () {
+		this.QS = Array.from(arguments);
+	}
 	__s__ (q,v) {
-		if (q instanceof Element)
-			q['value' in q ? 'value' : 'textContent'] = v;
-		else if(q.s) q.s(v);
+		q['value' in q ? 'value' : 'textContent'] = v;
 	}
 	__g__ (q) {
-		return q instanceof Element ?
-			q['value' in q ? 'value' : 'textContent'] :
-			q.g ? q.g() : '' ;
+		return q['value' in q ? 'value' : 'textContent'];
 	}
-	set (v) {
-		this.QS.forEach((q)=>this.__s__(q,v));
-		return this; }
-	get () {
-		return this.__g__(this.QS[0]); }
+	set (v) { this.QS.forEach((q)=>this.__s__(q,v)); return this; }
+	get () { return this.__g__(this.QS[0]); }
 	add (q) { this.QS.push(q); this.__s__(q,this.get()); return this; }
 	remove (q) { this.QS=this.QS.filter((e)=>e!==q); return this; }
-}	// }}}
-
-class EVSelect extends EV {
-	// <div><button data-o='1' class='selected'>ONE</button>
-	// 		<button data-o='2'>TWO</button>
-	// 		<button data-o='3'>THREE</button></div> {{{
-	set (v) {
-		this.QS.forEach((g)=>{
-			try {
-				g.querySelectorAll('[data-o].selected').forEach((e)=>e.classList.remove('selected'));
-				g.querySelector(`[data-o="${v}"]`).classList.add('selected');
-			} catch(x) { }
-		});
-	}
-	get () {
-		try {
-			return this.QS[0].querySelector('[data-o].selected').dataset.o;
-		} catch(x) { }
-	}
-}	// }}}
+}
 
 class Player
 {
@@ -411,87 +386,31 @@ class Player
 				"FontScale" : new EV(
 					this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
 					this.GC.querySelector('[data-uid="Settings:FontScale"] output'),
-					{
-						r: (w,h) => w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30),
-						s: function (v) {
-							const DFS=this.r(window.innerWidth, window.innerHeight);
+					new (class {
+						calc (w,h) { return w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30); }
+						set value (v) {
+							const DFS=this.calc(window.innerWidth, window.innerHeight);
 							document.documentElement.style.setProperty(
 								'--base-font-size',
 								`${DFS * v}px`
 							);
 						}
-					}
+					})()
 				),
 				"PageCount" : new EV(
 					this.GC.querySelector('[data-uid="Aside:Pager"] span'),
-					{
-						e: this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-						s: function(v){ this.e.setAttribute("max",parseInt(v)); }
-					}
+					new (class {
+						constructor (pg) { this.PG=pg; }
+						set value (v) { this.PG.setAttribute("max",parseInt(v)); }
+					})(this.GC.querySelector('[data-uid="Aside:Pager"] input'))
 				),
-				"Keywords" : new EV(
-					{
-						e: this.GC.querySelector('[data-uid="Settings:Keywords"]'),
-						s: function(a){
-							this.e.innerHTML = a.reduce(
-								(r,k) => r+`<div><input type='checkbox'/>${k}</div>`,
-								''
-							) + "<span data-h='filter:add'>➕</span>";
-						},
-						g: function(){
-							return Array.from(
-								this.e.querySelectorAll('input[type="checkbox"]')
-							).filter((e)=>e.checked)
-							.map((e)=>e.parentNode.textContent);
-						}
+				"PageNumber" : new (class extends EV {
+					// set('PageNumber',50); set('PageNumber','next); set('PageNumber','prev');
+					// set('PageNumber','#id'); set('PageNumber',document.getElementById('#id')); set('PageNumber');
+					refresh () {
+						return this.set(this.get(),true);
 					}
-				),
-				"Filters" : new EV(
-					{
-						// set('Filters',[[A1,A2,...],[A3,A4,...],...]);
-						e: this.GC.querySelector('[data-uid="Settings:Filters"]'),
-						s: function(aa) {
-							this.e.innerHTML = aa.reduce(
-								(r,a) => r + "<div class='OR'>"
-									+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
-									+ "</div>",
-								""
-							);
-						},
-						g: function() {
-							return Array.from(
-								this.e.querySelectorAll("div")
-							).reduce(
-								(r,v) => r.push(v.textContent.split('&'))&&r,
-								[]
-							);
-						}
-					}
-				),
-				"PlayMode" : new (class extends EVSelect {
-					constructor (q) { super(q); this.set(this.get()||'1'); }
-					set (v) {
-						if (!v) v=queryContainer(event.target,'[data-o]');
-						if (v instanceof Element) v=v.dataset.o;
-						((content)=>{
-							content.classList.remove.apply(
-								content.classList,
-								Array.from(this.QS[0].querySelectorAll('[data-o]')).map(
-									(oe)=>`PlayMode_${oe.dataset.o}`
-								)
-							);
-							content.classList.add(`PlayMode_${v}`);
-							this.QS[0].querySelector(`[data-o="${v}"]`).classList.add('selected');
-						})(ThisPlayer.Content);
-						return super.set(v);
-					}
-				})(
-						this.GC.querySelector('[data-h="set:PlayMode"]')
-				),
-				"Page" : new (class extends EV {
-					// set('Page',50); set('Page','next); set('Page','prev');
-					// set('Page','#id'); set('Page',document.getElementById('#id')); set('Page');
-					set (v) {
+					set (v, force=false) {
 						let k,pn,em;
 						if (!v) v=this.get();
 						if (v instanceof Element) {
@@ -500,7 +419,7 @@ class Player
 							k=v.substring(1);
 						} else if ('next' === v) {
 							pn=parseInt(this.get())+1;
-							if (pn>ThisPlayer.PageIndex.length) pn=ThisPlayer.PageIndex.length;
+							((mx)=>{ if(pn>mx) pn=mx; })(this.QS[0].getAttribute("max"));
 						} else if ('prev' === v) {
 							pn=parseInt(this.get())-1;
 							if (pn<1) pn=1;
@@ -511,11 +430,10 @@ class Player
 						if (pn===undefined&&k!==undefined) pn = ThisPlayer.PageIndex.indexOf(k)+1;
 						if (em===undefined&&k!==undefined) em = document.getElementById(k);
 
-						if ((!em) || em.classList.contains('current')) return;
+						if ((!em) || ((!force)&&em.classList.contains('current'))) return;
 
 						// MOVE .current flag to new current
-						let GC=ThisPlayer.GC;
-						Array.from(GC.querySelectorAll('.current'))
+						Array.from(ThisPlayer.GC.querySelectorAll('section.current'))
 						.forEach((e)=>e.classList.remove('current'));
 						em.classList.add('current');
 
@@ -536,13 +454,74 @@ class Player
 						em.scrollTop=0;
 						return super.set(pn);
 					}
-				})( this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] output') )
+				})(
+					this.GC.querySelector('[data-uid="Aside:Pager"] input'),
+					this.GC.querySelector('[data-uid="Aside:Pager"] output')
+				),
+				"Keywords" : new EV (
+					new (class {
+						// value=['k1','k2','k3']
+						constructor (e) { this.E=e; }
+						set value (v) {
+							this.E.innerHTML = v.reduce(
+								(r,k) => r+`<div><input type='checkbox'/>${k}</div>`, ''
+							) + "<span data-h='filter:add'>➕</span>";
+						}
+						get value () {
+							return Array.from(
+								this.E.querySelectorAll('input[type="checkbox"]')
+							).filter((e)=>e.checked)
+							.map((e)=>e.parentNode.textContent);
+						}
+					})(this.GC.querySelector('[data-uid="Settings:Keywords"]'))
+				),
+				"Filters" : new EV (
+					new (class {
+						// value=[[A1,A2,...],[A3,A4,...],...]
+						constructor (e) { this.E=e; }
+						set value (v) {
+							this.E.innerHTML = v.reduce((r,a) => r
+								+ "<div class='OR'>"
+								+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
+								+ "</div>",
+							"");
+						}
+						get value () {
+							return Array.from(
+								this.E.querySelectorAll("div")
+							).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
+						}
+					})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
+				),
+				"PlayMode" : new EV (
+					new (class {
+						constructor (e) {
+							this.E=e;
+							this.EOs=Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]'));
+						}
+						set value (v) {
+							try {
+								((cl)=>{
+									cl.remove(... Array.from(cl).filter((n)=>n.startsWith('PlayMode_')));
+									cl.add(`PlayMode_${v}`);
+								})(ThisPlayer.Content.classList);
+								ThisPlayer.Settings.PageNumber.refresh();
+								this.EOs.forEach(
+									(e) => e.classList[
+										e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove'
+									]('current')
+								);
+							} catch(x) { console.log(x); }
+						}	
+						get value () {
+							try {
+								return this.EOs.find((e)=>e.classList.contains('current'))
+										.dataset.h.replace(/.*:/,'');
+							} catch(x) { console.log(x); }
+						}
+					})(this.GC.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]'))
+				)
 			};
-			this.Settings.FontScale.set(1.0);
-			this.Settings.PageCount.set(this.PageIndex.length);
-			this.Settings.Keywords.set(Object.keys(ksmap));
-			this.Settings.Filters.set(filters||[]);
 		})(this); // }}}
 
 		// ## INSTALL EXTENSION MODULES (data-x="...") 
@@ -556,26 +535,37 @@ class Player
 				let t=sec.querySelector('h1') || sec.querySelector('h2');
 				if (t) {
 					t=t.textContent;
-					rs+=`<li data-h="set:Page:#${sec.id}">${t}</li>`;
+					rs+=`<li data-h="set:PageNumber:#${sec.id}">${t}</li>`;
 				}
 				return rs;
 			}, "")+"</ol>";
 		})(this.get('*'));
+
+		this.Settings.FontScale.set(1.0);
+		this.Settings.PageCount.set(this.PageIndex.length);
+		this.Settings.Keywords.set(Object.keys(ksmap));
+		this.Settings.Filters.set(filters||[]);
+		this.Settings.PlayMode.set(2);
 	}	// constructor }}}
 
 	get ()
 	{	// get section element by hints (0,"id") {{{
 		let rv=undefined;
 		Array.from(arguments).find((section)=>{
-			switch (section) {
-			case 0 :
-				return (rv=this.Content.querySelector('section:not(.disabled'));
-			case '*' :
-				return (rv=Array.from(this.Content.querySelectorAll('section:not(.disabled)')));
-			default:
-				if ('string' === typeof(section))
-					section = this.Content.querySelector(`#${section}`); 
-				return (rv=section);
+			if (section in this.Settings) {
+				rv=this.Settings[section].get();
+				return true;
+			} else {
+				switch (section) {
+				case 0 :
+					return (rv=this.Content.querySelector('section:not(.disabled'));
+				case '*' :
+					return (rv=Array.from(this.Content.querySelectorAll('section:not(.disabled)')));
+				default:
+					if ('string' === typeof(section))
+						section = this.Content.querySelector(`#${section}`); 
+					return (rv=section);
+				}
 			}
 		});
 		return rv;
@@ -583,7 +573,12 @@ class Player
 
 	set (name, value)
 	{	// set/unset parameters {{{
-		return this.Settings[name].set(value);
+		try {
+			return this.Settings[name].set(value);
+		} catch(x) {
+			console.log(x);
+			console.log("Exception: ",name,value);
+		}
 	}	// }}}
 
 	extendMods (a)
@@ -631,7 +626,7 @@ class Player
 	{	// {{{
 		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
 		if (!K) return;
-		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("selected"));
+		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("current"));
 		const tabs=queryContainer(tb,['section','aside']);
 		tabs.querySelectorAll(`[data-uid^=${TK}]`).forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
 	}	// }}}
@@ -720,7 +715,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 			})(), undefined);
 			document.body.insertBefore(this.GC, document.body.querySelector('footer'));
 
-			this.Settings.Page.add(cp.querySelector('[data-uid="PageNumber"]'));
+			this.Settings.PageNumber.add(cp.querySelector('[data-uid="PageNumber"]'));
 			this.Settings.PageCount.add(cp.querySelector('[data-uid="PageCount"]'));
 		}	// }}}
 		nop () { }
@@ -740,6 +735,8 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 								case '&this': return e;
 								case '&text': return e.textContent;
 								case '&value': return e.value;
+								case '&target': return evt.target;
+								case '&event': return evt;
 								default: return a; }
 							}));
 						} else continue;
@@ -747,23 +744,8 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 						// evt.preventDefault(); // default handler essential to change events
 						break;
 					}
-					if (e.tagName==='SECTION') {
-						((section,smooth)=>{
-							section = this.get(section);
-							if (!section) return;
-
-							if (section !== this.current) {
-								this.current=section;
-								this.Settings.Page.set(this.PageIndex.indexOf(section.id)+1);
-								if (scroll !== undefined) {
-									this.current.scrollIntoView({
-										behavior: scroll ? 'smooth' : 'auto',
-										block: 'start'
-									});
-									this.current.scrollTop=0;
-								}
-							}
-						})(e,true);
+					if (e.tagName==='SECTION' && e.id) {
+						this.Settings.PageNumber.set(this.PageIndex.indexOf(e.id)+1);
 						break;
 					}
 				}
@@ -773,9 +755,9 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		{	// {{{
 			try {
 				if (evt.key==='ArrowLeft')
-					this.set('Page','prev');
+					this.set('PageNumber','prev');
 				else if (evt.key==='ArrowRight')
-					this.set('Page','next');
+					this.set('PageNumber','next');
 				else if (evt.key==='Escape')
 					this.toggleAside();
 				else return;
@@ -794,13 +776,15 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	document.body.addEventListener('click',(evt)=>UI._EH_(evt));
 	document.body.addEventListener('change',(evt)=>UI._EH_(evt));
 	window.addEventListener('keydown', (evt) => UI._KH_(evt));
-	window.addEventListener('resize', (evt) => UI.set('FontScale'));
+	window.addEventListener('resize', (evt) => {
+		UI.set('FontScale', UI.get('FontScale'));
+		UI.Settings.PageNumber.refresh();
+	});
 
 	setTimeout( (section) => {
 		if (section) section.click();
 		document.body.style.opacity='1';
 	}, 1, UI.get(location.hash ? location.hash.substr(1) : 0, 0));
-	
 });	// }}}
 
 })(document.currentScript);
