@@ -62,7 +62,8 @@ body>footer {
 // section.fbox: force layout expand to full page
 //
 const CSS_CONTENT= // {{{
-`section {
+`
+section {
 	margin:var(--base-margin);
 	padding:calc(2 * var(--base-margin));
 	border:2px solid #e6e6e6;
@@ -85,13 +86,13 @@ section.current {
 .PlayMode_1 section, .PlayMode_2 section {
 	min-height:calc(100% - 2 * var(--base-margin));
 }
-section.cfbox {
+.cfbox {
 	display:flex;
 	flex-flow:column nowrap;
 	justify-content:center;
 	align-items:center;
 }
-section.fbox, section.cfbox {
+.fbox, .cfbox {
 	width:calc(100% - 2 * var(--base-margin));
 	height:calc(100% - 2 * var(--base-margin));
 }
@@ -172,7 +173,6 @@ h3 {
 	color: black;
 	border-bottom-color: transparent; 
 }
-
 .hide,.disabled { display:none; }
 
 `; // }}}
@@ -600,7 +600,7 @@ class Player
 		this.Settings.PageCount.set(this.Content.PageIndex.length);
 		this.Settings.Keywords.set(this.Content.Keywords);
 		this.Settings.Filters.set(filters||[]);
-		this.Settings.PlayMode.set(2);
+		this.Settings.PlayMode.set(1);
 	}	// constructor }}}
 
 	toggleAside (v)
