@@ -424,7 +424,7 @@ class Content {
 			if (pn<1) pn=1;
 			break;
 		case 'refresh':
-			pn=this.PageNumber||1;
+			pn=this.PageNumber;
 			force=true;
 			break;
 		default:
@@ -455,7 +455,7 @@ class Content {
 
 	get PageNumber ()
 		// ret: number>1
-	{ 	return this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`));	}
+	{ 	return this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`)) || 1;	}
 
 	set PlayMode (v)
 		// v in [0:連續,1:滿框,2:分頁]
