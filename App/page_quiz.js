@@ -243,7 +243,7 @@ class Quiz
 					c.insertBefore(e,c.querySelector('[data-o]:not(.QS)'));
 				else c.appendChild(e);
 				const re1 = 0 == Array.from(p.querySelectorAll('[data-o].QS'))
-					.reduce((r,e,i) => r+Math.abs(parseInt(e.dataset.o)-i), 0);
+					.reduce((r,e,i) => r+Math.abs(parseInt(e.dataset.o)-i)-1, 0);
 				const re2 = Array.from(c.querySelectorAll('[data-o]:not(.QS)'))
 					.reduce((r,e) => r&&e.dataset.o==='-',true);
 				this.__setStatus__(p, re1 ? re2 ? 'O' : '-' : 'X');
