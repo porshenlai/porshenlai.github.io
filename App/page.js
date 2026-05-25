@@ -175,7 +175,6 @@ h3 {
 }
 
 `; // }}}
-
 const HTML_CONTROL= // {{{
 `
 <span data-h='set:PageNumber:prev'>◤</span>
@@ -314,23 +313,163 @@ function queryContainer (e, cs)
 	}
 }	// }}}
 
-class EV {
+class Chain {
 	// 1. constructed with multiple elements
 	// 2. set => fill into all elements
 	// 3. get <= read from the first element
-	constructor () {
-		this.QS = Array.from(arguments);
-	}
-	__s__ (q,v) {
-		q['value' in q ? 'value' : 'textContent'] = v;
-	}
-	__g__ (q) {
-		return q['value' in q ? 'value' : 'textContent'];
-	}
+	constructor () { this.QS = Array.from(arguments); }
+	__s__ (q,v) { q['value' in q ? 'value' : 'textContent'] = v; }
+	__g__ (q) { return q['value' in q ? 'value' : 'textContent']; }
 	set (v) { this.QS.forEach((q)=>this.__s__(q,v)); return this; }
 	get () { return this.__g__(this.QS[0]); }
 	add (q) { this.QS.push(q); this.__s__(q,this.get()); return this; }
 	remove (q) { this.QS=this.QS.filter((e)=>e!==q); return this; }
+}
+
+class Content {
+	constructor (e) {
+		this.E=e;
+		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
+		this.Keywords={};
+		this.PageIndex=[];
+		this.Xs={};
+	}
+	install (sections, filters) { // {{{ ## INSTALL SECTIONS
+		// 1. complete id setting
+		// 2. filter data-ks with disabled class
+		// 3. update PageIndex and ksmap
+		// 4. move sections to content box
+		let ksmap={};
+		let PageIndex=[];
+		sections.reduce((E, se, k) => {
+			// Organize keywords from data-ks 
+			const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
+			ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
+
+			// ensure all sections has ID for location
+			if(!se.id) se.id=`__${k}__`;
+			E.appendChild(se);
+
+			// filtering sections
+			if (filters && (!filters.find(
+				(ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)
+			))) {
+				se.classList.add('disabled');
+			} else {
+				se.classList.remove('disabled');
+				PageIndex.push(se.id);
+			}
+			return E;
+		}, this.E);
+		this.Keywords=Object.keys(ksmap);
+		this.PageIndex=PageIndex;
+		this.extendMods(Array.from(this.E.querySelectorAll('[data-x]')));
+	}	// }}}
+				extendMods (mods) { // ## INSTALL EXTENSION MODULES (data-x="...") {{{
+					Promise.all(
+						mods.reduce((R,e)=>{
+							const x=e.dataset.x||e.dataset.xl||"";
+							R.push((async (T, N, E)=>{
+								if (!T.Xs[N])
+									T.Xs[N] = N in Plugins ?
+										Promise.resolve(Plugins[N](T)) :
+										loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
+								(await (T.Xs[N]))(T, E);
+							})(this, x.split(':')[0], e));
+							return R;
+						},[])
+					).then(()=>false,console.log);
+				}	// }}}
+
+	find (id)
+		// rv: Section Element
+	{	return this.E.querySelector(`section:not(.disabled)#${id}`);	}
+
+	indexOf (id)
+		// rv: PageNumber-1
+	{ 	return this.PageIndex.indexOf(id instanceof Element ? id.id : id);	}
+
+	get Sections ()
+		// rv: [enabled sections]
+	{	return Array.from(this.E.querySelectorAll('section:not(.disabled)'));	}
+
+	convertPageNumber (k)
+		// k in [number>1, id_string, Element]
+		// rv: number>1
+	{	// {{{
+		if (k instanceof Element) return this.indexOf(k.id)+1;
+		if ('string' === typeof(k)) {
+			if (/^\d+$/.exec(k))
+				k=parseInt(k);
+			else {
+				if (k.startsWith('#')) k=k.substring(1);
+				return this.indexOf(k)+1;
+			}
+		}
+		return k;
+	}	// }}}
+
+	set PageNumber (v)
+		// v in [number>1, id_string, Element]
+	{ 	// {{{
+		let pn=undefined,force=false;
+		switch (v) {
+		case 'next':
+			pn=this.PageNumber+1;
+			if (pn>this.PageIndex.length) pn=this.PageIndex.length;
+			break;
+		case 'prev':
+			pn=this.PageNumber-1;
+			if (pn<1) pn=1;
+			break;
+		case 'refresh':
+			pn=this.PageNumber;
+			force=true;
+			break;
+		default:
+			pn=this.convertPageNumber(v);
+			break;
+		}
+		let em=this.find(this.PageIndex[pn-1]);
+		if (force || !em.classList.contains('current')) {
+			// 1. MOVE .current flag to new current
+			Array.from(this.E.querySelectorAll('section.current'))
+			.forEach((e)=>e.classList.remove('current'));
+			em.classList.add('current');
+			// 2. UPDATE URL HASH
+			if (history.replaceState)
+				history.replaceState(null, null, '#' + em.id);
+			else location.hash = '#' + em.id;
+			// 3. Trigger module extend of section loading
+			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
+			if(ms.length>0) this.extendMods(ms);
+			// 4. SCROLL INTO VIEW
+			em.scrollIntoView({
+				behavior: scroll ? 'smooth' : 'auto',
+				block: 'start'
+			});
+			em.scrollTop=0;
+		}
+	}	// }}}
+
+	get PageNumber ()
+		// ret: number>1
+	{ 	return this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`));	}
+
+	set PlayMode (v)
+		// v in [0:連續,1:滿框,2:分頁]
+	{	// {{{
+					const cl = this.E.classList;
+					cl.remove(... Array.from(cl).filter((n)=>n.startsWith('PlayMode_')));
+					cl.add(`PlayMode_${v}`);
+	}	// }}}
+
+	get PlayMode ()
+		// ret in [0:連續,1:滿框,2:分頁]
+	{	// {{{
+					let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_'));
+					return rv.substring(9);
+	}	// }}}
 }
 
 class Player
@@ -339,194 +478,109 @@ class Player
 	{	// {{{
 		// ## ADD CSS DECLARATIONS
 		loadStyle(CSS_PAGE, 'CSS_PAGE');
-		loadStyle(CSS_CONTENT, 'CSS_CONTENT', this.Content);
 
 		// ## APPEND <MAIN>/id='content' ELEMENT TO HOLD SECTIONS
 		this.GC=(()=>{ // sections container
 			let e=document.createElement("main");
 			e.innerHTML=HTML_MAIN;
-			this.Content=e.querySelector('#content');
+			this.Content=new Content(e.querySelector('#content'));
+			this.Content.install(sections, filters);
 			return e;
 		})();
 
-		// ## INSTALL SECTIONS
-		let ksmap={};
-		this.PageIndex=[];
-		((sections, filters)=>{ // {{{
-			// 1. complete id setting
-			// 2. filter data-ks with disabled class
-			// 3. update PageIndex and ksmap
-			// 4. move sections to content box
-			if (!sections) sections=this.get('*');
-
-			this.PageIndex=[];
-			sections.reduce((E, se, k) => {
-				// Organize keywords from data-ks 
-				const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
-				ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
-
-				// ensure all sections has ID for location
-				if(!se.id) se.id=`__${k}__`;
-				E.appendChild(se);
-
-				// filtering sections
-				if (filters && (!filters.find((ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)))) {
-					se.classList.add('disabled');
-				} else {
-					se.classList.remove('disabled');
-					this.PageIndex.push(se.id);
-				}
-				return E;
-			}, this.Content);
-		})(sections, filters); // }}}
-
 		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
-		((ThisPlayer)=>{ // {{{
-			this.Settings={ // Parameter Settings
-				"FontScale" : new EV(
-					this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
-					this.GC.querySelector('[data-uid="Settings:FontScale"] output'),
-					new (class {
-						calc (w,h) { return w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30); }
-						set value (v) {
-							const DFS=this.calc(window.innerWidth, window.innerHeight);
-							document.documentElement.style.setProperty(
-								'--base-font-size',
-								`${DFS * v}px`
+		this.Settings=((ThisPlayer)=>({ // Parameter Settings
+			"FontScale" : new Chain ( // {{{
+				this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
+				this.GC.querySelector('[data-uid="Settings:FontScale"] output'),
+				new (class {
+					calc (w,h) { return w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30); }
+					set value (v) {
+						const DFS=this.calc(window.innerWidth, window.innerHeight);
+						document.documentElement.style.setProperty(
+							'--base-font-size',
+							`${DFS * v}px`
+						);
+					}
+				})()
+			),	// }}}
+			"PageCount" : new Chain ( // {{{
+				this.GC.querySelector('[data-uid="Aside:Pager"] span'),
+				new (class {
+					constructor (pg) { this.PG=pg; }
+					set value (v) { this.PG.setAttribute("max",parseInt(v)); }
+				})(this.GC.querySelector('[data-uid="Aside:Pager"] input'))
+			),	// }}}
+			"PageNumber" : new (class extends Chain { // {{{
+				set (v) {
+					ThisPlayer.Content.PageNumber=v;
+					super.set(ThisPlayer.Content.PageNumber);
+				}
+			})(
+				this.GC.querySelector('[data-uid="Aside:Pager"] input'),
+				this.GC.querySelector('[data-uid="Aside:Pager"] output')
+			),	// }}}
+			"Keywords" : new Chain ( // {{{
+				new (class {
+					// value=['k1','k2','k3']
+					constructor (e) { this.E=e; }
+					set value (v) {
+						this.E.innerHTML = v.reduce(
+							(r,k) => r+`<div><input type='checkbox'/>${k}</div>`, ''
+						) + "<span data-h='filter:add'>➕</span>";
+					}
+					get value () {
+						return Array.from(
+							this.E.querySelectorAll('input[type="checkbox"]')
+						).filter((e)=>e.checked)
+						.map((e)=>e.parentNode.textContent);
+					}
+				})(this.GC.querySelector('[data-uid="Settings:Keywords"]'))
+			),	// }}}
+			"Filters" : new Chain ( // {{{
+				new (class {
+					// value=[[A1,A2,...],[A3,A4,...],...]
+					constructor (e) { this.E=e; }
+					set value (v) {
+						this.E.innerHTML = v.reduce((r,a) => r
+							+ "<div class='OR'>"
+							+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
+							+ "</div>",
+						"");
+					}
+					get value () {
+						return Array.from(
+							this.E.querySelectorAll("div")
+						).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
+					}
+				})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
+			),	// }}}
+			"PlayMode" : new Chain ( // {{{
+				new (class {
+					constructor (e) {
+						this.E=e;
+						this.EOs=Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]'));
+					}
+					set value (v) {
+						try {
+							ThisPlayer.Content.PlayMode = v;
+							ThisPlayer.Content.PageNumber = 'refresh';
+							this.EOs.forEach(
+								(e) => e.classList[
+									e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove'
+								]('current')
 							);
-						}
-					})()
-				),
-				"PageCount" : new EV(
-					this.GC.querySelector('[data-uid="Aside:Pager"] span'),
-					new (class {
-						constructor (pg) { this.PG=pg; }
-						set value (v) { this.PG.setAttribute("max",parseInt(v)); }
-					})(this.GC.querySelector('[data-uid="Aside:Pager"] input'))
-				),
-				"PageNumber" : new (class extends EV {
-					// set('PageNumber',50); set('PageNumber','next); set('PageNumber','prev');
-					// set('PageNumber','#id'); set('PageNumber',document.getElementById('#id')); set('PageNumber');
-					refresh () {
-						return this.set(this.get(),true);
+						} catch(x) { console.log(x); }
+					}	
+					get value () {
+						try {
+							return this.EOs.find((e)=>e.classList.contains('current'))
+									.dataset.h.replace(/.*:/,'');
+						} catch(x) { console.log(x); }
 					}
-					set (v, force=false) {
-						let k,pn,em;
-						if (!v) v=this.get();
-						if (v instanceof Element) {
-							em=v;
-						} else if ((""+v).startsWith('#')) {
-							k=v.substring(1);
-						} else if ('next' === v) {
-							pn=parseInt(this.get())+1;
-							((mx)=>{ if(pn>mx) pn=mx; })(this.QS[0].getAttribute("max"));
-						} else if ('prev' === v) {
-							pn=parseInt(this.get())-1;
-							if (pn<1) pn=1;
-						} else pn=parseInt(v);
-
-						if (k===undefined&&em!==undefined) k = em.id;
-						if (k===undefined&&pn!==undefined) k = ThisPlayer.PageIndex[pn-1];
-						if (pn===undefined&&k!==undefined) pn = ThisPlayer.PageIndex.indexOf(k)+1;
-						if (em===undefined&&k!==undefined) em = document.getElementById(k);
-
-						if ((!em) || ((!force)&&em.classList.contains('current'))) return;
-
-						// MOVE .current flag to new current
-						Array.from(ThisPlayer.GC.querySelectorAll('section.current'))
-						.forEach((e)=>e.classList.remove('current'));
-						em.classList.add('current');
-
-						// UPDATE URL HASH
-						if (history.replaceState)
-							history.replaceState(null, null, '#' + em.id);
-						else location.hash = '#' + em.id;
-
-						// Trigger module extend of section loading
-						let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
-						if(ms.length>0) ThisPlayer.extendMods(ms);
-
-						// SCROLL INTO VIEW
-						em.scrollIntoView({
-							behavior: scroll ? 'smooth' : 'auto',
-							block: 'start'
-						});
-						em.scrollTop=0;
-						return super.set(pn);
-					}
-				})(
-					this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-					this.GC.querySelector('[data-uid="Aside:Pager"] output')
-				),
-				"Keywords" : new EV (
-					new (class {
-						// value=['k1','k2','k3']
-						constructor (e) { this.E=e; }
-						set value (v) {
-							this.E.innerHTML = v.reduce(
-								(r,k) => r+`<div><input type='checkbox'/>${k}</div>`, ''
-							) + "<span data-h='filter:add'>➕</span>";
-						}
-						get value () {
-							return Array.from(
-								this.E.querySelectorAll('input[type="checkbox"]')
-							).filter((e)=>e.checked)
-							.map((e)=>e.parentNode.textContent);
-						}
-					})(this.GC.querySelector('[data-uid="Settings:Keywords"]'))
-				),
-				"Filters" : new EV (
-					new (class {
-						// value=[[A1,A2,...],[A3,A4,...],...]
-						constructor (e) { this.E=e; }
-						set value (v) {
-							this.E.innerHTML = v.reduce((r,a) => r
-								+ "<div class='OR'>"
-								+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
-								+ "</div>",
-							"");
-						}
-						get value () {
-							return Array.from(
-								this.E.querySelectorAll("div")
-							).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
-						}
-					})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
-				),
-				"PlayMode" : new EV (
-					new (class {
-						constructor (e) {
-							this.E=e;
-							this.EOs=Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]'));
-						}
-						set value (v) {
-							try {
-								((cl)=>{
-									cl.remove(... Array.from(cl).filter((n)=>n.startsWith('PlayMode_')));
-									cl.add(`PlayMode_${v}`);
-								})(ThisPlayer.Content.classList);
-								ThisPlayer.Settings.PageNumber.refresh();
-								this.EOs.forEach(
-									(e) => e.classList[
-										e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove'
-									]('current')
-								);
-							} catch(x) { console.log(x); }
-						}	
-						get value () {
-							try {
-								return this.EOs.find((e)=>e.classList.contains('current'))
-										.dataset.h.replace(/.*:/,'');
-							} catch(x) { console.log(x); }
-						}
-					})(this.GC.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]'))
-				)
-			};
-		})(this); // }}}
-
-		// ## INSTALL EXTENSION MODULES (data-x="...") 
-		this.Xs={};
-		this.extendMods(Array.from(this.Content.querySelectorAll('[data-x]')));
+				})(this.GC.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]'))
+			)	// }}}
+		}))(this);
 
 		// ## INSTALL TABLE of CONTENTS
 		((sections)=>{
@@ -539,64 +593,14 @@ class Player
 				}
 				return rs;
 			}, "")+"</ol>";
-		})(this.get('*'));
+		})(this.Content.Sections);
 
 		this.Settings.FontScale.set(1.0);
-		this.Settings.PageCount.set(this.PageIndex.length);
-		this.Settings.Keywords.set(Object.keys(ksmap));
+		this.Settings.PageCount.set(this.Content.PageIndex.length);
+		this.Settings.Keywords.set(this.Content.Keywords);
 		this.Settings.Filters.set(filters||[]);
 		this.Settings.PlayMode.set(2);
 	}	// constructor }}}
-
-	get ()
-	{	// get section element by hints (0,"id") {{{
-		let rv=undefined;
-		Array.from(arguments).find((section)=>{
-			if (section in this.Settings) {
-				rv=this.Settings[section].get();
-				return true;
-			} else {
-				switch (section) {
-				case 0 :
-					return (rv=this.Content.querySelector('section:not(.disabled'));
-				case '*' :
-					return (rv=Array.from(this.Content.querySelectorAll('section:not(.disabled)')));
-				default:
-					if ('string' === typeof(section))
-						section = this.Content.querySelector(`#${section}`); 
-					return (rv=section);
-				}
-			}
-		});
-		return rv;
-	}	// }}}
-
-	set (name, value)
-	{	// set/unset parameters {{{
-		try {
-			return this.Settings[name].set(value);
-		} catch(x) {
-			console.log(x);
-			console.log("Exception: ",name,value);
-		}
-	}	// }}}
-
-	extendMods (a)
-	{	// {{{
-		Promise.all(
-			a.reduce((R,e)=>{
-				const x=e.dataset.x||e.dataset.xl||"";
-				R.push((async (T, N, E)=>{
-					if (!T.Xs[N])
-						T.Xs[N] = N in Plugins ?
-							Promise.resolve(Plugins[N](T)) :
-							loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
-					(await (T.Xs[N]))(T, E);
-				})(this, x.split(':')[0], e));
-				return R;
-			},[])
-		).then(()=>false,console.log);
-	}	// }}}
 
 	toggleAside (v)
 	{	// {{{
@@ -609,6 +613,11 @@ class Player
 		} else
 			CL.remove("menu","dialog"); // OFF
 	}	// }}}
+
+	set (name, value)
+	{
+		this.Settings[name].set(value);
+	}
 
 	openDialog (caption)
 	{	// {{{
@@ -672,7 +681,6 @@ class Player
 		if (cmd==='add') {
 			//<div data-uid='Settings:Keywords'><span data-h='filter:add'>➕</span></div>
 			let flts=this.Settings.Filters.get();
-			console.log("DEBUG",flts);
 			flts.push(this.Settings.Keywords.get());
 			this.Settings.Filters.set(flts);
 		} else if (cmd==='run') {
@@ -683,7 +691,7 @@ class Player
 
 	search (key)
 	{	// {{{
-		let ts=this.Content.querySelector(`section[data-ks~="${key}"]`);
+		let ts=this.Content.E.querySelector(`section[data-ks~="${key}"]`);
 		if (ts) ts.click();
 		this.toggleAside(0);
 	}	// }}}
@@ -745,7 +753,9 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 						break;
 					}
 					if (e.tagName==='SECTION' && e.id) {
-						this.Settings.PageNumber.set(this.PageIndex.indexOf(e.id)+1);
+						((pn)=>{
+							if (pn>=0) this.Settings.PageNumber.set(pn+1);
+						})(this.Content.indexOf(e.id));
 						break;
 					}
 				}
@@ -755,9 +765,9 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		{	// {{{
 			try {
 				if (evt.key==='ArrowLeft')
-					this.set('PageNumber','prev');
+					this.Settings.PageNumber.set('prev');
 				else if (evt.key==='ArrowRight')
-					this.set('PageNumber','next');
+					this.Settings.PageNumber.set('next');
 				else if (evt.key==='Escape')
 					this.toggleAside();
 				else return;
@@ -777,14 +787,14 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	document.body.addEventListener('change',(evt)=>UI._EH_(evt));
 	window.addEventListener('keydown', (evt) => UI._KH_(evt));
 	window.addEventListener('resize', (evt) => {
-		UI.set('FontScale', UI.get('FontScale'));
-		UI.Settings.PageNumber.refresh();
+		UI.Settings.FontScale.set(UI.Settings.FontScale.get());
+		UI.Content.PageNumber = 'refresh';
 	});
 
 	setTimeout( (section) => {
 		if (section) section.click();
 		document.body.style.opacity='1';
-	}, 1, UI.get(location.hash ? location.hash.substr(1) : 0, 0));
+	}, 1, location.hash ? UI.Content.find(location.hash.substr(1)) : UI.Content.Sections[0]);
 });	// }}}
 
 })(document.currentScript);
