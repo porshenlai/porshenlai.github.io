@@ -130,7 +130,6 @@ h3 {
 	margin:var(--base-margin);
 }
 
-.hide,.disabled { display:none; }
 .full,.mask { left:0;top:0;width:100%;height:100%;overflow:auto; }
 .mask { position:absolute;background-color:rgba(255,255,255,0.5); }
 .hbar,.vbar { display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:center; }
@@ -173,6 +172,8 @@ h3 {
 	color: black;
 	border-bottom-color: transparent; 
 }
+
+.hide,.disabled { display:none; }
 
 `; // }}}
 const HTML_CONTROL= // {{{
@@ -423,7 +424,7 @@ class Content {
 			if (pn<1) pn=1;
 			break;
 		case 'refresh':
-			pn=this.PageNumber;
+			pn=this.PageNumber||1;
 			force=true;
 			break;
 		default:
