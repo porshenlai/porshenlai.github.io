@@ -1859,10 +1859,10 @@ figure b:hover { border-color:red; }
 		</div>
 		<ol class='Solution'>
 			<li class="sheet">折扣!</li>
-			<li class="menu">公式 / 錯誤檢查</li>
-			<li class="dialog">[錯誤檢查]<ul class='settings'>
-				<li>從上方複製公式: O</li>
-			</ul></li>
+			<li><figure>
+				<figcaption>(錯誤檢查) <b>公式</b><b>公式稽核</b><b>錯誤檢查</b></figcaption>
+				<div><b>繼續</b><b>從上方複製公式</b><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -1896,7 +1896,16 @@ figure b:hover { border-color:red; }
 			如有必要，請先排序資料，以確保每個欄位只有一個小計。
 		</div>
 		<ol class='Solution'>
-			<li>點到禮盒銷售表→資料→銷售員名稱欄位→排序 A~Z→小計→分組小計欄位:銷售員名稱,使用函數:加總,新增小計位置:勾選數量、金額並確定</li>
+			<li class='sheet'>禮盒銷售表!C2<figure>
+				<div><b>右鍵</b><b>排序</b><b>從 A 到 Z 排序</b></div>
+			</figure></li>
+			<li class='sheet'>禮盒銷售表!A2:F37<figure>
+				<figcaption>(小計) <b>資料</b><b>大綱</b><b>小計</b></figcaption>
+				<div>分組小計欄位: <i>銷售員名稱</i></div>
+				<div>使用函數: <i>加總</i></div>
+				<div>小計欄位: <i>數量, 金額</i></div>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -1905,8 +1914,23 @@ figure b:hover { border-color:red; }
 			修改套用於儲存格 B4:B7 的設定格式化的條件規則，
 			將[粗體]字型套用至包含文字「週末」的儲存格，且不填滿色彩。
 		</div>
-		<ol class='Solution'>
-			<li>選到銷售員工作表的 B4:B7→常用→條件式格式設定→管理規則→編輯規則→格式→字型→字型樣式→粗體→填滿→無色彩→確定</li>
+		<ol class="Solution">
+			<li class="sheet">銷售員!B4:B7<figure>
+				<figcaption>(設定格式化的條件規則管理員) <b>常用</b><b>樣式</b><b>條件式格式設定</b><b>管理規則</b></figcaption>
+				<figure>
+					<figcaption>(編輯格式化規則) <b>儲存格值包含'周末'</b><b>編輯規則</b></figcaption>
+					<figure>
+						<figcaption>(設定儲存格格式) <b>格式</b></figcaption>
+						<div class="tab">字型</div>
+						<div>字型樣式: <i>粗體</i></div>
+						<div class="tab">填滿</div>
+						<div><b>無色彩</b></div>
+						<div><b>確定</b></div>
+					</figure>
+					<div><b>確定</b></div>
+				</figure>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -1916,7 +1940,9 @@ figure b:hover { border-color:red; }
 			注意:該儲存格已格式化為顯示星期幾的名稱。
 		</div>
 		<ol class='Solution'>
-			<li>點到銷售日期工作表→輸入=WEEKDAY(B8)</li>
+			<li class='sheet'>銷售日期!B9<figure>
+				<div class='input'><i>=WEEKDAY(B8)</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -1927,7 +1953,13 @@ figure b:hover { border-color:red; }
 			圖表的大小和位置不重要。
 		</div>
 		<ol class='Solution'>
-			<li>點到收入工作表→選取範圍→插入→組合圖→基本薪資:折線圖,加給獎金:群組直條圖並確定</li>
+			<li class='sheet'>收入!A3:C7<figure>
+				<figcaption>(插入圖表) <b>插入</b><b>圖表</b><b>建議圖表</b></figcaption>
+				<div class='tab'>所有圖表 / 組合圖</div>
+				<div>基本薪資: <i>折線圖</i></div>
+				<div>加給獎金: <i>群組直條圖</i></div>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -1938,7 +1970,12 @@ figure b:hover { border-color:red; }
 			並將圖表標題變更為「禮盒收入」。
 		</div>
 		<ol class='Solution'>
-			<li>點到分析工作表的圖表→圖表設計→快速版面配置:版面配置 8→圖表樣式:樣式 6→變更色彩:單色的調色盤 4→點到圖表標題,更改為”禮盒收入”</li>
+			<li class='sheet'>分析![圖表]<figure>
+				<div><b>設計</b><b>圖表版面配置</b><b>快速版面配置</b><b>版面配置 8</b></div>
+				<div><b>設計</b><b>圖表樣式</b><b>樣式 6</b></div>
+				<div><b>設計</b><b>圖表樣式</b><b>樣式色彩</b><b>單色的調色盤 4</b></div>
+				<div>圖表標題: <i>禮盒收入</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 </section>
@@ -1951,13 +1988,20 @@ figure b:hover { border-color:red; }
 			而不是在每次資料變更時才重算公式。
 		</div>
 		<ol class='Solution'>
-			<li>檔案→選項→公式→活頁簿計算→點選手動,並勾選儲存活頁簿前自動重算</li>
+			<li><figure>
+				<figcaption>(Excel 選項) <b>檔案</b><b>選項</b></figcaption>
+				<div class='tab'>公式</div>
+				<div>計算選項: <i>手動</i>
+					<div>✓ 儲存活頁簿前自動重算</div>
+				</div>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 </section>
 
 <section data-ks='Q_MOS'>
-	<h2><a href="attach/EE04 銷售.xlsx">📥 例題 X/4</a> 銷售</h2>
+	<h2><a href="attach/EE04 銷售.xlsm">📥 例題 X/4</a> 銷售</h2>
 	<div><!--{{{-->
 		<div class='Quest'>
 			您正在為 Andy 水果行的銷售會議建立活頁簿。
@@ -1966,7 +2010,9 @@ figure b:hover { border-color:red; }
 			以每季「40000」的等差級數成長來完成銷售額的預估。
 		</div>
 		<ol class='Solution'>
-			<li>點到總銷售額工作表→選取 B4:C7→右下填滿控點向右拉到 D4:E7</li>
+			<li class='sheet'>總銷售額!B4:C7<figure>
+				<div>右下填滿控點向右拉到 E7</div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -1976,7 +2022,9 @@ figure b:hover { border-color:red; }
 			傳回來自「連絡電話」儲存格範圍內的電話號碼。
 		</div>
 		<ol class='Solution'>
-			<li>點到職員工作表→輸入=HLOOKUP([@區域],連絡電話,3,0)</li>
+			<li class='sheet'>職員工作表!C4<figure>
+				<div><i>=HLOOKUP([@區域],連絡電話,3,0)</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2002,7 +2050,7 @@ figure b:hover { border-color:red; }
 </section>
 
 <section data-ks='Q_MOS'>
-	<h2><a href="attach/EE05 銷售資料.xlsx">📥 例題 X/5</a> 銷售資料</h2>
+	<h2><a href="attach/EE05 銷售資料.xlsm">📥 例題 X/5</a> 銷售資料</h2>
 	<div><!--{{{-->
 		<div class='Quest'>
 			您正在研究本公司的產品銷售情況。
