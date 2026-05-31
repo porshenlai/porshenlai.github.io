@@ -181,7 +181,7 @@ const HTML_CONTROL= // {{{
 <span data-h='set:PageNumber:prev'>◤</span>
 <output data-uid='PageNumber' style='font-size:50%'></output>
 <span>
-	<span data-h='toggleAside:1'>☰</span>
+	<span data-h='set:Overlay:menu'>☰</span>
 </span>
 <output data-uid='PageCount' style='font-size:50%'></output>
 <span data-h='set:PageNumber:next'>◢</span>
@@ -233,10 +233,10 @@ aside nav li { border-bottom:1px solid silver; }
 </style>
 
 <div id='content'></div>
-<div data-uid='Overlay' data-h='toggleAside:0'>
+<div data-uid='Overlay' data-h='set:Overlay:none'>
 	<div data-uid='Dialog'>
-		<div style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
-		<section style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
+		<div data-h='set:Overlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
+		<section data-h='nop' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
 	</div>
 	<aside data-h='tab:ASIDE' style='background:white;'>
 		<div class='HTab'>
@@ -366,21 +366,23 @@ class Content {
 		this.PageIndex=PageIndex;
 		this.extendMods(Array.from(this.E.querySelectorAll('[data-x]')));
 	}	// }}}
-				extendMods (mods) { // ## INSTALL EXTENSION MODULES (data-x="...") {{{
-					Promise.all(
-						mods.reduce((R,e)=>{
-							const x=e.dataset.x||e.dataset.xl||"";
-							R.push((async (T, N, E)=>{
-								if (!T.Xs[N])
-									T.Xs[N] = N in Plugins ?
-										Promise.resolve(Plugins[N](T)) :
-										loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
-								(await (T.Xs[N]))(T, E);
-							})(this, x.split(':')[0], e));
-							return R;
-						},[])
-					).then(()=>false,console.log);
-				}	// }}}
+
+	extendMods (mods) { // ## INSTALL EXTENSION MODULES (data-x="...") {{{
+		Promise.all(
+			mods.reduce((R,e)=>{
+				const mn=(e.dataset.x||e.dataset.xl||"").split(':')[0];
+				if (mn)
+					R.push((async (T, N, E)=>{
+						if (!T.Xs[N])
+							T.Xs[N] = N in Plugins ?
+							Promise.resolve(Plugins[N](T)) :
+							loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
+						(await (T.Xs[N]))(T, E);
+					})(this, mn, e));
+				return R;
+			},[])
+		).then(()=>false,console.log);
+	}	// }}}
 
 	find (id)
 		// rv: Section Element
@@ -480,7 +482,7 @@ class Player
 		// ## ADD CSS DECLARATIONS
 		loadStyle(CSS_PAGE, 'CSS_PAGE');
 
-		// ## APPEND <MAIN>/id='content' ELEMENT TO HOLD SECTIONS
+		// ## 1. APPEND <MAIN>/id='content' ELEMENT TO HOLD SECTIONS
 		this.GC=(()=>{ // sections container
 			let e=document.createElement("main");
 			e.innerHTML=HTML_MAIN;
@@ -580,6 +582,23 @@ class Player
 						} catch(x) { console.log(x); }
 					}
 				})(this.GC.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]'))
+			),	// }}}
+			"Overlay" : new Chain ( // {{{
+				new (class {
+					constructor (e) {
+						this.Ns=['menu','dialog'];
+						this.CL=e.classList;
+						this.value='none';
+					}
+					set value (v) {
+						if (!v) v=this.value==='none' ? 'menu' : 'none';
+						this.CL.remove(...this.Ns); // OFF
+						if (v!=='none') this.CL.add(v);
+					}
+					get value () {
+						return this.Ns.find((n)=>this.CL.contains(n)) || "none";
+					}
+				})(this.GC.querySelector('[data-uid="Overlay"]'))
 			)	// }}}
 		}))(this);
 
@@ -603,36 +622,26 @@ class Player
 		this.Settings.PlayMode.set(1);
 	}	// constructor }}}
 
-	toggleAside (v)
+	__openDialog__ (caption, EH)
+		// ret: graphic context of dialog
 	{	// {{{
-		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
-		if (v==undefined)
-			v=(CL.contains("menu")||CL.contains("dialog")) ? 0 : 1;
-		if (parseInt(v)>0) {
-			CL.add("menu");
-			CL.remove("dialog");
-		} else
-			CL.remove("menu","dialog"); // OFF
-	}	// }}}
-
-	set (name, value)
-	{
-		this.Settings[name].set(value);
-	}
-
-	openDialog (caption)
-	{	// {{{
-		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
-		CL.add("dialog");
-		CL.remove("menu");
-
+		this.set('Overlay','dialog');
 		return ((DLG)=>{
-			DLG.querySelector('div').textContent=caption;
-			return DLG.querySelector('section');
+			DLG.querySelector('div').textContent=caption||'Dialog';
+			const rv = DLG.querySelector('section');
+			while (rv.firstChild) rv.removeChild(rv.firstChild);
+			rv.removeAttribute('class');
+			rv._EH_=EH;
+			return rv;
 		})(this.GC.querySelector('[data-uid="Dialog"]'));
 	}	// }}}
 
+	set (name, value)
+		// set:SettingName:SettingValue
+	{	return this.Settings[name].set(value);	}
+
 	tab (TK)
+		// tab:key
 	{	// {{{
 		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
 		if (!K) return;
@@ -642,9 +651,10 @@ class Player
 	}	// }}}
 
 	async speak (text, lang='en')
-	{	// <span data-h='speak,fr'>bonjour</span> {{{
+		// speak('bonjour','fr');
+		// <span data-h='speak:&text:fr'>bonjour</span>
+	{	// {{{
 		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
-		console.log(`Speak(${text})`);
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
 			utterance.lang = lang; // 根據語言代碼設定發音引擎
@@ -653,28 +663,20 @@ class Player
 		} else alert('您的瀏覽器不支援 Speech Synthesis API。');
 	}	// }}}
 
-	playDOM (e, caption)
-	{	// {{{
-		((DE)=>{
-			e=e.querySelector('.hide').cloneNode(true);
-			e.classList.remove('hide');
-			DE.appendChild(e);
-		})(this.openDialog(caption));
-	}	// }}}
-
 	play (mn, code, caption)
+		// play:dom:&this:Caption
+		// play('dom',document.getElementById(...),'Caption');
+		// play:image:URI:Caption
+		// play('image','test.png','Caption');
 	{	// {{{
-		const VE=document.createElement("div");
-		VE.dataset.xl=mn;
+		const VE = document.createElement("div");
+		VE.dataset.xl = mn;
 		VE.classList.add("full");
 		if (code instanceof Element)
-			code=code.innerHTML;
-		VE.innerHTML=code;
-		this.extendMods([VE]);
-		((DE)=>{
-			while (DE.firstChild) DE.removeChild(DE.firstChild);
-			DE.appendChild(VE);
-		})(this.openDialog(caption));
+			code = code.innerHTML;
+		VE.innerHTML = code;
+		this.Content.extendMods([VE]);
+		this.__openDialog__(caption).appendChild(VE);
 	}	// }}}
 
 	filter (cmd)
@@ -694,7 +696,7 @@ class Player
 	{	// {{{
 		let ts=this.Content.E.querySelector(`section[data-ks~="${key}"]`);
 		if (ts) ts.click();
-		this.toggleAside(0);
+		this.set('Overlay','none');
 	}	// }}}
 }
 
@@ -737,17 +739,20 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 			try {
 				for (let e=evt.target; e!==this.GC; e=e.parentNode){
 					if (e.dataset && e.dataset.h) {
-						const args=e.dataset.h.split(':'), cmd=args.shift();
-						if (cmd in this && 'function' === typeof(this[cmd])) {
-							this[cmd].apply(this, args.map((a)=>{
-								switch (a) {
-								case '&this': return e;
-								case '&text': return e.textContent;
-								case '&value': return e.value;
-								case '&target': return evt.target;
-								case '&event': return evt;
-								default: return a; }
-							}));
+						let args = e.dataset.h.split(':'), cmd = args.shift();
+						args = args.map((a)=>{
+							switch (a) {
+							case '&this': return e;
+							case '&text': return e.textContent;
+							case '&value': return e.value;
+							case '&target': return evt.target;
+							case '&event': return evt;
+							default: return a; }
+						});
+						if (cmd in this.Content.Xs) {
+							this.Content.Xs[cmd].then((mod)=>mod(this,null,args));
+						} else if (cmd in this && 'function' === typeof(this[cmd])) {
+							this[cmd](...args);
 						} else continue;
 						evt.stopPropagation();
 						// evt.preventDefault(); // default handler essential to change events
@@ -770,7 +775,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 				else if (evt.key==='ArrowRight')
 					this.Settings.PageNumber.set('next');
 				else if (evt.key==='Escape')
-					this.toggleAside();
+					this.set('Overlay');
 				else return;
 				evt.preventDefault();
 			} catch(x) { }

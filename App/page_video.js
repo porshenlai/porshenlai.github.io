@@ -48,19 +48,6 @@ class PlayList {
 		this.C=0;
 		this.I=canvas;
 		canvas.addEventListener('load',()=>this.resize());
-		this.go(0);
-	}
-	go (i) {
-		if ('string'===typeof(i)) {
-			if (i[0]==='+') i=Math.floor(this.C+parseFloat(i.substring(1)));
-			else if (i[0]==='-') i=Math.floor(this.C-parseFloat(i.substring(1)));
-			else if (i[0]==='*') i=Math.floor(this.C*parseFloat(i.substring(1)));
-			else if (i[0]==='/') i=Math.floor(this.C/parseFloat(i.substring(1)));
-			else i=parseInt(i);
-		}
-		this.C=i=(i+this.Rs.length)%this.Rs.length;
-		//this.I.src=this.Rs[i].U;
-		//this.I.parentNode.parentNode.querySelector('[data-uid="pager"]').value=(1+this.C);
 	}
 }
 
@@ -85,40 +72,7 @@ SCRIPT.value=async function (slide, elem, code) {
 	</div>
 </div></div>`;
 
-	elem.PlayList=new PlayList(code, elem.querySelector('img'));
-	// Control Object: Scalar
-	Scalar=new (class {
-		constructor (es) { this.ES=es; this.set(1); }
-		get () { return this.ES[0].value; }
-		set (v) {
-			v=elem.PlayList.scale(v);
-			for (let e of this.ES) e.value=v;
-		}
-	})([
-		elem.querySelector('input[type="range"]'),
-		elem.querySelector('output[data-uid="scalar"]')
-	]);
-	// Install event handler
-	const container=elem.PlayList.I.parentNode;
-	container.addEventListener("click",(evt)=>{
-		evt.stopPropagation();
-		evt.preventDefault();
-		for (let e=evt.target;e!==container;e=e.parentNode) if (e.dataset.h) {
-			switch(e.dataset.h){
-			case 'scale': Scalar.set(Scalar.get()); break;
-			case 'scaleContain': Scalar.set('contain'); break;
-			case 'scaleCover': Scalar.set('cover'); break;
-			case 'next': elem.PlayList.go('+1'); break;
-			case 'prev': elem.PlayList.go('-1'); break;
-			}
-			return;
-		}
-		let mask=elem.querySelector('.mask');
-		if (mask.classList.contains('hide')) {
-			let lts=(mask.lts||0),cts=new Date().getTime();
-			if (cts-lts<500) mask.classList.remove('hide'); else mask.lts=cts;
-		} else mask.classList.add('hide');
-	});
+	elem.PlayList=new PlayList(code, elem.querySelector('video')||elem.querySelector('audio'));
 };
 
 })(document.currentScript);

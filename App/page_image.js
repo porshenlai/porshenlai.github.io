@@ -71,12 +71,14 @@ class PlayList {
 				cr = container.getBoundingClientRect(),
 				[iw,ih,cw,ch] = [this.I.width,this.I.height,cr.width,cr.height];
 			[rec.O,rec.R] = iw*ch > ih*cw ? [true, fp2(ch*iw/ih/cw-0.03)] : [false, fp2(cw*ih/iw/ch-0.03)] ;
+			console.log("Image resize:",rec);
 			this.scale(Scalar.get());
 		},1);
 	}
 	scale (v) {
 		const container = this.I.parentNode, rec = this.Rs[this.C];
 		v = v==='contain' ? 1.0 : v==='cover' ? rec.R : v;
+		console.log("Scale Image:",v);
 		if (rec.O) {
 			this.I.style.width= v>1 ? ((v*100)+"%") : '100%';
 			this.I.style.height='auto';
