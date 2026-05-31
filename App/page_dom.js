@@ -1,15 +1,16 @@
 (function(SCRIPT){
 
-function handleEvent (cmd, arg1, arg2) {
+function handleEvent (elem, cmd, arg1, arg2) {
 	switch (cmd) {
 	case 'alert':
+		console.log(elem);
 		alert(arg1);
 		break;
 	}
 }
 
 SCRIPT.value=async function (slide, elem, args) {
-	if (!elem) return handleEvent(...args);
+	if (!elem) return handleEvent(slide, ...args);
 
 	if (elem.classList.contains('resolved')) return;
 	((nv)=>{

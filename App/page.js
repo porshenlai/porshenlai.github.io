@@ -750,7 +750,9 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 							default: return a; }
 						});
 						if (cmd in this.Content.Xs) {
-							this.Content.Xs[cmd].then((mod)=>mod(this,null,args));
+							this.Content.Xs[cmd].then( (mod)=>mod(
+								queryContainer(e,['[data-x]','[data-xl]']), null, args
+							) );
 						} else if (cmd in this && 'function' === typeof(this[cmd])) {
 							this[cmd](...args);
 						} else continue;
