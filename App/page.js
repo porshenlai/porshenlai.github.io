@@ -457,7 +457,11 @@ class Content {
 
 	get PageNumber ()
 		// ret: number>1
-	{ 	return this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`)) || 1;	}
+	{
+		let pn = this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`));
+		if (!pn) pn=2;
+		return pn;
+	}
 
 	set PlayMode (v)
 		// v in [0:連續,1:滿框,2:分頁]
@@ -802,7 +806,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	setTimeout( (section) => {
 		if (section) section.click();
 		document.body.style.opacity='1';
-	}, 1, location.hash ? UI.Content.find(location.hash.substr(1)) : UI.Content.Sections[0]);
+	}, 1, location.hash ? UI.Content.find(location.hash.substr(1)) : UI.Content.Sections[1]);
 });	// }}}
 
 })(document.currentScript);
