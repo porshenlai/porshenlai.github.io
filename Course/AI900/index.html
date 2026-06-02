@@ -1746,6 +1746,56 @@ flowchart TD
 	<!--}}}-->
 </section>
 
+<section data-ks='CV,Q_AI900'>
+	<h2>🎯 Azure AI 視覺</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		<div>要建置一個會識別影像中名人的應用程式，</div>
+		<div>應該使用哪一項服務？</div>
+		<div data-o='X'>Azure OpenAI 服務</div>
+		<div data-o='O'>Azure AI 視覺</div>
+		<div data-o='X'>交談語言理解</div>
+		<div data-o='X'>Azure Machine Learning</div>
+		<div class="answer">Azure AI 視覺服務中的影像分析功能可以識別影像中的名人。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		使用 Azure AI 電腦視覺服務可以執行哪一項動作？
+		<div data-o='X'>識別直播影片中的動物品種</div>
+		<div data-o='X'>建立訓練影片的縮圖</div>
+		<div data-o='O'>擷取手寫信件中的資料</div>
+		<div data-o='X'>擷取文件中的關鍵片語</div>
+		<div class="answer">Azure AI 視覺的 Read API (OCR) 可以處理手寫文字的擷取。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		電腦視覺功能可部署來？
+		<div data-o='X'>網站部署文字聊天機器人</div>
+		<div data-o='X'>別線上商店的異常客戶行為</div>
+		<div data-o='O'>將臉部辨識功能整合到應用程式</div>
+		<div data-o='X'>建議對內送電子郵件的自動化回覆</div>
+		<div class="answer">臉部辨識功能是 Azure AI 臉部服務提供的電腦視覺功能。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>你需要實作一套預先建置的解決方案以識別數位相片中的知名品牌。</div>
+		<div>你應該使用哪一個 Azure 服務 ？</div>
+		<div data-o='X'>Azure AI 文件智慧服務 </div>
+		<div data-o='O'>Azure AI 電腦視覺</div>
+		<div data-o='X'>Azure AI 自訂視覺</div>
+		<div data-o='X'>臉部</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		您需要建置一個會建立影像描述的應用程式。您應該使用哪一項服務？
+		<div data-o='X'>Azure OpenAI 服務</div>
+		<div data-o='O'>Azure AI 視覺</div>
+		<div data-o='X'>交談語言理解</div>
+		<div data-o='X'>Azure Machine Learning</div>
+		<div class="answer">Azure AI 視覺服務提供 [描述影像] 功能。</div>
+	</div>
+	<!--}}}-->
+</section>
+
 <section data-ks='CV'>
 	<h2>影像分析的功能</h2><!--{{{-->
 	<table border='1' cellspacing='0' cellpadding='8' width='100%'><tbody><tr>
@@ -1788,6 +1838,239 @@ flowchart TD
 	<!--}}}-->
 </section>
 
+<section data-ks='CV,Q_AI900'>
+	<h2>🎯 電腦視覺</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		下列哪一個範例是根據影片摘要計算某區域的動物數目？
+		<div data-o='X'>預測</div>
+		<div data-o='X'>異常偵測</div>
+		<div data-o='X'>知識採礦</div>
+		<div data-o='O'>電腦視覺</div>
+		<div class="answer">從影片中識別並計算物件（動物）的數量是電腦視覺的應用。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		請問哪一個電腦視覺功能可以為數位相片產生<em>「自動標題」</em>？
+		<div data-o='O'>描述影像</div>
+		<div data-o='X'>偵測物件</div>
+		<div data-o='X'>辨識文字</div>
+		<div data-o='X'>找出感興趣的區域</div>
+		<div class="answer">描述影像（或稱影像標註/Image Captioning）是產生人類可讀的自然語言描述 (標題) 的功能。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		下列何者可用於讀取輸送帶上的產品標籤？
+		<div data-o='X'>影像分類</div>
+		<div data-o='X'>影像處理</div>
+		<div data-o='X'>物件偵測</div>
+		<div data-o='O'>光學字元辨識</div>
+		<div class="answer">OCR (光學字元辨識) 專門用於從影像中讀取文字。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		下列何者用於在一個影像中識別多種項目？
+		<div data-o='X'>影像分類</div>
+		<div data-o='X'>影像描述</div>
+		<div data-o='O'>物件偵測</div>
+		<div data-o='X'>光學字元辨識</div>
+		<div class="answer">物件偵測可以識別影像中多個物件的類別和位置。影像分類只能識別影像的主要內容。</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div>請將電腦視覺工作負載類型與適當的案例配對。</div>
+		<div data-x='quiz:s'>
+			產生影像標題
+			<div data-o='O'>影像分類</div>
+			<div data-o='X'>物件偵測</div>
+			<div data-o='X'>光學字元辨識</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			擷取電影海報影像中的電影名稱
+			<div data-o='X'>影像分類</div>
+			<div data-o='X'>物件偵測</div>
+			<div data-o='O'>光學字元辨識</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			找到影像中的車輛
+			<div data-o='X'>影像分類</div>
+			<div data-o='O'>物件偵測</div>
+			<div data-o='X'>光學字元辨識</div>
+		</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>當您在處理馬拉松賽跑比賽的相片時，為辨識相片中的跑者身份，必須讀取跑者運動衫上的號碼。</div>
+		<div>您應該使用哪種電腦視覺類型？</div>
+		<div data-o='X'>影像分類</div>
+		<div data-o='X'>物件偵測</div>
+		<div data-o='O'>光學字元辨識</div>
+		<div data-o='X'>臉部辨識</div>
+		<div class="answer">讀取影像中的文字（號碼）是 OCR 的任務。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>下列何項服務的功能可從手寫文件中擷取文字？</div>
+		<div data-o='X'>臉部辨識</div>
+		<div data-o='X'>物件偵測</div>
+		<div data-o='O'>光學字元辨識</div>
+		<div data-o='X'>影像分類</div>
+		<div class="answer">Azure AI 視覺的 Read API (高階 OCR) 可以準確地從影像和文件中的手寫文字中擷取文字。</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div data-x='quiz:s'>
+			物件偵測可以識別影像中受損產品的位置。
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+			<div class="answer">物件偵測會輸出物件類別和邊界方塊（位置）。</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			物件偵測可以識別影像中受損產品的多個實例。
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+			<div class="answer">物件偵測的目標是識別影像中所有感興趣的物件。</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			物件偵測可以識別影像中多種類型的受損產品。
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+			<div class="answer">只要模型經過訓練，它可以識別影像中多個已定義的物件類別。</div>
+		</div>
+	</div>
+	<br/>
+	<div data-x='quiz:m'>
+		<div>使用 Azure 視覺可執行下列哪兩項工作？ (多選)</div>
+		<div data-o='X'>將影像中的文字翻譯為不同語言。</div>
+		<div data-o='O'>辨識手寫文字。</div>
+		<div data-o='X'>訓練自訂影像分類模型。</div>
+		<div data-o='O'>偵測影像中臉部。</div>
+		<div class="answer"></div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>判斷影像中汽車位置，並估計車與車之間的距離。</div>
+		<div>應該使用哪種電腦視覺類型？</div>
+		<div data-o='X'>臉部分析</div>
+		<div data-o='O'>物件偵測</div>
+		<div data-o='X'>影像分類</div>
+		<div data-o='X'>光學字元辨識</div>
+		<div class="answer">判斷物件的位置 (汽車) 是 物件偵測 的核心功能。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>AI 解決方案可協助攝影師取得更佳人像相片，方法是提供下列哪一項臉部功能範例之曝光、</div>
+		<div>雜訊與遮蔽的回饋？</div>
+		<div data-o='O'>分析</div>
+		<div data-o='X'>偵測</div>
+		<div data-o='X'>辨識</div>
+		<div class="answer">臉部分析功能用於提供臉部的屬性，例如情緒、年齡、姿勢，以及如曝光和遮蔽等影像品質相關的反饋。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:m'>
+		使用電腦視覺可執行下列哪兩項工作？ (多選)
+		<div data-o='O'>偵測影像中的色彩配置</div>
+		<div data-o='X'>將文字翻譯為不同語言</div>
+		<div data-o='X'>擷取關鍵詞組</div>
+		<div data-o='X'>預測股票價格</div>
+		<div data-o='O'>偵測影像中的商標</div>
+		<div class="answer"><ul>
+			<li>偵測色彩配置是 Azure AI 視覺的影像分析功能之一。</li>
+			<li>偵測商標是 Azure AI 視覺的預建辨識功能。</li>
+		</ul></div>
+	</div>
+	<br/>
+	<div data-x='quiz:m'>
+		在下列哪兩種情況可以使用 Azure AI 文件智慧服務？ (多選)
+		<div data-o='O'>從發票中擷取發票號碼</div>
+		<div data-o='O'>根據收據辨識零售商</div>
+		<div data-o='X'>在目錄中尋找產品影像</div>
+		<div data-o='X'>將表格從法文翻譯成英文</div>
+		<div class="answer">文件智慧服務 (Document Intelligence, 舊稱 Form Recognizer) 專門用於從文件（如發票、收據）中擷取結構化資料。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		下列哪項服務可用於擷取駕照上的資訊以填入資料庫中？
+		<div data-o='X'>Azure AI 電腦視覺</div>
+		<div data-o='X'>交談語言理解</div>
+		<div data-o='X'>Azure AI 自訂視覺</div>
+		<div data-o='O'>Azure AI 文件智慧服務</div>
+		<div class="answer"></div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		哪一項 Azure 認知服務可用來找出包含敏感資訊的文件？
+		<div data-o='X'>Azure AI 自訂視覺</div>
+		<div data-o='O'>Azure AI 文件智慧服務</div>
+		<div data-o='X'>交談語言理解</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		使用 Azure AI 文件智慧服務中預建收據模型可以處理影像大小上限為和？
+		<div data-o='X'>5MB</div>
+		<div data-o='X'>10MB</div>
+		<div data-o='O'>50MB</div>
+		<div data-o='X'>100MB</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		交通流量監視系統從監視器影片中收集車牌號碼是 Azure AI 電腦視覺服務中哪個範例？
+		<div data-o='X'>物件偵測</div>
+		<div data-o='X'>自然語言</div>
+		<div data-o='O'>光學字元辨識</div>
+		<div data-o='X'>影像描述</div>
+		<div class="answer">車牌號碼是影像中的文字，因此需要使用 OCR 來讀取。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		哪一項 Azure 服務可以使用 Azure AI 文件智慧服務中的預建收據模型 ？
+		<div data-o='O'>Azure AI 服務</div>
+		<div data-o='X'>Azure AI 自訂視覺</div>
+		<div data-o='X'>Azure Machine Learning</div>
+		<div data-o='X'>Azure AI 視覺</div>
+		<div class="answer">
+			<div>預建收據模型是 Azure AI Document Intelligence 的一部分，而該服務隸屬於 Azure AI 服務（原稱 Azure Cognitive Services）。</div>
+			<div>其他選項為何不正確：<ul>
+				<li>Azure AI 自訂視覺（Custom Vision）：用於影像分類或物件偵測，不處理收據文字抽取。</li>
+				<li>Azure Machine Learning：用於建立與管理 ML 模型，不提供預建收據抽取。</li>
+				<li>Azure AI 視覺（Computer Vision）：提供 OCR 等功能，但收據模型屬於 Document Intelligence，不屬於 Vision。</li>
+			</ul></div>
+		</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		在表格辨識器中使用自訂模型有何優點 ？
+		<div data-o='O'>自訂模型可加以訓練來辨識各種表格類型。</div>
+		<div data-o='X'>自訂模型一律提供更高的精確度。</div>
+		<div data-o='X'>只有自訂模型可以部署在內部部署環境。</div>
+		<div data-o='X'>自訂模型比預建模型便宜。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您將一張影像送至電腦視覺 API，並收到如下圖所示的標註影像。</div>
+		<div><img src="3_Q1.jpg" style="width:60%"/></div>
+		<div>請問此處使用了哪種類型的電腦視覺？</div> 
+		<div data-o='O'>物件偵測</div>
+		<div data-o='X'>臉部偵測</div>
+		<div data-o='X'>光學字元識別</div>
+		<div data-o='X'>影像分類</div>
+		<div class="answer">影像中多個物件被 邊界方塊 框出並標註類別 (如 Apple)，這是 物件偵測 的典型輸出。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		請問您應該使用哪一個 Azure AI 文件智慧服務預建模型，從法律文件中擷取當事人和司法管轄區？
+		<div data-o='O'>合約</div>
+		<div data-o='X'>讀取</div>
+		<div data-o='X'>版面配置</div>
+		<div data-o='X'>一般文件</div>
+		<div class="answer">文件智慧服務提供合約的預建模型，專門用於擷取當事人、日期、司法管轄區等法律相關欄位。</div>
+	</div>
+	<!--}}}-->
+</section>
+
 <section data-ks='CV'>
 	<h2>自訂視覺</h2><!--{{{-->
 	<ul>
@@ -1817,6 +2100,80 @@ flowchart TD
 	<!--}}}-->
 </section>
 
+<section data-ks='CV,Q_AI900'>
+	<h2>🎯 自訂視覺</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		<div>您的公司專門製造小工具，您擁有 2000 張小工具的數位相片。</div>
+		<div>若您需要在這些相片中識別出小工具的位置，則您應該使用下列何者？</div>
+		<div data-o='X'>Azure AI 電腦視覺空間分析</div>
+		<div data-o='O'>Azure AI 自訂視覺物件偵測</div>
+		<div data-o='X'>Azure AI 電腦視覺影像分析</div>
+		<div data-o='X'>Azure AI 自訂視覺分類</div>
+		<div class="answer"><ul>
+			<li>任務目標：識別物件的位置 -&gt; 物件偵測。</li>
+			<li>資料來源：您公司提供的特定小工具 -&gt; 需要自訂模型。</li>
+			<li>故選擇 Azure AI 自訂視覺物件偵測。</li>
+		</ul></div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您可以透過下列何項服務，使用自己的影像來定型物件偵測模型？</div>
+		<div data-o='X'>Azure AI 電腦視覺</div>
+		<div data-o='O'>Azure AI 自訂視覺</div>
+		<div data-o='X'>Azure AI 文件智慧服務</div>
+		<div data-o='X'>媒體用影片分析器</div>
+		<div class="answer">Azure AI 自訂視覺 (Custom Vision) 專門用於讓用戶上傳自己的資料集來訓練自訂的影像分類或物件偵測模型。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您正在建置工具來處理零售商店的影像，使能夠識別競爭對手的產品。</div>
+		<div>其解決方案是必須使用您公司提供的影像來定型。</div>
+		<div>則您應該使用下列哪一項 Azure 認知服務？</div>
+		<div data-o='X'>Azure AI 文件智慧服務</div>
+		<div data-o='X'>Azure AI 電腦視覺</div>
+		<div data-o='X'>臉部</div>
+		<div data-o='O'>Azure AI 自訂視覺</div>
+		<div class="answer">需要使用自己的影像來訓練自訂的物件識別模型 -&gt; Azure AI 自訂視覺。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您需要建立一個模型，為個人數位相片加上標籤。</div>
+		<div>您應該使用哪一項 Azure AI 服務？</div>
+		<div data-o='X'>Azure AI 電腦視覺</div>
+		<div data-o='O'>Azure AI 自訂視覺</div>
+		<div data-o='X'>Azure AI 文件智慧服務</div>
+		<div data-o='X'>Azure AI 語言</div>
+		<div class="answer">Azure AI 視覺服務提供預建的影像標記功能，適用於通用影像（如個人相片）。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>Azure AI 自訂視覺模型如果可從共 100 張包含柳橙的影像中，正確識別 70 張包含柳橙的影像。</div>
+		<div>表示產生 70% 何者的計量？</div>
+		<div data-o='X'>平均精確率</div>
+		<div data-o='X'>精確率</div>
+		<div data-o='O'>召回率</div>
+		<div class="answer"><ul>
+			<li>召回率 (Recall)：模型正確識別的正樣本數佔所有實際正樣本數的比例。</li>
+			<li>在這個簡化情境中 (100 張都是柳橙)，「正確識別 70 張」 可以被解釋為 召回率 (因為所有 100 張影像都是實際的正樣本，模型找回了 70 個)。</li>
+		</ul></div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>小明有一個在全連超市貨架影像中識別產品座標的應用程式。</div>
+		<div>請問該應用程式使用了哪項服務？</div>
+		<div data-o='X'>Azure AI 視覺光學字元辨識</div>
+		<div data-o='O'>Azure AI 自訂視覺物件偵測</div>
+		<div data-o='X'>Azure AI 自訂視覺分類</div>
+		<div data-o='X'>Azure AI 視覺讀取</div>
+		<div class="answer"><ul>
+			<li>識別座標 -&gt; 物件偵測。</li>
+			<li>產品（通常是特定品牌） -&gt; 需要自訂模型。</li>
+			<li>故選擇 Azure AI 自訂視覺物件偵測。</li>
+		</ul></div>
+	</div>
+	<!--}}}-->
+</section>
+
 <section data-ks='CV'>
 	<h2>臉部辨識服務</h2><!--{{{-->
 	<div>臉部辨識服務功能大致分成兩大部分：</div>
@@ -1834,7 +2191,7 @@ flowchart TD
 </section>
 
 <section data-ks='CV'>
-	<h2>臉部識別原理</h2><!--{{{-->
+	<h2>生物辨識</h2><!--{{{-->
 	<ul>
 		<li>生物辨識技術有指紋辨識，虹膜辨識，聲音辨識，人臉辨識... 等</li>
 		<li>人臉辨識利用人臉五官輪廓的距離角度來建立3D結構模型，以向量方式擷取臉部特徵點偵測值，進行身分辨識</li>
@@ -1857,56 +2214,22 @@ flowchart TD
 </section>
 
 <section data-ks='CV,Q_AI900'>
+	<h2>🎯 臉部</h2><!--{{{-->
 	<div data-x='quiz:s'>
-		請問哪一個電腦視覺功能可以為數位相片產生<em>「自動標題」</em>？
-		<div data-o='O'>描述影像</div>
-		<div data-o='X'>偵測物件</div>
-		<div data-o='X'>辨識文字</div>
-		<div data-o='X'>找出感興趣的區域</div>
-		<div class="answer">描述影像（或稱影像標註/Image Captioning）是產生人類可讀的自然語言描述 (標題) 的功能。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>要籌辦一場慈善活動。</div>
-	<div>需要確保符合下列 A、B 兩點要求的相片:<ul>
-		<li>A: 包含一或多張臉部。</li>
-		<li>B: 包含至少一名戴著墨鏡的人。</li>
-	</ul></div>
-	<div data-x='quiz:s'>
+		<div>要籌辦一場慈善活動。</div>
+		<div>需要確保符合下列 A、B 兩點要求的相片:<ul>
+			<li>A: 包含一或多張臉部。</li>
+			<li>B: 包含至少一名戴著墨鏡的人。</li>
+		</ul></div>
 		<div>您應該使用下列何者來分析影像？</div>
 		<div data-o='X'>Azure AI 電腦視覺服務中的 [描述影像] 作業</div>
 		<div data-o='O'>臉部服務中的 [偵測] 作業</div>
 		<div data-o='X'>Azure AI 電腦視覺服務中的 [分析影像] 作業</div>
 		<div data-o='X'>臉部服務中的 [驗證] 作業</div>
 	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
+	<br/>
 	<div data-x='quiz:s'>
-		下列何者可用於讀取輸送帶上的產品標籤？
-		<div data-o='X'>影像分類</div>
-		<div data-o='X'>影像處理</div>
-		<div data-o='X'>物件偵測</div>
-		<div data-o='O'>光學字元辨識</div>
-		<div class="answer">OCR (光學字元辨識) 專門用於從影像中讀取文字。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		下列何者用於在一個影像中識別多種項目？
-		<div data-o='X'>影像分類</div>
-		<div data-o='X'>影像描述</div>
-		<div data-o='O'>物件偵測</div>
-		<div data-o='X'>光學字元辨識</div>
-		<div class="answer">物件偵測可以識別影像中多個物件的類別和位置。影像分類只能識別影像的主要內容。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>您為社交媒體建置影像標記解決方案，以便自動標記朋友的影像。<div>
-	<div data-x='quiz:s'>
+		<div>您為社交媒體建置影像標記解決方案，以便自動標記朋友的影像。<div>
 		<div>您應該使用哪一個 Azure AI 服務？</div>
 		<div data-o='O'>臉部</div>
 		<div data-o='X'>文件智慧服務</div>
@@ -1914,122 +2237,7 @@ flowchart TD
 		<div data-o='X'>語言</div>
 		<div class="answer">辨識朋友的身份或特定人物需要使用 臉部辨識 (Face Recognition)，這是 Azure AI 臉部服務的核心功能。</div>
 	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	請將電腦視覺工作負載類型與適當的案例配對。
-	<div data-x='quiz:s'>
-		產生影像標題
-		<div data-o='O'>影像分類</div>
-		<div data-o='X'>物件偵測</div>
-		<div data-o='X'>光學字元辨識</div>
-	</div>
-	<div data-x='quiz:s'>
-		擷取電影海報影像中的電影名稱
-		<div data-o='X'>影像分類</div>
-		<div data-o='X'>物件偵測</div>
-		<div data-o='O'>光學字元辨識</div>
-	</div>
-	<div data-x='quiz:s'>
-		找到影像中的車輛
-		<div data-o='X'>影像分類</div>
-		<div data-o='O'>物件偵測</div>
-		<div data-o='X'>光學字元辨識</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>當您在處理馬拉松賽跑比賽的相片時，為辨識相片中的跑者身份，必須讀取跑者運動衫上的號碼。</div>
-	<div data-x='quiz:s'>
-		您應該使用哪種電腦視覺類型？
-		<div data-o='X'>影像分類</div>
-		<div data-o='X'>物件偵測</div>
-		<div data-o='O'>光學字元辨識</div>
-		<div data-o='X'>臉部辨識</div>
-		<div class="answer">讀取影像中的文字（號碼）是 OCR 的任務。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		下列何項服務的功能可從手寫文件中擷取文字？
-		<div data-o='X'>臉部辨識</div>
-		<div data-o='X'>物件偵測</div>
-		<div data-o='O'>光學字元辨識</div>
-		<div data-o='X'>影像分類</div>
-		<div class="answer">Azure AI 視覺的 Read API (高階 OCR) 可以準確地從影像和文件中的手寫文字中擷取文字。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		下列哪一個範例是根據影片摘要計算某區域的動物數目？
-		<div data-o='X'>預測</div>
-		<div data-o='X'>異常偵測</div>
-		<div data-o='X'>知識採礦</div>
-		<div data-o='O'>電腦視覺</div>
-		<div class="answer">從影片中識別並計算物件（動物）的數量是電腦視覺的應用。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<h2>關於物件偵測</h2>
-	<div data-x='quiz:s'>
-		物件偵測可以識別影像中受損產品的位置。
-		<div data-o='O'>是</div>
-		<div data-o='X'>否</div>
-		<div class="answer">物件偵測會輸出物件類別和邊界方塊（位置）。</div>
-	</div>
-	<div data-x='quiz:s'>
-		物件偵測可以識別影像中受損產品的多個實例。
-		<div data-o='O'>是</div>
-		<div data-o='X'>否</div>
-		<div class="answer">物件偵測的目標是識別影像中所有感興趣的物件。</div>
-	</div>
-	<div data-x='quiz:s'>
-		物件偵測可以識別影像中多種類型的受損產品。
-		<div data-o='O'>是</div>
-		<div data-o='X'>否</div>
-		<div class="answer">只要模型經過訓練，它可以識別影像中多個已定義的物件類別。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:m'>
-		<div>使用 Azure 視覺可執行下列哪兩項工作？ (多選)</div>
-		<div data-o='X'>將影像中的文字翻譯為不同語言。</div>
-		<div data-o='O'>辨識手寫文字。</div>
-		<div data-o='X'>訓練自訂影像分類模型。</div>
-		<div data-o='O'>偵測影像中臉部。</div>
-		<div class="answer"></div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		<div>判斷影像中汽車位置，並估計車與車之間的距離。</div>
-		<div>應該使用哪種電腦視覺類型？</div>
-		<div data-o='X'>臉部分析</div>
-		<div data-o='O'>物件偵測</div>
-		<div data-o='X'>影像分類</div>
-		<div data-o='X'>光學字元辨識</div>
-		<div class="answer">判斷物件的位置 (汽車) 是 物件偵測 的核心功能。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		<div>要建置一個會識別影像中名人的應用程式，</div>
-		<div>應該使用哪一項服務？</div>
-		<div data-o='X'>Azure OpenAI 服務</div>
-		<div data-o='O'>Azure AI 視覺</div>
-		<div data-o='X'>交談語言理解</div>
-		<div data-o='X'>Azure Machine Learning</div>
-		<div class="answer">Azure AI 視覺服務中的影像分析功能可以識別影像中的名人。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
+	<br/>
 	<div data-x='quiz:s'>
 		<div>若要識別影像中名人。</div>
 		<div>應該使用哪種電腦視覺工作負載類型？</div>
@@ -2038,265 +2246,7 @@ flowchart TD
 		<div data-o='X'>影像分類</div>
 		<div data-o='X'>光學字元辨識</div>
 	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>您的公司專門製造小工具，您擁有 2000 張小工具的數位相片。</div>
-	<div data-x='quiz:s'>
-		若您需要在這些相片中識別出小工具的位置，則您應該使用下列何者？
-		<div data-o='X'>Azure AI 電腦視覺空間分析</div>
-		<div data-o='O'>Azure AI 自訂視覺物件偵測</div>
-		<div data-o='X'>Azure AI 電腦視覺影像分析</div>
-		<div data-o='X'>Azure AI 自訂視覺分類</div>
-		<div class="answer"><ul>
-			<li>任務目標：識別物件的位置 -&gt; 物件偵測。</li>
-			<li>資料來源：您公司提供的特定小工具 -&gt; 需要自訂模型。</li>
-			<li>故選擇 Azure AI 自訂視覺物件偵測。</li>
-		</ul></div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		<div>您可以透過下列何項服務，使用自己的影像來定型物件偵測模型？</div>
-		<div data-o='X'>Azure AI 電腦視覺</div>
-		<div data-o='O'>Azure AI 自訂視覺</div>
-		<div data-o='X'>Azure AI 文件智慧服務</div>
-		<div data-o='X'>媒體用影片分析器</div>
-		<div class="answer">Azure AI 自訂視覺 (Custom Vision) 專門用於讓用戶上傳自己的資料集來訓練自訂的影像分類或物件偵測模型。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		<div>AI 解決方案可協助攝影師取得更佳人像相片，方法是提供下列哪一項臉部功能範例之曝光、</div>
-		<div>雜訊與遮蔽的回饋？</div>
-		<div data-o='O'>分析</div>
-		<div data-o='X'>偵測</div>
-		<div data-o='X'>辨識</div>
-		<div class="answer">臉部分析功能用於提供臉部的屬性，例如情緒、年齡、姿勢，以及如曝光和遮蔽等影像品質相關的反饋。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:m'>
-		使用電腦視覺可執行下列哪兩項工作？ (多選)
-		<div data-o='O'>偵測影像中的色彩配置</div>
-		<div data-o='X'>將文字翻譯為不同語言</div>
-		<div data-o='X'>擷取關鍵詞組</div>
-		<div data-o='X'>預測股票價格</div>
-		<div data-o='O'>偵測影像中的商標</div>
-		<div class="answer"><ul>
-			<li>偵測色彩配置是 Azure AI 視覺的影像分析功能之一。</li>
-			<li>偵測商標是 Azure AI 視覺的預建辨識功能。</li>
-		</ul></div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:m'>
-		在下列哪兩種情況可以使用 Azure AI 文件智慧服務？ (多選)
-		<div data-o='O'>從發票中擷取發票號碼</div>
-		<div data-o='O'>根據收據辨識零售商</div>
-		<div data-o='X'>在目錄中尋找產品影像</div>
-		<div data-o='X'>將表格從法文翻譯成英文</div>
-		<div class="answer">文件智慧服務 (Document Intelligence, 舊稱 Form Recognizer) 專門用於從文件（如發票、收據）中擷取結構化資料。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>您正在建置工具來處理零售商店的影像，使能夠識別競爭對手的產品。</div>
-	<div>其解決方案是必須使用您公司提供的影像來定型。</div>
-	<div data-x='quiz:s'>
-		則您應該使用下列哪一項 Azure 認知服務？
-		<div data-o='X'>Azure AI 文件智慧服務</div>
-		<div data-o='X'>Azure AI 電腦視覺</div>
-		<div data-o='X'>臉部</div>
-		<div data-o='O'>Azure AI 自訂視覺</div>
-		<div class="answer">需要使用自己的影像來訓練自訂的物件識別模型 -&gt; Azure AI 自訂視覺。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		下列哪項服務可用於擷取駕照上的資訊以填入資料庫中？
-		<div data-o='X'>Azure AI 電腦視覺</div>
-		<div data-o='X'>交談語言理解</div>
-		<div data-o='X'>Azure AI 自訂視覺</div>
-		<div data-o='O'>Azure AI 文件智慧服務</div>
-		<div class="answer"></div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		哪一項 Azure 認知服務可用來找出包含敏感資訊的文件？
-		<div data-o='X'>Azure AI 自訂視覺</div>
-		<div data-o='O'>Azure AI 文件智慧服務</div>
-		<div data-o='X'>交談語言理解</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		電腦視覺功能可部署來？
-		<div data-o='X'>網站部署文字聊天機器人</div>
-		<div data-o='X'>別線上商店的異常客戶行為</div>
-		<div data-o='O'>將臉部辨識功能整合到應用程式</div>
-		<div data-o='X'>建議對內送電子郵件的自動化回覆</div>
-		<div class="answer">臉部辨識功能是 Azure AI 臉部服務提供的電腦視覺功能。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		您需要建置一個會建立影像描述的應用程式。您應該使用哪一項服務？
-		<div data-o='X'>Azure OpenAI 服務</div>
-		<div data-o='O'>Azure AI 視覺</div>
-		<div data-o='X'>交談語言理解</div>
-		<div data-o='X'>Azure Machine Learning</div>
-		<div class="answer">Azure AI 視覺服務提供 [描述影像] 功能。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>您需要建立一個模型，為個人數位相片加上標籤。</div>
-	<div data-x='quiz:s'>
-		您應該使用哪一項 Azure AI 服務？
-		<div data-o='X'>Azure AI 電腦視覺</div>
-		<div data-o='O'>Azure AI 自訂視覺</div>
-		<div data-o='X'>Azure AI 文件智慧服務</div>
-		<div data-o='X'>Azure AI 語言</div>
-		<div class="answer">Azure AI 視覺服務提供預建的影像標記功能，適用於通用影像（如個人相片）。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>Azure AI 自訂視覺模型如果可從共 100 張包含柳橙的影像中，正確識別 70 張包含柳橙的影像。</div>
-	<div data-x='quiz:s'>
-		表示產生 70% 何者的計量？
-		<div data-o='X'>平均精確率</div>
-		<div data-o='X'>精確率</div>
-		<div data-o='O'>召回率</div>
-		<div class="answer"><ul>
-			<li>召回率 (Recall)：模型正確識別的正樣本數佔所有實際正樣本數的比例。</li>
-			<li>在這個簡化情境中 (100 張都是柳橙)，「正確識別 70 張」 可以被解釋為 召回率 (因為所有 100 張影像都是實際的正樣本，模型找回了 70 個)。</li>
-		</ul></div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		使用 Azure AI 文件智慧服務中預建收據模型可以處理影像大小上限為和？
-		<div data-o='X'>5MB</div>
-		<div data-o='X'>10MB</div>
-		<div data-o='O'>50MB</div>
-		<div data-o='X'>100MB</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		使用 Azure AI 電腦視覺服務可以執行哪一項動作？
-		<div data-o='X'>識別直播影片中的動物品種</div>
-		<div data-o='X'>建立訓練影片的縮圖</div>
-		<div data-o='O'>擷取手寫信件中的資料</div>
-		<div data-o='X'>擷取文件中的關鍵片語</div>
-		<div class="answer">Azure AI 視覺的 Read API (OCR) 可以處理手寫文字的擷取。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>你需要實作一套預先建置的解決方案以識別數位相片中的知名品牌。</div>
-	<div data-x='quiz:s'>
-		你應該使用哪一個 Azure 服務 ？
-		<div data-o='X'>Azure AI 文件智慧服務 </div>
-		<div data-o='O'>Azure AI 電腦視覺</div>
-		<div data-o='X'>Azure AI 自訂視覺</div>
-		<div data-o='X'>臉部</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		交通流量監視系統從監視器影片中收集車牌號碼是 Azure AI 電腦視覺服務中哪個範例？
-		<div data-o='X'>物件偵測</div>
-		<div data-o='X'>自然語言</div>
-		<div data-o='O'>光學字元辨識</div>
-		<div data-o='X'>影像描述</div>
-		<div class="answer">車牌號碼是影像中的文字，因此需要使用 OCR 來讀取。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		哪一項 Azure 服務可以使用 Azure AI 文件智慧服務中的預建收據模型 ？
-		<div data-o='O'>Azure AI 服務</div>
-		<div data-o='X'>Azure AI 自訂視覺</div>
-		<div data-o='X'>Azure Machine Learning</div>
-		<div data-o='X'>Azure AI 視覺</div>
-		<div class="answer">
-			<div>預建收據模型是 Azure AI Document Intelligence 的一部分，而該服務隸屬於 Azure AI 服務（原稱 Azure Cognitive Services）。</div>
-			<div>其他選項為何不正確：<ul>
-				<li>Azure AI 自訂視覺（Custom Vision）：用於影像分類或物件偵測，不處理收據文字抽取。</li>
-				<li>Azure Machine Learning：用於建立與管理 ML 模型，不提供預建收據抽取。</li>
-				<li>Azure AI 視覺（Computer Vision）：提供 OCR 等功能，但收據模型屬於 Document Intelligence，不屬於 Vision。</li>
-			</ul></div>
-		</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		在表格辨識器中使用自訂模型有何優點 ？
-		<div data-o='O'>自訂模型可加以訓練來辨識各種表格類型。</div>
-		<div data-o='X'>自訂模型一律提供更高的精確度。</div>
-		<div data-o='X'>只有自訂模型可以部署在內部部署環境。</div>
-		<div data-o='X'>自訂模型比預建模型便宜。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		您將一張影像送至電腦視覺 API，並收到如下圖所示的標註影像。
-		<div><img src="3_Q1.jpg" style="width:60%"/></div>
-		請問此處使用了哪種類型的電腦視覺？ 
-		<div data-o='O'>物件偵測</div>
-		<div data-o='X'>臉部偵測</div>
-		<div data-o='X'>光學字元識別</div>
-		<div data-o='X'>影像分類</div>
-		<div class="answer">影像中多個物件被 邊界方塊 框出並標註類別 (如 Apple)，這是 物件偵測 的典型輸出。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div>小明有一個在全連超市貨架影像中識別產品座標的應用程式。</div>
-	<div data-x='quiz:s'>
-		請問該應用程式使用了哪項服務？
-		<div data-o='X'>Azure AI 視覺光學字元辨識</div>
-		<div data-o='O'>Azure AI 自訂視覺物件偵測</div>
-		<div data-o='X'>Azure AI 自訂視覺分類</div>
-		<div data-o='X'>Azure AI 視覺讀取</div>
-		<div class="answer"><ul>
-			<li>識別座標 -&gt; 物件偵測。</li>
-			<li>產品（通常是特定品牌） -&gt; 需要自訂模型。</li>
-			<li>故選擇 Azure AI 自訂視覺物件偵測。</li>
-		</ul></div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
-	<div data-x='quiz:s'>
-		請問您應該使用哪一個 Azure AI 文件智慧服務預建模型，從法律文件中擷取當事人和司法管轄區？
-		<div data-o='O'>合約</div>
-		<div data-o='X'>讀取</div>
-		<div data-o='X'>版面配置</div>
-		<div data-o='X'>一般文件</div>
-		<div class="answer">文件智慧服務提供合約的預建模型，專門用於擷取當事人、日期、司法管轄區等法律相關欄位。</div>
-	</div>
-</section>
-
-<section data-ks='CV,Q_AI900'>
+	<br/>
 	<div data-x='quiz:s'>
 		藉由監視資訊站的視訊摘要來識別資訊站使用者是否感到困擾，是以下何者的範例？
 		<div data-o='X'>臉部偵測</div>
@@ -2305,8 +2255,8 @@ flowchart TD
 		<div data-o='X'>光學字元辨識 </div>
 		<div class="answer">識別情緒（如困擾、快樂、悲傷）是臉部分析功能的一部分。</div>
 	</div>
+	<!--}}}-->
 </section>
-
 <!-- }}} -->
 
 <section class='cfbox' data-ks='NLP'>
@@ -2321,7 +2271,6 @@ flowchart TD
 </section>
 
 <!-- {{{ Natural Language Processing -->
-
 <section data-ks='NLP'>
 	<h2>自然語言處理</h2><!--{{{-->
 
@@ -2347,6 +2296,43 @@ flowchart TD
 
 	<h3>Azure Bot Service</h3>
 	<div>Web 聊天，電子郵件，Microsoft Teams …</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>🎯 自然語言處理</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		自然語言處理可用於
+		<div data-o='O'>將 E-Mail 分類為工作郵件或個人郵件。</div>
+		<div data-o='X'>預測未來的租車數。</div>
+		<div data-o='X'>顯示溫度過高時停止工廠作業。</div>
+		<div data-o='X'>預測哪個網站的瀏覽者會執行交易。</div>
+		<div class="answer">分類 E-Mail 是 NLP 中文字分類的典型應用。其他選項為迴歸/傳統 ML/IoT 應用。</div>
+	</div>
+	<div class='frame'>
+		<div>將 Azure 認知服務與適當的工作配對。</div>
+		<div data-x='quiz:s'>
+			將使用者的語音轉換為文字
+			<div data-o='O'>Azure AI 語音</div>
+			<div data-o='X'>Azure AI 語言服務</div>
+			<div data-o='X'>Azure AI 翻譯工具文字</div>
+			<div class="answer">(語音轉文字) 是 語音服務 的功能。</div>
+		</div>
+		<div data-x='quiz:s'>
+			識別使用者的意圖
+			<div data-o='X'>Azure AI 語音</div>
+			<div data-o='O'>Azure AI 語言服務</div>
+			<div data-o='X'>Azure AI 翻譯工具文字</div>
+			<div class="answer">(識別意圖) 是 語言服務 (CLU) 的功能。</div>
+		</div>
+		<div data-x='quiz:s'>
+			向使用者提供口語回應
+			<div data-o='O'>Azure AI 語音</div>
+			<div data-o='X'>Azure AI 語言服務</div>
+			<div data-o='X'>Azure AI 翻譯工具文字</div>
+			<div class="answer">(文字轉語音/口語回應) 是 語音服務 的功能。</div>
+		</div>
+	</div>
 	<!--}}}-->
 </section>
 
@@ -2429,6 +2415,175 @@ flowchart TD
 	<!--}}}-->
 </section>
 
+<section data-ks='NLP,Q_AI900'>
+	<h2>🎯 語言服務</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		下列何種情況應該使用關鍵片語擷取？
+		<div data-o='X'>將一些文件從英文翻譯成德文</div>
+		<div data-o='O'>辨識哪些文件提供相同主題的資訊</div>
+		<div data-o='X'>辨識餐廳的評論為正面或負面</div>
+		<div data-o='X'>根據音軌為影片產生字幕</div>
+		<div class="answer">關鍵片語擷取 (KPE) 通過提取文件中的核心主題，幫助用戶快速理解文件內容或將文件分組以進行主題辨識。</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div data-x='quiz:s'>
+			具名實體辨識 (NER) 可用來擷取文件字串中的日期與時間。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">日期、時間是 NER 可以識別的預建實體類型。</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			關鍵片語擷取 (KPE) 可用來擷取文件字串中的重要片語。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">KPE 的主要功能就是識別文件中的核心主題和重要片語。</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			關鍵片語擷取 可用來擷取文件字串中的所有城市名稱。
+			<div class='hbar'>
+				<div data-o='X'>是</div>
+				<div data-o='O'>否</div>
+			</div>
+			<div class="answer">城市名稱是具名實體 (NER) 的任務，而非 KPE。</div>
+		</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div>將 Azure AI 語言服務 API 功能與適當的自然語言處理案例配對。</div>
+		<div data-x='quiz:s'>
+			根據支援報修中所包含文字了解客戶的不滿意程度
+			<div data-o='X'>實體辨識</div>
+			<div data-o='X'>關鍵片語擷取</div>
+			<div data-o='X'>語言偵測</div>
+			<div data-o='O'>情感分析</div>
+			<div class="answer">(不滿意程度) : 情感分析。</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			彙總支援報修中重要資訊
+			<div data-o='X'>實體辨識</div>
+			<div data-o='O'>關鍵片語擷取</div>
+			<div data-o='X'>語言偵測</div>
+			<div data-o='X'>情感分析</div>
+			<div class="answer">(彙總重要資訊) : 關鍵片語擷取。</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			從支援報修中擷取關鍵日期
+			<div data-o='O'>實體辨識</div>
+			<div data-o='X'>關鍵片語擷取</div>
+			<div data-o='X'>語言偵測</div>
+			<div data-o='X'>情感分析</div>
+			<div class="answer">(關鍵日期) : 實體辨識 (日期是實體)。</div>
+		</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		識別電話號碼時，會使用哪種類型的自然語言處理 (NLP) 實體？
+		<div data-o='O'>規則運算式 (Regex)</div>
+		<div data-o='X'>Pattern.any</div>
+		<div data-o='X'>machine-learned</div>
+		<div data-o='X'>清單</div>
+		<div class="answer">電話號碼、信用卡號等有固定格式的實體，通常使用規則運算式 (Regex) 實體類型進行擷取。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		Azure AI 語言服務可以識別文字是以何種語言撰寫。
+		<div class='hbar'>
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+		</div>
+		<div class="answer">這是語言偵測 (Language Detection) 功能。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		Azure AI 語言服務可以偵測文件中的手寫簽名。
+		<div class='hbar'>
+			<div data-o='X'>是</div>
+			<div data-o='O'>否</div>
+		</div>
+		<div class="answer">這是電腦視覺或文件智慧服務的任務。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		Azure AI 語言服務可以識別文件中所提及的公司和組織。
+		<div class='hbar'>
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+		</div>
+		<div class="answer">這是具名實體辨識 (NER) 的功能，公司和組織是常見的實體類型。</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div data-x='quiz:s'>
+			Azure AI 語言服務可用來從文件中擷取關鍵片語。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">這是關鍵片語擷取 (KPE) 功能。</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			Azure AI 語言服務可用來根據使用者提示產生新聞稿。
+			<div class='hbar'>
+				<div data-o='X'>是</div>
+				<div data-o='O'>否</div>
+			</div>
+			<div class="answer">這是 Azure OpenAI 服務（如 GPT-4）的功能。</div>
+		</div>
+		<br/>
+		<div data-x='quiz:s'>
+			Azure AI 語言服務可用來建置情緒解決方案。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">考量 AI-900 脈絡，情感分析是語言服務的核心功能，故此題應為是。</div>
+		</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>Jasper 正在使用 Azure AI 語言服務的自訂解答功能建置知識庫。</div>
+		<div>請問 Jasper 可以使用哪種檔案格式來填入知識庫？</div>
+		<div class='hbar'>
+			<div data-o='X'>JPGE</div>
+			<div data-o='O'>PDF</div>
+			<div data-o='X'>PPTX</div>
+			<div data-o='X'>ZIP</div>
+		</div>
+		<div class="answer">問題解答 (QnA Maker) 支援多種文件格式，包括 PDF、DOCX、TXT、TSV 等。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您要使用自然語言處理來處理 Microsoft 新聞報導的文字。您收到如下所示輸出。</div>
+		<div><img src="4_Q1.jpg" style="width:50%"/></div>
+		<div>請問您執行了下列何種類型的自然語言處理 ？</div>
+		<div data-o='X'>翻譯</div>
+		<div data-o='X'>關鍵片語擷取</div>
+		<div data-o='X'>情感分析</div>
+		<div data-o='O'>實體辨識</div>
+		<div class="answer"></div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		哪一項自然語言處理功能可用於識別客戶意見反應問卷中的主要話題？
+		<div data-o='X'>翻譯</div>
+		<div data-o='O'>關鍵片語擷取</div>
+		<div data-o='X'>語言偵測</div>
+		<div data-o='X'>實體辨識</div>
+		<div class="answer">關鍵片語擷取 (KPE) 旨在從文件中識別出描述主要話題或核心概念的短語。</div>
+	</div>
+	<!-- }}} -->
+</section>
+
 <section data-ks='NLP'>
 	<h2>語音服務</h2><!--{{{-->
 	<div>語音服務包含下列應用程式開發介面 (API)<ul>
@@ -2493,6 +2648,67 @@ flowchart TD
 	<!--}}}-->
 </section>
 
+<section data-ks='NLP,Q_AI900'>
+	<h2>🎯 語音服務 -</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		您可以使用下列哪一種 AI 服務，擷取使用者輸入意圖 (例如「稍後請回電」)？
+		<div data-o='X'>Azure 認知搜尋</div>
+		<div data-o='X'>Azure AI 語音</div>
+		<div data-o='X'>Azure AI 翻譯工具</div>
+		<div data-o='O'>Azure AI 語言</div>
+		<div class="answer">Azure AI 語言服務下的交談語言理解 (CLU) (舊稱 LUIS) 用於識別使用者語句的意圖 (Intent)。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:m'>
+		您可以在下列哪兩種情況中使用語音合成解決方案？ (多選)
+		<div data-o='X'>使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。</div>
+		<div data-o='X'>可以用語音與玩家交談的電腦遊戲 AI 角色。</div>
+		<div data-o='O'>為新聞廣播產生即時字幕。</div>
+		<div data-o='X'>從會議錄音中擷取關鍵片語。</div>
+		<div class="answer">① 使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。② 可以用語音與玩家交談的電腦遊戲 AI 角色。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		您可以使用 Azure AI 語音服務將通話轉譯為文字。
+		<div class='hbar'>
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+		</div>
+		<div class="answer">這是語音轉文字 (Speech-to-Text) 功能。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		您可以使用 Azure AI 語言服務從通話文字記錄中擷取關鍵實體。
+		<div class='hbar'>
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+		</div>
+		<div class="answer">語音服務輸出文字後，語言服務可對其執行 NER。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		您可以使用 Azure AI 語音服務將通話音訊翻譯為其他語言。
+		<div class='hbar'>
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+		</div>
+		<div class="answer">語音服務支援語音翻譯 (Speech Translation)，即時將語音翻譯為語音或文字。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您擁有 100 部「不」包含任何音訊的教學影片。</div>
+		<div>每部教學影片都有一份腳本。</div>
+		<div>您需要根據腳本，為每部影片產生旁白音訊檔案。</div>
+		<div>您應該使用下列何種工作負載？</div>
+		<div data-o='X'>語言模組化</div>
+		<div data-o='X'>翻譯</div>
+		<div data-o='O'>語音合成</div>
+		<div data-o='X'>語音辨識</div>
+		<div class="answer">將文字腳本轉換為語音 (旁白音訊) 是語音合成的任務。</div>
+	</div>
+	<!--}}}-->
+</section>
+
 <section data-ks='NLP'>
 	<h2>翻譯服務</h2><!--{{{-->
 	<ul>
@@ -2505,6 +2721,50 @@ flowchart TD
 		<li>過濾不雅內容：可標示用詞不雅的文字</li>
 		<li>選擇性翻譯：可標示不要翻譯的內容</li>
 	</ul></li>
+	<!--}}}-->
+</section>
+
+<section data-ks='NLP,Q_AI900'>
+	<h2>🎯 翻譯服務</h2><!--{{{-->
+	<div data-x='quiz:s'>
+		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
+		<div><pre>/translate？from=it&amp;to=fr&amp;to=en</pre></div>
+		<div class='hbar'>
+			<div data-o='X'>是</div>
+			<div data-o='O'>否</div>
+		</div>
+		<div class="answer">參數 from=it 表示輸入 (來源語言) 是義大利文。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
+		<div><pre>/translate？from=en&amp;to=fr&amp;to=it</pre></div>
+		<div class='hbar'>
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+		</div>
+		<div class="answer">參數 from=en 表示來源是英文；to=fr&amp;to=it 表示輸出是法文和義大利文。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		翻譯服務可用來將文件由英文翻譯為法文。
+		<div class='hbar'>
+			<div data-o='O'>是</div>
+			<div data-o='X'>否</div>
+		</div>
+		<div class="answer">這是翻譯服務的基本功能。</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		<div>您管理一個包含客戶評論的網站。</div>
+		<div>您需要儲存這些評論的英文版，然後辨識每位使用者的地理位置，並以當地語言向使用者展示評論。</div>
+		<div>您應該使用下列何種類型的自然語言處理工作負載？</div>
+		<div data-o='X'>語言模組化</div>
+		<div data-o='O'>翻譯</div>
+		<div data-o='X'>語音辨識</div>
+		<div data-o='X'>關鍵片語擷取</div>
+		<div class="answer">將評論以當地語言向使用者展示，這需要使用 翻譯 服務。</div>
+	</div>
 	<!--}}}-->
 </section>
 
@@ -2546,245 +2806,155 @@ flowchart TD
 </section>
 
 <section data-ks='NLP,Q_AI900'>
+	<h2>🎯 問題解答</h2><!--{{{-->
 	<div data-x='quiz:s'>
-		下列何種情況應該使用關鍵片語擷取？
-		<div data-o='X'>將一些文件從英文翻譯成德文</div>
-		<div data-o='O'>辨識哪些文件提供相同主題的資訊</div>
-		<div data-o='X'>辨識餐廳的評論為正面或負面</div>
-		<div data-o='X'>根據音軌為影片產生字幕</div>
-		<div class="answer">關鍵片語擷取 (KPE) 通過提取文件中的核心主題，幫助用戶快速理解文件內容或將文件分組以進行主題辨識。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div data-x='quiz:s'>
-		具名實體辨識 (NER) 可用來擷取文件字串中的日期與時間。
+		您可以使用 Azure AI 語言服務的問題解答 查詢 Azure SQL 資料庫。
 		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
+			<div data-o='X'>是</div>
+			<div data-o='O'>否</div>
 		</div>
-		<div class="answer">日期、時間是 NER 可以識別的預建實體類型。</div>
+		<div class="answer">問題解答主要基於靜態知識庫（如文件、FAQ 網頁）提供答案，不直接查詢 SQL 資料庫。</div>
 	</div>
 	<br/>
 	<div data-x='quiz:s'>
-		關鍵片語擷取 (KPE) 可用來擷取文件字串中的重要片語。
+		若您希望知識庫針對詢問類似問題的不同使用者，提供相同答案，則應該使用 Azure AI 語言服務的問題解答。
 		<div class='hbar'>
 			<div data-o='O'>是</div>
 			<div data-o='X'>否</div>
 		</div>
-		<div class="answer">KPE 的主要功能就是識別文件中的核心主題和重要片語。</div>
+		<div class="answer">問題解答會從知識庫中找出最相關的固定答案，適合 FAQ 應用。</div>
 	</div>
 	<br/>
 	<div data-x='quiz:s'>
-		關鍵片語擷取 可用來擷取文件字串中的所有城市名稱。
+		Azure AI 語言服務的問題解答 可以判斷使用者語句的意圖。
 		<div class='hbar'>
 			<div data-o='X'>是</div>
 			<div data-o='O'>否</div>
 		</div>
-		<div class="answer">城市名稱是具名實體 (NER) 的任務，而非 KPE。</div>
+		<div class="answer">交談語言理解 (CLU) 或 LUIS 才是用於判斷意圖；問題解答只負責匹配問題與答案。</div>
 	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
+	<br/>
 	<div data-x='quiz:s'>
-		聊天機器人只能使用自訂程式碼來建置。
+		<div>小明正在撰寫一個交談語言理解應用程式。</div>
+		<div>小明希望使用者能夠詢問預定節目的相關問題，例如：「主舞台現在正在進行哪一場表演？」。</div>
+		<div>此問題是下列何種類型元素的範例？</div>
 		<div class='hbar'>
-			<div data-o='X'>是</div>
-			<div data-o='O'>否</div>
+			<div data-o='X'>實體</div>
+			<div data-o='X'>意圖</div>
+			<div data-o='X'>領域</div>
+			<div data-o='O'>表達</div>
 		</div>
-		<div class="answer">可以使用如 Power Virtual Agents 等無程式碼平台或 Azure Bot Service 提供的工具建置。</div>
+		<div class="answer">題目中的句子：「主舞台現在正在進行哪一場表演？」是使用者實際說出的自然語句，在對話式語言理解（NLU）中，這稱為「表達」(Utterance)。</div>
 	</div>
+	<br/>
 	<div data-x='quiz:s'>
-		Azure Bot Service 提供用於裝載交談式機器人的服務。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">Azure Bot Service 提供了建置、連接和管理機器人的基礎設施。</div>
-	</div>
-	<div data-x='quiz:s'>
-		使用 Azure Bot Service 建置的機器人可與 Microsoft Teams 使用者交流。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">Bot Service 支援多種頻道 (Channels)，包括 Teams、網頁聊天、Line 等。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div data-x='quiz:s'>
-		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
-		<div><pre>/translate？from=it&amp;to=fr&amp;to=en</pre></div>
-		<div class='hbar'>
-			<div data-o='X'>是</div>
-			<div data-o='O'>否</div>
-		</div>
-		<div class="answer">參數 from=it 表示輸入 (來源語言) 是義大利文。</div>
-	</div>
-	<div data-x='quiz:s'>
-		下列服務呼叫將接受英文文字做為輸入並且輸出法文和義大利文文字:
-		<div><pre>/translate？from=en&amp;to=fr&amp;to=it</pre></div>
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">參數 from=en 表示來源是英文；to=fr&amp;to=it 表示輸出是法文和義大利文。</div>
-	</div>
-	<div data-x='quiz:s'>
-		翻譯服務可用來將文件由英文翻譯為法文。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">這是翻譯服務的基本功能。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div data-x='quiz:s'>
-		您可以使用下列哪一種 AI 服務，擷取使用者輸入意圖 (例如「稍後請回電」)？
-		<div data-o='X'>Azure 認知搜尋</div>
-		<div data-o='X'>Azure AI 語音</div>
-		<div data-o='X'>Azure AI 翻譯工具</div>
-		<div data-o='O'>Azure AI 語言</div>
-		<div class="answer">Azure AI 語言服務下的交談語言理解 (CLU) (舊稱 LUIS) 用於識別使用者語句的意圖 (Intent)。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div data-x='quiz:s'>
-		自然語言處理可用於
-		<div data-o='O'>將 E-Mail 分類為工作郵件或個人郵件。</div>
-		<div data-o='X'>預測未來的租車數。</div>
-		<div data-o='X'>顯示溫度過高時停止工廠作業。</div>
-		<div data-o='X'>預測哪個網站的瀏覽者會執行交易。</div>
-		<div class="answer">分類 E-Mail 是 NLP 中文字分類的典型應用。其他選項為迴歸/傳統 ML/IoT 應用。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div data-x='quiz:m'>
-		您可以在下列哪兩種情況中使用語音合成解決方案？ (多選)
-		<div data-o='X'>使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。</div>
-		<div data-o='X'>可以用語音與玩家交談的電腦遊戲 AI 角色。</div>
-		<div data-o='O'>為新聞廣播產生即時字幕。</div>
-		<div data-o='X'>從會議錄音中擷取關鍵片語。</div>
-		<div class="answer">① 使用電話鍵盤將信用卡號碼輸入到電話時，可以朗讀輸入號碼的自動語音。② 可以用語音與玩家交談的電腦遊戲 AI 角色。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>您建置一套問題解答解決方案，並建立了一個使用知識庫回應客戶要求的機器人。</div>
-	<div>您需要確認在不新增額外技能的情況下，該機器人可以執行的工作。</div>
-	<div data-x='quiz:s'>
-		您應該指定何者？
-		<div data-o='O'>同時回答多位使用者的問題</div>
-		<div data-o='X'>登記客戶購買的商品</div>
-		<div data-o='X'>為客戶提供退貨授權 (RMA) 號</div>
-		<div data-o='X'>登記客訴內容</div>
-		<div class="answer">問題解答解決方案基於知識庫，其基本功能是提供預先定義的答案。Bot Service 是一個可擴展的服務，可以同時處理多個會話。選項 ②、③、④ 涉及業務邏輯和資料庫操作，需要額外編程或與後端系統集成，超出基本 QnA 知識庫的功能。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>您要使用自然語言處理來處理 Microsoft 新聞報導的文字。您收到如下所示輸出。</div>
-	<div><img src="4_Q1.jpg" style="width:50%"/></div>
-	<div data-x='quiz:s'>
-		請問您執行了下列何種類型的自然語言處理 ？
-		<div data-o='X'>翻譯</div>
-		<div data-o='X'>關鍵片語擷取</div>
-		<div data-o='X'>情感分析</div>
-		<div data-o='O'>實體辨識</div>
-		<div class="answer"></div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div><img src="4_Q2.jpg" style="width:90%"/></div>
-	<div data-x='quiz:s'>
-		圖中顯示下列哪一種類型的 AI 解決方案 ？
-		<div data-o='X'>機器學習模型</div>
-		<div data-o='O'>聊天機器人</div>
-		<div data-o='X'>情感分析解決方案</div>
-		<div data-o='X'>電腦視覺應用程式</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>將 Azure 認知服務與適當的工作配對。</div>
-	<div data-x='quiz:s'>
-		將使用者的語音轉換為文字
-		<div data-o='O'>Azure AI 語音</div>
-		<div data-o='X'>Azure AI 語言服務</div>
-		<div data-o='X'>Azure AI 翻譯工具文字</div>
-		<div class="answer">(語音轉文字) 是 語音服務 的功能。</div>
-	</div>
-	<div data-x='quiz:s'>
-		識別使用者的意圖
-		<div data-o='X'>Azure AI 語音</div>
-		<div data-o='O'>Azure AI 語言服務</div>
-		<div data-o='X'>Azure AI 翻譯工具文字</div>
-		<div class="answer">(識別意圖) 是 語言服務 (CLU) 的功能。</div>
-	</div>
-	<div data-x='quiz:s'>
-		向使用者提供口語回應
-		<div data-o='O'>Azure AI 語音</div>
-		<div data-o='X'>Azure AI 語言服務</div>
-		<div data-o='X'>Azure AI 翻譯工具文字</div>
-		<div class="answer">(文字轉語音/口語回應) 是 語音服務 的功能。</div>
+		<div>Anita 正在為電子商務企業建置交談語言理解模型。</div>
+		<div>Anita 需要確保當語句超出範圍時，該模型仍可偵測。</div>
+		<div>請問你要協助 Anita 怎麼處理？</div>
+		<div data-o='X'>建立新的模型。</div>
+		<div data-o='X'>匯出模型。</div>
+		<div data-o='X'>建立預建工作實體。</div>
+		<div data-o='O'>將語句新增至 [無] 意圖 (None Intent)。</div>
+		<div class="answer">在交談語言理解 (CLU) 中，必須訓練一個**「無」(None)** 意圖，並為其提供許多與應用程式無關的語句。這樣當使用者說出不相關的內容時，模型能正確將其分類為超出範圍。</div>
 	</div>
 	<!--}}}-->
 </section>
 
 <section data-ks='NLP,Q_AI900'>
-	<div>下列各項敘述如果成立，請輸入是，否則請輸入否。</div>
-	<div data-x='quiz:s'>
-		聊天機器人可以支援語音輸入。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
+	<h2>🎯 機器人</h2><!--{{{-->
+	<div class='frame'>
+		<div data-x='quiz:s'>
+			聊天機器人只能使用自訂程式碼來建置。
+			<div class='hbar'>
+				<div data-o='X'>是</div>
+				<div data-o='O'>否</div>
+			</div>
+			<div class="answer">可以使用如 Power Virtual Agents 等無程式碼平台或 Azure Bot Service 提供的工具建置。</div>
+		</div>
+		<div data-x='quiz:s'>
+			Azure Bot Service 提供用於裝載交談式機器人的服務。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">Azure Bot Service 提供了建置、連接和管理機器人的基礎設施。</div>
+		</div>
+		<div data-x='quiz:s'>
+			使用 Azure Bot Service 建置的機器人可與 Microsoft Teams 使用者交流。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">Bot Service 支援多種頻道 (Channels)，包括 Teams、網頁聊天、Line 等。</div>
 		</div>
 	</div>
+
 	<div data-x='quiz:s'>
-		每一種溝通管道都需要一個不同聊天機器人。
-		<div class='hbar'>
-			<div data-o='X'>是</div>
-			<div data-o='O'>否</div>
-		</div>
-	</div>
-	<div data-x='quiz:s'>
-		聊天機器人可以結合自然語言及受限的回應選項來管理交談程序。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
+		<div>您建置一套問題解答解決方案，並建立了一個使用知識庫回應客戶要求的機器人。</div>
+		<div>您需要確認在不新增額外技能的情況下，該機器人可以執行的工作。</div>
+		<div>您應該指定何者？</div>
+		<div data-o='O'>同時回答多位使用者的問題</div>
+		<div data-o='X'>登記客戶購買的商品</div>
+		<div data-o='X'>為客戶提供退貨授權 (RMA) 號</div>
+		<div data-o='X'>登記客訴內容</div>
+		<div class="answer">
+			<div>問題解答解決方案基於知識庫，其基本功能是提供預先定義的答案。</div>
+			<div>Bot Service 是一個可擴展的服務，可以同時處理多個會話。</div>
+			<div>選項 ②、③、④ 涉及業務邏輯和資料庫操作，需要額外編程或與後端系統集成，超出基本 QnA 知識庫功能。</div>
 		</div>
 	</div>
 	<br/>
-	<div>關於與機器人交談的管道，</div>
-	<div data-x='quiz:s'>
-		您可以使用語音啟動的虛擬助理與機器人交談。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
+	<div class='frame'>
+		<div>下列各項敘述如果成立，請輸入是，否則請輸入否。</div>
+		<div data-x='quiz:s'>
+			聊天機器人可以支援語音輸入。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
 		</div>
-		<div class="answer">透過 Azure AI 語音服務，聊天機器人可以支援語音輸入。</div>
+		<div data-x='quiz:s'>
+			每一種溝通管道都需要一個不同聊天機器人。
+			<div class='hbar'>
+				<div data-o='X'>是</div>
+				<div data-o='O'>否</div>
+			</div>
+		</div>
+		<div data-x='quiz:s'>
+			聊天機器人可以結合自然語言及受限的回應選項來管理交談程序。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+		</div>
 	</div>
-	<div data-x='quiz:s'>
-		您可以使用 Microsoft Teams 與機器人交談。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
+	<br/>
+	<div class='frame'>
+		<div>關於與機器人交談的管道，</div>
+		<div data-x='quiz:s'>
+			您可以使用語音啟動的虛擬助理與機器人交談。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">透過 Azure AI 語音服務，聊天機器人可以支援語音輸入。</div>
 		</div>
-		<div class="answer">Teams 是 Azure Bot Service 支援的標準頻道。</div>
-	</div>
-	<div data-x='quiz:s'>
-		您可以使用網頁聊天介面與機器人交談。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
+		<div data-x='quiz:s'>
+			您可以使用 Microsoft Teams 與機器人交談。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">Teams 是 Azure Bot Service 支援的標準頻道。</div>
 		</div>
-		<div class="answer">網頁聊天 (Web Chat) 是機器人最常見的部署管道之一。</div>
+		<div data-x='quiz:s'>
+			您可以使用網頁聊天介面與機器人交談。
+			<div class='hbar'>
+				<div data-o='O'>是</div>
+				<div data-o='X'>否</div>
+			</div>
+			<div class="answer">網頁聊天 (Web Chat) 是機器人最常見的部署管道之一。</div>
+		</div>
 	</div>
 	<br/>
 	<div data-x='quiz:m'>
@@ -2816,279 +2986,54 @@ flowchart TD
 		<div data-o='O'>Power Virtual Agents</div>
 		<div class="answer">Power Virtual Agents 是一個低程式碼/無程式碼平台，讓非開發人員也能夠建立功能強大的聊天機器人。</div>
 	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>您管理一個包含客戶評論的網站。</div>
-	<div>您需要儲存這些評論的英文版，然後辨識每位使用者的地理位置，並以當地語言向使用者展示評論。</div>
+	<br/>
 	<div data-x='quiz:s'>
-		您應該使用下列何種類型的自然語言處理工作負載？
-		<div data-o='X'>語言模組化</div>
-		<div data-o='O'>翻譯</div>
-		<div data-o='X'>語音辨識</div>
-		<div data-o='X'>關鍵片語擷取</div>
-		<div class="answer">將評論以當地語言向使用者展示，這需要使用 翻譯 服務。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<h2>將 Azure AI 語言服務 API 功能與適當的自然語言處理案例配對。</h2>
-	<div data-x='quiz:s'>
-		根據支援報修中所包含文字了解客戶的不滿意程度
-		<div data-o='X'>實體辨識</div>
-		<div data-o='X'>關鍵片語擷取</div>
-		<div data-o='X'>語言偵測</div>
-		<div data-o='O'>情感分析</div>
-		<div class="answer">(不滿意程度) : 情感分析。</div>
-	</div>
-	<div data-x='quiz:s'>
-		彙總支援報修中重要資訊
-		<div data-o='X'>實體辨識</div>
-		<div data-o='O'>關鍵片語擷取</div>
-		<div data-o='X'>語言偵測</div>
-		<div data-o='X'>情感分析</div>
-		<div class="answer">(彙總重要資訊) : 關鍵片語擷取。</div>
-	</div>
-	<div data-x='quiz:s'>
-		從支援報修中擷取關鍵日期
-		<div data-o='O'>實體辨識</div>
-		<div data-o='X'>關鍵片語擷取</div>
-		<div data-o='X'>語言偵測</div>
-		<div data-o='X'>情感分析</div>
-		<div class="answer">(關鍵日期) : 實體辨識 (日期是實體)。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div data-x='quiz:s'>
-		識別電話號碼時，會使用哪種類型的自然語言處理 (NLP) 實體？
-		<div data-o='O'>規則運算式 (Regex)</div>
-		<div data-o='X'>Pattern.any</div>
-		<div data-o='X'>machine-learned</div>
-		<div data-o='X'>清單</div>
-		<div class="answer">電話號碼、信用卡號等有固定格式的實體，通常使用規則運算式 (Regex) 實體類型進行擷取。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>您有一個 Azure 機器人。您要新增常見問題集 (FAQ) 的支援。</div>
-	<div data-x='quiz:s'>
-		您該使用哪項 Azure AI 服務以支援常見問題集？
+		<div>您有一個 Azure 機器人。您要新增常見問題集 (FAQ) 的支援。</div>
+		<div>您該使用哪項 Azure AI 服務以支援常見問題集？</div>
 		<div data-o='X'>Azure AI 翻譯工具</div>
 		<div data-o='X'>Azure AI 語音</div>
 		<div data-o='O'>Azure AI 語言</div>
 		<div data-o='4'>Azure AI 文件智慧服務</div>
 		<div class="answer">Azure AI 語言服務中的問題解答 (Question Answering) 功能專門用於建立和管理 FAQ 知識庫。</div>
 	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
+	<br/>
 	<div data-x='quiz:s'>
-		您可以使用 Azure AI 語言服務的問題解答 查詢 Azure SQL 資料庫。
-		<div class='hbar'>
-			<div data-o='X'>是</div>
-			<div data-o='O'>否</div>
-		</div>
-		<div class="answer">問題解答主要基於靜態知識庫（如文件、FAQ 網頁）提供答案，不直接查詢 SQL 資料庫。</div>
-	</div>
-	<div data-x='quiz:s'>
-		若您希望知識庫針對詢問類似問題的不同使用者，提供相同答案，則應該使用 Azure AI 語言服務的問題解答。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">問題解答會從知識庫中找出最相關的固定答案，適合 FAQ 應用。</div>
-	</div>
-	<div data-x='quiz:s'>
-		Azure AI 語言服務的問題解答 可以判斷使用者語句的意圖。
-		<div class='hbar'>
-			<div data-o='X'>是</div>
-			<div data-o='O'>否</div>
-		</div>
-		<div class="answer">交談語言理解 (CLU) 或 LUIS 才是用於判斷意圖；問題解答只負責匹配問題與答案。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div data-x='quiz:s'>
-		Azure AI 語言服務可以識別文字是以何種語言撰寫。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">這是語言偵測 (Language Detection) 功能。</div>
-	</div>
-	<div data-x='quiz:s'>
-		Azure AI 語言服務可以偵測文件中的手寫簽名。
-		<div class='hbar'>
-			<div data-o='X'>是</div>
-			<div data-o='O'>否</div>
-		</div>
-		<div class="answer">這是電腦視覺或文件智慧服務的任務。</div>
-	</div>
-	<div data-x='quiz:s'>
-		Azure AI 語言服務可以識別文件中所提及的公司和組織。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">這是具名實體辨識 (NER) 的功能，公司和組織是常見的實體類型。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>您使用常見問題集 (FAQ) 頁面建置 Azure AI 語言服務的問題解答機器人。</div>
-	<div>您需要新增專業的問候語及其他回應，使機器人能夠更友善地與使用者互動。</div>
-	<div data-x='quiz:s'>
-		您應該採取什麼措施？
+		<div>您使用常見問題集 (FAQ) 頁面建置 Azure AI 語言服務的問題解答機器人。</div>
+		<div>您需要新增專業的問候語及其他回應，使機器人能夠更友善地與使用者互動。</div>
+		<div>您應該採取什麼措施？</div>
 		<div data-o='X'>提高回應的信賴等級閾值</div>
 		<div data-o='X'>啟用主動式學習</div>
 		<div data-o='O'>新增閒聊 (Chit-Chat)</div>
 		<div data-o='X'>建立多回合問題</div>
 		<div class="answer">閒聊 (Chit-Chat) 內容是一組預先定義的問候語、開場白和友好回應，旨在讓機器人對話更像人。</div>
 	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
+	<br/>
 	<div data-x='quiz:s'>
-		您可以使用 Azure AI 語音服務將通話轉譯為文字。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">這是語音轉文字 (Speech-to-Text) 功能。</div>
-	</div>
-	<div data-x='quiz:s'>
-		您可以使用 Azure AI 語言服務從通話文字記錄中擷取關鍵實體。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">語音服務輸出文字後，語言服務可對其執行 NER。</div>
-	</div>
-	<div data-x='quiz:s'>
-		您可以使用 Azure AI 語音服務將通話音訊翻譯為其他語言。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">語音服務支援語音翻譯 (Speech Translation)，即時將語音翻譯為語音或文字。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>小明正在撰寫一個交談語言理解應用程式。</div>
-	<div>小明希望使用者能夠詢問預定節目的相關問題，例如：「主舞台現在正在進行哪一場表演？」。</div>
-	<div data-x='quiz:s'>
-		此問題是下列何種類型元素的範例？
-		<div class='hbar'>
-			<div data-o='X'>實體</div>
-			<div data-o='X'>意圖</div>
-			<div data-o='X'>領域</div>
-			<div data-o='O'>表達</div>
-		</div>
-		<div class="answer">題目中的句子：「主舞台現在正在進行哪一場表演？」是使用者實際說出的自然語句，在對話式語言理解（NLU）中，這稱為「表達」(Utterance)。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div data-x='quiz:s'>
-		Azure AI 語言服務可用來從文件中擷取關鍵片語。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">這是關鍵片語擷取 (KPE) 功能。</div>
-	</div>
-	<div data-x='quiz:s'>
-		Azure AI 語言服務可用來根據使用者提示產生新聞稿。
-		<div class='hbar'>
-			<div data-o='X'>是</div>
-			<div data-o='O'>否</div>
-		</div>
-		<div class="answer">這是 Azure OpenAI 服務（如 GPT-4）的功能。</div>
-	</div>
-	<div data-x='quiz:s'>
-		Azure AI 語言服務可用來建置情緒解決方案。
-		<div class='hbar'>
-			<div data-o='O'>是</div>
-			<div data-o='X'>否</div>
-		</div>
-		<div class="answer">考量 AI-900 脈絡，情感分析是語言服務的核心功能，故此題應為是。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>Jasper 正在使用 Azure AI 語言服務的自訂解答功能建置知識庫。</div>
-	<div data-x='quiz:s'>
-		請問 Jasper 可以使用哪種檔案格式來填入知識庫？
-		<div class='hbar'>
-			<div data-o='X'>JPGE</div>
-			<div data-o='O'>PDF</div>
-			<div data-o='X'>PPTX</div>
-			<div data-o='X'>ZIP</div>
-		</div>
-		<div class="answer">問題解答 (QnA Maker) 支援多種文件格式，包括 PDF、DOCX、TXT、TSV 等。</div>
-	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>Anita 正在為電子商務企業建置交談語言理解模型。</div>
-	<div>Anita 需要確保當語句超出範圍時，該模型仍可偵測。</div>
-	<div data-x='quiz:s'>
-		請問你要協助 Anita 怎麼處理？
-		<div data-o='X'>建立新的模型。</div>
-		<div data-o='X'>匯出模型。</div>
-		<div data-o='X'>建立預建工作實體。</div>
-		<div data-o='O'>將語句新增至 [無] 意圖 (None Intent)。</div>
-		<div class="answer">在交談語言理解 (CLU) 中，必須訓練一個**「無」(None)** 意圖，並為其提供許多與應用程式無關的語句。這樣當使用者說出不相關的內容時，模型能正確將其分類為超出範圍。</div>
-	</div>
-</section>
-
-
-<section data-ks='NLP,Q_AI900'>
-	<div>您有一個根據問題解答知識庫提供回應的網路聊天機器人。</div>
-	<div>您需要確保該機器人會利用使用者意見反應隨著時間改善回應的相關性。</div>
-	<div data-x='quiz:s'>
-		您應該使用何者？
+		<div>您有一個根據問題解答知識庫提供回應的網路聊天機器人。</div>
+		<div>您需要確保該機器人會利用使用者意見反應隨著時間改善回應的相關性。</div>
+		<div>您應該使用何者？</div>
 		<div data-o='O'>主動式學習</div>
 		<div data-o='X'>情感分析</div>
 		<div data-o='X'>商務邏輯</div>
 		<div data-o='X'>關鍵片語擷取</div>
 		<div class="answer">主動式學習 (Active Learning) 是一種機制，它會分析使用者與知識庫的互動 (例如使用者對低信賴度回應的選擇)，以建議新的問題與答案配對，從而迭代改善知識庫。</div>
 	</div>
-</section>
-
-<section data-ks='NLP,Q_AI900'>
+	<br/>
 	<div data-x='quiz:s'>
-		哪一項自然語言處理功能可用於識別客戶意見反應問卷中的主要話題？
-		<div data-o='X'>翻譯</div>
-		<div data-o='O'>關鍵片語擷取</div>
-		<div data-o='X'>語言偵測</div>
-		<div data-o='X'>實體辨識</div>
-		<div class="answer">關鍵片語擷取 (KPE) 旨在從文件中識別出描述主要話題或核心概念的短語。</div>
+		<div><img src="4_Q2.jpg" style="width:90%"/></div>
+		<div>圖中顯示下列哪一種類型的 AI 解決方案 ？</div>
+		<div data-o='X'>機器學習模型</div>
+		<div data-o='O'>聊天機器人</div>
+		<div data-o='X'>情感分析解決方案</div>
+		<div data-o='X'>電腦視覺應用程式</div>
 	</div>
+	<!--}}}-->
 </section>
-
-<section data-ks='NLP,Q_AI900'>
-	<div>您擁有 100 部「不」包含任何音訊的教學影片。</div>
-	<div>每部教學影片都有一份腳本。</div>
-	<div>您需要根據腳本，為每部影片產生旁白音訊檔案。</div>
-	<div data-x='quiz:s'>
-		您應該使用下列何種工作負載？
-		<div data-o='X'>語言模組化</div>
-		<div data-o='X'>翻譯</div>
-		<div data-o='O'>語音合成</div>
-		<div data-o='X'>語音辨識</div>
-		<div class="answer">將文字腳本轉換為語音 (旁白音訊) 是語音合成的任務。</div>
-	</div>
-</section>
-
 <!-- }}} -->
 
 <section class="cfbox" data-ks='GAI'>
 	<h1 class="title">💻 生成式 AI</h1>
-	<h3>for MCF AI900 Certification</h2>
+	<h3>for MCF AI900 Certification</h3>
 	<div class='frame'>
 		<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
 		<div>Department of Finance</div>
@@ -3098,7 +3043,6 @@ flowchart TD
 </section>
 
 <!-- {{{ Generative AI -->
-
 <section data-ks='GAI'>
 	<h2>何謂生成式 AI</h2><!--{{{-->
 	<div>可以理解使用者所輸入的自然語言內容，然後產生適當的文字，影像，電腦程式碼...等回應。</div>
