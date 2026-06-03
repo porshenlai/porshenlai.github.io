@@ -2326,7 +2326,10 @@ figure b:hover { border-color:red; }
 			在計算過程中應排除名為「休假日」範圍裡所指定的假日。
 		</div>
 		<ol class='Solution'>
-			<li>=WORKDAY.INTL(E4,-20,,休假日)</li>
+			<li class='sheet'>業務會議!D4<figure>
+				<div><i>=WORKDAY.INTL(E4,-20,,休假日)</i></div>
+				<div>D5-D10 若沒有自動填滿: <b>右下角游標變實心十字後拖拉至 D10</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2338,6 +2341,13 @@ figure b:hover { border-color:red; }
 		</div>
 		<ol class='Solution'>
 			<li>選取 A4:A10、F3:F10、G3:10→插入→組合式圖表→總計百分比勾選副座標軸</li>
+			<li class='sheet'>銷售摘要!A4:A10, F3:F10, G3:G10<figure>
+				<figcaption>(插入圖表) <b>插入</b><b>圖表</b><b>建議的圖表</b></figcaption>
+				<div class='tab'>所有圖表 / 組合式</div>
+				<div>銷售總計: <em>群組直條圖</em></div>
+				<div>總計百分比: <em>折線圖</em> ✓ 副座標軸</div>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2345,7 +2355,10 @@ figure b:hover { border-color:red; }
 			在「地區銷售量」工作表上，修改樞紐分析表使其在各地區底下逐列顯示每一個「縣市」。
 		</div>
 		<ol class='Solution'>
-			<li>將縣市欄位拉至列→確定</li>
+			<li class='sheet'>地區銷售量!A3<figure>
+				<figcaption>(樞紐分析表欄位) <b>樞紐分析表工具</b><b>分析</b><b>顯示</b><b>欄位清單</b></figcaption>
+				<div>✓ 縣市</div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 </section>
