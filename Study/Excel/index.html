@@ -660,8 +660,9 @@ figure b:hover { border-color:red; }
 			在「<span key="blue">三年各季業績</span>」工作表上，使用 Excel 功能從「<span key="blue">三年各季業績</span>」範圍 (儲存格 <span key="blue">A3:N67</span>) <span key="red">移除重複的紀錄</span>。
 		</div>
 		<ol class='Solution'>
-			<li class='sheet'>"三年各季業績"<figure>
-				<div><b>資料</b><b>資料工具</b><b>移除重複項</b></div>
+			<li class='sheet'>三年各季業績!<figure>
+				<figcaption>(移除重複項) <b>資料</b><b>資料工具</b><b>移除重複項</b></figcaption>
+				<div><b>確定</b></div>
 			</figure></li>
 		</ol>
 	</div><!--}}}-->
@@ -2034,7 +2035,23 @@ figure b:hover { border-color:red; }
 			設定此巨集可以在使用中的工作表之頁首中間區段裡顯示文字「Andy 水果行」。
 		</div>
 		<ol class='Solution'>
-			<li>開發人員→錄製巨集→巨集名稱:主題,將巨集儲存在:限用活頁簿→檢視→整頁模式→在頁首中央打上:Andy 水果行</li>
+			<li class='sheet'>職員!<figure>
+				<figcaption>(錄製巨集) <b>檢視</b><b>巨集</b><b>錄製巨集</b></figcaption>
+				<div>巨集名稱: <i>主題</i></div>
+				<div>將巨集儲存在: <i>現用活頁簿</i></div>
+				<div><b>確定</b></div>
+			</figure><figure>
+				<figcaption>(版面設定) <b>頁面配置</b><b>版面設定</b></figcaption>
+				<div class='tab'>頁首 頁尾</div>
+				<figure>
+					<figcaption>(頁首) <b>自訂頁首</b></figcaption>
+					<div>中: <i>Andy 水果行</i></div>
+					<div><b>確定</b></div>
+				</figure>
+				<div><b>確定</b></div>
+			</figure><figure>
+				<div><b>檢視</b><b>巨集</b><b>停止錄製</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2044,7 +2061,14 @@ figure b:hover { border-color:red; }
 			分組時以「250」為間距(從「1」開始到「500」結束)。
 		</div>
 		<ol class='Solution'>
-			<li>點到方案分析工作表的樞紐分析表→點到 A 欄(售價內)→右鍵→組成群組→都不打勾勾→開始點:1,結束點:500,間距值:250</li>
+			<li class='sheet'>方案分析!A4<figure>
+				<figcaption>(群組) <b>*右鍵*</b><b>組成群組</b></figcaption>
+				<div>都不打勾勾</div>
+				<div>開始點: <em>1</em></div>
+				<div>結束點: <em>500</em></div>
+				<div>間距值: <em>250</em></div>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 </section>
@@ -2058,7 +2082,12 @@ figure b:hover { border-color:red; }
 			將儲存格 I4:I31 的資料驗證錯誤訊息變更為「請輸入 1 到 28 之間的數字」。
 		</div>
 		<ol class='Solution'>
-			<li>選到 I4:I31→資料→資料驗證→錯誤訊息→訊息內容:請輸入 1 到 28 之間的數字</li>
+			<li class='sheet'>2020 年銷售數量!I4:I31<figure>
+				<figcaption>(資料驗證) <b>資料</b><b>資料工具</b><b>資料驗證</b></figcaption>
+				<div class='tab'>錯誤提醒</div>
+				<div>訊息內容: <em>請輸入 1 到 28 之間的數字</em></div>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2070,7 +2099,13 @@ figure b:hover { border-color:red; }
 			並以淺藍色顯示最大值。
 		</div>
 		<ol class='Solution'>
-			<li>選到 F4:F31→常用→條件式格式設定→色階→格式樣式:三色色階,最小值:橙色,中間點:黃色,最大值:淺藍色</li>
+			<li class='sheet'>2020 年銷售數量!F4:F31<figure>
+				<figcaption>(新增格式化規則) <b>常用</b><b>樣式</b><b>條件式格式設定</b><b>色階</b><b>其他規則</b></figcaption>
+				<div>格式樣式: <i>三色色階</i></div>
+				<div>最小值/色彩: <i>橙色</i></div>
+				<div>中間值/色彩: <i>黃色</i></div>
+				<div>最大值/色彩: <i>淺藍色</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2080,7 +2115,9 @@ figure b:hover { border-color:red; }
 			傳回產品的銷售數量。
 		</div>
 		<ol class='Solution'>
-			<li>點到 H4→輸入=VLOOKUP([@水果名稱],表 1[[水果名稱]:[銷售數量]],2,0)</li>
+			<li class='sheet'>2020 年銷售數量!H4<figure>
+				<div><i>=VLOOKUP([@水果名稱],表 1[[水果名稱]:[銷售數量]],2,0)</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2090,7 +2127,12 @@ figure b:hover { border-color:red; }
 			顯示 第一季 到 第二季的銷售數量。
 		</div>
 		<ol class='Solution'>
-			<li>點到數量變化工作表的樞紐分析表→欄位項目與集→計算欄位→名稱:差異,公式:= 第二季銷售數量- 第一季銷售數量</li>
+			<li class='sheet'>數量變化!C4<figure>
+				<figcaption>(計算欄位) <b>樞紐分析表分析</b><b>計算</b><b>欄位項目與集</b><b>計算欄位</b></figcaption>
+				<div>名稱: <em>差異</em></div>
+				<div>公式: <em>=第二季銷售數量-第一季銷售數量</em></div>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 </section>
@@ -2105,7 +2147,12 @@ figure b:hover { border-color:red; }
 			如果系統提示您重新啟動 Office，請關閉提示，不要重新啟動 Excel。
 		</div>
 		<ol class='Solution'>
-			<li>檔案→選項→語言→新增語言→[法文(比利時)]→跳出視窗直接打叉叉</li>
+			<li><figure>
+				<figcaption>(Excel 選項) <b>檔案</b><b>選項</b></figcaption>
+				<div class='tab'>語言</div>
+				<div>新增其他編輯語言: <i>法文(比利時)</i></div>
+				<div><b>新增</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2114,7 +2161,12 @@ figure b:hover { border-color:red; }
 			使用 Excel 功能從「產品名稱」範圍(儲存格 A4:M37)移除重複的記錄。
 		</div>
 		<ol class='Solution'>
-			<li>點到售價工作表→選取 A3:M37→資料→移除重複項→只勾選產品名稱</li>
+			<li class='sheet'>售價!A3:M37<figure>
+				<figcaption>(移除重複項) <b>資料</b><b>資料工具</b><b>移除重複項</b></figcaption>
+				<div><b>移除全選</b></div>
+				<div>✓ <em>產品名稱</em></div>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2124,7 +2176,9 @@ figure b:hover { border-color:red; }
 			「一個月內購買次數」超過 10 次。
 		</div>
 		<ol class='Solution'>
-			<li>點到顧客工作表的 H4→輸入=COUNTIFS(B4:B98,"蘋果",C4:C98,">10")</li>
+			<li class='sheet'>顧客!H4<figure>
+				<div><i>= COUNTIFS(B4:B98,"蘋果",C4:C98,"&gt;10")</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2133,7 +2187,9 @@ figure b:hover { border-color:red; }
 			使用函數來計算繳清貸款所需的月份數。
 		</div>
 		<ol class='Solution'>
-			<li>點到水果行拓展工作表的 B7→輸入=NPER(B4/12,B5,B3)</li>
+			<li class='sheet'>水果行拓展!B7<figure>
+				<div><i>= NPER(B4/12,B5,B3)</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2145,7 +2201,14 @@ figure b:hover { border-color:red; }
 			圖表的大小和位置不重要。
 		</div>
 		<ol class='Solution'>
-			<li>點到行銷活動工作表→選取 A3:B7→插入圖表對話方塊→橫條圖-群組橫條圖→圖表標題:一月活動</li>
+			<li class='sheet'>行銷活動!A3:B7<figure>
+				<figcaption>(插入圖表) <b>插入</b><b>圖表</b><b>建議的圖表</b></figcaption>
+				<div class='tab'>橫條圖/群組橫條圖</div>
+				<div><b>確定</b></div>
+			</figure></li>
+			<li class='sheet'>行銷活動![圖表]<figure>
+				<div>圖表標題: <em>一月活動</em></div>
+			</figure>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2156,7 +2219,16 @@ figure b:hover { border-color:red; }
 			圖表的大小和位置不重要。
 		</div>
 		<ol class='Solution'>
-			<li>點到顧客分析工作表→樞紐分析圖→直條圖-立體群組直條圖→銷售員篩選:Joe</li>
+			<li class='sheet'>顧客分析!A3<figure>
+				<figcaption>(插入圖表) <b>插入</b><b>樞紐分析圖</b></figcaption>
+				<div class='tab'>直條圖</div>
+				<div><b>立體群組直條圖</b></div>
+			</figure></li>
+			<li class='sheet'>顧客分析!B1<figure>
+				<div><b>下拉</b></div>
+				<div>✓ <em>Joe</em></div>
+				<div>確定</div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 </section>
@@ -2170,19 +2242,41 @@ figure b:hover { border-color:red; }
 			使其格式化表格的資料列為「20 呎」超過 10，000 貨櫃的港口。
 		</div>
 		<ol class='Solution'>
-			<li>常用→格式化條件設定→管理規則→編輯規則→$D5>10000</li>
+			<li class="sheet">2021 年!A4<figure>
+				<figcaption>(設定格式化的條件規則管理員) <b>常用</b><b>樣式</b><b>條件式格式設定</b><b>管理規則</b></figcaption>
+				<figure>
+					<figcaption>(編輯格式化規則) <b>公式: =$D5&gt;6000</b><b>編輯規則</b></figcaption>
+					<div>格式化在此公式為 True 的值: <em>=$D5&gt;10000</em></div>
+					<div><b>確定</b></div>
+				</figure>
+				<div><b>確定</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
 		<div class='Quest'>
 			在「摘要」工作表上，
 			從儲存格 A5 開始，
-			合併彙算「2018 年」和「2019 年」工作表中的資料。
+			合併彙算「2018年」和「2019年」工作表中的資料。
 			顯示每個「地區」的「貨櫃量」合計值。在頂端列和最左欄中使用標籤名稱。
 			從合併後的資料中刪除空白的「港口」欄。
 		</div>
 		<ol class='Solution'>
 			<li>點到 A5→資料→合併彙算→參照位置→'2018 年'!$A$4:$C$54→新增→'2019 年'!$A$4:$C$54→新增→勾選頂端列跟最左欄→確定→刪除空白欄位</li>
+			<li class='sheet'>摘要!A5<figure>
+				<figcaption>(合併彙算) <b>資料</b><b>資料工具</b><b>合併彙算</b></figcaption>
+				<div>函數: <i>加總</i></div>
+				<div>參照位址: <span class='sheet'>2018年!A4-E54</span></div>
+				<div><b>新增</b></div>
+				<div>參照位址: <span class='sheet'>2019年!A4-E54</span></div>
+				<div><b>新增</b></div>
+				<div>✓ <i>頂端欄</i></div>
+				<div>✓ <i>最左欄</i></div>
+				<div><b>確定</b></div>
+			</figure></li>
+			<li class='sheet'>彙整!B<figure>
+				<div><b>右鍵選單</b><b>刪除</b></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2190,7 +2284,9 @@ figure b:hover { border-color:red; }
 			在「貨櫃量分析圖」圖表上，向上縮小資料以顯示每季的貨櫃量。
 		</div>
 		<ol class='Solution'>
-			<li>點選圖表上【-】(摺疊欄位)</li>
+			<li class="sheet">貨櫃量分析圖![圖表]<figure>
+				<div>點選圖表右下角【-】至顯示每季數據</div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 </section>
@@ -2264,7 +2360,9 @@ figure b:hover { border-color:red; }
 			請調整公式，然後將其複製到儲存格 E4:E20。
 		</div>
 		<ol class='Solution'>
-			<li>=VLOOKUP(C4,$G$2:$H$6,2,1)</li>
+			<li class='sheet'>激勵金!E4<figure>
+				<div><i>=VLOOKUP(C4,$G$2:$H$6,2,1)</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2288,7 +2386,10 @@ figure b:hover { border-color:red; }
 			以每年「300，000」的等差級數成長來完成銷售量的預估。
 		</div>
 		<ol class='Solution'>
-			<li>選取 B4:C7→往右拉到 D4:G6</li>
+			<li class='sheet'>縣市銷售量!B4:C7<figure>
+				<li>選取區右下角，游標轉為實心十字後，右拉至 D4:G6</li>
+			</figure>
+			<li style='color:grey'>選取 B4:C7→往右拉到 D4:G6</li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2298,7 +2399,20 @@ figure b:hover { border-color:red; }
 			以粗體藍色字型顯示最高的 3 個值。
 		</div>
 		<ol class='Solution'>
-			<li>格式化條件→新贈規則只格式化排在最前面或最後面的值→前→3→格式→字型→粗體→藍色</li>
+			<li class='sheet'>熱門類別!B4:E15<figure>
+				<figcaption>(前10個項目) <b>常用</b><b>樣式</b><b>條件式格式設定</b><b>前段後段項目規則</b><b>前10個項目</b></figcaption>
+				<div>格式化排在最前面的儲存格: <i>3</i></div>
+				<div>顯示為: <i>自訂格式</i></div>
+				<figure>
+					<figcaption>(設定儲存格格式)</figcaption>
+					<div class='tab'>字型</div>
+					<div>字型樣式: <i>粗體</i></div>
+					<div>字型色彩: <i>藍色</i></div>
+					<div><b>確定</b></div>
+				</figure>
+				<div><b>確定</b></div>
+			</figure></li>
+			<li style='color:grey'>格式化條件→新贈規則只格式化排在最前面或最後面的值→前→3→格式→字型→粗體→藍色</li>
 		</ol>
 	</div><!--}}}-->
 	<div><!--{{{-->
@@ -2308,7 +2422,9 @@ figure b:hover { border-color:red; }
 			傳回來自「各縣市連絡電話」儲存格範圍內的連絡電話號碼。
 		</div>
 		<ol class='Solution'>
-			<li>=HLOOKUP(B4,$G$2:$J$4,3,0)</li>
+			<li class='sheet'>外送員!C4<figure>
+				<div><i>=HLOOKUP(B4,$G$2:$J$4,3,0)</i></div>
+			</figure></li>
 		</ol>
 	</div><!--}}}-->
 </section>
@@ -2323,8 +2439,12 @@ figure b:hover { border-color:red; }
 			為儲存格 E4:E11 建立並套用自訂數字格式，
 			並以「2020-Jan-01」的格式來顯示日期。
 		</div>
-		<ol class='Solution'>
-			<li>選取儲存格 E4:E11,右鍵儲存格格式,自訂輸入:yyyy-mmm-dd</li>
+		<ol class="Solution">
+			<li class="sheet">電影!E4:E11<figure>
+				<figcaption>() <b></b></figcaption>
+				<div><b>確定</b></div>
+			</figure></li>
+			<li style='color:grey'>選取儲存格 E4:E11,右鍵儲存格格式,自訂輸入:yyyy-mmm-dd</li>
 		</ol>
 	</div><!--}}}-->
 </section>
