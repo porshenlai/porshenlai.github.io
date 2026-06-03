@@ -393,7 +393,7 @@ class Content {
 	{ 	return this.PageIndex.indexOf(id instanceof Element ? id.id : id);	}
 
 	get Sections ()
-		// rv: [enabled sections]
+	// rv: [enabled sections]
 	{	return Array.from(this.E.querySelectorAll('section:not(.disabled)'));	}
 
 	convertPageNumber (k)
@@ -447,19 +447,22 @@ class Content {
 			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
 			if(ms.length>0) this.extendMods(ms);
 			// 4. SCROLL INTO VIEW
-			em.scrollIntoView({
-				behavior: scroll ? 'smooth' : 'auto',
-				block: 'start'
-			});
-			em.scrollTop=0;
+			setTimeout(()=>{
+				em.scrollIntoView({
+					behavior: scroll ? 'smooth' : 'auto',
+					block: 'start'
+				});
+				em.scrollTop=0;
+			}, 100);
 		}
 	}	// }}}
 
 	get PageNumber ()
 		// ret: number>1
 	{
-		let pn = this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`));
-		if (!pn) pn=2;
+		let pn = 
+			this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`))
+			|| (location.hash ? (this.indexOf(location.hash.substr(1))+1) : 1);
 		return pn;
 	}
 
@@ -802,11 +805,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		UI.Settings.FontScale.set(UI.Settings.FontScale.get());
 		UI.Content.PageNumber = 'refresh';
 	});
-
-	setTimeout( (section) => {
-		if (section) section.click();
-		document.body.style.opacity='1';
-	}, 1, location.hash ? UI.Content.find(location.hash.substr(1)) : UI.Content.Sections[1]);
+	document.body.style.opacity='1';
 });	// }}}
 
 })(document.currentScript);
