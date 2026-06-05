@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/App/page.js"></script>
+<style>
+	.detail { color:darkgreen; margin:4px; font-style:italic; }
+</style>
+</head>
+<body style='opacity:0'>
+
+<section class='cfbox' data-ks='AI'>
+	<h1>💻 程式設計</h1>
+	<h3>Computer Programming</h3>
+	<div class='frame'>
+		<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+		<div>Department of Finance</div>
+		<div>Chihlee University of Technology</div>
+		<div class='signature'>2026, Summer</div>
+	</div>
+</section>
+
+<section data-ks='AI'>
+	<h2>期末專題 / 當學年 ITS Python 通過</h2>
+	<ul>
+		<li>期間: <em> ~ 2026/5/30</em></li>
+		<li>評量方式: <em>A+</em></li>
+	</ul>
+</section>
+
+<section data-ks='AI'>
+	<h2>期末專題 / ITS Python 已持有 或 未通過</h2>
+	<ul>
+		<li>期間: <em> ~ 2026/6/19</em></li>
+		<li>專題形式: <em> 個人報告</em></li>
+		<li>工作項目: <ol>
+			<li>ITS Python 應考心得。</li>
+			<li>印象最深刻或最感到棘手的題目。</li>
+			<li>印像最深刻的考鋼(領域)。</li>
+			<li>給未來應考同學的建議。</li>
+			<li>對程式開發工作的想法。</li>
+			<li>可使用人工智慧，但報告內容應包含與 GAI 之間的完整對答歷程。</li>
+		</ol></li>
+		<li>評量方式: 
+			<table border='1' cellspacing='0' cellpadding='4' style='margin-left:32px;'><tr>
+				<th rowspan='2'>個人<br/>報告</th>
+				<th>A+</th><th>A</th><th>A-</th><th>B</th>
+			</tr><tr>
+				<th>全班 20%</th><th>全班 30%</th><th>全班 30%</th><th>全班 20%</th>
+			</tr></table>
+		</li>
+	</ul>
+</section>
+
+<section data-ks='AI'>
+	<h2>期末專題 / 未參加 MCF Azure AI 考試</h2>
+	<ul>
+		<li>期間: <em> ~ 2026/6/15</em></li>
+
+		<li>專題形式: <em> Teamwork </em><ol>
+			<li> 1 ~ 6 人 </li>
+			<li> 組長一人 (期末專題成績加給 5 分) </li>
+		</ol></li>
+
+		<li>工作項目: <ol>
+			<li> 定義問題</li>
+			<li> 解決方案分析</li>
+			<li> 工具選擇</li>
+			<li> 不需要完成最終的系統整合，報告進行提案，提出解決方案即可。</li>
+		</ol></li>
+
+		<li>期末發表: <ol>
+			<li>以小組為單位，全組到齊後，輪流開視訊開講。</li>
+			<li>每個成員報告 90 秒，台風為評量標準。</li>
+			<li>報告內容請撰寫為投影片或報告方式上傳雲端硬碟繳交。</li>
+		</ol></li>
+
+		<li>評量方式:
+			<table border='1' cellspacing='0' cellpadding='4' style='margin-left:32px;'><tr>
+				<th rowspan='2'>小組<br/>報告<br/>75%</th>
+				<th>A+</th><th>A</th><th>A-</th><th>B</th>
+			</tr><tr>
+				<th>全班 20%</th><th>全班 30%</th><th>全班 30%</th><th>全班 20%</th>
+			</tr></tr>
+				<th rowspan='2'>期末<br/>發表<br/>20%</th>
+				<th>A+</th><th colspan='2'>A</th><th>A-</th>
+			</tr><tr>
+				<th>全班 ?%</th><th colspan='2'>全班 ?%</th><th>全班 ?%</th>
+			</tr></tr>
+				<th rowspan='2'>個人<br/>心得<br/>75%</th>
+				<th colspan='2'>A</th><th colspan='3'>B</th>
+			</tr><tr>
+				<th colspan='2'>全組 50%</th><th colspan='2'>全組 50%</th>
+			</tr></table>
+		</li>
+	</ul>
+</section>
+
+<section>
+<h2>Client Server - Three Tier - Services</h2>
+<pre data-xl='mermaid'>
+flowchart LR
+    %% 樣式定義
+    classDef clientStyle fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef serverStyle fill:#ffe0b2,stroke:#f57c00,stroke-width:2px;
+    classDef appStyle fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef dbStyle fill:#ede7f6,stroke:#5e35b1,stroke-width:2px;
+    classDef cloudStyle fill:#fffde7,stroke:#fbc02d,stroke-width:2px;
+
+    %% 外部最上層：雲端服務架構 (精簡標題)
+    subgraph Cloud_Architecture ["【 雲端服務架構 Cloud 】"]
+        style Cloud_Architecture fill:#fffde7,stroke:#fbc02d,stroke-width:2px,stroke-dasharray: 5 5
+        
+        CDN[Edge/CDN 加速層] --> IAM{IAM 權限控管}
+        
+        %% 中層：三層架構 (精簡標題)
+        subgraph Three_Tier_Architecture ["【 三層架構 3-Tier 】"]
+            style Three_Tier_Architecture fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+            
+            %% 內層：基礎 Client-Server 架構 (精簡標題)
+            subgraph CS_Architecture ["【 主從架構 C/S 】"]
+                style CS_Architecture fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+                
+                Client[Presentation Tier<br>前端使用者介面 / 瀏覽器]
+                Server[Server 端<br>後端服務回應]
+                
+                %% 在 CS 內部拉開一點空間，強迫外框加寬
+                Client --- spacer1[ ]
+                style spacer1 fill:none,stroke:none,width:0px;
+                spacer1 --- Server
+            end
+            
+            %% 三層架構對 CS 的細化與延伸
+            AppServer[Application Tier<br>應用程式伺服器 / 業務邏輯]
+            DB[Data Tier<br>資料庫伺服器]
+            
+            %% 連線邏輯
+            Client -->|1. 請求| AppServer
+            AppServer -->|2. 資料存取| DB
+            Server -.->|細化為| AppServer
+        end
+        
+        %% 雲端服務對三層架構的延伸
+        IAM --> Client
+        AppServer -->|延伸為| Microservices[微服務 / Serverless]
+        DB -->|延伸為| CloudDB[雲端託管資料庫 / NoSQL]
+    end
+
+    %% 應用樣式
+    class Client,CDN clientStyle;
+    class Server serverStyle;
+    class AppServer,Microservices appStyle;
+    class DB,CloudDB dbStyle;
+    class IAM cloudStyle;
+</pre>
+</section>
+
+<section>
+<h2>SaaS - PaaS - IaaS</h2>
+<pre data-xl='mermaid'>
+flowchart TD
+    %% 樣式定義
+    classDef vendorStyle fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef userStyle fill:#ffe0b2,stroke:#f57c00,stroke-width:2px;
+    classDef titleStyle fill:#f5f5f5,stroke:#333,stroke-width:1px;
+
+    %% IaaS 區塊
+    subgraph IaaS_Platform ["【 IaaS 基礎架構即服務 】"]
+        style IaaS_Platform fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+        
+        direction LR
+        subgraph IaaS_V ["廠商管理 (Vendor)"]
+            style IaaS_V fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
+            V_Net[網路 Network] --- V_Sto[儲存 Storage] --- V_Srv[伺服器 Servers] --- V_Vir[虛擬化 Virtualization]
+        end
+        
+        subgraph IaaS_U ["使用者管理 (You)"]
+            style IaaS_U fill:#ffe0b2,stroke:#f57c00,stroke-width:1px
+            U_OS[作業系統 OS] --- U_Mid[中介軟體 Middleware] --- U_Run[執行環境 Runtime] --- U_Dat[資料 Data] --- U_App[應用程式 Apps]
+        end
+    end
+
+    %% PaaS 區塊
+    subgraph PaaS_Platform ["【 PaaS 平台即服務 】"]
+        style PaaS_Platform fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+        
+        direction LR
+        subgraph PaaS_V ["廠商管理 (Vendor)"]
+            style PaaS_V fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
+            P_Infra["基礎架構 (同IaaS)"] --- P_OS[作業系統 OS] --- P_Mid[中介軟體] --- P_Run[執行環境 Runtime]
+        end
+        subgraph PaaS_U ["使用者管理 (You)"]
+            style PaaS_U fill:#ffe0b2,stroke:#f57c00,stroke-width:1px
+            P_Dat[資料 Data] --- P_App[應用程式 Apps]
+        end
+    end
+
+    %% SaaS 區塊
+    subgraph SaaS_Platform ["【 SaaS 軟體即服務 】"]
+        style SaaS_Platform fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+        
+        direction LR
+        subgraph SaaS_V ["廠商管理 (Vendor) - 使用者只需直接使用"]
+            style SaaS_V fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
+            S_All["包辦所有底層、平台、資料與全套應用程式軟體 (例如: Gmail, Microsoft 365)"]
+        end
+    end
+
+    %% 應用樣式
+    class V_Net,V_Sto,V_Srv,V_Vir,P_Infra,P_OS,P_Mid,P_Run,S_All vendorStyle;
+    class U_OS,U_Mid,U_Run,U_Dat,U_App,P_Dat,P_App userStyle;
+</pre>
+</section>
+
+<section>
+<h2>Agile Development and Version Control</h2>
+<pre data-xl="mermaid">
+flowchart TD
+    %% 樣式定義
+    classDef agileStyle fill:#f1f8e9,stroke:#558b2f,stroke-width:2px;
+    classDef gitStyle fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef conceptStyle fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef actionStyle fill:#ede7f6,stroke:#673ab7,stroke-width:2px;
+
+    %% ==================== 宏觀：敏捷開發循環 ====================
+    subgraph Agile_Cycle ["<div style='white-space:nowrap'>【 敏捷開發循環 Agile Sprint 】宏觀專案管理視角</div>"]
+        style Agile_Cycle fill:#f1f8e9,stroke:#558b2f,stroke-width:2px
+        
+        Backlog["1. 產品待辦清單<br>(Product Backlog)"] --> Sprint_Plan["2. 衝刺計畫會議<br>(Sprint Planning)"]
+        Sprint_Plan --> Task_Assign["3. 領取與拆解任務<br>(User Story / Tasks)"]
+        
+        %% 進入 Git 工作流
+        Task_Assign -->|3-1. 開始實作| Main_Branch
+        
+        Review_Deploy["5. 衝刺檢視與部署<br>(Sprint Review / Demo)"] --> Retrospective["6. 團隊反思會議<br>(Retrospective)"]
+        Retrospective -->|7. 迭代優化| Backlog
+    end
+
+    %% ==================== 微觀：Git 工作流 ====================
+    subgraph Git_Workflow ["<div style='white-space:nowrap'>【 Git 分支工作流 Git Flow 】微觀工程實作視角</div>"]
+        style Git_Workflow fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+        
+        Main_Branch{{"main / master 分支<br>(線上穩定運作的考卷系統)"}}
+        
+        Main_Branch -->|4-1. Git Clone / Pull| Local_Dev["4-2. 開發者本地電腦"]
+        Local_Dev -->|4-3. Git Checkout -b| Feature_Branch{{"feature 分支<br>(研發新功能)"}}
+        
+        Feature_Branch -->|4-4. 寫程式碼| Dev_Loop["4-5. 動態開發循環"]
+        
+        subgraph Dev_Loop_Box ["日常循環"]
+            style Dev_Loop_Box fill:#ffffff,stroke:#b0bec5,stroke-dasharray: 3 3
+            Dev_Loop -->|修正| Commit["Git Commit<br>(功能存檔點)"]
+            Commit -->|測試| Dev_Loop
+        end
+        
+        Commit -->|4-6. Git Push| Remote_Repo["4-7. 雲端遠端倉庫<br>(GitHub / GitLab)"]
+        Remote_Repo -->|4-8. 發起 Pull Request| Code_Review["4-9. 代碼審查 & 測試<br>(Code Review / CI-CD)"]
+        
+        Code_Review -->|4-10. 同意 Merge| Main_Branch
+    end
+
+    %% 從微觀 Git 交付，回到宏觀敏捷
+    Main_Branch -->|4-11. 交付完成| Review_Deploy
+
+    %% 應用樣式
+    class Backlog,Sprint_Plan,Task_Assign,Review_Deploy,Retrospective agileStyle;
+    class Main_Branch,Feature_Branch,Remote_Repo gitStyle;
+    class Local_Dev,Code_Review conceptStyle;
+    class Commit,Dev_Loop actionStyle;
+</pre>
+<!--
+故事開頭：敏捷開發的誕生（上半場）
+「各位同學，想像一下我們現在要幫學校做出這套『線上考卷系統』。如果我們用舊的方法，花了一整年關在房間裡寫程式，最後拿出來給老師用，老師卻說：『這不是我要的！』，那一年就白費了。
+
+所以我們採用 Agile（敏捷開發）。我們把所有想做的事情寫在 (1) 產品待辦清單（例如：想要有填充題、想要能防作弊、想要能自動改考卷）。我們不打算一次做完，而是開個 (2) 衝刺會議，挑出接下來這兩週『最重要』的一兩個功能，每個人 (3) 分配好任務，就開始動工。這就是敏捷的精神：小步快跑、快速反饋。」
+
+故事高潮：Git 是工程師的時光機與平行宇宙（下半場）
+「那分好任務後，大家要怎麼同時寫程式，才不會互相覆蓋對方的檔案呢？這時候我們就需要 Git (版本控制系統)。
+
+目前線上正在跑的考卷系統是 main 分支，這非常重要，絕對不能壞掉！所以我們把它 (4-1) 複製一份到本地電腦，然後開啟一個 (4-2) 平行宇宙，叫做 feature 分支。在這個安全的分支裡，不論你怎麼寫程式、怎麼實驗，都不會影響到線上正在考試的學生。
+
+每當寫好一個小功能（例如完成了 SubtleCrypto 雜湊邏輯），我們就按下 (4-3) Git Commit。這就像是玩遊戲時的『存檔點』，萬一等一下程式寫爛了，我們隨時可以搭乘時光機，一鍵回到這個存檔點，不用怕程式碼不見。
+
+當你在平行宇宙把『自動改考卷』功能寫好、測試沒問題了，你就可以把它 (4-4) Push 上傳到 GitHub，並發起一個 (4-5) Pull Request（合併請求）。這時候，其他組員或老師會幫你看程式碼寫得好不好（Code Review）。大家點頭同意後，這段新程式碼就會 (4-6) Merge（合併） 回到 main 分支。原本的考卷系統就神奇地多出了新功能！」
+
+故事結尾：循環不息
+「新功能上線後，我們在週末邀請老師來 (5) 舉辦 Demo 發表會，看看自動改考卷好不好用。隨後團隊坐下來開 (6) 反思會議，討論這兩週哪裡做得好、哪裡可以改進。接著，我們又回到清單，準備挑選下一個兩週的任務。這就是現代軟體工程師每天在經歷的『敏捷與版控』日常。」
+-->
+</section>
+
+</body>
+</html>

@@ -4,7 +4,12 @@ const currentScript = document.currentScript;
 const jsPrefix=(/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1];
 
 const Plugins={
-};	// Built-in Plugins
+	test:async function(slide){
+		return async function (slide, elem, code) {
+			elem.innerHTML="<h1>TEST</h1>"
+		};
+	}
+};
 
 const CSS_PAGE= // {{{
 `:root {
