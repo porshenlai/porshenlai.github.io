@@ -57,15 +57,17 @@ body>footer {
 	overflow:hidden scroll;
 	background:#f0f0f0;
 }
-#content.PlayMode_1, #content.PlayMode_2 {
-	scroll-snap-type:y mandatory;
-}`;	// }}}
+#content.PlayMode_1,
+#content.PlayMode_2 { scroll-snap-type:y mandatory; }`;
+// }}}
 // PlayMode_*: all sections compacted in continuous pages
 // PlayMode_1: all the minimal height of sections are greater than the page height 
 // PlayMode_2: all the section not currently displayed is hidden
+// section.page: expand the slide to full page in all mode
 // section.cfbox: force layout expand to full page and centralize content
 // section.fbox: force layout expand to full page
 //
+// fill cm col
 const CSS_CONTENT= // {{{
 `
 section {
@@ -80,27 +82,27 @@ section {
 	cursor:pointer;
 }
 section:hover { border-color:#ccc; }
-.PlayMode_2 section:not(.current) {
-	display:none;
-}
 section.current {
 	border-color:#26A69A;
 	box-shadow:0 4px 16px rgba(38, 166, 154, 0.2);
 	cursor:default;
 }
-.PlayMode_1 section, .PlayMode_2 section {
-	min-height:calc(100% - 2 * var(--base-margin));
-}
-.cfbox {
-	display:flex;
-	flex-flow:column nowrap;
-	justify-content:center;
-	align-items:center;
-}
-.fbox, .cfbox {
-	width:calc(100% - 2 * var(--base-margin));
-	height:calc(100% - 2 * var(--base-margin));
-}
+
+.PlayMode_1 section,
+.PlayMode_2 section { min-height:calc(100% - 2 * var(--base-margin)); }
+section.page { height:calc(100% - 2 * var(--base-margin)); }
+.PlayMode_2 section:not(.current) { display:none; }
+
+.fill { width:100%; height:100%; }
+.cm { display:flex;flex-flow:column nowrap;justify-content:center;align-items:center; }
+.ct { display:flex;flex-flow:column nowrap;justify-content:center;align-items:flex-start; }
+.col { display:flex;flex-flow:row wrap;justify-content:center;align-items:flex-start; }
+.col>div { flex: 1 0 auto; margin: 0.5%; padding: 1%; width: 80%; max-width:97%; }
+.fill.col>div { height:100%; }
+@media (orientation: landscape) { .col>div { width:40%; max-width:47%; } }
+.row { display:flex;flex-flow:column wrap;justify-content:center;align-items:center; }
+.row>div { flex: 1 0 auto; margin: 0.5%; padding: 1%; width: 80%; max-height:97%; }
+.fill.row>div { width:100%; }
 
 [data-h] { cursor:pointer; }
 [data-h="display"] { text-decoration:underline;color:blue; }
