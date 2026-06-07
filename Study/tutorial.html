@@ -12,12 +12,14 @@
 
 <section class='page'>
 	<div class='fill col'>
-		<div style='font-size:172%'>pStyle Page</div>
-		<div style='font-size:144%'>the Tutorial</div>
-		<br/>
-		<div>Lai, Porshen</div>
-		<div>Department of Finance</div>
-		<div>Chihlee University of Technology</div>
+		<div class='h1'>pStyle Page</div>
+		<div class='h3'>the Tutorial</div>
+		<div></div>
+		<div class='frame'>
+			<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+			<div><em>Department of Finance</em></div>
+			<div><em>Chihlee University of Technology</em></div>
+		</div>
 	</div>
 </section>
 
@@ -49,10 +51,28 @@
 	<div class='fill col'>
 		<h2>頁面切版</h2>
 		<div class='fill zcs'>
-			<div class='swd col' style='border:1px solid black;'>Column 1</div>
-			<div class='swd col' style='border:1px solid blue;'>Column 2</div>
+			<div class='swd'><pre class='frame'>
+&lt;div class='fill col'&gt;
+  &lt;h2&gt;頁面切版&lt;/h2&gt;
+  <span style='color:red'>&lt;div class='fill zcs'&gt;
+    &lt;div class='swd'&gt;
+      第一區
+    &lt;/div&gt;
+    &lt;div class='swd'&gt;
+      第二區
+    &lt;/div&gt;
+  &lt;/div&gt;</span>
+  &lt;div&gt;頁尾&lt;/div&gt;
+&lt;/div&gt;
+</pre></div>
+			<div class='swd'><ul>
+				<li><b>class:fill</b> make the block fill the while parent block</li>
+				<li><b>class:col</b> make the children contents list to fill a full column</li>
+				<li><b>class:zcs</b> make the children contents list in a Z shape order to fill the page</li>
+				<li><b>class:swd</b> smart width according to the layout (landscape or portrait)</li>
+			</ul></div>
 		</div>
-		<div>FOOT COMES HERE</div>
+		<div style='width:100%;background:lightgrey;text-align:center;'>頁尾</div>
 	</div>
 </section>
 
