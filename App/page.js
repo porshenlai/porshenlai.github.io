@@ -93,7 +93,7 @@ section.current {
 section.page { height:calc(100% - 2 * var(--base-margin)); }
 .PlayMode_2 section:not(.current) { display:none; }
 
-.fill { width:100%; height:100%; }
+.fill { width:100%; height:100%; margin:0; padding:0; overflow:hidden auto; }
 .cm { display:flex;flex-flow:column nowrap;justify-content:center;align-items:center; }
 .ct { display:flex;flex-flow:column nowrap;justify-content:center;align-items:flex-start; }
 .col { display:flex;flex-flow:row wrap;justify-content:center;align-items:flex-start; }
@@ -137,6 +137,10 @@ h3 {
 	color:#0d5ea8;
 	margin:var(--base-margin);
 }
+
+table.std { margin:auto; border:1px solid silver; }
+table.std th, table.std td { padding:2px 16px; border:1px solid black; }
+table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; }
 
 .full,.mask { left:0;top:0;width:100%;height:100%;overflow:auto; }
 .mask { position:absolute;background-color:rgba(255,255,255,0.5); }
@@ -257,8 +261,8 @@ aside nav li { border-bottom:1px solid silver; }
 					<label>播放模式</lable>
 					<div data-uid='Switch' class='HSelect'>
 						<div data-h='set:PlayMode:0'>連續</div>
-						<div data-h='set:PlayMode:1'>分頁</div>
-						<div data-h='set:PlayMode:2'>獨立</div>
+						<div data-h='set:PlayMode:1'>滿框</div>
+						<div data-h='set:PlayMode:2'>分頁</div>
 					</div>
 				</div>
 				<div data-uid='Settings:FontScale'>
@@ -377,14 +381,14 @@ class Content {
 	extendMods (mods) { // ## INSTALL EXTENSION MODULES (data-x="...") {{{
 		Promise.all(
 			mods.reduce((R,e)=>{
-				const mn=(e.dataset.x||e.dataset.xl||"").split(':')[0];
+				const args=(e.dataset.x||e.dataset.xl||"").split(':'), mn=args.shift();
 				if (mn)
 					R.push((async (T, N, E)=>{
 						if (!T.Xs[N])
 							T.Xs[N] = N in Plugins ?
 							Promise.resolve(Plugins[N](T)) :
 							loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
-						(await (T.Xs[N]))(T, E);
+						(await (T.Xs[N]))(T, E, ...args);
 					})(this, mn, e));
 				return R;
 			},[])
@@ -507,6 +511,31 @@ class Player
 
 		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
 		this.Settings=((ThisPlayer)=>({ // Parameter Settings
+			"PlayMode" : new Chain ( // {{{
+				new (class {
+					constructor (e) {
+						this.E=e;
+						this.EOs=Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]'));
+					}
+					set value (v) {
+						try {
+							ThisPlayer.Content.PlayMode = v;
+							ThisPlayer.Content.PageNumber = 'refresh';
+							this.EOs.forEach(
+								(e) => e.classList[
+									e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove'
+								]('current')
+							);
+						} catch(x) { console.log(x); }
+					}	
+					get value () {
+						try {
+							return this.EOs.find((e)=>e.classList.contains('current'))
+									.dataset.h.replace(/.*:/,'');
+						} catch(x) { console.log(x); }
+					}
+				})(this.GC.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]'))
+			),	// }}}
 			"FontScale" : new Chain ( // {{{
 				this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
 				this.GC.querySelector('[data-uid="Settings:FontScale"] output'),
@@ -529,6 +558,10 @@ class Player
 				})(this.GC.querySelector('[data-uid="Aside:Pager"] input'))
 			),	// }}}
 			"PageNumber" : new (class extends Chain { // {{{
+				constructor () {
+					super(...arguments);
+					this.set(ThisPlayer.Content.PageNumber);
+				}
 				set (v) {
 					ThisPlayer.Content.PageNumber=v;
 					super.set(ThisPlayer.Content.PageNumber);
@@ -571,31 +604,6 @@ class Player
 						).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
 					}
 				})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
-			),	// }}}
-			"PlayMode" : new Chain ( // {{{
-				new (class {
-					constructor (e) {
-						this.E=e;
-						this.EOs=Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]'));
-					}
-					set value (v) {
-						try {
-							ThisPlayer.Content.PlayMode = v;
-							ThisPlayer.Content.PageNumber = 'refresh';
-							this.EOs.forEach(
-								(e) => e.classList[
-									e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove'
-								]('current')
-							);
-						} catch(x) { console.log(x); }
-					}	
-					get value () {
-						try {
-							return this.EOs.find((e)=>e.classList.contains('current'))
-									.dataset.h.replace(/.*:/,'');
-						} catch(x) { console.log(x); }
-					}
-				})(this.GC.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]'))
 			),	// }}}
 			"Overlay" : new Chain ( // {{{
 				new (class {
@@ -811,6 +819,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	window.addEventListener('resize', (evt) => {
 		UI.Settings.FontScale.set(UI.Settings.FontScale.get());
 		UI.Content.PageNumber = 'refresh';
+		console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	});
 	document.body.style.opacity='1';
 });	// }}}
