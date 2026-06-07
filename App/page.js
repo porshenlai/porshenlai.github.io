@@ -93,16 +93,18 @@ section.current {
 section.page { height:calc(100% - 2 * var(--base-margin)); }
 .PlayMode_2 section:not(.current) { display:none; }
 
-.fill { width:100%; height:100%; margin:0; padding:0; overflow:hidden auto; }
-.cm { display:flex;flex-flow:column nowrap;justify-content:center;align-items:center; }
-.ct { display:flex;flex-flow:column nowrap;justify-content:center;align-items:flex-start; }
-.col { display:flex;flex-flow:row wrap;justify-content:center;align-items:flex-start; }
-.col>div { flex: 1 0 auto; margin: 0.5%; padding: 1%; width: 80%; max-width:97%; }
-.fill.col>div { height:100%; }
-@media (orientation: landscape) { .col>div { width:40%; max-width:47%; } }
-.row { display:flex;flex-flow:column wrap;justify-content:center;align-items:center; }
-.row>div { flex: 1 0 auto; margin: 0.5%; padding: 1%; width: 80%; max-height:97%; }
-.fill.row>div { width:100%; }
+.fill,.mask { width:100%; height:100%; left:0; top:0; margin:0; padding:0; overflow:hidden auto; }
+.mask { position:absolute;background-color:rgba(255,255,255,0.5); }
+
+.ncs,.zcs,.col,.row { display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;overflow:hidden; }
+.col { flex-direction:column; }
+.zcs { flex-wrap:wrap;align-items:flex-start;overflow-y:auto; }
+.ncs { overflow-x:auto; }
+.col>.fill,.row>.fill { flex:1 1 auto; }
+
+.swd { flex:1 0 auto;width:80%;max-width:97%; }
+@media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
+.fill>.swd { height:100%; }
 
 [data-h] { cursor:pointer; }
 [data-h="display"] { text-decoration:underline;color:blue; }
@@ -118,36 +120,14 @@ button {
 	font-size:95%;
 }
 button:hover { border-color:#90a4ae; }
-h1 {
-	font-size:172%;
-	font-weight:bold;
-	color:#1E88E5;
-	margin:var(--base-margin) 0;
-	text-align:center;
-}
-h2 {
-	font-size:144%;
-	font-weight:bold;
-	color:#1E88E5;
-	margin:var(--base-margin);
-}
-h3 {
-	font-size:120%;
-	font-weight:bold;
-	color:#0d5ea8;
-	margin:var(--base-margin);
-}
+h1,.h1 { font-size:200%;font-weight:bold;color:#1E88E5;margin:var(--base-margin);text-align:center; }
+h2,.h2 { font-size:172%;font-weight:bold;color:#1E88E5;margin:var(--base-margin); }
+h3,.h3 { font-size:128%;font-weight:bold;color:#0d5ea8;margin:var(--base-margin); }
 
 table.std { margin:auto; border:1px solid silver; }
 table.std th, table.std td { padding:2px 16px; border:1px solid black; }
 table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; }
 
-.full,.mask { left:0;top:0;width:100%;height:100%;overflow:auto; }
-.mask { position:absolute;background-color:rgba(255,255,255,0.5); }
-.hbar,.vbar { display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:center; }
-.vbar { flex-flow:column nowrap; }
-
-.centerBox { display:flex;flex-flow:column nowrap;align-items:center;justify-content:center;margin:auto; }
 .cb { white-space: nowrap; padding-left:var(--base-indent); font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
 .signature { text-align:right; font-style:italic; }
@@ -693,7 +673,7 @@ class Player
 	{	// {{{
 		const VE = document.createElement("div");
 		VE.dataset.xl = mn;
-		VE.classList.add("full");
+		VE.classList.add("fill");
 		if (code instanceof Element)
 			code = code.innerHTML;
 		VE.innerHTML = code;
