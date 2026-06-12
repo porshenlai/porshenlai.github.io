@@ -14,7 +14,6 @@ const Init=loadScript ('js/marked.min.js', async (SE) => {
 	const renderer = new marked.Renderer();
 	renderer.code = ({text,lang}) => (lang === 'mermaid') ? `<pre _mermaid_>${text}</pre>` : `<pre><code>${text}</code></pre>`;
 	marked.setOptions({ renderer });
-	console.log("NEW");
 	return marked;
 }); // https://cdn.jsdelivr.net/npm/marked/marked.min.js
 

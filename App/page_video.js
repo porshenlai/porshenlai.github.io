@@ -57,6 +57,7 @@ SCRIPT.value=async function (slide, elem, code) {
 	elem.classList.add('resolved','centerBox');
 	elem.innerHTML=`
 <div>
+	VIDEO COMES HERE
 	<video>
 	</video>
 	<div class='full hide mask'>
