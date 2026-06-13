@@ -18,6 +18,9 @@ const Init=loadScript ('js/marked.min.js', async (SE) => {
 }); // https://cdn.jsdelivr.net/npm/marked/marked.min.js
 
 SCRIPT.value=async function (slide, elem, code) {
+	if (elem.classList.contains('resolved')) return;
+	elem.classList.add('resolved');
+
 	if (!code)
 		code=elem.innerHTML;
 	elem.innerHTML=(await Init).parse(code);

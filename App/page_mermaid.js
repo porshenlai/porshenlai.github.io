@@ -16,6 +16,9 @@ const Init=loadScript ('js/mermaid.min.js', async (SE) => {
 }); // https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
 
 SCRIPT.value=async function (slide, elem, code) {
+	if (elem.classList.contains('resolved')) return;
+	elem.classList.add('resolved');
+
 	if (code) {
 		elem.innerHTML=(await (await Init).render('graphDiv', code)).svg
 	} else {

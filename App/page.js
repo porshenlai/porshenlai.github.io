@@ -3,14 +3,6 @@
 const currentScript = document.currentScript;
 const jsPrefix=(/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1];
 
-const Plugins={
-	test:async function(slide){
-		return async function (slide, elem, code) {
-			elem.innerHTML="<h1>TEST</h1>"
-		};
-	}
-};
-
 const CSS_PAGE= // {{{
 `:root {
 	--base-font-size:24px;
@@ -309,6 +301,7 @@ class Chain {
 	// 1. constructed with multiple elements
 	// 2. set => fill into all elements
 	// 3. get <= read from the first element
+	// {{{
 	constructor () { this.QS = Array.from(arguments); }
 	__s__ (q,v) { q['value' in q ? 'value' : 'textContent'] = v; }
 	__g__ (q) { return q['value' in q ? 'value' : 'textContent']; }
@@ -316,15 +309,86 @@ class Chain {
 	get () { return this.__g__(this.QS[0]); }
 	add (q) { this.QS.push(q); this.__s__(q,this.get()); return this; }
 	remove (q) { this.QS=this.QS.filter((e)=>e!==q); return this; }
-}
+}	// }}}
+
+class Templates {
+	// Templates Manager
+	// 1. reg => register a template DOM with a given name
+	// 2. add => binding a container with template id before writing data to it
+	// 3. write => write data to a container
+	// 4. read => read data from a container
+	// {{{
+	constructor () {
+		this.Temps={};
+	}
+	reg (tn, temp) { this.Temps[tn]=temp; }
+	add (container, tn) { container.dataset.template_id=tn; }
+	clear (c) {
+		Array.from(c.querySelectorAll('[data-index]'))
+		.forEach((e)=>e.parentNode.removeChild(e));
+	}
+	write (c, dt) {
+		try {
+			if (dt[0]) this.clear(c); else dt.shift();
+			for (const D of dt) {
+				// clone template
+				const EI = this.Temps[c.dataset.template_id].cloneNode(true);
+				EI.dataset.index=true;
+				// disabled currently: EI.dataset.value=D;
+				// fill values
+				Array.from(EI.querySelectorAll('[data-v]'))
+				.forEach((e)=>{
+					const a = (e.dataset.v||"").split(":");
+					switch (a[0]) {
+					case "text": e.textContent=D[a[1]]; break;
+					case "value": e.value=D[a[1]]; break; }
+				});
+				// append content
+				c.appendChild(EI);
+			}
+			Array.from(c.querySelectorAll('[data-index]'))
+			.forEach((row,idx)=>row.dataset.index=(idx%2)+"-"+idx);
+		} catch(x) { console.log(x); }
+	}
+	read (c) {
+		try {
+			return Array.from(c.querySelectorAll('[data-index]'))
+			.reduce((rst, row) => {
+				rst.push(Array.from(row.querySelectorAll('[data-v]'))
+				.reduce((val, cell) => {
+					const a = (cell.dataset.v||"").split(":");
+					switch (a[0]) {
+					case "text": val[a[1]]=cell.textContent; break;
+					case "value": val[a[1]]=cell.value; break; }
+					return val;
+				},{}));
+				return rst;
+			},[]);
+		} catch(x) { console.log(x); }
+	}
+}	// }}}
 
 class Content {
+	// {{{
 	constructor (e) {
 		this.E=e;
 		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
 		this.Keywords={};
 		this.PageIndex=[];
-		this.Xs={};
+		this.Templates=new Templates();
+		this.Xs={
+			template:async function (slide, elem, tn) {
+				if (elem.classList.contains('resolved')) return;
+				elem.classList.add('resolved');
+				const page = queryContainer(elem,'section'), container = elem.parentNode;
+				slide.Templates.add(container, tn);
+				slide.Templates.write(container, ((c)=>Array.isArray(c) ? c : [c])(
+					JSON.parse((elem.querySelector('pre')||elem).innerHTML)
+				));
+				if (elem.parentNode)
+					container.removeChild(elem);
+			}
+		};
 	}
 	install (sections, filters) { // {{{ ## INSTALL SECTIONS
 		// 1. complete id setting
@@ -333,13 +397,15 @@ class Content {
 		// 4. move sections to content box
 		let ksmap={};
 		let PageIndex=[];
+		if (ThisPage.before_load) // before_load for Page override
+			ThisPage.before_load(this);
 		sections.reduce((E, se, k) => {
 			// Organize keywords from data-ks 
 			const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
 			ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
 
 			// ensure all sections has ID for location
-			if(!se.id) se.id=`__${k}__`;
+			if (!se.id) se.id=`__${k}__`;
 			E.appendChild(se);
 
 			// filtering sections
@@ -355,21 +421,27 @@ class Content {
 		}, this.E);
 		this.Keywords=Object.keys(ksmap);
 		this.PageIndex=PageIndex;
+		Array.from(this.E.querySelectorAll('[data-template]'))
+		.forEach((e)=>{
+			this.Templates.reg(e.dataset.template,e);
+			e.removeAttribute('data-template');
+			e.parentNode.removeChild(e);
+		});
 		this.extendMods(Array.from(this.E.querySelectorAll('[data-x]')));
+		if (ThisPage.after_load) // after_load for Page override
+			ThisPage.after_load(this);
 	}	// }}}
 
 	extendMods (mods) { // ## INSTALL EXTENSION MODULES (data-x="...") {{{
 		Promise.all(
 			mods.reduce((R,e)=>{
 				const args=(e.dataset.x||e.dataset.xl||"").split(':'), mn=args.shift();
-				if (mn)
-					R.push((async (T, N, E)=>{
-						if (!T.Xs[N])
-							T.Xs[N] = N in Plugins ?
-							Promise.resolve(Plugins[N](T)) :
-							loadScript(currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`)) ;
-						(await (T.Xs[N]))(T, E, ...args);
-					})(this, mn, e));
+				if (mn) R.push((async (T, N, E)=>{
+					if (!T.Xs[N])
+						T.Xs[N] = loadScript(
+							currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`) );
+					(await (T.Xs[N]))(T, E, ...args);
+				})(this, mn, e));
 				return R;
 			},[])
 		).then(()=>false,console.log);
@@ -425,7 +497,8 @@ class Content {
 			break;
 		}
 		let em=this.find(this.PageIndex[pn-1]);
-		if (force || !em.classList.contains('current')) {
+		if (force) em.classList.remove('current');
+		if (!em.classList.contains('current')) {
 			// 1. MOVE .current flag to new current
 			Array.from(this.E.querySelectorAll('section.current'))
 			.forEach((e)=>e.classList.remove('current'));
@@ -434,10 +507,13 @@ class Content {
 			if (history.replaceState)
 				history.replaceState(null, null, '#' + em.id);
 			else location.hash = '#' + em.id;
-			// 3. Trigger module extend of section loading
+			// 3. Call ThisPage page_load override
+			if (!force && ThisPage.page_load)
+				ThisPage.page_load(em);
+			// 4. Trigger module extend of section loading
 			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
 			if(ms.length>0) this.extendMods(ms);
-			// 4. SCROLL INTO VIEW
+			// 5. SCROLL INTO VIEW
 			setTimeout(()=>{
 				em.scrollIntoView({
 					behavior: scroll ? 'smooth' : 'auto',
@@ -471,10 +547,10 @@ class Content {
 					let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_'));
 					return rv.substring(9);
 	}	// }}}
-}
+}	// }}}
 
-class Player
-{
+class Player {
+	// {{{
 	constructor (sections, filters)
 	{	// {{{
 		// ## ADD CSS DECLARATIONS
@@ -700,7 +776,7 @@ class Player
 		if (ts) ts.click();
 		this.set('Overlay','none');
 	}	// }}}
-}
+}	// }}}
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
 
@@ -751,11 +827,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 							case '&event': return evt;
 							default: return a; }
 						});
-						if (cmd in this.Content.Xs) {
-							this.Content.Xs[cmd].then( (mod)=>mod(
-								queryContainer(e,['[data-x]','[data-xl]']), null, args
-							) );
-						} else if (cmd in this && 'function' === typeof(this[cmd])) {
+						if (cmd in this && 'function' === typeof(this[cmd])) {
 							this[cmd](...args);
 						} else continue;
 						evt.stopPropagation();
@@ -799,7 +871,6 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	window.addEventListener('resize', (evt) => {
 		UI.Settings.FontScale.set(UI.Settings.FontScale.get());
 		UI.Content.PageNumber = 'refresh';
-		console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	});
 	document.body.style.opacity='1';
 });	// }}}

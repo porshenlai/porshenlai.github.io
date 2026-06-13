@@ -100,8 +100,9 @@ class PlayList {
 
 SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
+	elem.classList.add('resolved','col');
+
 	code=decodeArgs(code||elem);
-	elem.classList.add('resolved','centerBox');
 	elem.innerHTML=`
 <div>
 	<img/>
