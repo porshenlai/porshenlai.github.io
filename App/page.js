@@ -790,6 +790,8 @@ class Player {
 	}	// }}}
 }	// }}}
 
+if (!window.ThisPage) ThisPage={};
+
 document.addEventListener('DOMContentLoaded', async () => { // {{{
 
 	function decodeFilter (s) { return s ? s.split('|').map((v) => v.split('.')) : []; }
