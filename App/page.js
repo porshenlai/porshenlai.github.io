@@ -398,7 +398,7 @@ class Content {
 		let ksmap={};
 		let PageIndex=[];
 		if (ThisPage.before_load) // before_load for Page override
-			ThisPage.before_load(this);
+			ThisPage.before_load(this, sections);
 		sections.reduce((E, se, k) => {
 			// Organize keywords from data-ks 
 			const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
@@ -718,8 +718,20 @@ class Player {
 		// set:SettingName:SettingValue
 	{	return this.Settings[name].set(value);	}
 
+	call (fn, ...args)
+	{	// {{{
+		try {
+			ThisPage[fn](...args);
+		} catch(x) { console.log(x); }
+	}	// }}}
+
 	tab (TK)
-		// tab:key
+		// <div data-h='tab:key'>
+		//   <button data-o='TabA'>TabA</button>
+		//   <button data-o='TabB'>TabB</button>
+		// </div>
+		// <div data-uid='TabA'>...</div>
+		// <div data-uid='TabB'>...</div>
 	{	// {{{
 		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
 		if (!K) return;

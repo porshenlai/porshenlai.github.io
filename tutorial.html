@@ -6,20 +6,26 @@
 <script src="/App/page.js"></script>
 <script>
 	ThisPage={
-		before_load: function (slide) {
-			console.log('Before LOAD',slide);
+		before_load: function (slide, sections) {
+			sections.forEach((page)=>{
+				const sample=page.querySelector('.sample');
+				if (sample) {
+					const output=page.querySelector('textarea');
+					output.value = sample.innerHTML.trim();
+					output.setAttribute('rows',output.value.split('\n').length+1);
+				}
+			});
 		},
-		after_load: function (slide) {
-			console.log('After LOAD',slide);
-		},
-		page_load: function (page) {
-			console.log('Page LOAD',page);
+		after_load: function (slide) { },
+		page_load: function (page) { },
+		viewsource: function (btn) {
+			try {
+				btn.parentNode.querySelector('textarea').classList.toggle('hide');
+			} catch(x) { console.log(x); }
 		}
 	};
 </script>
 <title>The Tutorial of pStyle Page</title>
-<style data-inc="sample1 sample2">
-</style>
 </head>
 <body style='opacity:0'>
 
@@ -34,27 +40,6 @@
 			<div><em>Chihlee University of Technology</em></div>
 		</div>
 	</div>
-</section>
-
-<section>
-	<div data-template='sample'>
-		Sample:
-		<span data-v="text:A"></span>
-		<span data-v="text:B"></span>
-	</div>
-	<pre data-xl='template:sample'>{"A":"Hello","B":"World"}</pre>
-</section>
-
-<section>
-	<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'><tbody>
-		<tr data-template='rowsample'><td data-v="text:A" align='center'></td><td data-v="text:B" align='center'></td></tr>
-		<tr data-xl='template:rowsample'><td><pre>[
-{"A":"Hello","B":"World"},
-{"A":"Hello","B":"Kitty"},
-{"A":"Hello","B":"World"},
-{"A":"Hello","B":"Kitty"}
-]</pre></td></tr>
-	</tbody></table>
 </section>
 
 <section class='page'>
@@ -111,6 +96,80 @@
 </section>
 
 <section>
+	<h2>Tab Switch</h2>
+
+	<div style='text-align:right;border-bottom:2px solid blue;'>
+		<button data-h='call:viewsource:&this'>原始碼</button><br/>
+		<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
+	</div>
+
+<div class='sample'><style>
+	[data-h='tab:key'] button:not(.current) { color:silver; }
+</style>
+<div data-h='tab:key'>
+	<!-- data-o 定義切換 TAB 的按鈕，.current 表示目前選取 -->
+	<button data-o='TabA' class='current'>A</button>
+	<button data-o='TabB'>B</button>
+</div>
+<!-- data-uid 定義按鈕對應的資料區塊 -->
+<div data-uid='key:TabA'>Content of Tab A comes here</div>
+<div data-uid='key:TabB' class='hide'>Content of Tab B comes here</div></div>
+</section>
+
+<section>
+	<h2>Auto Fill / Form</h2>
+
+	<div style='text-align:right;border-bottom:2px solid blue;'>
+		<button data-h='call:viewsource:&this'>原始碼</button><br/>
+		<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
+	</div>
+
+<div class='sample'>
+<div data-template='sample'>
+	<!-- 定義此節點為 data-template='樣板名稱'
+	     data-v 屬性定義資料的來源與填入方式 -->
+	Sample: <span data-v="text:A"></span> <span data-v="text:B"></span>
+</div>
+<pre data-xl='template:sample'>{"A":"Hello","B":"World"}</pre>
+<!-- 使用 data-xl='template:樣板名稱" 屬性
+     將資料(pre 子節點下的 JSON 物件)套用到樣板並置換此節點-->
+</div>
+</section>
+
+<section>
+	<h2>Auto Fill / List</h2>
+
+	<div style='text-align:right;border-bottom:2px solid blue;'>
+		<button data-h='call:viewsource:&this'>原始碼</button><br/>
+		<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
+	</div>
+
+<div class='sample'>
+<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
+	<tbody>
+		<tr data-template='rowsample'>
+			<!-- 定義此節點為 data-template='樣板名稱'
+			     data-v 屬性定義資料的來源與填入方式 -->
+			<td data-v="text:A" align='center'></td>
+			<td data-v="text:B" align='center'></td>
+		</tr>
+		<tr data-xl='template:rowsample'>
+			<!-- 使用 data-xl='template:樣板名稱" 屬性
+			     將資料(pre 子節點下的 JSON 物件)套用到樣板並置換此節點-->
+			<td><pre>[
+{"A":"Hello","B":"World"},
+{"A":"Hello","B":"Kitty"},
+{"A":"Hello","B":"World"},
+{"A":"Hello","B":"Kitty"}
+]</pre></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+</section>
+
+
+<section>
 	<h2>Dialog Sample</h2>
 	<div data-template='DLGA'>
 		<h1>Hello World</h1>
@@ -124,9 +183,9 @@
 </section>
 
 <section class='page' data-xl='image'>
-AI900/5.2a.png
-AI900/5.2b.png
-AI900/5.2c.png
+Study/AI900/5.2a.png
+Study/AI900/5.2b.png
+Study/AI900/5.2c.png
 </section>
 
 <section data-xl='markdown'>
@@ -165,7 +224,7 @@ flowchart TD
 	B{颳大風} -->|YES| D[停賽]
 	B -->|NO| E[比賽]
 :決策樹'>MERMAID</button>
-	<button data-h='play:image:AI900/5.2c.png:Play Image'>Image</button>
+	<button data-h='play:image:Study/AI900/5.2c.png:Play Image'>Image</button>
 </section>
 
 </body>
