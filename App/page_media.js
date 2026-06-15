@@ -54,9 +54,40 @@ class PlayList {
 	__detect_type__ (url) {
 		const ext=(/.*\.([^\.]+)(\?.*)?/.exec(url)||[null,''])[1].toLowerCase();
 		return [{
-			"jpg":"image","jpeg":"image","png":"image","gif":"image",
-			"mp4":"video","mp3":"audio"
+			jpg:"I",jpeg:"I",png:"I",gif:"I",
+			mp4:"V",mp3:"A"
 		}[ext],ext];
+	}
+	__create_I__ (url,ext) {
+		if (!this.I) this.I=document.createElement("img");
+		this.I.addEventListener('load',()=>this.resize());
+		this.I.src=url;
+	}
+	__create_V__ (url,ext) {
+		if (!this.V) {
+			this.V=document.createElement("video");
+			this.V.setAttribute("width","100%");
+			this.V.setAttribute("height","100%");
+			this.V.setAttribute("controls","yes");
+			this.V.appendChild(document.createElement("source"));
+			this.V.appendChild(document.createTextNode("Not supported: <video>"));
+		}
+		((s)=>{
+			s.src=url;
+			s.setAttribute("type","video/"+ext);
+		})(this.V.querySelector('source'));
+	}
+	__create_A__ (url,ext) {
+		if (!this.A) {
+			this.A=document.createElement("audio");
+			this.A.setAttribute("controls",true);
+			this.A.appendChild(document.createElement("source"));
+			this.A.appendChild(document.createTextNode("Not supported: <audio>"));
+		}
+		((s)=>{
+			s.setAttribute("type","audio/"+ext);
+			s.src=url;
+		})(this.A.querySelector('source'));
 	}
 
 	go (i) {
@@ -69,60 +100,49 @@ class PlayList {
 		}
 		this.C=i=(i+this.Rs.length)%this.Rs.length;
 		((canvas, url)=>{
-			while(canvas.firstChild) canvas.removeChild(canvas.firstChild);
-			this.I=this.V=undefined;
+			this.I=this.V=this.A=undefined;
 			let [cat,ext] = this.__detect_type__(url);
-			console.log("CatType=",cat,ext);
-			switch (cat) {
-			case 'image':
-				this.I=document.createElement("img");
-				this.I.addEventListener('load',()=>this.resize());
-				this.I.src=url;
-				canvas.appendChild(this.I);
-				break;
-			case 'video':
-				break;
-			case 'audio':
-				break;
-			}
+			this['__create_'+cat+'__'](url,ext);
+			while(canvas.firstChild) canvas.removeChild(canvas.firstChild);
+			canvas.appendChild(this.I||this.V||this.A);
 		})(this.Panel.querySelector('[data-uid="canvas"]'), this.Rs[i].U);
 		this.Panel.querySelector('[data-uid="pager"]').value=(1+this.C);
 	}
 	resize () {
-		if(!this.I) return;
-
-		const fp2=(v)=>Math.floor(v*100)/100,
-			container = this.I.parentNode;
-		((s)=>(s.width=s.height='100%'))(container.style);
-		setTimeout(()=>{
-			const rec = this.Rs[this.C],
-				cr = container.getBoundingClientRect(),
-				[iw,ih,cw,ch] = [this.I.width,this.I.height,cr.width,cr.height];
-			[rec.O,rec.R] = iw*ch > ih*cw ? [true, fp2(ch*iw/ih/cw-0.03)] : [false, fp2(cw*ih/iw/ch-0.03)] ;
-			console.log("Image resize:",rec);
-			this.scale(Scalar.get());
-		},1);
+		if (this.I) {
+			const fp2=(v)=>Math.floor(v*100)/100,
+				container = this.I.parentNode;
+			((s)=>(s.width=s.height='100%'))(container.style);
+			setTimeout(()=>{
+				const rec = this.Rs[this.C],
+					cr = container.getBoundingClientRect(),
+					[iw,ih,cw,ch] = [this.I.width,this.I.height,cr.width,cr.height];
+				[rec.O,rec.R] = iw*ch > ih*cw ? [true, fp2(ch*iw/ih/cw-0.03)] : [false, fp2(cw*ih/iw/ch-0.03)] ;
+				console.log("Image resize:",rec);
+				this.scale(Scalar.get());
+			},1);
+		}
 	}
 	scale (v) {
-		if(!this.I) return;
-
-		const container = this.I.parentNode, rec = this.Rs[this.C];
-		v = v==='contain' ? 1.0 : v==='cover' ? rec.R : v;
-		if (rec.O) {
-			this.I.style.width= v>1 ? ((v*100)+"%") : '100%';
-			this.I.style.height='auto';
-			container.style.overflow = v>rec.R ? 'auto' : v>1 ? 'auto hidden' : 'hidden';
-			container.style.height = v>rec.R ? '100%' : 'auto';
-			container.style.width = v>1 ? '100%' : ((v*100)+'%');
-		} else {
-			this.I.style.height= v>1 ? ((v*100)+"%") : '100%';
-			this.I.style.width='auto';
-			container.style.overflow = v>rec.R ? 'auto' : v>1 ? 'hidden auto' : 'hidden';
-			container.style.width = v>rec.R ? '100%' : 'auto';
-			container.style.height = v>1 ? '100%' : ((v*100)+'%');
+		if (this.I) {
+			const container = this.I.parentNode, rec = this.Rs[this.C];
+			v = v==='contain' ? 1.0 : v==='cover' ? rec.R : v;
+			if (rec.O) {
+				this.I.style.width= v>1 ? ((v*100)+"%") : '100%';
+				this.I.style.height='auto';
+				container.style.overflow = v>rec.R ? 'auto' : v>1 ? 'auto hidden' : 'hidden';
+				container.style.height = v>rec.R ? '100%' : 'auto';
+				container.style.width = v>1 ? '100%' : ((v*100)+'%');
+			} else {
+				this.I.style.height= v>1 ? ((v*100)+"%") : '100%';
+				this.I.style.width='auto';
+				container.style.overflow = v>rec.R ? 'auto' : v>1 ? 'hidden auto' : 'hidden';
+				container.style.width = v>rec.R ? '100%' : 'auto';
+				container.style.height = v>1 ? '100%' : ((v*100)+'%');
+			}
+			container.scrollLeft=Math.floor((container.scrollWidth-container.clientWidth)/2);
+			container.scrollTop=Math.floor((container.scrollHeight-container.clientHeight)/2);
 		}
-		container.scrollLeft=Math.floor((container.scrollWidth-container.clientWidth)/2);
-		container.scrollTop=Math.floor((container.scrollHeight-container.clientHeight)/2);
 		return v;
 	}
 }
@@ -169,7 +189,6 @@ SCRIPT.value=async function (slide, elem, code) {
 	ctrl.addEventListener('mouseover',(evt)=>ctrl.style.opacity='1');
 	ctrl.addEventListener('mouseout',(evt)=>ctrl.style.opacity='0');
 	ctrl.addEventListener("click",(evt)=>{
-		console.log("AAAAAAAAAAAAAAAAAAA");
 		evt.stopPropagation();
 		evt.preventDefault();
 		for (let e=evt.target;e!==ctrl;e=e.parentNode) if (e.dataset.h) {
@@ -182,13 +201,6 @@ SCRIPT.value=async function (slide, elem, code) {
 			}
 			return;
 		}
-/*
-		let mask=elem.querySelector('.mask');
-		if (mask.classList.contains('hide')) {
-			let lts=(mask.lts||0),cts=new Date().getTime();
-			if (cts-lts<500) mask.classList.remove('hide'); else mask.lts=cts;
-		} else mask.classList.add('hide');
-*/
 	});
 };
 
