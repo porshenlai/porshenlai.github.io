@@ -96,6 +96,18 @@
 </section>
 
 <section>
+	<h2>Control Flow</h2>
+
+	<pre data-xl='mermaid'>
+flowchart TD
+	A{開始安裝} --> B{ThisPage.before_load}
+	B --> C{頁面篩選}
+	C --> D{ThisPage.after_load}
+	D --> E{頁面切換}
+</pre>
+</section>
+
+<section>
 	<h2>Tab Switch</h2>
 
 	<div style='text-align:right;border-bottom:2px solid blue;'>
@@ -182,7 +194,7 @@
 	<button data-h='play:template:DLGA'>DOM Dialog</button>
 </section>
 
-<section class='page' data-xl='image'>
+<section class='page' data-xl='media/'>
 Study/AI900/5.2a.png
 Study/AI900/5.2b.png
 Study/AI900/5.2c.png
@@ -204,7 +216,7 @@ flowchart TD
 	B -->|NO| E[比賽]
 </section>
 
-<section class='page' data-xl='video'>
+<section class='page' data-xl='media'>
 sample.mp4
 </section>
 
@@ -224,7 +236,7 @@ flowchart TD
 	B{颳大風} -->|YES| D[停賽]
 	B -->|NO| E[比賽]
 :決策樹'>MERMAID</button>
-	<button data-h='play:image:Study/AI900/5.2c.png:Play Image'>Image</button>
+	<button data-h='play:media:Study/AI900/5.2c.png:Play Image'>Image</button>
 </section>
 
 </body>
