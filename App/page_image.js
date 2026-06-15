@@ -43,11 +43,11 @@ function decodeArgs (e)
 let Scalar;
 
 class PlayList {
-	constructor (urls, canvas) {
+	constructor (urls, panel) {
 		this.Rs=urls;
 		this.C=0;
-		this.I=canvas;
-		canvas.addEventListener('load',()=>this.resize());
+		this.I=this.V=undefined;
+		this.Panel=panel;
 		this.go(0);
 	}
 	go (i) {
@@ -59,10 +59,21 @@ class PlayList {
 			else i=parseInt(i);
 		}
 		this.C=i=(i+this.Rs.length)%this.Rs.length;
-		this.I.src=this.Rs[i].U;
-		this.I.parentNode.parentNode.querySelector('[data-uid="pager"]').value=(1+this.C);
+		((canvas, url)=>{
+			while(canvas.firstChild) canvas.removeChild(canvas.firstChild);
+			this.I=this.V=undefined;
+			if(true){
+				this.I=document.createElement("img");
+				this.I.addEventListener('load',()=>this.resize());
+				this.I.src=url;
+				canvas.appendChild(this.I);
+			}
+		})(this.Panel.querySelector('[data-uid="canvas"]'), this.Rs[i].U);
+		this.Panel.querySelector('[data-uid="pager"]').value=(1+this.C);
 	}
 	resize () {
+		if(!this.I) return;
+
 		const fp2=(v)=>Math.floor(v*100)/100,
 			container = this.I.parentNode;
 		((s)=>(s.width=s.height='100%'))(container.style);
@@ -76,9 +87,10 @@ class PlayList {
 		},1);
 	}
 	scale (v) {
+		if(!this.I) return;
+
 		const container = this.I.parentNode, rec = this.Rs[this.C];
 		v = v==='contain' ? 1.0 : v==='cover' ? rec.R : v;
-		console.log("Scale Image:",v);
 		if (rec.O) {
 			this.I.style.width= v>1 ? ((v*100)+"%") : '100%';
 			this.I.style.height='auto';
@@ -100,32 +112,29 @@ class PlayList {
 
 SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
-	elem.classList.add('resolved','col');
+	elem.classList.add('resolved');
 
 	code=decodeArgs(code||elem);
-	elem.innerHTML=`
-<div>
-	<img/>
-	<div class='full hide mask'>
-		<div style='background:white;bottom:95%;padding:1% 5%;border:1px solid silver;margin:1%;'>
-			<input data-h='scale' style='width:100%;' type='range' min='0.5' max='2' step='0.1'></input>
-			<div class='hbar'>
-				<span>
-					<button data-h='prev'>&lt;</button>
-					<output data-uid='pager' type='number' value='1'></output>
-					<button data-h='next'>&gt;</button>
-				</span>
-				<span>
-					<button data-h='scaleContain'>Contain</button>
-					<button data-h='scaleCover'>Cover</button>
-					<output data-uid='scalar' type='number' value='1'></output>
-				</span>
-			</div>
+	elem.innerHTML=`<div style='position:relative;left:0;top:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;'>
+	<div data-uid='canvas'></div>
+	<div data-uid='control' style='position:absolute;left:0;top:0;width:100%;padding:2px 4px;opacity:0;'>
+		<input data-h='scale' style='width:100%;' type='range' min='0.5' max='2' step='0.1'></input>
+		<div class='row' style='justify-content:space-between;'>
+			<span>
+				<button data-h='prev'>&lt;</button>
+				<output data-uid='pager' type='number' value='1'></output>
+				<button data-h='next'>&gt;</button>
+			</span>
+			<span>
+				Scale:<output data-uid='scalar' type='number' value='1'></output>
+				<button data-h='scaleContain'>Contain</button>
+				<button data-h='scaleCover'>Cover</button>
+			</span>
 		</div>
 	</div>
-</div></div>`;
+</div>`;
 
-	elem.PlayList=new PlayList(code, elem.querySelector('img'));
+	elem.PlayList=new PlayList(code, elem.firstChild);
 	// Control Object: Scalar
 	Scalar=new (class {
 		constructor (es) { this.ES=es; this.set(1); }
@@ -139,11 +148,14 @@ SCRIPT.value=async function (slide, elem, code) {
 		elem.querySelector('output[data-uid="scalar"]')
 	]);
 	// Install event handler
-	const container=elem.PlayList.I.parentNode;
-	container.addEventListener("click",(evt)=>{
+	const ctrl=elem.PlayList.Panel.querySelector('[data-uid="control"]');
+	ctrl.addEventListener('mouseover',(evt)=>ctrl.style.opacity='1');
+	ctrl.addEventListener('mouseout',(evt)=>ctrl.style.opacity='0');
+	ctrl.addEventListener("click",(evt)=>{
+		console.log("AAAAAAAAAAAAAAAAAAA");
 		evt.stopPropagation();
 		evt.preventDefault();
-		for (let e=evt.target;e!==container;e=e.parentNode) if (e.dataset.h) {
+		for (let e=evt.target;e!==ctrl;e=e.parentNode) if (e.dataset.h) {
 			switch(e.dataset.h){
 			case 'scale': Scalar.set(Scalar.get()); break;
 			case 'scaleContain': Scalar.set('contain'); break;
@@ -153,11 +165,13 @@ SCRIPT.value=async function (slide, elem, code) {
 			}
 			return;
 		}
+/*
 		let mask=elem.querySelector('.mask');
 		if (mask.classList.contains('hide')) {
 			let lts=(mask.lts||0),cts=new Date().getTime();
 			if (cts-lts<500) mask.classList.remove('hide'); else mask.lts=cts;
 		} else mask.classList.add('hide');
+*/
 	});
 };
 
