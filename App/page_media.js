@@ -32,11 +32,14 @@ function fillContent(elem, url, type) {
 
 function decodeArgs (e)
 {	// {{{
-	if (e instanceof Element)
-		e = e.textContent;
-	if ('string' === typeof(e))
+	if (e instanceof Element) {
+		e = Array.from(e.querySelectorAll('[data-item]')).reduce((r,v)=>{
+			r.push({"U":v.dataset.item});
+			return r;
+		},[]);
+	} else if ('string' === typeof(e)) {
 		e = e.split(/[;,\s]/).filter((e)=>e).map((u)=>({"U":u}));
-	console.log("ARGS is ",e);
+	}
 	return e;
 }	// }}}
 
@@ -58,11 +61,13 @@ class PlayList {
 			mp4:"V",mp3:"A"
 		}[ext],ext];
 	}
+
 	__create_I__ (url,ext) {
 		if (!this.I) this.I=document.createElement("img");
 		this.I.addEventListener('load',()=>this.resize());
 		this.I.src=url;
 	}
+
 	__create_V__ (url,ext) {
 		if (!this.V) {
 			this.V=document.createElement("video");
@@ -77,17 +82,22 @@ class PlayList {
 			s.setAttribute("type","video/"+ext);
 		})(this.V.querySelector('source'));
 	}
+
 	__create_A__ (url,ext) {
 		if (!this.A) {
-			this.A=document.createElement("audio");
-			this.A.setAttribute("controls",true);
-			this.A.appendChild(document.createElement("source"));
-			this.A.appendChild(document.createTextNode("Not supported: <audio>"));
+			this.A=document.createElement("div");
+			this.A.innerHTML=`<audio controls>
+	<source></source>
+	Not supported: <audio>
+</audio>
+<img/>`;
+			((audio,image)=>{
+				audio.setAttribute("type","audio/"+ext);
+				audio.src=url;
+				//image.addEventListener('load',()=>this.resize());
+				//image.src=url;
+			})(this.A.querySelector('audio'),this.A.querySelector('img'));
 		}
-		((s)=>{
-			s.setAttribute("type","audio/"+ext);
-			s.src=url;
-		})(this.A.querySelector('source'));
 	}
 
 	go (i) {
