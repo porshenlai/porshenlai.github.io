@@ -30,6 +30,94 @@
 <body style='opacity:0'>
 
 <section class='page'>
+	<style>
+		.MediaItem, .MediaItem [data-dur], .MediaItem [data-ts] {
+			position:absolute; left:0; top:0; width:100%; height:100%; overflow:hidden;
+			border:0; margin:0; padding:0;
+		}
+		.MediaItem { position:relative;border:1px solid red; }
+	</style>
+	<div data-media="Study/samples/sample.mp3">
+		<div data-ts='0+'>
+			<div data-dur='3' data-image="Study/samples/001.jpg">A</div>
+			<div data-dur='3' data-image="Study/samples/002.jpg">B</div>
+			<div data-dur='3' data-image="Study/samples/003.jpg">C</div>
+			<div data-dur='3' data-image="Study/samples/004.jpg">D</div>
+		</div>
+		<div data-ts='3'>
+			<div data-dur='5'><br/>Hello World</div>
+			<div data-dur='5'><br/>Hello Kitty</div>
+		</div>
+		<script>
+			class MediaShot {
+				constructor (e) {
+					this.E=e;
+					this.Dur=undefined;
+					this.TS=this.E.dataset.ts;
+					if (this.TS.endsWith('+')) {
+						this.TS=this.TS.substring(0,this.TS.length-1);
+						this.Dur=Array.from(this.E.querySelectorAll('[data-dur]'))
+								.reduce((r,e)=>r+parseInt(e.dataset.dur),0);
+					}
+					console.log(this.TS,this.Dur);
+					this.TS=parseInt(this.TS);
+				}
+				tick (ts) {
+					console.log(ts);
+					let cur=undefined, t=ts;
+					t-=this.TS;
+					if (t>=0) {
+						if (this.Dur) t%=this.Dur;
+						cur=Array.from(this.E.querySelectorAll('[data-dur]'))
+						.find((e)=>{
+							t-=parseInt(e.dataset.dur);
+							return t<0;
+						});
+					}
+					if (cur) {
+						this.E.appendChild(cur);
+						this.E.classList.remove('hide');
+						Array.from(this.E.querySelectorAll('[data-dur]'))
+						.forEach((e)=>e.classList[e===cur?'remove':'add']('hide'));
+					} else this.E.classList.add('hide');
+				}
+			}
+	
+			class MediaItem {
+				constructor (e) {
+					e.classList.add('MediaItem');
+					this.E = e;
+					this.Shots = Array.from(e.querySelectorAll('[data-ts]')).map((e)=>new MediaShot(e));
+					((T)=>{
+						if (e.__Handler__) e.removeEventHandler("invokeHandler",e.__Handler__);
+						e.__Handler__ = (evt)=>T[evt.args.shift()](...evt.args);
+						e.addEventListener("invokeHandler",e.__Handler__,false);
+					})(this);
+					this.tick(20);
+				}
+				tick (i) {
+					this.Shots.forEach((s)=>s.tick(i));
+				}
+				go (i) {
+					console.log("TEST",i);
+				}
+				static invoke (e, ...a) {
+					e.dispatchEvent(((evt)=>{
+						evt.initEvent("invokeHandler",true,true);
+						evt.args=a;
+						return evt;
+					})(document.createEvent("Event")));
+				}
+			}
+			((e)=>{
+				const m = new MediaItem(e);
+				MediaItem.invoke(m.E, 'go',0);
+			})(document.currentScript.parentNode);
+		</script>
+	</div>
+</section>
+
+<section class='page'>
 	<div class='fill col'>
 		<div class='h1'>pStyle Page</div>
 		<div class='h3'>the Tutorial</div>
