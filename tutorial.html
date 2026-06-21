@@ -37,7 +37,11 @@
 <body style='opacity:0'>
 
 <section class='page'>
-	<div data-media="Study/AI900/5.2b.png"></div>
+	<div data-media="Study/AI900/5.2b.png">
+		<div data-ts='0'>
+			<div data-dur='1' style='border:1px solid red'>TEST</div>
+		</div>
+	</div>
 	<div data-media="Study/samples/sample.mp3">
 		<div data-ts='0+'>
 			<div data-dur='1' data-image="Study/samples/001.jpg"></div>
@@ -50,7 +54,11 @@
 			<div data-dur='5'>Hello Kitty</div>
 		</div>
 	</div>
-	<div data-media="https://www.w3schools.com/html/movie.mp4"></div>
+	<div data-media="https://www.w3schools.com/html/movie.mp4">
+		<div data-ts='0' style='height:50%;width:50%;'>
+			<div data-dur='10' style='border:1px solid red'>TEST</div>
+		</div>
+	</div>
 
 	<script>
 class MediaShot {
@@ -80,7 +88,6 @@ class MediaShot {
 			cur=this.S.find((e)=>(t-=parseInt(e.dataset.dur))<=0);
 		}
 		if (cur) {
-			this.E.appendChild(cur);
 			this.E.classList.remove('hide');
 			Array.from(this.E.querySelectorAll('[data-dur]'))
 			.forEach((e)=>e.classList[e===cur?'remove':'add']('hide'));
@@ -158,10 +165,19 @@ class ImageItem extends MediaItem {
 	constructor (e)
 	{	// {{{
 		super(e);
-		this.I=document.createElement("img");
-		this.I.addEventListener('load',()=>this.resize());
-		this.I.src=e.dataset.media;
-		e.appendChild(this.I);
+		this.I = ((ee)=>{
+			ee.classList.add('fill','col');
+			e.appendChild(ee);
+			return ee;
+		})(document.createElement("div"));
+
+		const img=new Image();
+		img.addEventListener('load',()=>{
+			this.Size=[img.width,img.height];
+			this.scale(1);
+		});
+		img.src=e.dataset.media;
+		this.I.style.background=`url("${img.src}") no-repeat 50% 50%/contain`;
 	}	// }}}
 	play (ctrl)
 	{	// {{{
@@ -173,21 +189,22 @@ class ImageItem extends MediaItem {
 <input data-h='m:scale' style='flex:1 1 auto' value='1' type='range' min='0.5' max='2' step='0.1'></input>`;
 	}	// }}}
 	tick ()
-	{	}
-	resize ()
+	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
+	resize (img)
 	{	// {{{
-		const fp2=(v)=>Math.floor(v*100)/100,
-			container = this.I.parentNode;
-		((s)=>(s.width=s.height='100%'))(container.style);
+		const fp2=(v)=>Math.floor(v*100)/100;
+		((s)=>(s.width=s.height='100%'))(this.E.style);
 		setTimeout(()=>{
-			const cr = container.getBoundingClientRect(),
-				[iw,ih,cw,ch] = [this.I.width,this.I.height,cr.width,cr.height];
-			[this.I.dataset.IRO,this.I.dataset.IRR] =
+			const cr = this.E.getBoundingClientRect(),
+				[iw,ih,cw,ch] = [img.width,img.height,cr.width,cr.height];
+/*
+			[this.I.dataset.IRO,this.I.dataset.IRR,this.I.dataset.IAR] =
 				iw*ch > ih*cw ?
-				[true, fp2(ch*iw/ih/cw-0.03)] :
-				[false, fp2(cw*ih/iw/ch-0.03)] ;
+				[true, fp2(ch*iw/ih/cw-0.03), iw/ih] :
+				[false, fp2(cw*ih/iw/ch-0.03), iw/ih] ;
 			console.log("Image resize:",this.I.dataset);
-			this.scale(1);
+*/
+			this.scale('Contain');
 			// this.scale(Scalar.get());
 		},1);
 	}	// }}}
@@ -196,33 +213,33 @@ class ImageItem extends MediaItem {
 		if (v instanceof Event)
 			v=v.target;
 		if (v instanceof Element) {
-			switch(v.value) {
-			case 'Contain':
-				v.value='-'; v=1; break;
+			switch (v.value) {
 			case 'Cover':
-				v.value='-'; v=this.I.dataset.IRR; break;
+				((cr, iw, ih) => {
+					v.value = '-';
+					v = (iw*cr.height < ih*cr.width) ? 1 : 1*iw/ih;
+				})(this.E.parentNode.getBoundingClientRect(), ...this.Size);
+				break;
+			case 'Contain':
+				((cr, iw, ih) => {
+					v.value = '-';
+					v = (iw*cr.height > ih*cr.width) ? 1 : 1*iw/ih;
+				})(this.E.parentNode.getBoundingClientRect(), ...this.Size);
+				break;
 			default:
 				v=parseFloat(v.value);
 				if (!v) return;
 			}
 		}
-		const container = this.I.parentNode, rec = this.I.dataset;
-		v = v==='contain' ? 1.0 : v==='cover' ? rec.IRR : v;
-		if (rec.IRO) {
-			this.I.style.width= v>1 ? ((v*100)+"%") : '100%';
-			this.I.style.height='auto';
-			container.style.overflow = v>rec.IRR ? 'auto' : v>1 ? 'auto hidden' : 'hidden';
-			container.style.height = v>rec.IRR ? '100%' : 'auto';
-			container.style.width = v>1 ? '100%' : ((v*100)+'%');
-		} else {
-			this.I.style.height= v>1 ? ((v*100)+"%") : '100%';
-			this.I.style.width='auto';
-			container.style.overflow = v>rec.IRR ? 'auto' : v>1 ? 'hidden auto' : 'hidden';
-			container.style.width = v>rec.IRR ? '100%' : 'auto';
-			container.style.height = v>1 ? '100%' : ((v*100)+'%');
-		}
-		container.scrollLeft=Math.floor((container.scrollWidth-container.clientWidth)/2);
-		container.scrollTop=Math.floor((container.scrollHeight-container.clientHeight)/2);
+
+		console.log(this.I);
+		((s,cs)=>{
+			const [w,h] = [Math.floor(100*v),Math.floor(100*v*this.Size[1]/this.Size[0])]
+			s.width=w+'%';
+			cs.alignItems=w>100 ? 'flex-start' : 'center';
+			s.height=h+'%';
+			cs.justifyContents=h>100 ? 'flex-start' : 'center';
+		})(this.I.style, this.E.style);
 		return v;
 	}	// }}}
 }
@@ -245,9 +262,9 @@ class MediaList {
 		let list = Array.from(e.querySelectorAll('[data-media]')).map((m)=>MediaItem.create(m));
 
 		// CREATE USER INTERFACE
-		e.innerHTML=`<div class='fill col' style='position:relative'>
-	<div data-uid='canvas' class='fill col'></div>
-	<div data-uid='control' style='position:absolute;left:0;top:0;width:100%;padding:2px 4px;opacity:0;'>
+		e.innerHTML=`<div class='fill' style='position:relative'>
+	<div data-uid='canvas' class='fill col' style='position:absolute;'></div>
+	<div data-uid='control' style='position:absolute;left:0;top:0;width:100%;padding:2px 4px;opacity:0;background-color:rgba(255,255,255,0.7)'>
 		<div style='text-align:right;'>
 			<span>
 				<span data-h='prev'> &lt;&lt; </span>
@@ -334,24 +351,6 @@ class MediaList {
 
 	</script>
 </section>
-
-<!--
-
-	elem.PlayList=new PlayList(code, elem.firstChild);
-	// Control Object: Scalar
-	Scalar=new (class {
-		constructor (es) { this.ES=es; this.set(1); }
-		get () { return this.ES[0].value; }
-		set (v) {
-			v=elem.PlayList.scale(v);
-			for (let e of this.ES) e.value=v;
-		}
-	})([
-		elem.querySelector('input[type="range"]'),
-		elem.querySelector('output[data-uid="scalar"]')
-	]);
-};
--->
 
 <section class='page'>
 	<div class='fill col'>
