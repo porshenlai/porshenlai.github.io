@@ -37,9 +37,14 @@
 <body style='opacity:0'>
 
 <section class='page'>
-	<div data-media="Study/AI900/5.2b.png">
+	<div data-media="https://www.w3schools.com/html/movie.mp4">
+		<div data-ts='0' style='height:50%;width:50%;'>
+			<div data-dur='10' style='border:1px solid red'>TEST</div>
+		</div>
+	</div>
+	<div data-media="Study/samples/001.jpg">
 		<div data-ts='0'>
-			<div data-dur='1' style='border:1px solid red'>TEST</div>
+			<div data-dur='1'>TEST</div>
 		</div>
 	</div>
 	<div data-media="Study/samples/sample.mp3">
@@ -54,12 +59,6 @@
 			<div data-dur='5'>Hello Kitty</div>
 		</div>
 	</div>
-	<div data-media="https://www.w3schools.com/html/movie.mp4">
-		<div data-ts='0' style='height:50%;width:50%;'>
-			<div data-dur='10' style='border:1px solid red'>TEST</div>
-		</div>
-	</div>
-
 	<script>
 class MediaShot {
 	constructor (e)
@@ -133,7 +132,7 @@ class AudioItem extends MediaItem {
 			this.A = MediaItem.createDOM(`<audio controls>
 <source type="audio/mp3" src="${e.dataset.media}"/>
 Not supported: &lt;audio&gt;
-</video>`)
+</audio>`)
 		);
 	}	// }}}
 	play (ctrl)
@@ -148,15 +147,31 @@ class VideoItem extends MediaItem {
 	constructor (e)
 	{	// {{{
 		super(e);
-		e.appendChild(
-			this.V = MediaItem.createDOM(`<video width="100%" height="100%" controls>
-<source type="video/mp4" src="${e.dataset.media}"/>
-Not supported: &lt;video&gt;
-</video>`)
-		);
 	}	// }}}
 	play (ctrl)
-	{	}
+	{
+		this.V = MediaItem.createDOM(`<video width="100%" height="100%" controls>
+<source type="video/mp4" src="${this.E.dataset.media}"/>
+Not supported: &lt;video&gt;
+</video>`);
+		this.V.addEventListener('loadedmetadata', ()=>{
+			const [vw,vh]=[this.V.videoWidth,this.V.videoHeight];
+			const cr=this.E.parentNode.getBoundingClientRect();
+			const gr=[1,1,1,1];
+			if (vw*cr.height > vh*cr.width) {
+				gr[0]=cr.width;
+				gr[1]=Math.floor(cr.width/vw*vh);
+			} else {
+				gr[0]=Math.floor(cr.height/vh*vw);
+				gr[1]=cr.height;
+			}
+			gr[2]=Math.floor((cr.width-gr[0])/2);
+			gr[3]=Math.floor((cr.height-gr[1])/2);
+			['width','height','left','top'].forEach((n,i)=>this.E.style[n]=gr[i]+'px');
+			console.log(gr);
+		});
+		this.E.appendChild(this.V);
+	}
 	tick ()
 	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
 }
@@ -171,16 +186,18 @@ class ImageItem extends MediaItem {
 			return ee;
 		})(document.createElement("div"));
 
-		const img=new Image();
-		img.addEventListener('load',()=>{
-			this.Size=[img.width,img.height];
-			this.scale(1);
-		});
-		img.src=e.dataset.media;
-		this.I.style.background=`url("${img.src}") no-repeat 50% 50%/contain`;
 	}	// }}}
 	play (ctrl)
 	{	// {{{
+		this.E.style.width=this.E.style.height='100%';
+		const img=new Image();
+		img.addEventListener('load',()=>{
+			this.Size=[img.width,img.height];
+			this.scale('Contain');
+		});
+		img.src=this.E.dataset.media;
+		this.I.style.background=`url("${img.src}") no-repeat 50% 50%/contain`;
+
 		ctrl.innerHTML=`<select data-h='m:scale'>
 	<option value='-'>Scale</option>
 	<option value='Contain'>Contain</option>
@@ -190,56 +207,51 @@ class ImageItem extends MediaItem {
 	}	// }}}
 	tick ()
 	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
-	resize (img)
-	{	// {{{
-		const fp2=(v)=>Math.floor(v*100)/100;
-		((s)=>(s.width=s.height='100%'))(this.E.style);
-		setTimeout(()=>{
-			const cr = this.E.getBoundingClientRect(),
-				[iw,ih,cw,ch] = [img.width,img.height,cr.width,cr.height];
-/*
-			[this.I.dataset.IRO,this.I.dataset.IRR,this.I.dataset.IAR] =
-				iw*ch > ih*cw ?
-				[true, fp2(ch*iw/ih/cw-0.03), iw/ih] :
-				[false, fp2(cw*ih/iw/ch-0.03), iw/ih] ;
-			console.log("Image resize:",this.I.dataset);
-*/
-			this.scale('Contain');
-			// this.scale(Scalar.get());
-		},1);
-	}	// }}}
 	scale (v)
 	{	// {{{
+		console.log(this.E);
+		this.E.style.width=this.E.style.height='100%';
+		const CSize=((cr)=>[Math.floor(cr.width),Math.floor(cr.height)])(this.E.parentNode.getBoundingClientRect());
+
 		if (v instanceof Event)
 			v=v.target;
 		if (v instanceof Element) {
-			switch (v.value) {
+			const VVALUE=v.value;
+			if (v.tagName==='SELECT')
+				v.value = '-';
+			v=VVALUE;
+		}
+		console.log("v is ",v,typeof(v));
+		if ('string'===typeof(v)) {
+			switch (v) {
 			case 'Cover':
-				((cr, iw, ih) => {
-					v.value = '-';
-					v = (iw*cr.height < ih*cr.width) ? 1 : 1*iw/ih;
-				})(this.E.parentNode.getBoundingClientRect(), ...this.Size);
+				((cw,ch,iw,ih)=>{
+					v = iw*ch<ih*cw ? 1 : cw*ih/iw/ch;
+				})(...CSize,...this.Size);
+				console.log("v scale is ",v);
 				break;
 			case 'Contain':
-				((cr, iw, ih) => {
-					v.value = '-';
-					v = (iw*cr.height > ih*cr.width) ? 1 : 1*iw/ih;
-				})(this.E.parentNode.getBoundingClientRect(), ...this.Size);
+				((cw,ch, iw, ih) => {
+					v = iw*ch>ih*cw ? 1 : ch*iw/ih/cw;
+				})(...CSize,...this.Size);
 				break;
 			default:
-				v=parseFloat(v.value);
+				v=parseFloat(v);
 				if (!v) return;
 			}
 		}
-
-		console.log(this.I);
-		((s,cs)=>{
-			const [w,h] = [Math.floor(100*v),Math.floor(100*v*this.Size[1]/this.Size[0])]
+		((s,p)=>{
+			const [w,h] = [
+				Math.floor(100*v),
+				Math.floor(100*v*this.Size[1]*CSize[0]/this.Size[0]/CSize[1])
+			]
 			s.width=w+'%';
-			cs.alignItems=w>100 ? 'flex-start' : 'center';
 			s.height=h+'%';
-			cs.justifyContents=h>100 ? 'flex-start' : 'center';
-		})(this.I.style, this.E.style);
+			s.left=w<100 ? Math.floor((100-w)/2)+'%' : 0;
+			s.top=h<100 ? Math.floor((100-h)/2)+'%' : 0;
+			if (w>100) p.scrollLeft=Math.floor((p.scrollWidth-CSize[0])/2);
+			if (h>100) p.scrollTop=Math.floor((p.scrollHeight-CSize[1])/2);
+		})(this.E.style, this.E.parentNode);
 		return v;
 	}	// }}}
 }
@@ -263,7 +275,7 @@ class MediaList {
 
 		// CREATE USER INTERFACE
 		e.innerHTML=`<div class='fill' style='position:relative'>
-	<div data-uid='canvas' class='fill col' style='position:absolute;'></div>
+	<div data-uid='canvas' class='fill' style='position:absolute;overflow:auto;'></div>
 	<div data-uid='control' style='position:absolute;left:0;top:0;width:100%;padding:2px 4px;opacity:0;background-color:rgba(255,255,255,0.7)'>
 		<div style='text-align:right;'>
 			<span>
