@@ -149,9 +149,11 @@ class ImageItem extends MediaItem {
 	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
 	scale (v)
 	{	// {{{
-		console.log(this.E);
 		this.E.style.width=this.E.style.height='100%';
-		const CSize=((cr)=>[Math.floor(cr.width),Math.floor(cr.height)])(this.E.parentNode.getBoundingClientRect());
+		const CSize=((cr)=>[
+			Math.floor(cr.width),
+			Math.floor(cr.height)
+		])(this.E.parentNode.getBoundingClientRect());
 
 		if (v instanceof Event)
 			v=v.target;
@@ -161,12 +163,13 @@ class ImageItem extends MediaItem {
 				v.value = '-';
 			v=VVALUE;
 		}
-		console.log("v is ",v,typeof(v));
 		if ('string'===typeof(v)) {
 			switch (v) {
 			case 'Cover':
 				((cw,ch,iw,ih)=>{
-					v = iw*ch<ih*cw ? 1 : cw*ih/iw/ch;
+					console.log("DEBUG",cw,ch,iw,ih,iw*ch<ih*cw);
+					v = iw*ch<ih*cw ? 1 : ch*iw/ih/cw;
+					console.log("RESULT is ",v);
 				})(...CSize,...this.Size);
 				console.log("v scale is ",v);
 				break;
