@@ -303,6 +303,8 @@ SCRIPT.value=async function (slide, elem) {
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
 
+	if (!elem.querySelector('[data-media]'))
+		elem.innerHTML='<div data-media="'+elem.innerHTML+'"></div>';
 	new MediaList(elem);
 };
 

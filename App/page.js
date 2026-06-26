@@ -297,6 +297,24 @@ function queryContainer (e, cs)
 	}
 }	// }}}
 
+function splitArgs (s, d=':')
+{	// {{{
+	let m=undefined, bf=[];
+	return s.split(d).reduce((r,v)=>{
+		if (m) {
+			if (v.endsWith(m)) {
+				bf.push(v.substring(0,v.length-1));
+				r.push(bf.join(d));
+				m=undefined;
+			} else bf.push(v);
+		} else if (v.startsWith('"') || v.startsWith("'")) {
+			m=v[0]
+			bf.push(v.substring(1));
+		} else r.push(v);
+		return r;
+	},[]);
+}	// }}}
+
 class Chain {
 	// 1. constructed with multiple elements
 	// 2. set => fill into all elements
@@ -338,7 +356,7 @@ class Templates {
 				// fill values
 				Array.from(EI.querySelectorAll('[data-v]'))
 				.forEach((e)=>{
-					const a = (e.dataset.v||"").split(":");
+					const a = splitArgs(e.dataset.v||"",':');
 					switch (a[0]) {
 					case "text": e.textContent=D[a[1]]; break;
 					case "value": e.value=D[a[1]]; break; }
@@ -356,7 +374,7 @@ class Templates {
 			.reduce((rst, row) => {
 				rst.push(Array.from(row.querySelectorAll('[data-v]'))
 				.reduce((val, cell) => {
-					const a = (cell.dataset.v||"").split(":");
+					const a = splitArgs(cell.dataset.v||"",':');
 					switch (a[0]) {
 					case "text": val[a[1]]=cell.textContent; break;
 					case "value": val[a[1]]=cell.value; break; }
@@ -435,7 +453,7 @@ class Content {
 	extendMods (mods) { // ## INSTALL EXTENSION MODULES (data-x="...") {{{
 		Promise.all(
 			mods.reduce((R,e)=>{
-				const args=(e.dataset.x||e.dataset.xl||"").split(':'), mn=args.shift();
+				const args=splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
 				if (mn) R.push((async (T, N, E)=>{
 					if (!T.Xs[N])
 						T.Xs[N] = loadScript(
@@ -756,9 +774,8 @@ class Player {
 	play (mn, code, caption)
 		// play:dom:&this:Caption
 		// play('dom',document.getElementById(...),'Caption');
-		// play:image:URI:Caption
-		// play('image','test.png','Caption');
 	{	// {{{
+		console.log("===>PLAY==>",mn,code,caption);
 		const VE = document.createElement("div");
 		VE.dataset.xl = mn;
 		VE.classList.add("fill");
@@ -831,7 +848,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 			try {
 				for (let e=evt.target; e!==this.GC; e=e.parentNode){
 					if (e.dataset && e.dataset.h) {
-						let args = e.dataset.h.split(':'), cmd = args.shift();
+						let args = splitArgs(e.dataset.h,':'), cmd = args.shift();
 						args = args.map((a)=>{
 							switch (a) {
 							case '&this': return e;
