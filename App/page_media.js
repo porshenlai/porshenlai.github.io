@@ -1,217 +1,306 @@
 (function(SCRIPT){
 
-// TO REMOVE {{{
-const MENU=`
-	<div class='full hide mask' style='position:absolute;background:rgba(127,127,127,0.5);'>MENU COME HERE</div>
-`;
-
-function fillContent(elem, url, type) {
-	switch (type) {
-	default: case "photo":
-		elem.innerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><img src='${url}' style='object-fit:contain;width:100%;height:100%;'/>${MENU}</div>`;
-		break;
-	case "image":
-		elem.innerHTML=`<div style='overflow:hidden;height:100%;'><img src='${url}' style='object-fit:cover;width:auto;height:auto;'/>${MENU}</div>`;
-		((img)=>{
-			img.addEventListener('load',()=>{
-				const cr = DE.getBoundingClientRect();
-				const as = (img.width*cr.height > img.height*cr.width)
-					? ['height','overflow-x']
-					: ['width','overflow-y'] ;
- 				img.style[as[0]]='100%';
-				elem.style[as[1]]='auto';
-			});
-		})(elem.querySelector('img'));
-		break;
-	case "object":
-		elem.innerHTML=`<div style='overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;'><iframe src='${url}' style='width:100%;height:100%;'><a href='${url}'>Not support, download to open</a></iframe>${MENU}</div>`;
-		break;
-	}
-	elem.classList.add('resolved');
-}	// }}}
-
-function decodeArgs (e)
-{	// {{{
-	if (e instanceof Element) {
-		e = Array.from(e.querySelectorAll('[data-item]')).reduce((r,v)=>{
-			r.push({"U":v.dataset.item});
-			return r;
-		},[]);
-	} else if ('string' === typeof(e)) {
-		e = e.split(/[;,\s]/).filter((e)=>e).map((u)=>({"U":u}));
-	}
-	return e;
-}	// }}}
-
-let Scalar;
-
-class PlayList {
-	constructor (urls, panel) {
-		this.Rs=urls;
-		this.C=0;
-		this.I=this.V=undefined;
-		this.Panel=panel;
-		this.go(0);
-	}
-
-	__detect_type__ (url) {
-		const ext=(/.*\.([^\.]+)(\?.*)?/.exec(url)||[null,''])[1].toLowerCase();
-		return [{
-			jpg:"I",jpeg:"I",png:"I",gif:"I",
-			mp4:"V",mp3:"A"
-		}[ext],ext];
-	}
-
-	__create_I__ (url,ext) {
-		if (!this.I) this.I=document.createElement("img");
-		this.I.addEventListener('load',()=>this.resize());
-		this.I.src=url;
-	}
-
-	__create_V__ (url,ext) {
-		if (!this.V) {
-			this.V=document.createElement("video");
-			this.V.setAttribute("width","100%");
-			this.V.setAttribute("height","100%");
-			this.V.setAttribute("controls","yes");
-			this.V.appendChild(document.createElement("source"));
-			this.V.appendChild(document.createTextNode("Not supported: <video>"));
-		}
-		((s)=>{
-			s.src=url;
-			s.setAttribute("type","video/"+ext);
-		})(this.V.querySelector('source'));
-	}
-
-	__create_A__ (url,ext) {
-		if (!this.A) {
-			this.A=document.createElement("div");
-			this.A.innerHTML=`<audio controls>
-	<source></source>
-	Not supported: <audio>
-</audio>
-<img/>`;
-			((audio,image)=>{
-				audio.setAttribute("type","audio/"+ext);
-				audio.src=url;
-				//image.addEventListener('load',()=>this.resize());
-				//image.src=url;
-			})(this.A.querySelector('audio'),this.A.querySelector('img'));
-		}
-	}
-
-	go (i) {
-		if ('string'===typeof(i)) {
-			if (i[0]==='+') i=Math.floor(this.C+parseFloat(i.substring(1)));
-			else if (i[0]==='-') i=Math.floor(this.C-parseFloat(i.substring(1)));
-			else if (i[0]==='*') i=Math.floor(this.C*parseFloat(i.substring(1)));
-			else if (i[0]==='/') i=Math.floor(this.C/parseFloat(i.substring(1)));
-			else i=parseInt(i);
-		}
-		this.C=i=(i+this.Rs.length)%this.Rs.length;
-		((canvas, url)=>{
-			this.I=this.V=this.A=undefined;
-			let [cat,ext] = this.__detect_type__(url);
-			this['__create_'+cat+'__'](url,ext);
-			while(canvas.firstChild) canvas.removeChild(canvas.firstChild);
-			canvas.appendChild(this.I||this.V||this.A);
-		})(this.Panel.querySelector('[data-uid="canvas"]'), this.Rs[i].U);
-		this.Panel.querySelector('[data-uid="pager"]').value=(1+this.C);
-	}
-	resize () {
-		if (this.I) {
-			const fp2=(v)=>Math.floor(v*100)/100,
-				container = this.I.parentNode;
-			((s)=>(s.width=s.height='100%'))(container.style);
-			setTimeout(()=>{
-				const rec = this.Rs[this.C],
-					cr = container.getBoundingClientRect(),
-					[iw,ih,cw,ch] = [this.I.width,this.I.height,cr.width,cr.height];
-				[rec.O,rec.R] = iw*ch > ih*cw ? [true, fp2(ch*iw/ih/cw-0.03)] : [false, fp2(cw*ih/iw/ch-0.03)] ;
-				console.log("Image resize:",rec);
-				this.scale(Scalar.get());
-			},1);
-		}
-	}
-	scale (v) {
-		if (this.I) {
-			const container = this.I.parentNode, rec = this.Rs[this.C];
-			v = v==='contain' ? 1.0 : v==='cover' ? rec.R : v;
-			if (rec.O) {
-				this.I.style.width= v>1 ? ((v*100)+"%") : '100%';
-				this.I.style.height='auto';
-				container.style.overflow = v>rec.R ? 'auto' : v>1 ? 'auto hidden' : 'hidden';
-				container.style.height = v>rec.R ? '100%' : 'auto';
-				container.style.width = v>1 ? '100%' : ((v*100)+'%');
-			} else {
-				this.I.style.height= v>1 ? ((v*100)+"%") : '100%';
-				this.I.style.width='auto';
-				container.style.overflow = v>rec.R ? 'auto' : v>1 ? 'hidden auto' : 'hidden';
-				container.style.width = v>rec.R ? '100%' : 'auto';
-				container.style.height = v>1 ? '100%' : ((v*100)+'%');
+class MediaShot {
+	constructor (e)
+	{	// {{{
+		this.E=e;
+		this.S=Array.from(this.E.querySelectorAll('[data-dur]'));
+		this.S.forEach((m)=>{
+			if (m.dataset.image) {
+				m.style.background=`url('${m.dataset.image}') no-repeat 50% 50%/contain`;
 			}
-			container.scrollLeft=Math.floor((container.scrollWidth-container.clientWidth)/2);
-			container.scrollTop=Math.floor((container.scrollHeight-container.clientHeight)/2);
+		});
+		this.Dur=undefined;
+		this.TS=this.E.dataset.ts;
+		if (this.TS.endsWith('+')) {
+			this.TS=this.TS.substring(0,this.TS.length-1);
+			this.Dur=this.S.reduce((r,e)=>r+parseInt(e.dataset.dur),0);
 		}
-		return v;
-	}
+		this.TS=parseInt(this.TS);
+	}	// }}}
+	tick (ts)
+	{	// {{{
+		let cur=undefined, t=ts;
+		t-=this.TS;
+		if (t>=0) {
+			if (this.Dur) t%=this.Dur;
+			cur=this.S.find((e)=>(t-=parseInt(e.dataset.dur))<=0);
+		}
+		if (cur) {
+			this.E.classList.remove('hide');
+			Array.from(this.E.querySelectorAll('[data-dur]'))
+			.forEach((e)=>e.classList[e===cur?'remove':'add']('hide'));
+		} else this.E.classList.add('hide');
+	}	// }}}
 }
 
-SCRIPT.value=async function (slide, elem, code) {
-	if (elem.classList.contains('resolved')) return;
-	elem.classList.add('resolved');
+class MediaItem {
+	static create (e)
+	{	// {{{
+		let url=e.dataset.media;
+		if (e.parentNode) e.parentNode.removeChild(e);
+		const ext=(/.*\.([^\.]+)(\?.*)?/.exec(url)||[null,''])[1].toLowerCase();
+		switch ({
+			jpg:"I",jpeg:"I",png:"I",gif:"I",
+			mp4:"V",mp3:"A"
+		}[ext]) {
+		case "I": return new ImageItem(e);
+		case "A": return new AudioItem(e);
+		case "V": return new VideoItem(e);
+		}
+	}	// }}}
+	static createDOM (s)
+	{	// {{{
+		const C=document.createElement("div");
+		C.innerHTML=s;
+		return C.firstChild;
+	}	// }}}
+	constructor (e)
+	{	// {{{
+		e.classList.add('MediaItem');
+		this.E = e;
+		this.Shots = Array.from(e.querySelectorAll('[data-ts]')).map((e)=>new MediaShot(e));
+	}	// }}}
+	play (ctrl) { console.log("Play not implemented.",this.E.innerHTML) }
+}
 
-	code=decodeArgs(code||elem);
-	elem.innerHTML=`<div style='position:relative;left:0;top:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;'>
-	<div data-uid='canvas'></div>
-	<div data-uid='control' style='position:absolute;left:0;top:0;width:100%;padding:2px 4px;opacity:0;'>
-		<input data-h='scale' style='width:100%;' type='range' min='0.5' max='2' step='0.1'></input>
-		<div class='row' style='justify-content:space-between;'>
+class AudioItem extends MediaItem {
+	constructor (e)
+	{	// {{{
+		super(e);
+		e.appendChild(
+			this.A = MediaItem.createDOM(`<audio controls>
+<source type="audio/mp3" src="${e.dataset.media}"/>
+Not supported: &lt;audio&gt;
+</audio>`)
+		);
+	}	// }}}
+	play (ctrl)
+	{	// {{{
+		ctrl.appendChild(this.A);
+	}	// }}}
+	tick ()
+	{	this.Shots.forEach((s)=>s.tick(this.A ? this.A.currentTime : 0)); }	
+}
+
+class VideoItem extends MediaItem {
+	constructor (e)
+	{	// {{{
+		super(e);
+	}	// }}}
+	play (ctrl)
+	{	// {{{
+		this.V = MediaItem.createDOM(`<video width="100%" height="100%" controls>
+<source type="video/mp4" src="${this.E.dataset.media}"/>
+Not supported: &lt;video&gt;
+</video>`);
+		this.V.addEventListener('loadedmetadata', ()=>{
+			const [vw,vh]=[this.V.videoWidth,this.V.videoHeight];
+			const cr=this.E.parentNode.getBoundingClientRect();
+			const gr=[1,1,1,1];
+			if (vw*cr.height > vh*cr.width) {
+				gr[0]=cr.width;
+				gr[1]=Math.floor(cr.width/vw*vh);
+			} else {
+				gr[0]=Math.floor(cr.height/vh*vw);
+				gr[1]=cr.height;
+			}
+			gr[2]=Math.floor((cr.width-gr[0])/2);
+			gr[3]=Math.floor((cr.height-gr[1])/2);
+			['width','height','left','top'].forEach((n,i)=>this.E.style[n]=gr[i]+'px');
+			console.log(gr);
+		});
+		this.E.appendChild(this.V);
+	}	// }}}
+	tick ()
+	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
+}
+
+class ImageItem extends MediaItem {
+	constructor (e)
+	{	// {{{
+		super(e);
+		this.I = ((ee)=>{
+			ee.classList.add('fill','col');
+			e.appendChild(ee);
+			return ee;
+		})(document.createElement("div"));
+
+	}	// }}}
+	play (ctrl)
+	{	// {{{
+		this.E.style.width=this.E.style.height='100%';
+		const img=new Image();
+		img.addEventListener('load',()=>{
+			this.Size=[img.width,img.height];
+			this.scale('Contain');
+		});
+		img.src=this.E.dataset.media;
+		this.I.style.background=`url("${img.src}") no-repeat 50% 50%/contain`;
+
+		ctrl.innerHTML=`<select data-h='m:scale'>
+	<option value='-'>Scale</option>
+	<option value='Contain'>Contain</option>
+	<option value='Cover'>Cover</option>
+</select>
+<input data-h='m:scale' style='flex:1 1 auto' value='1' type='range' min='0.5' max='2' step='0.1'></input>`;
+	}	// }}}
+	tick ()
+	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
+	scale (v)
+	{	// {{{
+		console.log(this.E);
+		this.E.style.width=this.E.style.height='100%';
+		const CSize=((cr)=>[Math.floor(cr.width),Math.floor(cr.height)])(this.E.parentNode.getBoundingClientRect());
+
+		if (v instanceof Event)
+			v=v.target;
+		if (v instanceof Element) {
+			const VVALUE=v.value;
+			if (v.tagName==='SELECT')
+				v.value = '-';
+			v=VVALUE;
+		}
+		console.log("v is ",v,typeof(v));
+		if ('string'===typeof(v)) {
+			switch (v) {
+			case 'Cover':
+				((cw,ch,iw,ih)=>{
+					v = iw*ch<ih*cw ? 1 : cw*ih/iw/ch;
+				})(...CSize,...this.Size);
+				console.log("v scale is ",v);
+				break;
+			case 'Contain':
+				((cw,ch, iw, ih) => {
+					v = iw*ch>ih*cw ? 1 : ch*iw/ih/cw;
+				})(...CSize,...this.Size);
+				break;
+			default:
+				v=parseFloat(v);
+				if (!v) return;
+			}
+		}
+		((s,p)=>{
+			const [w,h] = [
+				Math.floor(100*v),
+				Math.floor(100*v*this.Size[1]*CSize[0]/this.Size[0]/CSize[1])
+			]
+			s.width=w+'%';
+			s.height=h+'%';
+			s.left=w<100 ? Math.floor((100-w)/2)+'%' : 0;
+			s.top=h<100 ? Math.floor((100-h)/2)+'%' : 0;
+			if (w>100) p.scrollLeft=Math.floor((p.scrollWidth-CSize[0])/2);
+			if (h>100) p.scrollTop=Math.floor((p.scrollHeight-CSize[1])/2);
+		})(this.E.style, this.E.parentNode);
+		return v;
+	}	// }}}
+}
+
+class MediaList {
+	static invoke (e, ...a)
+	{	// {{{
+		e.dispatchEvent(((evt)=>{
+			evt.initEvent("invokeHandler",true,true);
+			evt.args=a;
+			return evt;
+		})(document.createEvent("Event")));
+	}	// }}}
+	constructor (e)
+	{	// {{{
+		this.E = e;
+		for (let ee=e; ee; ee=ee.parentNode) if (ee.tagName==='SECTION') { this.SE=ee; break; }
+
+		// COLLECT PLAYLIST DATA
+		let list = Array.from(e.querySelectorAll('[data-media]')).map((m)=>MediaItem.create(m));
+
+		// CREATE USER INTERFACE
+		e.innerHTML=`<div class='fill' style='position:relative'>
+	<div data-uid='canvas' class='fill' style='position:absolute;overflow:auto;'></div>
+	<div data-uid='control' style='position:absolute;left:0;top:0;width:100%;padding:2px 4px;opacity:0;background-color:rgba(255,255,255,0.7)'>
+		<div style='text-align:right;'>
 			<span>
-				<button data-h='prev'>&lt;</button>
-				<output data-uid='pager' type='number' value='1'></output>
-				<button data-h='next'>&gt;</button>
+				<span data-h='prev'> &lt;&lt; </span>
+				<output data-uid='pager' type='number'></output>
+				<span data-h='next'> &gt;&gt; </span>
 			</span>
-			<span>
-				Scale:<output data-uid='scalar' type='number' value='1'></output>
-				<button data-h='scaleContain'>Contain</button>
-				<button data-h='scaleCover'>Cover</button>
-			</span>
+		</div>
+		<div data-uid='mctrl' class='row'>
 		</div>
 	</div>
 </div>`;
 
-	elem.PlayList=new PlayList(code, elem.firstChild);
-	// Control Object: Scalar
-	Scalar=new (class {
-		constructor (es) { this.ES=es; this.set(1); }
-		get () { return this.ES[0].value; }
-		set (v) {
-			v=elem.PlayList.scale(v);
-			for (let e of this.ES) e.value=v;
-		}
-	})([
-		elem.querySelector('input[type="range"]'),
-		elem.querySelector('output[data-uid="scalar"]')
-	]);
-	// Install event handler
-	const ctrl=elem.PlayList.Panel.querySelector('[data-uid="control"]');
-	ctrl.addEventListener('mouseover',(evt)=>ctrl.style.opacity='1');
-	ctrl.addEventListener('mouseout',(evt)=>ctrl.style.opacity='0');
-	ctrl.addEventListener("click",(evt)=>{
-		evt.stopPropagation();
-		evt.preventDefault();
-		for (let e=evt.target;e!==ctrl;e=e.parentNode) if (e.dataset.h) {
-			switch(e.dataset.h){
-			case 'scale': Scalar.set(Scalar.get()); break;
-			case 'scaleContain': Scalar.set('contain'); break;
-			case 'scaleCover': Scalar.set('cover'); break;
-			case 'next': elem.PlayList.go('+1'); break;
-			case 'prev': elem.PlayList.go('-1'); break;
+		this.PlayList = list;
+		this.Current = 0;
+
+		((C)=>{
+			C.addEventListener('mouseover', (evt)=>C.style.opacity='1');
+			C.addEventListener('mouseout', (evt)=>C.style.opacity='0');
+			C.addEventListener("click", (evt)=>{
+				evt.stopPropagation();
+				evt.preventDefault();
+				for (let e=evt.target;e!==C;e=e.parentNode) if (e.dataset.h) {
+					const h=e.dataset.h.split(":");
+					switch (h[0]) {
+					case 'next': this.Current='+1'; break;
+					case 'prev': this.Current='-1'; break;
+					case 'm': this.PlayList[this.Current][h[1]](evt); break;
+					}
+					return;
+				}
+			});
+		})(this.E.querySelector('[data-uid="control"]'));
+
+		((T)=>{
+			if (e.__Handler__) e.removeEventHandler("invokeHandler",e.__Handler__);
+			e.__Handler__ = (evt)=>T[evt.args.shift()](...evt.args);
+			e.addEventListener("invokeHandler",e.__Handler__,false);
+		})(this);
+
+		const TimerID=setInterval(()=>{
+			if (this.SE.classList.contains('current')) {
+				if (this.CurrentMedia)
+					this.CurrentMedia.tick();
+			} else {
+				clearInterval(TimerID);
+				console.log("Timer Canceled");
 			}
-			return;
-		}
-	});
+		},200);
+	}	// }}}
+	set Current (v)
+	{	// {{{
+		const [C,P,MC] = ['canvas','pager','mctrl'].map((k)=>this.E.querySelector('[data-uid="'+k+'"]'));
+		this.CurrentMedia=undefined;
+		let cur=this.Current;
+		if ('string'===typeof(v))
+			cur=Math.floor(
+				({
+					'+':(a,b)=>a+b,
+					'-':(a,b)=>a-b,
+					'*':(a,b)=>a*b,
+					'/':(a,b)=>a/b
+				}[v[0]]||(()=>parseFloat(v)))
+				(cur, parseFloat(v.substring(1)))
+			);
+		else if ('number'===typeof(v)) cur=Math.floor(v);
+
+		((PL, cur)=>{
+			cur=(cur+PL.length)%PL.length;
+			while(C.firstChild) C.removeChild(C.firstChild);
+			C.appendChild(PL[cur].E);
+			while (MC.firstChild) MC.removeChild(MC.firstChild);
+			(this.CurrentMedia=PL[cur]).play(MC);
+			P.value=cur+1;
+		})(this.PlayList, cur);
+	}	// }}}
+	get Current ()
+	{	return this.E.querySelector('[data-uid="pager"]').value-1; }
+}
+
+SCRIPT.value=async function (slide, elem) {
+	if (elem.classList.contains('resolved')) return;
+	elem.classList.add('resolved');
+
+	new MediaList(elem);
 };
 
 })(document.currentScript);
