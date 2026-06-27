@@ -30,21 +30,27 @@ class MediaShot {
 			this.Dur=this.S.reduce((r,e)=>r+parseInt(e.dataset.dur),0);
 		}
 		this.TS=parseInt(this.TS);
+		this.lts=-1;
 	}	// }}}
 	tick (ts)
 	{	// {{{
 		let cur=undefined, t=ts;
 		t-=this.TS;
-		console.log("Tick ",ts);
 		if (t>=0) {
 			if (this.Dur) t%=this.Dur;
-			cur=this.S.find((e)=>(t-=parseInt(e.dataset.dur))<=0);
+			cur=this.S.find((e)=>(
+				e.dataset.dur<=0 && (t-ts+this.lts)<=0
+			) || (
+				(t-=parseInt(e.dataset.dur))<=0
+			));
 		}
 		if (cur) {
 			this.E.classList.remove('hide');
 			Array.from(this.E.querySelectorAll('[data-dur]'))
 			.forEach((e)=>e.classList[e===cur?'remove':'add']('hide'));
 		} else this.E.classList.add('hide');
+		this.lts=ts;
+		if (cur && cur.dataset.dur<=0) return "pause";
 	}	// }}}
 }
 
@@ -108,8 +114,11 @@ Not supported: &lt;audio&gt;
 	tick ()
 	{	// {{{
 		const ts = this.A ? this.A.currentTime : 0;
-		if (ts<=this.LastTick) return;
-		this.Shots.forEach((s)=>s.tick(ts));
+		if (ts<=this.LastTick || (ts>0 && this.A.paused)) return;
+		this.Shots.forEach((s)=>{
+			const cmd=s.tick(ts);
+			if (cmd && this[cmd]) this[cmd]();
+		});
 		this.LastTick=ts;
 	}	// }}}
 }
@@ -139,18 +148,20 @@ Not supported: &lt;video&gt;
 			gr[2]=Math.floor((cr.width-gr[0])/2);
 			gr[3]=Math.floor((cr.height-gr[1])/2);
 			['width','height','left','top'].forEach((n,i)=>this.E.style[n]=gr[i]+'px');
-			console.log(gr);
 		});
 		this.E.appendChild(this.V);
 	}	// }}}
 	tick ()
 	{	// {{{
 		const ts = this.V ? this.V.currentTime : 0;
-		if (ts<=this.LastTick) return;
-		this.Shots.forEach((s)=>s.tick(ts));
+		if (ts<=this.LastTick || (ts>0 && this.V.paused)) return;
+		this.Shots.forEach((s)=>{
+			const cmd=s.tick(ts);
+			if (cmd && this[cmd]) this[cmd]();
+		});
 		this.LastTick=ts;
 	}	// }}}
-	pause (v)
+	pause ()
 	{	this.V[this.V.paused?"play":"pause"](); }
 }
 
@@ -211,11 +222,8 @@ class ImageItem extends MediaItem {
 			switch (v) {
 			case 'Cover':
 				((cw,ch,iw,ih)=>{
-					console.log("DEBUG",cw,ch,iw,ih,iw*ch<ih*cw);
 					v = iw*ch<ih*cw ? 1 : ch*iw/ih/cw;
-					console.log("RESULT is ",v);
 				})(...CSize,...this.Size);
-				console.log("v scale is ",v);
 				break;
 			case 'Contain':
 				((cw,ch, iw, ih) => {
@@ -270,10 +278,8 @@ class YouTubeItem extends MediaItem {
 			},
 			events: {
 				'onReady': () => { // onPlayerReady,
-					console.log('onReady');
 				},
 				'onStateChange': () => { // onPlayerStateChange
-					console.log('onStateChange');
 				}
 			}
 		});
@@ -282,145 +288,16 @@ class YouTubeItem extends MediaItem {
 	{	// {{{
 		if (!this.Player.getCurrentTime) return;
 		const ts = this.Player.getCurrentTime();
-		if (ts<=this.LastTick) return;
-		this.Shots.forEach((s)=>s.tick(ts));
+		if (ts<=this.LastTick || (ts>0 && 1!==this.Player.getPlayerState())) return;
+		this.Shots.forEach((s)=>{
+			const cmd=s.tick(ts);
+			if(cmd && this[cmd]) this[cmd]();
+		});
 		this.LastTick=ts;
 	}	// }}}
-	pause (v)
+	pause ()
 	{	this.Player[1===this.Player.getPlayerState() ? "pauseVideo" : "playVideo"](); }
 }
-
-/*
-        const PAUSE_POINTS = [
-            { time: 10, info: "Point 1: Introduction to the main theme. Note the setting and initial camera work. What tone does the speaker immediately establish?" },
-            { time: 35, info: "Point 2: The speaker introduces their first major argument supported by a historical fact. Discuss the credibility of the source mentioned." },
-            { time: 70, info: "Point 3: A compelling visual metaphor is used here. How does this visual aid reinforce the speaker's message? Consider the intended emotional impact." },
-            { time: 105, info: "Point 4: Call to action is initiated. What specific steps does the speaker suggest the audience should take?" }
-        ];
-
-        // --- Global Variables ---
-        let player;
-        let timeCheckInterval;
-        let handledPausePoints = new Set();
-        const discussionPanel = document.getElementById('discussion-panel');
-        const discussionText = document.getElementById('discussion-text');
-        const resumeButton = document.getElementById('resume-button');
-        const statusMessage = document.getElementById('status-message');
-
-        // --- YouTube Player Initialization ---
-
-        // This function is automatically called by the YouTube IFrame API script when it loads.
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                videoId: VIDEO_ID,
-                playerVars: {
-                    'controls': 1, // Show player controls
-                    'rel': 0,      // Disable related videos at end
-                    'modestbranding': 1 // Less intrusive branding
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        // --- Event Handlers ---
-
-        function onPlayerReady(event) {
-            // Start playing immediately if preferred, or wait for user interaction.
-            // event.target.playVideo(); 
-            statusMessage.textContent = "Player is ready. Click the video to start playback.";
-            // Attach resume logic
-            resumeButton.addEventListener('click', resumePlayback);
-        }
-
-        function onPlayerStateChange(event) {
-            // Check for playing state (State 1)
-            if (event.data === YT.PlayerState.PLAYING) {
-                statusMessage.textContent = "Video is currently playing...";
-                startIntervalTimer();
-            } 
-            // Check for paused state (State 2)
-            else if (event.data === YT.PlayerState.PAUSED) {
-                // If it was paused *manually* by the user, we should stop the timer but not show the panel (unless it was triggered by the time logic)
-                statusMessage.textContent = "Video is paused.";
-                clearInterval(timeCheckInterval);
-            }
-            // Check for ended state (State 0)
-            else if (event.data === YT.PlayerState.ENDED) {
-                statusMessage.textContent = "Video playback finished.";
-                clearInterval(timeCheckInterval);
-            }
-        }
-
-        // --- Core Logic ---
-
-        // Starts the timer that periodically checks the video's current time.
-        function startIntervalTimer() {
-            // Clear any existing timer to prevent duplicates
-            clearInterval(timeCheckInterval);
-
-            // Check the time every 500 milliseconds (0.5 seconds)
-            timeCheckInterval = setInterval(checkTime, 500);
-        }
-
-        // Checks the current video time against the defined pause points.
-        function checkTime() {
-            if (player && typeof player.getCurrentTime === 'function') {
-                const currentTime = player.getCurrentTime();
-
-                // Find a pause point that hasn't been handled yet and whose time is now or in the immediate past
-                const pointToTrigger = PAUSE_POINTS.find(point => 
-                    !handledPausePoints.has(point.time) && currentTime >= point.time
-                );
-
-                if (pointToTrigger) {
-                    clearInterval(timeCheckInterval); // Stop checking the time
-                    handledPausePoints.add(pointToTrigger.time); // Mark as handled
-                    
-                    pauseAndDisplayInfo(pointToTrigger);
-                }
-            }
-        }
-
-        // Pauses the video and shows the discussion panel with relevant info.
-        // @param {Object} point - The pause point object { time, info }
-        function pauseAndDisplayInfo(point) {
-            // Pause the video playback
-            player.pauseVideo();
-            statusMessage.textContent = `Paused at ${formatTime(point.time)} for discussion.`;
-
-            // Update the discussion panel content
-            discussionText.innerHTML = `<strong>(Time: ${formatTime(point.time)})</strong> ${point.info}`;
-
-            // Show the discussion panel with animation
-            discussionPanel.classList.remove('hidden', 'opacity-0', 'scale-95');
-            discussionPanel.classList.add('opacity-100', 'scale-100');
-        }
-
-        // Resumes video playback and hides the discussion panel.
-        function resumePlayback() {
-            // Hide the discussion panel with animation
-            discussionPanel.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => {
-                discussionPanel.classList.add('hidden');
-            }, 300); // Wait for animation to finish before hiding
-
-            // Resume playback and restart the timer
-            player.playVideo();
-            startIntervalTimer();
-        }
-
-        // Formats seconds into a M:SS string.
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = Math.floor(seconds % 60);
-            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-        }
-
-    </script>
-*/
 
 class MediaList {
 	static invoke (e, ...a)
@@ -490,7 +367,7 @@ class MediaList {
 				clearInterval(TimerID);
 				console.log("Timer Canceled");
 			}
-		},200);
+		},500);
 	}	// }}}
 	set Current (v)
 	{	// {{{
