@@ -98,7 +98,8 @@ section.page { height:calc(100% - 2 * var(--base-margin)); }
 @media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
 .fill>.swd { height:100%; }
 
-[data-h] { cursor:pointer; }
+[data-h] { cursor:pointer; border:2px solid rgba(255,255,255,0); }
+[data-h]:hover { border-color:blue; }
 [data-h="display"] { text-decoration:underline;color:blue; }
 [data-h="display"] [caption] { display:none; }
 

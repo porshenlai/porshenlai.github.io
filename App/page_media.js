@@ -1,5 +1,18 @@
 (function(SCRIPT){
 
+if (!document.head.querySelector('style[data-cssid="Media"]')) (()=>{
+	const SE=document.createElement("style");
+	SE.dataset.cssid='Media';
+	SE.innerHTML=`
+.MediaItem, .MediaItem [data-dur], .MediaItem [data-ts] {
+	position:absolute; left:0; top:0; width:100%; height:100%; overflow:hidden;
+	border:0; margin:0; padding:0;
+}
+.MediaItem { position:relative; }
+`;
+	document.head.appendChild(SE);
+})();
+
 class MediaShot {
 	constructor (e)
 	{	// {{{
@@ -61,7 +74,8 @@ class MediaItem {
 		this.E = e;
 		this.Shots = Array.from(e.querySelectorAll('[data-ts]')).map((e)=>new MediaShot(e));
 	}	// }}}
-	play (ctrl) { console.log("Play not implemented.",this.E.innerHTML) }
+	tick () {}
+	play (ctrl) {}
 }
 
 class AudioItem extends MediaItem {
@@ -90,6 +104,10 @@ class VideoItem extends MediaItem {
 	}	// }}}
 	play (ctrl)
 	{	// {{{
+		ctrl.innerHTML=`
+	<span style='flex:1 1 auto;'></span>
+	<span data-h='m:pause'>⏯️</span>
+`;
 		this.V = MediaItem.createDOM(`<video width="100%" height="100%" controls>
 <source type="video/mp4" src="${this.E.dataset.media}"/>
 Not supported: &lt;video&gt;
@@ -114,6 +132,8 @@ Not supported: &lt;video&gt;
 	}	// }}}
 	tick ()
 	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
+	pause (v)
+	{	this.V[this.V.paused?"play":"pause"](); }
 }
 
 class ImageItem extends MediaItem {
@@ -144,9 +164,10 @@ class ImageItem extends MediaItem {
 	<option value='Cover'>Cover</option>
 </select>
 <input data-h='m:scale' style='flex:1 1 auto' value='1' type='range' min='0.5' max='2' step='0.1'></input>`;
+		this.Since=(new Date()).getTime();
 	}	// }}}
 	tick ()
-	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
+	{	this.Shots.forEach((s)=>s.tick(((new Date()).getTime()-this.Since)/1000)); }	
 	scale (v)
 	{	// {{{
 		this.E.style.width=this.E.style.height='100%';
