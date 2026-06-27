@@ -35,6 +35,7 @@ class MediaShot {
 	{	// {{{
 		let cur=undefined, t=ts;
 		t-=this.TS;
+		console.log("Tick ",ts);
 		if (t>=0) {
 			if (this.Dur) t%=this.Dur;
 			cur=this.S.find((e)=>(t-=parseInt(e.dataset.dur))<=0);
@@ -52,14 +53,24 @@ class MediaItem {
 	{	// {{{
 		let url=e.dataset.media;
 		if (e.parentNode) e.parentNode.removeChild(e);
+
+		if (url.startsWith('https://www.youtube.com/watch?')) {
+			url=url.substring(30).split('&').reduce((r,v)=>{
+				v=/([^=]+)=(.*)/.exec(v);
+				if (v) r[v[1]]=v[2];
+				return r;
+			},{});
+			return new YouTubeItem(e,url.v);
+		}
+
 		const ext=(/.*\.([^\.]+)(\?.*)?/.exec(url)||[null,''])[1].toLowerCase();
 		switch ({
 			jpg:"I",jpeg:"I",png:"I",gif:"I",
 			mp4:"V",mp3:"A"
 		}[ext]) {
-		case "I": return new ImageItem(e);
-		case "A": return new AudioItem(e);
-		case "V": return new VideoItem(e);
+		case "I": return new ImageItem(e,url);
+		case "A": return new AudioItem(e,url);
+		case "V": return new VideoItem(e,url);
 		}
 	}	// }}}
 	static createDOM (s)
@@ -73,6 +84,7 @@ class MediaItem {
 		e.classList.add('MediaItem');
 		this.E = e;
 		this.Shots = Array.from(e.querySelectorAll('[data-ts]')).map((e)=>new MediaShot(e));
+		this.LastTick=-1;
 	}	// }}}
 	tick () {}
 	play (ctrl) {}
@@ -94,14 +106,15 @@ Not supported: &lt;audio&gt;
 		ctrl.appendChild(this.A);
 	}	// }}}
 	tick ()
-	{	this.Shots.forEach((s)=>s.tick(this.A ? this.A.currentTime : 0)); }	
+	{	// {{{
+		const ts = this.A ? this.A.currentTime : 0;
+		if (ts<=this.LastTick) return;
+		this.Shots.forEach((s)=>s.tick(ts));
+		this.LastTick=ts;
+	}	// }}}
 }
 
 class VideoItem extends MediaItem {
-	constructor (e)
-	{	// {{{
-		super(e);
-	}	// }}}
 	play (ctrl)
 	{	// {{{
 		ctrl.innerHTML=`
@@ -131,7 +144,12 @@ Not supported: &lt;video&gt;
 		this.E.appendChild(this.V);
 	}	// }}}
 	tick ()
-	{	this.Shots.forEach((s)=>s.tick(this.V ? this.V.currentTime : 0)); }	
+	{	// {{{
+		const ts = this.V ? this.V.currentTime : 0;
+		if (ts<=this.LastTick) return;
+		this.Shots.forEach((s)=>s.tick(ts));
+		this.LastTick=ts;
+	}	// }}}
 	pause (v)
 	{	this.V[this.V.paused?"play":"pause"](); }
 }
@@ -167,7 +185,12 @@ class ImageItem extends MediaItem {
 		this.Since=(new Date()).getTime();
 	}	// }}}
 	tick ()
-	{	this.Shots.forEach((s)=>s.tick(((new Date()).getTime()-this.Since)/1000)); }	
+	{	// {{{
+		const ts = ((new Date()).getTime()-this.Since)/1000;
+		if (ts<=this.LastTick) return;
+		this.Shots.forEach((s)=>s.tick(ts));
+		this.LastTick=ts;
+	}	// }}}
 	scale (v)
 	{	// {{{
 		this.E.style.width=this.E.style.height='100%';
@@ -219,6 +242,185 @@ class ImageItem extends MediaItem {
 		return v;
 	}	// }}}
 }
+
+let YouTubeLoader=undefined;
+class YouTubeItem extends MediaItem {
+	constructor (e, id)
+	{	// {{{
+		super(e);
+		e.appendChild(MediaItem.createDOM(`<div id="YTPlayer" class="fill">`));
+		if (!YouTubeLoader)
+			YouTubeLoader = new Promise((or,oe)=>{
+				window.onYouTubeIframeAPIReady = () => or(YT);
+				window.Apps.loadScript('https://www.youtube.com/iframe_api');
+			});
+		this.Player = undefined;
+		this.VideoID = id;
+	}	// }}}
+	async play (ctrl)
+	{	// {{{
+		ctrl.innerHTML=`<span style='flex:1 1 auto;'></span>
+<span data-h='m:pause'>⏯️</span>`;
+		this.Player = new (await YouTubeLoader).Player('YTPlayer', {
+			videoId: this.VideoID,
+			playerVars: {
+				'controls': 1, // Show player controls
+				'rel': 0,      // Disable related videos at end
+				'modestbranding': 1 // Less intrusive branding
+			},
+			events: {
+				'onReady': () => { // onPlayerReady,
+					console.log('onReady');
+				},
+				'onStateChange': () => { // onPlayerStateChange
+					console.log('onStateChange');
+				}
+			}
+		});
+	}	// }}}
+	tick ()
+	{	// {{{
+		if (!this.Player.getCurrentTime) return;
+		const ts = this.Player.getCurrentTime();
+		if (ts<=this.LastTick) return;
+		this.Shots.forEach((s)=>s.tick(ts));
+		this.LastTick=ts;
+	}	// }}}
+	pause (v)
+	{	this.Player[1===this.Player.getPlayerState() ? "pauseVideo" : "playVideo"](); }
+}
+
+/*
+        const PAUSE_POINTS = [
+            { time: 10, info: "Point 1: Introduction to the main theme. Note the setting and initial camera work. What tone does the speaker immediately establish?" },
+            { time: 35, info: "Point 2: The speaker introduces their first major argument supported by a historical fact. Discuss the credibility of the source mentioned." },
+            { time: 70, info: "Point 3: A compelling visual metaphor is used here. How does this visual aid reinforce the speaker's message? Consider the intended emotional impact." },
+            { time: 105, info: "Point 4: Call to action is initiated. What specific steps does the speaker suggest the audience should take?" }
+        ];
+
+        // --- Global Variables ---
+        let player;
+        let timeCheckInterval;
+        let handledPausePoints = new Set();
+        const discussionPanel = document.getElementById('discussion-panel');
+        const discussionText = document.getElementById('discussion-text');
+        const resumeButton = document.getElementById('resume-button');
+        const statusMessage = document.getElementById('status-message');
+
+        // --- YouTube Player Initialization ---
+
+        // This function is automatically called by the YouTube IFrame API script when it loads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'controls': 1, // Show player controls
+                    'rel': 0,      // Disable related videos at end
+                    'modestbranding': 1 // Less intrusive branding
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // --- Event Handlers ---
+
+        function onPlayerReady(event) {
+            // Start playing immediately if preferred, or wait for user interaction.
+            // event.target.playVideo(); 
+            statusMessage.textContent = "Player is ready. Click the video to start playback.";
+            // Attach resume logic
+            resumeButton.addEventListener('click', resumePlayback);
+        }
+
+        function onPlayerStateChange(event) {
+            // Check for playing state (State 1)
+            if (event.data === YT.PlayerState.PLAYING) {
+                statusMessage.textContent = "Video is currently playing...";
+                startIntervalTimer();
+            } 
+            // Check for paused state (State 2)
+            else if (event.data === YT.PlayerState.PAUSED) {
+                // If it was paused *manually* by the user, we should stop the timer but not show the panel (unless it was triggered by the time logic)
+                statusMessage.textContent = "Video is paused.";
+                clearInterval(timeCheckInterval);
+            }
+            // Check for ended state (State 0)
+            else if (event.data === YT.PlayerState.ENDED) {
+                statusMessage.textContent = "Video playback finished.";
+                clearInterval(timeCheckInterval);
+            }
+        }
+
+        // --- Core Logic ---
+
+        // Starts the timer that periodically checks the video's current time.
+        function startIntervalTimer() {
+            // Clear any existing timer to prevent duplicates
+            clearInterval(timeCheckInterval);
+
+            // Check the time every 500 milliseconds (0.5 seconds)
+            timeCheckInterval = setInterval(checkTime, 500);
+        }
+
+        // Checks the current video time against the defined pause points.
+        function checkTime() {
+            if (player && typeof player.getCurrentTime === 'function') {
+                const currentTime = player.getCurrentTime();
+
+                // Find a pause point that hasn't been handled yet and whose time is now or in the immediate past
+                const pointToTrigger = PAUSE_POINTS.find(point => 
+                    !handledPausePoints.has(point.time) && currentTime >= point.time
+                );
+
+                if (pointToTrigger) {
+                    clearInterval(timeCheckInterval); // Stop checking the time
+                    handledPausePoints.add(pointToTrigger.time); // Mark as handled
+                    
+                    pauseAndDisplayInfo(pointToTrigger);
+                }
+            }
+        }
+
+        // Pauses the video and shows the discussion panel with relevant info.
+        // @param {Object} point - The pause point object { time, info }
+        function pauseAndDisplayInfo(point) {
+            // Pause the video playback
+            player.pauseVideo();
+            statusMessage.textContent = `Paused at ${formatTime(point.time)} for discussion.`;
+
+            // Update the discussion panel content
+            discussionText.innerHTML = `<strong>(Time: ${formatTime(point.time)})</strong> ${point.info}`;
+
+            // Show the discussion panel with animation
+            discussionPanel.classList.remove('hidden', 'opacity-0', 'scale-95');
+            discussionPanel.classList.add('opacity-100', 'scale-100');
+        }
+
+        // Resumes video playback and hides the discussion panel.
+        function resumePlayback() {
+            // Hide the discussion panel with animation
+            discussionPanel.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                discussionPanel.classList.add('hidden');
+            }, 300); // Wait for animation to finish before hiding
+
+            // Resume playback and restart the timer
+            player.playVideo();
+            startIntervalTimer();
+        }
+
+        // Formats seconds into a M:SS string.
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+    </script>
+*/
 
 class MediaList {
 	static invoke (e, ...a)

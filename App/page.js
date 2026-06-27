@@ -1,7 +1,6 @@
 (function(CS){
 
 const currentScript = document.currentScript;
-const jsPrefix=(/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1];
 
 const CSS_PAGE= // {{{
 `:root {
@@ -808,6 +807,15 @@ class Player {
 	}	// }}}
 }	// }}}
 
+window.Apps={
+	loadScript: loadScript,
+	loadStyle: loadStyle,
+	queryContainer: queryContainer,
+	splitArgs: splitArgs,
+	JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
+	Player: undefined
+};
+
 if (!window.ThisPage) ThisPage={};
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
@@ -815,7 +823,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	function decodeFilter (s) { return s ? s.split('|').map((v) => v.split('.')) : []; }
 	function encodeFilter (aa) { return aa.map((a)=>a.join('.')).join('|'); }
 
-	let UI = window.App = new (class extends Player {
+	let UI = window.Apps.Player = new (class extends Player {
 		constructor (args)
 		{	// {{{
 			super(
