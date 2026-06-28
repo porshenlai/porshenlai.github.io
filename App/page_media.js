@@ -174,11 +174,9 @@ class ImageItem extends MediaItem {
 			e.appendChild(ee);
 			return ee;
 		})(document.createElement("div"));
-		console.log("Image Construct");
 	}	// }}}
 	play (ctrl)
 	{	// {{{
-		console.log("Image PLAY");
 		this.E.style.width=this.E.style.height='100%';
 		const img=new Image();
 		img.addEventListener('load',()=>{
@@ -187,7 +185,6 @@ class ImageItem extends MediaItem {
 		});
 		img.src=this.E.dataset.media;
 		this.I.style.background=`url("${img.src}") no-repeat 50% 50%/contain`;
-		console.log("IMAGE is ", this.I);
 
 		ctrl.innerHTML=`<select data-h='m:scale'>
 	<option value='-'>Scale</option>
@@ -321,7 +318,7 @@ class MediaList {
 		// CREATE USER INTERFACE
 		e.innerHTML=`<div class='fill' style='position:relative'>
 	<div data-uid='canvas' class='fill' style='position:absolute;overflow:auto;'></div>
-	<div data-uid='control' style='position:absolute;left:0;top:0;width:100%;padding:2px 4px;opacity:0;background-color:rgba(255,255,255,0.7)'>
+	<div data-uid='control' style='position:absolute;left:5%;top:0;width:90%;padding:2px 4px;opacity:0;background-color:rgba(255,255,255,0.7)'>
 		<div style='text-align:right;'>
 			<span>
 				<span data-h='prev'> &lt;&lt; </span>
@@ -367,7 +364,7 @@ class MediaList {
 					this.CurrentMedia.tick();
 			} else {
 				clearInterval(TimerID);
-				console.log("Timer Canceled");
+				// console.log("Timer Canceled");
 			}
 		},500);
 	}	// }}}
@@ -402,11 +399,13 @@ class MediaList {
 }
 
 SCRIPT.value=async function (slide, elem) {
-	console.log("MEDIA MOD",elem.outerHTML);
 
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
 
+	// console.log("Media",elem.parentNode);
+
+	// elem.parentNode.classList.add('fill');
 	new MediaList(elem);
 };
 

@@ -351,7 +351,6 @@ class Templates {
 			for (const D of dt) {
 				// clone template
 				const EI = this.Temps[c.dataset.template_id].cloneNode(true);
-				EI.classList.add('fill');
 				EI.dataset.index=true;
 				// disabled currently: EI.dataset.value=D;
 				// fill values
