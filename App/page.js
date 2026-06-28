@@ -351,7 +351,7 @@ class Templates {
 			for (const D of dt) {
 				// clone template
 				const EI = this.Temps[c.dataset.template_id].cloneNode(true);
-				console.log("DEBUG",EI);
+				EI.classList.add('fill');
 				EI.dataset.index=true;
 				// disabled currently: EI.dataset.value=D;
 				// fill values
@@ -406,6 +406,7 @@ class Content {
 				));
 				if (elem.parentNode)
 					container.removeChild(elem);
+				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
 			}
 		};
 	}
@@ -776,12 +777,10 @@ class Player {
 		// play:dom:&this:Caption
 		// play('dom',document.getElementById(...),'Caption');
 	{	// {{{
-		console.log("=======================>",caption, mn, args);
 		const VE = document.createElement("div"), e = args.pop();
 		args.unshift(mn);
 		VE.dataset.xl = args.join(":");
 		VE.innerHTML=e.innerHTML;
-		console.log(VE,mn,args,e);
 		this.Content.extendMods([VE]);
 		this.__openDialog__(caption).appendChild(VE);
 	}	// }}}
