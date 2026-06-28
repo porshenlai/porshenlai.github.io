@@ -351,6 +351,7 @@ class Templates {
 			for (const D of dt) {
 				// clone template
 				const EI = this.Temps[c.dataset.template_id].cloneNode(true);
+				console.log("DEBUG",EI);
 				EI.dataset.index=true;
 				// disabled currently: EI.dataset.value=D;
 				// fill values
@@ -401,7 +402,7 @@ class Content {
 				const page = queryContainer(elem,'section'), container = elem.parentNode;
 				slide.Templates.add(container, tn);
 				slide.Templates.write(container, ((c)=>Array.isArray(c) ? c : [c])(
-					JSON.parse((elem.querySelector('pre')||elem).innerHTML)
+					JSON.parse((Apps.querySelector(elem,'textarea')||{value:'{}'}).value||"{}")
 				));
 				if (elem.parentNode)
 					container.removeChild(elem);
@@ -771,17 +772,16 @@ class Player {
 		} else alert('您的瀏覽器不支援 Speech Synthesis API。');
 	}	// }}}
 
-	play (mn, code, caption)
+	play (caption, mn, ...args)
 		// play:dom:&this:Caption
 		// play('dom',document.getElementById(...),'Caption');
 	{	// {{{
-		console.log("===>PLAY==>",mn,code,caption);
-		const VE = document.createElement("div");
-		VE.dataset.xl = mn;
-		VE.classList.add("fill");
-		if (code instanceof Element)
-			code = code.innerHTML;
-		VE.innerHTML = code;
+		console.log("=======================>",caption, mn, args);
+		const VE = document.createElement("div"), e = args.pop();
+		args.unshift(mn);
+		VE.dataset.xl = args.join(":");
+		VE.innerHTML=e.innerHTML;
+		console.log(VE,mn,args,e);
 		this.Content.extendMods([VE]);
 		this.__openDialog__(caption).appendChild(VE);
 	}	// }}}
@@ -811,6 +811,7 @@ window.Apps={
 	loadScript: loadScript,
 	loadStyle: loadStyle,
 	queryContainer: queryContainer,
+	querySelector: (elem, cs) => elem.matches(cs) ? elem : elem.querySelector(cs),
 	splitArgs: splitArgs,
 	JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
 	Player: undefined

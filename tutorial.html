@@ -97,18 +97,6 @@
 </section>
 
 <section>
-	<h2>Control Flow</h2>
-
-	<pre data-xl='mermaid'>
-flowchart TD
-	A{開始安裝} --> B{ThisPage.before_load}
-	B --> C{頁面篩選}
-	C --> D{ThisPage.after_load}
-	D --> E{頁面切換}
-</pre>
-</section>
-
-<section>
 	<h2>Tab Switch</h2>
 
 	<div style='text-align:right;border-bottom:2px solid blue;'>
@@ -143,7 +131,7 @@ flowchart TD
 	     data-v 屬性定義資料的來源與填入方式 -->
 	Sample: <span data-v="text:A"></span> <span data-v="text:B"></span>
 </div>
-<pre data-xl='template:sample'>{"A":"Hello","B":"World"}</pre>
+<textarea data-xl='template:sample'>{"A":"Hello","B":"World"}</textarea>
 <!-- 使用 data-xl='template:樣板名稱" 屬性
      將資料(pre 子節點下的 JSON 物件)套用到樣板並置換此節點-->
 </div>
@@ -169,12 +157,12 @@ flowchart TD
 		<tr data-xl='template:rowsample'>
 			<!-- 使用 data-xl='template:樣板名稱" 屬性
 			     將資料(pre 子節點下的 JSON 物件)套用到樣板並置換此節點-->
-			<td><pre>[
+			<td><textarea>[
 {"A":"Hello","B":"World"},
 {"A":"Hello","B":"Kitty"},
 {"A":"Hello","B":"World"},
 {"A":"Hello","B":"Kitty"}
-]</pre></td>
+]</textarea></td>
 		</tr>
 	</tbody>
 </table>
@@ -213,53 +201,74 @@ flowchart TD
 	</div>
 </section>
 
-<section>
-	<h2>Dialog Sample</h2>
-	<div data-template='DLGA'>
-		<h1>Hello World</h1>
-		<table class='hide' border='1'><tr>
-			<th data-h='dom:alert:hello world'>A</th><th>B</th><th>C</th>
-		</tr><tr>
-			<th>100</th><th>90</th><th>80</th>
-		</tr></table>
-	</div>
-	<button data-h='play:template:DLGA'>DOM Dialog</button>
-</section>
-
 <section data-xl='markdown'>
+<textarea>
 # TITLE
 ## WAHAHA
 * 123
 * 4565
 * 789:Caption comes here
+</textarea>
 </section>
 
 <section data-xl='mermaid'>
+<textarea>
 flowchart TD
 	A{下大雨} -->|YES| C[停賽]
 	A -->|NO| B
 	B{颳大風} -->|YES| D[停賽]
 	B -->|NO| E[比賽]
+</textarea>
 </section>
 
 <section>
-	<h2>Test play:mod:</h2>
-	<button data-h='play:markdown:
+	<h2>Dialog Sample</h2>
+	<div data-template='DLGA'>
+		<h1>Hello World</h1>
+		<table border='1' align='center'><tr>
+			<th>A</th><th>B</th><th>C</th>
+		</tr><tr>
+			<th>100</th><th>90</th><th>80</th>
+		</tr></table>
+	</div>
+	<button data-h='play:Dialog:template:DLGA:&this'>DOM<textarea class='hide'>{}</textarea></button>
+</section>
+
+<section>
+	<h2>Play Dialog</h2>
+
+	<div data-template='PlayVideo'>
+		<div data-xl='media'>
+			<div data-media="https://www.w3schools.com/html/movie.mp4"></div>
+		</div>
+	</div>
+
+	<div data-template='PlayImage'>
+		<div data-xl='media'>
+			<div data-media="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"></div>
+		</div>
+	</div>
+
+	<button data-h='play:Markdown:markdown:&this'>Markdown
+<textarea class='hide'>
 # TITLE
 ## WAHAHA
 * 123
 * 4565
 * 789
-:Caption comes here'>MARKDOWN</button>
-	<button data-h='play:mermaid:
-flowchart TD
-	A{下大雨} -->|YES| C[停賽]
-	A -->|NO| B
-	B{颳大風} -->|YES| D[停賽]
-	B -->|NO| E[比賽]
-:決策樹'>MERMAID</button>
-	<button data-h='play:media:"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg":Play Image'>Image</button>
-	<button data-h='play:media:"https://www.w3schools.com/html/movie.mp4":Play Video'>Video</button>
+</textarea></button>
+
+	<button data-h='play:決策樹:mermaid:&this'>Mermaid
+<textarea class='hide'>flowchart TD
+A{下大雨} -->|YES| C[停賽]
+A -->|NO| B
+B{颳大風} -->|YES| D[停賽]
+B -->|NO| E[比賽]
+</textarea></button>
+
+	<button data-h='play:Play Image:template:PlayImage:&this'>Image</button>
+
+	<button data-h='play:Play Video:template:PlayVideo:&this'>Video</button>
 </section>
 
 </body>
