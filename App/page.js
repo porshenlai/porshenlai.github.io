@@ -345,27 +345,52 @@ class Templates {
 		Array.from(c.querySelectorAll('[data-index]'))
 		.forEach((e)=>e.parentNode.removeChild(e));
 	}
-	write (c, dt) {
-		try {
-			if (dt[0]) this.clear(c); else dt.shift();
-			for (const D of dt) {
-				// clone template
-				const EI = this.Temps[c.dataset.template_id].cloneNode(true);
-				EI.dataset.index=true;
-				// disabled currently: EI.dataset.value=D;
-				// fill values
-				Array.from(EI.querySelectorAll('[data-v]'))
-				.forEach((e)=>{
-					const a = splitArgs(e.dataset.v||"",':');
-					switch (a[0]) {
-					case "text": e.textContent=D[a[1]]; break;
-					case "value": e.value=D[a[1]]; break; }
-				});
-				// append content
-				c.appendChild(EI);
+	_write_data_ (e, d) {
+		if (e.dataset.c) ((a)=>{
+				switch (a[0]) {
+				case "repeat":
+					((t,p,d)=>{
+						p.removeChild(t);
+						for (let i=0; i<d.length; i++) {
+							const D=d[i], row=t.cloneNode(true);
+							delete row.dataset.c;
+							row.dataset.index=(i%2)+"-"+i;
+							p.appendChild(row);
+							this._write_(row,D);
+						}
+					})(e,e.parentNode,d[a[1]]);
+					break;
+				}
+		})(e.dataset.c.split(":"));
+		(e.dataset.v||"").split(",").filter((v)=>v).forEach((arg)=>{
+			const a=arg.split(":");
+			switch (a[0]) {
+			case "text":
+				e.textContent=d[a[1]];
+				break;
+			case "value":
+				e.value=d[a[1]];
+				break;
+			case "data":
+				e.dataset[a[1]]=d[a[2]];
+				break;
 			}
-			Array.from(c.querySelectorAll('[data-index]'))
-			.forEach((row,idx)=>row.dataset.index=(idx%2)+"-"+idx);
+		});
+	}
+	_write_ (e, d) {
+		try {
+			if (e.dataset.v||e.dataset.c) this._write_data_(e,d);
+			for( let c=e.firstChild; c; c=c.nextSibling) {
+				if (c.nodeType!==1) continue;
+				this._write_(c,d);
+			}
+		} catch(x) { console.log(x); }
+	}
+	write (c, dt, te) {
+		try {
+			const EI=this.Temps[c.dataset.template_id].cloneNode(true);
+			this._write_(EI, dt);
+			c.appendChild(EI);
 		} catch(x) { console.log(x); }
 	}
 	read (c) {
@@ -400,9 +425,10 @@ class Content {
 				elem.classList.add('resolved');
 				const page = queryContainer(elem,'section'), container = elem.parentNode;
 				slide.Templates.add(container, tn);
-				slide.Templates.write(container, ((c)=>Array.isArray(c) ? c : [c])(
+				slide.Templates.write(
+					container, 
 					JSON.parse((Apps.querySelector(elem,'textarea')||{value:'{}'}).value||"{}")
-				));
+				);
 				if (elem.parentNode)
 					container.removeChild(elem);
 				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));

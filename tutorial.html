@@ -146,26 +146,18 @@
 	</div>
 
 <div class='sample'>
-<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
+<table data-template='rowsample' border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
 	<tbody>
-		<tr data-template='rowsample'>
-			<!-- 定義此節點為 data-template='樣板名稱'
-			     data-v 屬性定義資料的來源與填入方式 -->
+		<tr data-c='repeat:Rs'>
 			<td data-v="text:A" align='center'></td>
 			<td data-v="text:B" align='center'></td>
 		</tr>
-		<tr data-xl='template:rowsample'>
-			<!-- 使用 data-xl='template:樣板名稱" 屬性
-			     將資料(pre 子節點下的 JSON 物件)套用到樣板並置換此節點-->
-			<td><textarea>[
-{"A":"Hello","B":"World"},
-{"A":"Hello","B":"Kitty"},
-{"A":"Hello","B":"World"},
-{"A":"Hello","B":"Kitty"}
-]</textarea></td>
-		</tr>
 	</tbody>
 </table>
+<textarea data-xl='template:rowsample'>{"Rs":[
+{"A":"Hello","B":"World"}, {"A":"Hello","B":"Kitty"},
+{"A":"Hello","B":"World"}, {"A":"Hello","B":"Kitty"}
+]}</textarea>
 </div>
 </section>
 
@@ -237,18 +229,18 @@ flowchart TD
 <section>
 	<h2>Play Dialog</h2>
 
-	<div data-template='PlayVideo' class='fill'>
-		<div data-xl='media' class='fill'>
-			<div data-media="https://www.w3schools.com/html/movie.mp4"></div>
-		</div>
+<div data-template='PlayVideo' class='fill'>
+	<div data-xl='media' class='fill'>
+		<div data-v="data:media:media"></div>
+		<!-- data-media="https://www.w3schools.com/html/movie.mp4" -->
 	</div>
+</div>
 
-	<div data-template='PlayImage' class='fill'>
-		<div data-xl='media' class='fill'>
-			<div data-media="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"></div>
-			<div data-media="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"></div>
-		</div>
+<div data-template='PlayImage' class='fill'>
+	<div data-xl='media' class='fill'>
+		<div data-c="repeat:Ms" data-v="data:media:media"></div>
 	</div>
+</div>
 
 	<button data-h='play:Markdown:markdown:&this'>Markdown
 <textarea class='hide'>
@@ -267,9 +259,17 @@ B{颳大風} -->|YES| D[停賽]
 B -->|NO| E[比賽]
 </textarea></button>
 
-	<button data-h='play:Play Image:template:PlayImage:&this'>Image</button>
-
-	<button data-h='play:Play Video:template:PlayVideo:&this'>Video</button>
+	<button data-h='play:Play Image:template:PlayImage:&this'>
+		Image
+		<textarea>{"Ms":[
+			{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"},
+			{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"}
+		]}</textarea>
+	</button>
+	<button data-h='play:Play Video:template:PlayVideo:&this'>
+		Video
+		<textarea>{"media":"https://www.w3schools.com/html/movie.mp4"}</textarea>
+	</button>
 </section>
 
 </body>
