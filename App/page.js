@@ -85,7 +85,8 @@ section.current {
 section.page { height:calc(100% - 2 * var(--base-margin)); }
 .PlayMode_2 section:not(.current) { display:none; }
 
-.fill,.mask { width:100%; height:100%; left:0; top:0; margin:0; padding:0; overflow:hidden auto; }
+.fill,.full,.mask { width:100%; height:100%; left:0; top:0; margin:0; padding:0; overflow:hidden; }
+.fill { overflow-y:auto; }
 .mask { position:absolute;background-color:rgba(255,255,255,0.5); }
 
 .ncs,.zcs,.col,.row { display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;overflow:hidden; }
