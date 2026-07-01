@@ -14,7 +14,14 @@ SCRIPT.value=async function (slide, elem, code) {
 	if (code) {
 		elem.innerHTML=(await (await Init).render('graphDiv', code)).svg
 	} else {
-		elem.innerHTML=Apps.querySelector(elem,'textarea').value;
+		code=Apps.querySelector(elem,'textarea').value;
+		if (elem.value)
+			((ne)=>{
+				elem.parentNode.insertBefore(ne,elem);
+				elem.parentNode.removeChild(elem);
+				elem = ne;
+			})(document.createElement("div"));
+		elem.innerHTML = code;
 		await (await Init).run({nodes:[elem]});
 	}
 };
