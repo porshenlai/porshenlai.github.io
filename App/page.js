@@ -98,8 +98,7 @@ section.page { height:calc(100% - 2 * var(--base-margin)); }
 @media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
 .fill>.swd { height:100%; }
 
-[data-h] { cursor:pointer; border:2px solid rgba(255,255,255,0); }
-[data-h]:hover { border-color:blue; }
+[data-h] { cursor:pointer; }
 [data-h="display"] { text-decoration:underline;color:blue; }
 [data-h="display"] [caption] { display:none; }
 
@@ -348,20 +347,20 @@ class Templates {
 	}
 	_write_data_ (e, d) {
 		if (e.dataset.c) ((a)=>{
-				switch (a[0]) {
-				case "repeat":
-					((t,p,d)=>{
-						p.removeChild(t);
-						for (let i=0; i<d.length; i++) {
-							const D=d[i], row=t.cloneNode(true);
-							delete row.dataset.c;
-							row.dataset.index=(i%2)+"-"+i;
-							p.appendChild(row);
-							this._write_(row,D);
-						}
-					})(e,e.parentNode,d[a[1]]);
-					break;
-				}
+			switch (a[0]) {
+			case "repeat":
+				((t,p,d)=>{
+					p.removeChild(t);
+					for (let i=0; i<d.length; i++) {
+						const D=d[i], row=t.cloneNode(true);
+						delete row.dataset.c;
+						row.dataset.index=(i%2)+"-"+i;
+						p.appendChild(row);
+						this._write_(row,D);
+					}
+				})(e,e.parentNode,d[a[1]]);
+				break;
+			}
 		})(e.dataset.c.split(":"));
 		(e.dataset.v||"").split(",").filter((v)=>v).forEach((arg)=>{
 			const a=arg.split(":");
@@ -379,20 +378,16 @@ class Templates {
 		});
 	}
 	_write_ (e, d) {
-		try {
-			if (e.dataset.v||e.dataset.c) this._write_data_(e,d);
-			for( let c=e.firstChild; c; c=c.nextSibling) {
-				if (c.nodeType!==1) continue;
-				this._write_(c,d);
-			}
-		} catch(x) { console.log(x); }
+		if (e.dataset.v||e.dataset.c) this._write_data_(e,d);
+		for( let c=e.firstChild; c; c=c.nextSibling) {
+			if (c.nodeType!==1) continue;
+			this._write_(c,d);
+		}
 	}
 	write (c, dt, te) {
-		try {
-			const EI=this.Temps[c.dataset.template_id].cloneNode(true);
-			this._write_(EI, dt);
-			c.appendChild(EI);
-		} catch(x) { console.log(x); }
+		const EI=this.Temps[c.dataset.template_id].cloneNode(true);
+		this._write_(EI, dt);
+		c.appendChild(EI);
 	}
 	read (c) {
 		try {
@@ -412,24 +407,37 @@ class Templates {
 	}
 }	// }}}
 
+class Buffers {
+	// {{{
+	constructor () {
+		this.Bs = {};
+	}
+	reg (n, buf) { this.Bs[n] = buf; }
+	read (q) { return (q instanceof Element ? q.querySelector('textarea') : this.Bs[q]).value; }
+	write (q, buf) { }
+}	// }}}
+
 class Content {
 	// {{{
 	constructor (e) {
 		this.E=e;
 		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
-		this.Keywords={};
-		this.PageIndex=[];
-		this.Templates=new Templates();
+		this.Keywords = {};
+		this.PageIndex = [];
+		this.Templates = new Templates();
+		this.Buffers = new Buffers();
 		this.Xs={
-			template:async function (slide, elem, tn) {
+			template:async function (slide, elem, name, buf) {
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
 				const page = queryContainer(elem,'section'), container = elem.parentNode;
-				slide.Templates.add(container, tn);
-				slide.Templates.write(
-					container, 
-					JSON.parse((Apps.querySelector(elem,'textarea')||{value:'{}'}).value||"{}")
-				);
+				slide.Templates.add(container, name);
+				buf = buf ?
+					slide.Buffers.read(buf) :
+					(Apps.querySelector(elem,'textarea')||{value:'{}'}).value||"{}";
+				if ('string' === typeof(buf))
+					buf = JSON.parse(buf)
+				slide.Templates.write(container, buf);
 				if (elem.parentNode)
 					container.removeChild(elem);
 				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
@@ -470,7 +478,13 @@ class Content {
 		Array.from(this.E.querySelectorAll('[data-template]'))
 		.forEach((e)=>{
 			this.Templates.reg(e.dataset.template,e);
-			e.removeAttribute('data-template');
+			delete e.dataset.template;
+			e.parentNode.removeChild(e);
+		});
+		Array.from(this.E.querySelectorAll('[data-buffer]'))
+		.forEach((e)=>{
+			this.Buffers.reg(e.dataset.buffer,e);
+			delete e.dataset.buffer;
 			e.parentNode.removeChild(e);
 		});
 		this.extendMods(Array.from(this.E.querySelectorAll('[data-x]')));
@@ -803,10 +817,13 @@ class Player {
 		// play:dom:&this:Caption
 		// play('dom',document.getElementById(...),'Caption');
 	{	// {{{
-		const VE = document.createElement("div"), e = args.pop();
+		const VE = document.createElement("div");
+		let e = undefined;
 		args.unshift(mn);
+		if (args[args.length-1] instanceof Element)
+			VE.innerHTML=args.pop().innerHTML;
 		VE.dataset.xl = args.join(":");
-		VE.innerHTML=e.innerHTML;
+		console.log("DEBUG",VE.outerHTML);
 		this.Content.extendMods([VE]);
 		this.__openDialog__(caption).appendChild(VE);
 	}	// }}}

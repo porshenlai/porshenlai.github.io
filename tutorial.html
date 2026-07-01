@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="App/page.js"></script>
 <script>
 	ThisPage={
@@ -28,7 +29,6 @@
 <title>The Tutorial of pStyle Page</title>
 </head>
 <body style='opacity:0'>
-
 
 <section class='page'>
 	<div class='fill col'>
@@ -69,22 +69,22 @@
 
 <section class='page'>
 	<div class='fill col'>
-		<h2>頁面切版</h2>
+		<h2>排版 - 頁面切版</h2>
 		<div class='fill zcs'>
-			<div class='swd'><pre class='frame'>
+			<div class='swd'><textarea style='margin:auto;width:95%;height:95%;'>
 &lt;div class='fill col'&gt;
-  &lt;h2&gt;頁面切版&lt;/h2&gt;
-  <span style='color:red'>&lt;div class='fill zcs'&gt;
+  &lt;h2&gt;頁首&lt;/h2&gt;
+  &lt;div class='fill zcs'&gt;
     &lt;div class='swd'&gt;
       第一區
     &lt;/div&gt;
     &lt;div class='swd'&gt;
       第二區
     &lt;/div&gt;
-  &lt;/div&gt;</span>
+  &lt;/div&gt;
   &lt;div&gt;頁尾&lt;/div&gt;
 &lt;/div&gt;
-</pre></div>
+</textarea></div>
 			<div class='swd'><ul>
 				<li><b>class:fill</b> make the block fill the while parent block</li>
 				<li><b>class:col</b> make the children contents list to fill a full column</li>
@@ -97,7 +97,7 @@
 </section>
 
 <section>
-	<h2>Tab Switch</h2>
+	<h2>互動 - 頁簽</h2>
 
 	<div style='text-align:right;border-bottom:2px solid blue;'>
 		<button data-h='call:viewsource:&this'>原始碼</button><br/>
@@ -118,92 +118,143 @@
 </section>
 
 <section>
-	<h2>Auto Fill / Form</h2>
-
+	<h2>模板</h2>
 	<div style='text-align:right;border-bottom:2px solid blue;'>
 		<button data-h='call:viewsource:&this'>原始碼</button><br/>
 		<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
 	</div>
-
 <div class='sample'>
-<div data-template='sample'>
-	<!-- 定義此節點為 data-template='樣板名稱'
-	     data-v 屬性定義資料的來源與填入方式 -->
-	Sample: <span data-v="text:A"></span> <span data-v="text:B"></span>
+<div data-template='公告模板' style='margin:5px;padding:5px;border:1px solid silver;'>
+	這是公告模板的範例，頁面中置入模版延伸模組的地方會自動從定義的內容複製填入。
+	<div>使用 <b>&lt;div data-template='模板名稱'&gt; 模板內容 &lt;/div&gt;</b> 定義模板。</div>
+	<div>使用 <b>&lt;textarea data-xl='template:模板名稱'&gt;&lt;/textarea&gt;</b> 複製引用模板。</div>
 </div>
-<textarea data-xl='template:sample'>{"A":"Hello","B":"World"}</textarea>
-<!-- 使用 data-xl='template:樣板名稱" 屬性
-     將資料(pre 子節點下的 JSON 物件)套用到樣板並置換此節點-->
+
+<div style='font-size:50%'><textarea data-xl='template:公告模板'></textarea></div>
+<div style='color:silver'><textarea data-xl='template:公告模板'></textarea></div>
 </div>
 </section>
 
 <section>
-	<h2>Auto Fill / List</h2>
-
+	<h2>模板 - 資料帶入</h2>
 	<div style='text-align:right;border-bottom:2px solid blue;'>
 		<button data-h='call:viewsource:&this'>原始碼</button><br/>
 		<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
 	</div>
-
 <div class='sample'>
-<table data-template='rowsample' border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
-	<tbody>
-		<tr data-c='repeat:Rs'>
-			<td data-v="text:A" align='center'></td>
-			<td data-v="text:B" align='center'></td>
-		</tr>
-	</tbody>
-</table>
-<textarea data-xl='template:rowsample'>{"Rs":[
-{"A":"Hello","B":"World"}, {"A":"Hello","B":"Kitty"},
-{"A":"Hello","B":"World"}, {"A":"Hello","B":"Kitty"}
-]}</textarea>
+<div data-template='公告模板2' style='margin:5px;padding:5px;border:1px solid silver;border-radius:5px;'>
+	<div>標題: <b data-v="text:標題"></b></div>
+	<div>訊息: <b data-v="text:訊息"></b></div>
+</div>
+<textarea data-xl='template:公告模板2'>{"標題":"1","訊息":"使用 data-v 指定將對應變數填入的方式"}</textarea>
+<textarea data-xl='template:公告模板2'>{"標題":"2","訊息":"text:變數名 - 節點.textContent = 資料[變數名]"}</textarea>
+<textarea data-xl='template:公告模板2'>{"標題":"3","訊息":"value:變數名 - 節點.value = 資料[變數名]"}</textarea>
+<textarea data-xl='template:公告模板2'>{"標題":"4","訊息":"data:參數名:變數名 - 節點.dataset[參數名] = 資料[變數名]"}</textarea>
 </div>
 </section>
 
-<section class='page' data-xl='media'>
-	<div data-media="https://www.w3schools.com/html/movie.mp4">
-		<div data-ts='0' style='height:50%;width:50%;'>
-			<div data-dur='5' style='border:1px solid red'>TEST</div>
-			<div data-dur='0' style='border:1px solid red;background:rgba(255,255,255,0.5);'>TEST</div>
-		</div>
+<section>
+	<h2>模板 - 列舉資料帶入</h2>
+	<div style='text-align:right;border-bottom:2px solid blue;'>
+		<button data-h='call:viewsource:&this'>原始碼</button><br/>
+		<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
 	</div>
-	<div data-media="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111526.jpg"/>
-		<div data-ts='0'>
-			<div data-dur='3'>TEST</div>
-			<div data-dur='5'>Hello World</div>
-		</div>
+<div class='sample'>
+<div data-template='表格模板'>
+	<div data-v='text:N' style='text-align:center'></div>
+	<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
+		<tbody>
+			<tr data-c='repeat:Rs'>
+				<th data-v="text:N"></th>
+				<td data-v="text:V"></td>
+			</tr>
+		</tbody>
+	</table>
+	<ul>
+		<li>使用 <em>data-c='repeat:串列名'</em> 指定要重複列舉的樣板與串列資料</li>
+		<li>串列成員將依序填入子節點 data-v 指定的位置</li>
+	</ul>
+</div>
+<textarea data-buffer='資料列表'>{
+	"N":"表格標題",
+	"Rs":[
+		{"N":"John","V":"95"}, {"N":"Mary","V":"99"},
+		{"N":"Sam","V":"90"}, {"N":"Vicky","V":"92"}
+	]
+}</textarea>
+<textarea data-xl='template:表格模板:資料列表'></textarea>
+</div>
+</section>
+
+<section>
+	<h2>對話框</h2>
+
+	<div data-template='登入'>
+		<div style='text-align:center'>帳號:<input type='text' data-v='value:P'/></div>
+		<div style='text-align:center'>密碼:<input type='password' data-v='value:S'/></div>
+		<div style='text-align:center'><button>登入</button></div>
 	</div>
-	<div data-media="https://d288slw6nyxep2.cloudfront.net/music/260217-米蘭・時空的交響.mp3">
-		<div data-ts='0+'>
-			<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"></div>
-			<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"></div>
-			<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/100005_V.jpg"></div>
-			<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/115114.jpg"></div>
-		</div>
-		<div data-ts='3'>
-			<div data-dur='5'>Hello World</div>
-			<div data-dur='5'>Hello Kitty</div>
-		</div>
-	</div>
-	<div data-media="https://www.youtube.com/watch?v=7kCb_aV3RGg">
-		<div data-ts='10' style='height:50%;width:50%;'>
-			<div data-dur='0' style='border:1px solid red;background:rgba(255,255,255,0.5);'>TEST</div>
+
+	<textarea data-buffer='Session'>{
+		"P":"porshenlai",
+		"S":"abcd1234"
+	}</textarea>
+
+	<button data-h='play:Please Login:template:登入:Session'>開啟</button>
+</section>
+
+<section class='page'>
+	<div class='fill col'>
+		<h2>媒體控制</h2>
+		<div class='fill' data-xl='media' style='border:1px solid gold;'>
+			<div data-media="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"/>
+				<div data-ts='0'>
+					<div data-dur='3'>0-3 seconds</div>
+					<div data-dur='5'>3-8 seconds</div>
+				</div>
+			</div>
+			<div data-media="https://www.w3schools.com/html/movie.mp4">
+				<div data-ts='0' style='height:50%;width:50%;'>
+					<div data-dur='5' style='border:1px solid red'>TEST</div>
+					<div data-dur='0' style='border:1px solid red;background:rgba(255,255,255,0.5);'>TEST</div>
+				</div>
+			</div>
+			<div data-media="https://d288slw6nyxep2.cloudfront.net/music/260217-米蘭・時空的交響.mp3">
+				<div data-ts='0+'>
+					<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"></div>
+					<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"></div>
+					<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/100005_V.jpg"></div>
+					<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/115114.jpg"></div>
+				</div>
+				<div data-ts='3'>
+					<div data-dur='5'>Hello World</div>
+					<div data-dur='5'>Hello Kitty</div>
+				</div>
+			</div>
+			<div data-media="https://www.youtube.com/watch?v=7kCb_aV3RGg">
+				<div data-ts='0'>
+					<div data-dur='10'><span style='background:white;'>Youtube Video</span></div>
+				</div>
+				<div data-ts='10'>
+					<div data-dur='0'><span style='background:white;'>Paused</span></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
 
 <section data-xl='markdown'>
 <textarea>
-# TITLE
-## WAHAHA
+## Markdown 擴充
 * 123
 * 4565
 * 789:Caption comes here
 </textarea>
 </section>
 
-<section data-xl='mermaid'>
+<section>
+<h2>Mermaid 擴充</h2>
+<div data-xl='mermaid'>
 <textarea>
 flowchart TD
 	A{下大雨} -->|YES| C[停賽]
@@ -211,6 +262,7 @@ flowchart TD
 	B{颳大風} -->|YES| D[停賽]
 	B -->|NO| E[比賽]
 </textarea>
+</div>
 </section>
 
 <section>
