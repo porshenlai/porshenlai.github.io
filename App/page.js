@@ -1,7 +1,6 @@
 (function(CS){
 
 const currentScript = document.currentScript;
-const jsPrefix=(/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1];
 
 const CSS_PAGE= // {{{
 `:root {
@@ -99,7 +98,8 @@ section.page { height:calc(100% - 2 * var(--base-margin)); }
 @media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
 .fill>.swd { height:100%; }
 
-[data-h] { cursor:pointer; }
+[data-h] { cursor:pointer; border:2px solid rgba(255,255,255,0); }
+[data-h]:hover { border-color:blue; }
 [data-h="display"] { text-decoration:underline;color:blue; }
 [data-h="display"] [caption] { display:none; }
 
@@ -298,6 +298,24 @@ function queryContainer (e, cs)
 	}
 }	// }}}
 
+function splitArgs (s, d=':')
+{	// {{{
+	let m=undefined, bf=[];
+	return s.split(d).reduce((r,v)=>{
+		if (m) {
+			if (v.endsWith(m)) {
+				bf.push(v.substring(0,v.length-1));
+				r.push(bf.join(d));
+				m=undefined;
+			} else bf.push(v);
+		} else if (v.startsWith('"') || v.startsWith("'")) {
+			m=v[0]
+			bf.push(v.substring(1));
+		} else r.push(v);
+		return r;
+	},[]);
+}	// }}}
+
 class Chain {
 	// 1. constructed with multiple elements
 	// 2. set => fill into all elements
@@ -328,27 +346,52 @@ class Templates {
 		Array.from(c.querySelectorAll('[data-index]'))
 		.forEach((e)=>e.parentNode.removeChild(e));
 	}
-	write (c, dt) {
-		try {
-			if (dt[0]) this.clear(c); else dt.shift();
-			for (const D of dt) {
-				// clone template
-				const EI = this.Temps[c.dataset.template_id].cloneNode(true);
-				EI.dataset.index=true;
-				// disabled currently: EI.dataset.value=D;
-				// fill values
-				Array.from(EI.querySelectorAll('[data-v]'))
-				.forEach((e)=>{
-					const a = (e.dataset.v||"").split(":");
-					switch (a[0]) {
-					case "text": e.textContent=D[a[1]]; break;
-					case "value": e.value=D[a[1]]; break; }
-				});
-				// append content
-				c.appendChild(EI);
+	_write_data_ (e, d) {
+		if (e.dataset.c) ((a)=>{
+				switch (a[0]) {
+				case "repeat":
+					((t,p,d)=>{
+						p.removeChild(t);
+						for (let i=0; i<d.length; i++) {
+							const D=d[i], row=t.cloneNode(true);
+							delete row.dataset.c;
+							row.dataset.index=(i%2)+"-"+i;
+							p.appendChild(row);
+							this._write_(row,D);
+						}
+					})(e,e.parentNode,d[a[1]]);
+					break;
+				}
+		})(e.dataset.c.split(":"));
+		(e.dataset.v||"").split(",").filter((v)=>v).forEach((arg)=>{
+			const a=arg.split(":");
+			switch (a[0]) {
+			case "text":
+				e.textContent=d[a[1]];
+				break;
+			case "value":
+				e.value=d[a[1]];
+				break;
+			case "data":
+				e.dataset[a[1]]=d[a[2]];
+				break;
 			}
-			Array.from(c.querySelectorAll('[data-index]'))
-			.forEach((row,idx)=>row.dataset.index=(idx%2)+"-"+idx);
+		});
+	}
+	_write_ (e, d) {
+		try {
+			if (e.dataset.v||e.dataset.c) this._write_data_(e,d);
+			for( let c=e.firstChild; c; c=c.nextSibling) {
+				if (c.nodeType!==1) continue;
+				this._write_(c,d);
+			}
+		} catch(x) { console.log(x); }
+	}
+	write (c, dt, te) {
+		try {
+			const EI=this.Temps[c.dataset.template_id].cloneNode(true);
+			this._write_(EI, dt);
+			c.appendChild(EI);
 		} catch(x) { console.log(x); }
 	}
 	read (c) {
@@ -357,7 +400,7 @@ class Templates {
 			.reduce((rst, row) => {
 				rst.push(Array.from(row.querySelectorAll('[data-v]'))
 				.reduce((val, cell) => {
-					const a = (cell.dataset.v||"").split(":");
+					const a = splitArgs(cell.dataset.v||"",':');
 					switch (a[0]) {
 					case "text": val[a[1]]=cell.textContent; break;
 					case "value": val[a[1]]=cell.value; break; }
@@ -383,11 +426,13 @@ class Content {
 				elem.classList.add('resolved');
 				const page = queryContainer(elem,'section'), container = elem.parentNode;
 				slide.Templates.add(container, tn);
-				slide.Templates.write(container, ((c)=>Array.isArray(c) ? c : [c])(
-					JSON.parse((elem.querySelector('pre')||elem).innerHTML)
-				));
+				slide.Templates.write(
+					container, 
+					JSON.parse((Apps.querySelector(elem,'textarea')||{value:'{}'}).value||"{}")
+				);
 				if (elem.parentNode)
 					container.removeChild(elem);
+				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
 			}
 		};
 	}
@@ -436,7 +481,7 @@ class Content {
 	extendMods (mods) { // ## INSTALL EXTENSION MODULES (data-x="...") {{{
 		Promise.all(
 			mods.reduce((R,e)=>{
-				const args=(e.dataset.x||e.dataset.xl||"").split(':'), mn=args.shift();
+				const args=splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
 				if (mn) R.push((async (T, N, E)=>{
 					if (!T.Xs[N])
 						T.Xs[N] = loadScript(
@@ -754,18 +799,14 @@ class Player {
 		} else alert('您的瀏覽器不支援 Speech Synthesis API。');
 	}	// }}}
 
-	play (mn, code, caption)
+	play (caption, mn, ...args)
 		// play:dom:&this:Caption
 		// play('dom',document.getElementById(...),'Caption');
-		// play:image:URI:Caption
-		// play('image','test.png','Caption');
 	{	// {{{
-		const VE = document.createElement("div");
-		VE.dataset.xl = mn;
-		VE.classList.add("fill");
-		if (code instanceof Element)
-			code = code.innerHTML;
-		VE.innerHTML = code;
+		const VE = document.createElement("div"), e = args.pop();
+		args.unshift(mn);
+		VE.dataset.xl = args.join(":");
+		VE.innerHTML=e.innerHTML;
 		this.Content.extendMods([VE]);
 		this.__openDialog__(caption).appendChild(VE);
 	}	// }}}
@@ -791,6 +832,16 @@ class Player {
 	}	// }}}
 }	// }}}
 
+window.Apps={
+	loadScript: loadScript,
+	loadStyle: loadStyle,
+	queryContainer: queryContainer,
+	querySelector: (elem, cs) => elem.matches(cs) ? elem : elem.querySelector(cs),
+	splitArgs: splitArgs,
+	JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
+	Player: undefined
+};
+
 if (!window.ThisPage) ThisPage={};
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
@@ -798,7 +849,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	function decodeFilter (s) { return s ? s.split('|').map((v) => v.split('.')) : []; }
 	function encodeFilter (aa) { return aa.map((a)=>a.join('.')).join('|'); }
 
-	let UI = window.App = new (class extends Player {
+	let UI = window.Apps.Player = new (class extends Player {
 		constructor (args)
 		{	// {{{
 			super(
@@ -832,7 +883,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 			try {
 				for (let e=evt.target; e!==this.GC; e=e.parentNode){
 					if (e.dataset && e.dataset.h) {
-						let args = e.dataset.h.split(':'), cmd = args.shift();
+						let args = splitArgs(e.dataset.h,':'), cmd = args.shift();
 						args = args.map((a)=>{
 							switch (a) {
 							case '&this': return e;
