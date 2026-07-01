@@ -823,7 +823,6 @@ class Player {
 		if (args[args.length-1] instanceof Element)
 			VE.innerHTML=args.pop().innerHTML;
 		VE.dataset.xl = args.join(":");
-		console.log("DEBUG",VE.outerHTML);
 		this.Content.extendMods([VE]);
 		this.__openDialog__(caption).appendChild(VE);
 	}	// }}}
