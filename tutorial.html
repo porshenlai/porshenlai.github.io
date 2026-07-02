@@ -13,7 +13,7 @@
 				if (sample) {
 					const output=page.querySelector('textarea');
 					output.value = sample.innerHTML.trim();
-					output.setAttribute('rows',output.value.split('\n').length+1);
+					output.setAttribute('rows',((n)=>n>15?15:n)(output.value.split('\n').length+3));
 				}
 			});
 		},
@@ -324,6 +324,72 @@ B -->|NO| E[比賽]
 	</button>
 </div>
 	<!--}}}-->
+</section>
+
+<section>
+<h2>問答 - 單選題</h2>
+<div style='text-align:right;border-bottom:2px solid blue;'>
+	<button data-h='call:viewsource:&this'>原始碼</button><br/>
+	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
+</div>
+<div class='sample'><div data-x='quiz:s'>
+	請問這是哪種類型問答的範例 ?
+	<div data-o='O'>單選題</div>
+	<div data-o='X'>複選題</div>
+	<div data-o='X'>排序題</div>
+	<div data-o='X'>問答題</div>
+</div></div>
+</section>
+
+<section>
+<h2>問答 - 複選題</h2>
+<div style='text-align:right;border-bottom:2px solid blue;'>
+	<button data-h='call:viewsource:&this'>原始碼</button><br/>
+	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
+</div>
+<div class='sample'><div data-x='quiz:m'>
+	請問這是哪種類型問答的範例 ?
+	<div data-o='O'>多選題</div>
+	<div data-o='X'>躲選題</div>
+	<div data-o='O'>複選題</div>
+	<div data-o='X'>負選題</div>
+</div></div>
+</section>
+
+<section>
+<h2>問答 - 排序題</h2>
+<div style='text-align:right;border-bottom:2px solid blue;'>
+	<button data-h='call:viewsource:&this'>原始碼</button><br/>
+	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
+</div>
+<div class='sample'><div data-x='quiz:sort'>
+	請排列下列選項回答這是哪種類型問答的範例 ?
+	<div>
+	<span data-o='-'>不</span>
+	<span data-o='2'>是</span>
+	<span data-o='3'>排</span>
+	<span data-o='5'>題</span>
+	<span data-o='1'>這</span>
+	<span data-o='4'>序</span>
+	<span data-o='-'>嗎</span>
+	</div>
+</div></div>
+</section>
+
+<section>
+<h2>卡片</h2>
+<div style='text-align:right;border-bottom:2px solid blue;'>
+	<button data-h='call:viewsource:&this'>原始碼</button><br/>
+	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='10'></textarea>
+</div>
+<div class='sample'><div data-x="card">
+	<div class='front col'>
+		<div>請問老師的名字是 ?</div>
+	</div>
+	<div class='back col'>
+		<div>賴柏伸</div>
+	</div>
+</div></div>
 </section>
 
 </body>
