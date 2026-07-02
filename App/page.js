@@ -115,6 +115,7 @@ button:hover { border-color:#90a4ae; }
 h1,.h1 { font-size:200%;font-weight:bold;color:#1E88E5;margin:var(--base-margin);text-align:center; }
 h2,.h2 { font-size:172%;font-weight:bold;color:#1E88E5;margin:var(--base-margin); }
 h3,.h3 { font-size:128%;font-weight:bold;color:#0d5ea8;margin:var(--base-margin); }
+ul li, ol li { line-height:1.8 }
 
 table.std { margin:auto; border:1px solid silver; }
 table.std th, table.std td { padding:2px 16px; border:1px solid black; }
@@ -340,7 +341,6 @@ class Templates {
 		this.Temps={};
 	}
 	reg (tn, temp) { this.Temps[tn]=temp; }
-	add (container, tn) { container.dataset.template_id=tn; }
 	clear (c) {
 		Array.from(c.querySelectorAll('[data-index]'))
 		.forEach((e)=>e.parentNode.removeChild(e));
@@ -384,10 +384,10 @@ class Templates {
 			this._write_(c,d);
 		}
 	}
-	write (c, dt, te) {
-		const EI=this.Temps[c.dataset.template_id].cloneNode(true);
+	write (id, dt, te) {
+		const EI=this.Temps[id].cloneNode(true);
 		this._write_(EI, dt);
-		c.appendChild(EI);
+		return EI;
 	}
 	read (c) {
 		try {
@@ -431,13 +431,12 @@ class Content {
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
 				const page = queryContainer(elem,'section'), container = elem.parentNode;
-				slide.Templates.add(container, name);
 				buf = buf ?
 					slide.Buffers.read(buf) :
 					(Apps.querySelector(elem,'textarea')||{value:'{}'}).value||"{}";
 				if ('string' === typeof(buf))
 					buf = JSON.parse(buf)
-				slide.Templates.write(container, buf);
+				container.insertBefore(slide.Templates.write(name, buf), elem);
 				if (elem.parentNode)
 					container.removeChild(elem);
 				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
@@ -780,6 +779,7 @@ class Player {
 
 	call (fn, ...args)
 	{	// {{{
+		console.log(fn, args);
 		try {
 			ThisPage[fn](...args);
 		} catch(x) { console.log(x); }
