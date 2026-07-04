@@ -163,11 +163,11 @@ table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; 
 const HTML_CONTROL= // {{{
 `
 <span data-h='set:PageNumber:prev'>◤</span>
-<output data-uid='PageNumber' style='font-size:50%'></output>
+<output data-uid='PageNumber' style='font-size:72%'></output>
 <span>
 	<span data-h='set:Overlay:menu'>☰</span>
 </span>
-<output data-uid='PageCount' style='font-size:50%'></output>
+<output data-uid='PageCount' style='font-size:72%'></output>
 <span data-h='set:PageNumber:next'>◢</span>
 `;	// }}}
 const HTML_MAIN= // {{{
@@ -880,6 +880,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 				cp.dataset.uid='ControlPanel';
 				((s)=>{
 					s.padding='0.2%';
+					s.fontSize='160%';
 				})(cp.style);
 				cp.innerHTML=HTML_CONTROL;
 				return cp;
