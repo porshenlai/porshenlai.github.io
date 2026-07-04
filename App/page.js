@@ -474,13 +474,13 @@ class Content {
 		}, this.E);
 		this.Keywords=Object.keys(ksmap);
 		this.PageIndex=PageIndex;
-		Array.from(this.E.querySelectorAll('[data-template]'))
+		Array.from(document.querySelectorAll('[data-template]'))
 		.forEach((e)=>{
 			this.Templates.reg(e.dataset.template,e);
 			delete e.dataset.template;
 			e.parentNode.removeChild(e);
 		});
-		Array.from(this.E.querySelectorAll('[data-buffer]'))
+		Array.from(document.querySelectorAll('[data-buffer]'))
 		.forEach((e)=>{
 			this.Buffers.reg(e.dataset.buffer,e);
 			delete e.dataset.buffer;
@@ -756,7 +756,7 @@ class Player {
 		this.Settings.PageCount.set(this.Content.PageIndex.length);
 		this.Settings.Keywords.set(this.Content.Keywords);
 		this.Settings.Filters.set(filters||[]);
-		this.Settings.PlayMode.set(1);
+		this.Settings.PlayMode.set(2);
 	}	// constructor }}}
 
 	__openDialog__ (caption, EH)
