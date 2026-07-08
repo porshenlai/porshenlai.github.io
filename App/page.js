@@ -385,9 +385,11 @@ class Templates {
 		}
 	}
 	write (id, dt, te) {
-		const EI=this.Temps[id].cloneNode(true);
-		this._write_(EI, dt);
-		return EI;
+		try {
+			const EI=this.Temps[id].cloneNode(true);
+			this._write_(EI, dt);
+			return EI;
+		} catch(x) { console.log(id,x); }
 	}
 	read (c) {
 		try {
@@ -826,6 +828,10 @@ class Player {
 		this.Content.extendMods([VE]);
 		this.__openDialog__(caption).appendChild(VE);
 	}	// }}}
+
+	go (target) {
+		return this.Settings.PageNumber.set(target);
+	}
 
 	filter (cmd)
 	{	// {{{

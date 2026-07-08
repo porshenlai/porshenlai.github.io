@@ -1,0 +1,27 @@
+async function decompressSvgz(svgzUrl) {
+  try {
+    const response = await fetch(svgzUrl);
+
+    // 1. Get the readable stream of the compressed data
+    const compressedStream = response.body;
+
+    // 2. Create a decompression stream using the 'gzip' format
+    const decompressor = new DecompressionStream('gzip');
+
+    // 3. Pipe the compressed stream through the decompressor
+    const decompressedStream = compressedStream.pipeThrough(decompressor);
+
+    // 4. Read the decompressed result as text (SVG XML)
+    const decompressedText = await new Response(decompressedStream).text();
+
+    return decompressedText;
+  } catch (error) {
+    console.error("Decompression failed:", error);
+    return null;
+  }
+}
+
+// How to call it:
+// decompressSvgz('path/to/my.svgz').then(svgXml => {
+//     console.log("Uncompressed SVG:", svgXml);
+// });

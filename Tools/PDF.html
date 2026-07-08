@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline PDF Toolkit</title>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            line-height: 1.5;
+        }
+
+        h1 { text-align: center; color: #0f172a; margin-bottom: 2rem; }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        h2 { margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--bg); padding-bottom: 0.5rem; }
+
+        .info { font-size: 0.875rem; color: #64748b; margin-bottom: 1.25rem; }
+
+        .controls { display: flex; flex-direction: column; gap: 1rem; }
+
+        input[type="file"] {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        select, button {
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        select { border: 1px solid #cbd5e1; background: white; }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover { background-color: var(--primary-hover); }
+        button:disabled { background-color: #94a3b8; cursor: not-allowed; }
+
+        .status { margin-top: 1rem; font-weight: 500; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <h1>PDF Local Toolkit</h1>
+
+    <div class="card">
+        <h2>1. Merge Multiple PDFs</h2>
+        <p class="info">Combine multiple PDF files into one. Documents will be appended in the order you select them.</p>
+        <div class="controls">
+            <input type="file" id="merge-input" multiple accept=".pdf">
+            <button id="btn-merge" onclick="mergePDFs()">Merge & Download</button>
+        </div>
+        <div id="merge-status" class="status"></div>
+    </div>
+
+    <div class="card">
+        <h2>2. Concatenate Pages (N-Up)</h2>
+        <p class="info">Shrink the first 2 or 4 pages of a PDF and tile them onto a single A4 sheet.</p>
+        <div class="controls">
+            <input type="file" id="nup-input" accept=".pdf">
+            <select id="nup-count">
+                <option value="2">2 Pages per Sheet (Vertical Stack)</option>
+                <option value="4">4 Pages per Sheet (2x2 Grid)</option>
+            </select>
+            <button id="btn-nup" onclick="nUpPDF()">Process & Download</button>
+        </div>
+        <div id="nup-status" class="status"></div>
+    </div>
+
+    <script>
+        const { PDFDocument } = PDFLib;
+
+        // HELPER: File Downloader
+        async function download(bytes, fileName) {
+            const blob = new Blob([bytes], { type: "application/pdf" });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+            link.click();
+        }
+
+        // HELPER: Password Handler
+        async function loadPdfWithPassword(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            let password = undefined;
+            
+            while (true) {
+                try {
+                    return await PDFDocument.load(arrayBuffer, { password });
+                } catch (err) {
+                    if (err.message.includes('encrypted') || err.message.includes('password')) {
+                        password = prompt(`"${file.name}" is password protected. Please enter the password:`);
+                        if (password === null) throw new Error("Processing cancelled (password required).");
+                    } else {
+                        throw err;
+                    }
+                }
+            }
+        }
+
+        // LOGIC: Merge PDF Files
+        async function mergePDFs() {
+            const input = document.getElementById('merge-input');
+            const status = document.getElementById('merge-status');
+            const btn = document.getElementById('btn-merge');
+            
+            if (input.files.length < 2) return alert("Please select at least 2 files.");
+
+            try {
+                btn.disabled = true;
+                status.textContent = "Processing... please wait.";
+                
+                const mergedPdf = await PDFDocument.create();
+
+                for (const file of input.files) {
+                    status.textContent = `Loading ${file.name}...`;
+                    const pdf = await loadPdfWithPassword(file);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => mergedPdf.addPage(page));
+                }
+
+                status.textContent = "Finalizing file...";
+                const pdfBytes = await mergedPdf.save();
+                await download(pdfBytes, "merged_document.pdf");
+                status.textContent = "Done!";
+            } catch (e) {
+                alert("Error: " + e.message);
+                status.textContent = "";
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // LOGIC: N-Up Tiling (2 or 4 pages)
+        async function nUpPDF() {
+            const input = document.getElementById('nup-input');
+            const status = document.getElementById('nup-status');
+            const btn = document.getElementById('btn-nup');
+            const count = parseInt(document.getElementById('nup-count').value);
+
+            if (!input.files[0]) return alert("Please select a file.");
+
+            try {
+                btn.disabled = true;
+                status.textContent = "Processing pages...";
+                
+                const sourceDoc = await loadPdfWithPassword(input.files[0]);
+                const outDoc = await PDFDocument.create();
+                
+                // Standard A4: 595.28 x 842.89 points
+                const page = outDoc.addPage([595.28, 842.89]);
+                const { width, height } = page.getSize();
+
+                const indices = sourceDoc.getPageIndices().slice(0, count);
+                const embeddedPages = await outDoc.embedPages(
+                    indices.map(idx => sourceDoc.getPage(idx))
+                );
+
+                if (count === 2) {
+                    // Layout: Top and Bottom
+                    const drawHeight = height / 2;
+                    for (let i = 0; i < Math.min(embeddedPages.length, 2); i++) {
+                        page.drawPage(embeddedPages[i], {
+                            x: 0,
+                            y: i === 0 ? drawHeight : 0,
+                            width: width,
+                            height: drawHeight,
+                        });
+                    }
+                } else if (count === 4) {
+                    // Layout: 2x2 Grid
+                    const drawWidth = width / 2;
+                    const drawHeight = height / 2;
+                    embeddedPages.forEach((p, i) => {
+                        const col = i % 2;
+                        const row = Math.floor(i / 2); // 0 for top row, 1 for bottom
+                        page.drawPage(p, {
+                            x: col * drawWidth,
+                            y: row === 0 ? drawHeight : 0, 
+                            width: drawWidth,
+                            height: drawHeight,
+                        });
+                    });
+                }
+
+                const pdfBytes = await outDoc.save();
+                await download(pdfBytes, `tiled-${count}-up.pdf`);
+                status.textContent = "Done!";
+            } catch (e) {
+                alert("Error: " + e.message);
+                status.textContent = "";
+            } finally {
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
