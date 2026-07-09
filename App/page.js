@@ -165,7 +165,7 @@ const HTML_CONTROL= // {{{
 <span data-h='set:PageNumber:prev'>◤</span>
 <output data-uid='PageNumber' style='font-size:72%'></output>
 <span>
-	<span data-h='set:Overlay:menu'>☰</span>
+	<span data-h='toggleOverlay:menu'>☰</span>
 </span>
 <output data-uid='PageCount' style='font-size:72%'></output>
 <span data-h='set:PageNumber:next'>◢</span>
@@ -217,9 +217,9 @@ aside nav li { border-bottom:1px solid silver; }
 </style>
 
 <div id='content'></div>
-<div data-uid='Overlay' data-h='set:Overlay:none'>
+<div data-uid='Overlay' data-h='toggleOverlay:none'>
 	<div data-uid='Dialog'>
-		<div data-h='set:Overlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
+		<div data-h='toggleOverlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
 		<section data-h='nop' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
 	</div>
 	<aside data-h='tab:ASIDE' style='background:white;'>
@@ -316,20 +316,6 @@ function splitArgs (s, d=':')
 	},[]);
 }	// }}}
 
-class Chain {
-	// 1. constructed with multiple elements
-	// 2. set => fill into all elements
-	// 3. get <= read from the first element
-	// {{{
-	constructor () { this.QS = Array.from(arguments); }
-	__s__ (q,v) { q['value' in q ? 'value' : 'textContent'] = v; }
-	__g__ (q) { return q['value' in q ? 'value' : 'textContent']; }
-	set (v) { this.QS.forEach((q)=>this.__s__(q,v)); return this; }
-	get () { return this.__g__(this.QS[0]); }
-	add (q) { this.QS.push(q); this.__s__(q,this.get()); return this; }
-	remove (q) { this.QS=this.QS.filter((e)=>e!==q); return this; }
-}	// }}}
-
 class Templates {
 	// Templates Manager
 	// 1. reg => register a template DOM with a given name
@@ -386,6 +372,7 @@ class Templates {
 	}
 	write (id, dt, te) {
 		try {
+			console.assert(id in this.Temps,`Template ${id} not declared`);
 			const EI=this.Temps[id].cloneNode(true);
 			this._write_(EI, dt);
 			return EI;
@@ -415,7 +402,10 @@ class Buffers {
 		this.Bs = {};
 	}
 	reg (n, buf) { this.Bs[n] = buf; }
-	read (q) { return (q instanceof Element ? q.querySelector('textarea') : this.Bs[q]).value; }
+	read (q) {
+		console.log(q,this.Bs,this.Bs[q]);
+		return (q instanceof Element ? q.querySelector('textarea') : this.Bs[q]).value;
+	}
 	write (q, buf) { }
 }	// }}}
 
@@ -445,16 +435,33 @@ class Content {
 			}
 		};
 	}
-	install (sections, filters) { // {{{ ## INSTALL SECTIONS
-		// 1. complete id setting
-		// 2. filter data-ks with disabled class
-		// 3. update PageIndex and ksmap
-		// 4. move sections to content box
+	install (doc, filters) { // {{{ ## INSTALL
+
+		// 使用者介面輸入資料前處理
+		if (ThisPage.before_load)
+			ThisPage.before_load(this, doc);
+
+		// 安裝顯示樣板
+		Array.from(doc.querySelectorAll('[data-template]'))
+		.forEach((e)=>{
+			this.Templates.reg(e.dataset.template,e);
+			delete e.dataset.template;
+			e.parentNode.removeChild(e);
+		});
+
+		// 安裝資料來源
+		Array.from(doc.querySelectorAll('[data-buffer]'))
+		.forEach((e)=>{
+			this.Buffers.reg(e.dataset.buffer,e);
+			delete e.dataset.buffer;
+			e.parentNode.removeChild(e);
+		});
+
+		// 根據過濾器安裝要求的頁面
 		let ksmap={};
 		let PageIndex=[];
-		if (ThisPage.before_load) // before_load for Page override
-			ThisPage.before_load(this, sections);
-		sections.reduce((E, se, k) => {
+		Array.from(doc.querySelectorAll('section'))
+		.reduce((E, se, k) => {
 			// Organize keywords from data-ks 
 			const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
 			ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
@@ -476,19 +483,11 @@ class Content {
 		}, this.E);
 		this.Keywords=Object.keys(ksmap);
 		this.PageIndex=PageIndex;
-		Array.from(document.querySelectorAll('[data-template]'))
-		.forEach((e)=>{
-			this.Templates.reg(e.dataset.template,e);
-			delete e.dataset.template;
-			e.parentNode.removeChild(e);
-		});
-		Array.from(document.querySelectorAll('[data-buffer]'))
-		.forEach((e)=>{
-			this.Buffers.reg(e.dataset.buffer,e);
-			delete e.dataset.buffer;
-			e.parentNode.removeChild(e);
-		});
+
+		// 套用應用載入階段擴充
 		this.extendMods(Array.from(this.E.querySelectorAll('[data-x]')));
+
+		// 使用者介面安裝後處理
 		if (ThisPage.after_load) // after_load for Page override
 			ThisPage.after_load(this);
 	}	// }}}
@@ -612,139 +611,140 @@ class Content {
 
 class Player {
 	// {{{
-	constructor (sections, filters)
+	constructor (doc, filters)
 	{	// {{{
 		// ## ADD CSS DECLARATIONS
 		loadStyle(CSS_PAGE, 'CSS_PAGE');
 
 		// ## 1. APPEND <MAIN>/id='content' ELEMENT TO HOLD SECTIONS
-		this.GC=(()=>{ // sections container
-			let e=document.createElement("main");
-			e.innerHTML=HTML_MAIN;
-			this.Content=new Content(e.querySelector('#content'));
-			this.Content.install(sections, filters);
+		this.GC=((e)=>{ // sections container
+			if (!e) {
+				e=document.createElement("main");
+				e.innerHTML=HTML_MAIN;
+			}
+			let c=e.querySelector('#content');
+			if (!c) {
+				c=document.createElement("div");
+				c.id='content';
+				e.insertBefore(c,e.firstChild);
+			}
+			this.Content = new Content(c);
+			this.Content.install(doc, filters);
 			return e;
-		})();
+		})(document.querySelector('main'));
 
 		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
-		this.Settings=((ThisPlayer)=>({ // Parameter Settings
-			"PlayMode" : new Chain ( // {{{
-				new (class {
-					constructor (e) {
-						this.E=e;
-						this.EOs=Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]'));
-					}
-					set value (v) {
-						try {
-							ThisPlayer.Content.PlayMode = v;
-							ThisPlayer.Content.PageNumber = 'refresh';
-							this.EOs.forEach(
-								(e) => e.classList[
-									e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove'
-								]('current')
-							);
-						} catch(x) { console.log(x); }
-					}	
-					get value () {
-						try {
-							return this.EOs.find((e)=>e.classList.contains('current'))
-									.dataset.h.replace(/.*:/,'');
-						} catch(x) { console.log(x); }
-					}
-				})(this.GC.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]'))
-			),	// }}}
-			"FontScale" : new Chain ( // {{{
-				this.GC.querySelector('[data-uid="Settings:FontScale"] input'),
-				this.GC.querySelector('[data-uid="Settings:FontScale"] output'),
-				new (class {
-					calc (w,h) { return w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30); }
-					set value (v) {
-						const DFS=this.calc(window.innerWidth, window.innerHeight);
-						document.documentElement.style.setProperty(
-							'--base-font-size',
-							`${DFS * v}px`
-						);
-					}
-				})()
-			),	// }}}
-			"PageCount" : new Chain ( // {{{
-				this.GC.querySelector('[data-uid="Aside:Pager"] span'),
-				new (class {
-					constructor (pg) { this.PG=pg; }
-					set value (v) { this.PG.setAttribute("max",parseInt(v)); }
-				})(this.GC.querySelector('[data-uid="Aside:Pager"] input'))
-			),	// }}}
-			"PageNumber" : new (class extends Chain { // {{{
-				constructor () {
-					super(...arguments);
-					this.set(ThisPlayer.Content.PageNumber);
-				}
-				set (v) {
-					ThisPlayer.Content.PageNumber=v;
-					super.set(ThisPlayer.Content.PageNumber);
-				}
-			})(
-				this.GC.querySelector('[data-uid="Aside:Pager"] input'),
-				this.GC.querySelector('[data-uid="Aside:Pager"] output')
-			),	// }}}
-			"Keywords" : new Chain ( // {{{
-				new (class {
-					// value=['k1','k2','k3']
-					constructor (e) { this.E=e; }
-					set value (v) {
-						this.E.innerHTML = v.reduce(
-							(r,k) => r+`<div><input type='checkbox'/>${k}</div>`, ''
-						) + "<span data-h='filter:add'>➕</span>";
-					}
-					get value () {
-						return Array.from(
-							this.E.querySelectorAll('input[type="checkbox"]')
-						).filter((e)=>e.checked)
-						.map((e)=>e.parentNode.textContent);
-					}
-				})(this.GC.querySelector('[data-uid="Settings:Keywords"]'))
-			),	// }}}
-			"Filters" : new Chain ( // {{{
-				new (class {
-					// value=[[A1,A2,...],[A3,A4,...],...]
-					constructor (e) { this.E=e; }
-					set value (v) {
-						this.E.innerHTML = v.reduce((r,a) => r
-							+ "<div class='OR'>"
-							+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
-							+ "</div>",
-						"");
-					}
-					get value () {
-						return Array.from(
-							this.E.querySelectorAll("div")
-						).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
-					}
-				})(this.GC.querySelector('[data-uid="Settings:Filters"]'))
-			),	// }}}
-			"Overlay" : new Chain ( // {{{
-				new (class {
-					constructor (e) {
-						this.Ns=['menu','dialog'];
-						this.CL=e.classList;
-						this.value='none';
-					}
-					set value (v) {
-						if (!v) v=this.value==='none' ? 'menu' : 'none';
-						this.CL.remove(...this.Ns); // OFF
-						if (v!=='none') this.CL.add(v);
-					}
-					get value () {
-						return this.Ns.find((n)=>this.CL.contains(n)) || "none";
-					}
-				})(this.GC.querySelector('[data-uid="Overlay"]'))
-			)	// }}}
-		}))(this);
+		this.Settings = new (class { // {{{
+			constructor (content) {
+				this.Content = content;
+				this.V = {
+					PlayMode:[{value:2}],
+					PageNumber:[{value:1}],
+					PageCount:[{value:content.PageIndex.length}],
+					FontScale:[{value:1.0}],
+					Keywords:[{value:content.Keywords}],	// [A1,A2,A3]
+					Filters:[{value:filters||[]}]	// [[A1,A2,...],[A3,A4,...],...]
+				};
+				this.PlayMode=this.V.PlayMode[0].value;
+			}
+			set (n, v) {
+				console.assert(n in this.V, 'No Such Setting');
+				this.V[n].forEach((e)=>this.__sv__(e,v));
+			}
+			__sv__ (e,v) { 'value' in e ? e.value=v : e.textContent=v; }
+			add (n, c) {
+				console.assert(n in this.V, 'No Such Setting');
+				this.__sv__(c,this.V[n][0].value);
+				this.V[n].push(c);
+			}
+			remove (n, c) {
+				console.assert(n in this.V, 'No Such Setting');
+				this.V[n]=this.V[n].filter((e)=>c!==e);
+			}
 
-		// ## INSTALL TABLE of CONTENTS
-		((sections)=>{
-			const TOC=this.GC.querySelector('[data-uid="ASIDE:TOC"]');
-			TOC.innerHTML="<ol>"+sections.reduce((rs, sec, idx) => {
+			set PlayMode (v) {
+				this.Content.PlayMode = v;
+				this.Content.PageNumber = 'refresh';
+			}
+			get PlayMode () { return this.Content.PlayMode; }
+			set PageCount (v) { this.set('PageCount',v); }
+			get PageCount () { return this.V.PageCount[0].value; }
+			set PageNumber (v) {
+				this.Content.PageNumber=v;
+				this.set('PageNumber', this.Content.PageNumber);
+			}
+			get PageNumber () { return this.Content.PageNumber; }
+			set FontScale (v) {
+				const DFS = ((w,h) => w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
+					window.innerWidth,
+					window.innerHeight
+				);
+				document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
+				this.set('FontScale', v);
+			}
+			get FontScale ()	{ return this.V.FontScale[0].value; }
+			set Keywords (v)	{ this.set('Keywords', v); }
+			get Keywords ()		{ return this.V.Keywords[0].value; }
+			set Filters (v)		{ this.set('Filters', v); }
+			get Filters ()		{ return this.V.Filters[0].value; }
+		})(this.Content); // }}}
+
+		((O)=>{	// {{{
+			if (!O) return;
+
+			this.Settings.add('PageNumber', O.querySelector('[data-uid="Aside:Pager"] input'));
+			this.Settings.add('PageNumber', O.querySelector('[data-uid="Aside:Pager"] output'));
+			this.Settings.add('PageCount', O.querySelector('[data-uid="Aside:Pager"] span'));
+			this.Settings.add('PageCount', new (class {
+				constructor (e)	{ this.E=e; }
+				set value (v)	{ this.E.setAttribute('max',parseInt(v)); }
+				get value ()	{ return this.E.getAttribute('max'); }
+			})(O.querySelector('[data-uid="Aside:Pager"] input')));
+			this.Settings.add('PlayMode', new (class {
+				constructor (e) { this.EOs = Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]')); }
+				set value (v)	{
+					this.EOs.forEach(
+						(e) => e.classList[e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove']('current')
+					);
+				}
+				get value ()	{
+					return this.EOs.find((e)=>e.classList.contains('current')).dataset.h.replace(/.*:/,'');
+				}
+			})(O.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]')));
+			this.Settings.add('FontScale', O.querySelector('[data-uid="Settings:FontScale"] input'));
+			this.Settings.add('FontScale', O.querySelector('[data-uid="Settings:FontScale"] output'));
+			this.Settings.add('Keywords', new (class {
+				constructor (e) { this.E=e; }
+				set value (v) {
+					this.E.innerHTML = v.reduce(
+						(r,k) => r+`<div><input type='checkbox'/>${k}</div>`, ''
+					) + "<span data-h='filter:add'>➕</span>";
+				}
+				get value () {
+					return Array.from(
+						this.E.querySelectorAll('input[type="checkbox"]')
+					).filter((e)=>e.checked)
+					.map((e)=>e.parentNode.textContent);
+				}
+			})(O.querySelector('[data-uid="Settings:Keywords"]')));
+			this.Settings.add('Filters',new (class {
+				constructor (e) { this.E = e; }
+				set value (v) {
+					this.E.innerHTML = v.reduce((r,a) => r
+						+ "<div class='OR'>"
+						+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
+						+ "</div>",
+					"");
+				}
+				get value () {
+					return Array.from(
+						this.E.querySelectorAll("div")
+					).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
+				}
+			})(O.querySelector('[data-uid="Settings:Filters"]')));
+			// ## INSTALL TABLE of CONTENTS
+			const TOC=O.querySelector('[data-uid="ASIDE:TOC"]');
+			TOC.innerHTML="<ol>"+this.Content.Sections.reduce((rs, sec, idx) => {
 				let t=sec.querySelector('h1') || sec.querySelector('h2');
 				if (t) {
 					t=t.textContent;
@@ -752,19 +752,13 @@ class Player {
 				}
 				return rs;
 			}, "")+"</ol>";
-		})(this.Content.Sections);
-
-		this.Settings.FontScale.set(1.0);
-		this.Settings.PageCount.set(this.Content.PageIndex.length);
-		this.Settings.Keywords.set(this.Content.Keywords);
-		this.Settings.Filters.set(filters||[]);
-		this.Settings.PlayMode.set(2);
+		})(this.GC.querySelector('[data-uid="Overlay"]')); // }}}
 	}	// constructor }}}
 
 	__openDialog__ (caption, EH)
 		// ret: graphic context of dialog
 	{	// {{{
-		this.set('Overlay','dialog');
+		this.toggleOverlay('dialog');
 		return ((DLG)=>{
 			DLG.querySelector('div').textContent=caption||'Dialog';
 			const rv = DLG.querySelector('section');
@@ -777,7 +771,13 @@ class Player {
 
 	set (name, value)
 		// set:SettingName:SettingValue
-	{	return this.Settings[name].set(value);	}
+	{	return this.Settings[name]=value;	}
+
+	toggleOverlay (name) {
+		const Ns=['menu','dialog'], CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
+		CL.remove(...Ns);
+		for (let key of Ns) if (key===name) CL.add(key);
+	}
 
 	call (fn, ...args)
 	{	// {{{
@@ -799,7 +799,8 @@ class Player {
 		if (!K) return;
 		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("current"));
 		const tabs=queryContainer(tb,['section','aside']);
-		tabs.querySelectorAll(`[data-uid^=${TK}]`).forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
+		tabs.querySelectorAll(`[data-uid^=${TK}]`)
+			.forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
 	}	// }}}
 
 	async speak (text, lang='en')
@@ -829,9 +830,8 @@ class Player {
 		this.__openDialog__(caption).appendChild(VE);
 	}	// }}}
 
-	go (target) {
-		return this.Settings.PageNumber.set(target);
-	}
+	go (target)
+	{	return this.Settings.PageNumber.set(target);	}
 
 	filter (cmd)
 	{	// {{{
@@ -875,7 +875,15 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		constructor (args)
 		{	// {{{
 			super(
-				Array.from(document.querySelectorAll('section')).map((s)=>s.parentNode.removeChild(s)||true),
+				((content)=>{
+					if (content&&content.parentNode) content.parentNode.removeChild(content);
+					return content;
+				})(document.querySelector('#content'))||
+				((content)=>{
+					content.id='content';
+					Array.from(document.querySelectorAll('section')).forEach((s)=>content.appendChild(s));
+					return content;
+				})(document.createElement("div")),
 				args.s ? decodeFilter(args.s) : undefined
 			);
 
@@ -893,8 +901,8 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 			})(), undefined);
 			document.body.insertBefore(this.GC, document.body.querySelector('footer'));
 
-			this.Settings.PageNumber.add(cp.querySelector('[data-uid="PageNumber"]'));
-			this.Settings.PageCount.add(cp.querySelector('[data-uid="PageCount"]'));
+			this.Settings.add('PageNumber',cp.querySelector('[data-uid="PageNumber"]'));
+			this.Settings.add('PageCount',cp.querySelector('[data-uid="PageCount"]'));
 		}	// }}}
 		nop () { }
 		//	if(!document.fullscreenElement)
@@ -904,8 +912,8 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		_EH_ (evt)
 		{	// {{{
 			try {
-				for (let e=evt.target; e!==this.GC; e=e.parentNode){
-					if (e.dataset && e.dataset.h) {
+				for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
+					if (e && e.dataset && e.dataset.h) {
 						let args = splitArgs(e.dataset.h,':'), cmd = args.shift();
 						args = args.map((a)=>{
 							switch (a) {
@@ -923,9 +931,9 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 						// evt.preventDefault(); // default handler essential to change events
 						break;
 					}
-					if (e.tagName==='SECTION' && e.id) {
+					if (e && e.tagName==='SECTION' && e.id) {
 						((pn)=>{
-							if (pn>=0) this.Settings.PageNumber.set(pn+1);
+							if (pn>=0) this.Settings.PageNumber=(pn+1);
 						})(this.Content.indexOf(e.id));
 						break;
 					}
@@ -936,9 +944,9 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		{	// {{{
 			try {
 				if (evt.key==='ArrowLeft')
-					this.Settings.PageNumber.set('prev');
+					this.Settings.PageNumber='prev';
 				else if (evt.key==='ArrowRight')
-					this.Settings.PageNumber.set('next');
+					this.Settings.PageNumber='next';
 				else if (evt.key==='Escape')
 					this.set('Overlay');
 				else return;

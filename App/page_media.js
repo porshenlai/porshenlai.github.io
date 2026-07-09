@@ -385,8 +385,9 @@ class MediaList {
 			);
 		else if ('number'===typeof(v)) cur=Math.floor(v);
 
-		((PL, cur)=>{
+		if (this.PlayList.length>0) ((PL, cur)=>{
 			cur=(cur+PL.length)%PL.length;
+			console.log("DEBUG",cur,PL);
 			while(C.firstChild) C.removeChild(C.firstChild);
 			C.appendChild(PL[cur].E);
 			while (MC.firstChild) MC.removeChild(MC.firstChild);

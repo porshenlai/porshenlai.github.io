@@ -7,11 +7,10 @@
 <script src="App/page.js"></script>
 <script>
 	ThisPage={
-		before_load: function (slide, sections) {
-			sections.forEach(
-				(s)=>Array.from(s.querySelectorAll('.sample')).forEach(
-					(sm)=>(sm.dataset.source=sm.innerHTML)
-			));
+		before_load: function (slide, doc) {
+			Array.from(doc.querySelectorAll('.sample')).forEach(
+				(sm)=>(sm.dataset.source=sm.innerHTML)
+			);
 		},
 		after_load: function (slide) { },
 		page_load: function (page) { },
@@ -30,9 +29,9 @@
 </script>
 <title>The Tutorial of pStyle Page</title>
 </head>
-<body style='opacity:0'>
+<body style='opacity:0'><div id='content'>
 
-<section class='page col' id='封面頁'>
+<section class='page col'>
 	<div class='h1'>pStyle Page</div>
 	<div class='h3'>the Tutorial</div>
 	<div></div>
@@ -42,6 +41,46 @@
 		<div><em>Chihlee University of Technology</em></div>
 	</div>
 </section>
+
+<div data-template='原始碼' style="width:100%;text-align:right;border-bottom:2px solid blue;">
+	<button data-h='call:viewsource:&this'>原始碼</button><br/>
+	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='1'></textarea>
+</div>
+
+<div data-template='公告模板'>
+	這是公告模板的範例，頁面中置入模版延伸模組的地方會自動從定義的內容複製填入。
+</div>
+
+<div data-template='資料模板'>
+	<div>標題: <b data-v="text:標題"></b></div>
+	<div>訊息: <b data-v="text:訊息"></b></div>
+</div>
+
+<div data-template='列舉模板'>
+	<!-- 使用 <em>data-c='repeat:串列名稱'</em> 指定要重複列舉的樣板與串列資料 -->
+	<!-- 串列成員將依序填入子節點 data-v 指定的位置 -->
+	<div data-v='text:表格名稱' style='text-align:center'></div>
+	<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
+		<tbody>
+			<tr data-c='repeat:串列名稱'>
+				<th data-v="text:項目名稱"></th>
+				<td data-v="text:項目數值" align='center'></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div data-template='登入'>
+	<div style='text-align:center'>帳號:<input type='text' data-v='value:P'/></div>
+	<div style='text-align:center'>密碼:<input type='password' data-v='value:S'/></div>
+	<div style='text-align:center'><button>登入</button></div>
+</div>
+
+<div data-template='PlayMedia' class='fill'>
+	<div data-xl='media' class='fill'>
+		<div data-c="repeat:Ms" data-v="data:media:media"></div>
+	</div>
+</div>
 
 <section class='page col'><h2>播放模式 (Play Mode)</h2><!--{{{-->
 	<div class='fill col'>
@@ -127,33 +166,6 @@
 		<li>利用 [data-v="功能:資料名稱"] 來設定自動填入資料的方法與目標資料變數</li>
 		<li>利用 [data-c="功能:資料名稱"] 來設定 DOM 自動建立邏輯與對應的目標資料變數</li>
 		<div class='sample'>
-<div data-template='公告模板'>
-	這是公告模板的範例，頁面中置入模版延伸模組的地方會自動從定義的內容複製填入。
-</div>
-
-<div data-template='資料模板'>
-	<div>標題: <b data-v="text:標題"></b></div>
-	<div>訊息: <b data-v="text:訊息"></b></div>
-</div>
-
-<div data-template='列舉模板'>
-	<!-- 使用 <em>data-c='repeat:串列名稱'</em> 指定要重複列舉的樣板與串列資料 -->
-	<!-- 串列成員將依序填入子節點 data-v 指定的位置 -->
-	<div data-v='text:表格名稱' style='text-align:center'></div>
-	<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
-		<tbody>
-			<tr data-c='repeat:串列名稱'>
-				<th data-v="text:項目名稱"></th>
-				<td data-v="text:項目數值" align='center'></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-
-<div data-template='原始碼' style="width:100%;text-align:right;border-bottom:2px solid blue;">
-	<button data-h='call:viewsource:&this'>原始碼</button><br/>
-	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='1'></textarea>
-</div>
 		</div>
 	</ul>
 </div>
@@ -283,18 +295,6 @@ flowchart TD
 <div class='sample'>
 	<button data-h='play:Dialog:template:公告模板'>公告模板</button>
 
-	<div data-template='登入'>
-		<div style='text-align:center'>帳號:<input type='text' data-v='value:P'/></div>
-		<div style='text-align:center'>密碼:<input type='password' data-v='value:S'/></div>
-		<div style='text-align:center'><button>登入</button></div>
-	</div>
-
-	<div data-template='PlayMedia' class='fill'>
-		<div data-xl='media' class='fill'>
-			<div data-c="repeat:Ms" data-v="data:media:media"></div>
-		</div>
-	</div>
-
 	<textarea data-buffer='Session'>{
 		"P":"porshenlai",
 		"S":"abcd1234"
@@ -400,5 +400,5 @@ B -->|NO| E[比賽]
 </div>
 </section><!--}}}-->
 
-</body>
+</div></body>
 </html>
