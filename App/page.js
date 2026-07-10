@@ -45,7 +45,7 @@ body>footer {
 
 #content {
 	width:100%; height:100%;
-	overflow:hidden scroll;
+	overflow:hidden auto;
 	background:#f0f0f0;
 }
 #content.PlayMode_1,
@@ -159,20 +159,6 @@ table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; 
 }
 .hide,.disabled { display:none; }
 
-`; // }}}
-const HTML_CONTROL= // {{{
-`
-<span data-h='set:PageNumber:prev'>◤</span>
-<output data-uid='PageNumber' style='font-size:72%'></output>
-<span>
-	<span data-h='toggleOverlay:menu'>☰</span>
-</span>
-<output data-uid='PageCount' style='font-size:72%'></output>
-<span data-h='set:PageNumber:next'>◢</span>
-`;	// }}}
-const HTML_MAIN= // {{{
-`
-<style>
 [data-uid="Overlay"] {
 	position:fixed; top:0; left:0; right:0; bottom:0; z-index:10001; background:rgba(0,0,0,0.4);
 	visibility:hidden; opacity:0;
@@ -181,7 +167,15 @@ const HTML_MAIN= // {{{
 [data-uid="Overlay"].menu, [data-uid="Overlay"].dialog {
 	visibility:visible; opacity:1;
 }
-
+[data-uid="Dialog"] {
+	position:fixed; overflow:hidden auto;
+	left:var(--base-margin); top:var(--base-margin); right:var(--base-margin); bottom:var(--base-margin);
+	display:none; flex-flow:column nowrap;
+}
+.dialog [data-uid="Dialog"] { display:flex; }
+`; // }}}
+const CSS_ASIDE= // {{{
+`
 aside {
 	position:fixed; top:0; right:0; bottom:0; z-index:10002;
 	min-width:calc(var(--base-font-size) * 24); max-width:90vw;
@@ -191,13 +185,6 @@ aside {
 	display:flex; flex-flow:column nowrap; justify-content:space-between; align-items:center;
 }
 .menu aside { transform:translateX(0); }
-
-[data-uid="Dialog"] {
-	position:fixed; overflow:hidden auto;
-	left:var(--base-margin); top:var(--base-margin); right:var(--base-margin); bottom:var(--base-margin);
-	display:none; flex-flow:column nowrap;
-}
-.dialog [data-uid="Dialog"] { display:flex; }
 
 aside [data-uid^="Settings:"] { margin:4px;padding:4px 8px;border:2px solid silver;border-radius:8px; }
 aside [data-uid^="Settings:"] label { font-size:110%; font-weight:bold; }
@@ -214,54 +201,63 @@ aside nav li { border-bottom:1px solid silver; }
 [data-uid="Settings:Keywords"]>div:hover {
 	color:blue; border-color:blue;
 }
-</style>
-
-<div id='content'></div>
-<div data-uid='Overlay' data-h='toggleOverlay:none'>
-	<div data-uid='Dialog'>
-		<div data-h='toggleOverlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
-		<section data-h='nop' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
+`; // }}}
+const HTML_CONTROL= // {{{
+`
+<span data-h='set:PageNumber:prev'>◤</span>
+<output data-uid='PageNumber' style='font-size:72%'></output>
+<span>
+	<span data-h='toggleOverlay:menu'>☰</span>
+</span>
+<output data-uid='PageCount' style='font-size:72%'></output>
+<span data-h='set:PageNumber:next'>◢</span>
+`;	// }}}
+const HTML_DIALOG= // {{{
+`
+<div data-uid='Dialog'>
+	<div data-h='toggleOverlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
+	<section data-h='nop' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
+</div>`;	// }}}
+const HTML_ASIDE= // {{{
+`
+<aside data-h='tab:ASIDE' style='background:white;'>
+	<div class='HTab'>
+		<div data-o="TOC" class='current'>導覽</div>
+		<div data-o="Settings">設定</div>
 	</div>
-	<aside data-h='tab:ASIDE' style='background:white;'>
-		<div class='HTab'>
-			<div data-o="TOC" class='current'>導覽</div>
-			<div data-o="Settings">設定</div>
-		</div>
-		<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
-			<nav class='tabPage' data-uid='ASIDE:TOC'></nav>
-			<div class='tabPage hide' data-uid='ASIDE:Settings'>
-				<div data-uid='Settings:PlayMode'>
-					<label>播放模式</lable>
-					<div data-uid='Switch' class='HSelect'>
-						<div data-h='set:PlayMode:0'>連續</div>
-						<div data-h='set:PlayMode:1'>滿框</div>
-						<div data-h='set:PlayMode:2'>分頁</div>
-					</div>
-				</div>
-				<div data-uid='Settings:FontScale'>
-					<label>字型縮放 (<output value='1'></output>)</label>
-					<div style='display:flex;flex-flow:row nowrap;align-items:center;'>
-						0.8 <input data-h='set:FontScale:&value' type='range' min='0.8' max='1.5' step='0.1' value='1.0' style='flex:1 1 auto;width:100%'/> 1.5
-					</div>
-				</div>
-				<div data-uid='Settings:KWFilters'>
-					<div style='display:flex;flex-flow:row nowrap;justify-content:space-between;padding:2px 6px;'>
-						<label>關鍵字篩選</label>
-						<span data-h='filter:run'>➤</span>
-					</div>
-					<div data-uid='Settings:Keywords'><span data-h='filter:add'>➕</span></div>
-					<div data-uid='Settings:Filters'></div>
+	<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
+		<nav class='tabPage' data-uid='ASIDE:TOC'></nav>
+		<div class='tabPage hide' data-uid='ASIDE:Settings'>
+			<div data-uid='Settings:PlayMode'>
+				<label>播放模式</lable>
+				<div data-uid='Switch' class='HSelect'>
+					<div data-h='set:PlayMode:0'>連續</div>
+					<div data-h='set:PlayMode:1'>滿框</div>
+					<div data-h='set:PlayMode:2'>分頁</div>
 				</div>
 			</div>
+			<div data-uid='Settings:FontScale'>
+				<label>字型縮放 (<output value='1'></output>)</label>
+				<div style='display:flex;flex-flow:row nowrap;align-items:center;'>
+					0.8 <input data-h='set:FontScale:&value' type='range' min='0.8' max='1.5' step='0.1' value='1.0' style='flex:1 1 auto;width:100%'/> 1.5
+				</div>
+			</div>
+			<div data-uid='Settings:KWFilters'>
+				<div style='display:flex;flex-flow:row nowrap;justify-content:space-between;padding:2px 6px;'>
+					<label>關鍵字篩選</label>
+					<span data-h='filter:run'>➤</span>
+				</div>
+				<div data-uid='Settings:Keywords'><span data-h='filter:add'>➕</span></div>
+				<div data-uid='Settings:Filters'></div>
+			</div>
 		</div>
-		<div data-uid='Aside:Pager' style="width:100%;display:flex;flex-flow:row nowrap;align-items:center;background:#eee;">
-			<input style='flex:1 1 auto;width:100%;margin:0 4px;' data-h='set:PageNumber:&value' type='range' min='1'/>
-			<output style='margin:0 4px;'></output> /
-			<span></span>
-		</div>
-	</aside>
-</div>
-`;	// }}}
+	</div>
+	<div data-uid='Aside:Pager' style="width:100%;display:flex;flex-flow:row nowrap;align-items:center;background:#eee;">
+		<input style='flex:1 1 auto;width:100%;margin:0 4px;' data-h='set:PageNumber:&value' type='range' min='1'/>
+		<output style='margin:0 4px;'></output> /
+		<span></span>
+	</div>
+</aside>`; // }}}
 
 async function loadScript (src,attrs={})
 {	// {{{
@@ -413,7 +409,6 @@ class Content {
 	// {{{
 	constructor (e) {
 		this.E=e;
-		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
 		this.Keywords = {};
 		this.PageIndex = [];
 		this.Templates = new Templates();
@@ -434,9 +429,9 @@ class Content {
 				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
 			}
 		};
+		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
 	}
 	install (doc, filters) { // {{{ ## INSTALL
-
 		// 使用者介面輸入資料前處理
 		if (ThisPage.before_load)
 			ThisPage.before_load(this, doc);
@@ -444,12 +439,12 @@ class Content {
 		// 安裝顯示樣板
 		Array.from(doc.querySelectorAll('[data-template]'))
 		.forEach((e)=>{
-			this.Templates.reg(e.dataset.template,e);
+			this.Templates.reg(e.dataset.template, e);
 			delete e.dataset.template;
 			e.parentNode.removeChild(e);
 		});
 
-		// 安裝資料來源
+		// 安資料來源
 		Array.from(doc.querySelectorAll('[data-buffer]'))
 		.forEach((e)=>{
 			this.Buffers.reg(e.dataset.buffer,e);
@@ -563,6 +558,7 @@ class Content {
 			Array.from(this.E.querySelectorAll('section.current'))
 			.forEach((e)=>e.classList.remove('current'));
 			em.classList.add('current');
+			em.classList.add('cuxxent');
 			// 2. UPDATE URL HASH
 			if (history.replaceState)
 				history.replaceState(null, null, '#' + em.id);
@@ -579,7 +575,7 @@ class Content {
 					behavior: scroll ? 'smooth' : 'auto',
 					block: 'start'
 				});
-				em.scrollTop=0;
+				em.scrollTop = 0;
 			}, 100);
 		}
 	}	// }}}
@@ -604,24 +600,41 @@ class Content {
 	get PlayMode ()
 		// ret in [0:連續,1:滿框,2:分頁]
 	{	// {{{
-					let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_'));
-					return rv.substring(9);
+		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_'));
+		return rv.substring(9);
 	}	// }}}
 }	// }}}
 
 class Player {
-	// {{{
-	constructor (doc, filters)
+	constructor (args)
 	{	// {{{
-		// ## ADD CSS DECLARATIONS
+		const
+			filters = args.s ? decodeFilter(args.s) : undefined,
+			doc = ((content) => { // ## 準備顯示資料
+				if (!content) {
+					content = document.createElement("div");
+					Array.from(document.querySelectorAll('[data-template]'))
+						.forEach((s)=>content.appendChild(s));
+					Array.from(document.querySelectorAll('[data-buffer]'))
+						.forEach((s)=>content.appendChild(s));
+					Array.from(document.querySelectorAll('section'))
+						.forEach((s)=>content.appendChild(s));
+				} else content.parentNode.removeChild(content);
+				return content;
+			})(document.querySelector('#content'));
+			
+		// ## 新增樣式
 		loadStyle(CSS_PAGE, 'CSS_PAGE');
 
-		// ## 1. APPEND <MAIN>/id='content' ELEMENT TO HOLD SECTIONS
+		// ## 使用者客製頁面 <main><div id='content'> 整合
 		this.GC=((e)=>{ // sections container
+			// create <main>
 			if (!e) {
 				e=document.createElement("main");
-				e.innerHTML=HTML_MAIN;
+				e.dataset.controls='aside,control';
 			}
+
+			// add <div id="content"> to <main>
 			let c=e.querySelector('#content');
 			if (!c) {
 				c=document.createElement("div");
@@ -630,77 +643,69 @@ class Player {
 			}
 			this.Content = new Content(c);
 			this.Content.install(doc, filters);
+
+			// add <div data-uid='Overlay'> to <main>
+			((flags,plugins)=>{
+				plugins+=HTML_DIALOG;
+				if ('aside' in flags) {
+					loadStyle(CSS_ASIDE, 'CSS_ASIDE', e);
+					plugins += HTML_ASIDE;
+				}
+				e.appendChild(((o)=>{
+					o.dataset.uid='Overlay';
+					o.dataset.h='toggleOverlay:none';
+					o.innerHTML=plugins;
+					return o;
+				})(document.createElement("div")));
+			})((e.dataset.controls||"").split(',').reduce((r,v)=>{ r[v]=true; return r; },{}),"");
 			return e;
 		})(document.querySelector('main'));
 
-		// ## INSTALL ELEMENT VARIABLE FOR PARAMETERS
-		this.Settings = new (class { // {{{
-			constructor (content) {
-				this.Content = content;
-				this.V = {
-					PlayMode:[{value:2}],
-					PageNumber:[{value:1}],
-					PageCount:[{value:content.PageIndex.length}],
-					FontScale:[{value:1.0}],
-					Keywords:[{value:content.Keywords}],	// [A1,A2,A3]
-					Filters:[{value:filters||[]}]	// [[A1,A2,...],[A3,A4,...],...]
-				};
-				this.PlayMode=this.V.PlayMode[0].value;
-			}
-			set (n, v) {
-				console.assert(n in this.V, 'No Such Setting');
-				this.V[n].forEach((e)=>this.__sv__(e,v));
-			}
-			__sv__ (e,v) { 'value' in e ? e.value=v : e.textContent=v; }
-			add (n, c) {
-				console.assert(n in this.V, 'No Such Setting');
-				this.__sv__(c,this.V[n][0].value);
-				this.V[n].push(c);
-			}
-			remove (n, c) {
-				console.assert(n in this.V, 'No Such Setting');
-				this.V[n]=this.V[n].filter((e)=>c!==e);
-			}
+		// ## 初始化設定變數
+		this.Settings = {
+			Controls:[{value:((controls)=>(controls ? controls.split(',') : []))(
+				this.GC.dataset.controls )}],
+			PlayMode:[{value:2}],
+			PageNumber:[{value:1}],
+			PageCount:[{value:this.Content.PageIndex.length}],
+			FontScale:[{value:1.0}],
+			Keywords:[{value:this.Content.Keywords}],	// [A1,A2,A3]
+			Filters:[{value:filters||[]}]	// [[A1,A2,...],[A3,A4,...],...]
+		};
 
-			set PlayMode (v) {
-				this.Content.PlayMode = v;
-				this.Content.PageNumber = 'refresh';
-			}
-			get PlayMode () { return this.Content.PlayMode; }
-			set PageCount (v) { this.set('PageCount',v); }
-			get PageCount () { return this.V.PageCount[0].value; }
-			set PageNumber (v) {
-				this.Content.PageNumber=v;
-				this.set('PageNumber', this.Content.PageNumber);
-			}
-			get PageNumber () { return this.Content.PageNumber; }
-			set FontScale (v) {
-				const DFS = ((w,h) => w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
-					window.innerWidth,
-					window.innerHeight
-				);
-				document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
-				this.set('FontScale', v);
-			}
-			get FontScale ()	{ return this.V.FontScale[0].value; }
-			set Keywords (v)	{ this.set('Keywords', v); }
-			get Keywords ()		{ return this.V.Keywords[0].value; }
-			set Filters (v)		{ this.set('Filters', v); }
-			get Filters ()		{ return this.V.Filters[0].value; }
-		})(this.Content); // }}}
+		// ## 新增控制列
+		if (this.Controls.indexOf('control')>=0) ((cp)=>{
+			document.body.insertBefore((()=>{
+				// guidance bar
+				cp.dataset.uid='ControlPanel';
+				((s)=>{
+					s.padding='0.2%';
+					s.fontSize='160%';
+				})(cp.style);
+				cp.innerHTML=HTML_CONTROL;
+				return cp;
+			})(), undefined);
+			this.bindS('PageNumber',cp.querySelector('[data-uid="PageNumber"]'));
+			this.bindS('PageCount',cp.querySelector('[data-uid="PageCount"]'));
+		})(document.createElement("footer"));
 
-		((O)=>{	// {{{
-			if (!O) return;
+		document.body.insertBefore(this.GC, document.body.querySelector('footer'));
 
-			this.Settings.add('PageNumber', O.querySelector('[data-uid="Aside:Pager"] input'));
-			this.Settings.add('PageNumber', O.querySelector('[data-uid="Aside:Pager"] output'));
-			this.Settings.add('PageCount', O.querySelector('[data-uid="Aside:Pager"] span'));
-			this.Settings.add('PageCount', new (class {
+		for (let n in this.Settings)
+			this[n]=this.Settings[n][0].value;
+
+		((A)=>{	// ## 側板內容綁定 {{{
+			if (!A) return;
+
+			this.bindS('PageNumber', A.querySelector('[data-uid="Aside:Pager"] input'));
+			this.bindS('PageNumber', A.querySelector('[data-uid="Aside:Pager"] output'));
+			this.bindS('PageCount', A.querySelector('[data-uid="Aside:Pager"] span'));
+			this.bindS('PageCount', new (class {
 				constructor (e)	{ this.E=e; }
 				set value (v)	{ this.E.setAttribute('max',parseInt(v)); }
 				get value ()	{ return this.E.getAttribute('max'); }
-			})(O.querySelector('[data-uid="Aside:Pager"] input')));
-			this.Settings.add('PlayMode', new (class {
+			})(A.querySelector('[data-uid="Aside:Pager"] input')));
+			this.bindS('PlayMode', new (class {
 				constructor (e) { this.EOs = Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]')); }
 				set value (v)	{
 					this.EOs.forEach(
@@ -710,10 +715,10 @@ class Player {
 				get value ()	{
 					return this.EOs.find((e)=>e.classList.contains('current')).dataset.h.replace(/.*:/,'');
 				}
-			})(O.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]')));
-			this.Settings.add('FontScale', O.querySelector('[data-uid="Settings:FontScale"] input'));
-			this.Settings.add('FontScale', O.querySelector('[data-uid="Settings:FontScale"] output'));
-			this.Settings.add('Keywords', new (class {
+			})(A.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]')));
+			this.bindS('FontScale', A.querySelector('[data-uid="Settings:FontScale"] input'));
+			this.bindS('FontScale', A.querySelector('[data-uid="Settings:FontScale"] output'));
+			this.bindS('Keywords', new (class {
 				constructor (e) { this.E=e; }
 				set value (v) {
 					this.E.innerHTML = v.reduce(
@@ -726,8 +731,8 @@ class Player {
 					).filter((e)=>e.checked)
 					.map((e)=>e.parentNode.textContent);
 				}
-			})(O.querySelector('[data-uid="Settings:Keywords"]')));
-			this.Settings.add('Filters',new (class {
+			})(A.querySelector('[data-uid="Settings:Keywords"]')));
+			this.bindS('Filters',new (class {
 				constructor (e) { this.E = e; }
 				set value (v) {
 					this.E.innerHTML = v.reduce((r,a) => r
@@ -741,9 +746,9 @@ class Player {
 						this.E.querySelectorAll("div")
 					).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
 				}
-			})(O.querySelector('[data-uid="Settings:Filters"]')));
+			})(A.querySelector('[data-uid="Settings:Filters"]')));
 			// ## INSTALL TABLE of CONTENTS
-			const TOC=O.querySelector('[data-uid="ASIDE:TOC"]');
+			const TOC=A.querySelector('[data-uid="ASIDE:TOC"]');
 			TOC.innerHTML="<ol>"+this.Content.Sections.reduce((rs, sec, idx) => {
 				let t=sec.querySelector('h1') || sec.querySelector('h2');
 				if (t) {
@@ -752,8 +757,55 @@ class Player {
 				}
 				return rs;
 			}, "")+"</ol>";
-		})(this.GC.querySelector('[data-uid="Overlay"]')); // }}}
+		})(this.GC.querySelector('[data-uid="Overlay"] aside')); // }}}
 	}	// constructor }}}
+
+	// Settings Utility {{{
+	setS (n, v) {
+		console.assert(n in this.Settings, 'No Such Setting');
+		this.Settings[n].forEach((e)=>(e.value=v));
+	}
+	bindS (n, c) {
+		console.assert(n in this.Settings, 'No Such Setting');
+		if (c) {
+			c.value = this.Settings[n][0].value;
+			this.Settings[n].push(c);
+		}
+	}
+	unbindS (n, c) {
+		console.assert(n in this.Settings, 'No Such Setting');
+		if (c) this.Settings[n]=this.Settings[n].filter((e)=>c!==e);
+	}
+
+	// this.PlayMode=this.V.PlayMode[0].value;
+	set PlayMode (v) {
+		this.Content.PlayMode = v;
+		this.Content.PageNumber = 'refresh';
+	}
+	get PlayMode () { return this.Content.PlayMode; }
+	set PageCount (v) { this.setS('PageCount',v); }
+	get PageCount () { return this.Settings.PageCount[0].value; }
+	set PageNumber (v) {
+		this.Content.PageNumber=v;
+		this.setS('PageNumber', this.Content.PageNumber);
+	}
+	get PageNumber ()	{ return this.Content.PageNumber; }
+	set FontScale (v)	{
+		const DFS = ((w,h) => w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
+			window.innerWidth,
+			window.innerHeight
+		);
+		document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
+		this.setS('FontScale', v);
+	}
+	get FontScale ()	{ return this.Settings.FontScale[0].value; }
+	set Keywords (v)	{ this.setS('Keywords', this.Content.Keywords=v); }
+	get Keywords ()		{ return this.Settings.Keywords[0].value; }
+	set Filters (v)		{ this.setS('Filters', v); }
+	get Filters ()		{ return this.Settings.Filters[0].value; }
+	set Controls (v)	{ this.setS('Controls', v); }
+	get Controls ()		{ return this.Settings.Controls[0].value; }
+	// }}}
 
 	__openDialog__ (caption, EH)
 		// ret: graphic context of dialog
@@ -771,13 +823,15 @@ class Player {
 
 	set (name, value)
 		// set:SettingName:SettingValue
-	{	return this.Settings[name]=value;	}
+	{	return this[name]=value;	}
 
 	toggleOverlay (name) {
 		const Ns=['menu','dialog'], CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
 		CL.remove(...Ns);
 		for (let key of Ns) if (key===name) CL.add(key);
 	}
+
+	nop () { }
 
 	call (fn, ...args)
 	{	// {{{
@@ -831,18 +885,18 @@ class Player {
 	}	// }}}
 
 	go (target)
-	{	return this.Settings.PageNumber.set(target);	}
+	{	return this.PageNumber=target;	}
 
 	filter (cmd)
 	{	// {{{
 		if (cmd==='add') {
 			//<div data-uid='Settings:Keywords'><span data-h='filter:add'>➕</span></div>
-			let flts=this.Settings.Filters.get();
-			flts.push(this.Settings.Keywords.get());
-			this.Settings.Filters.set(flts);
+			let flts=this.Filters;
+			flts.push(this.Keywords);
+			this.Filters.set(flts);
 		} else if (cmd==='run') {
 			function encodeFilter (aa) { return aa.map((a)=>a.join('.')).join('|'); }
-			location.replace(`?s=${encodeFilter(this.Settings.Filters.get())}`);
+			location.replace(`?s=${encodeFilter(this.Filters)}`);
 		}
 	}	// }}}
 
@@ -852,122 +906,87 @@ class Player {
 		if (ts) ts.click();
 		this.set('Overlay','none');
 	}	// }}}
+
+	//	if(!document.fullscreenElement)
+	//		document.body.requestFullscreen();
+	//	if(document.fullscreenElement)
+	//		document.exitFullscreen();
+	_EH_ (evt)
+	{	// {{{
+		try {
+			for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
+				if (e && e.dataset && e.dataset.h) {
+					let args = splitArgs(e.dataset.h,':'), cmd = args.shift();
+					args = args.map((a)=>{
+						switch (a) {
+						case '&this': return e;
+						case '&text': return e.textContent;
+						case '&value': return e.value;
+						case '&target': return evt.target;
+						case '&event': return evt;
+						default: return a; }
+					});
+					if (cmd in this && 'function' === typeof(this[cmd])) {
+						this[cmd](...args);
+					} else continue;
+					evt.stopPropagation();
+					// evt.preventDefault(); // default handler essential to change events
+					break;
+				}
+				if (e && e.tagName==='SECTION' && e.id) {
+					((pn)=>{
+						if (pn>=0) this.PageNumber=(pn+1);
+					})(this.Content.indexOf(e.id));
+					break;
+				}
+			}
+		} catch(x) { console.log("Exception:",x); }
+	}	// }}}
+	_KH_ (evt)
+	{	// {{{
+		try {
+			if (evt.key==='ArrowLeft')
+				this.PageNumber='prev';
+			else if (evt.key==='ArrowRight')
+				this.PageNumber='next';
+			else if (evt.key==='Escape')
+				this.toggleOverlay('menu');
+			else return;
+			evt.preventDefault();
+		} catch(x) { }
+	}	// }}}
 }	// }}}
 
-window.Apps={
-	loadScript: loadScript,
-	loadStyle: loadStyle,
-	queryContainer: queryContainer,
-	querySelector: (elem, cs) => elem.matches(cs) ? elem : elem.querySelector(cs),
-	splitArgs: splitArgs,
-	JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
-	Player: undefined
-};
 
 if (!window.ThisPage) ThisPage={};
+function decodeFilter (s) { return s ? s.split('|').map((v) => v.split('.')) : []; }
+function encodeFilter (aa) { return aa.map((a)=>a.join('.')).join('|'); }
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
 
-	function decodeFilter (s) { return s ? s.split('|').map((v) => v.split('.')) : []; }
-	function encodeFilter (aa) { return aa.map((a)=>a.join('.')).join('|'); }
+	window.Apps = {
+		loadScript: loadScript,
+		loadStyle: loadStyle,
+		queryContainer: queryContainer,
+		querySelector: (elem, cs) => elem.matches(cs) ? elem : elem.querySelector(cs),
+		splitArgs: splitArgs,
+		JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
+		Player: new Player(
+			(location.search||'?').substr(1).split('&')
+			.reduce((r,a) => {
+				const pa = /^([^=]+)=(.*)$/.exec(a);
+				if (pa) r[pa[1]] = pa ? decodeURIComponent(pa[2]) : true;
+				return r;
+			}, {})
+		)	// new Player
+	};
 
-	let UI = window.Apps.Player = new (class extends Player {
-		constructor (args)
-		{	// {{{
-			super(
-				((content)=>{
-					if (content&&content.parentNode) content.parentNode.removeChild(content);
-					return content;
-				})(document.querySelector('#content'))||
-				((content)=>{
-					content.id='content';
-					Array.from(document.querySelectorAll('section')).forEach((s)=>content.appendChild(s));
-					return content;
-				})(document.createElement("div")),
-				args.s ? decodeFilter(args.s) : undefined
-			);
-
-			// modify DOM to contain the player
-			let cp=document.createElement("footer");
-			document.body.insertBefore((()=>{
-				// guidance bar
-				cp.dataset.uid='ControlPanel';
-				((s)=>{
-					s.padding='0.2%';
-					s.fontSize='160%';
-				})(cp.style);
-				cp.innerHTML=HTML_CONTROL;
-				return cp;
-			})(), undefined);
-			document.body.insertBefore(this.GC, document.body.querySelector('footer'));
-
-			this.Settings.add('PageNumber',cp.querySelector('[data-uid="PageNumber"]'));
-			this.Settings.add('PageCount',cp.querySelector('[data-uid="PageCount"]'));
-		}	// }}}
-		nop () { }
-		//	if(!document.fullscreenElement)
-		//		document.body.requestFullscreen();
-		//	if(document.fullscreenElement)
-		//		document.exitFullscreen();
-		_EH_ (evt)
-		{	// {{{
-			try {
-				for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
-					if (e && e.dataset && e.dataset.h) {
-						let args = splitArgs(e.dataset.h,':'), cmd = args.shift();
-						args = args.map((a)=>{
-							switch (a) {
-							case '&this': return e;
-							case '&text': return e.textContent;
-							case '&value': return e.value;
-							case '&target': return evt.target;
-							case '&event': return evt;
-							default: return a; }
-						});
-						if (cmd in this && 'function' === typeof(this[cmd])) {
-							this[cmd](...args);
-						} else continue;
-						evt.stopPropagation();
-						// evt.preventDefault(); // default handler essential to change events
-						break;
-					}
-					if (e && e.tagName==='SECTION' && e.id) {
-						((pn)=>{
-							if (pn>=0) this.Settings.PageNumber=(pn+1);
-						})(this.Content.indexOf(e.id));
-						break;
-					}
-				}
-			} catch(x) { console.log("Exception:",x); }
-		}	// }}}
-		_KH_ (evt)
-		{	// {{{
-			try {
-				if (evt.key==='ArrowLeft')
-					this.Settings.PageNumber='prev';
-				else if (evt.key==='ArrowRight')
-					this.Settings.PageNumber='next';
-				else if (evt.key==='Escape')
-					this.set('Overlay');
-				else return;
-				evt.preventDefault();
-			} catch(x) { }
-		}	// }}}
-	})(
-		(location.search||'?').substr(1).split('&')
-		.reduce((r,a) => {
-			const pa = /^([^=]+)=(.*)$/.exec(a);
-			if (pa) r[pa[1]] = pa ? decodeURIComponent(pa[2]) : true;
-			return r;
-		}, {})
-	);
-
-	document.body.addEventListener('click',(evt)=>UI._EH_(evt));
-	document.body.addEventListener('change',(evt)=>UI._EH_(evt));
-	window.addEventListener('keydown', (evt) => UI._KH_(evt));
-	window.addEventListener('resize', (evt) => {
-		UI.Settings.FontScale.set(UI.Settings.FontScale.get());
-		UI.Content.PageNumber = 'refresh';
+	document.body.addEventListener('click', (evt)=>window.Apps.Player._EH_(evt));
+	document.body.addEventListener('change', (evt)=>window.Apps.Player._EH_(evt));
+	window.addEventListener('keydown', (evt)=>window.Apps.Player._KH_(evt));
+	window.addEventListener('resize', (evt)=>{
+		window.Apps.Player.FontScale = window.Apps.Player.FontScale;
+		window.Apps.Player.Content.PageNumber = 'refresh';
 	});
 	document.body.style.opacity='1';
 });	// }}}
