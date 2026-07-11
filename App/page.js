@@ -635,9 +635,9 @@ class Player {
 		};
 
 		this.GC = ((e)=>{ // e: <main data-controls='aside,control'> 頁面容器
-			this.Settings.Controls.value=(e.dataset.controls||"").split(',');
+			this.Controls=(e.dataset.controls||"").split(',');
 
-			// 準備顯示畫面 {{{
+			// 準備顯示畫面
 			if (!e) {
 				e = document.createElement("main");
 				e.dataset.controls='aside,control';
@@ -670,7 +670,6 @@ class Player {
 						cp.innerHTML=HTML_CONTROL;
 						this.bindS('PageNumber',cp.querySelector('[data-uid="PageNumber"]'));
 						this.bindS('PageCount',cp.querySelector('[data-uid="PageCount"]'));
-						console.log(cp);
 						return cp;
 					})(document.createElement("div")))
 
@@ -685,8 +684,8 @@ class Player {
 					o.innerHTML=plugins;
 					return o;
 				})(document.createElement("div")));
-			})( this.Settings.Controls.reduce((r,v)=>{ r[v]=true; return r; },{}), "" );
-			return e; // }}}
+			})( this.Controls.reduce((r,v)=>{ r[v]=true; return r; },{}), "" );
+			return e;
 		})(document.querySelector('main'));
 
 		['FontScale','PlayMode'].forEach((k)=>(this[k]=this.Settings[k][0].value));
