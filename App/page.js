@@ -19,31 +19,33 @@ body {
 	font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,Segoe UI,Arial;
 	line-height:1.5;
 	color:#222; background:#fff;
-	display:flex; flex-direction:row;
 	scroll-behavior:smooth; overflow:hidden;
 	opacity:0;
 }
-body>main { flex:1 1 auto; width:90%; height:100%; }
-body>footer {
+body>main { width:100%; height:100%; }
+
+main {
+	display:flex;
+	flex-flow:row nowrap;
+}
+main>[data-uid="ControlBar"] {
 	color:black;background:silver;
 	display:flex; flex-direction:column;
 	justify-content:space-between; align-items:center;
 }
-
 @media (max-aspect-ratio: 1/1) {
-	body { flex-direction:column; }
-	body>main { flex:1 1 auto; width:100%; height:90%; }
-	body>footer {
+	main { flex-flow:column nowrap; }
+	main>[data-uid="ControlBar"] {
 		color:black;background:silver;
 		display:flex; flex-direction:row;
 		justify-content:space-between; align-items:center;
 	}
-	[data-uid="ControlPanel"] { line-height:172%; }
+	[data-uid="ControlBar"] { line-height:172%; }
 }
-
-[data-uid="ControlPanel"] [data-h]:hover { color:blue; }
+[data-uid="ControlBar"] [data-h]:hover { color:blue; }
 
 #content {
+	flex:1 1 auto;
 	width:100%; height:100%;
 	overflow:hidden auto;
 	background:#f0f0f0;
@@ -406,8 +408,9 @@ class Buffers {
 }	// }}}
 
 class Content {
-	// {{{
-	constructor (e) {
+	// 顯示頁面管理界面
+	constructor (e) { // e: #content 顯示區塊
+		// 顯示區塊操作物件 {{{
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
@@ -430,8 +433,12 @@ class Content {
 			}
 		};
 		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
-	}
-	install (doc, filters) { // {{{ ## INSTALL
+	}	// }}}
+
+	install (doc, filters) { // doc: <div <...sections>|<...[data-template]>|<...[data-buffer]> >
+							 // filter: [ ...[...COND] ]
+		// 安裝待顯示的頁面 <...section> {{{ 
+
 		// 使用者介面輸入資料前處理
 		if (ThisPage.before_load)
 			ThisPage.before_load(this, doc);
@@ -487,7 +494,8 @@ class Content {
 			ThisPage.after_load(this);
 	}	// }}}
 
-	extendMods (mods) { // ## INSTALL EXTENSION MODULES (data-x="...") {{{
+	extendMods (mods) { // mods: [data-x="..."] || [data-xl="..."]
+		// 安裝外部模組 {{{
 		Promise.all(
 			mods.reduce((R,e)=>{
 				const args=splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
@@ -502,22 +510,17 @@ class Content {
 		).then(()=>false,console.log);
 	}	// }}}
 
-	find (id)
-		// rv: Section Element
-	{	return this.E.querySelector(`section:not(.disabled)#${id}`);	}
+	find (id) { // rv: Section Element
+		return this.E.querySelector(`section:not(.disabled)#${id}`); }
 
-	indexOf (id)
-		// rv: PageNumber-1
-	{ 	return this.PageIndex.indexOf(id instanceof Element ? id.id : id);	}
+	indexOf (id) { // rv: PageNumber-1
+		return this.PageIndex.indexOf(id instanceof Element ? id.id : id); }
 
-	get Sections ()
-	// rv: [enabled sections]
-	{	return Array.from(this.E.querySelectorAll('section:not(.disabled)'));	}
+	get Sections () { // rv: [enabled sections]
+		return Array.from(this.E.querySelectorAll('section:not(.disabled)')); }
 
-	convertPageNumber (k)
-		// k in [number>1, id_string, Element]
-		// rv: number>1
-	{	// {{{
+	convertPageNumber (k) { // k in [number>1, id_string, Element]
+		// rv: number>1 {{{
 		if (k instanceof Element) return this.indexOf(k.id)+1;
 		if ('string' === typeof(k)) {
 			if (/^\d+$/.exec(k))
@@ -530,9 +533,8 @@ class Content {
 		return k;
 	}	// }}}
 
-	set PageNumber (v)
-		// v in [number>1, id_string, Element]
-	{ 	// {{{
+	set PageNumber (v) { // v in [number>1, id_string, Element]
+		// 跳頁 {{{
 		let pn=undefined,force=false;
 		switch (v) {
 		case 'next':
@@ -552,6 +554,7 @@ class Content {
 			break;
 		}
 		let em=this.find(this.PageIndex[pn-1]);
+		console.assert(em, `Page not found (PN:${pn},v:${v})`);
 		if (force) em.classList.remove('current');
 		if (!em.classList.contains('current')) {
 			// 1. MOVE .current flag to new current
@@ -580,119 +583,115 @@ class Content {
 		}
 	}	// }}}
 
-	get PageNumber ()
-		// ret: number>1
-	{
-		let pn = 
-			this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`))
-			|| (location.hash ? (this.indexOf(location.hash.substr(1))+1) : 1);
-		return pn;
-	}
+	get PageNumber () { // ret: number>1
+		return this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`)) || 1; }
 
-	set PlayMode (v)
-		// v in [0:連續,1:滿框,2:分頁]
-	{	// {{{
-					const cl = this.E.classList;
-					cl.remove(... Array.from(cl).filter((n)=>n.startsWith('PlayMode_')));
-					cl.add(`PlayMode_${v}`);
+	set PlayMode (v) { // v in [0:連續,1:滿框,2:分頁]
+		// 模式切換 {{{
+		const cl = this.E.classList;
+		cl.remove(... Array.from(cl).filter((n)=>n.startsWith('PlayMode_')));
+		cl.add(`PlayMode_${v}`);
 	}	// }}}
 
-	get PlayMode ()
-		// ret in [0:連續,1:滿框,2:分頁]
-	{	// {{{
+	get PlayMode () { // ret in [0:連續,1:滿框,2:分頁]
+		// {{{
 		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_'));
 		return rv.substring(9);
 	}	// }}}
-}	// }}}
+
+}	// class Content 
 
 class Player {
-	constructor (args)
-	{	// {{{
-		const
-			filters = args.s ? decodeFilter(args.s) : undefined,
-			doc = ((content) => { // ## 準備顯示資料
-				if (!content) {
-					content = document.createElement("div");
-					Array.from(document.querySelectorAll('[data-template]'))
-						.forEach((s)=>content.appendChild(s));
-					Array.from(document.querySelectorAll('[data-buffer]'))
-						.forEach((s)=>content.appendChild(s));
-					Array.from(document.querySelectorAll('section'))
-						.forEach((s)=>content.appendChild(s));
-				} else content.parentNode.removeChild(content);
-				return content;
-			})(document.querySelector('#content'));
+	// Content + ...輔助工具列
+	constructor (args) {
+		// {{{
+		const // 常數參數準備
+		filters = args.s ? decodeFilter(args.s) : undefined,
+		doc = ((content) => { // ## 準備顯示資料
+			if (!content) {
+				content = document.createElement("div");
+				Array.from(document.querySelectorAll('[data-template]'))
+					.forEach((s)=>content.appendChild(s));
+				Array.from(document.querySelectorAll('[data-buffer]'))
+					.forEach((s)=>content.appendChild(s));
+				Array.from(document.querySelectorAll('section'))
+					.forEach((s)=>content.appendChild(s));
+			} else content.parentNode.removeChild(content);
+			return content;
+		})(document.querySelector('#content'));
 			
 		// ## 新增樣式
 		loadStyle(CSS_PAGE, 'CSS_PAGE');
 
-		// ## 使用者客製頁面 <main><div id='content'> 整合
-		this.GC=((e)=>{ // sections container
-			// create <main>
+		// ## 初始化設定變數
+		this.Settings = {
+			Controls:[{value:""}],
+			FontScale:[{value:1.0}],
+			Keywords:[{value:[]}], // [A1,A2,A3]
+			Filters:[{value:filters||[]}], // [[A1,A2,...],[A3,A4,...],...]
+			PageCount:[{value:0}],
+			PageNumber:[{value:0}],
+			PlayMode:[{value:2}]
+		};
+
+		this.GC = ((e)=>{ // e: <main data-controls='aside,control'> 頁面容器
+			this.Settings.Controls.value=(e.dataset.controls||"").split(',');
+
+			// 準備顯示畫面 {{{
 			if (!e) {
-				e=document.createElement("main");
+				e = document.createElement("main");
 				e.dataset.controls='aside,control';
 			}
-
-			// add <div id="content"> to <main>
-			let c=e.querySelector('#content');
+			// 新增頁面框 #content -> <main <#content> >
+			let c = e.querySelector('#content');
 			if (!c) {
 				c=document.createElement("div");
 				c.id='content';
 				e.insertBefore(c,e.firstChild);
 			}
+			// 建立頁面管理物件
 			this.Content = new Content(c);
+			// 安裝頁面
 			this.Content.install(doc, filters);
+			this.Keywords=this.Content.Keywords;
+			this.PageCount=this.Content.PageIndex.length;
+			this.PageNumber=location.hash ? (this.Content.indexOf(location.hash.substr(1))+1) : 1;
+				
 
-			// add <div data-uid='Overlay'> to <main>
 			((flags,plugins)=>{
+				// 安裝輔助工具 
+				if ('control' in flags) // ## 新增控制列
+					e.appendChild(((cp)=>{
+						cp.dataset.uid='ControlBar';
+						[
+							['padding','0.2%'],
+							['fontSize','160%']
+						].forEach((v)=>cp.style[v[0]]=v[1]);
+						cp.innerHTML=HTML_CONTROL;
+						this.bindS('PageNumber',cp.querySelector('[data-uid="PageNumber"]'));
+						this.bindS('PageCount',cp.querySelector('[data-uid="PageCount"]'));
+						console.log(cp);
+						return cp;
+					})(document.createElement("div")))
+
 				plugins+=HTML_DIALOG;
-				if ('aside' in flags) {
+				if ('aside' in flags) { // 準備 目錄與設定控制列
 					loadStyle(CSS_ASIDE, 'CSS_ASIDE', e);
 					plugins += HTML_ASIDE;
 				}
-				e.appendChild(((o)=>{
+				e.appendChild(((o)=>{ // [data-uid="Overlay"] -> <main <#content> <data-uid='Overlay'>>
 					o.dataset.uid='Overlay';
 					o.dataset.h='toggleOverlay:none';
 					o.innerHTML=plugins;
 					return o;
 				})(document.createElement("div")));
-			})((e.dataset.controls||"").split(',').reduce((r,v)=>{ r[v]=true; return r; },{}),"");
-			return e;
+			})( this.Settings.Controls.reduce((r,v)=>{ r[v]=true; return r; },{}), "" );
+			return e; // }}}
 		})(document.querySelector('main'));
 
-		// ## 初始化設定變數
-		this.Settings = {
-			Controls:[{value:((controls)=>(controls ? controls.split(',') : []))(
-				this.GC.dataset.controls )}],
-			PlayMode:[{value:2}],
-			PageNumber:[{value:1}],
-			PageCount:[{value:this.Content.PageIndex.length}],
-			FontScale:[{value:1.0}],
-			Keywords:[{value:this.Content.Keywords}],	// [A1,A2,A3]
-			Filters:[{value:filters||[]}]	// [[A1,A2,...],[A3,A4,...],...]
-		};
-
-		// ## 新增控制列
-		if (this.Controls.indexOf('control')>=0) ((cp)=>{
-			document.body.insertBefore((()=>{
-				// guidance bar
-				cp.dataset.uid='ControlPanel';
-				((s)=>{
-					s.padding='0.2%';
-					s.fontSize='160%';
-				})(cp.style);
-				cp.innerHTML=HTML_CONTROL;
-				return cp;
-			})(), undefined);
-			this.bindS('PageNumber',cp.querySelector('[data-uid="PageNumber"]'));
-			this.bindS('PageCount',cp.querySelector('[data-uid="PageCount"]'));
-		})(document.createElement("footer"));
+		['FontScale','PlayMode'].forEach((k)=>(this[k]=this.Settings[k][0].value));
 
 		document.body.insertBefore(this.GC, document.body.querySelector('footer'));
-
-		for (let n in this.Settings)
-			this[n]=this.Settings[n][0].value;
 
 		((A)=>{	// ## 側板內容綁定 {{{
 			if (!A) return;
