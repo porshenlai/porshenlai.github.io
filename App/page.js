@@ -277,13 +277,11 @@ async function loadStyle (css, ukey, container)
 	let be=undefined;
 	if (container) be=container.firstChild; else container=document.head;
 	if (!ukey || !container.querySelector(`#${ukey}`))
-	{
 		container.insertBefore(((e)=>{
 			if(ukey) e.id=ukey;
 			e.innerHTML=css;
 			return e;
 		})(document.createElement('style')), be);
-	}
 }	// }}}
 
 function queryContainer (e, cs)
@@ -558,10 +556,12 @@ class Content {
 		if (force) em.classList.remove('current');
 		if (!em.classList.contains('current')) {
 			// 1. MOVE .current flag to new current
-			Array.from(this.E.querySelectorAll('section.current'))
-			.forEach((e)=>e.classList.remove('current'));
+			Array.from(this.E.querySelectorAll('section:not(.disabled).current'))
+			.forEach((e)=>{
+				e.classList.remove('current')
+				if (e.tick) e.tick(false);
+			});
 			em.classList.add('current');
-			em.classList.add('cuxxent');
 			// 2. UPDATE URL HASH
 			if (history.replaceState)
 				history.replaceState(null, null, '#' + em.id);
@@ -584,7 +584,7 @@ class Content {
 	}	// }}}
 
 	get PageNumber () { // ret: number>1
-		return this.convertPageNumber(this.E.querySelector(`section:not(.disabled).current`)) || 1; }
+		return this.convertPageNumber(this.CurrentPage) || 1; }
 
 	set PlayMode (v) { // v in [0:連續,1:滿框,2:分頁]
 		// 模式切換 {{{
@@ -598,6 +598,8 @@ class Content {
 		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_'));
 		return rv.substring(9);
 	}	// }}}
+
+	get CurrentPage () { return this.E.querySelector(`section:not(.disabled).current`); }
 
 }	// class Content 
 
@@ -635,13 +637,12 @@ class Player {
 		};
 
 		this.GC = ((e)=>{ // e: <main data-controls='aside,control'> 頁面容器
-			this.Controls=(e.dataset.controls||"").split(',');
-
 			// 準備顯示畫面
 			if (!e) {
 				e = document.createElement("main");
 				e.dataset.controls='aside,control';
 			}
+			this.Controls=(e.dataset.controls||"").split(',');
 			// 新增頁面框 #content -> <main <#content> >
 			let c = e.querySelector('#content');
 			if (!c) {
@@ -986,6 +987,12 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		window.Apps.Player.FontScale = window.Apps.Player.FontScale;
 		window.Apps.Player.Content.PageNumber = 'refresh';
 	});
+
+	let timer=setInterval(()=>{
+		const cp=window.Apps.Player.Content.CurrentPage;
+		if (cp.tick) cp.tick(true);
+	},500);
+
 	document.body.style.opacity='1';
 });	// }}}
 
