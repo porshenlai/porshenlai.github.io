@@ -595,7 +595,7 @@ class Content {
 
 	get PlayMode () { // ret in [0:連續,1:滿框,2:分頁]
 		// {{{
-		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_'));
+		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_')) || "PlayMode_";
 		return rv.substring(9);
 	}	// }}}
 
@@ -638,10 +638,16 @@ class Player {
 
 		this.GC = ((e)=>{ // e: <main data-controls='aside,control'> 頁面容器
 			// 準備顯示畫面
-			if (!e) {
+			if (!e)
 				e = document.createElement("main");
+			if (!e.dataset.controls)
 				e.dataset.controls='aside,control';
-			}
+			if (e.dataset.settings)
+				e.dataset.settings.split(',').forEach((s)=>{
+					s=s.split(':');
+					this.Settings[s[0]][0].value=s[1];
+				});
+
 			this.Controls=(e.dataset.controls||"").split(',');
 			// 新增頁面框 #content -> <main <#content> >
 			let c = e.querySelector('#content');
@@ -654,9 +660,12 @@ class Player {
 			this.Content = new Content(c);
 			// 安裝頁面
 			this.Content.install(doc, filters);
-			this.Keywords=this.Content.Keywords;
-			this.PageCount=this.Content.PageIndex.length;
-			this.PageNumber=location.hash ? (this.Content.indexOf(location.hash.substr(1))+1) : 1;
+			this.Keywords = this.Content.Keywords;
+			this.PageCount = this.Content.PageIndex.length;
+			this.PageNumber = location.hash ? (this.Content.indexOf(location.hash.substr(1))+1) : 1;
+			this.FontScale = this.Settings.FontScale[0].value;
+			console.log(this.PlayMode);
+			this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
 				
 
 			((flags,plugins)=>{
@@ -688,8 +697,6 @@ class Player {
 			})( this.Controls.reduce((r,v)=>{ r[v]=true; return r; },{}), "" );
 			return e;
 		})(document.querySelector('main'));
-
-		['FontScale','PlayMode'].forEach((k)=>(this[k]=this.Settings[k][0].value));
 
 		document.body.insertBefore(this.GC, document.body.querySelector('footer'));
 
