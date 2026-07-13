@@ -385,7 +385,7 @@ SCRIPT.value=async function (slide, elem) {
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
 	const ML = new MediaList(elem);
-	window.Apps.queryContainer(elem,'section').tick = (v) => ML.tick(v);
+	window.Apps.E(elem).trace('section').tick = (v) => ML.tick(v);
 };
 
 })(document.currentScript);

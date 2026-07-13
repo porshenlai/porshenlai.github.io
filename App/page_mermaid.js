@@ -14,7 +14,7 @@ SCRIPT.value=async function (slide, elem, code) {
 	if (code) {
 		elem.innerHTML=(await (await Init).render('graphDiv', code)).svg
 	} else {
-		code=Apps.querySelector(elem,'textarea').value;
+		code=Apps.E(elem).query('textarea').value;
 		if (elem.value)
 			((ne)=>{
 				elem.parentNode.insertBefore(ne,elem);

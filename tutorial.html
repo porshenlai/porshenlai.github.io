@@ -27,6 +27,9 @@
 		}
 	};
 </script>
+<style>
+	h2 { background:rgba(255,255,255,0.7); padding:4px 12px; border-radius:6px;}
+</style>
 <title>The Tutorial of pStyle Page</title>
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
@@ -82,25 +85,29 @@
 	</div>
 </section>
 
-<section class='page col'><h2>播放模式 (Play Mode)</h2><!--{{{-->
-	<div class='fill col'>
-		<table class='std'><thead>
-			<tr><th>號碼</th><th>名稱</th><th>描述</th><tr>
-		</thead><tbody>
-			<tr><th>0</th><th>連續</th><td>
-				<div>- 根據內容決定頁面高度</div>
-				<div>- 頁面連續顯示</div>
-				</td></tr>
-			<tr><th>1</th><th>滿框</th><td>
-				<div>- 頁面填滿螢幕高度</div>
-				<div>- 頁面連續顯示</div>
-				</td></tr>
-			<tr><th>2</th><th>分頁</th><td>
-				<div>- 頁面填滿螢幕高度</div>
-				<div>- 頁面單獨顯示</div>
-			</td></tr>
-		</tbody></table>
+<section class='page col' data-style='bg::res/cyberpiers.jpg'><h2>樣式套用</h2>
+	<div class='fill frame' data-style='bg:white'>
+		Hello World
 	</div>
+</section>
+
+<section class='page col'><h2>播放模式 (Play Mode)</h2><!--{{{-->
+	<table class='std'><thead>
+		<tr><th>號碼</th><th>名稱</th><th>描述</th><tr>
+	</thead><tbody>
+		<tr><th>0</th><th>連續</th><td>
+			<div>- 根據內容決定頁面高度</div>
+			<div>- 頁面連續顯示</div>
+			</td></tr>
+		<tr><th>1</th><th>滿框</th><td>
+			<div>- 頁面填滿螢幕高度</div>
+			<div>- 頁面連續顯示</div>
+			</td></tr>
+		<tr><th>2</th><th>分頁</th><td>
+			<div>- 頁面填滿螢幕高度</div>
+			<div>- 頁面單獨顯示</div>
+		</td></tr>
+	</tbody></table>
 </section><!--}}}-->
 
 <section class='page col'><h2>頁面切換</h2>

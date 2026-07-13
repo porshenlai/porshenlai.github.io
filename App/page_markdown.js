@@ -13,7 +13,7 @@ SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
 	if (!code)
-		code=(Apps.querySelector(elem,'textarea')||{value:""}).value;
+		code = (Apps.E(elem).query('textarea')||{value:""}).value;
 	if (elem.value) {
 		container = document.createElement("div");
 		elem.parentNode.insertBefore(container,elem);

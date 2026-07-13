@@ -122,6 +122,7 @@ ul li, ol li { line-height:1.8 }
 table.std { margin:auto; border:1px solid silver; }
 table.std th, table.std td { padding:2px 16px; border:1px solid black; }
 table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; }
+table.std>tbody th, table.std>tbody td { background:white; }
 
 .cb { white-space: nowrap; padding-left:var(--base-indent); font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
@@ -284,15 +285,53 @@ async function loadStyle (css, ukey, container)
 		})(document.createElement('style')), be);
 }	// }}}
 
-function queryContainer (e, cs)
-{	// {{{
-	cs = Array.isArray(cs) ? cs : [cs];
-	while(e instanceof Element) {
-		for (c of cs)
-			if (e.matches(c)) return e;
-		e=e.parentNode;
+function parseNVArgs (nvs) {
+	return nvs ? nvs.split(',').filter((s)=>s).reduce((r, nv)=>{
+		console.log('A',nv);
+		nv=/([^:]+)(:(.*))/.exec(nv);
+		console.log('B',nv);
+		r[nv[1]]=nv[3]||true;
+		return r;
+	},{}) : {}
+}
+function applyStyles (e, nvs) {
+	if ('string' === typeof(nvs))
+		nvs = parseNVArgs(nvs);
+	const Defs={
+		bg:(v)=>['background',((vs)=>{
+			if (vs[1]) vs[1]=`url(${vs[1]}) no-repeat center center/${ vs[0] ? 'contain' : 'cover' }`;
+			return vs.join(' ');
+		})(v.split(':'))],
 	}
-}	// }}}
+	for (n in nvs) {
+		let [sn,sv] = n in Defs ? Defs[n](nvs[n]) : [n,nvs[n]];
+		e.style[sn] = sv;
+	}
+}
+
+class _E {
+	static new (e) { return new _E(e); }
+	constructor (e) { this.E=e; }
+	trace (...cs) {
+		for (let e=this.E; e instanceof Element; e=e.parentNode)
+			for (let c of cs) if (e.matches(c)) return e;
+	}
+	query (cs) {
+		if (this.E.matches(cs)) return this.E;
+		return this.E.querySelector(cs);
+	}
+	list (cs) {
+		let r=Array.from(this.E.querySelectorAll(cs));
+		if (this.E.matches(cs)) r.unshift(this.E);
+		return r;
+	}
+	forEach (cs, h) {
+		this.E.matches(cs) && h(this.E);
+		Array.from(this.E.querySelectorAll(cs)).forEach(h);
+	}
+}
+function E(e) { return new _E(e); }
+
 
 function splitArgs (s, d=':')
 {	// {{{
@@ -418,10 +457,10 @@ class Content {
 			template:async function (slide, elem, name, buf) {
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
-				const page = queryContainer(elem,'section'), container = elem.parentNode;
+				const page = _E.new(elem).trace('section'), container = elem.parentNode;
 				buf = buf ?
 					slide.Buffers.read(buf) :
-					(Apps.querySelector(elem,'textarea')||{value:'{}'}).value||"{}";
+					(_E.new(elem).query('textarea')||{value:'{}'}).value||'{}';
 				if ('string' === typeof(buf))
 					buf = JSON.parse(buf)
 				container.insertBefore(slide.Templates.write(name, buf), elem);
@@ -555,21 +594,27 @@ class Content {
 		console.assert(em, `Page not found (PN:${pn},v:${v})`);
 		if (force) em.classList.remove('current');
 		if (!em.classList.contains('current')) {
-			// 1. MOVE .current flag to new current
+			// #. MOVE .current flag to new current
 			Array.from(this.E.querySelectorAll('section:not(.disabled).current'))
 			.forEach((e)=>{
 				e.classList.remove('current')
 				if (e.tick) e.tick(false);
 			});
+			// #. Apply style check
+			E(em).forEach('[data-style]', (e) => {
+				applyStyles(e, e.dataset.style);
+				e.removeAttribute("data-style");
+			});
+
 			em.classList.add('current');
-			// 2. UPDATE URL HASH
+			// #. UPDATE URL HASH
 			if (history.replaceState)
 				history.replaceState(null, null, '#' + em.id);
 			else location.hash = '#' + em.id;
-			// 3. Call ThisPage page_load override
+			// #. Call ThisPage page_load override
 			if (!force && ThisPage.page_load)
 				ThisPage.page_load(em);
-			// 4. Trigger module extend of section loading
+			// E. Trigger module extend of section loading
 			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
 			if(ms.length>0) this.extendMods(ms);
 			// 5. SCROLL INTO VIEW
@@ -664,7 +709,6 @@ class Player {
 			this.PageCount = this.Content.PageIndex.length;
 			this.PageNumber = location.hash ? (this.Content.indexOf(location.hash.substr(1))+1) : 1;
 			this.FontScale = this.Settings.FontScale[0].value;
-			console.log(this.PlayMode);
 			this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
 				
 
@@ -855,10 +899,10 @@ class Player {
 		// <div data-uid='TabA'>...</div>
 		// <div data-uid='TabB'>...</div>
 	{	// {{{
-		const K=event.target.dataset.o, tb=queryContainer(event.target,'[data-h^="tab"]');
+		const K=event.target.dataset.o, tb=E(event.target).trace('[data-h^="tab"]');
 		if (!K) return;
 		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("current"));
-		const tabs=queryContainer(tb,['section','aside']);
+		const tabs=E(tb).trace('section','aside');
 		tabs.querySelectorAll(`[data-uid^=${TK}]`)
 			.forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
 	}	// }}}
@@ -973,8 +1017,8 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	window.Apps = {
 		loadScript: loadScript,
 		loadStyle: loadStyle,
-		queryContainer: queryContainer,
-		querySelector: (elem, cs) => elem.matches(cs) ? elem : elem.querySelector(cs),
+		E: E,
+		parseNVArgs: parseNVArgs,
 		splitArgs: splitArgs,
 		JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
 		Player: new Player(
