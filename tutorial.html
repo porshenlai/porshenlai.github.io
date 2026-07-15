@@ -34,21 +34,21 @@
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
 
-<div data-template='原始碼' style="width:100%;text-align:right;border-bottom:2px solid blue;">
+<div data-def='template:原始碼' style="width:100%;text-align:right;border-bottom:2px solid blue;">
 	<button data-h='call:viewsource:&this'>原始碼</button><br/>
 	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='1'></textarea>
 </div>
 
-<div data-template='公告模板'>
+<div data-def='template:公告模板'>
 	這是公告模板的範例，頁面中置入模版延伸模組的地方會自動從定義的內容複製填入。
 </div>
 
-<div data-template='資料模板'>
+<div data-def='template:資料模板'>
 	<div>標題: <b data-v="text:標題"></b></div>
 	<div>訊息: <b data-v="text:訊息"></b></div>
 </div>
 
-<div data-template='列舉模板'>
+<div data-def='template:列舉模板'>
 	<!-- 使用 <em>data-c='repeat:串列名稱'</em> 指定要重複列舉的樣板與串列資料 -->
 	<!-- 串列成員將依序填入子節點 data-v 指定的位置 -->
 	<div data-v='text:表格名稱' style='text-align:center'></div>
@@ -62,13 +62,13 @@
 	</table>
 </div>
 
-<div data-template='登入'>
+<div data-def='template:登入'>
 	<div style='text-align:center'>帳號:<input type='text' data-v='value:P'/></div>
 	<div style='text-align:center'>密碼:<input type='password' data-v='value:S'/></div>
 	<div style='text-align:center'><button>登入</button></div>
 </div>
 
-<div data-template='PlayMedia' class='fill'>
+<div data-def='template:PlayMedia' class='fill'>
 	<div data-xl='media' class='fill'>
 		<div data-c="repeat:Ms" data-v="data:media:media"></div>
 	</div>
@@ -301,13 +301,13 @@ flowchart TD
 <div data-xl='template:原始碼'></div>
 <div class='sample'>
 	<button data-h='play:Dialog:template:公告模板'>公告模板</button>
-
-	<textarea data-buffer='Session'>{
-		"P":"porshenlai",
-		"S":"abcd1234"
-	}</textarea>
-
-	<button data-h='play:Please Login:template:登入:Session'>對話框</button>
+	<button data-h='play:Please Login:template:登入'>
+		對話框
+		<textarea data-def='buffer'>{
+			"P":"porshenlai",
+			"S":"abcd1234"
+		}</textarea>
+	</button>
 
 	<button data-h='play:Markdown:markdown:&this'>Markdown
 <textarea class='hide'>
@@ -392,7 +392,7 @@ B -->|NO| E[比賽]
 <div class='fill'>
 	<ul>
 		<li>範例 <div class='sample'>
-<textarea data-buffer='列舉資料'>{
+		<div data-xl='template:列舉模板'><textarea data-def='buffer'>{
 	"表格名稱":"表格標題",
 	"串列名稱":[
 		{"項目名稱":"John","項目數值":"95"},
@@ -400,8 +400,7 @@ B -->|NO| E[比賽]
 		{"項目名稱":"Sam","項目數值":"90"},
 		{"項目名稱":"Vicky","項目數值":"92"}
 	]
-}</textarea>
-<textarea data-xl='template:列舉模板:列舉資料'></textarea>
+}</textarea></div>
 		</div></li>
 	</ul>
 </div>

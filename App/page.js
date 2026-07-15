@@ -310,8 +310,8 @@ function applyStyles (e, nvs) {
 }
 
 class _E {
-	static new (e) { return new _E(e); }
-	constructor (e) { this.E=e; }
+	// {{{
+	constructor (e) { this.E = e; }
 	trace (...cs) {
 		for (let e=this.E; e instanceof Element; e=e.parentNode)
 			for (let c of cs) if (e.matches(c)) return e;
@@ -329,9 +329,13 @@ class _E {
 		this.E.matches(cs) && h(this.E);
 		Array.from(this.E.querySelectorAll(cs)).forEach(h);
 	}
-}
+}	// }}}
 function E(e) { return new _E(e); }
 
+class _S {
+	static decodeArg (s) { return s.split(':'); }
+	static handleArgs (s,h) { s.split(';').filter((a)=>a).forEach((a)=>h(..._S.decodeArg(a))); }
+}
 
 function splitArgs (s, d=':')
 {	// {{{
@@ -350,6 +354,100 @@ function splitArgs (s, d=':')
 		return r;
 	},[]);
 }	// }}}
+
+class _Template extends _E {
+	static _w (e, d, nr=false) { // write doc to element
+		// {{{
+		if (nr) {
+			if (e.dataset.c) _S.handleArgs(e.dataset.c, (cmd, ...args) => {
+				switch (cmd) {
+				case "repeat":
+					((t,p,d)=>{
+						p.removeChild(t);
+						for (let i=0; i<d.length; i++) {
+							const D=d[i], row=t.cloneNode(true);
+							delete row.dataset.c;
+							row.dataset.index=(i%2)+"-"+i;
+							p.appendChild(row);
+							this._write_(row,D);
+						}
+					})(e,e.parentNode,d[a[1]]);
+					break;
+				}
+			});
+			if (e.dataset.v) _S.handleArgs(e.dataset.v, (cmd, a1, a2) => {
+				switch (cmd) {
+				case "text": e.textContent=d[a1]; break;
+				case "value": e.value=d[a1]; break;
+				case "data": e.dataset[a1]=d[a2]; break;
+				}
+			});
+		} else {
+			if (e.dataset.v||e.dataset.c) _w(e, d, true);
+			for( let c=e.firstChild; c; c=c.nextSibling) {
+				if (c.nodeType!==1) continue;
+				_w(c,d);
+			}
+		}
+	}	// }}}
+	put (doc) {
+		const e = this.E.cloneNode(true);
+		this._w(e, doc);
+		return e;
+	}
+}
+
+class _Buffer extends _E {
+	get () {
+		console.log(this.E);
+		return JSON.parse(this.E.value);
+	}
+}
+
+class NSpace {
+	constructor () {
+		this.DB = {};
+		this.CS = { template:_Template, buffer:_Buffer };
+	}
+	install (re) {
+		// < < data-def="template:Name-A"> < data-def="buffer:Name-B"> >
+		/*
+		// 安裝顯示樣板
+		Array.from(doc.querySelectorAll('[data-template]'))
+		.forEach((e)=>{
+			this.Templates.reg(e.dataset.template, e);
+			delete e.dataset.template;
+			e.parentNode.removeChild(e);
+		});
+		// 安資料來源
+		Array.from(doc.querySelectorAll('[data-buffer]'))
+		.forEach((e)=>{
+			this.Buffers.reg(e.dataset.buffer,e);
+			delete e.dataset.buffer;
+			e.parentNode.removeChild(e);
+		});
+		*/
+		E(re).forEach('[data-def]', (e) => {
+			_S.handleArgs(e.dataset.def, (cs, key) => {
+				if (!key) return
+				this.DB[key] = new this.CS[cs](e);
+				e.parentNode.removeChild(e);
+			});
+		});
+	}
+	put (t, d) {
+		if ("string" === typeof(t))
+			t = this.DB[t];
+		if (t instanceof Element)
+			t = new this.CS.template(t);
+		if ("string" === typeof(d))
+			d = this.DB[d];
+		if (d instanceof Element)
+			d = new this.CS.buffer(d);
+		console.log(`TID:${t},DID:${d}`);
+		t.put(d.get());
+	}
+}
 
 class Templates {
 	// Templates Manager
@@ -451,19 +549,23 @@ class Content {
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
-		this.Templates = new Templates();
-		this.Buffers = new Buffers();
+		this.NS = new NSpace();
+		//this.Templates = new Templates();
+		//this.Buffers = new Buffers();
 		this.Xs={
 			template:async function (slide, elem, name, buf) {
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
-				const page = _E.new(elem).trace('section'), container = elem.parentNode;
+				const page = E(elem).trace('section'), container = elem.parentNode;
+/* TODO
 				buf = buf ?
 					slide.Buffers.read(buf) :
-					(_E.new(elem).query('textarea')||{value:'{}'}).value||'{}';
+					(E(elem).query('textarea')||{value:'{}'}).value||'{}';
+*/
 				if ('string' === typeof(buf))
 					buf = JSON.parse(buf)
-				container.insertBefore(slide.Templates.write(name, buf), elem);
+				console.log(slide.NS.put(name,buf||elem));
+				// TODO container.insertBefore(slide.Templates.write(name, buf), elem);
 				if (elem.parentNode)
 					container.removeChild(elem);
 				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
@@ -480,21 +582,7 @@ class Content {
 		if (ThisPage.before_load)
 			ThisPage.before_load(this, doc);
 
-		// 安裝顯示樣板
-		Array.from(doc.querySelectorAll('[data-template]'))
-		.forEach((e)=>{
-			this.Templates.reg(e.dataset.template, e);
-			delete e.dataset.template;
-			e.parentNode.removeChild(e);
-		});
-
-		// 安資料來源
-		Array.from(doc.querySelectorAll('[data-buffer]'))
-		.forEach((e)=>{
-			this.Buffers.reg(e.dataset.buffer,e);
-			delete e.dataset.buffer;
-			e.parentNode.removeChild(e);
-		});
+		this.NS.install(doc);
 
 		// 根據過濾器安裝要求的頁面
 		let ksmap={};
