@@ -303,7 +303,7 @@ flowchart TD
 	<button data-h='play:Dialog:template:公告模板'>公告模板</button>
 	<button data-h='play:Please Login:template:登入'>
 		對話框
-		<textarea data-def='buffer'>{
+		<textarea data-def='data'>{
 			"P":"porshenlai",
 			"S":"abcd1234"
 		}</textarea>
@@ -327,8 +327,8 @@ B -->|NO| E[比賽]
 </textarea></button>
 
 	<button data-h='play:Play Media:template:PlayMedia:&this'>
-		Media
-		<textarea class='hide'>{"Ms":[
+		Media X
+		<textarea data-def='data'>{"Ms":[
 			{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"},
 			{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"},
 			{"media":"https://www.w3schools.com/html/movie.mp4"}
@@ -392,7 +392,7 @@ B -->|NO| E[比賽]
 <div class='fill'>
 	<ul>
 		<li>範例 <div class='sample'>
-		<div data-xl='template:列舉模板'><textarea data-def='buffer'>{
+		<div data-xl='template:列舉模板'><textarea data-def='data'>{
 	"表格名稱":"表格標題",
 	"串列名稱":[
 		{"項目名稱":"John","項目數值":"95"},

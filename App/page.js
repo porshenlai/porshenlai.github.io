@@ -43,6 +43,7 @@ main>[data-uid="ControlBar"] {
 	[data-uid="ControlBar"] { line-height:172%; }
 }
 [data-uid="ControlBar"] [data-h]:hover { color:blue; }
+[data-def] { display:none; }
 
 #content {
 	flex:1 1 auto;
@@ -52,6 +53,7 @@ main>[data-uid="ControlBar"] {
 }
 #content.PlayMode_1,
 #content.PlayMode_2 { scroll-snap-type:y mandatory; }`;
+
 // }}}
 // PlayMode_*: all sections compacted in continuous pages
 // PlayMode_1: all the minimal height of sections are greater than the page height 
@@ -366,12 +368,13 @@ class _Template extends _E {
 						p.removeChild(t);
 						for (let i=0; i<d.length; i++) {
 							const D=d[i], row=t.cloneNode(true);
-							delete row.dataset.c;
+							if (row.dataset.def) row.removeAttribute('data-def');
+							if (row.dataset.c) row.removeAttribute('data-c');
 							row.dataset.index=(i%2)+"-"+i;
 							p.appendChild(row);
-							this._write_(row,D);
+							_Template._w(row,D);
 						}
-					})(e,e.parentNode,d[a[1]]);
+					})(e,e.parentNode,d[args[0]]);
 					break;
 				}
 			});
@@ -383,50 +386,35 @@ class _Template extends _E {
 				}
 			});
 		} else {
-			if (e.dataset.v||e.dataset.c) _w(e, d, true);
+			if (e.dataset.v||e.dataset.c) _Template._w(e, d, true);
 			for( let c=e.firstChild; c; c=c.nextSibling) {
 				if (c.nodeType!==1) continue;
-				_w(c,d);
+				_Template._w(c,d);
 			}
 		}
 	}	// }}}
 	put (doc) {
 		const e = this.E.cloneNode(true);
-		this._w(e, doc);
+		if (e.dataset.def) e.removeAttribute('data-def');
+		_Template._w(e, doc);
 		return e;
 	}
 }
 
-class _Buffer extends _E {
+class _Data extends _E {
 	get () {
-		console.log(this.E);
-		return JSON.parse(this.E.value);
+		let v = this.E ? this.E.value : undefined;
+		return v ? JSON.parse(v) : {};
 	}
 }
 
 class NSpace {
 	constructor () {
 		this.DB = {};
-		this.CS = { template:_Template, buffer:_Buffer };
+		this.CS = { template:_Template, data:_Data };
 	}
 	install (re) {
-		// < < data-def="template:Name-A"> < data-def="buffer:Name-B"> >
-		/*
-		// 安裝顯示樣板
-		Array.from(doc.querySelectorAll('[data-template]'))
-		.forEach((e)=>{
-			this.Templates.reg(e.dataset.template, e);
-			delete e.dataset.template;
-			e.parentNode.removeChild(e);
-		});
-		// 安資料來源
-		Array.from(doc.querySelectorAll('[data-buffer]'))
-		.forEach((e)=>{
-			this.Buffers.reg(e.dataset.buffer,e);
-			delete e.dataset.buffer;
-			e.parentNode.removeChild(e);
-		});
-		*/
+		// < < data-def="template:Name-A"> < data-def="data:Name-B"> >
 		E(re).forEach('[data-def]', (e) => {
 			_S.handleArgs(e.dataset.def, (cs, key) => {
 				if (!key) return
@@ -443,104 +431,10 @@ class NSpace {
 		if ("string" === typeof(d))
 			d = this.DB[d];
 		if (d instanceof Element)
-			d = new this.CS.buffer(d);
-		console.log(`TID:${t},DID:${d}`);
-		t.put(d.get());
+			d = new this.CS.data(d);
+		return t.put(d.get());
 	}
 }
-
-class Templates {
-	// Templates Manager
-	// 1. reg => register a template DOM with a given name
-	// 2. add => binding a container with template id before writing data to it
-	// 3. write => write data to a container
-	// 4. read => read data from a container
-	// {{{
-	constructor () {
-		this.Temps={};
-	}
-	reg (tn, temp) { this.Temps[tn]=temp; }
-	clear (c) {
-		Array.from(c.querySelectorAll('[data-index]'))
-		.forEach((e)=>e.parentNode.removeChild(e));
-	}
-	_write_data_ (e, d) {
-		if (e.dataset.c) ((a)=>{
-			switch (a[0]) {
-			case "repeat":
-				((t,p,d)=>{
-					p.removeChild(t);
-					for (let i=0; i<d.length; i++) {
-						const D=d[i], row=t.cloneNode(true);
-						delete row.dataset.c;
-						row.dataset.index=(i%2)+"-"+i;
-						p.appendChild(row);
-						this._write_(row,D);
-					}
-				})(e,e.parentNode,d[a[1]]);
-				break;
-			}
-		})(e.dataset.c.split(":"));
-		(e.dataset.v||"").split(",").filter((v)=>v).forEach((arg)=>{
-			const a=arg.split(":");
-			switch (a[0]) {
-			case "text":
-				e.textContent=d[a[1]];
-				break;
-			case "value":
-				e.value=d[a[1]];
-				break;
-			case "data":
-				e.dataset[a[1]]=d[a[2]];
-				break;
-			}
-		});
-	}
-	_write_ (e, d) {
-		if (e.dataset.v||e.dataset.c) this._write_data_(e,d);
-		for( let c=e.firstChild; c; c=c.nextSibling) {
-			if (c.nodeType!==1) continue;
-			this._write_(c,d);
-		}
-	}
-	write (id, dt, te) {
-		try {
-			console.assert(id in this.Temps,`Template ${id} not declared`);
-			const EI=this.Temps[id].cloneNode(true);
-			this._write_(EI, dt);
-			return EI;
-		} catch(x) { console.log(id,x); }
-	}
-	read (c) {
-		try {
-			return Array.from(c.querySelectorAll('[data-index]'))
-			.reduce((rst, row) => {
-				rst.push(Array.from(row.querySelectorAll('[data-v]'))
-				.reduce((val, cell) => {
-					const a = splitArgs(cell.dataset.v||"",':');
-					switch (a[0]) {
-					case "text": val[a[1]]=cell.textContent; break;
-					case "value": val[a[1]]=cell.value; break; }
-					return val;
-				},{}));
-				return rst;
-			},[]);
-		} catch(x) { console.log(x); }
-	}
-}	// }}}
-
-class Buffers {
-	// {{{
-	constructor () {
-		this.Bs = {};
-	}
-	reg (n, buf) { this.Bs[n] = buf; }
-	read (q) {
-		console.log(q,this.Bs,this.Bs[q]);
-		return (q instanceof Element ? q.querySelector('textarea') : this.Bs[q]).value;
-	}
-	write (q, buf) { }
-}	// }}}
 
 class Content {
 	// 顯示頁面管理界面
@@ -557,15 +451,8 @@ class Content {
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
 				const page = E(elem).trace('section'), container = elem.parentNode;
-/* TODO
-				buf = buf ?
-					slide.Buffers.read(buf) :
-					(E(elem).query('textarea')||{value:'{}'}).value||'{}';
-*/
-				if ('string' === typeof(buf))
-					buf = JSON.parse(buf)
-				console.log(slide.NS.put(name,buf||elem));
-				// TODO container.insertBefore(slide.Templates.write(name, buf), elem);
+				if (!buf) buf = elem;
+				container.insertBefore(slide.NS.put(name,buf),elem);
 				if (elem.parentNode)
 					container.removeChild(elem);
 				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
@@ -574,7 +461,7 @@ class Content {
 		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
 	}	// }}}
 
-	install (doc, filters) { // doc: <div <...sections>|<...[data-template]>|<...[data-buffer]> >
+	install (doc, filters) { // doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
 							 // filter: [ ...[...COND] ]
 		// 安裝待顯示的頁面 <...section> {{{ 
 
@@ -747,7 +634,7 @@ class Player {
 				content = document.createElement("div");
 				Array.from(document.querySelectorAll('[data-template]'))
 					.forEach((s)=>content.appendChild(s));
-				Array.from(document.querySelectorAll('[data-buffer]'))
+				Array.from(document.querySelectorAll('[data-data]'))
 					.forEach((s)=>content.appendChild(s));
 				Array.from(document.querySelectorAll('section'))
 					.forEach((s)=>content.appendChild(s));
