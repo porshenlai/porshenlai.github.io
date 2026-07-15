@@ -402,6 +402,7 @@ class _Template extends _E {
 }
 
 class _Data extends _E {
+	constructor (e) { super(E(e).query('[data-def="data"]')); }
 	get () {
 		let v = this.E ? this.E.value : undefined;
 		return v ? JSON.parse(v) : {};
