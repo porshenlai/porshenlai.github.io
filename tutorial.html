@@ -301,7 +301,7 @@ flowchart TD
 <div data-xl='template:原始碼'></div>
 <div class='sample'>
 	<button data-h='play:Dialog:template:公告模板'>公告模板</button>
-	<button data-h='play:Please Login:template:登入'>
+	<button data-h='play:Please Login:template:登入:&this'>
 		對話框
 		<textarea data-def='data'>{
 			"P":"porshenlai",
@@ -327,7 +327,7 @@ B -->|NO| E[比賽]
 </textarea></button>
 
 	<button data-h='play:Play Media:template:PlayMedia:&this'>
-		Media X
+		Media
 		<textarea data-def='data'>{"Ms":[
 			{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"},
 			{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"},
@@ -405,6 +405,40 @@ B -->|NO| E[比賽]
 	</ul>
 </div>
 </section><!--}}}-->
+
+<section class='page'><h2 style='text-align:center;'>管道</h2>
+<style>
+	.ArchMap td { text-align:center; vertical-align:middle; }
+	.ArchMap td.FB { border:1px solid black; }
+	.ArchMap td:not(.FB) span { margin:0 32px; font-size:80%; color:darkblue; }
+	.ArchMap td.FB .sample { font-size:72%; color:darkgreen; text-align:left; background:#f0fff0; padding:2px 8px; }
+</style>
+<table class='ArchMap' align='center' width='90%'>
+	<tbody>
+		<tr><td class='FB'>伺服器</td></tr>
+		<tr><td>
+			<span>&uarr; HTTP POST Request (JSON)</span>
+			<span>&darr; HTTP Response (JSON)</span>
+		</td></tr>
+		<tr><td class='FB col'>Data<pre class='sample'>
+&lt;textarea data-def='data:名稱'&gt;
+{"A":1, "B":2}
+&lt;/textarea&gt;
+</pre></td></tr>
+		<tr><td>
+			<span>&darr; Template.<b>put</b>( Data.<b>get</b>() )</span>
+			<span>&uarr; Data.<b>put</b>( Template.<b>get</b>() )</span>
+		</td></tr>
+		<tr><td class='FB col'>Template<pre class='sample'>
+&lt;div data-def='template:名稱'&gt;
+	&lt;output data-v='value:A'&gt;&lt;/output&gt;
+	&lt;input data-v='value:B'&gt;&lt;/input&gt;
+&lt;/div&gt;
+</pre></td></tr>
+		<tr><td class='FB'>使用者介面</td></tr>
+	</tbody>
+</table>
+</section>
 
 </div></main></body>
 </html>

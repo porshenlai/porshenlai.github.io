@@ -287,30 +287,6 @@ async function loadStyle (css, ukey, container)
 		})(document.createElement('style')), be);
 }	// }}}
 
-function parseNVArgs (nvs) {
-	return nvs ? nvs.split(',').filter((s)=>s).reduce((r, nv)=>{
-		console.log('A',nv);
-		nv=/([^:]+)(:(.*))/.exec(nv);
-		console.log('B',nv);
-		r[nv[1]]=nv[3]||true;
-		return r;
-	},{}) : {}
-}
-function applyStyles (e, nvs) {
-	if ('string' === typeof(nvs))
-		nvs = parseNVArgs(nvs);
-	const Defs={
-		bg:(v)=>['background',((vs)=>{
-			if (vs[1]) vs[1]=`url(${vs[1]}) no-repeat center center/${ vs[0] ? 'contain' : 'cover' }`;
-			return vs.join(' ');
-		})(v.split(':'))],
-	}
-	for (n in nvs) {
-		let [sn,sv] = n in Defs ? Defs[n](nvs[n]) : [n,nvs[n]];
-		e.style[sn] = sv;
-	}
-}
-
 class _E {
 	// {{{
 	constructor (e) { this.E = e; }
@@ -335,87 +311,98 @@ class _E {
 function E(e) { return new _E(e); }
 
 class _S {
-	static decodeArg (s) { return s.split(':'); }
-	static handleArgs (s,h) { s.split(';').filter((a)=>a).forEach((a)=>h(..._S.decodeArg(a))); }
+	static splitArgs (s,d=':')
+	{	// {{{
+		let m=undefined, bf=[];
+		return s.split(d).reduce((r,v)=>{
+			if (m) {
+				if (v.endsWith(m)) {
+					bf.push(v.substring(0,v.length-1));
+					r.push(bf.join(d));
+					m=undefined;
+				} else bf.push(v);
+			} else if (v.startsWith('"') || v.startsWith("'")) {
+				m=v[0]
+				bf.push(v.substring(1));
+			} else r.push(v);
+			return r;
+		},[]);
+	}	// }}}
+	static handleArgs (s,h) { s.split(';').filter((a)=>a).forEach((a)=>h(..._S.splitArgs(a))); }
 }
 
-function splitArgs (s, d=':')
-{	// {{{
-	let m=undefined, bf=[];
-	return s.split(d).reduce((r,v)=>{
-		if (m) {
-			if (v.endsWith(m)) {
-				bf.push(v.substring(0,v.length-1));
-				r.push(bf.join(d));
-				m=undefined;
-			} else bf.push(v);
-		} else if (v.startsWith('"') || v.startsWith("'")) {
-			m=v[0]
-			bf.push(v.substring(1));
-		} else r.push(v);
-		return r;
-	},[]);
-}	// }}}
-
 class _Template extends _E {
-	static _w (e, d, nr=false) { // write doc to element
-		// {{{
-		if (nr) {
-			if (e.dataset.c) _S.handleArgs(e.dataset.c, (cmd, ...args) => {
-				switch (cmd) {
-				case "repeat":
-					((t,p,d)=>{
-						p.removeChild(t);
-						for (let i=0; i<d.length; i++) {
-							const D=d[i], row=t.cloneNode(true);
-							if (row.dataset.def) row.removeAttribute('data-def');
-							if (row.dataset.c) row.removeAttribute('data-c');
-							row.dataset.index=(i%2)+"-"+i;
-							p.appendChild(row);
-							_Template._w(row,D);
-						}
-					})(e,e.parentNode,d[args[0]]);
-					break;
-				}
-			});
-			if (e.dataset.v) _S.handleArgs(e.dataset.v, (cmd, a1, a2) => {
-				switch (cmd) {
-				case "text": e.textContent=d[a1]; break;
-				case "value": e.value=d[a1]; break;
-				case "data": e.dataset[a1]=d[a2]; break;
-				}
-			});
-		} else {
-			if (e.dataset.v||e.dataset.c) _Template._w(e, d, true);
-			for( let c=e.firstChild; c; c=c.nextSibling) {
-				if (c.nodeType!==1) continue;
-				_Template._w(c,d);
-			}
-		}
-	}	// }}}
-	put (doc) {
+	async put (doc) // doc:DOC Object
+	{	// write DOC to template Element {{{
 		const e = this.E.cloneNode(true);
 		if (e.dataset.def) e.removeAttribute('data-def');
-		_Template._w(e, doc);
+		
+		(function w(e, d, nr=false) {
+			if (nr) {
+				if (e.dataset.c)
+					for (let args of e.dataset.c.split(';').filter((a)=>a))
+						((cmd, ...args) => {
+							switch (cmd) {
+							case "repeat":
+								((t,p,d)=>{
+									p.removeChild(t);
+									for (let i=0; i<d.length; i++) {
+										const D=d[i], row=t.cloneNode(true);
+										if (row.dataset.def) row.removeAttribute('data-def');
+										if (row.dataset.c) row.removeAttribute('data-c');
+										row.dataset.index=(i%2)+"-"+i;
+										p.appendChild(row);
+										w(row,D);
+									}
+								})(e,e.parentNode,d[args[0]]);
+								break;
+							}
+						})(..._S.splitArgs(args))
+				if (e.dataset.v)
+					for (let args of e.dataset.v.split(';').filter((a)=>a))
+						((cmd, a1, a2) => {
+							switch (cmd) {
+							case "text": e.textContent=d[a1]; break;
+							case "value": e.value=d[a1]; break;
+							case "data": e.dataset[a1]=d[a2]; break;
+							}
+						})(..._S.splitArgs(args));
+			} else {
+				if (e.dataset.v||e.dataset.c) w(e, d, true);
+				for (let c=e.firstChild; c; c=c.nextSibling) {
+					if (c.nodeType!==1) continue;
+					w(c,d);
+				}
+			}
+		})(e, doc);
 		return e;
-	}
+	}	// }}}
+	async get ()
+	{	// read DOC from template Element {{{
+		return {};
+	}	// }}}
 }
 
 class _Data extends _E {
 	constructor (e) { super(E(e).query('[data-def="data"]')); }
-	get () {
+	async put (doc) // doc:DOC Object
+	{	// write DOC to data source {{{
+	}	// }}}
+	async get ()
+	{	// read DOC from data Source {{{
 		let v = this.E ? this.E.value : undefined;
 		return v ? JSON.parse(v) : {};
-	}
+	}	// }}}
 }
 
 class NSpace {
-	constructor () {
+	constructor ()
+	{	// {{{
 		this.DB = {};
 		this.CS = { template:_Template, data:_Data };
-	}
-	install (re) {
-		// < < data-def="template:Name-A"> < data-def="data:Name-B"> >
+	}	// }}}
+	install (re) // < < data-def="template:Name-A"> < data-def="data:Name-B"> >
+	{	// {{{
 		E(re).forEach('[data-def]', (e) => {
 			_S.handleArgs(e.dataset.def, (cs, key) => {
 				if (!key) return
@@ -423,18 +410,15 @@ class NSpace {
 				e.parentNode.removeChild(e);
 			});
 		});
-	}
-	put (t, d) {
-		if ("string" === typeof(t))
-			t = this.DB[t];
-		if (t instanceof Element)
-			t = new this.CS.template(t);
-		if ("string" === typeof(d))
-			d = this.DB[d];
-		if (d instanceof Element)
-			d = new this.CS.data(d);
-		return t.put(d.get());
-	}
+	}	// }}}
+	async put (t, d)
+	{	// {{{
+		if ("string" === typeof(t))	t = this.DB[t];
+		if (t instanceof Element)	t = new this.CS.template(t);
+		if ("string" === typeof(d))	d = this.DB[d];
+		if (d instanceof Element)	d = new this.CS.data(d);
+		return await t.put(await d.get());
+	}	// }}}
 }
 
 class Content {
@@ -453,7 +437,7 @@ class Content {
 				elem.classList.add('resolved');
 				const page = E(elem).trace('section'), container = elem.parentNode;
 				if (!buf) buf = elem;
-				container.insertBefore(slide.NS.put(name,buf),elem);
+				container.insertBefore(await slide.NS.put(name,buf),elem);
 				if (elem.parentNode)
 					container.removeChild(elem);
 				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
@@ -511,7 +495,7 @@ class Content {
 		// 安裝外部模組 {{{
 		Promise.all(
 			mods.reduce((R,e)=>{
-				const args=splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
+				const args=_S.splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
 				if (mn) R.push((async (T, N, E)=>{
 					if (!T.Xs[N])
 						T.Xs[N] = loadScript(
@@ -578,8 +562,27 @@ class Content {
 			});
 			// #. Apply style check
 			E(em).forEach('[data-style]', (e) => {
-				applyStyles(e, e.dataset.style);
-				e.removeAttribute("data-style");
+				((e,nvs) => { // e: Element, nvs: name-value pair of style settings
+					// apply nvs style settings to element {{{
+					if ('string' === typeof(nvs)) // nvs: na:va,nb:vb,... -> {na:va,nb:vb,...}
+						nvs = nvs ? nvs.split(',').filter((s)=>s).reduce((r, nv)=>{
+							nv=/([^:]+)(:(.*))/.exec(nv);
+							r[nv[1]]=nv[3]||true;
+							return r;
+						},{}) : {}
+					const Defs={
+						bg:(v)=>['background',((vs)=>{
+							if (vs[1]) vs[1]=`url(${vs[1]}) no-repeat center center/${ vs[0] ? 'contain' : 'cover' }`;
+							return vs.join(' ');
+						})(v.split(':'))],
+					}
+					for (n in nvs) {
+						let [sn,sv] = n in Defs ? Defs[n](nvs[n]) : [n,nvs[n]];
+						e.style[sn] = sv;
+					}
+					e.removeAttribute("data-style");
+					// }}}
+				})(e, e.dataset.style);
 			});
 
 			em.classList.add('current');
@@ -942,7 +945,7 @@ class Player {
 		try {
 			for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
 				if (e && e.dataset && e.dataset.h) {
-					let args = splitArgs(e.dataset.h,':'), cmd = args.shift();
+					let args = _S.splitArgs(e.dataset.h,':'), cmd = args.shift();
 					args = args.map((a)=>{
 						switch (a) {
 						case '&this': return e;
@@ -994,8 +997,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		loadScript: loadScript,
 		loadStyle: loadStyle,
 		E: E,
-		parseNVArgs: parseNVArgs,
-		splitArgs: splitArgs,
+		S: _S,
 		JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
 		Player: new Player(
 			(location.search||'?').substr(1).split('&')
