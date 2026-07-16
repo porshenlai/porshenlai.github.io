@@ -576,7 +576,7 @@ class Content {
 							return vs.join(' ');
 						})(v.split(':'))],
 					}
-					for (n in nvs) {
+					for (let n in nvs) {
 						let [sn,sv] = n in Defs ? Defs[n](nvs[n]) : [n,nvs[n]];
 						e.style[sn] = sv;
 					}
@@ -1019,7 +1019,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 
 	let timer=setInterval(()=>{
 		const cp=window.Apps.Player.Content.CurrentPage;
-		if (cp.tick) cp.tick(true);
+		if (cp && cp.tick) cp.tick(true);
 	},500);
 
 	document.body.style.opacity='1';
