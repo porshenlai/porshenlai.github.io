@@ -185,7 +185,7 @@
 		<li>建立帶有資料的 <em>textarea[data-xl="template:模板名稱"]</em> 元件來自模板複製元件並填入資料。</li>
 		<li><b>原始碼</b>為兩個不帶資料的模板使用範例:<div class='sample'>
 <textarea data-xl='template:公告模板'></textarea>
-<textarea data-xl='template:資料模板'>{
+<textarea data-xl='template:資料模板' data-def='data'>{
 	"標題":"1",
 	"訊息":"使用 data-v 設定目標變數與填入的方法"
 }</textarea>
@@ -201,19 +201,19 @@
 		<li></li>
 	</ul>
 <div class='sample'>
-<textarea data-xl='template:資料模板'>{
+<textarea data-xl='template:資料模板' data-def='data'>{
 	"標題":"1",
 	"訊息":"使用 data-v 指定將對應變數填入的方式"
 }</textarea>
-<textarea data-xl='template:資料模板'>{
+<textarea data-xl='template:資料模板' data-def='data'>{
 	"標題":"2",
 	"訊息":"text:變數名 - 節點.textContent = 資料[變數名]"
 }</textarea>
-<textarea data-xl='template:資料模板'>{
+<textarea data-xl='template:資料模板' data-def='data'>{
 	"標題":"3",
 	"訊息":"value:變數名 - 節點.value = 資料[變數名]"
 }</textarea>
-<textarea data-xl='template:資料模板'>{
+<textarea data-xl='template:資料模板' data-def='data'>{
 	"標題":"4",
 	"訊息":"data:參數名:變數名 - 節點.dataset[參數名] = 資料[變數名]"
 }</textarea>
@@ -224,7 +224,7 @@
 <div class='fill'>
 	<ul>
 		<li>範例 <div class='sample'>
-<textarea data-xl='template:列舉模板'>{
+<textarea data-xl='template:列舉模板' data-def='data'>{
 	"表格名稱":"表格標題",
 	"串列名稱":[
 		{"項目名稱":"John","項目數值":"95"},
