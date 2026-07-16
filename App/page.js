@@ -391,14 +391,14 @@ class _Data extends _E {
 	async get ()
 	{	// read DOC from data Source {{{
 		let v = this.E ? this.E.value : undefined;
-		return v ? JSON.parse(v) : {};
+		try { return v ? JSON.parse(v) : {}; } catch(x) { return v; }
 	}	// }}}
 }
 
 class NSpace {
 	constructor ()
 	{	// {{{
-		this.DB = {};
+		this.DB = { };
 		this.CS = { template:_Template, data:_Data };
 	}	// }}}
 	install (re) // < < data-def="template:Name-A"> < data-def="data:Name-B"> >
@@ -410,6 +410,11 @@ class NSpace {
 				e.parentNode.removeChild(e);
 			});
 		});
+	}	// }}}
+	query (n, e) // n: class name or variable name, e: element to find data
+	{	// {{{
+		if (n in this.CS) return new (this.CS[n])(e);
+		return this.DB[n];
 	}	// }}}
 	async put (t, d)
 	{	// {{{

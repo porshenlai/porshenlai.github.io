@@ -278,23 +278,29 @@
 
 <section><!-- Markdown 擴充 {{{-->
 <div data-xl='template:原始碼'></div>
-<div class='sample'><div data-xl='markdown'><textarea>
+<div class='sample'><div data-xl='markdown'>
+<textarea data-def='data'>
 ## Markdown 擴充
 * 123
 * 4565
 * 789:Caption comes here
-</textarea></div>
+</textarea>
+</div>
 </section><!--}}}-->
 
 <section><h2>Mermaid 擴充</h2><!--{{{-->
 <div data-xl='template:原始碼'></div>
-<div class='sample'><div data-xl='mermaid'><textarea>
+<div class='sample'>
+	<div data-xl='mermaid'>
+<textarea data-def='data'>
 flowchart TD
 	A{下大雨} -->|YES| C[停賽]
 	A -->|NO| B
 	B{颳大風} -->|YES| D[停賽]
 	B -->|NO| E[比賽]
-</textarea></div></div>
+</textarea>
+	</div>
+</div>
 </section><!--}}}-->
 
 <section><h2>Dialog 對話框</h2><!--{{{-->
@@ -310,7 +316,7 @@ flowchart TD
 	</button>
 
 	<button data-h='play:Markdown:markdown:&this'>Markdown
-<textarea class='hide'>
+<textarea data-def='data'>
 # TITLE
 ## WAHAHA
 * 123
@@ -319,12 +325,14 @@ flowchart TD
 </textarea></button>
 
 	<button data-h='play:決策樹:mermaid:&this'>Mermaid
-<textarea class='hide'>flowchart TD
+<textarea data-def='data'>
+flowchart TD
 A{下大雨} -->|YES| C[停賽]
 A -->|NO| B
 B{颳大風} -->|YES| D[停賽]
 B -->|NO| E[比賽]
-</textarea></button>
+</textarea>
+	</button>
 
 	<button data-h='play:Play Media:template:PlayMedia:&this'>
 		Media
