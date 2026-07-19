@@ -63,7 +63,7 @@
 </div>
 
 <div data-def='template:登入'>
-	<div style='text-align:center'>帳號:<input type='text' data-v='value:P'/></div>
+	<div style='text-align:center'>帳號:<input type='text' data-v='value:U'/></div>
 	<div style='text-align:center'>密碼:<input type='password' data-v='value:S'/></div>
 	<div style='text-align:center'><button>登入</button></div>
 </div>
@@ -184,11 +184,9 @@
 	<ul>
 		<li>建立帶有資料的 <em>textarea[data-xl="template:模板名稱"]</em> 元件來自模板複製元件並填入資料。</li>
 		<li><b>原始碼</b>為兩個不帶資料的模板使用範例:<div class='sample'>
-<textarea data-xl='template:公告模板'></textarea>
-<textarea data-xl='template:資料模板' data-def='data'>{
-	"標題":"1",
-	"訊息":"使用 data-v 設定目標變數與填入的方法"
-}</textarea>
+<div data-xl='template:公告模板'></div>
+<div data-xl='template:資料模板' data-def='data'>
+	<textarea data-v='value:doc'>{"標題":"1","訊息":"使用 data-v 設定目標變數與填入的方法"}</textarea>
 </div></li>
 	</ul>
 </div>
@@ -196,35 +194,29 @@
 
 <section class='page col'><h2>模板 - 資料帶入</h2><!--{{{-->
 <div data-xl='template:原始碼'></div>
-<div class='fill'>
-	<ul>
-		<li></li>
-	</ul>
-<div class='sample'>
-<textarea data-xl='template:資料模板' data-def='data'>{
-	"標題":"1",
-	"訊息":"使用 data-v 指定將對應變數填入的方式"
-}</textarea>
-<textarea data-xl='template:資料模板' data-def='data'>{
-	"標題":"2",
-	"訊息":"text:變數名 - 節點.textContent = 資料[變數名]"
-}</textarea>
-<textarea data-xl='template:資料模板' data-def='data'>{
-	"標題":"3",
-	"訊息":"value:變數名 - 節點.value = 資料[變數名]"
-}</textarea>
-<textarea data-xl='template:資料模板' data-def='data'>{
-	"標題":"4",
-	"訊息":"data:參數名:變數名 - 節點.dataset[參數名] = 資料[變數名]"
-}</textarea>
-</div></section><!--}}}-->
+<div class='fill sample'>
+	<div data-xl='template:資料模板' data-def='data'>
+		<textarea data-v='value:doc'>{"標題":"1","訊息":"使用 data-v 指定將對應變數填入的方式"}</textarea>
+	</div>
+	<div data-xl='template:資料模板' data-def='data'>
+		<textarea data-v='value:doc'>{"標題":"2","訊息":"text:變數名 - 節點.textContent = 資料[變數名]"}</textarea>
+	</div>
+	<div data-xl='template:資料模板' data-def='data'>
+		<textarea data-v='value:doc'>{"標題":"3","訊息":"value:變數名 - 節點.value = 資料[變數名]"}</textarea>
+	</div>
+	<div data-xl='template:資料模板' data-def='data'>
+		<textarea data-v='value:doc'>{"標題":"4","訊息":"data:參數名:變數名 - 節點.dataset[參數名] = 資料[變數名]"}</textarea>
+	</div>
+</div>
+</section><!--}}}-->
 
 <section class='page col'><h2>模板 - 資料列舉</h2><!--{{{-->
 <div data-xl='template:原始碼'></div>
 <div class='fill'>
 	<ul>
 		<li>範例 <div class='sample'>
-<textarea data-xl='template:列舉模板' data-def='data'>{
+			<div data-xl='template:列舉模板'>
+				<textarea data-v='value:doc'>{
 	"表格名稱":"表格標題",
 	"串列名稱":[
 		{"項目名稱":"John","項目數值":"95"},
@@ -233,6 +225,7 @@
 		{"項目名稱":"Vicky","項目數值":"92"}
 	]
 }</textarea>
+			</div>
 		</div></li>
 	</ul>
 </div>
@@ -279,28 +272,23 @@
 <section><!-- Markdown 擴充 {{{-->
 <div data-xl='template:原始碼'></div>
 <div class='sample'><div data-xl='markdown'>
-<textarea data-def='data'>
-## Markdown 擴充
+	<textarea data-v='value:raw'>## Markdown 擴充
 * 123
 * 4565
-* 789:Caption comes here
-</textarea>
-</div>
+* 789:Caption comes here</textarea>
+</div></div>
 </section><!--}}}-->
 
 <section><h2>Mermaid 擴充</h2><!--{{{-->
 <div data-xl='template:原始碼'></div>
-<div class='sample'>
-	<div data-xl='mermaid'>
-<textarea data-def='data'>
-flowchart TD
+<div class='sample'><div data-xl='mermaid'>
+	<textarea data-v='value:raw'>flowchart TD
 	A{下大雨} -->|YES| C[停賽]
 	A -->|NO| B
 	B{颳大風} -->|YES| D[停賽]
 	B -->|NO| E[比賽]
 </textarea>
-	</div>
-</div>
+</div></div>
 </section><!--}}}-->
 
 <section><h2>Dialog 對話框</h2><!--{{{-->
@@ -309,24 +297,34 @@ flowchart TD
 	<button data-h='play:Dialog:template:公告模板'>公告模板</button>
 	<button data-h='play:Please Login:template:登入:&this'>
 		對話框
-		<textarea data-def='data'>{
-			"P":"porshenlai",
-			"S":"abcd1234"
-		}</textarea>
+		<div  data-def='data'>
+			<table><tbody><tr>
+				<th align='right'>User:</th>
+				<td><input data-v='value:U' type='text' value='porshenlai'></input></td>
+			</tr><tr>
+				<th align='right'>Secret:</th>
+				<td><input data-v='value:S' type='password' value='abcd1234'></input></td>
+			</tr><tr>
+				<th colspan='2'>
+					<input data-v='value:POST' type='hidden' value='test.aspx'></input>
+					<button data-h='reset'>Reset</button>
+					<button data-h='submit'>Submit</button>
+				</th>
+			</tr></tbody></table>
+		</div>
 	</button>
 
 	<button data-h='play:Markdown:markdown:&this'>Markdown
-<textarea data-def='data'>
-# TITLE
+		<textarea class='hide' data-v='value:raw'># TITLE
 ## WAHAHA
 * 123
 * 4565
 * 789
-</textarea></button>
+</textarea>
+	</button>
 
 	<button data-h='play:決策樹:mermaid:&this'>Mermaid
-<textarea data-def='data'>
-flowchart TD
+		<textarea class='hide' data-v='value:raw'>flowchart TD
 A{下大雨} -->|YES| C[停賽]
 A -->|NO| B
 B{颳大風} -->|YES| D[停賽]
@@ -334,13 +332,12 @@ B -->|NO| E[比賽]
 </textarea>
 	</button>
 
-	<button data-h='play:Play Media:template:PlayMedia:&this'>
-		Media
-		<textarea data-def='data'>{"Ms":[
-			{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"},
-			{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"},
-			{"media":"https://www.w3schools.com/html/movie.mp4"}
-		]}</textarea>
+	<button data-h='play:Play Media:template:PlayMedia:&this'>Media
+		<textarea class='hide' data-v='value:doc'>{"Ms":[
+{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"},
+{"media":"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"},
+{"media":"https://www.w3schools.com/html/movie.mp4"}
+]}</textarea>
 	</button>
 </div>
 </section><!--}}}-->
@@ -400,21 +397,44 @@ B -->|NO| E[比賽]
 <div class='fill'>
 	<ul>
 		<li>範例 <div class='sample'>
-		<div data-xl='template:列舉模板'><textarea data-def='data'>{
-	"表格名稱":"表格標題",
-	"串列名稱":[
-		{"項目名稱":"John","項目數值":"95"},
-		{"項目名稱":"Mary","項目數值":"99"},
-		{"項目名稱":"Sam","項目數值":"90"},
-		{"項目名稱":"Vicky","項目數值":"92"}
-	]
-}</textarea></div>
+			<div data-xl='template:列舉模板'>
+				<div data-def='data'>
+					<input data-v='value:get' value='list_test.json'></input>
+					<!--input data-v='value:post' value='list_test.json'></input>
+					<textarea data-v='value:payload'>{"A":123,"B":456}</textarea-->
+				</div>
+			</div>
 		</div></li>
 	</ul>
 </div>
 </section><!--}}}-->
 
-<section class='page'><h2 style='text-align:center;'>管道</h2>
+<section class='page col'><h2>資料來源 - TEST</h2><!--{{{-->
+<div data-xl='template:原始碼'></div>
+<div class='fill'>
+	<ul>
+		<li>範例 <div class='sample'>
+			<div data-xl='template:列舉模板'>
+				<div data-def='data' class='.switch'>
+					<div data-case='0'>
+						<div>
+							<select data-v='value:method'>
+								<option>get</option>
+								<option>post</option>
+							</select>
+							<input data-v='value:url' value='list_test.json'></input>
+							<button data-h='submit'>Submit</button>
+						</div>
+						<div><textarea data-v='value:payload'>{"A":123,"B":456}</textarea></div>
+					</div>
+				</div>
+			</div>
+		</div></li>
+	</ul>
+</div>
+</section><!--}}}-->
+
+<section class='page'><h2 style='text-align:center;'>管道</h2><!--{{{-->
 <style>
 	.ArchMap td { text-align:center; vertical-align:middle; }
 	.ArchMap td.FB { border:1px solid black; }
@@ -446,7 +466,7 @@ B -->|NO| E[比賽]
 		<tr><td class='FB'>使用者介面</td></tr>
 	</tbody>
 </table>
-</section>
+</section><!--}}}-->
 
 </div></main></body>
 </html>

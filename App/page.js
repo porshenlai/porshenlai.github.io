@@ -336,6 +336,9 @@ class _Template extends _E {
 	{	// write DOC to template Element {{{
 		const e = this.E.cloneNode(true);
 		if (e.dataset.def) e.removeAttribute('data-def');
+
+		console.assert(doc,'Document is not avalilable.');
+		console.log("PUT",typeof(doc),doc);
 		
 		(function w(e, d, nr=false) {
 			if (nr) {
@@ -354,18 +357,20 @@ class _Template extends _E {
 										p.appendChild(row);
 										w(row,D);
 									}
-								})(e,e.parentNode,d[args[0]]);
+								})(e,e.parentNode,d[args[0]]||[]);
 								break;
 							}
 						})(..._S.splitArgs(args))
 				if (e.dataset.v)
 					for (let args of e.dataset.v.split(';').filter((a)=>a))
 						((cmd, a1, a2) => {
-							switch (cmd) {
-							case "text": e.textContent=d[a1]; break;
-							case "value": e.value=d[a1]; break;
-							case "data": e.dataset[a1]=d[a2]; break;
-							}
+							try {
+								switch (cmd) {
+								case "text": e.textContent=d[a1]; break;
+								case "value": e.value=d[a1]; break;
+								case "data": e.dataset[a1]=d[a2]; break;
+								}
+							} catch(x) { console.log(x); console.log(e,d); }
 						})(..._S.splitArgs(args));
 			} else {
 				if (e.dataset.v||e.dataset.c) w(e, d, true);
@@ -379,19 +384,66 @@ class _Template extends _E {
 	}	// }}}
 	async get ()
 	{	// read DOC from template Element {{{
-		return {};
+		let rd={};
+		(function w(e, d, nr=false) {
+			if (nr) {
+				if (e.dataset.c)
+					for (let args of e.dataset.c.split(';').filter((a)=>a))
+						((cmd, ...args) => {
+							switch (cmd) {
+							case "repeat": // TODO
+								break;
+							}
+						})(..._S.splitArgs(args))
+				if (e.dataset.v)
+					for (let args of e.dataset.v.split(';').filter((a)=>a))
+						((cmd, a1, a2) => {
+							switch (cmd) {
+							case "text": d[a1]=e.textContent; break;
+							case "value": d[a1]=e.value; break;
+							case "data": d[a2]=e.dataset[a1]; break;
+							}
+						})(..._S.splitArgs(args));
+			} else {
+				if (e.dataset.v||e.dataset.c) w(e, d, true);
+				for (let c=e.firstChild; c; c=c.nextSibling) {
+					if (c.nodeType!==1) continue;
+					w(c,d);
+				}
+			}
+			return d;
+		})(this.E,rd);
+		console.log("DOC is ",rd);
+		return rd;
 	}	// }}}
 }
 
 class _Data extends _E {
-	constructor (e) { super(E(e).query('[data-def="data"]')); }
+	constructor (re) { super(E(re).query('[data-def="data"]')||re); }
 	async put (doc) // doc:DOC Object
 	{	// write DOC to data source {{{
 	}	// }}}
 	async get ()
 	{	// read DOC from data Source {{{
-		let v = this.E ? this.E.value : undefined;
-		try { return v ? JSON.parse(v) : {}; } catch(x) { return v; }
+		const doc = await (new _Template(this.E)).get();
+		if (doc.doc) return JSON.parse(doc.doc);
+		if (doc.raw) return doc.raw;
+		let res=undefined;
+		if (doc.post) {
+			res=await fetch(doc.post, {
+      			method: 'POST',
+      			headers: { 'Content-Type': 'application/json' },
+      			body: doc.payload||'{}'
+			});
+		}else if (doc.get) res=await fetch(doc.get);
+		if (res) {
+			if (res.ok)
+				try { return await res.json(); } catch(x) { return await res.text(); }
+			return {"E":res.statusText};
+		}
+		res=this.E.cloneNode(true);
+		delete res.dataset.def;
+		return res;
 	}	// }}}
 }
 
@@ -422,7 +474,8 @@ class NSpace {
 		if (t instanceof Element)	t = new this.CS.template(t);
 		if ("string" === typeof(d))	d = this.DB[d];
 		if (d instanceof Element)	d = new this.CS.data(d);
-		return await t.put(await d.get());
+		let doc = await d.get(d);
+		return doc instanceof Element ? doc : await t.put(doc);
 	}	// }}}
 }
 
@@ -433,16 +486,15 @@ class Content {
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
-		this.NS = new NSpace();
-		//this.Templates = new Templates();
-		//this.Buffers = new Buffers();
+		this.Ns = new NSpace(); // database of Namespaces
+		this.Is = {}; // database of Instances
 		this.Xs={
 			template:async function (slide, elem, name, buf) {
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
 				const page = E(elem).trace('section'), container = elem.parentNode;
 				if (!buf) buf = elem;
-				container.insertBefore(await slide.NS.put(name,buf),elem);
+				container.insertBefore(await slide.Ns.put(name,buf),elem);
 				if (elem.parentNode)
 					container.removeChild(elem);
 				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
@@ -459,7 +511,7 @@ class Content {
 		if (ThisPage.before_load)
 			ThisPage.before_load(this, doc);
 
-		this.NS.install(doc);
+		this.Ns.install(doc);
 
 		// 根據過濾器安裝要求的頁面
 		let ksmap={};
@@ -494,6 +546,25 @@ class Content {
 		// 使用者介面安裝後處理
 		if (ThisPage.after_load) // after_load for Page override
 			ThisPage.after_load(this);
+	}	// }}}
+
+	Is_register (obj) {
+		const cp=this.E.querySelector('section:not(.disabled).current');
+		let l=[[],[]];
+		for (let k in this.Is) l[k.startsWith(cp.id+':') ? 0 : 1].push(k);
+		l[1].forEach((k)=>delete this.Is[key]);
+		const key = cp.id+":"+l[0].length;
+		this.Is[key] = obj;
+		return key;
+	}
+
+	Is_call (key, fn, ...args)
+	{	// call instance function {{{
+		if (key in this.Is) {
+			let obj=this.Is[key];
+			if (fn in obj) return obj[fn](...args);
+			else console.log(`No such function (${fn}) in object`);
+		} else console.log(`No such key (${key}) in instance DB`);
 	}	// }}}
 
 	extendMods (mods) { // mods: [data-x="..."] || [data-xl="..."]
@@ -890,6 +961,14 @@ class Player {
 		tabs.querySelectorAll(`[data-uid^=${TK}]`)
 			.forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
 	}	// }}}
+
+	sw (TK)
+		// <class='switch' <data-case='A'> <data-case='B'>>
+	{
+		E(
+			E(event.target).query('.switch')
+		).forEach((e) => e.classList[e.dataset.case === TK ? 'add' : 'remove']('hide'));
+	}
 
 	async speak (text, lang='en')
 		// speak('bonjour','fr');
