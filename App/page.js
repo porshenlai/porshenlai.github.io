@@ -456,8 +456,14 @@ class _Data extends _E {
 	}	// }}}
 }
 
+class KeyFilter {
+	// Format: A.B.C|D.E => (A and B and C) || (D and E) => [[A,B,C],[D,E]]
+	constructor (s) { this.D = 'string'===typeof(s) ? s.split('|').map((v) => v.split('.')) : (s||[]); }
+	toString () { return this.D.map((a)=>a.join('.')).join('|'); }
+}
+
 class Content {
-	// 顯示頁面管理界面
+	// 顯示頁面管理界面 {{{
 	constructor (e) { // e: #content 顯示區塊
 		// 顯示區塊操作物件 {{{
 		this.E=e;
@@ -551,7 +557,7 @@ class Content {
 
 	Is_register (obj)
 	{	// {{{
-		const cp=this.E.querySelector('section:not(.disabled).current');
+		const cp=this.CurPage;
 		let l=[[],[]];
 		for (let k in this.Is) l[k.startsWith(cp.id+':') ? 0 : 1].push(k);
 		l[1].forEach((k)=>delete this.Is[key]);
@@ -685,8 +691,11 @@ class Content {
 		}
 	}	// }}}
 
+	get CurPage ()
+	{	return this.E.querySelector(`section:not(.disabled).current`); }
+
 	get PageNumber () // ret: number>1
-	{	return this.convertPageNumber(this.CurrentPage) || 1; }
+	{	return this.convertPageNumber(this.CurPage) || 1; }
 
 	set PlayMode (v) // v in [0:連續,1:滿框,2:分頁]
 	{	// 模式切換 {{{
@@ -700,17 +709,14 @@ class Content {
 		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_')) || "PlayMode_";
 		return rv.substring(9);
 	}	// }}}
-
-	get CurrentPage ()
-	{	return this.E.querySelector(`section:not(.disabled).current`); }
-}	// class Content 
+}	// class Content }}}
 
 class Player
-{	// Content + ...輔助工具列
+{	// Content + ...輔助工具列 {{{
 	constructor (args) {
 		// {{{
 		const // 常數參數準備
-		filters = args.s ? decodeFilter(args.s) : undefined,
+		filters = args.s ? (new KeyFilter(args.s)).D : undefined,
 		doc = ((content) => { // ## 準備顯示資料
 			if (!content) {
 				content = document.createElement("div");
@@ -923,10 +929,10 @@ class Player
 	}	// }}}
 	// }}}
 
+	nop () { }
+
 	set (name, value) // set:SettingName:SettingValue
 	{	return this[name]=value; }
-
-	nop () { }
 
 	call (fn, ...args)
 	{	// {{{
@@ -936,21 +942,8 @@ class Player
 		} catch(x) { console.log(x); }
 	}	// }}}
 
-	tab (TK)
-		// <div data-h='tab:key'>
-		//   <button data-o='TabA'>TabA</button>
-		//   <button data-o='TabB'>TabB</button>
-		// </div>
-		// <div data-uid='TabA'>...</div>
-		// <div data-uid='TabB'>...</div>
-	{	// {{{
-		const K=event.target.dataset.o, tb=E(event.target).trace('[data-h^="tab"]');
-		if (!K) return;
-		tb.querySelectorAll(`[data-o]`).forEach((e)=>e.classList[event.target===e?"add":"remove"]("current"));
-		const tabs=E(tb).trace('section','aside');
-		tabs.querySelectorAll(`[data-uid^=${TK}]`)
-			.forEach((e)=>e.classList[e.dataset.uid!==`${TK}:${K}` ? "add" : "remove"]("hide"));
-	}	// }}}
+	go (target)
+	{	return this.PageNumber=target;	}
 
 	sw (TK)
 		// <class='switch' <data-case='A'> <data-case='B'>>
@@ -964,19 +957,6 @@ class Player
 			'[data-case]',
 			(e) => e.classList[e.dataset.case === TK ? 'remove' : 'add']('hide')
 		);
-	}	// }}}
-
-	async speak (text, lang='en')
-		// speak('bonjour','fr');
-		// <span data-h='speak:&text:fr'>bonjour</span>
-	{	// {{{
-		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
-		if ('speechSynthesis' in window) {
-			const utterance = new SpeechSynthesisUtterance(text);
-			utterance.lang = lang; // 根據語言代碼設定發音引擎
-			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
-			speechSynthesis.speak (utterance);
-		} else alert('您的瀏覽器不支援 Speech Synthesis API。');
 	}	// }}}
 
 	play (caption, mn, ...args)
@@ -1001,8 +981,18 @@ class Player
 		})(this.GC.querySelector('[data-uid="Dialog"]'));
 	}	// }}}
 
-	go (target)
-	{	return this.PageNumber=target;	}
+	async speak (text, lang='en')
+		// speak('bonjour','fr');
+		// <span data-h='speak:&text:fr'>bonjour</span>
+	{	// {{{
+		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
+		if ('speechSynthesis' in window) {
+			const utterance = new SpeechSynthesisUtterance(text);
+			utterance.lang = lang; // 根據語言代碼設定發音引擎
+			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
+			speechSynthesis.speak (utterance);
+		} else alert('您的瀏覽器不支援 Speech Synthesis API。');
+	}	// }}}
 
 	filter (cmd)
 	{	// {{{
@@ -1012,7 +1002,7 @@ class Player
 			flts.push(this.Keywords);
 			this.Filters.set(flts);
 		} else if (cmd==='run') {
-			function encodeFilter (aa) { return aa.map((a)=>a.join('.')).join('|'); }
+			location.replace(`?s=${(new KeyFilter(this.Filters)).toString()}`);
 			location.replace(`?s=${encodeFilter(this.Filters)}`);
 		}
 	}	// }}}
@@ -1024,10 +1014,23 @@ class Player
 		this.set('Overlay','none');
 	}	// }}}
 
-	//	if(!document.fullscreenElement)
-	//		document.body.requestFullscreen();
-	//	if(document.fullscreenElement)
-	//		document.exitFullscreen();
+	fullscreen (e)
+	{	// {{{
+		switch (e) {
+		case 'body' : e = document.body; break;
+		case 'main' : e = this.GC; break;
+		case 'section': e = this.Content.CurPage; break;
+		default: e = this.Content.CurPage.querySelector(e); break;
+		}
+		if (e instanceof Element) {
+			if (e !== document.fullscreenElement)
+				e.requestFullscreen();
+			else e = undefined;
+		}
+		if ((!e) && document.fullscreenElement)
+			document.exitFullscreen(); // exit fullscreen mode
+	}	// }}}
+
 	_EH_ (evt)
 	{	// {{{
 		try {
@@ -1059,6 +1062,7 @@ class Player
 			}
 		} catch(x) { console.log("Exception:",x); }
 	}	// }}}
+
 	_KH_ (evt)
 	{	// {{{
 		try {
@@ -1074,10 +1078,7 @@ class Player
 	}	// }}}
 }	// }}}
 
-
 if (!window.ThisPage) ThisPage={};
-function decodeFilter (s) { return s ? s.split('|').map((v) => v.split('.')) : []; }
-function encodeFilter (aa) { return aa.map((a)=>a.join('.')).join('|'); }
 
 document.addEventListener('DOMContentLoaded', async () => { // {{{
 
@@ -1107,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 	});
 
 	let timer=setInterval(()=>{
-		const cp=window.Apps.Player.Content.CurrentPage;
+		const cp=window.Apps.Player.Content.CurPage;
 		if (cp && cp.tick) cp.tick(true);
 	},500);
 
