@@ -13,7 +13,8 @@ SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
 	if (!code)
-		code = (Apps.E(elem).query('textarea')||{value:""}).value;
+		code = await slide.NS.query('data',elem).get();
+	console.log("DEBUG=====>",code);
 	if (elem.value) {
 		container = document.createElement("div");
 		elem.parentNode.insertBefore(container,elem);

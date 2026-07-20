@@ -12,16 +12,9 @@ SCRIPT.value=async function (slide, elem, code) {
 	elem.classList.add('resolved');
 
 	if (code) {
-		elem.innerHTML=(await (await Init).render('graphDiv', code)).svg
+		elem.innerHTML = (await (await Init).render('graphDiv', code)).svg
 	} else {
-		code=Apps.E(elem).query('textarea').value;
-		if (elem.value)
-			((ne)=>{
-				elem.parentNode.insertBefore(ne,elem);
-				elem.parentNode.removeChild(elem);
-				elem = ne;
-			})(document.createElement("div"));
-		elem.innerHTML = code;
+		elem.innerHTML = await slide.NS.query('data', elem).get();
 		await (await Init).run({nodes:[elem]});
 	}
 };
