@@ -848,7 +848,8 @@ class Player
 			this.bindS('Filters',new (class {
 				constructor (e) { this.E = e; }
 				set value (v) {
-					this.E.innerHTML = v.reduce((r,a) => r
+					// TODO
+					this.E.innerHTML = v.D.reduce((r,a) => r
 						+ "<div class='OR'>"
 						+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
 						+ "</div>",
