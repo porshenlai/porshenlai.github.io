@@ -212,7 +212,7 @@ const HTML_CONTROL= // {{{
 <span data-h='set:PageNumber:prev'>◤</span>
 <output data-uid='PageNumber' style='font-size:72%'></output>
 <span>
-	<span data-h='toggleOverlay:menu'>☰</span>
+	<span data-h='set:Overlay:menu'>☰</span>
 </span>
 <output data-uid='PageCount' style='font-size:72%'></output>
 <span data-h='set:PageNumber:next'>◢</span>
@@ -220,7 +220,7 @@ const HTML_CONTROL= // {{{
 const HTML_DIALOG= // {{{
 `
 <div data-uid='Dialog'>
-	<div data-h='toggleOverlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
+	<div data-h='set:Overlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
 	<section data-h='nop' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
 </div>`;	// }}}
 const HTML_ASIDE= // {{{
@@ -345,9 +345,7 @@ class _Template extends _E {
 	{	// write DOC to template Element {{{
 		const e = this.E.cloneNode(true);
 		if (e.dataset.def) e.removeAttribute('data-def');
-
 		console.assert(doc,'Document is not avalilable.');
-		console.log("PUT",typeof(doc),doc);
 		
 		(function w(e, d, nr=false) {
 			if (nr) {
@@ -571,8 +569,8 @@ class Content {
 		} else console.log(`No such key (${key}) in instance DB`);
 	}	// }}}
 
-	extendMods (mods) { // mods: [data-x="..."] || [data-xl="..."]
-		// 安裝外部模組 {{{
+	extendMods (mods) // mods: [data-x="..."] || [data-xl="..."]
+	{	// 安裝外部模組 {{{
 		Promise.all(
 			mods.reduce((R,e)=>{
 				const args=_S.splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
@@ -587,17 +585,17 @@ class Content {
 		).then(()=>false,console.log);
 	}	// }}}
 
-	find (id) { // rv: Section Element
-		return this.E.querySelector(`section:not(.disabled)#${id}`); }
+	find (id) // rv: Section Element
+	{	return this.E.querySelector(`section:not(.disabled)#${id}`); }
 
-	indexOf (id) { // rv: PageNumber-1
-		return this.PageIndex.indexOf(id instanceof Element ? id.id : id); }
+	indexOf (id) // rv: PageNumber-1
+	{	return this.PageIndex.indexOf(id instanceof Element ? id.id : id); }
 
-	get Sections () { // rv: [enabled sections]
-		return Array.from(this.E.querySelectorAll('section:not(.disabled)')); }
+	get Sections () // rv: [enabled sections]
+	{	return Array.from(this.E.querySelectorAll('section:not(.disabled)')); }
 
-	convertPageNumber (k) { // k in [number>1, id_string, Element]
-		// rv: number>1 {{{
+	convertPageNumber (k) // k in [number>1, id_string, Element]
+	{	// rv: number>1 {{{
 		if (k instanceof Element) return this.indexOf(k.id)+1;
 		if ('string' === typeof(k)) {
 			if (/^\d+$/.exec(k))
@@ -610,8 +608,8 @@ class Content {
 		return k;
 	}	// }}}
 
-	set PageNumber (v) { // v in [number>1, id_string, Element]
-		// 跳頁 {{{
+	set PageNumber (v) // v in [number>1, id_string, Element]
+	{	// 跳頁 {{{
 		let pn=undefined,force=false;
 		switch (v) {
 		case 'next':
@@ -687,28 +685,28 @@ class Content {
 		}
 	}	// }}}
 
-	get PageNumber () { // ret: number>1
-		return this.convertPageNumber(this.CurrentPage) || 1; }
+	get PageNumber () // ret: number>1
+	{	return this.convertPageNumber(this.CurrentPage) || 1; }
 
-	set PlayMode (v) { // v in [0:連續,1:滿框,2:分頁]
-		// 模式切換 {{{
+	set PlayMode (v) // v in [0:連續,1:滿框,2:分頁]
+	{	// 模式切換 {{{
 		const cl = this.E.classList;
 		cl.remove(... Array.from(cl).filter((n)=>n.startsWith('PlayMode_')));
 		cl.add(`PlayMode_${v}`);
 	}	// }}}
 
-	get PlayMode () { // ret in [0:連續,1:滿框,2:分頁]
-		// {{{
+	get PlayMode () // ret in [0:連續,1:滿框,2:分頁]
+	{	// {{{
 		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_')) || "PlayMode_";
 		return rv.substring(9);
 	}	// }}}
 
-	get CurrentPage () { return this.E.querySelector(`section:not(.disabled).current`); }
-
+	get CurrentPage ()
+	{	return this.E.querySelector(`section:not(.disabled).current`); }
 }	// class Content 
 
-class Player {
-	// Content + ...輔助工具列
+class Player
+{	// Content + ...輔助工具列
 	constructor (args) {
 		// {{{
 		const // 常數參數準備
@@ -791,7 +789,7 @@ class Player {
 				}
 				e.appendChild(((o)=>{ // [data-uid="Overlay"] -> <main <#content> <data-uid='Overlay'>>
 					o.dataset.uid='Overlay';
-					o.dataset.h='toggleOverlay:none';
+					o.dataset.h='set:Overlay:none';
 					o.innerHTML=plugins;
 					return o;
 				})(document.createElement("div")));
@@ -912,31 +910,21 @@ class Player {
 	get Filters ()		{ return this.Settings.Filters[0].value; }
 	set Controls (v)	{ this.setS('Controls', v); }
 	get Controls ()		{ return this.Settings.Controls[0].value; }
+	set Overlay (v)
+	{	// {{{
+		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
+		CL.remove('menu','dialog');
+		for (let key of ['menu','dialog']) if (key===v) CL.add(key);
+	}	// }}}
+	get Overlay ()
+	{	// {{{
+		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
+		return CL.contains('menu') ? 'menu' : CL.contains('dialog') ? 'dialog' : undefined;
+	}	// }}}
 	// }}}
 
-	__openDialog__ (caption, EH)
-		// ret: graphic context of dialog
-	{	// {{{
-		this.toggleOverlay('dialog');
-		return ((DLG)=>{
-			DLG.querySelector('div').textContent=caption||'Dialog';
-			const rv = DLG.querySelector('section');
-			while (rv.firstChild) rv.removeChild(rv.firstChild);
-			rv.removeAttribute('class');
-			rv._EH_=EH;
-			return rv;
-		})(this.GC.querySelector('[data-uid="Dialog"]'));
-	}	// }}}
-
-	set (name, value)
-		// set:SettingName:SettingValue
-	{	return this[name]=value;	}
-
-	toggleOverlay (name) {
-		const Ns=['menu','dialog'], CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
-		CL.remove(...Ns);
-		for (let key of Ns) if (key===name) CL.add(key);
-	}
+	set (name, value) // set:SettingName:SettingValue
+	{	return this[name]=value; }
 
 	nop () { }
 
@@ -966,7 +954,7 @@ class Player {
 
 	sw (TK)
 		// <class='switch' <data-case='A'> <data-case='B'>>
-	{
+	{	// {{{
 		E(E(event.target).trace('.switch'))
 		.forEach(
 			'[data-h^="sw:"]',
@@ -976,7 +964,7 @@ class Player {
 			'[data-case]',
 			(e) => e.classList[e.dataset.case === TK ? 'remove' : 'add']('hide')
 		);
-	}
+	}	// }}}
 
 	async speak (text, lang='en')
 		// speak('bonjour','fr');
@@ -1002,7 +990,15 @@ class Player {
 			VE.innerHTML=args.pop().innerHTML;
 		VE.dataset.xl = args.join(":");
 		this.Content.extendMods([VE]);
-		this.__openDialog__(caption).appendChild(VE);
+		this.Overlay='dialog';
+		((DLG)=>{
+			DLG.querySelector('div').textContent=caption||'Dialog';
+			const rv = DLG.querySelector('section');
+			while (rv.firstChild) rv.removeChild(rv.firstChild);
+			rv.removeAttribute('class');
+			// rv._EH_=EH;
+			rv.appendChild(VE);
+		})(this.GC.querySelector('[data-uid="Dialog"]'));
 	}	// }}}
 
 	go (target)
@@ -1066,12 +1062,12 @@ class Player {
 	_KH_ (evt)
 	{	// {{{
 		try {
-			if (evt.key==='ArrowLeft')
-				this.PageNumber='prev';
-			else if (evt.key==='ArrowRight')
-				this.PageNumber='next';
-			else if (evt.key==='Escape')
-				this.toggleOverlay('menu');
+			if (evt.key === 'ArrowLeft')
+				this.PageNumber = 'prev';
+			else if (evt.key === 'ArrowRight')
+				this.PageNumber = 'next';
+			else if (evt.key === 'Escape')
+				this.Overlay = 'menu';
 			else return;
 			evt.preventDefault();
 		} catch(x) { }

@@ -6,7 +6,7 @@
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="App/page.js"></script>
 <script>
-	ThisPage={
+	ThisPage={ // {{{
 		before_load: function (slide, doc) {
 			Array.from(doc.querySelectorAll('.sample')).forEach(
 				(sm)=>(sm.dataset.source=sm.innerHTML)
@@ -16,7 +16,7 @@
 		page_load: function (page) { },
 		viewsource: function (btn) {
 			try {
-				const page=Apps.queryContainer(btn, 'section'), sample=page.querySelector('.sample');
+				const page=Apps.E(btn).trace('section'), sample=page.querySelector('.sample');
 				if (sample) {
 					const output=page.querySelector('textarea');
 					output.value = sample.dataset.source || sample.innerHTML.trim();
@@ -25,7 +25,7 @@
 				btn.parentNode.querySelector('textarea').classList.toggle('hide');
 			} catch(x) { console.log(x); }
 		}
-	};
+	};	// }}}
 </script>
 <style>
 	h2 { background:rgba(255,255,255,0.7); padding:4px 12px; border-radius:6px;}
