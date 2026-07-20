@@ -306,6 +306,15 @@ class _E {
 	forEach (cs, h) {
 		this.E.matches(cs) && h(this.E);
 		Array.from(this.E.querySelectorAll(cs)).forEach(h);
+		return this;
+	}
+	replace (ce) {
+		const pe = this.E.parentNode;
+		if (!pe) throw new Error('Not in DOM tree:', this.E);
+		pe.insertBefore(ce, this.E);
+		pe.removeChild(this.E);
+		this.E=ce;
+		return this;
 	}
 }	// }}}
 function E(e) { return new _E(e); }
@@ -441,41 +450,11 @@ class _Data extends _E {
 				try { return await res.json(); } catch(x) { return await res.text(); }
 			return {"E":res.statusText};
 		}
-		res=this.E.cloneNode(true);
-		delete res.dataset.def;
+		if (this.E.firstChild) {
+			res=this.E.cloneNode(true);
+			delete res.dataset.def;
+		} else res={};
 		return res;
-	}	// }}}
-}
-
-class NSpace {
-	constructor ()
-	{	// {{{
-		this.DB = { };
-		this.CS = { template:_Template, data:_Data };
-	}	// }}}
-	install (re) // < < data-def="template:Name-A"> < data-def="data:Name-B"> >
-	{	// {{{
-		E(re).forEach('[data-def]', (e) => {
-			_S.handleArgs(e.dataset.def, (cs, key) => {
-				if (!key) return
-				this.DB[key] = new this.CS[cs](e);
-				e.parentNode.removeChild(e);
-			});
-		});
-	}	// }}}
-	query (n, e) // n: class name or variable name, e: element to find data
-	{	// {{{
-		if (n in this.CS) return new (this.CS[n])(e);
-		return this.DB[n];
-	}	// }}}
-	async put (t, d)
-	{	// {{{
-		if ("string" === typeof(t))	t = this.DB[t];
-		if (t instanceof Element)	t = new this.CS.template(t);
-		if ("string" === typeof(d))	d = this.DB[d];
-		if (d instanceof Element)	d = new this.CS.data(d);
-		let doc = await d.get(d);
-		return doc instanceof Element ? doc : await t.put(doc);
 	}	// }}}
 }
 
@@ -486,18 +465,25 @@ class Content {
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
-		this.Ns = new NSpace(); // database of Namespaces
+		this.Ns = {}; // database of Namespaces
+		this.Ns_CS = { template:_Template, data:_Data };
 		this.Is = {}; // database of Instances
 		this.Xs={
 			template:async function (slide, elem, name, buf) {
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
-				const page = E(elem).trace('section'), container = elem.parentNode;
+
 				if (!buf) buf = elem;
-				container.insertBefore(await slide.Ns.put(name,buf),elem);
-				if (elem.parentNode)
-					container.removeChild(elem);
-				slide.extendMods(Array.from(container.querySelectorAll('[data-xl]')));
+				if ("string" === typeof(buf))	buf = slide.Ns[buf];
+				if (buf instanceof Element)		buf = new slide.Ns_CS.data(buf);
+				buf = await buf.get();
+				if (!(buf instanceof Element)) {
+					if ("string" === typeof(name))	name = slide.Ns[name];
+					if (name instanceof Element)	name = new slide.Ns_CS.template(name);
+					buf = await name.put(buf);
+				}
+				E(elem).replace(buf);
+				slide.extendMods(Array.from(buf.querySelectorAll('[data-xl]')));
 			}
 		};
 		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
@@ -511,7 +497,7 @@ class Content {
 		if (ThisPage.before_load)
 			ThisPage.before_load(this, doc);
 
-		this.Ns.install(doc);
+		this.Ns_register(doc);
 
 		// 根據過濾器安裝要求的頁面
 		let ksmap={};
@@ -548,7 +534,25 @@ class Content {
 			ThisPage.after_load(this);
 	}	// }}}
 
-	Is_register (obj) {
+	Ns_register (re) // < < data-def="template:Name-A"> < data-def="data:Name-B"> >
+	{	// {{{
+		E(re).forEach('[data-def]', (e) => {
+			_S.handleArgs(e.dataset.def, (cs, key) => {
+				if (!key) return
+				this.Ns[key] = new this.Ns_CS[cs](e);
+				e.parentNode.removeChild(e);
+			});
+		});
+	}	// }}}
+
+	Ns_query (n, e) // n: class name or variable name, e: element to find data
+	{	// {{{
+		if (n in this.Ns) return this.Ns[n];
+		if (n in this.Ns_CS) return new (this.Ns_CS[n])(e);
+	}	// }}}
+
+	Is_register (obj)
+	{	// {{{
 		const cp=this.E.querySelector('section:not(.disabled).current');
 		let l=[[],[]];
 		for (let k in this.Is) l[k.startsWith(cp.id+':') ? 0 : 1].push(k);
@@ -556,7 +560,7 @@ class Content {
 		const key = cp.id+":"+l[0].length;
 		this.Is[key] = obj;
 		return key;
-	}
+	}	// }}}
 
 	Is_call (key, fn, ...args)
 	{	// call instance function {{{
@@ -712,9 +716,7 @@ class Player {
 		doc = ((content) => { // ## 準備顯示資料
 			if (!content) {
 				content = document.createElement("div");
-				Array.from(document.querySelectorAll('[data-template]'))
-					.forEach((s)=>content.appendChild(s));
-				Array.from(document.querySelectorAll('[data-data]'))
+				Array.from(document.querySelectorAll('[data-def]'))
 					.forEach((s)=>content.appendChild(s));
 				Array.from(document.querySelectorAll('section'))
 					.forEach((s)=>content.appendChild(s));
@@ -965,9 +967,15 @@ class Player {
 	sw (TK)
 		// <class='switch' <data-case='A'> <data-case='B'>>
 	{
-		E(
-			E(event.target).query('.switch')
-		).forEach((e) => e.classList[e.dataset.case === TK ? 'add' : 'remove']('hide'));
+		E(E(event.target).trace('.switch'))
+		.forEach(
+			'[data-h^="sw:"]',
+			(e) => e.classList[e.dataset.h === `sw:${TK}` ? 'add' : 'remove']('current')
+		)
+		.forEach(
+			'[data-case]',
+			(e) => e.classList[e.dataset.case === TK ? 'remove' : 'add']('hide')
+		);
 	}
 
 	async speak (text, lang='en')

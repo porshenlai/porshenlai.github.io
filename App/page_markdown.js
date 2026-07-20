@@ -13,15 +13,12 @@ SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
 	if (!code)
-		code = await slide.NS.query('data',elem).get();
-	console.log("DEBUG=====>",code);
-	if (elem.value) {
-		container = document.createElement("div");
-		elem.parentNode.insertBefore(container,elem);
-		elem.parentNode.removeChild(elem);
-		container.Editor=elem;
-	} else container = elem;
-	container.innerHTML=(await Init).parse(code);
+		code = await slide.Ns_query('data',elem).get();
+
+	Apps.E(elem).replace(await (async (e)=>{
+		e.innerHTML = (await Init).parse(code);
+		return e;
+	})(document.createElement("div")));
 };
 
 })(document.currentScript);

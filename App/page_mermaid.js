@@ -11,12 +11,17 @@ SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
 
-	if (code) {
-		elem.innerHTML = (await (await Init).render('graphDiv', code)).svg
-	} else {
+	if (!code)
+		code = await slide.Ns_query('data',elem).get();
+
+	Apps.E(elem).replace(await (async (e)=>{
+		e.innerHTML = (await (await Init).render('graphDiv', code)).svg;
+		return e;
+	})(document.createElement("div")));
+/*
 		elem.innerHTML = await slide.NS.query('data', elem).get();
 		await (await Init).run({nodes:[elem]});
-	}
+*/
 };
 
 })(document.currentScript);

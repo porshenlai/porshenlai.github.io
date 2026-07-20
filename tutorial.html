@@ -146,22 +146,22 @@
 	<div>這裡是頁尾</div>
 </section><!--}}}-->
 
-<section class='page col'><h2>互動 - 頁籤</h2><!--{{{-->
+<section class='page col switch'><h2>互動 - 頁籤</h2><!--{{{-->
 <div data-xl='template:原始碼'></div>
 <div class='sample fill'><style>
-	[data-h='tab:key'] button:not(.current) { color:silver; }
+	[data-h^="sw:"]:not(.current) { color:silver; }
 	.tabA { background:#ffe0ff; }
 	.tabB { background:#ffffe0; }
 </style>
-<div data-h='tab:頁籤名'>
+<div>
 	<!-- data-o 定義切換 TAB 的按鈕，.current 表示目前選取 -->
-	<button data-o='選項A' class='current tabA'>選項 A</button>
-	<button data-o='選項B' class='tabB'>選項 B</button>
+	<button data-h='sw:選項A' class='current tabA'>選項 A</button>
+	<button data-h='sw:選項B' class='tabB'>選項 B</button>
 </div>
 <div class='fill'>
 	<!-- data-uid 定義按鈕對應的資料區塊 -->
-	<div data-uid='頁籤名:選項A' class='tabA fill'>點擊 <em>[data-h="tab:頁籤名"] [data-o="選項A"]</em> 的元件<br/>來顯示 <em>[data-uid="頁籤名:選項A"]</em> 的區塊</div>
-	<div data-uid='頁籤名:選項B' class='hide tabB fill'>點擊 <em>[data-h="tab:頁籤名"] [data-o="選項B"]</em> 的元件<br/>來顯示 <em>[data-uid="頁籤名:選項B"]</em> 的區塊</div>
+	<div data-case='選項A' class='tabA fill'>點擊 <b>[data-h="sw:選項A"]</b> 的元件<br/>來顯示 <b>[data-case="選項A"]</b> 的區塊</div>
+	<div data-case='選項B' class='hide tabB fill'>點擊 <b>[data-h="sw:選項B"]</b> 的元件<br/>來顯示 <b>[data-case="選項B"]</b> 的區塊</div>
 </div>
 </div></section><!--}}}-->
 

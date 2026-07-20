@@ -23,7 +23,7 @@
 	}
 	@media (orientation: landscape) { .item { width:40%;max-width:46%; } }
 
-	[data-h^="tab"] [data-o]:not(.current) { color:silver; }
+	[data-h^="sw:"]:not(.current) { color:silver; }
 
 	.nvtable th { text-align:right; padding:4px 8px; white-space:nowrap; vertical-align:top; }
 	.nvtable td { text-align:left; border-bottom:1px solid black; padding:4px 8px; }
@@ -35,7 +35,7 @@
 </style>
 <main data-settings='PlayMode:1'>
 
-<div data-template='ViaHotel'>
+<div data-def='template:ViaHotel'>
 	<h2>Via Inn Nagoya Station Tsubakicho</h2>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>入住時間</th><td>2026 年 7 月 24 日（五）15:00 起</td></tr>
@@ -45,7 +45,7 @@
 	</tbody></table>
 </div>
 
-<div data-template='JREastHotel'>
+<div data-def='template:JREastHotel'>
 	<h2>JR East Hotel Mets Premier Makuhari Toyosuna</h2>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>入住時間</th><td>2026 年 7 月 26 日（日） 15:00 起</td></tr>
@@ -66,13 +66,13 @@
 </section>
 
 <section class='page col' data-ks='20260724,nagoya'><h2>7/24 &lt;Fri&gt; 名古屋</h2><!--{{{-->
-<div class='fill col'>
-<div data-h='tab:NGO' style='text-align:center;'>
-	<button data-o='A' class='current tabA'>台北 &rarr; 名古屋</button>
-	<button data-o='B' class='tabB'>機場 &rarr; 車站</button>
-	<button data-o='C' class='tabB'>名古屋</button>
+<div class='fill col switch'>
+<div style='text-align:center;'>
+	<button data-h='sw:A' class='current'>台北 &rarr; 名古屋</button>
+	<button data-h='sw:B'>機場 &rarr; 車站</button>
+	<button data-h='sw:C'>名古屋</button>
 </div>
-<div data-uid='NGO:A' class='fill'>
+<div data-case='A' class='fill'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>交通</th><td><a href='https://www.flypeach.com/tw'>Fly Peach 樂桃航空</a></td></tr>
 		<tr><th>起</th><td>
@@ -86,7 +86,7 @@
 		<tr><th>航班</th><td colspan='2'>A320Neo - MM722 (6C, 6D)</td></tr>
 	</tbody></table>
 </div>
-<div data-uid='NGO:B' class='fill hide'>
+<div data-case='B' class='fill hide'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>交通</th><td><a href='https://www.meitetsu.co.jp/eng/airport-access/index.html'>名鐵 Airport Access</a></td></tr>
 		<tr><th>起</th><td>
@@ -102,7 +102,7 @@
 		</td></tr>
 	</tbody></table>
 </div>
-<div data-uid='NGO:C' class='fill hide'>
+<div data-case='C' class='fill hide'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>目標</th><td><a href='https://www.nagoya-info.jp/zhtw/'>www.nagoya-info.jp</a></td></tr>
 		<tr><th>交通</th><td><a href='https://www.nagoya-info.jp/zhtw/useful/meguru/'>Me-guru</a></td></tr>
@@ -149,13 +149,13 @@
 </section><!--}}}-->
 
 <section class='page col' data-ks='20260706,nagoya,tokyo'><h2>7/26 &lt;Sun&gt; 新幹線</h2><!--{{{-->
-<div class='fill col'>
-<div data-h='tab:TKA' style='text-align:center;'>
-	<button data-o='A' class='current'>名古屋 &rarr; 東京</button>
-	<button data-o='B'>東京 &rarr; 幕張豐砂</button>
-	<button data-o='C'>永旺夢樂城</button>
+<div class='fill col switch'>
+<div style='text-align:center;'>
+	<button data-h='sw:A' class='current'>名古屋 &rarr; 東京</button>
+	<button data-h='sw:B'>東京 &rarr; 幕張豐砂</button>
+	<button data-h='sw:C'>永旺夢樂城</button>
 </div>
-<div class='fill' data-uid='TKA:A'>
+<div class='fill' data-case='A'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>交通</th><td><a href='https://global.jr-central.co.jp/zh-TW/'>東海道新幹線</a></td></tr>
 		<tr><th>起</th><td>
@@ -173,7 +173,7 @@
 		</td></tr>
 	</tbody></table>
 </div>
-<div class='fill hide' data-uid='TKA:B'>
+<div class='fill hide' data-case='B'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>交通</th><td><a href='https://japantravel.navitime.com/zh-tw/area/jp/railroad/00000132/'>JR 京葉線</a></td></tr>
 		<tr><th>起</th><td>
@@ -189,7 +189,7 @@
 		</td></tr>
 	</tbody></table>
 </div>
-<div class='fill hide' data-uid='TKA:C'>
+<div class='fill hide' data-case='C'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>目標</th><td><a href='https://tw.aeonmall.global/mall/makuharinewcity'>永旺夢樂城幕張新都心</a></td></tr>
 		<tr><th>時間</th><td>
@@ -202,13 +202,13 @@
 <div class='hotel' data-h='play:JR East Hotel:template:JREastHotel'>🏡 JR East Hotel Mets Premier Makuhari Toyosuna</div>
 </section><!--}}}-->
 
-<section class='page col' data-ks='20260727,tokyo,disney'><h2>7/27 &lt;Mon&gt; 迪士尼</h2><!--{{{-->
-<div data-h='tab:TKB' style='text-align:center;'>
-	<button data-o='A' class='current'>幕張豐砂 &gt; 舞濱</button>
-	<button data-o='B'>Disney Resort</button>
-	<button data-o='C'>舞濱 &gt; 幕張豐砂</button>
+<section class='page col switch' data-ks='20260727,tokyo,disney'><h2>7/27 &lt;Mon&gt; 迪士尼</h2><!--{{{-->
+<div style='text-align:center;'>
+	<button data-h='sw:A' class='current'>幕張豐砂 &gt; 舞濱</button>
+	<button data-h='sw:B'>Disney Resort</button>
+	<button data-h='sw:C'>舞濱 &gt; 幕張豐砂</button>
 </div>
-<div data-uid='TKB:A' class='fill'>
+<div data-case='A' class='fill'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>交通</th><td>JR 京葉線</td></tr>
 		<tr><th>起</th><td>
@@ -224,13 +224,13 @@
 		</td></tr>
 	</tbody></table>
 </div>
-<div data-uid='TKB:B' class='fill hide'>
+<div data-case='B' class='fill hide'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>目的地</th><td><a href='https://www.tokyodisneyresort.jp/tc/index.html'>Tokyo Disney Resort</a></td></tr>
 		<tr><th>1</th><td>Apply <a href=''>DAS</a></td></tr>
 	</tbody></table>
 </div>
-<div data-uid='TKB:C' class='fill hide'>
+<div data-case='C' class='fill hide'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>交通</th><td>JR 京葉線</td></tr>
 		<tr><th>起</th><td>
@@ -249,12 +249,12 @@
 <div class='hotel' data-h='play:JR East Hotel:template:JREastHotel'>🏡 JR East Hotel Mets Premier Makuhari Toyosuna</div>
 </section><!--}}}-->
 
-<section class='page col' data-ks='20260728,tokyo,taipei'><h2>7/28 &lt;Tue&gt; 東京</h2><!--{{{-->
-<div data-h='tab:TKC' style='text-align:center;'>
-	<button data-o='A' class='current'>幕張豐砂 &gt; 成田機場</button>
-	<button data-o='B'>東京成田 &gt; 台北</button>
+<section class='page col switch' data-ks='20260728,tokyo,taipei'><h2>7/28 &lt;Tue&gt; 東京</h2><!--{{{-->
+<div style='text-align:center'>
+	<button data-h='sw:A' class='current'>幕張豐砂 &gt; 成田機場</button>
+	<button data-h='sw:B'>東京成田 &gt; 台北</button>
 </div>
-<div data-uid='TKC:A' class='fill'>
+<div data-case='A' class='fill'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>交通</th><td>JR 京葉線</td></tr>
 		<tr><th>起</th><td>
@@ -282,7 +282,7 @@
 		</td></tr>
 	</tbody></table>
 </div>
-<div data-uid='TKC:B' class='fill hide'>
+<div data-case='B' class='fill hide'>
 	<table align='center' class='nvtable'><tbody>
 		<tr><th>交通</th><td><a href='https://www.flypeach.com/tw'>Fly Peach 樂桃航空</a></td></tr>
 		<tr><th>起</th><td>
