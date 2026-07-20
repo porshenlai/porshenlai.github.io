@@ -460,6 +460,12 @@ class KeyFilter {
 	// Format: A.B.C|D.E => (A and B and C) || (D and E) => [[A,B,C],[D,E]]
 	constructor (s) { this.D = 'string'===typeof(s) ? s.split('|').map((v) => v.split('.')) : (s||[]); }
 	toString () { return this.D.map((a)=>a.join('.')).join('|'); }
+	matches (ks)
+	{	// {{{
+		if (this.D.length > 0)
+			return this.D.reduce((r,a)=>(r || a.reduce((r,v)=>(r && (ks.indexOf(v)>=0)),true)),false);
+		else return true;
+	}	// }}}
 }
 
 class Content {
@@ -517,14 +523,10 @@ class Content {
 			E.appendChild(se);
 
 			// filtering sections
-			if (filters && (!filters.find(
-				(ss)=>ss.reduce((r,k)=>(r && (ks.indexOf(k)>=0)),true)
-			))) {
-				se.classList.add('disabled');
-			} else {
+			if (filters.matches(ks)) {
 				se.classList.remove('disabled');
 				PageIndex.push(se.id);
-			}
+			} else se.classList.add('disabled');
 			return E;
 		}, this.E);
 		this.Keywords=Object.keys(ksmap);
@@ -716,7 +718,7 @@ class Player
 	constructor (args) {
 		// {{{
 		const // 常數參數準備
-		filters = args.s ? (new KeyFilter(args.s)).D : undefined,
+		filters = new KeyFilter(args.s),
 		doc = ((content) => { // ## 準備顯示資料
 			if (!content) {
 				content = document.createElement("div");
@@ -736,7 +738,7 @@ class Player
 			Controls:[{value:""}],
 			FontScale:[{value:1.0}],
 			Keywords:[{value:[]}], // [A1,A2,A3]
-			Filters:[{value:filters||[]}], // [[A1,A2,...],[A3,A4,...],...]
+			Filters:[{value:filters}], // [[A1,A2,...],[A3,A4,...],...]
 			PageCount:[{value:0}],
 			PageNumber:[{value:0}],
 			PlayMode:[{value:2}]
