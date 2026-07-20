@@ -998,6 +998,7 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		loadStyle: loadStyle,
 		E: E,
 		S: _S,
+		Data: _Data,
 		JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
 		Player: new Player(
 			(location.search||'?').substr(1).split('&')
