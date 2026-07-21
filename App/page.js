@@ -138,30 +138,6 @@ table.std>tbody th, table.std>tbody td { background:white; }
 .orange { color:orange; }
 .purple { color:purple; }
 
-.HSelect, .HTab {
-	display: flex;
-	flex-flow: row nowrap;
-	align-items: center;
-	width: 100%;
-}
-.HSelect>[data-h],
-.HTab>[data-o] {
-	flex: 1 1 auto;
-	color:blue; text-align: center;
-	border: 1px solid blue; border-radius: 4px;
-	margin: 0 2px;
-}
-.HSelect>[data-h]:hover {
-	background: lightgrey;
-}
-.HSelect>[data-h].current {
-	color: black;
-	border-color: black;
-}
-.HTab>[data-o].current {
-	color: black;
-	border-bottom-color: transparent; 
-}
 .hide,.disabled { display:none; }
 
 [data-uid="Overlay"] {
@@ -225,14 +201,14 @@ const HTML_DIALOG= // {{{
 </div>`;	// }}}
 const HTML_ASIDE= // {{{
 `
-<aside data-h='tab:ASIDE' style='background:white;'>
-	<div class='HTab'>
-		<div data-o="TOC" class='current'>導覽</div>
-		<div data-o="Settings">設定</div>
+<aside class='switch' style='background:white;'>
+	<div class='row' style='width:100%'>
+		<div data-h="sw:TOC" class='current' style='flex:1 1 auto'>導覽</div>
+		<div data-h="sw:Settings" style='flex:1 1 auto'>設定</div>
 	</div>
 	<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
-		<nav class='tabPage' data-uid='ASIDE:TOC'></nav>
-		<div class='tabPage hide' data-uid='ASIDE:Settings'>
+		<nav class='tabPage' data-case='TOC'></nav>
+		<div class='tabPage hide' data-case='Settings'>
 			<div data-uid='Settings:PlayMode'>
 				<label>播放模式</lable>
 				<div data-uid='Switch' class='HSelect'>
@@ -862,7 +838,7 @@ class Player
 				}
 			})(A.querySelector('[data-uid="Settings:Filters"]')));
 			// ## INSTALL TABLE of CONTENTS
-			const TOC=A.querySelector('[data-uid="ASIDE:TOC"]');
+			const TOC=A.querySelector('[data-case="TOC"]');
 			TOC.innerHTML="<ol>"+this.Content.Sections.reduce((rs, sec, idx) => {
 				let t=sec.querySelector('h1') || sec.querySelector('h2');
 				if (t) {
