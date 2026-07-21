@@ -92,11 +92,16 @@ section.page { height:calc(100% - 2 * var(--base-margin)); }
 .fill { overflow-y:auto; }
 .mask { position:absolute;background-color:rgba(255,255,255,0.5); }
 
-.ncs,.zcs,.col,.row { display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;overflow:hidden; }
+.ncs,.zcs,.col,.row,.tabBar
+{ display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;overflow:hidden; }
 .col { flex-direction:column; }
 .zcs { flex-wrap:wrap;align-items:flex-start;overflow-y:auto; }
 .ncs { overflow-x:auto; }
 .col>.fill,.row>.fill { flex:1 1 auto; }
+
+.tabBar { width:100%; margin:8px; padding:8px; }
+.tabBar [data-h^="sw"] { flex:1 1 auto; background:darkblue; color:white; border-radius:8px; margin:8px; text-align:center; }
+.tabBar [data-h^="sw"].current { background:white; color:darkblue; font-weight:bolder; }
 
 .swd { flex:1 0 auto;width:80%;max-width:97%; }
 @media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
@@ -202,9 +207,9 @@ const HTML_DIALOG= // {{{
 const HTML_ASIDE= // {{{
 `
 <aside class='switch' style='background:white;'>
-	<div class='row' style='width:100%'>
-		<div data-h="sw:TOC" class='current' style='flex:1 1 auto'>導覽</div>
-		<div data-h="sw:Settings" style='flex:1 1 auto'>設定</div>
+	<div class='tabBar'>
+		<div data-h="sw:TOC" class='current'>導覽</div>
+		<div data-h="sw:Settings">設定</div>
 	</div>
 	<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
 		<nav class='tabPage' data-case='TOC'></nav>

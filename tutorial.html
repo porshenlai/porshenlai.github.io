@@ -149,20 +149,16 @@
 
 <section class='page col switch'><h2>互動 - 頁籤</h2><!--{{{-->
 <div data-xl='template:原始碼'></div>
-<div class='sample fill'><style>
-	[data-h^="sw:"]:not(.current) { color:silver; }
-	.tabA { background:#ffe0ff; }
-	.tabB { background:#ffffe0; }
-</style>
-<div>
+<div class='sample fill'>
+<div class='tabBar'>
 	<!-- data-o 定義切換 TAB 的按鈕，.current 表示目前選取 -->
-	<button data-h='sw:選項A' class='current tabA'>選項 A</button>
-	<button data-h='sw:選項B' class='tabB'>選項 B</button>
+	<button data-h='sw:選項A' class='current'>選項 A</button>
+	<button data-h='sw:選項B'>選項 B</button>
 </div>
 <div class='fill'>
 	<!-- data-uid 定義按鈕對應的資料區塊 -->
-	<div data-case='選項A' class='tabA fill'>點擊 <b>[data-h="sw:選項A"]</b> 的元件<br/>來顯示 <b>[data-case="選項A"]</b> 的區塊</div>
-	<div data-case='選項B' class='hide tabB fill'>點擊 <b>[data-h="sw:選項B"]</b> 的元件<br/>來顯示 <b>[data-case="選項B"]</b> 的區塊</div>
+	<div data-case='選項A' class='fill'>點擊 <b>[data-h="sw:選項A"]</b> 的元件<br/>來顯示 <b>[data-case="選項A"]</b> 的區塊</div>
+    :x
 </div>
 </div></section><!--}}}-->
 
