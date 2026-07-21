@@ -421,6 +421,15 @@ B -->|NO| E[比賽]
 		<div><button data-h='data:submit'></button></div>
 	</div>
 <div>
+<div data-def='data:Login'>
+	<input type='text' data-v='value:U'></input>
+	<input type='password' data-v='value:S'></input>
+	<button data-h='submit'>
+		Submit
+		<input type='hidden' data-v='value:post' value='["login.aspx?U=","U"]'></input>
+		<textarea class='hidden' data-v='value:json'>['{"P":"','U','"}']</textarea>
+	</button>
+</div>
 <div data-def='data:Query'>
 	<select data-v='value:method'>
 		<option>get</option>
