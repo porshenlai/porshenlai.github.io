@@ -373,8 +373,8 @@ class _Template extends _E {
 	async get ()
 	{	// read DOC from template Element {{{
 		let rd={};
-		(function w(e, d, nr=false) {
-			if (nr) {
+		(function w(e, d, nr=0) {
+			if (nr===2) {
 				if (e.dataset.c)
 					for (let args of e.dataset.c.split(';').filter((a)=>a))
 						((cmd, ...args) => {
@@ -393,29 +393,22 @@ class _Template extends _E {
 							}
 						})(..._S.splitArgs(args));
 			} else {
-				if (e.dataset.v||e.dataset.c) w(e, d, true);
+				if (e.dataset.v||e.dataset.c) w(e, d, 2);
 				for (let c=e.firstChild; c; c=c.nextSibling) {
 					if (c.nodeType!==1) continue;
-					w(c,d);
+					if (e.dataset.h&&nr>0) continue;
+					w(c,d,1);
 				}
 			}
 			return d;
-		})(this.E,rd);
-		console.log("DOC is ",rd);
+		})(this.E,rd,0);
 		return rd;
 	}	// }}}
 }
 
 class _Data extends _E {
-	constructor (re) { super(E(re).query('[data-def="data"]')||re); }
-	async put (doc) // doc:DOC Object
-	{	// write DOC to data source {{{
-	}	// }}}
-	async get ()
-	{	// read DOC from data Source {{{
-		const doc = await (new _Template(this.E)).get();
-		if (doc.doc) return JSON.parse(doc.doc);
-		if (doc.raw) return doc.raw;
+	static async fetch (doc)
+	{	// {{{
 		let res=undefined;
 		if (doc.post) {
 			res=await fetch(doc.post, {
@@ -425,15 +418,26 @@ class _Data extends _E {
 			});
 		}else if (doc.get) res=await fetch(doc.get);
 		if (res) {
-			if (res.ok)
-				try { return await res.json(); } catch(x) { return await res.text(); }
+			if (res.ok) try { return await res.json(); } catch(x) { return await res.text(); }
 			return {"E":res.statusText};
 		}
-		if (this.E.firstChild) {
-			res=this.E.cloneNode(true);
-			delete res.dataset.def;
-		} else res={};
-		return res;
+	}	// }}}
+
+	constructor (re) { super(E(re).query('[data-def="data"]')||re); }
+	async put (doc) // doc:DOC Object
+	{	// write DOC to data source {{{
+	}	// }}}
+	async get ()
+	{	// read DOC from data Source {{{
+		const doc = await (new _Template(this.E)).get();
+		if (doc.doc) return JSON.parse(doc.doc);
+		if (doc.raw) return doc.raw;
+		let r = await _Data.fetch(doc);
+		if ((!r) && this.E.firstChild) {
+			r=this.E.cloneNode(true);
+			delete r.dataset.def;
+		} else r={};
+		return r;
 	}	// }}}
 }
 
@@ -468,12 +472,39 @@ class Content {
 				if ("string" === typeof(buf))	buf = slide.Ns[buf];
 				if (buf instanceof Element)		buf = new slide.Ns_CS.data(buf);
 				buf = await buf.get();
-				if (!(buf instanceof Element)) {
-					if ("string" === typeof(name))	name = slide.Ns[name];
-					if (name instanceof Element)	name = new slide.Ns_CS.template(name);
-					buf = await name.put(buf);
+				// TODO how to handle the intermediate UI
+				if (buf instanceof Element) {
+					buf = await new Promise((or,oe)=>{
+						E(elem).replace(buf);
+						elem=buf;
+						elem.addEventListener('click',(evt)=>{
+							let e=E(evt.target).trace('[data-h]');
+							if (e) switch (e.dataset.h) {
+							case 'submit':
+								(async ()=>{
+									let d = await (new _Template(elem)).get(),
+										f = await (new _Template(e)).get();
+									for (let k in f)
+										f[k]=f[k].split('${').reduce((r,v)=>{
+											if (!r.length) return v;
+											let i=/([^}]+)}(.*)/.exec(v);
+											return i ? r+d[i[1]]+i[2] : r+v;
+										},"");
+									or(_Data.fetch(f));
+								})(); break;
+							}
+						});
+/*setTimeout(()=>or({"表格名稱":"標題","串列名稱":[{"項目名稱":"John","項目數值":"95"},{"項目名稱":"Sam","項目數值":"90"}]}),5000);*/
+					});
 				}
-				E(elem).replace(buf);
+				console.log("XXXXXXXXXXXXXXXXXXXXXX",buf,typeof buf);
+/*
+			await new Promise((or,oe)=>{
+			});
+*/
+				if ("string" === typeof(name))	name = slide.Ns[name];
+				if (name instanceof Element)	name = new slide.Ns_CS.template(name);
+				E(elem).replace(buf=await name.put(buf));
 				slide.extendMods(Array.from(buf.querySelectorAll('[data-xl]')));
 			}
 		};

@@ -74,6 +74,23 @@
 	</div>
 </div>
 
+<div data-def='data:test'>
+	<div>U:<input type='text' data-v='value:U' value='porshenlai'></input></div>
+	<div>S:<input type='password' data-v='value:S' value='abcd1234'></input></div>
+	<div data-h='submit'>
+		<div class='hidden'>
+			<input type='hidden' data-v='value:get' value='list_test.json?U=${U}&S=${S}'></input>
+		</div>
+		<button>送出</button>
+	</div>
+</div>
+
+<section class='page col'><h2>TEST</h2>
+<div class='fill'>
+	<div data-xl='template:列舉模板:test'></div>
+</div>
+</section>
+
 <section class='page col'>
 	<div class='h1'>pStyle Page</div>
 	<div class='h3'>the Tutorial</div>
@@ -87,7 +104,7 @@
 
 <section class='page col' data-style='bg::res/cyberpiers.jpg'><h2>樣式套用</h2>
 	<div class='fill frame' data-style='bg:white'>
-		Hello World
+		<div data-xl='template:列舉模板:test'></div>
 	</div>
 </section>
 
