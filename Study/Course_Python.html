@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
 <style>
 	.detail { color:darkgreen; margin:4px; font-style:italic; }
@@ -10,99 +11,23 @@
 </head>
 <body style='opacity:0'>
 
-<section class='page' data-ks='Python'>
-	<div class='fill col'>
+<section class='page col' data-ks='Python'><!--{{{-->
+	<div>
 		<h1>💻 程式設計</h1>
 		<h3>Computer Programming</h3>
-		<div class='frame'>
-			<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
-			<div>Department of Finance</div>
-			<div>Chihlee University of Technology</div>
-			<div class='signature'>2026, Summer</div>
-		</div>
 	</div>
-</section>
+	<div class='frame'>
+		<div>👨‍🏫 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+		<div>Department of Finance</div>
+		<div>Chihlee University of Technology</div>
+		<div class='signature'>2026, Summer</div>
+	</div>
+</section><!--}}}-->
 
-<section data-ks='Python'>
-	<h2>期末專題 / 當學年 ITS Python 通過</h2>
-	<ul>
-		<li>期間: <em> ~ 2026/5/30</em></li>
-		<li>評量方式: <em>A+</em></li>
-	</ul>
-</section>
+<section><!--{{{-->
+	<h2>Client Server - Three Tier - Services</h2>
 
-<section data-ks='Python'>
-	<h2>期末專題 / ITS Python 已持有 或 未通過</h2>
-	<ul>
-		<li>期間: <em> ~ 2026/6/19</em></li>
-		<li>專題形式: <em> 個人報告</em></li>
-		<li>工作項目: <ol>
-			<li>ITS Python 應考心得。</li>
-			<li>印象最深刻或最感到棘手的題目。</li>
-			<li>印像最深刻的考鋼(領域)。</li>
-			<li>給未來應考同學的建議。</li>
-			<li>對程式開發工作的想法。</li>
-			<li>可使用人工智慧，但報告內容應包含與 GAI 之間的完整對答歷程。</li>
-		</ol></li>
-		<li>評量方式: 
-			<table border='1' cellspacing='0' cellpadding='4' style='margin-left:32px;'><tr>
-				<th rowspan='2'>個人<br/>報告</th>
-				<th>A+</th><th>A</th><th>A-</th><th>B</th>
-			</tr><tr>
-				<th>全班 20%</th><th>全班 30%</th><th>全班 30%</th><th>全班 20%</th>
-			</tr></table>
-		</li>
-	</ul>
-</section>
-
-<section data-ks='AI'>
-	<h2>期末專題 / 未參加 ITS Python 考試</h2>
-	<ul>
-		<li>期間: <em> ~ 2026/6/15</em></li>
-
-		<li>專題形式: <em> Teamwork </em><ol>
-			<li> 1 ~ 6 人 </li>
-			<li> 組長一人 (期末專題成績加給 5 分) </li>
-		</ol></li>
-
-		<li>工作項目: <ol>
-			<li> 定義問題</li>
-			<li> 解決方案分析</li>
-			<li> 工具選擇</li>
-			<li> 不需要完成最終的系統整合，報告進行提案，提出解決方案即可。</li>
-		</ol></li>
-
-		<li>期末發表: <ol>
-			<li>以小組為單位，全組到齊後，輪流開視訊開講。</li>
-			<li>每個成員報告 90 秒，台風為評量標準。</li>
-			<li>報告內容請撰寫為投影片或報告方式上傳雲端硬碟繳交。</li>
-		</ol></li>
-
-		<li>評量方式:
-			<table border='1' cellspacing='0' cellpadding='4' style='margin-left:32px;'><tr>
-				<th rowspan='2'>小組<br/>報告<br/>60%</th>
-				<th>A+</th><th>A</th><th>A-</th><th>B</th>
-			</tr><tr>
-				<th>全班 20%</th><th>全班 30%</th><th>全班 30%</th><th>全班 20%</th>
-			</tr></tr>
-				<th rowspan='2'>期末<br/>發表<br/>20%</th>
-				<th>A+</th><th colspan='2'>A</th><th>A-</th>
-			</tr><tr>
-				<th>全班 ?%</th><th colspan='2'>全班 ?%</th><th>全班 ?%</th>
-			</tr></tr>
-				<th rowspan='2'>個人<br/>心得<br/>20%</th>
-				<th colspan='2'>A</th><th colspan='3'>B</th>
-			</tr><tr>
-				<th colspan='2'>全組 50%</th><th colspan='2'>全組 50%</th>
-			</tr></table>
-		</li>
-	</ul>
-</section>
-
-<section>
-<h2>Client Server - Three Tier - Services</h2>
-<pre data-xl='mermaid'>
-flowchart LR
+	<div data-xl='mermaid'><textarea data-v='value:raw'>flowchart LR
     %% 樣式定義
     classDef clientStyle fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
     classDef serverStyle fill:#ffe0b2,stroke:#f57c00,stroke-width:2px;
@@ -155,13 +80,12 @@ flowchart LR
     class AppServer,Microservices appStyle;
     class DB,CloudDB dbStyle;
     class IAM cloudStyle;
-</pre>
-</section>
+</textarea></div>
+</section><!--}}}-->
 
-<section>
-<h2>SaaS - PaaS - IaaS</h2>
-<pre data-xl='mermaid'>
-flowchart TD
+<section><!--{{{-->
+	<h2>SaaS - PaaS - IaaS</h2>
+	<div data-xl='mermaid'><textarea data-v='value:raw'>flowchart TD
     %% 樣式定義
     classDef vendorStyle fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
     classDef userStyle fill:#ffe0b2,stroke:#f57c00,stroke-width:2px;
@@ -212,13 +136,12 @@ flowchart TD
     %% 應用樣式
     class V_Net,V_Sto,V_Srv,V_Vir,P_Infra,P_OS,P_Mid,P_Run,S_All vendorStyle;
     class U_OS,U_Mid,U_Run,U_Dat,U_App,P_Dat,P_App userStyle;
-</pre>
-</section>
+</textarea></div>
+</section><!--}}}-->
 
-<section>
-<h2>Agile Development and Version Control</h2>
-<pre data-xl="mermaid">
-flowchart TD
+<section><!--{{{-->
+	<h2>Agile Development and Version Control</h2>
+	<div data-xl="mermaid"><textarea data-v='value:raw'>flowchart TD
     %% 樣式定義
     classDef agileStyle fill:#f1f8e9,stroke:#558b2f,stroke-width:2px;
     classDef gitStyle fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
@@ -270,7 +193,7 @@ flowchart TD
     class Main_Branch,Feature_Branch,Remote_Repo gitStyle;
     class Local_Dev,Code_Review conceptStyle;
     class Commit,Dev_Loop actionStyle;
-</pre>
+</textarea></div>
 <!--
 故事開頭：敏捷開發的誕生（上半場）
 「各位同學，想像一下我們現在要幫學校做出這套『線上考卷系統』。如果我們用舊的方法，花了一整年關在房間裡寫程式，最後拿出來給老師用，老師卻說：『這不是我要的！』，那一年就白費了。
@@ -289,7 +212,7 @@ flowchart TD
 故事結尾：循環不息
 「新功能上線後，我們在週末邀請老師來 (5) 舉辦 Demo 發表會，看看自動改考卷好不好用。隨後團隊坐下來開 (6) 反思會議，討論這兩週哪裡做得好、哪裡可以改進。接著，我們又回到清單，準備挑選下一個兩週的任務。這就是現代軟體工程師每天在經歷的『敏捷與版控』日常。」
 -->
-</section>
+</section><!--}}}-->
 
 </body>
 </html>
