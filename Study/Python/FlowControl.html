@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/App/page.js"></script>
+</head>
+<body style='opacity:0'>
+
+<style>
+.sub { font-weight:bold; background:silver; }
+.explain { font-size:70%; }
+
+.hl-kw { color:#c792ea; }
+.hl-fn { color:#82aaff; }
+.hl-str { color:#ecc48d; }
+.hl-nb	{ color:#f78c6c; }
+.hl-cm	{ color:#5c6773; font-style:italic;} 
+table small { color:#666; }
+
+.C3Tbl { display:flex;flex-flow:row wrap;gap:1vw 2%; }
+.C3Tbl [data-x^="card"] { width:32%;padding-top:32%; }
+.origin { display:flex;flex-flow:column nowrap;justify-content:center;align-items:center; }
+
+.syntax th { background:#eee; }
+.syntax .K { color:red; }
+.syntax .V { color:green; }
+
+.frame { font-size:2vw; padding-left:4px; }
+
+.rtable { border-collapse: separate; border-spacing: 8px 2px; margin:auto; }
+.rtable td { text-align:right; border-bottom:2px outset silver; padding:2px 8px; }
+.rtable th { border:2px outset silver; padding:2px 8px; }
+
+.ltable { border-collapse: separate; border-spacing: 8px 2px; margin:auto; }
+.ltable td { border-bottom:2px outset silver; padding:2px 8px; }
+.ltable th { border:2px outset silver; padding:2px 8px; }
+.ltable td>div, .ltable th>div, .rtable td>div, .rtable th>div { font-size:80%; color:green;font-weight:bold; }
+
+.QMix { display:flex;overflow:auto;align-items:center; }
+</style>
+
+<section data-ks='P_FC'><h2>條件式</h2><!--{{{-->
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+			<tr><th colspan='4' align='right' valign='middle'>
+				<span style='float:left'>IF</span>
+				<span data-h='play:IF ELSE:template:MView:&this'>
+					&lt;流程圖&gt;
+					<textarea data-v='value:doc' class='hide'>{"media":"3_IF.svg"}</textarea>
+				</span>
+			</th></tr>
+			<tr>
+				<th><span class='red'>如果</span></th>
+				<th><span class='green'>下雨</span></th>
+				<th><span class='red'>就</span></th>
+				<th><span class='green'>待在家裡睡覺</th>
+			</tr>
+			<tr>
+				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+			</tr>
+		</table>
+	</div>
+
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+			<tr><th colspan='4' align='right'>
+				<span style='float:left'>IF ... ELSE ...</span>
+				<span data-h='play:IF.ELSE.:template:MView:&this'>
+					&lt;流程圖&gt;
+					<textarea data-v='value:doc' class='hide'>{"media":"3_IFELSE.svg"}</textarea>
+				</span>
+			</th></tr>
+			<tr>
+				<th><span class='red'>如果</span></th>
+				<th><span class='green'>下雨</span></th>
+				<th><span class='red'>就</span></th>
+				<th><span class='green'>待在家裡睡覺</span></th>
+			</tr>
+			<tr>
+				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+			</tr>
+			<tr>
+				<th><span class='red'>否則</span></th>
+				<th></th>
+				<th><span class='red'>就</span></th>
+				<th><span class='green'>去逛街</span></th>
+			</tr>
+			<tr>
+				<th>else</th><th></th><th>:</th><th>shop()</th>
+			</tr>
+		</table>
+	</div>
+
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+			<tr><th colspan='4' align='right'>
+				<span style='float:left'>IF ... ELIF ... ELSE ...</span>
+				<span data-h='play:IF.ELIF.ELSE.:template:MView:&this'>
+					&lt;流程圖&gt;
+					<textarea data-v='value:doc' class='hide'>{"media":"3_IFELIFELSE.svg"}</textarea>
+				</span>
+			</th></tr>
+			<tr>
+				<th><span class='red'>如果</span></th>
+				<th><span class='green'>下雨</span></th>
+				<th><span class='red'>就</span></th>
+				<th><span class='green'>待在家裡睡覺</span></th>
+			</tr>
+			<tr>
+				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+			</tr>
+			<tr>
+				<th><span class='red'>沒有的話如果</span></th>
+				<th><span class='green'>淹大水</span></th>
+				<th><span class='red'>就</span></th>
+				<th><span class='green'>去划船</span></th>
+			</tr>
+			<tr>
+				<th>elif</th><th>(FLOODED)</th><th>:</th><th>boating()</th>
+			</tr>
+			<tr>
+				<th><span class='red'>否則</span></th>
+				<th></th>
+				<th><span class='red'>就</span></th>
+				<th><span class='green'>去逛街</span></th>
+			</tr>
+			<tr>
+				<th>else</th><th></th><th>:</th><th>shop()</th>
+			</tr>
+		</table>
+	</div>
+</section><!--}}}-->
+
+<section data-ks='P_FC'>
+	<h2>迴圈</h2><!--{{{-->
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
+			<th colspan='4' align='right'>
+				<span style='float:left'>WHILE</span>
+				<span data-h='play:WHILE:template:MView:&this'>
+					&lt;流程圖&gt;
+					<textarea data-v='value:doc' class='hide'>{"media":"3_WHILE.svg"}</textarea>
+				</span>
+			</th>
+		</tr><tr>
+			<th><span class='red'>當持續</span></th>
+			<th><span class='green'>下雨</span></th>
+			<th><span class='red'>就</span></th>
+			<th><span class='green'>待在家裡睡覺</span></th>
+		</tr><tr>
+			<th>while</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+		</tr></table>
+	</div>
+	<div class='frame'>
+		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
+			<th colspan='4' align='right'>
+				<span style='float:left'>FOR</span>
+				<span data-h='play:FOR:template:MView:&this'>
+					&lt;流程圖&gt;
+					<textarea data-v='value:doc' class='hide'>{"media":"3_FOR.svg"}</textarea>
+				</span>
+			</th>
+		</tr><tr>
+			<th><span class='red'>對</span></th>
+			<th><span class='green'>班上</span>的每個<span class='V'>同學</span></th>
+			<th><span class='red'>進行</th>
+			<th><span class='green'>調分</th>
+		</tr><tr>
+			<th>for</th><th>(STUDENT in CLASS)</th><th>:</th><th>add_score()</th>
+		</tr></table>
+	</div>
+	<ul>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC'>
+	<h2>基於條件式的迴圈控制</h2><!--{{{-->
+	<div class='frame'>
+		<table border='1' cellspacing='8' cellpadding='8' class='syntax' width='100%'><tr>
+		<td valign='top' uid='View' style='height:50vh;'><img src='3_BREAK.svg'/></td>
+		<td valign='top' uid='View' style='height:50vh;'><img src='3_CONTINUE.svg'/></td>
+		</tr></table>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:s'>
+		<div>您撰寫了下列程式碼來根據學生目前的成績 (grade) 和排名 (rank) 判斷學生的最終成績。</div>
+		<div>請問下列程式將會列印何值?</div>
+		<div class='cb frame'>
+			<div>grade = 76</di>
+			<div>rank = 3</div>
+			<div>if grade &gt; 80 and rank &gt;= 3 :</div>
+			<div class='cb'>grade += 10</div>
+			<div>elif grade &gt; 70 and rank &gt; 3 :</div>
+			<div class='cb'>grade += 5</div>
+			<div>else :</div>
+			<div class='cb'>grade -= 5</div>
+			<div>print(grade)</div>
+		</div>
+		<div class='cols'>
+			<div data-o='O'>71</div>
+			<div data-o='X'>76</div>
+			<div data-o='X'>81</div>
+			<div data-o='X'>86</div>
+		</div>
+	</diV>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在使用Python編寫數學公用程式的程式碼。</div>
+		<div>您正在撰寫一個函式來方根。此函式必須符合下列需求:<ul>
+			<li>如果 a 為非負數, 則傳回 a ** (1 / b)</li>
+			<li>如果 a 為負偶數, 則傳回 'Result is an imaginary number'</li>
+			<li>如果 a 為負奇數, 則傳回 -(-a) ** (1 / b) 請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</li>
+		</ul></div>
+		<div class='frame'><div class='cb'>
+			<div>def safe_root (a, b):</div>
+			<div class='cb'>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">if a &gt;= 0 :</div>
+					<div data-o="X">if a%2 == 0 :</div>
+					<div data-o="X">else :</div>
+					<div data-o="X">elif :</div>
+				</div>
+				<div class='cb'>answer = a ** (1 / b)</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">if a &gt;= 0 :</div>
+					<div data-o="X">if a%2 == 0 :</div>
+					<div data-o="O">else :</div>
+					<div data-o="X">elif :</div>
+				</div>
+				<div class='cb'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">if a &gt;= 0 :</div>
+						<div data-o="O">if a%2 == 0 :</div>
+						<div data-o="X">else :</div>
+						<div data-o="X">elif :</div>
+					</div>
+					<div class='cb'>answer = "Result is an imaginary number"</div>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">if a &gt;= 0 :</div>
+						<div data-o="X">if a%2 == 0 :</div>
+						<div data-o="O">else :</div>
+						<div data-o="X">elif :</div>
+					</div>
+					<div class='cb'>answer = -(-a) ** (1 / b)</div>
+				</div>
+				<div>return answer</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在撰寫一個Python程式來判斷使用者輸入的數字(num)是一位數、兩位數,還是超過兩位數(digits)。</div>
+		<div>請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</div>
+		<div class='cb frame'>
+			<div>num = int(input("Enter a number with 1 or 2 digits: "))</div>
+			<div>digits = "0"</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='O'>if num &gt; -10 and num &lt; 10 :</div>
+				<div data-o='X'>if num &gt; -100 and num &lt; 100 :</div>
+			</div>
+			<div class='cb'>digits= "1"</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='X'>if num &gt; -100 and num &lt; 100 :</div>
+				<div data-o='O'>elif num &gt; -100 and num &lt; 100 :</div>
+				<div data-o='X'>if num &gt; -10 and num &lt; 10 :</div>
+				<div data-o='X'>elif num &gt; -10 and num &lt; 10 :</div>
+			</div>
+			<div class='cb'>digits= "2"</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="O">else:</div>
+				<div data-o="X">elif:</div>
+			</div>
+			<div class='cb'>digits = "&gt;2"</div>
+			<div>print(digits + " digits.")</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在建立一個函式來根據下列規則計算入場費(admission_fee)<ul>
+			<li>未滿5歲的任何人=免費入場</li>
+			<li>年滿5歲以上的任何在校學生=10美元</li>
+			<li>5至17歲的任何非在校人士=20美元</li>
+			<li>超過17歲的任何非在校人士=50美元</li>
+		</ul></div>
+		<div>rate 代表美元價格。</div>
+		<div>請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</div>
+		<div class='cb frame'>
+			<div>def admission_fee (age, school):</div>
+			<div class='cb'>
+				<div>rate = 0</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">if age &gt;=5 and school == True :</div>
+					<div data-o="X">if age &gt;=5 and age&lt;=17 :</div>
+					<div data-o="X">if age &gt;=5 and school == False :</div>
+				</div>
+				<div class='cb'>rate = 10</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">elif age &gt;=5 and school == False :</div>
+					<div data-o="X">else age &gt;=5 and school == False :</div>
+					<div data-o="X">elif age &gt;=5 and school == True :</div>
+				</div>
+				<div class='cb'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">if age &gt;=5 and school == True :</div>
+						<div data-o="X">if age &gt;=5 and school == Fasle :</div>
+						<div data-o="O">if age &lt;=17 :</div>
+					</div>
+					<div class='cb'>rate = 20</div>
+					<div>else:</div>
+					<div class='cb'>rate = 50</div>
+				</div>
+				<div>return rate</div>
+			</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>你開發一個程式碼用來判斷整數是奇數還是偶數：</div>
+		<div class='cb frame'>
+			<div>from random import randint</div>
+			<div>num = randint(1, 100)</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">if num / 2 == 0 :</div>
+				<div data-o="O">if num % 2 == 0 :</div>
+				<div data-o="X">if num / 2 = 0 :</div>
+				<div data-o="X">if num % 2 = 0 :</div>
+			</div>
+			<div class='cb'>print("%d 是偶數" % num)</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">if num / 2 != 0 :</div>
+				<div data-o="O">else :</div>
+				<div data-o="X">if num / 2 &lt;&gt; 0 :</div>
+				<div data-o="X">elif num / 2 == 0 :</div>
+			</div>
+			<div class='cb'>print("%d 是奇數" % num)</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在為某間零售商店撰寫 Python 程式，將庫存追蹤自動化。</div>
+		<div>您的第一項工作是讀取庫存交易的檔案。該檔案包含前一天的銷售量，包括商品識別碼、價格和數量。</div>
+		<div>該檔案的資料範例如下所示:</div>
+		<pre>
+10, 200, 5
+20, 100, 1
+</pre>
+		<div>程式碼必須執行下列工作:<ol>
+			<li>讀取並列印檔案的每一行。</li>
+			<li>忽略空白行。</li>
+			<li>讀取所有行之後關閉檔案。</li>
+		</ol></div>
+		<div>您撰寫了以下這段程式碼。</div>
+		<div class='frame'><div class='cb'>
+			<div>inventory = open("inventory.txt", 'r')</div>
+			<div>eof = False</div>
+			<div>while eof == False:</div>
+			<div class='cb'>
+				<div>line = inventory.readline()</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">if line != '\n' :</div>
+					<div data-o="O">if line != '' :</div>
+					<div data-o="X">if line != None :</div>
+				</div>
+				<div class='cb'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">if line != "" :</div>
+						<div data-o="X">if line != None :</div>
+						<div data-o="O">if line != "\n" :</div>
+					</div>
+					<div class='cb'>print(line)</div>
+				</div>
+				<div>else :</div>
+				<div class='cb'>
+					<div>print ("End of file")</div>
+					<div>eof = True</div>
+					<div>inventory.close()</div>
+				</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在設計一個決策結構, 以將學生的數字成績(grade)轉換成字母成績(letter_grade)。</div>
+		<div>此程式必須依照下表的指定內容指派字母成績:</div>
+		<table align='center' border='1' cellpadding='5'><tbody>
+			<tr><th>百分比範圍</th><th>字母成績</th></tr>
+			<tr><th>90到100</th><td>A</td></tr>
+			<tr><th>80到89</th><td>B</td></tr>
+			<tr><th>70到79</th><td>C</td></tr>
+			<tr><th>65到69</th><td>D</td></tr>
+			<tr><th>0到64</th><td>F</td></tr>
+		</tbody></table>
+		<div>舉例來說,如果使用者輸入90,輸出就應該是'Your letter grade is A'。</div>
+		<div>同樣地,如果使用者輸入89,輸出就應該是'Your letter grade is B'。</div>
+
+		<div class='frame'><div class='cb'>
+			<div>grade = int(input("Enter a numeric grade"))</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">if grade &lt;= 90:</div>
+				<div data-o="O">if grade &gt;= 90:</div>
+				<div data-o="X">elif grade &gt; 90:</div>
+				<div data-o="X">elif grade &gt;= 90:</div>
+			</div>
+			<div class='cb'>letter_grade='A'</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">if grade &gt; 80:</div>
+				<div data-o="X">if grade &gt;= 80:</div>
+				<div data-o="X">elif grade &gt; 80:</div>
+				<div data-o="O">elif grade &gt;= 80:</div>
+			</div>
+			<div class='cb'>letter_grade='B'</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">if grade &gt; 70:</div>
+				<div data-o="X">if grade &gt;= 70:</div>
+				<div data-o="X">elif grade &gt; 70:</div>
+				<div data-o="O">elif grade &gt;= 70:</div>
+			</div>
+			<div class='cb'>letter_grade='C'</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">if grade &gt; 65:</div>
+				<div data-o="X">if grade &gt;= 65:</div>
+				<div data-o="X">elif grade &gt; 65:</div>
+				<div data-o="O">elif grade &gt;= 65:</div>
+			</div>
+			<div class='cb'>letter_grade='D'</div>
+			<div>else:</div>
+			<div class='cb'>letter_grade='F'</div>
+			<div>print("Your letter grade is ", letter_grade)</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>某間影音商店需要設法判斷向客戶收取的DVD租借金額。</div>
+		<div>此金額取決於客戶當天歸還DVD的時間。</div>
+		<div>此外，星期四和星期日還有特價優惠。</div>
+		<div>費用結構如下所示:<ul>
+			<li>預設費用 (cost per_day) 是每晚1.59美元。</li>
+			<li>如果客戶在晚上8點過後歸還DVD，商店會向他們額外收取一晚的費用。這筆費用儲存在ontime變數中。</li>
+			<li>星期日 (Sunday) 租借的DVD可享整個租借期間七折優惠。租借日期儲存在weekday變數中。</li>
+			<li>星期四 (Thursday) 租借的DVD可享整個租借期間五折優惠。租借天數儲存在 days_rented 變數中。</li>
+		</ul></div>
+		<div class='frame'><div class='cb'>
+			<div># DVD Rental Calculator</div>
+			<div>ontime = input("Was the video returned before 8 PM? Y or N").lower()</div>
+			<div>days_rented = int(input("How many days was the video rented?"))</div>
+			<div>weekday = input("What day was the video rented?").capitalize()</div>
+			<div>cost_per_day = 1.59</div>
+			<div class='QMix'>
+				if ontime 
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">!= "n" :</div>
+					<div data-o="O">== "n" :</div>
+					<div data-o="X">== "y" :</div>
+				</div>
+			</div>
+			<div class='cb'>days_rented +=1</div>
+			<div class='QMix'>
+				if weekday 
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">== "Sunday" :</div>
+					<div data-o="X">&gt;= "Sunday" :</div>
+					<div data-o="X">is "Sunday" :</div>
+				</div>
+			</div>
+			<div class='cb'>total = (days_rented * cost_per_day) * 0.7</div>
+			<div class='QMix'>
+				elif weekday 
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">== "Thursday" :</div>
+					<div data-o="X">&lt;="Thursday" :</div>
+					<div data-o="X">is "Thursday" :</div>
+				</div>
+			</div>
+			<div class='cb'>total = (days_rented * cost_per_day) * 0.5</div>
+			<div>else:</div>
+			<div class='cb'>total = days_rented * cost_per_day</div>
+			<div>print("Cost of the DVD rental is: $", total)</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在撰寫程式碼來根據下列準則傳回字母成績：<ul>
+			<li>變數grade會將數字成績儲存成 0 到 100 之間的整數。</li>
+			<li>90 到 100 的成績 = A。</li>
+			<li>80 到 89 的成績 = B。</li>
+			<li>70 到 79 的成績 = C。</li>
+			<li>其他所有成績都不及格。</li>
+		</ul></div>
+		<div class='frame'><div class='cb'>
+			<div class='QMix'>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">elif</div>
+					<div data-o="O">if</div>
+					<div data-o="X">for</div>
+					<div data-o="X">else</div>
+				</div>
+				grade &lt;= 100 :
+			</div>
+			<div class='cb'>
+				<div class='QMix'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">elif</div>
+						<div data-o="O">if</div>
+						<div data-o="X">for</div>
+						<div data-o="X">else</div>
+					</div>
+					grade &gt;= 90 :
+				</div>
+				<div class='cb'>print "Your grade is A."</div>
+				<div class='QMix'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="O">elif</div>
+						<div data-o="X">if</div>
+						<div data-o="X">for</div>
+						<div data-o="X">else</div>
+					</div>
+					grade &gt;= 80 :
+				</div>
+				<div class='cb'>print "Your grade is B."</div>
+				<div class='QMix'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="O">elif</div>
+						<div data-o="X">if</div>
+						<div data-o="X">for</div>
+						<div data-o="X">else</div>
+					</div>
+					grade &lt; 80
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">or</div>
+						<div data-o="O">and</div>
+						<div data-o="X">not</div>
+					</div>
+					grade &gt; 69 :
+				</div>
+				<div class='cb'>print "Your grade is C."</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">elif :</div>
+					<div data-o="X">if :</div>
+					<div data-o="X">for :</div>
+					<div data-o="O">else :</div>
+				</div> 
+				<div class='cb'>print "Your grade is failing."</div>
+			</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">elif :</div>
+				<div data-o="X">if :</div>
+				<div data-o="X">for :</div>
+				<div data-o="O">else :</div>
+			</div> 
+			<div class='cb'>print "Invalid grade entered."</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在撰寫一個函式來執行數字的安全除法。</div>
+		<div>您需要確保分母和分子會傳遞給函式,而且分母不為零。</div>
+		<div class='frame'><div class='cb'>
+			<div>def safe_divide (numerator, denominator) :</div>
+			<div class='cb'>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">if numerator is None or denominator is None:</div>
+					<div data-o="X">if numerator is None and denominator is None:</div>
+					<div data-o="X">if numerator = None or denominator = None:</div>
+					<div data-o="X">if numerator = None and denominator = None:</div>
+				</div>
+				<div class='cb'>print("A required value is missing.")</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">elif denominator == 0:</div>
+					<div data-o="X">elif denominator = 0:</div>
+					<div data-o="X">elif denominator != 0:</div>
+					<div data-o="X">elif denominator in 0:</div>
+				</div>
+				<div class='cb'>print("The denominator is zero.")</div>
+				<div>else :</div>
+				<div class='cb'>return numerator / denominator</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您為公司開發了一個Python應用程式。</div>
+		<div>您需要完成程式碼,好讓print陳述式正確。</div>
+		<div>請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</div>
+		<div class='frame'><div class='cb'>
+			<div>numList = [1, 2, 3, 4, 5]</div>
+			<div>alphaList = ["a", "b", "c", "d", "e"]</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">if numList = alphaList :</div>
+				<div data-o="O">if numList == alphaList :</div>
+				<div data-o="X">if numList += alphaList :</div>
+			</div>
+			<div class='cb'>print("The value in numList are equal to alphaList")</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="O">else :</div>
+				<div data-o="X">elif :</div>
+				<div data-o="X">elseif :</div>
+			</div>
+			<div class='cb'>print("The value in numList are not equal to alphaList")</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在建立一個Python指令碼以評估文字輸入並檢查是否有大寫和小寫。</div>
+		<div>請問您應該依序使用哪四個程式碼片段來開發解決方案?</div>
+		<div>請將四個程式碼片段按照正確順序排列。</div>
+		<div data-x='quiz:sort'>
+			<div data-o='0'>
+				<div>name = input('Enter your name: ')</div>
+			</div>
+			<div data-o='2'>
+				<div>elif name.upper() == name:</div>
+				<div class='cb'>print(name, 'is all upper case.')</div>
+			</div>
+			<div data-o='3'>
+				<div>else:</div>
+				<div class='cb'>print(name, 'is mixed case.')</div>
+			</div>
+			<div data-o='-'>
+				<div>else:</div>
+				<div class='cb'>print(name, 'is upper case.')</div>
+			</div>
+			<div data-o='1'>
+				<div>if name.lower() == name:</div>
+				<div class='cb'>print(name, 'is all lower case.')</div>
+			</div>
+			<div data-o='-'>
+				<div>else:</div>
+				<div class='cb'>print(name, 'is lower case.')</div>
+			</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:s'>
+		請問下列程式碼會列印幾行輸出?
+		<div class='frame'><div class='cb'>
+			<div>products = 2</div>
+			<div>n = 5</div>
+			<div>while (n != 0) :</div>
+			<div class='cb'>
+				<div>product *= n</div>
+				<div>print(product, n)</div>
+				<div>n -= 1</div>
+				<div>if n == 3 : break</div>
+			</div>
+		</div></div>
+		<div class='cols'>
+			<div data-o='X'>1</div>
+			<div data-o='O'>2</div>
+			<div data-o='X'>3</div>
+			<div data-o='X'>5</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在建立一套適用於小學孩童的互動式乘法表助手程式。</div>
+		<div>您需要完成一個名為times_tables的函式,以計算並顯示所有2到12的乘法表組合。</div>
+		<div class='frame'><div class='cb'>
+			<div># Displays times tables 2 - 12</div>
+			<div>def times_tables():</div>
+			<div class='cb'>
+				<div class='QMix'>
+					for col in 
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">range(13)</div>
+						<div data-o="O">range(2,13)</div>
+						<div data-o="X">range(2,12,1)</div>
+						<div data-o="X">range(12)</div>
+					</div>
+					:
+				</div>
+				<div class='cb'>
+					<div class='QMix'>
+						for row in 
+						<div data-x='quiz:s' class='QR_'>
+							<span class='HT'>點擊展開</span>
+							<div data-o="X">range(13)</div>
+							<div data-o="O">range(2,13)</div>
+							<div data-o="X">range(2,12,1)</div>
+							<div data-o="X">range(12)</div>
+						</div>
+						:
+					</div>
+					<div class='cb'>print(row * col, end = " ")</div>
+				</div>
+				<div>print()</div>
+			</div>
+			<div># main</div>
+			<div>times_tables()</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在撰寫一個 Python 程式來驗證員工識別碼</div>
+		<ul>
+			<li>識別碼的格式必須是 ddd-dd-dddd, 而且只能包含數字和虛線</li>
+			<li>如果格式正確,此程式必須列印 True</li>
+			<li>如果格式不正確,則列印 False</li>
+		</ul>
+
+		<div class='frame'><div class='cb'>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="O">employee_number =""</div>
+				<div data-o="X">employee_number ="123"</div>
+			</div>
+			<div>parts=""</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">while employee_number !=""</div>
+				<div data-o="O">while employee_number !="123"</div>
+			</div>
+			<div class='cb'>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">vaild = False</div>
+					<div data-o="X">vaild = True</div>
+				</div>
+				<div>employee_number = input("Enter employee number (ddd-dd-dddd) ('123' to quit): ")</div>
+				<div>parts = employee_number.split('-')</div>
+				<div>if len(parts) == 3:</div>
+				<div class='cb'>
+					<div>if len(parts[0]) == 3 and len(parts[1]) == 2 and len(parts[2]) == 4 :</div>
+					<div class='cb'>
+						<div>if parts[0].isdigit() and parts[1].isdigit() and parts[2].isdigit() :</div>
+						<div class='cb'>
+							<div data-x='quiz:s' class='QR_'>
+								<span class='HT'>點擊展開</span>
+								<div data-o="X">vaild = False </div>
+								<div data-o="O">vaild = True</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>print(valid)</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在撰寫程式碼以使用星號建立E字形。</div>
+		<div>您需要列印五行程式碼,其中第一行、第三行和第五行各有四個星號,而第二行和第四行各有一個星號。如下所示。</div>
+		<div>****</div><div>*</div><div>****</div><div>*</div><div>****</div>
+		<div class='frame'><div class='cb'>
+			<div>result_str=""</div>
+			<div class='QMix'>
+				for row in range(1,
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">3</div>
+					<div data-o="X">4</div>
+					<div data-o="X">5</div>
+					<div data-o="O">6</div>
+				</div>
+				) :
+			</div>
+			<div class='cb'>
+				<div class='QMix'>
+					for column in range(1,
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">3</div>
+						<div data-o="X">4</div>
+						<div data-o="O">5</div>
+						<div data-o="X">6</div>
+					</div>
+					) :
+				</div>
+				<div class='cb'>
+					<div>if (row==1 or row==3 or row==5) :</div>
+					<div class='cb'>result_str=result_str+"*"</div>
+					<div>elif column==1 :</div>
+					<div class='cb'>result_str=result_str+"*"</div>
+				</div>
+				<div>result_str=result_str+"\n"</div>
+			</div>
+			<div>print(result_str)</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在為某間線上產品配銷公司開發一個Python程式。</div>
+		<div>此程式必須逐一查看產品清單(productIdList),然後在找到特定產品識別碼時逸出。</div>
+		<div class='frame'><div class='cb'>
+			<div>productIdList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</div>
+			<div>index = 0</div>
+			<div class='QMix'>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">while</div>
+					<div data-o="X">for</div>
+					<div data-o="X">if</div>
+					<div data-o="X">break</div>
+				</div>
+				(index &lt; 10) :
+			</div>
+			<div class='cb'>
+				<div>print(productIdList[index])</div>
+				<div>if productIdList[index] == 6 :</div>
+				<div class='cb'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">while</div>
+						<div data-o="X">for</div>
+						<div data-o="X">if</div>
+						<div data-o="O">break</div>
+					</div>
+				</div>
+				<div>else :</div>
+				<div class='cb'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">continue</div>
+						<div data-o="X">break</div>
+						<div data-o="O">index += 1</div>
+						<div data-o="X">index = 1</div>
+					</div>
+				</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在建立一個Python程式,讓使用者猜測1到10之間的數字。使用者最多可以猜三次。</div>
+		<div class='frame'><div class='cb'>
+			<div>from random import randint</div>
+			<div>target = randint(1, 10)</div>
+			<div>chance = 1</div>
+			<div>print("Guess an integer from 1 to 10. You will have 3 chances. ")</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">break</div>
+				<div data-o="X">chance += 1</div>
+				<div data-o="X">chance = 2</div>
+				<div data-o="X">pass</div>
+				<div data-o="X">while chance &lt; 3</div>
+				<div data-o="X">while chance &lt; 3 :</div>
+				<div data-o="O">while chance &lt;= 3 :</div>
+			</div>
+			<div class='cb'>
+				<div>guess = int(input("Guess an integer: "))</div>
+				<div>if guess &gt; target :</div>
+				<div class='cb'>print("Guess is too high")</div>
+				<div>elif guess &lt; target :</div>
+				<div class='cb'>print("Guess is too low")</div>
+				<div>else :</div>
+				<div class='cb'>
+					<div>print("Guess is just right!")</div>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="O">break</div>
+						<div data-o="X">chance += 1</div>
+						<div data-o="X">chance = 2</div>
+						<div data-o="X">pass</div>
+						<div data-o="X">while chance &lt; 3</div>
+						<div data-o="X">while chance &lt; 3 :</div>
+						<div data-o="X">while chance &lt;= 3 :</div>
+					</div>
+				</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">break</div>
+					<div data-o="O">chance += 1</div>
+					<div data-o="X">chance = 2</div>
+					<div data-o="X">pass</div>
+					<div data-o="X">while chance &lt; 3</div>
+					<div data-o="X">while chance &lt; 3 :</div>
+					<div data-o="X">while chance &lt;= 3 :</div>
+				</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在撰寫符合下列需求的程式碼:<ul>
+			<li>允許使用者不斷輸入字詞。</li>
+			<li>輸出每個字詞的字元數。</li>
+		</ul></div>
+		<div class='frame'><div class='cb'>
+			<div>x = "Hello World"</div>
+			<div class='QMix'>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">for</div>
+					<div data-o="X">if</div>
+					<div data-o="O">while</div>
+				</div>
+				x != "QUIT" :
+			</div>
+			<div class='cb'>
+				<div>num = 0</div>
+				<div class='QMix'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="O">for</div>
+						<div data-o="X">if</div>
+						<div data-o="X">while</div>
+					</div>
+					char
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">and</div>
+						<div data-o="X">or</div>
+						<div data-o="O">in</div>
+						<div data-o="X">not</div>
+					</div>
+					x :
+				</div>
+				<div class='cb'>num += 1</div>
+				<div>print(num)</div>
+				<div>x = input("Enter a new word or QUIT to exit: ")</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>某間公司決定要發獎金給每年所得低於 150,000 美元的所有員工。</div>
+		<div>下列公式會根據基本薪資和固定獎金套用至每位員工 :</div>
+		<div class='cb'>新的薪資 = 目前薪資x103%+500美元獎金</div>
+		<div>您撰寫了程式碼,將員工薪資讀取到名為 salary_list 的變數中。</div>
+		<div>您需要完成針對每位合格員工薪資套用加薪公式的程式碼。</div>
+		<div class='frame'><div class='cb'>
+			<div># Each salary in the list is updated based on increase. Employees making</div>
+			<div># $150,000 or more will not get a raise.</div>
+			<div># Salary list is populated from employee database, code not shown.</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">for index in range(len(salary_list)+1):</div>
+				<div data-o="X">for index in range(len(salary_list)-1):</div>
+				<div data-o="O">for index in range(len(salary_list)):</div>
+				<div data-o="X">for index in salary_list:</div>
+			</div>
+			<div class='cb'>
+				<div>if salary_list[index] &gt;= 150000 :</div>
+				<div class='cb'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">exit()</div>
+						<div data-o="O">continue</div>
+						<div data-o="X">break</div>
+						<div data-o="X">end</div>
+					</div>
+				</div>
+				<div>salary_list[index] = (salary_list[index] *1.03) +500</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>某間出版公司需要設法找出他們出版物中特定字母的數目,以便保持良好的平衡。</div>
+		<div>似乎一直有讀者在抱怨字母e的使用次數過多。您需要建立一個符合需求的函式。</div>
+		<div class='frame'><div class='cb'>
+			<div># Function accepts list of words from a file</div>
+			<div>#	 and letter to search for.</div>
+			<div># Returns count of a particular letter in that list.</div>
+			<div>def count_letter(letter, word_list):</div>
+			<div class='cb'>
+				<div>count = 0</div>
+				<div class='QMix'>
+					for
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">word_list in word</div>
+						<div data-o="O">word in word_list</div>
+						<div data-o="X">word == word_list</div>
+						<div data-o="X">word is word_list</div>
+					</div>
+					:
+				</div>
+				<div class='cb'>
+					<div class='QMix'>
+						if
+						<div data-x='quiz:s' class='QR_'>
+							<span class='HT'>點擊展開</span>
+							<div data-o="X">word is letter</div>
+							<div data-o="X">letter is word</div>
+							<div data-o="X">word in letter</div>
+							<div data-o="O">letter in word</div>
+						</div>
+						:
+					</div>
+					<div class='cb'>count += 1</div>
+				</div>
+				<div>return count</div>
+			</div>
+			<div>word_list = []</div>
+			<div># word_list is populated from a file. Code not shown.</div>
+			<div>letter = input("which letter would you like to count")</div>
+			<div>letter_count = count_letter(letter, word_list)</div>
+			<div>print("There are: ", letter_count, "instances of " + letter)</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>某位同事撰寫了一個程式來輸入名稱至資料庫中。</div>
+		<div>然而,此程式卻將每個名稱中的字母前後顛倒。</div>
+		<div>您需要撰寫一個Python函式來按照正確順序輸出名稱中的字元。</div>
+		<div class='frame'><div class='cb'>
+			<div># Function reverses characters in a string.</div>
+			<div># return new string in reversed order.</div>
+			<div>def reverse_name(backward_name):</div>
+			<div class='cb'>
+				<div>forward_name = ""</div>
+				<div class='QMix'>
+					length = 
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o="X">backward_name:</div>
+						<div data-o="O">len(backward_name)-1</div>
+						<div data-o="X">range(0,len(backward_name),-1)</div>
+						<div data-o="X">range(len(backward_name)-1,-1,-1)</div>
+					</div>
+				</div>
+				<div>while length &gt;= 0:</div>
+				<div class='cb'>
+					<div class='QMix'>
+						forward_name += 
+						<div data-x='quiz:s' class='QR_'>
+							<span class='HT'>點擊展開</span>
+							<div data-o="X">backward_name[index]</div>
+							<div data-o="O">backward_name[length]</div>
+							<div data-o="X">backward_name[length+1]</div>
+							<div data-o="X">backward_name[len(backward_name)-len(forward_name)]</div>
+						</div>
+					</div>
+					<div>length = length-1</div>
+				</div>
+				<div>return forward_name</div>
+			</div>
+			<div>print(reverse_name("nohtyp"))</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您評估下列程式碼時發現錯誤。加上行號僅為參考之用。</div>
+		<div>您必須更正下列程式碼。</div>
+		<div>請評估這段程式碼,然後從每個下拉式清單中選取正確的選項以回答問題。</div>
+		<div class='iframe'><div class='cb'>
+			<div>numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</div>
+			<div>index = 0</div>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'><s>while (index &lt;10)</s> # 點擊展開</span>
+				<div data-o="O">while (index&lt;10):</div>
+				<div data-o="X">while [index&lt;10]</div>
+				<div data-o="X">while (index&lt;5)</div>
+				<div data-o="X">while [index&lt;5]</div>
+			</div>
+			<div class='cb'>
+				<div>print(numbers[index])</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'><s>if numbers(index) = 6</s> # 點擊展開</span>
+					<div data-o="X">if numbers[index]==6</div>
+					<div data-o="O">if numbers[index]==6:</div>
+					<div data-o="X">if numbers(index)=6:</div>
+					<div data-o="X">if numbers(index)!=6</div>
+				</div>
+				<div class='cb'>break</div>
+				<div>else :</div>
+				<div class='cb'>index += 1</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>某間公司要求您為造成薪資問題的部分程式碼偵錯。</div>
+		<div>他們要求您找出薪資錯誤的來源。已經宣告的變數如下:</div>
+		<div class='frame'><div class='cb'>
+			<div>employee_pay = [15000, 120000, 35000, 45000]</div>
+			<div>count = 0</div>
+			<div>sum = 0</div>
+		</div></div>
+		<div>下列程式碼有兩個錯誤需要修正 :</div>
+		<div class='cb frame'>
+			<div class='QMix'>
+				for index in range
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'><s>(0, len(employee_pay)-1):</s> # 點擊展開</span>
+					<div data-o="X">(size(employee_pay)):</div>
+					<div data-o="X">(size(employee_pay)-1):</div>
+					<div data-o="X">(len(employee_pay)+1):</div>
+					<div data-o="O">(len(employee_pay)):</div>
+				</div>
+			</div>
+			<div class='cb'>
+				<div>count += 1</div>
+				<div>sum += employee_pay[index]</div>
+			</div>
+			<div class='QMix'>
+				average = 
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'><s>sum//count</s> # 點擊展開</span>
+					<div data-o="O">sum/count</div>
+					<div data-o="X">sum**count</div>
+					<div data-o="X">sum*count</div>
+				</div>
+			</div>
+			<div>print("The total payroll is:", sum)</div>
+			<div>print("The average salary is:", average)</div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:sort'>
+		<div>您正在建置一個Python程式來顯示2到100之間的所有質數(質數是指只有該數字本身和1能整除的任何數字)。</div>
+		<div>請依序點擊適當的程式碼片段選擇與排序程式碼。</div>
+
+		<div class='cb frame'>
+			<div data-o='2'><div class='cb'><div class='cb'><div class='cb'>break</div></div></div></div>
+			<div data-o='0'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
+			<div data-o='-'><div class='cb'><div class='cb'><div class='cb'>continue</div></div></div></div>
+			<div data-o='1'><div class='cb'>for i in range(2, p):<div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div></div>
+			<div data-o='4'><div class='cb'>p = p + 1</div></div>
+			<div data-o='-'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
+			<div data-o='3'><div class='cb'>if is_prime == True:<div class='cb'>print(p)</div></div></div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		<div>您正在撰寫符合下列需求的程式碼:<ul>
+			<li>允許使用者不斷輸入字詞。</li>
+			<li>輸出每個字詞的字元數。</li>
+		</ul></div>
+		<div>請從每個下拉式清單中選取正確的選項以完成程式碼。</div>
+		<div>請注意:每一個答對的項目都能獲得部分分數。</div>
+
+		<div class='frame'><div class='cb'>
+			<div>x = 'Hello World'</div>
+			<div class='QMix'>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o='X'>for</div>
+					<div data-o='X'>if</div>
+					<div data-o='O'>while</div>
+				</div>
+				x != 'QUIT' :
+			</div>
+			<div class='cb'>
+				<div>num = 0</div>
+				<div class='QMix'>
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o='O'>for</div>
+						<div data-o='X'>if</div>
+						<div data-o='X'>while</div>
+					</div>
+					char
+					<div data-x='quiz:s' class='QR_'>
+						<span class='HT'>點擊展開</span>
+						<div data-o='X'>and</div>
+						<div data-o='X'>or</div>
+						<div data-o='O'>in</div>
+						<div data-o='X'>not</div>
+					</div>
+					x :
+				</div>
+				<div class='cb'>num += 1</div>
+				<div>print(num)</div>
+				<div>x = input('Enter a new word or QUIT to exit: ')</div>
+			</div>
+		</div></div>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC,Q_ITS'>
+	<!--{{{-->
+	<div data-x='quiz:c'>
+		您正在撰寫一個必須執行下列工作的 Python 函式：
+		<ol>
+		<li>接受清單和字串做為參數。</li>
+		<li>在清單中搜尋字串。</li>
+		<li>如果字串存在清單中，則列印一則訊息，指出找到字串，然後停止逐一查看清單。</li>
+		<li>如果字串不在清單中，則列印一則訊息，指出找不到字串。</li>
+		</ol>
+		請問您應該按什麼順序排列程式碼片段以完成此函式 ?
+		<div data-x='quiz:sort'>
+			<div data-o='0'>def search(items, term) :</div>
+			<div data-o='1'><div class='cb'>for i in range(len(items)) :</div></div>
+			<div data-o='2'><div class='cb'><div class='cb'>if items[i] == term :</div></div></div>
+			<div data-o='5'><div class='cb'><div class='cb'>else :</div></div></div>
+			<div data-o='3'><div class='cb'><div class='cb'><div class='cb'>print("{0} was found in the list.".format(term))</div></div></div></div>
+			<div data-o='6'><div class='cb'><div class='cb'><div class='cb'>print("{0} was not found in the list.".format(term))</div></div></div></div>
+			<div data-o='4'><div class='cb'><div class='cb'><div class='cb'>break</div></div></div></div>
+		</div>
+	</div>
+	<!--}}}-->
+</section>
+
+</body>
+</html>

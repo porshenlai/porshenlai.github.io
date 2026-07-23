@@ -48,6 +48,7 @@ class Quiz
 
 [data-x^="quiz:"] .cols { display:flex; flex-flow:rows nowrap; }
 [data-x^="quiz:"] .cols>div { flex:1 1 auto;text-align:center; }
+[data-x^="quiz:"] .row>div { flex:1 1 auto;text-align:center; }
 
 [data-x^="quiz:"].QRO [data-o]:not(.QS),
 [data-x^="quiz:"]:not(.QRO) .answer,

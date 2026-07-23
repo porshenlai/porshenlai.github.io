@@ -136,7 +136,11 @@ table.std>tbody th, table.std>tbody td { background:white; }
 
 .cb { white-space: nowrap; padding-left:var(--base-indent); font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
-.signature { text-align:right; font-style:italic; }
+
+.al { text-align:left; vertical-align:top; }
+.ac { text-align:center; vertical-align:middle; }
+.ar { text-align:right; vertical-align:bottom; }
+
 .black { color:black; }
 .grey { color:grey; }
 .red { color:red; }
@@ -323,6 +327,7 @@ splitArgs: function (s, d=':')
 	},[]);
 },	// }}}
 handleArgs: (s, h) => s.split(';').filter((a)=>a).forEach((a)=>h(...Apps.splitArgs(a))),
+html2DOM: (s) => (new DOMParser()).parseFromString('<html><body>'+s+'</body></html>','text/html').body.firstChild,
 
 NT:{
 template: class extends _E
@@ -485,7 +490,12 @@ class Content
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
-		this.Ns = {}; // database of Namespaces
+		this.Ns = {
+			MView: Apps.html2DOM(`<div class='fill'><div data-xl='media' class='fill'>
+	<div data-v='data:media:media'></div>
+</div></div>`)
+		}; // database of Namespaces
+
 		this.Xs={
 			template:async function (slide, elem, name, buf)
 			{	// {{{
@@ -520,7 +530,7 @@ class Content
 					});
 				}
 				if ("string" === typeof(name))	name = slide.Ns[name];
-				if (name instanceof Element)	name = new slide.Ns_CS.template(name);
+				if (name instanceof Element)	name = new Apps.NT.template(name);
 				Apps.E(elem).replace(buf=await name.put(buf||{}));
 				slide.extendMods(Array.from(buf.querySelectorAll('[data-xl]')));
 			}	// }}}

@@ -71,7 +71,7 @@ class MediaItem {
 			return new YouTubeItem(e,url.v);
 		}
 		const ext=(/.*\.([^\.]+)(\?.*)?/.exec(url)||[null,''])[1].toLowerCase();
-		switch ({jpg:"I", jpeg:"I", png:"I", gif:"I", mp4:"V", mp3:"A"}[ext]) {
+		switch ({jpg:"I", jpeg:"I", png:"I", gif:"I", svg:"I", mp4:"V", mp3:"A"}[ext]) {
 		case "I": return new ImageItem(e,url);
 		case "A": return new AudioItem(e,url);
 		case "V": return new VideoItem(e,url);
