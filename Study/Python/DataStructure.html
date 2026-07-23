@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../../App/page.js"></script>
+</head>
+<body style='opacity:0'>
+
+<style>
+.sub { font-weight:bold; background:silver; }
+.explain { font-size:70%; }
+
+.hl-kw { color:#c792ea; }
+.hl-fn { color:#82aaff; }
+.hl-str { color:#ecc48d; }
+.hl-nb	{ color:#f78c6c; }
+.hl-cm	{ color:#5c6773; font-style:italic;} 
+table small { color:#666; }
+
+.C3Tbl { display:flex;flex-flow:row wrap;gap:1vw 2%; }
+.C3Tbl [data-x^="card"] { width:32%;padding-top:32%; }
+.origin { display:flex;flex-flow:column nowrap;justify-content:center;align-items:center; }
+
+.syntax th { background:#eee; }
+.syntax .K { color:red; }
+.syntax .V { color:green; }
+
+[xlang="markdown"] table { width:80%; margin-left:auto; margin-right:auto; }
+[xlang="markdown"] table td { border:2px solid silver; padding:0px 16px; }
+
+.frame { font-size:2vw; padding-left:4px; }
+
+.rtable { border-collapse: separate; border-spacing: 8px 2px; margin:auto; }
+.rtable td { text-align:right; border-bottom:2px outset silver; padding:2px 8px; }
+.rtable th { border:2px outset silver; padding:2px 8px; }
+
+.ltable { border-collapse: separate; border-spacing: 8px 2px; margin:auto; }
+.ltable td { border-bottom:2px outset silver; padding:2px 8px; }
+.ltable th { border:2px outset silver; padding:2px 8px; }
+.ltable td>div, .ltable th>div, .rtable td>div, .rtable th>div { font-size:80%; color:green;font-weight:bold; }
+
+.al { text-align:left; }
+.ac { text-align:center; }
+.ar { text-align:right; }
+
+.black { color:black; }
+.red { color:red; }
+.green { color:green; }
+.blue { color:blue; }
+.brown { color:brown; }
+
+.QMix { display:flex;overflow:auto;align-items:center; }
+</style>
+
+<section data-ks='P_DS'><h2>Operator []</h2><!--{{{-->
+	<table class='syntax' style='margin:auto;'><tr>
+		<th><span class='green'>集合資料</span></th>
+		<th><span class='red'>[</span></th>
+		<th><span class='green'>起始位置</span></th>
+		<th><span class='red'>,</span></th>
+		<th><span class='green'>終止位置</span></th>
+		<th><span class='red'>,</span></th>
+		<th><span class='green'>步伐大小</span></th>
+		<th><span class='red'>]</span></th>
+	</tr><tr>
+		<th>修課名單</th><th></th><th>5</th><th></th><th>20</th><th></th><th>1</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單第五位同學開始，至第二十位同學前的所有同學。
+	</td></tr><tr>
+		<th colspan='8' class='blue'>間隔取值</th>
+	</tr><tr>
+		<th>修課名單</th><th></th><th>5</th><th></th><th>20</th><th></th><th>2</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單第五位同學開始，至第二十位同學前的<span class='red'>每隔一位</span>同學選取一個。
+	</td></tr><tr>
+		<th colspan='8' class='blue'>倒退取值</th>
+	</tr><tr>
+		<th>修課名單</th><th></th><th>20</th><th></th><th>5</th><th></th><th>-2</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單第二十位同學開始，<span class='red'>倒著</span>選取至第五位同學後，<span class='red'>每隔一位</span>同學選取一個。
+	</td></tr><tr>
+		<th colspan='8' class='blue'>省略步伐大小</th>
+	</tr><tr>
+		<th>修課名單</th><th></th><th>5</th><th></th><th>20</th><th></th><th>省略</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單第五位同學開始，至第二十位同學前的<span class='red'>所有同學</span>。
+	</td></tr><tr>
+		<th colspan='8' class='blue'>省略步伐大小，與起始位置</th>
+	</tr><tr>
+		<th>修課名單</th><th></th><th>省略</th><th></th><th>20</th><th></th><th>省略</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單<span class='red'>第一位</span>同學開始，至第二十位同學前的<span class='red'>所有同學</span>。
+	</td></tr><tr>
+		<th colspan='8' class='blue'>倒數第幾個</th>
+	</tr><tr>
+		<th>修課名單</th><th></th><th>-20</th><th></th><th>-5</th><th></th><th>1</th><th></th>
+	</tr><tr><td colspan='8'>
+		從修課名單<span class='red'>倒數第二十位</span>同學開始，至<span class='red'>倒數第五位</span>同學前的<span class='red'>所有同學</span>。
+	</td></tr></table>
+</section><!--}}}-->
+
+<section data-ks='P_DS'><h2>🔢 內建函數: 串列</h2><!--{{{-->
+	<table class='ltable'><thead><tr>
+		<th>函式</th><th>參數</th><th>功能</th><th>範例</th><th>結果</th>
+	</tr><tr>
+		<th class='ar'>len</th><th class='al'>(x)</th>
+		<td>取得元素個數</td>
+		<td>len([1,3,5,7])</td>
+		<td class='ac'>4</td>
+	</tr><tr>
+		<th class='ar'>sorted</th><th class='al'>( 串列 )</th>
+		<td>由小到大排序</td>
+		<td>sorted([3,1,7,5])</td>
+		<td class='ac'>[1,3,5,7]</td>
+	</tr><tr>
+		<th class='ar'>sum</th><th class='al'>( 串列 )</th>
+		<td>計算串列元素的總和</td>
+		<td>sum([1,3,5,7])</td>
+		<td class='ac'>16</td>
+	</tr></tbody></table>
+</section><!--}}}-->
+
+<section data-ks='P_DS,Q_ITS'><!--{{{ [] -->
+	<div data-x='quiz:m'>
+		<div>你為公司設計了一個 Python 應用程式，在 members 的清單中包含了 50 位會員的姓名，最後 5 名是 VIP 會員。</div>
+		<div>你需要分割清單內容顯示除了 VIP 會員以外的一般會員，你可以利用以下哪二個程式碼達成？</div>
+		<div data-o='X'>members [-5 : 0]</div>
+		<div data-o='O'>members [0 : -5]</div>
+		<div data-o='X'>members [1 : -5]</div>
+		<div data-o='O'>members [ : -5]</div>
+		<div data-o='X'>members [1 : 5]</div>
+	</div>
+</section><!--}}}-->
+
+<section data-ks='P_DS,Q_ITS'><!--{{{ [] -->
+	<div data-x='quiz:c'>
+		<div>您需要識別針對下列順序結構執行各種配量作業的結果:</div>
+		<div class='cb frame'>
+			<div>alph = 'abcdefghijklmnopqrstuvwxyz'</div>
+		</div>
+		<div class='QMix'>
+			alph[3:15] → 
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='O'>defghijklmno</div>
+				<div data-o='X'>pmjg</div>
+				<div data-o='X'>defghijklmnop</div>
+				<div data-o='X'>ponmlkjihgfe</div>
+				<div data-o='X'>dgjm</div>
+				<div data-o='X'>zwtqnkheb</div>
+			</div>
+		</div>
+		<div class='QMix'>
+			alph[3:15:3] → 
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='X'>defghijklmno</div>
+				<div data-o='X'>pmjg</div>
+				<div data-o='X'>defghijklmnop</div>
+				<div data-o='X'>ponmlkjihgfe</div>
+				<div data-o='O'>dgjm</div>
+				<div data-o='X'>zwtqnkheb</div>
+			</div>
+		</div>
+		<div class='QMix'>
+			alph[15:3:-3] → 
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='X'>defghijklmno</div>
+				<div data-o='O'>pmjg</div>
+				<div data-o='X'>defghijklmnop</div>
+				<div data-o='X'>ponmlkjihgfe</div>
+				<div data-o='X'>dgjm</div>
+				<div data-o='X'>zwtqnkheb</div>
+			</div>
+		</div>
+		<div class='QMix'>
+			alph[::-3] → 
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='X'>defghijklmno</div>
+				<div data-o='X'>pmjg</div>
+				<div data-o='X'>defghijklmnop</div>
+				<div data-o='X'>ponmlkjihgfe</div>
+				<div data-o='X'>dgjm</div>
+				<div data-o='O'>zwtqnkheb</div>
+			</div>
+		</div>
+	</div>
+</section><!--}}}-->
+
+<section data-ks='P_DS,Q_ITS'><!--{{{ [] -->
+	<div data-x='quiz:c'>
+		<div>您需要識別針對下列順序結構執行各種配量作業的結果：</div>
+		<div class='cb frame'>
+			<div>alph = 'abcdefghijklmnopqrstuvwxyz'</div>
+		</div>
+		<div class='QMix'>
+			alph[3:6] →
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='O'>def</div><div data-o='X'>abcdef</div>
+				<div data-o='X'>cde</div><div data-o='X'>defg</div>
+				<div data-o='X'>cdef</div><div data-o='X'>abcde</div>
+			</div>
+		</div>
+		<div class='QMix'>
+			alph[:6] → 
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='X'>def</div><div data-o='O'>abcdef</div>
+				<div data-o='X'>cde</div><div data-o='X'>defg</div>
+				<div data-o='X'>cdef</div><div data-o='X'>abcde</div>
+			</div>
+		</div>
+	</div>
+</section><!--}}}-->
+
+<section data-ks='P_DS,Q_ITS'><!--{{{ in -->
+	<div data-x='quiz:s'>
+		<div>在下列的程式碼中：</div>
+		<div class='frame'><div class='cb'>
+			<div>slist = ["a", "b", "c", "d", "e", "f"]</div>
+			<div>print("f" in slist)</div>
+		</div></div>
+		<div>執行後會輸出列印的內容為？</div>
+		<div class='cols'>
+			<div data-o='X'>5</div>
+			<div data-o='X'>6</div>
+			<div data-o='O'>True</div>
+			<div data-o='X'>False</div>
+		</div>
+	</div>
+</section><!--}}}-->
+
+<section data-ks='P_DS,Q_ITS'><!--{{{ is -->
+	<div data-x='quiz:c'>
+		<div>您正在為公司開發一個Python應用程式。</div>
+		<div>您撰寫了以下這段程式碼:</div>
+		<div class='frame'><div class='cb'>
+			<div>numList = [1, 2, 3, 4, 5]</div>
+			<div>alphaList = ['a', 'b', 'c', 'd', 'e']</div>
+			<div>print(numList is alphaList)</div>
+			<div>print(numList == alphaList)</div>
+			<div>numList = alphaList</div>
+			<div>print(numList is alphaList)</div>
+			<div>print(numList == alphaList)</div>
+		</div></div>
+		<div data-x='quiz:s'>
+			請問第一個print後面顯示的內容為何?
+			<div class='cols'><div data-o='X'>True</div><div data-o='O'>False</div></div>
+		</div>
+		<div data-x='quiz:s'>
+			請問第二個print後面顯示的內容為何?
+			<div class='cols'><div data-o='X'>True</div><div data-o='O'>False</div></div>
+		</div>
+		<div data-x='quiz:s'>
+			請問第三個print後面顯示的內容為何?
+			<div class='cols'><div data-o='O'>True</div><div data-o='X'>False</div></div>
+		</div>
+		<div data-x='quiz:s'>
+			請問第四個print後面顯示的內容為何?
+			<div class='cols'><div data-o='O'>True</div><div data-o='X'>False</div></div>
+		</div>
+	</div>
+</section><!--}}}-->
+
+</body>
+</html>
