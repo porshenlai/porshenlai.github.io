@@ -63,6 +63,9 @@ main>[data-uid="ControlBar"] {
 // section.fbox: force layout expand to full page
 //
 // fill cm col
+
+const ASSERT = (ta, msg) => (Array.isArray(ta) ? ta : [ta]).filter((t)=>t||console.log(msg));
+
 const CSS_CONTENT= // {{{
 `
 section {
@@ -245,29 +248,6 @@ const HTML_ASIDE= // {{{
 	</div>
 </aside>`; // }}}
 
-async function loadScript (src,attrs={})
-{	// {{{
-	const se=document.createElement("script"),
-	      rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
-	for(let key in attrs) se.setAttribute(key,attrs[key]);
-	se.src=src;
-	document.head.appendChild(se);
-	return (await rv)||se;
-}	// }}}
-
-async function loadStyle (css, ukey, container)
-{	// loadStyle (CSSText, "StylePage") {{{
-	// loadStyle (CSSText, "StyleContent", this.Content)
-	let be=undefined;
-	if (container) be=container.firstChild; else container=document.head;
-	if (!ukey || !container.querySelector(`#${ukey}`))
-		container.insertBefore(((e)=>{
-			if(ukey) e.id=ukey;
-			e.innerHTML=css;
-			return e;
-		})(document.createElement('style')), be);
-}	// }}}
-
 class _E {
 	// {{{
 	constructor (e) { this.E = e; }
@@ -298,37 +278,61 @@ class _E {
 		return this;
 	}
 }	// }}}
-function E(e) { return new _E(e); }
 
-class _S {
-	static splitArgs (s,d=':')
-	{	// {{{
-		let m=undefined, bf=[];
-		return s.split(d).reduce((r,v)=>{
-			if (m) {
-				if (v.endsWith(m)) {
-					bf.push(v.substring(0,v.length-1));
-					r.push(bf.join(d));
-					m=undefined;
-				} else bf.push(v);
-			} else if (v.startsWith('"') || v.startsWith("'")) {
-				m=v[0]
-				bf.push(v.substring(1));
-			} else r.push(v);
-			return r;
-		},[]);
-	}	// }}}
-	static handleArgs (s,h) { s.split(';').filter((a)=>a).forEach((a)=>h(..._S.splitArgs(a))); }
-}
+const Apps = {
 
-class _Template extends _E {
+JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
+loadScript: async function (src,attrs={})
+{	// {{{
+	const se=document.createElement("script"),
+	      rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
+	for(let key in attrs) se.setAttribute(key,attrs[key]);
+	se.src=src;
+	document.head.appendChild(se);
+	return (await rv)||se;
+},	// }}}
+loadStyle: async function (css, ukey, container)
+{	// loadStyle (CSSText, "StylePage") {{{
+	// loadStyle (CSSText, "StyleContent", this.Content)
+	let be=undefined;
+	if (container) be=container.firstChild; else container=document.head;
+	if (!ukey || !container.querySelector(`#${ukey}`))
+		container.insertBefore(((e)=>{
+			if(ukey) e.id=ukey;
+			e.innerHTML=css;
+			return e;
+		})(document.createElement('style')), be);
+},	// }}}
+E: (e)=>new _E(e),
+
+splitArgs: function (s, d=':')
+{	// {{{
+	let m=undefined, bf=[];
+	return s.split(d).reduce((r,v)=>{
+		if (m) {
+			if (v.endsWith(m)) {
+				bf.push(v.substring(0,v.length-1));
+				r.push(bf.join(d));
+				m=undefined;
+			} else bf.push(v);
+		} else if (v.startsWith('"') || v.startsWith("'")) {
+			m=v[0]
+			bf.push(v.substring(1));
+		} else r.push(v);
+		return r;
+	},[]);
+},	// }}}
+handleArgs: (s, h) => s.split(';').filter((a)=>a).forEach((a)=>h(...Apps.splitArgs(a))),
+
+NT:{
+template: class extends _E
+{	// {{{
 	async put (doc) // doc:DOC Object
 	{	// write DOC to template Element {{{
 		const e = this.E.cloneNode(true);
 		if (e.dataset.def) e.removeAttribute('data-def');
-		console.assert(doc,'Document is not avalilable.');
-		
-		(function w(e, d, nr=false) {
+		function w(e, d, nr=false)
+		{	// {{{
 			if (nr) {
 				if (e.dataset.c)
 					for (let args of e.dataset.c.split(';').filter((a)=>a))
@@ -348,7 +352,7 @@ class _Template extends _E {
 								})(e,e.parentNode,d[args[0]]||[]);
 								break;
 							}
-						})(..._S.splitArgs(args))
+						})(...Apps.splitArgs(args))
 				if (e.dataset.v)
 					for (let args of e.dataset.v.split(';').filter((a)=>a))
 						((cmd, a1, a2) => {
@@ -359,7 +363,7 @@ class _Template extends _E {
 								case "data": e.dataset[a1]=d[a2]; break;
 								}
 							} catch(x) { console.log(x); console.log(e,d); }
-						})(..._S.splitArgs(args));
+						})(...Apps.splitArgs(args));
 			} else {
 				if (e.dataset.v||e.dataset.c) w(e, d, true);
 				for (let c=e.firstChild; c; c=c.nextSibling) {
@@ -367,7 +371,9 @@ class _Template extends _E {
 					w(c,d);
 				}
 			}
-		})(e, doc);
+		}	// }}}
+		if (!doc) console.trace();
+		for (doc of ASSERT(doc,'template:put > document is not available')) w(e, doc);
 		return e;
 	}	// }}}
 	async get ()
@@ -382,7 +388,7 @@ class _Template extends _E {
 							case "repeat": // TODO
 								break;
 							}
-						})(..._S.splitArgs(args))
+						})(...Apps.splitArgs(args))
 				if (e.dataset.v)
 					for (let args of e.dataset.v.split(';').filter((a)=>a))
 						((cmd, a1, a2) => {
@@ -391,7 +397,7 @@ class _Template extends _E {
 							case "value": d[a1]=e.value; break;
 							case "data": d[a2]=e.dataset[a1]; break;
 							}
-						})(..._S.splitArgs(args));
+						})(...Apps.splitArgs(args));
 			} else {
 				if (e.dataset.v||e.dataset.c) w(e, d, 2);
 				for (let c=e.firstChild; c; c=c.nextSibling) {
@@ -404,9 +410,9 @@ class _Template extends _E {
 		})(this.E,rd,0);
 		return rd;
 	}	// }}}
-}
-
-class _Data extends _E {
+},	// NT.template }}}
+data: class extends _E
+{	// {{{
 	static async fetch (doc)
 	{	// {{{
 		let res=undefined;
@@ -418,31 +424,48 @@ class _Data extends _E {
 			});
 		}else if (doc.get) res=await fetch(doc.get);
 		if (res) {
-			if (res.ok) try { return await res.json(); } catch(x) { return await res.text(); }
-			return {"E":res.statusText};
+			if (res.ok) try {
+				if (res.headers.has('content-type')) {
+					switch (res.headers.get('content-type')) {
+					case 'application/json':
+						return await res.json();
+					case 'text/html':
+						return ((s)=>{
+    						const parser = new DOMParser();
+    						const doc = parser.parseFromString(s, 'text/html');
+							return doc;
+						})(await res.text());
+					default:
+						console.log(res.headers.get('content-type'));
+						return await res.text();
+					}
+				} else return await res.json();
+			} catch(x) { return await res.text(); }
+			console.log({"E":res.statusText});
 		}
 	}	// }}}
 
-	constructor (re) { super(E(re).query('[data-def="data"]')||re); }
+	constructor (re) { super(Apps.E(re).query('[data-def="data"]')||re); }
 	async put (doc) // doc:DOC Object
 	{	// write DOC to data source {{{
 	}	// }}}
 	async get ()
 	{	// read DOC from data Source {{{
-		const doc = await (new _Template(this.E)).get();
+		const doc = await (new Apps.NT.template(this.E)).get();
 		if (doc.doc) return JSON.parse(doc.doc);
 		if (doc.raw) return doc.raw;
-		let r = await _Data.fetch(doc);
-		if ((!r) && this.E.firstChild) {
+		let r = await Apps.NT.data.fetch(doc);
+		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
 			r=this.E.cloneNode(true);
 			delete r.dataset.def;
-		} else r={};
+		}
 		return r;
 	}	// }}}
-}
+}	// NT.data }}}
+},	// NameType
 
-class KeyFilter {
-	// Format: A.B.C|D.E => (A and B and C) || (D and E) => [[A,B,C],[D,E]]
+KeyFilter: class
+{	// Format: A.B.C|D.E => (A and B and C) || (D and E) => [[A,B,C],[D,E]] {{{
 	constructor (s) { this.D = 'string'===typeof(s) ? s.split('|').map((v) => v.split('.')) : (s||[]); }
 	toString () { return this.D.map((a)=>a.join('.')).join('|'); }
 	matches (ks)
@@ -451,64 +474,58 @@ class KeyFilter {
 			return this.D.reduce((r,a)=>(r || a.reduce((r,v)=>(r && (ks.indexOf(v)>=0)),true)),false);
 		else return true;
 	}	// }}}
-}
+}	// }}}
+};
+window.Apps = Object.assign(Apps, window.Apps||{});
 
-class Content {
-	// 顯示頁面管理界面 {{{
+class Content
+{	// 顯示頁面管理界面 {{{
 	constructor (e) { // e: #content 顯示區塊
 		// 顯示區塊操作物件 {{{
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
 		this.Ns = {}; // database of Namespaces
-		this.Ns_CS = { template:_Template, data:_Data };
-		this.Is = {}; // database of Instances
 		this.Xs={
-			template:async function (slide, elem, name, buf) {
+			template:async function (slide, elem, name, buf)
+			{	// {{{
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
 
 				if (!buf) buf = elem;
 				if ("string" === typeof(buf))	buf = slide.Ns[buf];
-				if (buf instanceof Element)		buf = new slide.Ns_CS.data(buf);
+				if (buf instanceof Element)		buf = new Apps.NT.data(buf);
 				buf = await buf.get();
-				// TODO how to handle the intermediate UI
 				if (buf instanceof Element) {
 					buf = await new Promise((or,oe)=>{
-						E(elem).replace(buf);
+						Apps.E(elem).replace(buf);
 						elem=buf;
 						elem.addEventListener('click',(evt)=>{
-							let e=E(evt.target).trace('[data-h]');
+							let e=Apps.E(evt.target).trace('[data-h]');
 							if (e) switch (e.dataset.h) {
 							case 'submit':
 								(async ()=>{
-									let d = await (new _Template(elem)).get(),
-										f = await (new _Template(e)).get();
+									let d = await (new Apps.NT.template(elem)).get(),
+										f = await (new Apps.NT.template(e)).get();
 									for (let k in f)
 										f[k]=f[k].split('${').reduce((r,v)=>{
 											if (!r.length) return v;
 											let i=/([^}]+)}(.*)/.exec(v);
 											return i ? r+d[i[1]]+i[2] : r+v;
 										},"");
-									or(_Data.fetch(f));
+									or(Apps.NT.data.fetch(f));
 								})(); break;
 							}
 						});
-/*setTimeout(()=>or({"表格名稱":"標題","串列名稱":[{"項目名稱":"John","項目數值":"95"},{"項目名稱":"Sam","項目數值":"90"}]}),5000);*/
 					});
 				}
-				console.log("XXXXXXXXXXXXXXXXXXXXXX",buf,typeof buf);
-/*
-			await new Promise((or,oe)=>{
-			});
-*/
 				if ("string" === typeof(name))	name = slide.Ns[name];
 				if (name instanceof Element)	name = new slide.Ns_CS.template(name);
-				E(elem).replace(buf=await name.put(buf));
+				Apps.E(elem).replace(buf=await name.put(buf||{}));
 				slide.extendMods(Array.from(buf.querySelectorAll('[data-xl]')));
-			}
+			}	// }}}
 		};
-		loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
+		Apps.loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
 	}	// }}}
 
 	install (doc, filters) { // doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
@@ -516,10 +533,17 @@ class Content {
 		// 安裝待顯示的頁面 <...section> {{{ 
 
 		// 使用者介面輸入資料前處理
-		if (ThisPage.before_load)
-			ThisPage.before_load(this, doc);
+		if (Apps.before_load)
+			Apps.before_load(this, doc);
 
-		this.Ns_register(doc);
+		// 宣告樣本與資料定義
+		Apps.E(doc).forEach('[data-def]', (e) => {
+			Apps.handleArgs(e.dataset.def, (cs, key) => {
+				if (!key) return
+				this.Ns[key] = new Apps.NT[cs](e);
+				e.parentNode.removeChild(e);
+			});
+		}); // declare template and data
 
 		// 根據過濾器安裝要求的頁面
 		let ksmap={};
@@ -548,55 +572,24 @@ class Content {
 		this.extendMods(Array.from(this.E.querySelectorAll('[data-x]')));
 
 		// 使用者介面安裝後處理
-		if (ThisPage.after_load) // after_load for Page override
-			ThisPage.after_load(this);
+		if (Apps.after_load) // after_load for Page override
+			Apps.after_load(this);
 	}	// }}}
 
-	Ns_register (re) // < < data-def="template:Name-A"> < data-def="data:Name-B"> >
-	{	// {{{
-		E(re).forEach('[data-def]', (e) => {
-			_S.handleArgs(e.dataset.def, (cs, key) => {
-				if (!key) return
-				this.Ns[key] = new this.Ns_CS[cs](e);
-				e.parentNode.removeChild(e);
-			});
-		});
-	}	// }}}
-
-	Ns_query (n, e) // n: class name or variable name, e: element to find data
+	getByName (n, e) // n: class name or variable name, e: element to find data
 	{	// {{{
 		if (n in this.Ns) return this.Ns[n];
 		if (n in this.Ns_CS) return new (this.Ns_CS[n])(e);
-	}	// }}}
-
-	Is_register (obj)
-	{	// {{{
-		const cp=this.CurPage;
-		let l=[[],[]];
-		for (let k in this.Is) l[k.startsWith(cp.id+':') ? 0 : 1].push(k);
-		l[1].forEach((k)=>delete this.Is[key]);
-		const key = cp.id+":"+l[0].length;
-		this.Is[key] = obj;
-		return key;
-	}	// }}}
-
-	Is_call (key, fn, ...args)
-	{	// call instance function {{{
-		if (key in this.Is) {
-			let obj=this.Is[key];
-			if (fn in obj) return obj[fn](...args);
-			else console.log(`No such function (${fn}) in object`);
-		} else console.log(`No such key (${key}) in instance DB`);
 	}	// }}}
 
 	extendMods (mods) // mods: [data-x="..."] || [data-xl="..."]
 	{	// 安裝外部模組 {{{
 		Promise.all(
 			mods.reduce((R,e)=>{
-				const args=_S.splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
+				const args=Apps.splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
 				if (mn) R.push((async (T, N, E)=>{
 					if (!T.Xs[N])
-						T.Xs[N] = loadScript(
+						T.Xs[N] = Apps.loadScript(
 							currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`) );
 					(await (T.Xs[N]))(T, E, ...args);
 				})(this, mn, e));
@@ -659,7 +652,7 @@ class Content {
 				if (e.tick) e.tick(false);
 			});
 			// #. Apply style check
-			E(em).forEach('[data-style]', (e) => {
+			Apps.E(em).forEach('[data-style]', (e) => {
 				((e,nvs) => { // e: Element, nvs: name-value pair of style settings
 					// apply nvs style settings to element {{{
 					if ('string' === typeof(nvs)) // nvs: na:va,nb:vb,... -> {na:va,nb:vb,...}
@@ -688,9 +681,9 @@ class Content {
 			if (history.replaceState)
 				history.replaceState(null, null, '#' + em.id);
 			else location.hash = '#' + em.id;
-			// #. Call ThisPage page_load override
-			if (!force && ThisPage.page_load)
-				ThisPage.page_load(em);
+			// #. Call Apps.page_load override
+			if (!force && Apps.page_load)
+				Apps.page_load(em);
 			// E. Trigger module extend of section loading
 			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
 			if(ms.length>0) this.extendMods(ms);
@@ -727,34 +720,36 @@ class Content {
 
 class Player
 {	// Content + ...輔助工具列 {{{
-	constructor (args) {
-		// {{{
-		const // 常數參數準備
-		filters = new KeyFilter(args.s),
-		doc = ((content) => { // ## 準備顯示資料
-			if (!content) {
-				content = document.createElement("div");
-				Array.from(document.querySelectorAll('[data-def]'))
-					.forEach((s)=>content.appendChild(s));
-				Array.from(document.querySelectorAll('section'))
-					.forEach((s)=>content.appendChild(s));
-			} else content.parentNode.removeChild(content);
-			return content;
-		})(document.querySelector('#content'));
-			
+	constructor () {
 		// ## 新增樣式
-		loadStyle(CSS_PAGE, 'CSS_PAGE');
+		Apps.loadStyle(CSS_PAGE, 'CSS_PAGE');
 
 		// ## 初始化設定變數
 		this.Settings = {
 			Controls:[{value:""}],
 			FontScale:[{value:1.0}],
 			Keywords:[{value:[]}], // [A1,A2,A3]
-			Filters:[{value:filters}], // [[A1,A2,...],[A3,A4,...],...]
+			Filters:[{value:[]}], // [[A1,A2,...],[A3,A4,...],...]
 			PageCount:[{value:0}],
 			PageNumber:[{value:0}],
 			PlayMode:[{value:2}]
 		};
+	}	// constructor
+
+	async init (args)
+	{	// init
+		const pages = await (async function _cp_ (from, docs=document.createElement("div")) {
+			let e;
+			for (e of from.querySelectorAll('[data-def]'))
+				if (e.dataset.def.indexOf(':')>0) docs.appendChild(e);
+			for (e of from.querySelectorAll('section'))
+				if (e.dataset.def==='data') {
+					for (const d of ASSERT(await (new Apps.NT.data(e)).get(),[e,'not available'])) {
+						_cp_ (d, docs);
+					}
+				} else docs.appendChild(e);
+			return docs;
+		})(document); // ## 準備成員資料
 
 		this.GC = ((e)=>{ // e: <main data-controls='aside,control'> 頁面容器
 			// 準備顯示畫面
@@ -777,15 +772,15 @@ class Player
 				e.insertBefore(c,e.firstChild);
 			}
 			// 建立頁面管理物件
+			this.Filters = new Apps.KeyFilter(args.s)
 			this.Content = new Content(c);
-			// 安裝頁面
-			this.Content.install(doc, filters);
+			this.Content.install(pages, this.Filters); // 安裝頁面
+
 			this.Keywords = this.Content.Keywords;
 			this.PageCount = this.Content.PageIndex.length;
 			this.PageNumber = location.hash ? (this.Content.indexOf(location.hash.substr(1))+1) : 1;
 			this.FontScale = this.Settings.FontScale[0].value;
 			this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
-				
 
 			((flags,plugins)=>{
 				// 安裝輔助工具 
@@ -804,7 +799,7 @@ class Player
 
 				plugins+=HTML_DIALOG;
 				if ('aside' in flags) { // 準備 目錄與設定控制列
-					loadStyle(CSS_ASIDE, 'CSS_ASIDE', e);
+					Apps.loadStyle(CSS_ASIDE, 'CSS_ASIDE', e);
 					plugins += HTML_ASIDE;
 				}
 				e.appendChild(((o)=>{ // [data-uid="Overlay"] -> <main <#content> <data-uid='Overlay'>>
@@ -860,7 +855,6 @@ class Player
 			this.bindS('Filters',new (class {
 				constructor (e) { this.E = e; }
 				set value (v) {
-					// TODO
 					this.E.innerHTML = v.D.reduce((r,a) => r
 						+ "<div class='OR'>"
 						+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
@@ -884,7 +878,7 @@ class Player
 				return rs;
 			}, "")+"</ol>";
 		})(this.GC.querySelector('[data-uid="Overlay"] aside')); // }}}
-	}	// constructor }}}
+	}	// init }}}
 
 	// Settings Utility {{{
 	setS (n, v) {
@@ -953,7 +947,7 @@ class Player
 	{	// {{{
 		console.log(fn, args);
 		try {
-			ThisPage[fn](...args);
+			Apps[fn](...args);
 		} catch(x) { console.log(x); }
 	}	// }}}
 
@@ -963,7 +957,7 @@ class Player
 	sw (TK)
 		// <class='switch' <data-case='A'> <data-case='B'>>
 	{	// {{{
-		E(E(event.target).trace('.switch'))
+		Apps.E(Apps.E(event.target).trace('.switch'))
 		.forEach(
 			'[data-h^="sw:"]',
 			(e) => e.classList[e.dataset.h === `sw:${TK}` ? 'add' : 'remove']('current')
@@ -1017,7 +1011,7 @@ class Player
 			flts.push(this.Keywords);
 			this.Filters.set(flts);
 		} else if (cmd==='run') {
-			location.replace(`?s=${(new KeyFilter(this.Filters)).toString()}`);
+			location.replace(`?s=${(new Apps.KeyFilter(this.Filters)).toString()}`);
 			location.replace(`?s=${encodeFilter(this.Filters)}`);
 		}
 	}	// }}}
@@ -1051,7 +1045,7 @@ class Player
 		try {
 			for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
 				if (e && e.dataset && e.dataset.h) {
-					let args = _S.splitArgs(e.dataset.h,':'), cmd = args.shift();
+					let args = Apps.splitArgs(e.dataset.h,':'), cmd = args.shift();
 					args = args.map((a)=>{
 						switch (a) {
 						case '&this': return e;
@@ -1093,26 +1087,17 @@ class Player
 	}	// }}}
 }	// }}}
 
-if (!window.ThisPage) ThisPage={};
-
 document.addEventListener('DOMContentLoaded', async () => { // {{{
 
-	window.Apps = {
-		loadScript: loadScript,
-		loadStyle: loadStyle,
-		E: E,
-		S: _S,
-		Data: _Data,
-		JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
-		Player: new Player(
-			(location.search||'?').substr(1).split('&')
-			.reduce((r,a) => {
-				const pa = /^([^=]+)=(.*)$/.exec(a);
-				if (pa) r[pa[1]] = pa ? decodeURIComponent(pa[2]) : true;
-				return r;
-			}, {})
-		)	// new Player
-	};
+	const
+	Args = (location.search||'?').substr(1).split('&').reduce((r,a) => {
+		const pa = /^([^=]+)=(.*)$/.exec(a);
+		if (pa) r[pa[1]] = pa ? decodeURIComponent(pa[2]) : true;
+		return r;
+	}, {});
+
+	Apps.Player = new Player();
+	await window.Apps.Player.init(Args);
 
 	document.body.addEventListener('click', (evt)=>window.Apps.Player._EH_(evt));
 	document.body.addEventListener('change', (evt)=>window.Apps.Player._EH_(evt));

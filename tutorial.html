@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
-<script src="App/page.js"></script>
 <script>
-	ThisPage={ // {{{
+	window.Apps = { // {{{
 		before_load: function (slide, doc) {
 			Array.from(doc.querySelectorAll('.sample')).forEach(
 				(sm)=>(sm.dataset.source=sm.innerHTML)
@@ -27,6 +26,7 @@
 		}
 	};	// }}}
 </script>
+<script src="App/page.js"></script>
 <style>
 	h2 { background:rgba(255,255,255,0.7); padding:4px 12px; border-radius:6px;}
 </style>
@@ -85,9 +85,18 @@
 	</div>
 </div>
 
+<div data-def='data:test2'>
+	<div data-h='submit'>
+		<div class='hidden'>
+			<input type='hidden' data-v='value:get' value='include.html'></input>
+		</div>
+		<button>送出</button>
+	</div>
+</div>
+
 <section class='page col'><h2>TEST</h2>
 <div class='fill'>
-	<div data-xl='template:列舉模板:test'></div>
+	<div data-xl='template:列舉模板:test2'></div>
 </div>
 </section>
 

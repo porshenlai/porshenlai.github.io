@@ -2,7 +2,7 @@
 
 const Init = (async () => {
 	// https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
-	await window.Apps.loadScript(window.Apps.JSPrefix+'js/mermaid.min.js');
+	await Apps.loadScript(Apps.JSPrefix+'js/mermaid.min.js');
 	mermaid.initialize({ startOnLoad: false, theme: 'default' });
 	return mermaid;
 })();
@@ -12,16 +12,14 @@ SCRIPT.value=async function (slide, elem, code) {
 	elem.classList.add('resolved');
 
 	if (!code)
-		code = await slide.Ns_query('data',elem).get();
+		code = await (new Apps.NT.data(elem)).get();
 
 	Apps.E(elem).replace(await (async (e)=>{
 		e.innerHTML = (await (await Init).render('graphDiv', code)).svg;
 		return e;
 	})(document.createElement("div")));
-/*
-		elem.innerHTML = await slide.NS.query('data', elem).get();
-		await (await Init).run({nodes:[elem]});
-*/
+	// elem.innerHTML = await slide.NS.query('data', elem).get();
+	// await (await Init).run({nodes:[elem]});
 };
 
 })(document.currentScript);
