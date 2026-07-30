@@ -85,6 +85,13 @@ class MediaItem {
 		this.LastTick=-1;
 	}	// }}}
 	tick () {}
+	getMediaURL () {
+		if (this.rbase){
+			return (
+				(rb,u)=>u.indexOf('://')>0 ? u : (rb[0] + (u.startsWith('/') ? '' : rb[1]) + u)
+			)(JSON.parse(this.rbase),this.E.dataset.media);
+		} else return this.E.dataset.media;
+	}
 	async play (ctrl) {}
 	async pause () {}
 }
@@ -169,7 +176,7 @@ class ImageItem extends MediaItem {
 			this.Size = [img.width,img.height];
 			this.scale('Contain');
 		});
-		img.src = this.E.dataset.media;
+		img.src = this.getMediaURL();
 		this.I.style.background = `url("${img.src}") no-repeat 50% 50%/contain`;
 
 		ctrl.innerHTML=`<select data-h='m:scale'>
@@ -293,12 +300,13 @@ class MediaList {
 		})(document.createEvent("Event")));
 	}	// }}}
 */
-	constructor (e) {
+	constructor (e, rb) {
 		// {{{
 		this.E = e;
 
 		// 建立播放清單
 		let list = Array.from(e.querySelectorAll('[data-media]')).map((m) => MediaItem.create(m));
+		list.forEach((e)=>e.rbase=rb);
 
 		// 建立播放界面
 		e.innerHTML=`<div class='fill' style='position:relative'>
@@ -381,10 +389,10 @@ class MediaList {
 }
 
 SCRIPT.value=async function (slide, elem) {
-
+	const rbase = slide.E.querySelector('section.current:not(.disabled)').dataset.rbase;
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
-	const ML = new MediaList(elem);
+	const ML = new MediaList(elem, rbase);
 	window.Apps.E(elem).trace('section').tick = (v) => ML.tick(v);
 };
 

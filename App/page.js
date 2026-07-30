@@ -329,6 +329,25 @@ splitArgs: function (s, d=':')
 handleArgs: (s, h) => s.split(';').filter((a)=>a).forEach((a)=>h(...Apps.splitArgs(a))),
 html2DOM: (s) => (new DOMParser()).parseFromString('<html><body>'+s+'</body></html>','text/html').body.firstChild,
 
+changeRoot: (doc, url) => {
+	// {{{
+	url = (url.indexOf('://')<0) ? ((r)=>{
+		r.pathname = url.startsWith('/') ? url : (r.pathname.replace(/[^\/]*$/,'')+url.replace(/[^\/]*$/,''));
+		return r;
+	})(URL.parse(location.href)) : URL.parse(url);
+
+	function rn (u) {
+		return u.indexOf('://')>0 ? u
+		:	this.origin + (u.startsWith('/') ? '' : url.pathname) + u
+	}
+	Array.from(doc.querySelectorAll('[src]')).forEach(
+		(e)=>e.setAttribute("src",rn(e.getAttribute("src")))
+	);
+	Array.from(doc.querySelectorAll('section')).forEach(
+		(e)=>e.dataset.rbase=JSON.stringify([url.origin,url.pathname])
+	);
+},	// change root }}}
+
 NT:{
 template: class extends _E
 {	// {{{
@@ -450,7 +469,9 @@ data: class extends _E
 		}
 	}	// }}}
 
-	constructor (re) { super(Apps.E(re).query('[data-def="data"]')||re); }
+	constructor (re) {
+		super(Apps.E(re).query('[data-def="data"]')||re);
+	}
 	async put (doc) // doc:DOC Object
 	{	// write DOC to data source {{{
 	}	// }}}
@@ -459,6 +480,7 @@ data: class extends _E
 		const doc = await (new Apps.NT.template(this.E)).get();
 		if (doc.doc) return JSON.parse(doc.doc);
 		if (doc.raw) return doc.raw;
+		this.URL = doc.post || doc.get;
 		let r = await Apps.NT.data.fetch(doc);
 		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
 			r=this.E.cloneNode(true);
@@ -754,7 +776,9 @@ class Player
 				if (e.dataset.def.indexOf(':')>0) docs.appendChild(e);
 			for (e of from.querySelectorAll('section'))
 				if (e.dataset.def==='data') {
-					for (const d of ASSERT(await (new Apps.NT.data(e)).get(),[e,'not available'])) {
+					const D = new Apps.NT.data(e);
+					for (const d of ASSERT(await D.get(),[e,'not available'])) {
+						Apps.changeRoot(d, D.URL);
 						_cp_ (d, docs);
 					}
 				} else docs.appendChild(e);

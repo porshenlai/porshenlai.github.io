@@ -3,15 +3,53 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script>
+	window.Apps = { // {{{
+		before_load: function (slide, doc) {
+			Array.from(doc.querySelectorAll('.sample')).forEach(
+				(sm)=>(sm.dataset.source=sm.innerHTML)
+			);
+		},
+		after_load: function (slide) { },
+		page_load: function (page) { },
+		viewsource: function (btn) {
+			try {
+				const page=Apps.E(btn).trace('section'), sample=page.querySelector('.sample');
+				if (sample) {
+					const output=page.querySelector('textarea');
+					output.value = sample.dataset.source || sample.innerHTML.trim();
+					output.setAttribute('rows',((n)=>n>15?15:n)(output.value.split('\n').length+3));
+				}
+				btn.parentNode.querySelector('textarea').classList.toggle('hide');
+			} catch(x) { console.log(x); }
+		}
+	};	// }}}
+</script>
 <script src="../App/page.js"></script>
 <style>
-	.CAT { color:brown; font-weight:bolder; font-size:120%; }
-	.QMix { display:flex;overflow:auto;align-items:center; }
+	h2 { background:rgba(255,255,255,0.7); padding:4px 12px; border-radius:6px;}
 </style>
+<title>The Test of Include Function of Page</title>
 </head>
-<body style='opacity:0'>
-<section>
-	<h1 data-h='speak:&text'>Hello World</h1>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>Inclusion Test</div>
+		<div class='h3'>pStyle Page</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
 </section>
-</body>
+
+<section data-def='data'>
+	<input type='hidden' data-v='value:get' value="Python/FlowControl.html"></input>
+</section>
+
+</div></main></body>
 </html>
