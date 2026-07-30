@@ -432,38 +432,9 @@ B -->|NO| E[比賽]
 </div>
 </section><!--}}}-->
 
-<div data-def='data:JSONGet'>
-	<input data-v='value:get' value='list_test.json'></input>
-</div>
-<div data-def='data:JSONPost'>
-	<input data-v='value:post' value='api.aspx'></input>
-	<textarea data-v='value:payload'>{"A":123,"B":456}</textarea>
-</div>
-<div data-def='data:UserInfo'>
-	<input data-v='value:get' value='porshenlai/userinfo.json'></input>
-	<div data-case='AuthFailed'>
-		<div>User:<input type='text'></input></div>
-		<div>Pass:<input type='password'></input></div>
-		<div><button data-h='data:submit'></button></div>
-	</div>
-<div>
-<div data-def='data:Login'>
-	<input type='text' data-v='value:U'></input>
-	<input type='password' data-v='value:S'></input>
-	<button data-h='submit'>
-		Submit
-		<input type='hidden' data-v='value:post' value='["login.aspx?U=","U"]'></input>
-		<textarea class='hidden' data-v='value:json'>['{"P":"','U','"}']</textarea>
-	</button>
-</div>
-<div data-def='data:Query'>
-	<select data-v='value:method'>
-		<option>get</option>
-		<option>post</option>
-	</select>
-	<input data-v='value:url' value='list_test.json'></input>
-	<button data-h='data:submit'>Submit</button>
-</div>
+<section data-def='data'>
+	<input data-v='value:get' value='tutorial_embed.html'></input>
+</section>
 
 <section class='page col'><h2>資料來源 - TEST</h2><!--{{{-->
 <div data-xl='template:原始碼'></div>
@@ -476,7 +447,7 @@ B -->|NO| E[比賽]
 </div>
 </section><!--}}}-->
 
-<section class='page'><h2 style='text-align:center;'>管道</h2><!--{{{-->
+<section class='page col'><h2>管道</h2><!--{{{-->
 <style>
 	.ArchMap td { text-align:center; vertical-align:middle; }
 	.ArchMap td.FB { border:1px solid black; }
@@ -509,6 +480,39 @@ B -->|NO| E[比賽]
 	</tbody>
 </table>
 </section><!--}}}-->
+
+<div data-def='data:JSONGet'>
+	<input data-v='value:get' value='list_test.json'></input>
+</div>
+<div data-def='data:JSONPost'>
+	<input data-v='value:post' value='api.aspx'></input>
+	<textarea data-v='value:payload'>{"A":123,"B":456}</textarea>
+</div>
+<div data-def='data:UserInfo'>
+	<input data-v='value:get' value='porshenlai/userinfo.json'></input>
+	<div data-case='AuthFailed'>
+		<div>User:<input type='text'></input></div>
+		<div>Pass:<input type='password'></input></div>
+		<div><button data-h='data:submit'></button></div>
+	</div>
+<div>
+<div data-def='data:Login'>
+	<input type='text' data-v='value:U'></input>
+	<input type='password' data-v='value:S'></input>
+	<button data-h='submit'>
+		Submit
+		<input type='hidden' data-v='value:post' value='["login.aspx?U=","U"]'></input>
+		<textarea class='hidden' data-v='value:json'>['{"P":"','U','"}']</textarea>
+	</button>
+</div>
+<div data-def='data:Query'>
+	<select data-v='value:method'>
+		<option>get</option>
+		<option>post</option>
+	</select>
+	<input data-v='value:url' value='list_test.json'></input>
+	<button data-h='data:submit'>Submit</button>
+</div>
 
 </div></main></body>
 </html>
