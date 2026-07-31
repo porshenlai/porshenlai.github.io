@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title></title>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<div data-def='data:Info'><textarea type='hidden' data-v='value:doc'>{
+"科目名稱":"金融應用程式設計",
+"授課教師":["賴柏伸"],
+"學分":"選修 (2)",
+"開課系科":"財務金融系-日四技-金二A",
+"開課教室":"E62",
+"開課時間":"一 (13:20-15:10)",
+"行事曆":{
+	"1":"SDGs 與金融應用程式",
+	"2":"ISMS 資訊安全管理",
+	"3":"ISMS 資訊安全管理",
+	"4":"CMoney",
+	"5":"CMoney",
+	"6":"XQ",
+	"7":"XQ",
+	"8":"Excel",
+	"9":"Excel",
+	"10":"期中考",
+	"11":"GitHub 與敏捷開發",
+	"12":"使用者故事與使用者體驗",
+	"13":"Power BI",
+	"14":"Power BI",
+	"15":"Pandas",
+	"16":"Pandas",
+	"17":"期末專題發表",
+	"18":"期末專題線上互評"
+},
+"教材課本":"自編教材",
+"授課方式":"課堂教學",
+"是否為全外語教學":"否",
+"輔導證照":[],
+"輔導競賽":[],
+"業師協同教學":"否",
+"是否需要申請TA":"否",
+"教學是否應用IRS":"是",
+"是否為創新創業課程":"是",
+"課程是否使用程式語言":"是",
+"是否為STEM課程":"是",
+"是否使用AI輔助教學":["Gemini"],
+"SDGs永續課程":["SDG 8 合適的工作及經濟成長","SDG 9 工業化、創新及基礎建設"],
+"成績比率": {
+	"平時":"50 % (多元彈性學習 10%)",
+	"期中":"25 % (上機測驗)",
+	"期末":"25 % (專題報告)"
+},
+"備註一":"Google Classroom",
+"聯絡方式":{
+	"位置":"管理資訊組",
+	"電話":"(02)2257-6167 轉 1486",
+	"E-Mail":"porshenlai@gm.chihlee.edu.tw"
+},
+"課程簡介":["本課程包含兩大主題，1) 金融應用的設計需求，與 2) 金融應用程式的使用介紹。第一主題，將以資訊安全的內容為軸心，教導同學資訊安全系統管理與技術的知識。第二主題將介紹常見的數個金融應用程式，讓同學了解金融應用程式的設計體驗與使用方法。"],
+"Brief Introduction":["Two major topics, 1) Security of information systems and 2) the introduction to several popular financial applications, are included in this course. Students will learn information security related knowledge. The second topic will be running based on trials on several popular financial applications. Students have to learn how to use them and realize the design consideration of these Applications."],
+"關鍵字":["Financial Application","Information Security","Programming Python","Web Development"]
+}</textarea></div>
+
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>金融應用程式</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程資訊</h2>
+	<table align='center' class='nvtable' width='95%'><tbody>
+		<tr><th>科目名稱:</th><td data-v='text:科目名稱'></td></tr>
+		<tr><th>學分:</th><td data-v='text:學分'></td></tr>
+		<tr><th>授課教師:</th><td data-v='text:授課教師'></td></tr>
+		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
+		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
+		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
+		<tr><th>教材課本:</th><td data-v='text:教材課本'></td></tr>
+		<tr><th>輔導證照:</th><td>
+			<div data-v='text:輔導證照'></div>
+		</td></tr>
+		<tr><th>輔導競賽:</th><td>
+			<div data-v='text:輔導競賽'></div>
+		</td></tr>
+		<tr><th>成績比率:</th><td>
+			<div data-c='foreach:成績比率'>
+				<span data-v='text:_k_'></span>
+				<span data-v='text:_v_'></span>
+			</div>
+		</td></tr>
+	</tbody></table>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程簡介</h2>
+	<div class='frame'>
+		<p data-c='foreach:課程簡介' data-v='text'></p>
+	</div>
+	<div class='frame'>
+		<p data-c='foreach:Brief Introduction' data-v='text'></p>
+	</div>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程規劃</h2>
+	<table align='center' class='nvtable' width='95%'><tbody>
+		<tr data-c='foreach:行事曆'><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
+	</tbody></table>
+</section>
+
+</div></main></body>
+</html>

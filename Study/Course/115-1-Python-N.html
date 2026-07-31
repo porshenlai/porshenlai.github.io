@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title></title>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<div data-def='data:Info'><textarea type='hidden' data-v='value:doc'>{
+"科目名稱":"計算邏輯與程式應用",
+"授課教師":["賴柏伸"],
+"學分":"必修 (2)",
+"開課系科":"財務金融系-夜四技-夜金一A",
+"開課教室":"E62",
+"開課時間":"一 (18:20-19:55)",
+"行事曆":{
+	"1":"運算思維與程式設計 (SDGs主題週）",
+	"2":"Python 開發環境與終端機的輸入與輸出",
+	"3":"常數，變數與運算式",
+	"4":"指定運算式與數學運算式",
+	"5":"比較運算式與邏輯運算式",
+	"6":"條件判段式與迴圈",
+	"7":"序列與字典",
+	"8":"函數",
+	"9":"檔案 I/O",
+	"10":"ITS Python 模擬考 (期中考週)",
+	"11":"類別與模組",
+	"12":"Random, DateTime 等常用模組",
+	"13":"List, Tuple, Set, Dictionary: 可變與不可便",
+	"14":"貸款計算與計程車費率試算示範",
+	"15":"猜數字遊戲與臺鐵時刻表示範",
+	"16":"早餐店訂餐示範",
+	"17":"期末專題發表 (期末考週)",
+	"18":"線上期末專題互評"
+},
+"教材課本":"Python零基礎入門班 (ISBN:9786264253352)",
+"授課方式":"課堂教學",
+"是否為全外語教學":"否",
+"輔導證照":["ITS Python"],
+"輔導競賽":[],
+"業師協同教學":"否",
+"教學是否應用IRS":"是",
+"是否為創新創業課程":"是",
+"課程是否使用程式語言":"是",
+"是否為 STEM 課程":"是",
+"是否使用AI輔助教學":["Gemini"],
+"SDGs 永續課程":["SDG 8 合適的工作及經濟成長","SDG 9 工業化、創新及基礎建設"],
+"成績比率":{
+	"平時":"50 % (多元彈性學習 10%)",
+	"期中":"25 % (上機測驗)",
+	"期末":"25 % (專題發表)"
+},
+"備註一":"Google Classroom",
+"聯絡方式":{
+	"位置":"管理資訊組",
+	"電話":"(02)2257-6167 轉 1486",
+	"E-Mail":"porshenlai@gm.chihlee.edu.tw"
+},
+"課程簡介":["本課程包含兩大主題，1) 解題思維，與 2) Python 基本語言概念。第一主題，將引導同學重自己熟悉的遊戲出發，試著去定義與分析問題，構思解題設計，並於期中發表。第二主題以幫助同學取得 ITS Python 證照為目標，依課本章節逐單元介紹各程式基本概念，並透過講解考古題，協助同學取得證照。"],
+"Brief Introduction":["Two major topics, 1) Problem Solving Thinking and 2) Python Programming, are included in this course. Students in the first topic will be asked to pick a familiar game first, then try to define the problem, analyze them, and design the solutions for the selected game. The second topic will introduce the basics about Python programming and practice the ITS Python questions to help students acquire ITS Python certification."],
+"關鍵字":["Computational Logic","Programming Python"]
+}</textarea></div>
+
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>計算邏輯與程式應用</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程資訊</h2>
+	<table align='center' class='nvtable' width='95%'><tbody>
+		<tr><th>科目名稱:</th><td data-v='text:科目名稱'></td></tr>
+		<tr><th>學分:</th><td data-v='text:學分'></td></tr>
+		<tr><th>授課教師:</th><td data-v='text:授課教師'></td></tr>
+		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
+		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
+		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
+		<tr><th>教材課本:</th><td data-v='text:教材課本'></td></tr>
+		<tr><th>輔導證照:</th><td>
+			<div data-v='text:輔導證照'></div>
+		</td></tr>
+		<tr><th>輔導競賽:</th><td>
+			<div data-v='text:輔導競賽'></div>
+		</td></tr>
+		<tr><th>成績比率:</th><td>
+			<div data-c='foreach:成績比率'>
+				<span data-v='text:_k_'></span>
+				<span data-v='text:_v_'></span>
+			</div>
+		</td></tr>
+	</tbody></table>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程簡介</h2>
+	<div class='frame'>
+		<p data-c='foreach:課程簡介' data-v='text'></p>
+	</div>
+	<div class='frame'>
+		<p data-c='foreach:Brief Introduction' data-v='text'></p>
+	</div>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程規劃</h2>
+	<table align='center' class='nvtable' width='95%'><tbody>
+		<tr data-c='foreach:行事曆'><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
+	</tbody></table>
+</section>
+
+</div></main></body>
+</html>

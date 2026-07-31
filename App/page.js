@@ -134,6 +134,10 @@ table.std th, table.std td { padding:2px 16px; border:1px solid black; }
 table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; }
 table.std>tbody th, table.std>tbody td { background:white; }
 
+.nvtable { border:1px solid black; padding:8px; }
+.nvtable th { border:0;padding:0 2px; text-align:right; vertical-align:middle; }
+.nvtable td { border:0;padding:0 4px; border-bottom:1px solid silver; text-align:left; vertical-align:top; }
+
 .cb { white-space: nowrap; padding-left:var(--base-indent); font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
 
@@ -362,9 +366,15 @@ template: class extends _E
 					for (let args of e.dataset.c.split(';').filter((a)=>a))
 						((cmd, ...args) => {
 							switch (cmd) {
-							case "repeat":
+							case "repeat": case 'foreach':
 								((t,p,d)=>{
 									p.removeChild(t);
+									if (!Array.isArray(d))
+										d=Object.entries(d).reduce((r,p)=>{
+											let o=('object'===typeof(p[1])) ? p[1] : {_v_:p[1]};
+											o._k_=p[0];
+											r.push(o); return r;
+										},[]);
 									for (let i=0; i<d.length; i++) {
 										const D=d[i], row=t.cloneNode(true);
 										if (row.dataset.def) row.removeAttribute('data-def');
@@ -382,8 +392,8 @@ template: class extends _E
 						((cmd, a1, a2) => {
 							try {
 								switch (cmd) {
-								case "text": e.textContent=d[a1]; break;
-								case "value": e.value=d[a1]; break;
+								case "text": e.textContent=a1 ? d[a1] : d; break;
+								case "value": e.value=a1 ? d[a1] : d; break;
 								case "data": e.dataset[a1]=d[a2]; break;
 								}
 							} catch(x) { console.log(x); console.log(e,d); }
@@ -524,7 +534,8 @@ class Content
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
 
-				if (!buf) buf = elem;
+				[name,buf] = [name,buf].map((v)=>(!v || v==='&this') ? elem : v);
+
 				if ("string" === typeof(buf))	buf = slide.Ns[buf];
 				if (buf instanceof Element)		buf = new Apps.NT.data(buf);
 				buf = await buf.get();

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title></title>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<div data-def='data:Info'><textarea type='hidden' data-v='value:doc'>{
+"科目名稱":"金融 AI 應用實作",
+"授課教師":["賴柏伸"],
+"學分":"選修 (2)",
+"開課系科":"財務金融系-日四技-金二A",
+"開課教室":"E72",
+"開課時間":"二 (10:20-12:10)",
+"行事曆":{
+	"1":"FinTech (SDGs主題週) ",
+	"2":"A. 金融數據特性、隱私與法規合規",
+	"3":"A. Python Pandas 財金數據清洗",
+	"4":"B. 機器人理財與資產配置理論",
+	"5":"B. AI 投資組合最佳化實作",
+	"6":"C. 信用風險與授信風控邏輯",
+	"7":"C. 貸款違約機率預測模型",
+	"8":"D. 洗錢防制與盜刷特徵分析",
+	"9":"D. 信用卡異常交易偵測",
+	"10":"期中考週",
+	"11":"E. 行為財務學與文本探勘基礎",
+	"12":"E. 財經新聞輿情與市場情緒指標",
+	"13":"F. LLM 提示詞工程與 RAG 架構",
+	"14":"F. AI 財報自動解讀助手",
+	"15":"彈性預備周 / 可解釋性 AI (XAI) 補充",
+	"16":"專題發表 A",
+	"17":"專題發表 B",
+	"18":"學習成效回饋"
+},
+"教材課本":"自編教材",
+"授課方式":"課堂教學",
+"是否為全外語教學":"否",
+"輔導證照":[],
+"輔導競賽":[],
+"業師協同教學":"否",
+"是否需要申請TA":"否",
+"教學是否應用IRS":"是",
+"是否為創新創業課程":"是",
+"課程是否使用程式語言":"是",
+"是否為 STEM 課程":"是",
+"是否使用AI輔助教學":["Gemini"],
+"SDGs永續課程":["SDG 9 工業化、創新及基礎建設"],
+"成績比率":{
+	"平時":"50 % (多元彈性學習 10%)",
+	"期中":"25 % (上機考試)",
+	"期末":"25 % (專題報告)"
+},
+"備註一":"Google Classroom",
+"聯絡方式":{
+	"位置":"管理資訊組",
+	"電話":"(02)2257-6167 轉 1486",
+	"E-Mail":"porshenlai@gm.chihlee.edu.tw"
+},
+"課程簡介":["本課程專為財金系學生設計，旨在培養「AI 時代的科技金融人才」。課程採取「雙週雙軌制」，每大主題皆兼顧財金商業邏輯與 Python 工具實作。內容涵蓋機器人理財、貸款風控模型、信用卡盜刷偵測、財經新聞輿情分析，更與時俱進導入生成式 AI (LLM) 與財報自動化解讀技術。本課程著重於 AI 工具的實務應用與商業決策，而非底層演算法推導，旨在協助學生將財金專業與人工智慧完美結合，掌握前瞻的 FinTech 實務核心能力。"],
+"Brief Introduction":["Tailored specifically for finance students, this course aims to cultivate tech-savvy financial professionals for the AI era. Adopting a dual-track, bi-weekly structure, each core topic seamlessly integrates financial business logic with hands-on Python implementation. The curriculum covers robo-advisors, credit risk scoring, credit card fraud detection, and financial sentiment analysis, while staying ahead of the curve by introducing Generative AI (LLM) and automated financial statement analysis.\nEmphasizing practical tool application and business decision-making over low-level algorithm derivation, this course empowers students to bridge financial expertise with AI, mastering the core competencies driving modern FinTech innovations."],
+"關鍵字":["FinTech Applications","Financial AI Literacy","Robo-Advisor","Credit Risk Modeling","Fraud Detection","Financial Sentiment Analysis","Generative AI in Finance","Automated Financial Analysis"]
+}</textarea></div>
+
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>金融 AI 應用實作</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程資訊</h2>
+	<table align='center' class='nvtable' width='95%'><tbody>
+		<tr><th>科目名稱:</th><td data-v='text:科目名稱'></td></tr>
+		<tr><th>學分:</th><td data-v='text:學分'></td></tr>
+		<tr><th>授課教師:</th><td data-v='text:授課教師'></td></tr>
+		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
+		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
+		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
+		<tr><th>教材課本:</th><td data-v='text:教材課本'></td></tr>
+		<tr><th>輔導證照:</th><td>
+			<div data-v='text:輔導證照'></div>
+		</td></tr>
+		<tr><th>輔導競賽:</th><td>
+			<div data-v='text:輔導競賽'></div>
+		</td></tr>
+		<tr><th>成績比率:</th><td>
+			<div data-c='foreach:成績比率'>
+				<span data-v='text:_k_'></span>
+				<span data-v='text:_v_'></span>
+			</div>
+		</td></tr>
+	</tbody></table>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程簡介</h2>
+	<div class='frame'>
+		<p data-c='foreach:課程簡介' data-v='text'></p>
+	</div>
+	<div class='frame'>
+		<p data-c='foreach:Brief Introduction' data-v='text'></p>
+	</div>
+</section>
+
+<section data-xl='template:&this:Info'>
+	<h2>課程規劃</h2>
+	<table align='center' class='nvtable' width='95%'><tbody>
+		<tr data-c='foreach:行事曆'><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
+	</tbody></table>
+</section>
+
+</div></main></body>
+</html>
