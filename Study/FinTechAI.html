@@ -323,37 +323,40 @@
 </section>
 
 <section>
-	<h2>政府債券（Treasury Bonds）與中央存款保險公司</h2>
+	<h2>廣義授信</h2>
 	<div class='fill'>
-	<table border='1' cellspacing='8' cellpadding='8'><tr><th colspan='3'>
-		銀行資產端 / 廣義授信
-	</th></tr><tr><td valign='top'>
-		<div>1. 傳統企業與個人放貸</div>
-		<div>(Commercial &amp; Retail Loans)</div>
-		<ul>
-			<li>對「私法人/個人」的授信</li>
-			<li>承擔「信用風險 (Credit Risk)」</li>
-		</ul>
-	</td><td valign='top'>
-		<div>2. 政府債券與流動性資產</div>
-		<div>(Treasury &amp; Govt Bonds)</div>
-		<ul>
-			<li>對「主權/政府」的授信 (無風險資產)</li>
-			<li>承擔「利率風險 (Interest Risk)」</li>
-		</ul>
-	</td><td valign='top'>
-		<div>3. 中央存保與資本適足</div>
-		<div>(CDIC &amp; BIS Capital)</div>
-		<ul>
-			<li>對「系統性風險」的投保與監管</li>
-			<li>決定銀行的「槓桿上限與資本厚度」</li>
-		</ul>
-	</td></tr></table>
+		<table border='1' cellspacing='8' cellpadding='8'><tr><th colspan='3'>
+			銀行資產端 / 廣義授信
+		</th></tr><tr><td valign='top'>
+			<div>1. 傳統企業與個人放貸</div>
+			<div>(Retail &amp; Corporate Lending)</div>
+			<ul>
+				<li>對「私法人/個人」的授信</li>
+				<li>承擔「信用風險 (Credit Risk)」</li>
+			</ul>
+		</td><td valign='top'>
+			<div>2. 政府債券與流動性資產</div>
+			<div>（Treasury &amp; Government Bonds）</div>
+			<ul>
+				<li>對「主權/政府」的授信 (無風險資產)</li>
+				<li>承擔「利率風險 (Interest Risk)」</li>
+			</ul>
+		</td><td valign='top'>
+			<div>3. 中央存保與資本適足</div>
+			<div>（CDIC &amp; Capital Adequacy）</div>
+			<ul>
+				<li>對「系統性風險」的投保與監管</li>
+				<li>決定銀行的「槓桿上限與資本厚度」</li>
+			</ul>
+		</td></tr></table>
 	</div>
 </section>
 
 <section class='page col'>
-	<h2>傳統企業與個人放貸（Retail &amp; Corporate Lending）</h2>
+	<div style='width:100%'>
+		<div class='pfx'>廣義授信</div>
+		<h2>傳統企業與個人放貸</h2>
+	</div>
 	<div class='fill'><ul>
 		<li><b>金融本質：</b> 銀行將資金借給個人（房貸、信貸）或企業（週轉金、聯貸）。</li>
 		<li><b>風險核心：</b> 信用風險（Credit Risk）。核心問題是「借款人會不會違約（PD）」與「違約後能收回多少（LGD）」。</li>
@@ -367,6 +370,54 @@
 		</ul></li>
 	</ul></div>
 </section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>廣義授信</div>
+		<h2>政府債券與公債投資</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>對政府的放貸</li>
+		<li><b>金融本質：</b> 銀行買政府債券，本質上就是把錢「借給政府」（主權授信 Sovereign Lending）。因為政府被視為「絕不違約（No Credit Risk）」，所以公債在銀行資產負債表上被視為高流動性優質資產（HQLA）。</li>
+		<li><b>風險核心：</b> 利率風險（Interest Rate Risk）與殖利率曲線風險（Yield Curve Risk）。雖然政府不會跑路，但如果市場升息，債券價格會下跌（如矽谷銀行 SVB 倒閉的主因就是買太多長天期美債，遇到升息產生未實現虧損而遭擠兌）。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>殖利率曲線預測與 ALM 最佳化：</b> 利用 LSTM / Transformer 等時間序列模型，預測央行升/降息路徑與殖利率曲線變化（Yield Curve Shifts）。</li>
+			<li><b>資產負債匹配（Asset-Liability Matching）：</b> AI 演算法動態計算 Duration Gap（存續期間缺口），自動建議公債買賣組合，以對沖存款端（短期）與資產端（長期）的利率錯配風險。</li>
+		</ul></li>
+		<li>政府債券與資產負債管理（利率與流動性風險）<ul>
+			<li>買公債的本質：對主權的授信與 HQLA 流動性管理</li>
+			<li>AI 在利率預測、Yield Curve 與 Duration Gap（矽谷銀行 SVB 案例）的應用</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>廣義授信</div>
+		<h2>中央存保與監管指標</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>銀行的安全安全網</li>
+		<li><b>金融本質：</b> 銀行向「中央存款保險公司」繳納保費（為存款人的錢買保險），並接受金管會/中央銀行的<em>資本適足率（BIS Ratio / 資本充足率）與流動性覆蓋率（LCR）</em>監管。</li>
+		<li><b>風險核心：</b> 系統性風險（Systemic Risk）與流動性風險（Liquidity Risk）。放貸與買債放得越多，需要留存的法定準備金與自有資本就越多。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>動態壓力測試（Dynamic Stress Testing）：</b> 利用 AI 模擬極端市場情境（例如：房價大跌 30% + 利率暴升 2% + 10% 存款戶同時提款），計算銀行的資本適足率是否會低於 8% 監管紅線。</li>
+			<li><b>監理科技 (SupTech / RegTech)：</b> 自動化監理報表生成，即時計算存保費率等級（Risk-based CDIC Premium Rate）。</li>
+		</ul></li>
+		<li>存保機制、資本適足率與監理科技（系統性風險）<ul>
+			<li>巴塞爾協定三（Basel III）資產風險權數計算</li>
+			<li>AI 壓力測試與 SupTech 自動監理報表</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<!--
+將政府債券與存保放入上半學期，對您後半學期的「代幣實作專題」有極強的教學連結：
+政府債券 ➔ 對標 DeFi 的「無風險利率與 RWA（真實世界資產）」
+當學生在後半學期發行代幣與建立借貸池（Lending Pool）時，他們需要一個「基準利率（Risk-Free Rate）」。上半學期講透了政府債券，後半學期就能順理成章引入 RWA（把美債/公債 Token 化） 的概念！
+中央存保與資本適足 ➔ 對標 DeFi 的「清算機制與壞帳池（Reserve Fund）」
+銀行有中央存保與資本適足率來防止擠兌；DeFi 借貸協議（如 Aave/Compound）則有超額抵押（Over-collateralization）、自動清算機器人（Liquidator Bots）與安全模組（Safety Module）。這兩者的風險邏輯是完全通透的！
+-->
 
 <section class='page col'>
 	<h2>資產鑑定、AVM 與抵押品動態風控</h2>
@@ -398,170 +449,172 @@
 	</tr></table>
 </section>
 
+
 <section class='page col'>
-	<h2>政府債券與公債投資（Treasury & Government Bonds）</h2>
+	<h2>🏛️ 資產風險與財務管理</h2>
 	<div class='fill'><ul>
-		<li>對政府的放貸</li>
-		<li><b>金融本質：</b> 銀行買政府債券，本質上就是把錢「借給政府」（主權授信 Sovereign Lending）。因為政府被視為「絕不違約（No Credit Risk）」，所以公債在銀行資產負債表上被視為高流動性優質資產（HQLA）。</li>
-		<li><b>風險核心：</b> 利率風險（Interest Rate Risk）與殖利率曲線風險（Yield Curve Risk）。雖然政府不會跑路，但如果市場升息，債券價格會下跌（如矽谷銀行 SVB 倒閉的主因就是買太多長天期美債，遇到升息產生未實現虧損而遭擠兌）。</li>
-		<li><b>AI 的發揮空間：</b><ul>
-			<li><b>殖利率曲線預測與 ALM 最佳化：</b> 利用 LSTM / Transformer 等時間序列模型，預測央行升/降息路徑與殖利率曲線變化（Yield Curve Shifts）。</li>
-			<li><b>資產負債匹配（Asset-Liability Matching）：</b> AI 演算法動態計算 Duration Gap（存續期間缺口），自動建議公債買賣組合，以對沖存款端（短期）與資產端（長期）的利率錯配風險。</li>
+		<li>傳統的資產鑑定（如房貸鑑價）往往是<ul>
+			<li><em>「離散點（Point-in-Time）」</em>的——借錢那一刻量一次價值，</li>
+			<li>違約法拍那一刻再量一次價值。</li>
 		</ul></li>
-		<li>政府債券與資產負債管理（利率與流動性風險）<ul>
-			<li>買公債的本質：對主權的授信與 HQLA 流動性管理</li>
-			<li>AI 在利率預測、Yield Curve 與 Duration Gap（矽谷銀行 SVB 案例）的應用</li>
+		<li>但保險與投資商品，本質上是<em>「隨時間動態變化的合約（Time-series Contracts）」</em>：<div>
+			<table width='95%' align='center' style='border:1px solid black;'><tr>
+				<th colspan='2' style='border-bottom:3px solid black'>&rarr; [ 時間軸 (Time Dimension) ] &rarr;</th>
+			</tr><tr>
+				<td>【投資 (Investment)】</td>
+				<td>每一秒/每一天都在鑑定「市價 (Mark-to-Market)」與「期望報酬」</td>
+			</tr><tr>
+				<td>【保險 (Insurance)】</td>
+				<td>每一分/每一秒都在鑑定「風險發生機率 (Probability of Loss)」</td>
+			</tr></table>
+			<ul>
+				<li><b>投資（Investment）：</b>是對<em>「資產未來現金流與市場價格」</em>在時間軸上的連續估值與折現。</li>
+				<li><b>保險（Insurance）：</b>是對<em>「標的物（人身/財產）未來損害風險」</em>在時間軸上的連續機率定價與貼現。</li>
+			</ul>
+		</div></li>
+		<li>從「連續資產鑑定」看三大核心議題<ul>
+			<li><b>投資端的連續鑑定：</b> Mark-to-Market（盯市）與資產再平衡</li>
+			<li><b>保險端的連續鑑定：</b> 精算（Actuarial）、外包風險與 UBI 保險</li>
+			<li><b>負債端的連續鑑定：</b> 資產負債匹配 (ALM) 與 Mark-to-Model</li>
 		</ul></li>
 	</ul></div>
 </section>
 
 <section class='page col'>
-	<h2>中央存保與監管指標（CDIC & Capital Adequacy）</h2>
+	<div style='width:100%'>
+		<div class='pfx'>連續資產鑑定</div>
+		<h2>投資端：Mark-to-Market（盯市）與資產再平衡</h2>
+	</div>
 	<div class='fill'><ul>
-		<li>銀行的安全安全網</li>
-		<li><b>金融本質：</b> 銀行向「中央存款保險公司」繳納保費（為存款人的錢買保險），並接受金管會/中央銀行的<em>資本適足率（BIS Ratio / 資本充足率）與流動性覆蓋率（LCR）</em>監管。</li>
-		<li><b>風險核心：</b> 系統性風險（Systemic Risk）與流動性風險（Liquidity Risk）。放貸與買債放得越多，需要留存的法定準備金與自有資本就越多。</li>
+		<li><b>金融原理：</b> 投資組合的價值不是靜止的。資產價格隨市場每秒波動，這意味著該資產佔整體投資組合的「權重比例」隨時在被動改變。</li>
+		<li><b>風險控管：</b> 當價格偏離預期，投資組合的風險暴露（Volatility / VaR）就會過高，因此必須在時間軸上進行連續鑑定與動態再平衡（Dynamic Rebalancing）。</li>
 		<li><b>AI 的發揮空間：</b><ul>
-			<li><b>動態壓力測試（Dynamic Stress Testing）：</b> 利用 AI 模擬極端市場情境（例如：房價大跌 30% + 利率暴升 2% + 10% 存款戶同時提款），計算銀行的資本適足率是否會低於 8% 監管紅線。</li>
-			<li><b>監理科技 (SupTech / RegTech)：</b> 自動化監理報表生成，即時計算存保費率等級（Risk-based CDIC Premium Rate）。</li>
-		</ul></li>
-		<li>存保機制、資本適足率與監理科技（系統性風險）<ul>
-			<li>巴塞爾協定三（Basel III）資產風險權數計算</li>
-			<li>AI 壓力測試與 SupTech 自動監理報表</li>
+			<li><b>機器人理財（Robo-Advisor）：</b> 演算法 24/7 不間斷監控投資組合價值，當資產權重偏離設定的 Efficient Frontier（有效前緣）時，自動觸發買賣做再平衡。</li>
 		</ul></li>
 	</ul></div>
 </section>
 
-<!--
-將政府債券與存保放入上半學期，對您後半學期的「代幣實作專題」有極強的教學連結：
-政府債券 ➔ 對標 DeFi 的「無風險利率與 RWA（真實世界資產）」
-當學生在後半學期發行代幣與建立借貸池（Lending Pool）時，他們需要一個「基準利率（Risk-Free Rate）」。上半學期講透了政府債券，後半學期就能順理成章引入 RWA（把美債/公債 Token 化） 的概念！
-中央存保與資本適足 ➔ 對標 DeFi 的「清算機制與壞帳池（Reserve Fund）」
-銀行有中央存保與資本適足率來防止擠兌；DeFi 借貸協議（如 Aave/Compound）則有超額抵押（Over-collateralization）、自動清算機器人（Liquidator Bots）與安全模組（Safety Module）。這兩者的風險邏輯是完全通透的！
--->
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>連續資產鑑定</div>
+		<h2>保險端：精算（Actuarial）、外包風險與 UBI 保險</h2>
+	</div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 傳統保險一年鑑定一次風險（例如：今年 30 歲、沒出過車禍，保費算 1 萬元）。但事實上，個人的風險狀況在 365 天裡是動態變化的（深夜開車風險高、飆車風險高、不運動風險高）。</li>
+		<li><b>風險控管：</b> 保險公司的本質就是「貼現未來的預期損失」。如果鑑定頻率太低，就會產生逆向選擇與道德風險。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>UBI (Usage-Based Insurance) & IoT：</b> 利用 Apple Watch（心率、步數）或車載系統（Telematics），將保險風險的評估頻率從「一年一次」變成「每分每秒連續鑑定」，並實時調整保費（Dynamic Pricing）。</li>
+		</ul></li>
+	</ul></div>
+</section>
 
-<!--資產鑑定
-強烈建議獨立拿出來介紹，而且非常適合單獨設一個專題單元！
-在傳統銀行學中，「資產鑑定」常被簡化為授信審查的附屬步驟；但在 FinTech 科技應用 以及您後半學期的「鏈上代幣實作 (DeFi / RWA)」視角下，資產鑑定扮演著「連結實體資產（物理世界）與金融帳本（數位/鏈上世界）的唯一橋樑」。
-將「資產鑑定」獨立成一個單元（約 1 至 1.5 小時），在教學上具有極高價值，原因如下：
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>連續資產鑑定</div>
+		<h2>負債端：資產負債匹配 (ALM) 與 Mark-to-Model</h2>
+	</div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 保險公司與退休基金收了保戶的保費（負債），並拿去買股票、公債（資產）。因為保單給付可能在 20 年後，所以管理者必須同時對「未來的資產」與「未來的負債」進行長期的連續折現估值。</li>
+		<li><b>風險控管：</b> 利率變動會同時影響資產與負債的估值（如國際會計準則 IFRS 17 / ICS 的核心就是要求保險業必須將負債按市價/現值連續鑑定）。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li>利用蒙地卡羅模擬（Monte Carlo Simulation）與 AI 深度學習，模擬未來 30 年不同升降息情境下，資產與負債的連續價值演變，確保不會出現資產不足以清償負債的風險。</li>
+		</ul></li>
+	</ul></div>
+</section>
 
-1. 金融本質的轉換：從「評估人」變成「評估物」
-授信風控： 評估借款人的償還能力與意願（評估「人」，如收入、信用分數）。
-資產鑑定： 評估萬一借款人違約時，這項資產的變現價值與流動性（評估「物」，決定違約損失率 LGD 的下限）。
-金融核心痛點： 資訊不對稱、市場流動性枯竭風險、人為高估鑑價（欺詐/過度槓桿）以及處置變現的折價與時間成本。
-2. FinTech 在「資產鑑定」的突破（上半學期 AI 重點）
-獨立這個單元，可以讓您非常完整地展現科技如何顛覆傳統估價：
-不動產鑑價 (Real Estate Valuation) ➔ 自動估價模型 (AVM / AI Valuation)：
-技術： 結合 GIS 地理資訊系統、時空特徵、周邊實價登錄數據與地理空間機器學習模型（Spatial ML），實現秒級的房屋估價。
-突破： 擺脫傳統估價師耗時數天的人工現場勘驗。
-動產/車輛/設備鑑價 ➔ IoT 數據與電腦視覺 (Computer Vision)：
-技術： 利用 AI 車牌與車況影像識別評估車損；利用 IoT 聯網感測器監控工廠設備或農產品存貨的「實時狀態與折舊」。
-智慧合約與動態 LTV (Loan-to-Value) 監控：
-利用 AI 每日自動更新抵押品市場價值，當 LTV 衝破安全線時自動觸發追繳保證金（Margin Call）或警示。
-3. 無縫銜接下半學期「代幣與 DeFi 實作」（終極伏筆！）
-這正是獨立此單元最精妙的地方！學生在下半學期要發行代幣、做借貸池、設計金融商品，他們一定會遇到以下問題，而上半學期的「資產鑑定」課就是解藥：
- [ 上半學期：傳統/AI 資產鑑定 ]                  [ 下半學期：鏈上代幣實作 ]
-  • 不動產/動產鑑價 ────────────────────────► RWA (Real World Assets) 代幣化
-  • 自動估價模型 (AVM) ──────────────────────► 甲骨文 / 預言機 (Oracle, 如 Pyth/Chainlink)
-  • 動態 LTV 監控 & 追繳 ───────────────────► 自動清算機器人 (Liquidator Bots)
-
-
-傳統的「鑑價機制」 ➔ 鏈上的「預言機 (Oracle)」： DeFi 協議本身不知道實體資產或加密貨幣現在值多少錢，必須靠預言機（如 Chainlink）來「鑑定價格」。
-傳統的「LTV 鑑價成數」 ➔ DeFi 的「超額抵押率 (Over-Collateralization)」： 銀行房貸給 7-8 成（LTV 70-80%）；DeFi 借貸因為抵押品波動大，鑑價後通常只給 5-7 成。
-傳統的「法拍處置」 ➔ 鏈上的「清算機制 (Liquidation)」： 當抵押品價值下跌到清算線，鏈上智能合約會自動拍賣抵押品。
-🎯 建議：融入前半學期課綱的獨立單元設計 (1.5 小時)
-您可以將它安排在「授信風控」之後、「政府債券與資產負債管理」之前：
-
-這樣的理論鏈條非常完整，且能讓學生在下半學期做實作專題時，深刻理解為什麼 DeFi 借貸協議需要 Oracle 和超額抵押！
--->
-
-<!--資產管理
-這個視角極具深度，而且在理論與實務上都非常高級！
-將保險與投資的資產管理，抽象化為**「在時間軸上連續進行的資產鑑定（Continuous Asset Valuation over Time）」，不僅能完美的把第一模組的「資產鑑定（AVM / 預言機）」概念延伸過來，更一舉打通了精算學（Actuarial Science）**、金融工程（Financial Engineering） 與 DeFi 鏈上機制 的底層邏輯。
-這個角度非常適合用來作為第二模組（財富管理、投資與保險）的核心骨幹，以下為您整理如何從「時間軸上的連續資產鑑定」來重新定義與教學資產風險與財務管理：
-🏛️ 核心概念：為什麼保險與投資是「連續的時間軸鑑定」？
-傳統的資產鑑定（如房貸鑑價）往往是**「離散點（Point-in-Time）」**的——借錢那一刻量一次價值，違約法拍那一刻再量一次價值。
-但保險與投資商品，本質上是**「隨時間動態變化的合約（Time-series Contracts）」**：
-                         [ 時間軸 (Time Dimension) ] ───►
-  ───────────────────────────────────────────────────────────────────────►
-  【投資 (Investment)】  每一秒/每一天都在鑑定「市價 (Mark-to-Market)」與「期望報酬」
-  【保險 (Insurance)】   每一分/每一秒都在鑑定「風險發生機率 (Probability of Loss)」
-
-
-投資（Investment）： 是對**「資產未來現金流與市場價格」**在時間軸上的連續估值與折現。
-保險（Insurance）： 是對**「標的物（人身/財產）未來損害風險」**在時間軸上的連續機率定價與貼現。
-💡 從「連續資產鑑定」看四大核心議題
-從這個視角出發，您可以順理成章地匯入以下四個重要的財務管理與 AI 應用主題：
-1. 投資端的連續鑑定：Mark-to-Market（盯市）與資產再平衡
-金融原理： 投資組合的價值不是靜止的。資產價格隨市場每秒波動，這意味著該資產佔整體投資組合的「權重比例」隨時在被動改變。
-風險控管： 當價格偏離預期，投資組合的風險暴露（Volatility / VaR）就會過高，因此必須在時間軸上進行連續鑑定與動態再平衡（Dynamic Rebalancing）。
-AI 的發揮空間：
-機器人理財（Robo-Advisor）： 演算法 24/7 不間斷監控投資組合價值，當資產權重偏離設定的 Efficient Frontier（有效前緣）時，自動觸發買賣做再平衡。
-2. 保險端的連續鑑定：精算（Actuarial）、外包風險與 UBI 保險
-金融原理： 傳統保險一年鑑定一次風險（例如：今年 30 歲、沒出過車禍，保費算 1 萬元）。但事實上，個人的風險狀況在 365 天裡是動態變化的（深夜開車風險高、飆車風險高、不運動風險高）。
-風險控管： 保險公司的本質就是「貼現未來的預期損失」。如果鑑定頻率太低，就會產生逆向選擇與道德風險。
-AI 的發揮空間：
-UBI (Usage-Based Insurance) & IoT： 利用 Apple Watch（心率、步數）或車載系統（Telematics），將保險風險的評估頻率從「一年一次」變成「每分每秒連續鑑定」，並實時調整保費（Dynamic Pricing）。
-3. 負債端的連續鑑定：資產負債匹配 (ALM) 與 Mark-to-Model
-金融原理： 保險公司與退休基金收了保戶的保費（負債），並拿去買股票、公債（資產）。因為保單給付可能在 20 年後，所以管理者必須同時對「未來的資產」與「未來的負債」進行長期的連續折現估值。
-風險控管： 利率變動會同時影響資產與負債的估值（如國際會計準則 IFRS 17 / ICS 的核心就是要求保險業必須將負債按市價/現值連續鑑定）。
-AI 的發揮空間：
-利用蒙地卡羅模擬（Monte Carlo Simulation）與 AI 深度學習，模擬未來 30 年不同升降息情境下，資產與負債的連續價值演變，確保不會出現資產不足以清償負債的風險。
-🔗 無縫對接後半學期「代幣與 DeFi 實作」的終極橋樑
-這個概念最厲害的地方，在於它能完美銜接您下半學期的鏈上實作！因為區塊鏈/DeFi 的世界，本質上記錄的就是**「高度連續、無間斷的資產鑑定」**：
- [ 上半學期：時間軸上的連續資產鑑定 ]               [ 下半學期：DeFi & Smart Contracts ]
-  • 投資的 Mark-to-Market (盯市) ──────────────► 預言機 (Oracle) 的高頻喂價 (Push/Pull Price)
-  • UBI 保險的動態風險計價 ───────────────────► 鏈上動態保費與條款觸發 (Parametric Insurance)
-  • 理財的動態再平衡 (Rebalancing) ─────────────► 自動做市商 (AMM) & 流動性池 (Yield Farming)
-
-
-鏈上預言機 (Oracle) ＝ 高頻的連續資產鑑定器： DeFi 裡的借貸清算、永續合約（Perpetuals）與合成資產，全都依賴 Chainlink 或 Pyth 這種預言機在每秒鐘/每個區塊進行連續的價格鑑定。
+<!--鏈上預言機 (Oracle) ＝ 高頻的連續資產鑑定器： DeFi 裡的借貸清算、永續合約（Perpetuals）與合成資產，全都依賴 Chainlink 或 Pyth 這種預言機在每秒鐘/每個區塊進行連續的價格鑑定。
 參數化保險 (Parametric Insurance) ＝ 程式化的連續風險觸發： 在鏈上，只要預言機鑑定出「颱風風速超過 10 級」或「航班延誤超過 2 小時」，智慧合約不需要經過人工審理，直接自動理賠。這就是連續鑑定的終極呈現！
 DeFi 的自動再平衡與清算： DeFi 的清算機器人（Liquidator Bots）每秒都在掃描鏈上抵押品價值，只要價值跌破清算線（LTV 臨界點），瞬間自動執行拍賣。
-🎯 建議融入課程的「單元故事線」安排
-您可以在第二模組開頭這樣向學生引導：
+
 講師引導情境： 「上一個單元我們講房貸或車貸的鑑價，那是『一次性』的鑑定。但到了保險與投資，鑑價變成了**『時間軸上的連續演進』**：
 投資： 是對**『資產價格與未來收益』**進行每分每秒的連續估值（Mark-to-Market），演算法據此進行資產再平衡。
 保險： 是對**『風險發生機率』**進行連續估值，過去是一年算一次保費，現在靠 IoT 與 AI，保險公司可以做到每秒鐘根據你的行為連續評估風險（UBI 動態保費）。
 當這一切被寫進區塊鏈的智慧合約裡時，預言機（Oracle）就是那個『連續鑑價的機器』，而 AMM 與清算機制就是『自動再平衡的程式』。這就是為什麼掌握連續資產鑑定，就能掌握未來的量化投資與 DeFi 邏輯！」
-這樣的論述結構既深刻又有極強的邏輯連貫性，能讓您的前半學期理論課程顯得非常宏大且嚴密！
 -->
 
+<section class='page col'>
+	<h2>存款、支付與整合 核心領域</h2>
+	<div class='fill'><ul>
+		<li>客戶終身價值（CLV）與動態流失預測（Churn Prediction）</li>
+		<li>信用卡與支付手續費結構分析（Interchange Fee &amp; Pricing Optimization）</li>
+		<li>場景金融嵌入與交叉銷售（Cross-selling &amp; Next-Best-Action, NBA）</li>
+		<li>浮動資金（Float）與手續費的動態價值評估</li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>客戶終身價值（CLV）與動態流失預測</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>消金是典型的「薄利多銷/高頻交易」業務，獲客成本（CAC）極高，因此研究重點常放在「如何留住高價值客戶」。</li>
+		<li><b>研究重點：</b><ul>
+			<li><b>CLV (Customer Lifetime Value) 模型：</b> 預測一個客戶未來 3-5 年能為銀行帶來多少手續費（刷卡手續費、跨行轉帳費、理財手續費）與利差貢獻。</li>
+			<li><b>流失預預警（Early Churn Detection）：</b> 客戶在徹底剪卡或銷戶前，通常會有「行為徵兆」（例如：月刷卡金額連續 3 個月下滑、提款頻率降低、App 登入次數減少）。</li>
+		</ul></li>
+		<li><b>AI 發揮空間：</b><ul>
+			<li>利用時間序列與生存分析（Survival Analysis / XGBoost）模型，在客戶流失前 30 天自動觸發「個性化手續費折抵」或「精準權益推薦」，以最低成本挽回高價值客戶。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>信用卡與支付手續費結構分析</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>信用卡與電子支付的手續費（如手續費拆分 Interchange Fee、手續費率 1.5%~3%）是消金極大的手續費收入（Fee Income）來源，這背後有非常複雜的賽局與定價彈性。</li>
+		<li><b>研究重點：</b><ul>
+			<li><b>價格彈性與回饋率的最佳化（Reward Rate Optimization）：</b> 信用卡發卡行給「現金回饋 2% 或 3%」時，消費者的刷卡總額會增加多少？扣除回饋成本與清算手續費後，銀行的**淨手續費收益（Net Fee Income）**是否極大化？</li>
+			<li><b>循環利息與手續費的平衡（Revolver Profile）：</b> 研究哪些客戶會帶來手續費，哪些客戶會帶來循環利息，並分析其違約風險（連動到授信風控）。</li>
+		</ul></li>
+		<li><b>AI 發揮空間：</b><ul>
+			<li>結合強化學習（Reinforcement Learning）或動態定價模型，針對不同客群動態給予「限時刷卡回饋/手續費減免」，達成刷卡量與手續費利潤的最佳平衡。</li>
+		</ul></li>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>場景金融嵌入與交叉銷售</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>消金手續費常常不是單獨存在的，而是透過「支付/轉帳」這個高頻入口，將客戶引導至「理財、信貸、保險」等高手續費商品的過程。</li>
+		<li><b>研究重點：</b><ul>
+			<li><b>下一步最佳行動（Next-Best-Action, NBA / Recommendation Systems）：</b> 分析客戶的交易明細（Transaction Line Items），預測他下一步最需要什麼金融產品。</li>
+			<li><b>場景金融轉化率（Embedded Finance Conversion）：</b> 例如，客戶在買機票（支付）時，推薦旅平險（保險手續費）；客戶帳戶餘額過高時，推薦貨幣基金（理財手續費）。</li>
+		</ul></li>
+		<li><b>AI 發揮空間：</b><ul>
+			<li>利用自然語言處理（NLP）與圖神經網路（GNN）分析客戶的消費足跡（Merchant Category Codes, MCC），建構客戶的生活風格特徵（Lifestyle Profiling），精準推薦金融產品。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>浮動資金與手續費的動態價值評估</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>這是消金極度優秀但常被忽略的財務概念——「浮動資金（Float / 零息資金）」。</li>
+		<li><b>研究重點：</b><ul>
+			<li>當客戶把錢放在電子支付帳戶（如 Line Pay / 街口）、信用卡未結算款項，或是活期存款帳戶中時，這些資金的利息幾乎為零。</li>
+			<li>銀行或支付機構雖然只收取微薄的交易手續費，但掌控這些低成本浮動資金，拿去放款或買短票，能創造巨大的隱性利差收益。</li>
+		</ul></li>
+		<li><b>AI 發揮空間：</b><ul>
+			<li>結合 ALM（資產負債管理）模型，預測消金用戶資金的「平均滯留時間（Duration）」與「提現/消費週期」，以極大化資金調撥效益。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
 <!-- 消費金融
-在消費金融（Retail Banking / Consumer Finance）與金融服務手續費（Fee-based Services）這個領域，**「促銷活動對交易量的貢獻程度（Promotion Attribution & A/B Testing）」**確實是行銷科技（MarTech）常見的切入點，但它只觸及了消金業務的冰山一角。
-如果從銀行核心商業模式、資產負債管理（ALM），以及AI/機器學習的應用來看，這個分支還有四大極具研究價值且產業需求極高的核心領域：
-1. 客戶終身價值（CLV）與動態流失預測（Churn Prediction）
-消金是典型的「薄利多銷/高頻交易」業務，獲客成本（CAC）極高，因此研究重點常放在「如何留住高價值客戶」。
-研究重點：
-CLV (Customer Lifetime Value) 模型： 預測一個客戶未來 3-5 年能為銀行帶來多少手續費（刷卡手續費、跨行轉帳費、理財手續費）與利差貢獻。
-流失預預警（Early Churn Detection）： 客戶在徹底剪卡或銷戶前，通常會有「行為徵兆」（例如：月刷卡金額連續 3 個月下滑、提款頻率降低、App 登入次數減少）。
-AI 發揮空間： 利用時間序列與生存分析（Survival Analysis / XGBoost）模型，在客戶流失前 30 天自動觸發「個性化手續費折抵」或「精準權益推薦」，以最低成本挽回高價值客戶。
-2. 信用卡與支付手續費結構分析（Interchange Fee & Pricing Optimization）
-信用卡與電子支付的手續費（如手續費拆分 Interchange Fee、手續費率 1.5%~3%）是消金極大的手續費收入（Fee Income）來源，這背後有非常複雜的賽局與定價彈性。
-研究重點：
-價格彈性與回饋率的最佳化（Reward Rate Optimization）： 信用卡發卡行給「現金回饋 2% 或 3%」時，消費者的刷卡總額會增加多少？扣除回饋成本與清算手續費後，銀行的**淨手續費收益（Net Fee Income）**是否極大化？
-循環利息與手續費的平衡（Revolver Profile）： 研究哪些客戶會帶來手續費，哪些客戶會帶來循環利息，並分析其違約風險（連動到授信風控）。
-AI 發揮空間： 結合強化學習（Reinforcement Learning）或動態定價模型，針對不同客群動態給予「限時刷卡回饋/手續費減免」，達成刷卡量與手續費利潤的最佳平衡。
-3. 場景金融嵌入與交叉銷售（Cross-selling & Next-Best-Action, NBA）
-消金手續費常常不是單獨存在的，而是透過「支付/轉帳」這個高頻入口，將客戶引導至「理財、信貸、保險」等高手續費商品的過程。
-研究重點：
-下一步最佳行動（Next-Best-Action, NBA / Recommendation Systems）： 分析客戶的交易明細（Transaction Line Items），預測他下一步最需要什麼金融產品。
-場景金融轉化率（Embedded Finance Conversion）： 例如，客戶在買機票（支付）時，推薦旅平險（保險手續費）；客戶帳戶餘額過高時，推薦貨幣基金（理財手續費）。
-AI 發揮空間： 利用自然語言處理（NLP）與圖神經網路（GNN）分析客戶的消費足跡（Merchant Category Codes, MCC），建構客戶的生活風格特徵（Lifestyle Profiling），精準推薦金融產品。
-4. 浮動資金（Float）與手續費的動態價值評估
-這是消金極度優秀但常被忽略的財務概念——「浮動資金（Float / 零息資金）」。
-研究重點：
-當客戶把錢放在電子支付帳戶（如 Line Pay / 街口）、信用卡未結算款項，或是活期存款帳戶中時，這些資金的利息幾乎為零。
-銀行或支付機構雖然只收取微薄的交易手續費，但掌控這些低成本浮動資金，拿去放款或買短票，能創造巨大的隱性利差收益。
-AI 發揮空間： 結合 ALM（資產負債管理）模型，預測消金用戶資金的「平均滯留時間（Duration）」與「提現/消費週期」，以極大化資金調撥效益。
-🔗 無縫對接後半學期「代幣與 DeFi 實作」的終極伏筆！
-將消金與手續費拓展到這四大層面後，又能完美銜接您後半學期的「鏈上代幣與金融商品實作」：
  [ 上半學期：傳統消金與手續費研究 ]                [ 下半學期：鏈上代幣與 DeFi 實作 ]
   • 手續費與 Interchange Fee 拆分 ─────────────► Gas Fee 算力費與协议手續費拆分 (Protocol Fees)
   • 浮動資金 (Float) 與低成本資金池 ────────────► 流動性池 (Liquidity Pool / Yield Farming)
   • 促銷與回饋率最佳化 ────────────────────────► 代幣空投 (Airdrop) 與流動性挖礦獎勵機制设计
   • 客戶終身價值 (CLV) ─────────────────────────► 鏈上治理代幣 (Governance Token) 的長期留存率
-
 
 傳統手續費 ➔ 鏈上 Gas Fee 與 Protocol Fee： DeFi 協議（如 Uniswap）每筆交易收取 0.3% 手續費，其中多少分給流動性提供者（LP）、多少留給協議金庫（Treasury），這與傳統銀行的信用卡手續費拆分（Interchange Fee）完全是一模一樣的經濟學邏輯！
 促銷活動與回饋 ➔ 代幣空投（Airdrop）與挖礦獎勵（Liquidity Mining）： 學生在後半學期發幣時，需要設計「如何用代幣獎勵來誘發交易量」。上半學期講透了「促銷對交易量的貢獻與 CLV」，後半學期學生就不會盲目發幣，而是能運用經濟模型精算「空投代幣的 ROI」與「避免挖集即賣（Churn）」！
