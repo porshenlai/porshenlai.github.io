@@ -124,9 +124,9 @@ button {
 	font-size:95%;
 }
 button:hover { border-color:#90a4ae; }
-h1,.h1 { font-size:200%;font-weight:bold;color:#1E88E5;margin:var(--base-margin);text-align:center; }
-h2,.h2 { font-size:172%;font-weight:bold;color:#1E88E5;margin:var(--base-margin); }
-h3,.h3 { font-size:128%;font-weight:bold;color:#0d5ea8;margin:var(--base-margin); }
+h1,.h1 { font-size:200%;font-weight:bold;color:#1E88E5;margin:var(--base-margin);text-align:center;width:100%; }
+h2,.h2 { font-size:172%;font-weight:bold;color:#1E88E5;margin:var(--base-margin);width:100%; }
+h3,.h3 { font-size:128%;font-weight:bold;color:#0d5ea8;margin:var(--base-margin);width:100%; }
 ul li, ol li { line-height:1.8 }
 
 table.std { margin:auto; border:1px solid silver; }

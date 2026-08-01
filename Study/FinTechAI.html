@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title></title>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<style>
+.pfx { font-size:60%;font-weight:bold;color:green; }
+</style>
+
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>金融科技 Fin-Tech</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>金融業 的 砂盒 Sandbox</h2>
+
+	<div class='fill col'>
+		<table align='center'><tr>
+			<th style='border:1px solid black;padding:8px;' width='45%'>創新需求<br/>Speed &amp; Data</th>
+			<th>-X-</th>
+			<th style='border:1px solid black;padding:8px;' width='45%'>風險控管<br/>Safety &amp; Compliance</th>
+		</tr></table>
+		<br/>
+		<table border='1' align='center'><tr>
+			<th>如果做一個外送 App，系統出錯可能只是晚餐晚半小時送到；<br/>
+				但如果做一個金融支付或理財 App，系統出錯可能是一百萬人的積蓄瞬間蒸發。<br/>
+				這就是為什麼金融業跟其他科技業不一樣。<br/>
+				—— 這裡容錯率極低 ——</th>
+		</tr></table>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>從隱私數據保護到「數位砂盒」</h2>
+	<!--核心教學目標：帶出金融業「數據高敏感度、極度重隱私」的特性 {{{ -->
+	<div class='fill'>
+	<table border='1' cellspacing='0' width='90%' align='center'><tr>
+		<th width='50%'>背景與需求</th>
+		<th width='50%'>解決方案</th>
+	</tr><tr style='background:#f0f0f0;'>
+		<th>（隱私權與高資料障礙）</th>
+		<th>（數位砂盒）</th>
+	</tr><tr>
+		<td valign='top' style='padding:8px;'>
+			<div><b>金融特徵： </b>金融資料（交易記錄、信用評分、資產配置）受到個人資料保護法和銀行保密規定的嚴格保護。</div>
+			<div><b>痛點： </b>人工智慧模型和金融科技演算法需要大量實際交易資料進行訓練（例如，訓練反詐騙或信用評分模型）。然而，由於隱私法規的限制，新創公司無法取得真實的銀行數據，而金融機構則因擔心資料外洩責任，不敢將數據交給外部團隊進行聯合研發。</div>
+		</td>
+		<td valign='top' style='padding:8px;'>
+			<div><b>設計機制： </b>提供一個無需實際資金流動或真實客戶數據即可驗證早期想法的環境。</div>
+			<div><b>資料匿名化與合成資料： </b>提供模擬/合成資料集或零知識證明的API介面。</div>
+			<div><b>安全沙箱環境： </b>提供模擬API測試平台，允許在不從系統中提取真實資料的情況下訓練和測試演算法。它如何促進創新：解決了早期新創公司的冷啟動資料問題，使開發人員能夠在申請監管沙盒之前快速迭代和測試演算法可行性。</div>
+			<div><b>去識別化 (De-identification)：</b> 剝離姓名、身分證等敏感標籤，僅保留行為統計特徵。</div>
+			<div><b>合成數據 (Synthetic Data)：</b> 利用 AI 模型生成「擬真但不屬任何真實個人」的數據，解決新創冷啟動（Cold Start）無資料可用的痛點。</div>
+		</td>
+	</tr></table>
+	</div>
+</section><!-- }}} -->
+
+<section class='page col'>
+	<h2>從監管困境到「金融監理砂盒」</h2>
+	<!--核心教學目標：帶出金融業「法規嚴格、容錯率極低」的特性 {{{ -->
+	<div class='fill'>
+	<table border='1' cellspacing='0' width='90%' align='center'><tr>
+		<th width='50%'>背景與需求</th>
+		<th width='50%'>解決方案</th>
+	</tr><tr style='background:#f0f0f0;'>
+		<th>（金融監管的代價）</th>
+		<th>（金融監理砂盒 Regulatory Sandbox）</th>
+	</tr><tr>
+		<td valign='top' style='padding:8px;'>
+			<div><b>金融特質：</b>高度槓桿、資訊不對稱、具備系統性風險（Systemic Risk）。<br/>
+			政府為了保護消費者與金融穩定，設有極其嚴格的牌照制度（Licensing System）與合規審查機制。</div>
+			<div><b>痛點：</b>傳統法規跟不上科技發展（如 P2P 借貸、區塊鏈支付）。<br/>
+			新創公司如果直接上線，會面臨「非法經營」的法律風險（如違反銀行法、電子支付機構管理條例）；
+			但若要等到法規修訂完成，創新早就錯過市場時機。</div>
+		</td>
+		<td valign='top' style='padding:8px;'>
+			<div><b>機制設計：</b>「在安全的封閉環境內，給予有限度的法律豁免權與創新驗證空間。」</div>
+			<div><b>容錯性：</b>允許在特定時間、特定規模、特定客戶群內，豁免部分法規限制。</div>
+			<div><b>監控性：</b>金融監管機關（如金管會）全程監控，隨時調整風控措施。</div>
+			<div><b>落地路徑：</b>實驗成功則修改法規/發放牌照；失敗則安全撤退（Exit Strategy）。</div>
+			<div><b>如何加速創意產生：</b>降低新創進入金融業的合規成本與法律不確定性，讓業者能以實測數據證明其商業模式可行且安全。</div>
+			<div><b>真實個資與金流 (Live Data & Money Flow)：</b> 測試真實用戶在實際交易情境下的反應與風險。</div>
+			<div><b>嚴格知情同意 (Explicit Consent)：</b> 客戶必須清楚瞭解自己正參與實驗，且享有明確的賠償機制保障。</div>
+		</td>
+	</tr></table>
+	</div>
+</section><!--}}}-->
+
+<section class='page col'>
+	<h2>兩者比較與金融核心業務剖析</h2>
+	<!-- 核心教學目標：對比雙砂盒，梳理銀行核心業務與風險本質 {{{ -->
+	<div class='fill'>
+	<ul>
+		<li><div class='blue'>核心定位</div>
+			<div><b>數位砂盒:</b> 技術與演算法驗證 (Proof of Concept)</div>
+			<div><b>金融監理砂盒:</b> 商業模式與法規可行性驗證 (Proof of Business)</div>
+		</li>
+		<li><div class='blue'>金流/客戶</div>
+			<div><b>數位砂盒:</b> 無真實金流，使用虛擬或去識別化數據</div>
+			<div><b>金融監理砂盒:</b> 涉及真實金流與真實客戶（限額/限量）</div>
+		</li>
+		<li><div class='blue'>資料來源</div>
+			<div><b>數位砂盒:</b> 去識別化數據 / AI 合成模擬數據 / 虛擬 API</div>
+			<div><b>金融監理砂盒:</b> 真實客戶數據 與 真實金流交易紀錄</div>
+		</li>
+		<li><div class='blue'>個資風險</div>
+			<div><b>數位砂盒:</b> 極低至零風險（不含任何未處理個資）</div>
+			<div><b>金融監理砂盒:</b> 有風險（需高度控管，並取得客戶專屬同意）</div>
+		</li>
+		<li><div class='blue'>法律豁免</div>
+			<div><b>數位砂盒:</b> 不需要（不觸及金流與法規限制）</div>
+			<div><b>金融監理砂盒:</b> 需要（主管機關給予有限度的法律豁免權）</div>
+		</li>
+		<li><div class='blue'>進入門檻</div>
+			<div><b>數位砂盒:</b> 低（適合早期 POC 技術驗證）</div>
+			<div><b>金融監理砂盒:</b> 高（需經過監管機關嚴格審查）</div>
+		</li>
+		<li><div class='blue'>對應金融特性</div>
+			<div><b>數位砂盒:</b> 數據隱私性、資訊安全性</div>
+			<div><b>金融監理砂盒:</b> 風險特許性、法律合規性</div>
+		</li>
+		<li><div class='blue'>適用階段</div>
+			<div><b>數位砂盒:</b> 產品研發早期 (Idea / Prototype 階段)</div>
+			<div><b>金融監理砂盒:</b> 產品成熟準備上線階段 (Pre-market 階段)</div>
+		</li>
+		<li><div class='blue'>測試環境</div>
+			<div><b>數位砂盒:</b> 純雲端/軟體模擬測試環境 (Off-line)</div>
+			<div><b>金融監理砂盒:</b> 有限額、限人數的真實市場實測 (Live Testing)</div>
+		</li>
+	</div>
+</section><!-- }}} -->
+
+<section class='page col'>
+	<h2>砂盒 與 銀行核心業務</h2>
+	<!--{{{-->
+	<div class='fill'><ul>
+		<li><div class='blue'>資產配置與理財 (Wealth Mgt &amp; Robo-Advisors)</div>
+			<div>適合適合性與資訊揭露規範</div>
+			<div><b>業務特性：</b> 資訊極度不對稱，追求收益的同時必須控管客戶風險偏好。</div>
+			<div><b>砂盒應用議題：</b> 機器人理財演算法是否會有利益衝突？合規性（KYC/KYP）如何在線上化完成？</div>
+		</li>
+		<li><div class='blue'>授信風控 (Credit Risk Control)</div>
+			<div>違約概率與資料維度挖掘</div>
+			<div><b>業務特性：</b> 傳統風控過度依賴聯徵中心資料，無信用紀錄者（Thin-file）難以借貸。</div>
+			<div><b>砂盒應用議題：</b> 如何運用替代數據（電信帳單、社群行為）評估信用風險？（需透過數位砂盒測試算法，再透過監理砂盒測試放款業務）。</div>
+		</li>
+		<li><div class='blue'>貸款違約 (Loan Default Prediction)</div>
+			<div>催收機制與景氣循環壓力</div>
+			<div><b>業務特性：</b> 呆帳是銀行最大的成本來源，極度依賴違約機率（PD）與損失率（LGD）的準確預測。</div>
+			<div><b>砂盒應用議題：</b> 如何在不破壞資本適足率（BIS ratio）的前題下，利用機器學習進行違約預警？</div>
+		</li>
+		<li><div class='blue'>洗錢與盜刷防治 (AML &amp; Anti-Fraud)</div>
+			<div>異常行為識別與高頻實時監控</div>
+			<div><b>業務特性：</b> 對實時性（Real-time）要求極高，且洗錢手法不斷創新，傳統 rule-based 系統誤報率過高。</div>
+			<div><b>砂盒應用議題：</b> 跨行聯防與 AI 異常偵測模型（需在數位砂盒中使用合成交易資料訓練）。</div>
+		</li>
+	</ul></div>
+</section><!--}}}-->
+
+<section class='page col'>
+	<h2>砂盒實戰組合</h2>
+	<div class='fill'><ul>
+		<li>創新推進的「雙階梯演進」（Two-Stage Innovation Flow）</li>
+		<li>第一階段（進數位砂盒）： 「練兵」——在零個資風險的環境下，快速訓練 AI 模型與優化演算法技術。</li>
+		<li>第二階段（進監理砂盒）： 「打仗」——確定技術可行後，向主管機關申請進入監理砂盒，取得法規豁免並進行小規模真實試營運。</li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<table width='95%' border='1' cellspacing='8' cellpadding='8'><tr>
+		<td valign='top'>授信與放貸<ul>
+			<li>事前授信風控與替代數據</li>
+			<li>事後貸款違約預警與處置</li>
+		</ul></td>
+		<td valign='top'>財富管理、投資與保險<ul>
+			<li>投資與財富管理</li>
+			<li>保險科技</li>
+		</ul></td>
+		<td valign='top'>存款、支付與整合<ul>
+			<li>存款、支付與嵌入式金融</li>
+		</ul></td>
+	</tr><tr>
+		<td colspan='3' valign='top'>安全底座<ul>
+			</li>洗錢防制 AML / 詐欺偵測 Anti-Fraud</li>
+		</ul></td>
+	</tr></table>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'><div class='pfx'>安全底座</div><h2>洗錢防制 AML / 詐欺偵測 Anti-Fraud</h2></div>
+	<div class='fill'><ul>
+		<li><b>業務本質與風險：</b> 營運風險（Operational Risk）與天價罰款風險；交易實時性（Real-time）的要求。</li>
+		<li><b>技術演進：</b><ul>
+			<li><b>傳統：</b> Rule-based 規則引擎的痛點（誤報率過高 False Positive）。</li>
+			<li><b>現代 FinTech：</b> 利用 圖形 AI (Graph Neural Networks / Graph AI) 偵測人頭帳戶網路與環狀洗錢鏈；異常偵測（Anomaly Detection）模型的應用。</li>
+			<li><b>砂盒實踐思考：</b> 如何在不洩漏真實客戶交易明細的前提下，在數位砂盒中利用生成式 AI 產生「虛擬詐欺交易樣本」來訓練 AI 模型？</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'><div class='pfx'>授信與放貸</div><h2>事前授信風控與替代數據 Alternative Data</h2></div>
+	<!--理解放貸業務的本質（信用即無形抵押品），掌握「授信風控（事前）」與「貸款違約（事後）」在信貸生命週期中的角色，並學習 FinTech 如何利用替代數據打破傳統信用障礙。-->
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 資訊不對稱與逆向選擇（Adverse Selection）；DBR 22 倍上限與授信評級。</li>
+		<li><b>FinTech 創新：</b> 無卡族/小白（Thin-file）的信用救援： 如何利用電信帳單、電商購物紀錄、數位足跡進行信用評分（Credit Scoring）。</li>
+		<li><b>機器學習風控模型：</b> XGBoost、樹狀模型在信用風險評估中的應用與「可解釋性 AI（XAI / SHAP）」的需求（為什麼拒絕貸款必須給理由？）。</li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'><div class='pfx'>授信與放貸</div><h2>事後貸款違約預警與處置（Default Risk &amp; EWS）</h2></div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 巴塞爾協定三核心指標——PD（違約機率）、LGD（違約損失率）、EAD（違約曝險額）。</li>
+		<li><b>FinTech 創新：</b> 早期預警系統（Early Warning Systems, EWS）： 時間序列模型動態監測帳戶異常行為（如卡費突轉最低應繳、頻繁提現）。</li>
+		<li><b>智能催收與債務重組演算法：</b> 自動化決策系統對違約風險的應對流程。</li>
+		<li><b>雙砂盒實戰研討：</b> 想推出一款「學生專屬、免聯徵的微型信用貸款 App」，會觸犯《銀行法》哪條規定？需要使用數位砂盒的哪些數據做測試？</li>
+	</ul></div>
+</section>
+
+<!--深入銀行賺取手續費（Fee Income）的核心業務，掌握「消費者保護（KYC/KYP）」原則，並剖析機器人理財與場景化保險的演算法與監管衝突。-->
+<section class='page col'>
+	<div style='width:100%'><div class='pfx'>財富管理、投資與保險（Wealth, InvestTech &amp; InsurTech）</div><h2>投資與財富管理：機器人理財（Robo-Advisors）</h2></div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 代理人風險與利益衝突；適合性原則（KYC &amp; KYP）；馬可維茲現代投資組理論（MPT）與 Efficient Frontier。</li>
+		<li><b>FinTech 創新：</b> 機器人理財演算法： 自動化風險偏好評估、資產配置推薦、自動再平衡（Rebalancing）機制。</li>
+		<li><b>監管與倫理挑戰：</b> 演算法演變出的「演算法偏見（Algorithm Bias）」與「手續費導向推薦」問題。</li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'><div class='pfx'>財富管理、投資與保險（Wealth, InvestTech &amp; InsurTech）</div><h2>保險科技（InsurTech）：場景金融與動態保費</h2></div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 道德風險（Moral Hazard）與大數法則；保險代銷與佣金結構。</li>
+		<li><b>FinTech 創新：</b> 場景化與碎片化保險 (Embedded / Fragmented Insurance)： 電商退貨險、外送員按時按趟保險、旅平險 API 嵌入。</li>
+		<li><b>UBI (Usage-Based Insurance) 與 IoT：</b> 利用穿戴裝置（Apple Watch）或車載裝置（Telematics）實時計算動態保費。</li>
+		<li><b>砂盒實踐思考：</b> 使用用戶的生醫數據（如心率、步數）來動態調降保費，會撞上《個資法》與《保險法》的哪些牆？如何透過金融監理砂盒進行實驗？</li>
+	</ul></div>
+</section>
+
+<!--掌握金融科技最後一塊拼圖——「支付與存款」，了解 Open Banking 與嵌入式金融（Embedded Finance）趨勢。-->
+<section class='page col'>
+	<div style='width:100%'><div class='pfx'>存款、支付與整合</div><h2>存款、支付與嵌入式金融（Embedded Finance）</h2></div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 流動性管理、支付清算機制與電子支付機構管理條例。</li>
+		<li><b>FinTech 創新：</b> 先買後付 (BNPL, Buy Now Pay Later)： BNPL 到底是「支付」還是「放貸」？法規模糊地帶與風控模型。</li>
+		<li><b>開放銀行 (Open Banking) 與 API 金融：</b> TSP 業者（第三方服務業者）如何與銀行 API 對接？</li>
+		<li><b>嵌入式金融 (Embedded Finance)：</b> 非金融業者（如蝦皮、Uber）如何透過 API 嵌入支付、理財與貸款功能。</li>
+	</ul></div>
+</section>
+<!--
+小組實戰任務：
+給定一個前沿 FinTech 創業題目（例如：「結合外送員行車數據的自動化微型貸款與自動按日扣繳保險 App」）。
+學生簡報與評分維度：
+業務拆解： 觸及了模組中的哪些業務？（放貸/保險/支付/防詐）
+技術與數據規劃： 如何在數位砂盒中，利用合成數據測試 AI 風控與推薦模型？
+法規與落地規劃： 需要申請進入金融監理砂盒嗎？涉及哪些法律豁免（銀行法、保險法、個資法）？
+這套 12 小時的課程規劃，既有高質感的理論深度（巴塞爾協定、馬可維茲理論、個資法與監管），又具備極強的實務應用（GNN 圖形 AI、XGBoost 風控、去識別化/合成數據、雙砂盒操作流程），非常適合作為大學或研究所 1/3 學期的 FinTech 核心模組課程！
+-->
+
+<section class='page col'>
+	<h2>授信與貸款 (抵押, 信用)</h2>
+
+	<div class='fill'><ul>
+		<li>如果把概念抽象化來看，「信用」本質上就是一種「無形抵押品」（以個人未來的賺錢能力與社會聲譽做擔保）</li>
+		<li>事前（授信風控）： 評估「償還能力與意願」<ul>
+			<li><b>核心問題：</b> 「這個人未來的現金流穩不穩定？他會不會按時還錢？」</li>
+			<li><b>評估對象：</b> 信用評分、所得收入、負債比（DBR 22倍限制）、過往繳款紀錄、甚至電信/電商等替代數據（Alternative Data）。</li>
+			<li><b>手段：</b> 自動化准駁、風險定價（Risk-based Pricing, 信用越好利率越低）、授信額度管控。</li>
+		</ul></li>
+		<li>事後（貸款違約管理）： 評估「損失風險與挽回程度」<ul>
+			<li><b>核心問題：</b> 「萬一他真的不還錢了，我們會虧多少？能收回多少？」</li>
+			<li><b>評估對象：</b> 違約機率（PD）、違約損失率（LGD）、早期預警訊號（Early Warning Signals, 如突然大額提現、卡費只繳最低）。</li>
+			<li><b>手段：</b> 催收機制、債務協商、提列呆帳準備金（Provisioning）、拍賣抵押品或出售不良債權（NPL）。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section>
+	<table width='100%'><tr><td>
+		<h3>授信風控 (事前)</h3>
+		<ul>
+			<li><b>應用：</b> 替代數據風控 (Alternative Data)</li>
+			<li><b>技術：</b> 分類模型 (Tree/XGBoost)</li>
+			<li><b>目的：</b> 擴大客群 (如 Thin-file 無卡族)</li>
+		</ul>
+	</td><td>
+		<h3>貸款違約 (事後)</h3>
+		<ul>
+			<li><b>應用：</b> 早期預警系統 (EWS)</li>
+			<li><b>技術：</b> 時間序列分析 / 行為特徵工程</li>
+ 			<li><b>目的：</b> 降低呆帳率 / 智能催收</li>
+		</ul>
+	</td></tr><tr><td colspan='2' align='center' style='border:1px solid black;'>
+		授信風控是『開門擇客』，靠精準評估把壞客人擋在門外；<br/>
+		貸款違約是『關門防守』，靠動態監控把已經發生的損失降到最低。<br/>
+		兩者結合，就是銀行借貸業務的生命線。」
+	</td></tr><tr><td colspan='2'>
+		<ul>
+			<li><b>授信風控的 FinTech 焦點：</b> 解決「資訊不對稱」與「無信用紀錄者（Thin-file）」。<ul>
+				<li>例如：傳統銀行因為拿不到小白（學生、自由職業者）的聯徵資料而不給貸款，但 FinTech 利用「電信帳單繳費狀況、電商購物習慣」來預測其償還能力。</li>
+			</ul></li>
+			<li><b>貸款違約的 FinTech 焦點：</b> 解決「動態風險」與「異常偵測」。<ul>
+				<li>例如：利用 AI 模型持續監控借款人的「帳戶行為變化」，在其還沒真正欠款前（例如連兩個月只繳最低金額），就先發出警示進行風險控管。</li>
+			</ul></li>
+		</ul>
+	</td></tr></table>
+</section>
+
+<section>
+	<h2>政府債券（Treasury Bonds）與中央存款保險公司</h2>
+	<div class='fill'>
+	<table border='1' cellspacing='8' cellpadding='8'><tr><th colspan='3'>
+		銀行資產端 / 廣義授信
+	</th></tr><tr><td valign='top'>
+		<div>1. 傳統企業與個人放貸</div>
+		<div>(Commercial &amp; Retail Loans)</div>
+		<ul>
+			<li>對「私法人/個人」的授信</li>
+			<li>承擔「信用風險 (Credit Risk)」</li>
+		</ul>
+	</td><td valign='top'>
+		<div>2. 政府債券與流動性資產</div>
+		<div>(Treasury &amp; Govt Bonds)</div>
+		<ul>
+			<li>對「主權/政府」的授信 (無風險資產)</li>
+			<li>承擔「利率風險 (Interest Risk)」</li>
+		</ul>
+	</td><td valign='top'>
+		<div>3. 中央存保與資本適足</div>
+		<div>(CDIC &amp; BIS Capital)</div>
+		<ul>
+			<li>對「系統性風險」的投保與監管</li>
+			<li>決定銀行的「槓桿上限與資本厚度」</li>
+		</ul>
+	</td></tr></table>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>傳統企業與個人放貸（Retail &amp; Corporate Lending）</h2>
+	<div class='fill'><ul>
+		<li><b>金融本質：</b> 銀行將資金借給個人（房貸、信貸）或企業（週轉金、聯貸）。</li>
+		<li><b>風險核心：</b> 信用風險（Credit Risk）。核心問題是「借款人會不會違約（PD）」與「違約後能收回多少（LGD）」。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>事前：</b> 利用替代數據（Alternative Data）+ XGBoost / 神經網絡進行自動化信用評估與風險定價；利用 可解釋 AI (XAI / SHAP) 提供法規要求的「拒貸理由解釋」。</li>
+			<li><b>事後：</b> 時間序列模型動態監測帳戶金流，建立早期預警系統（EWS）；利用生成式 AI 或智能演算法進行自動化催收與債務重組。</li>
+		</ul></li>
+		<li>零售與企業放貸（信用風險）<ul>
+			<li>授信風控（替代數據 + XGBoost/XAI）</li>
+			<li>違約預警（PD/LGD 評估 + EWS 早期預警）</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<h2>資產鑑定、AVM 與抵押品動態風控</h2>
+	<div class='fill'><ul>
+		<li><b>資產鑑定的金融邏輯與風險：</b><ul>
+			<li>LTV ( Loan-to-Value，貸款成數) 與 LGD (違約損失率) 的數學關係。</li>
+			<li>抵押品類型：不動產（房地）、動產（車輛/機器）、金融資產（股票/債券/存單）。</li>
+			<li>鑑價三大傳統方法：市場比較法、成本法、收益法。</li>
+		</ul></li>
+		<li><b>AI 與科技在資產鑑定的應用：</b><ul>
+			<li>不動產： AVM (Automated Valuation Model) 自動估價演算法與特徵工程。</li>
+			<li>動產與存貨： IoT + 電腦視覺 (CV) 實現「動產質押」的實時監控。</li>
+			<li>動態 LTV 預警： 市場價格波動下的抵押品維持率監測。</li>
+			<li>代幣化前哨站 (RWA &amp; Liquidation Preview)：<ul>
+				<li>當抵押品從「實體房屋」變成「數位代幣/加密資產」時，估價邏輯會如何改變？</li>
+				<li>預言機 (Oracle) 與自動清算機制簡介。</li>
+			</ul></li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<table class='nvtable'><tr>
+		<th>評估人：</th><td>事前授信風控與替代數據（信用評分）</td>
+	</tr><tr>
+		<th>評估物：</th><td>資產鑑定與 AVM（抵押品與 LTV）</td>
+	</tr><tr>
+		<th>評估事（違約）：</th><td>事後違約預警與處置（PD/LGD/EWS）</td>
+	</tr></table>
+</section>
+
+<section class='page col'>
+	<h2>政府債券與公債投資（Treasury & Government Bonds）</h2>
+	<div class='fill'><ul>
+		<li>對政府的放貸</li>
+		<li><b>金融本質：</b> 銀行買政府債券，本質上就是把錢「借給政府」（主權授信 Sovereign Lending）。因為政府被視為「絕不違約（No Credit Risk）」，所以公債在銀行資產負債表上被視為高流動性優質資產（HQLA）。</li>
+		<li><b>風險核心：</b> 利率風險（Interest Rate Risk）與殖利率曲線風險（Yield Curve Risk）。雖然政府不會跑路，但如果市場升息，債券價格會下跌（如矽谷銀行 SVB 倒閉的主因就是買太多長天期美債，遇到升息產生未實現虧損而遭擠兌）。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>殖利率曲線預測與 ALM 最佳化：</b> 利用 LSTM / Transformer 等時間序列模型，預測央行升/降息路徑與殖利率曲線變化（Yield Curve Shifts）。</li>
+			<li><b>資產負債匹配（Asset-Liability Matching）：</b> AI 演算法動態計算 Duration Gap（存續期間缺口），自動建議公債買賣組合，以對沖存款端（短期）與資產端（長期）的利率錯配風險。</li>
+		</ul></li>
+		<li>政府債券與資產負債管理（利率與流動性風險）<ul>
+			<li>買公債的本質：對主權的授信與 HQLA 流動性管理</li>
+			<li>AI 在利率預測、Yield Curve 與 Duration Gap（矽谷銀行 SVB 案例）的應用</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<h2>中央存保與監管指標（CDIC & Capital Adequacy）</h2>
+	<div class='fill'><ul>
+		<li>銀行的安全安全網</li>
+		<li><b>金融本質：</b> 銀行向「中央存款保險公司」繳納保費（為存款人的錢買保險），並接受金管會/中央銀行的<em>資本適足率（BIS Ratio / 資本充足率）與流動性覆蓋率（LCR）</em>監管。</li>
+		<li><b>風險核心：</b> 系統性風險（Systemic Risk）與流動性風險（Liquidity Risk）。放貸與買債放得越多，需要留存的法定準備金與自有資本就越多。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>動態壓力測試（Dynamic Stress Testing）：</b> 利用 AI 模擬極端市場情境（例如：房價大跌 30% + 利率暴升 2% + 10% 存款戶同時提款），計算銀行的資本適足率是否會低於 8% 監管紅線。</li>
+			<li><b>監理科技 (SupTech / RegTech)：</b> 自動化監理報表生成，即時計算存保費率等級（Risk-based CDIC Premium Rate）。</li>
+		</ul></li>
+		<li>存保機制、資本適足率與監理科技（系統性風險）<ul>
+			<li>巴塞爾協定三（Basel III）資產風險權數計算</li>
+			<li>AI 壓力測試與 SupTech 自動監理報表</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<!--
+將政府債券與存保放入上半學期，對您後半學期的「代幣實作專題」有極強的教學連結：
+政府債券 ➔ 對標 DeFi 的「無風險利率與 RWA（真實世界資產）」
+當學生在後半學期發行代幣與建立借貸池（Lending Pool）時，他們需要一個「基準利率（Risk-Free Rate）」。上半學期講透了政府債券，後半學期就能順理成章引入 RWA（把美債/公債 Token 化） 的概念！
+中央存保與資本適足 ➔ 對標 DeFi 的「清算機制與壞帳池（Reserve Fund）」
+銀行有中央存保與資本適足率來防止擠兌；DeFi 借貸協議（如 Aave/Compound）則有超額抵押（Over-collateralization）、自動清算機器人（Liquidator Bots）與安全模組（Safety Module）。這兩者的風險邏輯是完全通透的！
+-->
+
+<!--資產鑑定
+強烈建議獨立拿出來介紹，而且非常適合單獨設一個專題單元！
+在傳統銀行學中，「資產鑑定」常被簡化為授信審查的附屬步驟；但在 FinTech 科技應用 以及您後半學期的「鏈上代幣實作 (DeFi / RWA)」視角下，資產鑑定扮演著「連結實體資產（物理世界）與金融帳本（數位/鏈上世界）的唯一橋樑」。
+將「資產鑑定」獨立成一個單元（約 1 至 1.5 小時），在教學上具有極高價值，原因如下：
+
+1. 金融本質的轉換：從「評估人」變成「評估物」
+授信風控： 評估借款人的償還能力與意願（評估「人」，如收入、信用分數）。
+資產鑑定： 評估萬一借款人違約時，這項資產的變現價值與流動性（評估「物」，決定違約損失率 LGD 的下限）。
+金融核心痛點： 資訊不對稱、市場流動性枯竭風險、人為高估鑑價（欺詐/過度槓桿）以及處置變現的折價與時間成本。
+2. FinTech 在「資產鑑定」的突破（上半學期 AI 重點）
+獨立這個單元，可以讓您非常完整地展現科技如何顛覆傳統估價：
+不動產鑑價 (Real Estate Valuation) ➔ 自動估價模型 (AVM / AI Valuation)：
+技術： 結合 GIS 地理資訊系統、時空特徵、周邊實價登錄數據與地理空間機器學習模型（Spatial ML），實現秒級的房屋估價。
+突破： 擺脫傳統估價師耗時數天的人工現場勘驗。
+動產/車輛/設備鑑價 ➔ IoT 數據與電腦視覺 (Computer Vision)：
+技術： 利用 AI 車牌與車況影像識別評估車損；利用 IoT 聯網感測器監控工廠設備或農產品存貨的「實時狀態與折舊」。
+智慧合約與動態 LTV (Loan-to-Value) 監控：
+利用 AI 每日自動更新抵押品市場價值，當 LTV 衝破安全線時自動觸發追繳保證金（Margin Call）或警示。
+3. 無縫銜接下半學期「代幣與 DeFi 實作」（終極伏筆！）
+這正是獨立此單元最精妙的地方！學生在下半學期要發行代幣、做借貸池、設計金融商品，他們一定會遇到以下問題，而上半學期的「資產鑑定」課就是解藥：
+ [ 上半學期：傳統/AI 資產鑑定 ]                  [ 下半學期：鏈上代幣實作 ]
+  • 不動產/動產鑑價 ────────────────────────► RWA (Real World Assets) 代幣化
+  • 自動估價模型 (AVM) ──────────────────────► 甲骨文 / 預言機 (Oracle, 如 Pyth/Chainlink)
+  • 動態 LTV 監控 & 追繳 ───────────────────► 自動清算機器人 (Liquidator Bots)
+
+
+傳統的「鑑價機制」 ➔ 鏈上的「預言機 (Oracle)」： DeFi 協議本身不知道實體資產或加密貨幣現在值多少錢，必須靠預言機（如 Chainlink）來「鑑定價格」。
+傳統的「LTV 鑑價成數」 ➔ DeFi 的「超額抵押率 (Over-Collateralization)」： 銀行房貸給 7-8 成（LTV 70-80%）；DeFi 借貸因為抵押品波動大，鑑價後通常只給 5-7 成。
+傳統的「法拍處置」 ➔ 鏈上的「清算機制 (Liquidation)」： 當抵押品價值下跌到清算線，鏈上智能合約會自動拍賣抵押品。
+🎯 建議：融入前半學期課綱的獨立單元設計 (1.5 小時)
+您可以將它安排在「授信風控」之後、「政府債券與資產負債管理」之前：
+
+這樣的理論鏈條非常完整，且能讓學生在下半學期做實作專題時，深刻理解為什麼 DeFi 借貸協議需要 Oracle 和超額抵押！
+-->
+
+<!--資產管理
+這個視角極具深度，而且在理論與實務上都非常高級！
+將保險與投資的資產管理，抽象化為**「在時間軸上連續進行的資產鑑定（Continuous Asset Valuation over Time）」，不僅能完美的把第一模組的「資產鑑定（AVM / 預言機）」概念延伸過來，更一舉打通了精算學（Actuarial Science）**、金融工程（Financial Engineering） 與 DeFi 鏈上機制 的底層邏輯。
+這個角度非常適合用來作為第二模組（財富管理、投資與保險）的核心骨幹，以下為您整理如何從「時間軸上的連續資產鑑定」來重新定義與教學資產風險與財務管理：
+🏛️ 核心概念：為什麼保險與投資是「連續的時間軸鑑定」？
+傳統的資產鑑定（如房貸鑑價）往往是**「離散點（Point-in-Time）」**的——借錢那一刻量一次價值，違約法拍那一刻再量一次價值。
+但保險與投資商品，本質上是**「隨時間動態變化的合約（Time-series Contracts）」**：
+                         [ 時間軸 (Time Dimension) ] ───►
+  ───────────────────────────────────────────────────────────────────────►
+  【投資 (Investment)】  每一秒/每一天都在鑑定「市價 (Mark-to-Market)」與「期望報酬」
+  【保險 (Insurance)】   每一分/每一秒都在鑑定「風險發生機率 (Probability of Loss)」
+
+
+投資（Investment）： 是對**「資產未來現金流與市場價格」**在時間軸上的連續估值與折現。
+保險（Insurance）： 是對**「標的物（人身/財產）未來損害風險」**在時間軸上的連續機率定價與貼現。
+💡 從「連續資產鑑定」看四大核心議題
+從這個視角出發，您可以順理成章地匯入以下四個重要的財務管理與 AI 應用主題：
+1. 投資端的連續鑑定：Mark-to-Market（盯市）與資產再平衡
+金融原理： 投資組合的價值不是靜止的。資產價格隨市場每秒波動，這意味著該資產佔整體投資組合的「權重比例」隨時在被動改變。
+風險控管： 當價格偏離預期，投資組合的風險暴露（Volatility / VaR）就會過高，因此必須在時間軸上進行連續鑑定與動態再平衡（Dynamic Rebalancing）。
+AI 的發揮空間：
+機器人理財（Robo-Advisor）： 演算法 24/7 不間斷監控投資組合價值，當資產權重偏離設定的 Efficient Frontier（有效前緣）時，自動觸發買賣做再平衡。
+2. 保險端的連續鑑定：精算（Actuarial）、外包風險與 UBI 保險
+金融原理： 傳統保險一年鑑定一次風險（例如：今年 30 歲、沒出過車禍，保費算 1 萬元）。但事實上，個人的風險狀況在 365 天裡是動態變化的（深夜開車風險高、飆車風險高、不運動風險高）。
+風險控管： 保險公司的本質就是「貼現未來的預期損失」。如果鑑定頻率太低，就會產生逆向選擇與道德風險。
+AI 的發揮空間：
+UBI (Usage-Based Insurance) & IoT： 利用 Apple Watch（心率、步數）或車載系統（Telematics），將保險風險的評估頻率從「一年一次」變成「每分每秒連續鑑定」，並實時調整保費（Dynamic Pricing）。
+3. 負債端的連續鑑定：資產負債匹配 (ALM) 與 Mark-to-Model
+金融原理： 保險公司與退休基金收了保戶的保費（負債），並拿去買股票、公債（資產）。因為保單給付可能在 20 年後，所以管理者必須同時對「未來的資產」與「未來的負債」進行長期的連續折現估值。
+風險控管： 利率變動會同時影響資產與負債的估值（如國際會計準則 IFRS 17 / ICS 的核心就是要求保險業必須將負債按市價/現值連續鑑定）。
+AI 的發揮空間：
+利用蒙地卡羅模擬（Monte Carlo Simulation）與 AI 深度學習，模擬未來 30 年不同升降息情境下，資產與負債的連續價值演變，確保不會出現資產不足以清償負債的風險。
+🔗 無縫對接後半學期「代幣與 DeFi 實作」的終極橋樑
+這個概念最厲害的地方，在於它能完美銜接您下半學期的鏈上實作！因為區塊鏈/DeFi 的世界，本質上記錄的就是**「高度連續、無間斷的資產鑑定」**：
+ [ 上半學期：時間軸上的連續資產鑑定 ]               [ 下半學期：DeFi & Smart Contracts ]
+  • 投資的 Mark-to-Market (盯市) ──────────────► 預言機 (Oracle) 的高頻喂價 (Push/Pull Price)
+  • UBI 保險的動態風險計價 ───────────────────► 鏈上動態保費與條款觸發 (Parametric Insurance)
+  • 理財的動態再平衡 (Rebalancing) ─────────────► 自動做市商 (AMM) & 流動性池 (Yield Farming)
+
+
+鏈上預言機 (Oracle) ＝ 高頻的連續資產鑑定器： DeFi 裡的借貸清算、永續合約（Perpetuals）與合成資產，全都依賴 Chainlink 或 Pyth 這種預言機在每秒鐘/每個區塊進行連續的價格鑑定。
+參數化保險 (Parametric Insurance) ＝ 程式化的連續風險觸發： 在鏈上，只要預言機鑑定出「颱風風速超過 10 級」或「航班延誤超過 2 小時」，智慧合約不需要經過人工審理，直接自動理賠。這就是連續鑑定的終極呈現！
+DeFi 的自動再平衡與清算： DeFi 的清算機器人（Liquidator Bots）每秒都在掃描鏈上抵押品價值，只要價值跌破清算線（LTV 臨界點），瞬間自動執行拍賣。
+🎯 建議融入課程的「單元故事線」安排
+您可以在第二模組開頭這樣向學生引導：
+講師引導情境： 「上一個單元我們講房貸或車貸的鑑價，那是『一次性』的鑑定。但到了保險與投資，鑑價變成了**『時間軸上的連續演進』**：
+投資： 是對**『資產價格與未來收益』**進行每分每秒的連續估值（Mark-to-Market），演算法據此進行資產再平衡。
+保險： 是對**『風險發生機率』**進行連續估值，過去是一年算一次保費，現在靠 IoT 與 AI，保險公司可以做到每秒鐘根據你的行為連續評估風險（UBI 動態保費）。
+當這一切被寫進區塊鏈的智慧合約裡時，預言機（Oracle）就是那個『連續鑑價的機器』，而 AMM 與清算機制就是『自動再平衡的程式』。這就是為什麼掌握連續資產鑑定，就能掌握未來的量化投資與 DeFi 邏輯！」
+這樣的論述結構既深刻又有極強的邏輯連貫性，能讓您的前半學期理論課程顯得非常宏大且嚴密！
+-->
+
+<!-- 消費金融
+在消費金融（Retail Banking / Consumer Finance）與金融服務手續費（Fee-based Services）這個領域，**「促銷活動對交易量的貢獻程度（Promotion Attribution & A/B Testing）」**確實是行銷科技（MarTech）常見的切入點，但它只觸及了消金業務的冰山一角。
+如果從銀行核心商業模式、資產負債管理（ALM），以及AI/機器學習的應用來看，這個分支還有四大極具研究價值且產業需求極高的核心領域：
+1. 客戶終身價值（CLV）與動態流失預測（Churn Prediction）
+消金是典型的「薄利多銷/高頻交易」業務，獲客成本（CAC）極高，因此研究重點常放在「如何留住高價值客戶」。
+研究重點：
+CLV (Customer Lifetime Value) 模型： 預測一個客戶未來 3-5 年能為銀行帶來多少手續費（刷卡手續費、跨行轉帳費、理財手續費）與利差貢獻。
+流失預預警（Early Churn Detection）： 客戶在徹底剪卡或銷戶前，通常會有「行為徵兆」（例如：月刷卡金額連續 3 個月下滑、提款頻率降低、App 登入次數減少）。
+AI 發揮空間： 利用時間序列與生存分析（Survival Analysis / XGBoost）模型，在客戶流失前 30 天自動觸發「個性化手續費折抵」或「精準權益推薦」，以最低成本挽回高價值客戶。
+2. 信用卡與支付手續費結構分析（Interchange Fee & Pricing Optimization）
+信用卡與電子支付的手續費（如手續費拆分 Interchange Fee、手續費率 1.5%~3%）是消金極大的手續費收入（Fee Income）來源，這背後有非常複雜的賽局與定價彈性。
+研究重點：
+價格彈性與回饋率的最佳化（Reward Rate Optimization）： 信用卡發卡行給「現金回饋 2% 或 3%」時，消費者的刷卡總額會增加多少？扣除回饋成本與清算手續費後，銀行的**淨手續費收益（Net Fee Income）**是否極大化？
+循環利息與手續費的平衡（Revolver Profile）： 研究哪些客戶會帶來手續費，哪些客戶會帶來循環利息，並分析其違約風險（連動到授信風控）。
+AI 發揮空間： 結合強化學習（Reinforcement Learning）或動態定價模型，針對不同客群動態給予「限時刷卡回饋/手續費減免」，達成刷卡量與手續費利潤的最佳平衡。
+3. 場景金融嵌入與交叉銷售（Cross-selling & Next-Best-Action, NBA）
+消金手續費常常不是單獨存在的，而是透過「支付/轉帳」這個高頻入口，將客戶引導至「理財、信貸、保險」等高手續費商品的過程。
+研究重點：
+下一步最佳行動（Next-Best-Action, NBA / Recommendation Systems）： 分析客戶的交易明細（Transaction Line Items），預測他下一步最需要什麼金融產品。
+場景金融轉化率（Embedded Finance Conversion）： 例如，客戶在買機票（支付）時，推薦旅平險（保險手續費）；客戶帳戶餘額過高時，推薦貨幣基金（理財手續費）。
+AI 發揮空間： 利用自然語言處理（NLP）與圖神經網路（GNN）分析客戶的消費足跡（Merchant Category Codes, MCC），建構客戶的生活風格特徵（Lifestyle Profiling），精準推薦金融產品。
+4. 浮動資金（Float）與手續費的動態價值評估
+這是消金極度優秀但常被忽略的財務概念——「浮動資金（Float / 零息資金）」。
+研究重點：
+當客戶把錢放在電子支付帳戶（如 Line Pay / 街口）、信用卡未結算款項，或是活期存款帳戶中時，這些資金的利息幾乎為零。
+銀行或支付機構雖然只收取微薄的交易手續費，但掌控這些低成本浮動資金，拿去放款或買短票，能創造巨大的隱性利差收益。
+AI 發揮空間： 結合 ALM（資產負債管理）模型，預測消金用戶資金的「平均滯留時間（Duration）」與「提現/消費週期」，以極大化資金調撥效益。
+🔗 無縫對接後半學期「代幣與 DeFi 實作」的終極伏筆！
+將消金與手續費拓展到這四大層面後，又能完美銜接您後半學期的「鏈上代幣與金融商品實作」：
+ [ 上半學期：傳統消金與手續費研究 ]                [ 下半學期：鏈上代幣與 DeFi 實作 ]
+  • 手續費與 Interchange Fee 拆分 ─────────────► Gas Fee 算力費與协议手續費拆分 (Protocol Fees)
+  • 浮動資金 (Float) 與低成本資金池 ────────────► 流動性池 (Liquidity Pool / Yield Farming)
+  • 促銷與回饋率最佳化 ────────────────────────► 代幣空投 (Airdrop) 與流動性挖礦獎勵機制设计
+  • 客戶終身價值 (CLV) ─────────────────────────► 鏈上治理代幣 (Governance Token) 的長期留存率
+
+
+傳統手續費 ➔ 鏈上 Gas Fee 與 Protocol Fee： DeFi 協議（如 Uniswap）每筆交易收取 0.3% 手續費，其中多少分給流動性提供者（LP）、多少留給協議金庫（Treasury），這與傳統銀行的信用卡手續費拆分（Interchange Fee）完全是一模一樣的經濟學邏輯！
+促銷活動與回饋 ➔ 代幣空投（Airdrop）與挖礦獎勵（Liquidity Mining）： 學生在後半學期發幣時，需要設計「如何用代幣獎勵來誘發交易量」。上半學期講透了「促銷對交易量的貢獻與 CLV」，後半學期學生就不會盲目發幣，而是能運用經濟模型精算「空投代幣的 ROI」與「避免挖集即賣（Churn）」！
+🎯 建議：消金與手續費模組的教學包裝
+您可以將這個分支命名為：【消費金融、支付生態與客戶價值挖掘 (Retail Finance & Customer Lifetime Value)】，內容包含：
+消金商業模式： 交易手續費 (Fee Income)、浮動資金 (Float) 與高頻流量入口。
+AI 與客戶價值： 客戶終身價值 (CLV) 模型、動態流失預警 (Churn) 與 Next-Best-Action 推薦系統。
+機制設計： 促銷活動歸因 (Attribution)、手續費與回饋率定價彈性。
+代幣化前哨站： 預演 DeFi 協議的手續費拆分機制與代幣激勵 (Token Incentives) 模型。
+這樣一來，您的上半學期就完整涵蓋了**「放貸（資產/風險）」、「理財/保險（時間/連續鑑定）」與「消金/支付（流量/手續費/CLV）」**，三大銀行商業支柱無一遺漏，為下半學期的 Web3/DeFi 實作構建了極其紮實且不可動搖的理論體系！
+-->
+
+<!--專題
+在校園環境中推動「點數交易」作為金融沙盒（或數位沙盒）的實驗場景，是將場景金融（Contextual Finance）落地的絕佳模式。透過封閉或半開放的校園生態系，學生與校方能安全地測試新型態的支付、清算或代幣經濟（Tokenomics）。 [1]
+以下為您梳理在校園環境推動點數交易金融沙盒的關鍵架構、法規邊界及實作步驟：
+一、 核心實驗場景與應用
+校園點數交易主要圍繞以下三大核心機制進行設計：
+點數發行機制：校方或學生活動發放點數（如：課堂表現、志工服務、校園競賽獎勵）。
+點數消費場域：校內合作商家消費（如：合作社、學餐、校內咖啡廳、體育館、列印服務）。
+點數流轉交易：學生之間的 P2P 轉帳、點數交換或二手市集交易。
+二、 為什麼需要「沙盒」？法規邊界在哪？
+在校園發行點數，是否需要向金管會申請金融監理沙盒？這取決於點數的「法規性質」：
+點數交易模式
+法規風險與定性
+是否需要申請沙盒？
+封閉式紅利點數
+僅能單向兌換商品，不能轉讓給他人，亦不能兌換回現金。
+不需要。 屬於一般商業促銷活動，無視為金融業務。
+可轉讓儲值代幣
+學生可用現金儲值，點數可在校內 P2P 轉讓或跨店消費。
+極可能需要。 涉及《電子支付機構管理條例》的儲值與移轉業務。
+區塊鏈虛擬資產
+發行校園代幣（Token）並建立校內去中心化交易所。
+需要。 涉及虛擬資產（VASP）洗錢防制法規與金融創新實驗。
+
+💡 實務建議： 如果只是概念驗證（PoC），可先加入金融總會與資策會推動的「FinTechSpace 數位沙盒校園實證基地」，利用其提供的模擬 API 資源進行非實名、不涉及實體金流的架構設計；若要進行實體真金白銀的創新實驗，則須依《金融科技發展與創新實驗條例》向金管會申請監理沙盒。 [1, 2, 3, 4, 5]
+三、 點數交易沙盒系統的三層架構
+應用層（前端 App / 系統）
+提供學生端錢包：顯示點數餘額、收付款 QR Code、交易明細。
+提供商家端系統：核銷點數、查看營收報表。
+核心账務與業務邏輯層（API / 智能合約）
+負責點數的發行（Mint）、轉帳（Transfer）、銷毀（Burn）。
+若採用區塊鏈技術，此處會運行私有鏈（如 Hyperledger）或聯盟鏈的智能合約。
+清算與對帳層（後台與銀行對接）
+處理校內商家與校方之間的點數變現（兌回法幣）機制。
+沙盒環境內需設計完善的對帳機制，避免點數超發或系統漏洞導致帳目不符。
+四、 實施面臨的盲點與挑戰
+資安與身分認證（KYC）：學生帳號若遭盜用，點數若具備實質價值，將產生法律糾紛。需與校園學生證（校務系統）進行綁定。
+商家的稅務與清算：校內商家收到點數後，何時能換回新台幣？是否需要開發票？這需要在沙盒財務規章中明確訂定。
+退場機制（Exit Strategy）：當實驗期滿或學生畢業時，剩餘點數該如何處理？必須有清算或歸零的預設條款。
+-->
+
+</div></main></body>
+</html>
