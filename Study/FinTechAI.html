@@ -233,8 +233,8 @@
 	</ul></div>
 </section>
 
-<!--深入銀行賺取手續費（Fee Income）的核心業務，掌握「消費者保護（KYC/KYP）」原則，並剖析機器人理財與場景化保險的演算法與監管衝突。-->
 <section class='page col'>
+	<!--深入銀行賺取手續費（Fee Income）的核心業務，掌握「消費者保護（KYC/KYP）」原則，並剖析機器人理財與場景化保險的演算法與監管衝突。-->
 	<div style='width:100%'><div class='pfx'>財富管理、投資與保險（Wealth, InvestTech &amp; InsurTech）</div><h2>投資與財富管理：機器人理財（Robo-Advisors）</h2></div>
 	<div class='fill'><ul>
 		<li><b>金融原理：</b> 代理人風險與利益衝突；適合性原則（KYC &amp; KYP）；馬可維茲現代投資組理論（MPT）與 Efficient Frontier。</li>
@@ -244,7 +244,10 @@
 </section>
 
 <section class='page col'>
-	<div style='width:100%'><div class='pfx'>財富管理、投資與保險（Wealth, InvestTech &amp; InsurTech）</div><h2>保險科技（InsurTech）：場景金融與動態保費</h2></div>
+	<div style='width:100%'>
+		<div class='pfx'>財富管理、投資與保險（Wealth, InvestTech &amp; InsurTech）</div>
+		<h2>保險科技（InsurTech）：場景金融與動態保費</h2>
+	</div>
 	<div class='fill'><ul>
 		<li><b>金融原理：</b> 道德風險（Moral Hazard）與大數法則；保險代銷與佣金結構。</li>
 		<li><b>FinTech 創新：</b> 場景化與碎片化保險 (Embedded / Fragmented Insurance)： 電商退貨險、外送員按時按趟保險、旅平險 API 嵌入。</li>
@@ -253,8 +256,28 @@
 	</ul></div>
 </section>
 
-<!--掌握金融科技最後一塊拼圖——「支付與存款」，了解 Open Banking 與嵌入式金融（Embedded Finance）趨勢。-->
 <section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>財富管理、投資與保險（Wealth, InvestTech &amp; InsurTech）</div>
+		<h2>UBI 使用率計費保險</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>使用率計費保險（Usage-Based Insurance）</li>
+		<li>依據車輛實際行駛里程與個人駕駛行為來計算保費的創新車險。</li>
+		<li>它打破傳統車險只看年齡與性別的作法，讓少開車或習慣良好的安全駕駛享有保費折扣。</li>
+		<li><b>運作方式：</b> 透過手機 App、車用 GPS 或車聯網裝置，記錄急煞車、急加速、超速及總里程等數據。</li>
+		<li><b>公平性高：</b> 開車安全或里程數低的駕駛不用幫高風險族群分攤保費，優良駕駛最高可享保費折扣。</li>
+		<li><b>優點：</b> 激發安全駕駛習慣、降低整體保費成本、計費更貼近實際用車狀況。</li>
+		<li><b>缺點：</b> 需安裝指定軟體或硬體、行蹤與駕駛數據會被記錄而可能產生隱私疑慮。</li>
+		<li><b>台灣應用：</b><ul>
+			<li>國泰產險推出的駕駛行為車險</li>
+			<li>南山產物與 Gogoro 合作的電動機車里程計費保險（騎多少付多少）</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<!--掌握金融科技最後一塊拼圖——「支付與存款」，了解 Open Banking 與嵌入式金融（Embedded Finance）趨勢。-->
 	<div style='width:100%'><div class='pfx'>存款、支付與整合</div><h2>存款、支付與嵌入式金融（Embedded Finance）</h2></div>
 	<div class='fill'><ul>
 		<li><b>金融原理：</b> 流動性管理、支付清算機制與電子支付機構管理條例。</li>
@@ -411,14 +434,6 @@
 	</ul></div>
 </section>
 
-<!--
-將政府債券與存保放入上半學期，對您後半學期的「代幣實作專題」有極強的教學連結：
-政府債券 ➔ 對標 DeFi 的「無風險利率與 RWA（真實世界資產）」
-當學生在後半學期發行代幣與建立借貸池（Lending Pool）時，他們需要一個「基準利率（Risk-Free Rate）」。上半學期講透了政府債券，後半學期就能順理成章引入 RWA（把美債/公債 Token 化） 的概念！
-中央存保與資本適足 ➔ 對標 DeFi 的「清算機制與壞帳池（Reserve Fund）」
-銀行有中央存保與資本適足率來防止擠兌；DeFi 借貸協議（如 Aave/Compound）則有超額抵押（Over-collateralization）、自動清算機器人（Liquidator Bots）與安全模組（Safety Module）。這兩者的風險邏輯是完全通透的！
--->
-
 <section class='page col'>
 	<h2>資產鑑定、AVM 與抵押品動態風控</h2>
 	<div class='fill'><ul>
@@ -522,14 +537,10 @@
 	</ul></div>
 </section>
 
-<!--鏈上預言機 (Oracle) ＝ 高頻的連續資產鑑定器： DeFi 裡的借貸清算、永續合約（Perpetuals）與合成資產，全都依賴 Chainlink 或 Pyth 這種預言機在每秒鐘/每個區塊進行連續的價格鑑定。
-參數化保險 (Parametric Insurance) ＝ 程式化的連續風險觸發： 在鏈上，只要預言機鑑定出「颱風風速超過 10 級」或「航班延誤超過 2 小時」，智慧合約不需要經過人工審理，直接自動理賠。這就是連續鑑定的終極呈現！
-DeFi 的自動再平衡與清算： DeFi 的清算機器人（Liquidator Bots）每秒都在掃描鏈上抵押品價值，只要價值跌破清算線（LTV 臨界點），瞬間自動執行拍賣。
-
+<!--
 講師引導情境： 「上一個單元我們講房貸或車貸的鑑價，那是『一次性』的鑑定。但到了保險與投資，鑑價變成了**『時間軸上的連續演進』**：
 投資： 是對**『資產價格與未來收益』**進行每分每秒的連續估值（Mark-to-Market），演算法據此進行資產再平衡。
 保險： 是對**『風險發生機率』**進行連續估值，過去是一年算一次保費，現在靠 IoT 與 AI，保險公司可以做到每秒鐘根據你的行為連續評估風險（UBI 動態保費）。
-當這一切被寫進區塊鏈的智慧合約裡時，預言機（Oracle）就是那個『連續鑑價的機器』，而 AMM 與清算機制就是『自動再平衡的程式』。這就是為什麼掌握連續資產鑑定，就能掌握未來的量化投資與 DeFi 邏輯！」
 -->
 
 <section class='page col'>
@@ -608,24 +619,6 @@ DeFi 的自動再平衡與清算： DeFi 的清算機器人（Liquidator Bots）
 		</ul></li>
 	</ul></div>
 </section>
-
-<!-- 消費金融
- [ 上半學期：傳統消金與手續費研究 ]                [ 下半學期：鏈上代幣與 DeFi 實作 ]
-  • 手續費與 Interchange Fee 拆分 ─────────────► Gas Fee 算力費與协议手續費拆分 (Protocol Fees)
-  • 浮動資金 (Float) 與低成本資金池 ────────────► 流動性池 (Liquidity Pool / Yield Farming)
-  • 促銷與回饋率最佳化 ────────────────────────► 代幣空投 (Airdrop) 與流動性挖礦獎勵機制设计
-  • 客戶終身價值 (CLV) ─────────────────────────► 鏈上治理代幣 (Governance Token) 的長期留存率
-
-傳統手續費 ➔ 鏈上 Gas Fee 與 Protocol Fee： DeFi 協議（如 Uniswap）每筆交易收取 0.3% 手續費，其中多少分給流動性提供者（LP）、多少留給協議金庫（Treasury），這與傳統銀行的信用卡手續費拆分（Interchange Fee）完全是一模一樣的經濟學邏輯！
-促銷活動與回饋 ➔ 代幣空投（Airdrop）與挖礦獎勵（Liquidity Mining）： 學生在後半學期發幣時，需要設計「如何用代幣獎勵來誘發交易量」。上半學期講透了「促銷對交易量的貢獻與 CLV」，後半學期學生就不會盲目發幣，而是能運用經濟模型精算「空投代幣的 ROI」與「避免挖集即賣（Churn）」！
-🎯 建議：消金與手續費模組的教學包裝
-您可以將這個分支命名為：【消費金融、支付生態與客戶價值挖掘 (Retail Finance & Customer Lifetime Value)】，內容包含：
-消金商業模式： 交易手續費 (Fee Income)、浮動資金 (Float) 與高頻流量入口。
-AI 與客戶價值： 客戶終身價值 (CLV) 模型、動態流失預警 (Churn) 與 Next-Best-Action 推薦系統。
-機制設計： 促銷活動歸因 (Attribution)、手續費與回饋率定價彈性。
-代幣化前哨站： 預演 DeFi 協議的手續費拆分機制與代幣激勵 (Token Incentives) 模型。
-這樣一來，您的上半學期就完整涵蓋了**「放貸（資產/風險）」、「理財/保險（時間/連續鑑定）」與「消金/支付（流量/手續費/CLV）」**，三大銀行商業支柱無一遺漏，為下半學期的 Web3/DeFi 實作構建了極其紮實且不可動搖的理論體系！
--->
 
 <!--專題
 在校園環境中推動「點數交易」作為金融沙盒（或數位沙盒）的實驗場景，是將場景金融（Contextual Finance）落地的絕佳模式。透過封閉或半開放的校園生態系，學生與校方能安全地測試新型態的支付、清算或代幣經濟（Tokenomics）。 [1]
