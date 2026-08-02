@@ -106,6 +106,9 @@ section.page { height:calc(100% - 2 * var(--base-margin)); }
 .tabBar [data-h^="sw"] { flex:1 1 auto; background:darkblue; color:white; border-radius:8px; margin:8px; text-align:center; }
 .tabBar [data-h^="sw"].current { background:white; color:darkblue; font-weight:bolder; }
 
+.link { color:blue; text-decoration:underline; pointer:cursor; }
+.link:hover { font-weight:bold; color:darkblue; }
+
 .swd { flex:1 0 auto;width:80%;max-width:97%; }
 @media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
 .fill>.swd { height:100%; }
