@@ -62,6 +62,78 @@
 </section><!--}}}-->
 
 <section class='page col'>
+	<h2>💻 Ollama + Gemma 快速安裝與體驗</h2>
+	<div class='fill'><ul>
+		<li>採用目前記憶體需求最低、執行速度極快且回應品質優異的 gemma2:2b（200 億參數輕量量化版）。</li>
+		<li>這套設定不需要高階顯卡，一般 CPU 搭配 8GB 記憶體即可順暢運行！</li>
+		<li>步驟 1：下載並安裝 Ollama<ul>
+			<li>前往 Ollama 官方網站：<a href='https://ollama.com' target='_blank'>https://ollama.com</a></li>
+			<li>點擊 Download，選擇對應電腦的作業系統（Windows）並下載安裝包。</li>
+			<li>執行安裝檔，一路點擊 Next / Install 完成安裝。</li>
+			<li>安裝完成後，系統列（右下角）會出現一個小火車/小羊圖示，代表 Ollama 已在背景運行。</li>
+		</ul></li>
+		<li>步驟 2：下載並執行輕量版 Gemma 模型<ul>
+			<li>開啟電腦的終端機：Windows： 按 Win + R，輸入 cmd 或 powershell 並按 Enter。</li>
+			<li>在終端機中輸入以下指令並按 Enter： ollama run gemma2:2b<div>
+				💡 說明： 系統會自動下載 gemma2:2b 模型（檔案大小僅約 1.6 GB，幾分鐘內即可下載完畢）。下載完成後，終端機會直接進入互動對話模式。
+			</div></li>
+		</ul></li>
+		<li>步驟 3：開始與地端 Gemma 聊天！<ul>
+			<li>當畫面出現 &gt;&gt;&gt; 符號時，代表模型已在地端電腦成功運行，同學們可以開始輸入文字與它對話。<ul>
+				<li>💬 建議同學們可以試試看以下對話：<ul>
+					<li>請用繁體中文介紹一下你自己。</li>
+					<li>什麼是 Python 的迴圈？請用簡單的比喻解釋。</li>
+					<li>請幫我寫一封感謝老師指導的 E-mail 草稿。</li>
+				</ul></li>
+			</ul></li>
+			<li>🚪 如何退出對話？<ul>
+				<li>在 &gt;&gt;&gt; 後輸入 /bye 並按 Enter，即可退出聊天模式。</li>
+			</ul></li>
+			<li>Hint: Windows: C:\Users\<使用者名稱>\.ollama\models</li>
+			<li>可在終端機輸入 ollama list，如果能列出已安裝的模型列表，代表服務運作正常。</li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<h2>Ollama 大量安裝</h2>
+	<div class='fill'><ul>
+		<li>📦 Phase 1: Preparation on Teacher's PC (Do Once)<ol>
+			<li>Download the Ollama Installer:<ul>
+				<li>Download OllamaSetup.exe (Windows) or Ollama-darwin.zip (Mac) from ollama.com.</li>
+			</ul></li>
+			<li>Download the Gemma Model:<ul>
+				<li>Run the installer on the teacher's PC, then open Command Prompt / Terminal and run: ollama run gemma2:2b</li>
+				<li>Wait for the download to finish. Test a quick message to ensure it works, then exit with /bye.</li>
+			</ul></li>
+			<li>Copy the downloaded model files:<ul>
+     		<li>[Windows] C:\Users\<Your-Username>\.ollama\models
+			</ul></li>
+		</ol></li>
+		<li>💻 Phase 2: Student PC Installation (Takes ~1 Minute per PC)<ol>
+			<li>Install Ollama<ul>
+				<li>Double-click OllamaSetup.exe from the shared network drive to install the software.</li>
+			</ul></li>
+			<li>Copy the Model Folder<ul>
+				<li>Copy the pre-downloaded .ollama folder from the network drive and paste it into their own User folder: C:\Users\Users\.ollama\</li>
+				<li>(Make sure the folder structure ends up as .../.ollama/models/manifests/... and .../.ollama/models/blobs/...)</li>
+			</ul></li>
+		</ol></li>
+		<li>Step 3: Run Without Internet!<ul>
+			<li>Open Command Prompt / Terminal and type: ollama run gemma2:2b</li>
+			<li>Because the model files are already in the .ollama folder, <em>Ollama will launch INSTANTLY without downloading anything from the internet.</em></li>
+			<li>You can tell Ollama to load models from a secondary drive (e.g., D:\OllamaModels) using an Environment Variable:<ol>
+				<li>Copy the models folder to D:\OllamaModels.</li>
+				<li>Set the Environment Variable in Windows:<ul>
+					<li>Key: OLLAMA_MODELS</li>
+					<li>Value: D:\OllamaModels</li>
+				</ul></li>
+				<li>Now Ollama will read models directly from drive D:\ every time without needing re-downloads!</li>
+			</ol>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
 	<h2>RAG vs. LLM</h2><!--{{{-->
 	<div class='fill'>
 		<table border='1' cellspacing='0' cellpadding='8' width='95%' align='center'>
