@@ -25,7 +25,7 @@
 </section>
 
 <section class='page col'>
-	<h2>課程地圖</h2><!--{{{-->
+	<h2>導覽地圖</h2><!--{{{-->
 	<div class='fill'>
 		<table width='95%' align='center' border='1' cellspacing='8' cellpadding='8'><tr>
 			<td valign='top' width='50%'><b>1. 地端 LLM 安裝部署</b><ul>
@@ -61,6 +61,116 @@
 	</div>
 </section><!--}}}-->
 
+<section>
+  <h2>Ollama vs. Hugging Face</h2>
+  **Yes, exactly!** You have captured their underlying roles perfectly.
+Neither Hugging Face nor Ollama build their own frontier foundation models (like Google builds Gemma or Meta builds Llama). Instead, they are **infrastructure and platform providers** that make those models accessible to developers.
+## The Breakdown: Cloud vs. Desktop
+```
+                  ┌─────────────────────────────────────────────────┐
+                  │           Hugging Face (Cloud)                  │
+                  │  • Central Hub / Repository                     │
+                  │  • Cloud Inference APIs & Hosted Endpoints       │
+                  └────────────────────────┬────────────────────────┘
+                                           │
+                                  Pulls Model Files (.gguf)
+                                           │
+                                           ▼
+                  ┌─────────────────────────────────────────────────┐
+                  │            Ollama (Desktop Engine)              │
+                  │  • Local C++ Execution                          │
+                  │  • Offline / Zero Cloud / 100% On-Device         │
+                  └─────────────────────────────────────────────────┘
+
+```
+### 1. Hugging Face: The Cloud Platform & Ecosystem
+Think of Hugging Face as **the GitHub + AWS for AI**:
+ * **Cloud Storage (Hub):** It hosts millions of model files, datasets, and code repositories contributed by Google, Meta, Microsoft, and community researchers.
+ * **Cloud Services (Inference APIs):** If you don't want to run a model on your local computer, Hugging Face lets you run models on *their* cloud GPUs via HTTP API requests (paying per token or per server hour).
+### 2. Ollama: The Local Desktop Application
+Think of Ollama as **the local engine / local runner**:
+ * **Desktop Application:** It installs directly on a local PC/Mac and manages local GPU/CPU hardware.
+ * **Offline Execution:** It downloads model files (which originated on Hugging Face) onto the computer's hard drive and runs them 100% offline.
+ * **Local API:** It provides a local web server (http://localhost:11434) so local Python scripts or LangChain applications can talk to the model without touching the internet.
+## How They Work Hand-in-Hand in Development
+When developers build AI applications, they often move between both platforms:
+ 1. **Discovery (Hugging Face):** A developer goes to Hugging Face to read model benchmarks, test a live web demo, and find a quantized version of a model (like gemma2:2b).
+ 2. **Local Deployment (Ollama):** The developer uses Ollama on their desktop to pull that model file down from the cloud and run it locally.
+ 3. **App Integration (LangChain):** The developer writes a Python program (like a RAG system) that sends requests to Ollama running locally on their PC.
+ 4. **Cloud Scaling (Hugging Face - Optional):** If the application grows and needs to be deployed to thousands of online web users, the developer might upload the fine-tuned model back to Hugging Face and host it using Hugging Face's Cloud Inference Endpoints.
+## Summary for Your Course Setup
+| Dimension | **Hugging Face** | **Ollama** |
+|---|---|---|
+| **Where does it live?** | In the **Cloud** (huggingface.co) | On the **Desktop PC** |
+| **Internet required?** | Yes | Only once (to download the model file) |
+| **Hardware used?** | Cloud GPUs (AWS / Azure / HF Servers) | Classroom PC's RAM, CPU, or GPU |
+| **Best Used For in Class:** | Finding datasets, learning about new models, fine-tuning. | Zero-cost, 100% private, fast local execution for student labs. |
+</section>
+  
+<section>
+  <h2>Ollama vs Gemma</h2>
+  <div class='fill'>
+    <h3>The Video Game Analogy</h3>
+    <table>
+      <tr><th>Component</th><th>Analogy</th><th>Real World</th><th>What It Does</th></tr>
+      <tr><td>Gemma</td><td>The Game Disc / ROM Data</td><td>Trained Data (Weights)</td><td>It contains billions of numbers (mathematical parameters) learned during training. It is passive data and **cannot execute itself**.</td></tr>
+    </table>
+    The core "program logic" (algorithm) across almost all Large Language Models is virtually identical. What makes GPT-4, Llama 3, Gemma, and Mistral different from one another is almost 100% the trained parameters (weights) and datasets.
+  </div>
+| **** | **** | **** |  |
+| **Ollama** | **The Game Console (PlayStation)** | **The Software Program / Engine** | It is the actual executable program (.exe) written in Go/C++. It loads Gemma's data into RAM/VRAM, does the math, and handles network APIs. |
+## Technical Breakdown
+### 1. What is Gemma?kkkkkkkkkkkkkk
+Gemma is essentially a large binary file (usually in .gguf format) containing **matrices of floating-point numbers** (called "weights" or "parameters").
+ * A 2-billion parameter model (gemma2:2b) contains roughly 2 billion numbers that represent the model's "knowledge" and language patterns.
+ * It has no code, no logic, and no running processes. It is pure static data.
+### 2. What is Ollama?
+Ollama is an **execution engine and web server**. When you type ollama run gemma2:2b, Ollama performs the following steps:
+ 1. **Loads the File:** Reads the gemma2:2b weight file from your hard drive into your computer's RAM or GPU VRAM.
+ 2. **Runs the Math:** Uses C++ / CUDA code (via llama.cpp under the hood) to calculate matrix multiplications using those weights.
+ 3. **Exposes the Interface:** Provides a CLI (terminal interface) and a local REST API (http://localhost:11434) so external programs like LangChain or web browsers can talk to it.
+## Summary for Students
+> **Gemma is the "brain/knowledge" (data), while Ollama is the "body/engine" (program) that makes the brain think and speak.** 
+</section>
+  
+<section>
+  <h2>LangChain: How it works ?</h2>
+  <div class='fill'>
+    <table width='95%' align='center'>
+      <tr><th class='frame'>Your Python Code / LangChain</th></tr>
+      <tr><th>▼ 1. Sends HTTP API Request (JSON)</th></tr>
+      <tr><th class='frame'>Ollama Local Server<div style='font-size:50%;'>(Provides REST API at http://localhost:11434)</div></th></tr>
+      <tr><th>▼ 2. Loads weights into VRAM/RAM & runs inference</th></tr>
+      <tr><th class='frame'>Gemma 2 Model File<div>(The raw neural network weights, e.g., GGUF)</div></th></tr>
+    </table>
+    <ol>
+      <li><b>Gemma</b> is just a "passive" file of neural network weights (like a .gguf file). It cannot run by itself or serve web requests.</li>
+      <li><b>Ollama</b> acts as the "engine and web server". When Ollama runs in the background, it hosts a local REST API endpoint on your machine at http://localhost:11434.</li>
+      <li><b>LangChain</b> communicates with Ollama's local REST API endpoint using Python.</li>
+    </ol>
+    <h3>Simple Python Example:</h3>
+    <div>Connecting LangChain to Ollama + Gemma</div>
+    <pre># Install required modules:
+pip install langchain-ollama langchain-core
+
+# the Python Program
+from langchain_ollama import OllamaLLM
+
+# 1. Connect LangChain to your local Ollama instance running Gemma
+# (Ollama defaults to http://localhost:11434)
+llm = OllamaLLM(model="gemma2:2b")
+
+# 2. Send a prompt to the local model
+prompt = "Please explain what an LLM is in 2 simple sentences in Traditional Chinese."
+response = llm.invoke(prompt)
+
+print(response)</pre>
+</section>
+
+<section>
+  <h2>Unsloth</h2>
+</section>
+  
 <section class='page col'>
 	<h2>💻 Ollama + Gemma 快速安裝與體驗</h2>
 	<div class='fill'><ul>
