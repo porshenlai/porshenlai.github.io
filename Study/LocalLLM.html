@@ -25,7 +25,7 @@
 </section>
 
 <section class='page col'>
-	<h2>導覽地圖</h2><!--{{{-->
+	<h2>導覽地圖</h2>
 	<div class='fill'>
 		<table width='95%' align='center' border='1' cellspacing='8' cellpadding='8'><tr>
 			<td valign='top' width='50%'><b>1. 地端 LLM 安裝部署</b><ul>
@@ -59,52 +59,37 @@
 			</ul></td>
 		</tr></table>
 	</div>
-</section><!--}}}-->
+</section>
 
-<section>
+<section class='page col'>
   <h2>Ollama vs. Hugging Face</h2>
-  **Yes, exactly!** You have captured their underlying roles perfectly.
-Neither Hugging Face nor Ollama build their own frontier foundation models (like Google builds Gemma or Meta builds Llama). Instead, they are **infrastructure and platform providers** that make those models accessible to developers.
-## The Breakdown: Cloud vs. Desktop
-```
-                  ┌─────────────────────────────────────────────────┐
-                  │           Hugging Face (Cloud)                  │
-                  │  • Central Hub / Repository                     │
-                  │  • Cloud Inference APIs & Hosted Endpoints       │
-                  └────────────────────────┬────────────────────────┘
-                                           │
-                                  Pulls Model Files (.gguf)
-                                           │
-                                           ▼
-                  ┌─────────────────────────────────────────────────┐
-                  │            Ollama (Desktop Engine)              │
-                  │  • Local C++ Execution                          │
-                  │  • Offline / Zero Cloud / 100% On-Device         │
-                  └─────────────────────────────────────────────────┘
-
-```
-### 1. Hugging Face: The Cloud Platform & Ecosystem
-Think of Hugging Face as **the GitHub + AWS for AI**:
- * **Cloud Storage (Hub):** It hosts millions of model files, datasets, and code repositories contributed by Google, Meta, Microsoft, and community researchers.
- * **Cloud Services (Inference APIs):** If you don't want to run a model on your local computer, Hugging Face lets you run models on *their* cloud GPUs via HTTP API requests (paying per token or per server hour).
-### 2. Ollama: The Local Desktop Application
-Think of Ollama as **the local engine / local runner**:
- * **Desktop Application:** It installs directly on a local PC/Mac and manages local GPU/CPU hardware.
- * **Offline Execution:** It downloads model files (which originated on Hugging Face) onto the computer's hard drive and runs them 100% offline.
- * **Local API:** It provides a local web server (http://localhost:11434) so local Python scripts or LangChain applications can talk to the model without touching the internet.
-## How They Work Hand-in-Hand in Development
-When developers build AI applications, they often move between both platforms:
- 1. **Discovery (Hugging Face):** A developer goes to Hugging Face to read model benchmarks, test a live web demo, and find a quantized version of a model (like gemma2:2b).
- 2. **Local Deployment (Ollama):** The developer uses Ollama on their desktop to pull that model file down from the cloud and run it locally.
- 3. **App Integration (LangChain):** The developer writes a Python program (like a RAG system) that sends requests to Ollama running locally on their PC.
- 4. **Cloud Scaling (Hugging Face - Optional):** If the application grows and needs to be deployed to thousands of online web users, the developer might upload the fine-tuned model back to Hugging Face and host it using Hugging Face's Cloud Inference Endpoints.
-## Summary for Your Course Setup
-| Dimension | **Hugging Face** | **Ollama** |
-|---|---|---|
-| **Where does it live?** | In the **Cloud** (huggingface.co) | On the **Desktop PC** |
-| **Internet required?** | Yes | Only once (to download the model file) |
-| **Hardware used?** | Cloud GPUs (AWS / Azure / HF Servers) | Classroom PC's RAM, CPU, or GPU |
-| **Best Used For in Class:** | Finding datasets, learning about new models, fine-tuning. | Zero-cost, 100% private, fast local execution for student labs. |
+  <div class='fill'><ul>
+    <li>Hugging Face<ul>
+      <li>The Cloud Platform & Ecosystem</li>
+      <li>Central Hub / Repository</li>
+      <li>Cloud Inference APIs & Hosted Endpoints</li>
+      <li>Think of Hugging Face as <b>the GitHub + AWS for AI</b>:<ul>
+        <li><b>Cloud Storage (Hub):</b> It hosts millions of model files, datasets, and code repositories contributed by Google, Meta, Microsoft, and community researchers.</li>
+        <li><b>Cloud Services (Inference APIs):</b> If you don't want to run a model on your local computer, Hugging Face lets you run models on *their* cloud GPUs via HTTP API requests (paying per token or per server hour).</li>
+      </ul></li>
+     </ul></li>
+    <li>Ollama<ul>
+      <li>The Local Desktop Application</li>
+      <li>Think of Ollama as <b>the local engine / local runner</b>:<ul>
+        <li><b>Desktop Application:</b> It installs directly on a local PC/Mac and manages local GPU/CPU hardware.</li>
+        <li><b>Offline Execution:</b> It downloads model files (which originated on Hugging Face) onto the computer's hard drive and runs them 100% offline.</li>
+        <li><b>Local API:</b> It provides a local web server (http://localhost:11434) so local Python scripts or LangChain applications can talk to the model without touching the internet.</li>
+      </ul></li>
+      <li>Pulls Model Files (.gguf) from HuggingFace</li>
+    </ul></li>
+    <li>How They Work Hand-in-Hand in Development</li>
+    <li>When developers build AI applications, they often move between both platforms:<ol>
+      <li><b>Discovery (Hugging Face):</b> A developer goes to Hugging Face to read model benchmarks, test a live web demo, and find a quantized version of a model (like gemma2:2b).</li>
+      <li><b>Local Deployment (Ollama):</b> The developer uses Ollama on their desktop to pull that model file down from the cloud and run it locally.</li>
+      <li><b>App Integration (LangChain):</> The developer writes a Python program (like a RAG system) that sends requests to Ollama running locally on their PC.</li>
+      <li><b>Cloud Scaling (Hugging Face - Optional):</b> If the application grows and needs to be deployed to thousands of online web users, the developer might upload the fine-tuned model back to Hugging Face and host it using Hugging Face's Cloud Inference Endpoints.</li>   
+    </ol></li>
+  </ul>
 </section>
   
 <section>
@@ -771,6 +756,9 @@ print(response)</textarea></li>
 	</ul></div>
 </section>
 
+<section class='page col'>
+  <h2>test</h2>
+</section>
 <!--{{{
 5 步驟落地實作架構
 1. 文件讀取與切分 (Chunking)
