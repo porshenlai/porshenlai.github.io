@@ -463,7 +463,7 @@ data: class extends _E
 		if (res) {
 			if (res.ok) try {
 				if (res.headers.has('content-type')) {
-					switch (res.headers.get('content-type').replaceAll(/;.*/g,'')) {
+					switch (res.headers.get('content-type').replaceAll(/;.*$/g,'')) {
 					case 'application/json':
 						return await res.json();
 					case 'text/html':
@@ -473,7 +473,7 @@ data: class extends _E
 							return doc;
 						})(await res.text());
 					default:
-						console.log(res.headers.get('content-type'));
+						console.log(res.headers.get('content-type').replaceAll(/;.*$/g,''));
 						return await res.text();
 					}
 				} else return await res.json();
