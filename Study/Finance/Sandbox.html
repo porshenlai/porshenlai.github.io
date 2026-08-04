@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title></title>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<style>
+.pfx { font-size:60%;font-weight:bold;color:green; }
+</style>
+
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>金融砂盒 Finance Sandbox</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>金融業 的 砂盒 Sandbox</h2>
+
+	<div class='fill col'>
+		<table align='center'><tr>
+			<th style='border:1px solid black;padding:8px;' width='45%'>創新需求<br/>Speed &amp; Data</th>
+			<th>-X-</th>
+			<th style='border:1px solid black;padding:8px;' width='45%'>風險控管<br/>Safety &amp; Compliance</th>
+		</tr></table>
+		<br/>
+		<table border='1' align='center'><tr>
+			<th>如果做一個外送 App，系統出錯可能只是晚餐晚半小時送到；<br/>
+				但如果做一個金融支付或理財 App，系統出錯可能是一百萬人的積蓄瞬間蒸發。<br/>
+				這就是為什麼金融業跟其他科技業不一樣。<br/>
+				—— 這裡容錯率極低 ——</th>
+		</tr></table>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>從隱私數據保護到「數位砂盒」</h2>
+	<!--核心教學目標：帶出金融業「數據高敏感度、極度重隱私」的特性 {{{ -->
+	<div class='fill'>
+	<table border='1' cellspacing='0' width='90%' align='center'><tr>
+		<th width='50%'>背景與需求</th>
+		<th width='50%'>解決方案</th>
+	</tr><tr style='background:#f0f0f0;'>
+		<th>（隱私權與高資料障礙）</th>
+		<th>（數位砂盒）</th>
+	</tr><tr>
+		<td valign='top' style='padding:8px;'>
+			<div><b>金融特徵： </b>金融資料（交易記錄、信用評分、資產配置）受到個人資料保護法和銀行保密規定的嚴格保護。</div>
+			<div><b>痛點： </b>人工智慧模型和金融科技演算法需要大量實際交易資料進行訓練（例如，訓練反詐騙或信用評分模型）。然而，由於隱私法規的限制，新創公司無法取得真實的銀行數據，而金融機構則因擔心資料外洩責任，不敢將數據交給外部團隊進行聯合研發。</div>
+		</td>
+		<td valign='top' style='padding:8px;'>
+			<div><b>設計機制： </b>提供一個無需實際資金流動或真實客戶數據即可驗證早期想法的環境。</div>
+			<div><b>資料匿名化與合成資料： </b>提供模擬/合成資料集或零知識證明的API介面。</div>
+			<div><b>安全沙箱環境： </b>提供模擬API測試平台，允許在不從系統中提取真實資料的情況下訓練和測試演算法。它如何促進創新：解決了早期新創公司的冷啟動資料問題，使開發人員能夠在申請監管沙盒之前快速迭代和測試演算法可行性。</div>
+			<div><b>去識別化 (De-identification)：</b> 剝離姓名、身分證等敏感標籤，僅保留行為統計特徵。</div>
+			<div><b>合成數據 (Synthetic Data)：</b> 利用 AI 模型生成「擬真但不屬任何真實個人」的數據，解決新創冷啟動（Cold Start）無資料可用的痛點。</div>
+		</td>
+	</tr></table>
+	</div>
+</section><!-- }}} -->
+
+<section class='page col'>
+	<h2>從監管困境到「金融監理砂盒」</h2>
+	<!--核心教學目標：帶出金融業「法規嚴格、容錯率極低」的特性 {{{ -->
+	<div class='fill'>
+	<table border='1' cellspacing='0' width='90%' align='center'><tr>
+		<th width='50%'>背景與需求</th>
+		<th width='50%'>解決方案</th>
+	</tr><tr style='background:#f0f0f0;'>
+		<th>（金融監管的代價）</th>
+		<th>（金融監理砂盒 Regulatory Sandbox）</th>
+	</tr><tr>
+		<td valign='top' style='padding:8px;'>
+			<div><b>金融特質：</b>高度槓桿、資訊不對稱、具備系統性風險（Systemic Risk）。<br/>
+			政府為了保護消費者與金融穩定，設有極其嚴格的牌照制度（Licensing System）與合規審查機制。</div>
+			<div><b>痛點：</b>傳統法規跟不上科技發展（如 P2P 借貸、區塊鏈支付）。<br/>
+			新創公司如果直接上線，會面臨「非法經營」的法律風險（如違反銀行法、電子支付機構管理條例）；
+			但若要等到法規修訂完成，創新早就錯過市場時機。</div>
+		</td>
+		<td valign='top' style='padding:8px;'>
+			<div><b>機制設計：</b>「在安全的封閉環境內，給予有限度的法律豁免權與創新驗證空間。」</div>
+			<div><b>容錯性：</b>允許在特定時間、特定規模、特定客戶群內，豁免部分法規限制。</div>
+			<div><b>監控性：</b>金融監管機關（如金管會）全程監控，隨時調整風控措施。</div>
+			<div><b>落地路徑：</b>實驗成功則修改法規/發放牌照；失敗則安全撤退（Exit Strategy）。</div>
+			<div><b>如何加速創意產生：</b>降低新創進入金融業的合規成本與法律不確定性，讓業者能以實測數據證明其商業模式可行且安全。</div>
+			<div><b>真實個資與金流 (Live Data & Money Flow)：</b> 測試真實用戶在實際交易情境下的反應與風險。</div>
+			<div><b>嚴格知情同意 (Explicit Consent)：</b> 客戶必須清楚瞭解自己正參與實驗，且享有明確的賠償機制保障。</div>
+		</td>
+	</tr></table>
+	</div>
+</section><!--}}}-->
+
+<section class='page col'>
+	<h2>兩者比較與金融核心業務剖析</h2>
+	<!-- 核心教學目標：對比雙砂盒，梳理銀行核心業務與風險本質 {{{ -->
+	<div class='fill'>
+	<ul>
+		<li><div class='blue'>核心定位</div>
+			<div><b>數位砂盒:</b> 技術與演算法驗證 (Proof of Concept)</div>
+			<div><b>金融監理砂盒:</b> 商業模式與法規可行性驗證 (Proof of Business)</div>
+		</li>
+		<li><div class='blue'>金流/客戶</div>
+			<div><b>數位砂盒:</b> 無真實金流，使用虛擬或去識別化數據</div>
+			<div><b>金融監理砂盒:</b> 涉及真實金流與真實客戶（限額/限量）</div>
+		</li>
+		<li><div class='blue'>資料來源</div>
+			<div><b>數位砂盒:</b> 去識別化數據 / AI 合成模擬數據 / 虛擬 API</div>
+			<div><b>金融監理砂盒:</b> 真實客戶數據 與 真實金流交易紀錄</div>
+		</li>
+		<li><div class='blue'>個資風險</div>
+			<div><b>數位砂盒:</b> 極低至零風險（不含任何未處理個資）</div>
+			<div><b>金融監理砂盒:</b> 有風險（需高度控管，並取得客戶專屬同意）</div>
+		</li>
+		<li><div class='blue'>法律豁免</div>
+			<div><b>數位砂盒:</b> 不需要（不觸及金流與法規限制）</div>
+			<div><b>金融監理砂盒:</b> 需要（主管機關給予有限度的法律豁免權）</div>
+		</li>
+		<li><div class='blue'>進入門檻</div>
+			<div><b>數位砂盒:</b> 低（適合早期 POC 技術驗證）</div>
+			<div><b>金融監理砂盒:</b> 高（需經過監管機關嚴格審查）</div>
+		</li>
+		<li><div class='blue'>對應金融特性</div>
+			<div><b>數位砂盒:</b> 數據隱私性、資訊安全性</div>
+			<div><b>金融監理砂盒:</b> 風險特許性、法律合規性</div>
+		</li>
+		<li><div class='blue'>適用階段</div>
+			<div><b>數位砂盒:</b> 產品研發早期 (Idea / Prototype 階段)</div>
+			<div><b>金融監理砂盒:</b> 產品成熟準備上線階段 (Pre-market 階段)</div>
+		</li>
+		<li><div class='blue'>測試環境</div>
+			<div><b>數位砂盒:</b> 純雲端/軟體模擬測試環境 (Off-line)</div>
+			<div><b>金融監理砂盒:</b> 有限額、限人數的真實市場實測 (Live Testing)</div>
+		</li>
+	</div>
+</section><!-- }}} -->
+
+<section class='page col'>
+	<h2>砂盒 與 銀行核心業務</h2>
+	<!--{{{-->
+	<div class='fill'><ul>
+		<li><div class='blue'>資產配置與理財 (Wealth Mgt &amp; Robo-Advisors)</div>
+			<div>適合適合性與資訊揭露規範</div>
+			<div><b>業務特性：</b> 資訊極度不對稱，追求收益的同時必須控管客戶風險偏好。</div>
+			<div><b>砂盒應用議題：</b> 機器人理財演算法是否會有利益衝突？合規性（KYC/KYP）如何在線上化完成？</div>
+		</li>
+		<li><div class='blue'>授信風控 (Credit Risk Control)</div>
+			<div>違約概率與資料維度挖掘</div>
+			<div><b>業務特性：</b> 傳統風控過度依賴聯徵中心資料，無信用紀錄者（Thin-file）難以借貸。</div>
+			<div><b>砂盒應用議題：</b> 如何運用替代數據（電信帳單、社群行為）評估信用風險？（需透過數位砂盒測試算法，再透過監理砂盒測試放款業務）。</div>
+		</li>
+		<li><div class='blue'>貸款違約 (Loan Default Prediction)</div>
+			<div>催收機制與景氣循環壓力</div>
+			<div><b>業務特性：</b> 呆帳是銀行最大的成本來源，極度依賴違約機率（PD）與損失率（LGD）的準確預測。</div>
+			<div><b>砂盒應用議題：</b> 如何在不破壞資本適足率（BIS ratio）的前題下，利用機器學習進行違約預警？</div>
+		</li>
+		<li><div class='blue'>洗錢與盜刷防治 (AML &amp; Anti-Fraud)</div>
+			<div>異常行為識別與高頻實時監控</div>
+			<div><b>業務特性：</b> 對實時性（Real-time）要求極高，且洗錢手法不斷創新，傳統 rule-based 系統誤報率過高。</div>
+			<div><b>砂盒應用議題：</b> 跨行聯防與 AI 異常偵測模型（需在數位砂盒中使用合成交易資料訓練）。</div>
+		</li>
+	</ul></div>
+</section><!--}}}-->
+
+<section class='page col'>
+	<h2>砂盒實戰組合</h2>
+	<div class='fill'><ul>
+		<li>創新推進的「雙階梯演進」（Two-Stage Innovation Flow）</li>
+		<li>第一階段（進數位砂盒）： 「練兵」——在零個資風險的環境下，快速訓練 AI 模型與優化演算法技術。</li>
+		<li>第二階段（進監理砂盒）： 「打仗」——確定技術可行後，向主管機關申請進入監理砂盒，取得法規豁免並進行小規模真實試營運。</li>
+	</ul></div>
+</section>
+
+</div></main></body>
+</html>
