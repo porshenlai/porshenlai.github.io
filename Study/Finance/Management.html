@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title></title>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<style>
+.pfx { font-size:60%;font-weight:bold;color:green; }
+</style>
+				
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>資產風險與財務管理</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>🏛️ 資產風險與財務管理</h2>
+	<div class='fill'><ul>
+		<li>傳統的資產鑑定（如房貸鑑價）往往是<ul>
+			<li><em>「離散點（Point-in-Time）」</em>的——借錢那一刻量一次價值，</li>
+			<li>違約法拍那一刻再量一次價值。</li>
+		</ul></li>
+		<li>但保險與投資商品，本質上是<em>「隨時間動態變化的合約（Time-series Contracts）」</em>：<div>
+			<table width='95%' align='center' style='border:1px solid black;'><tr>
+				<th colspan='2' style='border-bottom:3px solid black'>&rarr; [ 時間軸 (Time Dimension) ] &rarr;</th>
+			</tr><tr>
+				<td>【投資 (Investment)】</td>
+				<td>每一秒/每一天都在鑑定「市價 (Mark-to-Market)」與「期望報酬」</td>
+			</tr><tr>
+				<td>【保險 (Insurance)】</td>
+				<td>每一分/每一秒都在鑑定「風險發生機率 (Probability of Loss)」</td>
+			</tr></table>
+			<ul>
+				<li><b>投資（Investment）：</b>是對<em>「資產未來現金流與市場價格」</em>在時間軸上的連續估值與折現。</li>
+				<li><b>保險（Insurance）：</b>是對<em>「標的物（人身/財產）未來損害風險」</em>在時間軸上的連續機率定價與貼現。</li>
+			</ul>
+		</div></li>
+		<li>從「連續資產鑑定」看三大核心議題<ul>
+			<li><b>投資端的連續鑑定：</b> Mark-to-Market（盯市）與資產再平衡</li>
+			<li><b>保險端的連續鑑定：</b> 精算（Actuarial）、外包風險與 UBI 保險</li>
+			<li><b>負債端的連續鑑定：</b> 資產負債匹配 (ALM) 與 Mark-to-Model</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>連續資產鑑定</div>
+		<h2>投資端：Mark-to-Market（盯市）與資產再平衡</h2>
+	</div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 投資組合的價值不是靜止的。資產價格隨市場每秒波動，這意味著該資產佔整體投資組合的「權重比例」隨時在被動改變。</li>
+		<li><b>風險控管：</b> 當價格偏離預期，投資組合的風險暴露（Volatility / VaR）就會過高，因此必須在時間軸上進行連續鑑定與動態再平衡（Dynamic Rebalancing）。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>機器人理財（Robo-Advisor）：</b> 演算法 24/7 不間斷監控投資組合價值，當資產權重偏離設定的 Efficient Frontier（有效前緣）時，自動觸發買賣做再平衡。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>連續資產鑑定</div>
+		<h2>保險端：精算（Actuarial）、外包風險與 UBI 保險</h2>
+	</div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 傳統保險一年鑑定一次風險（例如：今年 30 歲、沒出過車禍，保費算 1 萬元）。但事實上，個人的風險狀況在 365 天裡是動態變化的（深夜開車風險高、飆車風險高、不運動風險高）。</li>
+		<li><b>風險控管：</b> 保險公司的本質就是「貼現未來的預期損失」。如果鑑定頻率太低，就會產生逆向選擇與道德風險。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>UBI (Usage-Based Insurance) & IoT：</b> 利用 Apple Watch（心率、步數）或車載系統（Telematics），將保險風險的評估頻率從「一年一次」變成「每分每秒連續鑑定」，並實時調整保費（Dynamic Pricing）。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>連續資產鑑定</div>
+		<h2>負債端：資產負債匹配 (ALM) 與 Mark-to-Model</h2>
+	</div>
+	<div class='fill'><ul>
+		<li><b>金融原理：</b> 保險公司與退休基金收了保戶的保費（負債），並拿去買股票、公債（資產）。因為保單給付可能在 20 年後，所以管理者必須同時對「未來的資產」與「未來的負債」進行長期的連續折現估值。</li>
+		<li><b>風險控管：</b> 利率變動會同時影響資產與負債的估值（如國際會計準則 IFRS 17 / ICS 的核心就是要求保險業必須將負債按市價/現值連續鑑定）。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li>利用蒙地卡羅模擬（Monte Carlo Simulation）與 AI 深度學習，模擬未來 30 年不同升降息情境下，資產與負債的連續價值演變，確保不會出現資產不足以清償負債的風險。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<!--
+講師引導情境： 「上一個單元我們講房貸或車貸的鑑價，那是『一次性』的鑑定。但到了保險與投資，鑑價變成了**『時間軸上的連續演進』**：
+投資： 是對**『資產價格與未來收益』**進行每分每秒的連續估值（Mark-to-Market），演算法據此進行資產再平衡。
+保險： 是對**『風險發生機率』**進行連續估值，過去是一年算一次保費，現在靠 IoT 與 AI，保險公司可以做到每秒鐘根據你的行為連續評估風險（UBI 動態保費）。
+-->
+
+</div></main></body>
+</html>

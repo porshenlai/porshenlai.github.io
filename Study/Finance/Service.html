@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title></title>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<style>
+.pfx { font-size:60%;font-weight:bold;color:green; }
+</style>
+
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>存款、支付與整合</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+				
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>核心領域</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>客戶終身價值（CLV）與動態流失預測（Churn Prediction）</li>
+		<li>信用卡與支付手續費結構分析（Interchange Fee &amp; Pricing Optimization）</li>
+		<li>場景金融嵌入與交叉銷售（Cross-selling &amp; Next-Best-Action, NBA）</li>
+		<li>浮動資金（Float）與手續費的動態價值評估</li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>客戶終身價值（CLV）與動態流失預測</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>消金是典型的「薄利多銷/高頻交易」業務，獲客成本（CAC）極高，因此研究重點常放在「如何留住高價值客戶」。</li>
+		<li><b>研究重點：</b><ul>
+			<li><b>CLV (Customer Lifetime Value) 模型：</b> 預測一個客戶未來 3-5 年能為銀行帶來多少手續費（刷卡手續費、跨行轉帳費、理財手續費）與利差貢獻。</li>
+			<li><b>流失預預警（Early Churn Detection）：</b> 客戶在徹底剪卡或銷戶前，通常會有「行為徵兆」（例如：月刷卡金額連續 3 個月下滑、提款頻率降低、App 登入次數減少）。</li>
+		</ul></li>
+		<li><b>AI 發揮空間：</b><ul>
+			<li>利用時間序列與生存分析（Survival Analysis / XGBoost）模型，在客戶流失前 30 天自動觸發「個性化手續費折抵」或「精準權益推薦」，以最低成本挽回高價值客戶。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>信用卡與支付手續費結構分析</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>信用卡與電子支付的手續費（如手續費拆分 Interchange Fee、手續費率 1.5%~3%）是消金極大的手續費收入（Fee Income）來源，這背後有非常複雜的賽局與定價彈性。</li>
+		<li><b>研究重點：</b><ul>
+			<li><b>價格彈性與回饋率的最佳化（Reward Rate Optimization）：</b> 信用卡發卡行給「現金回饋 2% 或 3%」時，消費者的刷卡總額會增加多少？扣除回饋成本與清算手續費後，銀行的**淨手續費收益（Net Fee Income）**是否極大化？</li>
+			<li><b>循環利息與手續費的平衡（Revolver Profile）：</b> 研究哪些客戶會帶來手續費，哪些客戶會帶來循環利息，並分析其違約風險（連動到授信風控）。</li>
+		</ul></li>
+		<li><b>AI 發揮空間：</b><ul>
+			<li>結合強化學習（Reinforcement Learning）或動態定價模型，針對不同客群動態給予「限時刷卡回饋/手續費減免」，達成刷卡量與手續費利潤的最佳平衡。</li>
+		</ul></li>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>場景金融嵌入與交叉銷售</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>消金手續費常常不是單獨存在的，而是透過「支付/轉帳」這個高頻入口，將客戶引導至「理財、信貸、保險」等高手續費商品的過程。</li>
+		<li><b>研究重點：</b><ul>
+			<li><b>下一步最佳行動（Next-Best-Action, NBA / Recommendation Systems）：</b> 分析客戶的交易明細（Transaction Line Items），預測他下一步最需要什麼金融產品。</li>
+			<li><b>場景金融轉化率（Embedded Finance Conversion）：</b> 例如，客戶在買機票（支付）時，推薦旅平險（保險手續費）；客戶帳戶餘額過高時，推薦貨幣基金（理財手續費）。</li>
+		</ul></li>
+		<li><b>AI 發揮空間：</b><ul>
+			<li>利用自然語言處理（NLP）與圖神經網路（GNN）分析客戶的消費足跡（Merchant Category Codes, MCC），建構客戶的生活風格特徵（Lifestyle Profiling），精準推薦金融產品。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>存款、支付與整合</div>
+		<h2>浮動資金與手續費的動態價值評估</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>這是消金極度優秀但常被忽略的財務概念——「浮動資金（Float / 零息資金）」。</li>
+		<li><b>研究重點：</b><ul>
+			<li>當客戶把錢放在電子支付帳戶（如 Line Pay / 街口）、信用卡未結算款項，或是活期存款帳戶中時，這些資金的利息幾乎為零。</li>
+			<li>銀行或支付機構雖然只收取微薄的交易手續費，但掌控這些低成本浮動資金，拿去放款或買短票，能創造巨大的隱性利差收益。</li>
+		</ul></li>
+		<li><b>AI 發揮空間：</b><ul>
+			<li>結合 ALM（資產負債管理）模型，預測消金用戶資金的「平均滯留時間（Duration）」與「提現/消費週期」，以極大化資金調撥效益。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+</div></main></body>
+</html>

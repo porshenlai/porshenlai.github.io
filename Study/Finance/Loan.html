@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title></title>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<style>
+.pfx { font-size:60%;font-weight:bold;color:green; }
+</style>
+				
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>授信與貸款</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>授信與貸款 (抵押, 信用)</h2>
+
+	<div class='fill'><ul>
+		<li>如果把概念抽象化來看，「信用」本質上就是一種「無形抵押品」（以個人未來的賺錢能力與社會聲譽做擔保）</li>
+		<li>事前（授信風控）： 評估「償還能力與意願」<ul>
+			<li><b>核心問題：</b> 「這個人未來的現金流穩不穩定？他會不會按時還錢？」</li>
+			<li><b>評估對象：</b> 信用評分、所得收入、負債比（DBR 22倍限制）、過往繳款紀錄、甚至電信/電商等替代數據（Alternative Data）。</li>
+			<li><b>手段：</b> 自動化准駁、風險定價（Risk-based Pricing, 信用越好利率越低）、授信額度管控。</li>
+		</ul></li>
+		<li>事後（貸款違約管理）： 評估「損失風險與挽回程度」<ul>
+			<li><b>核心問題：</b> 「萬一他真的不還錢了，我們會虧多少？能收回多少？」</li>
+			<li><b>評估對象：</b> 違約機率（PD）、違約損失率（LGD）、早期預警訊號（Early Warning Signals, 如突然大額提現、卡費只繳最低）。</li>
+			<li><b>手段：</b> 催收機制、債務協商、提列呆帳準備金（Provisioning）、拍賣抵押品或出售不良債權（NPL）。</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section>
+	<table width='100%'><tr><td>
+		<h3>授信風控 (事前)</h3>
+		<ul>
+			<li><b>應用：</b> 替代數據風控 (Alternative Data)</li>
+			<li><b>技術：</b> 分類模型 (Tree/XGBoost)</li>
+			<li><b>目的：</b> 擴大客群 (如 Thin-file 無卡族)</li>
+		</ul>
+	</td><td>
+		<h3>貸款違約 (事後)</h3>
+		<ul>
+			<li><b>應用：</b> 早期預警系統 (EWS)</li>
+			<li><b>技術：</b> 時間序列分析 / 行為特徵工程</li>
+ 			<li><b>目的：</b> 降低呆帳率 / 智能催收</li>
+		</ul>
+	</td></tr><tr><td colspan='2' align='center' style='border:1px solid black;'>
+		授信風控是『開門擇客』，靠精準評估把壞客人擋在門外；<br/>
+		貸款違約是『關門防守』，靠動態監控把已經發生的損失降到最低。<br/>
+		兩者結合，就是銀行借貸業務的生命線。」
+	</td></tr><tr><td colspan='2'>
+		<ul>
+			<li><b>授信風控的 FinTech 焦點：</b> 解決「資訊不對稱」與「無信用紀錄者（Thin-file）」。<ul>
+				<li>例如：傳統銀行因為拿不到小白（學生、自由職業者）的聯徵資料而不給貸款，但 FinTech 利用「電信帳單繳費狀況、電商購物習慣」來預測其償還能力。</li>
+			</ul></li>
+			<li><b>貸款違約的 FinTech 焦點：</b> 解決「動態風險」與「異常偵測」。<ul>
+				<li>例如：利用 AI 模型持續監控借款人的「帳戶行為變化」，在其還沒真正欠款前（例如連兩個月只繳最低金額），就先發出警示進行風險控管。</li>
+			</ul></li>
+		</ul>
+	</td></tr></table>
+</section>
+
+<section>
+	<h2>廣義授信</h2>
+	<div class='fill'>
+		<table border='1' cellspacing='8' cellpadding='8'><tr><th colspan='3'>
+			銀行資產端 / 廣義授信
+		</th></tr><tr><td valign='top'>
+			<div>1. 傳統企業與個人放貸</div>
+			<div>(Retail &amp; Corporate Lending)</div>
+			<ul>
+				<li>對「私法人/個人」的授信</li>
+				<li>承擔「信用風險 (Credit Risk)」</li>
+			</ul>
+		</td><td valign='top'>
+			<div>2. 政府債券與流動性資產</div>
+			<div>（Treasury &amp; Government Bonds）</div>
+			<ul>
+				<li>對「主權/政府」的授信 (無風險資產)</li>
+				<li>承擔「利率風險 (Interest Risk)」</li>
+			</ul>
+		</td><td valign='top'>
+			<div>3. 中央存保與資本適足</div>
+			<div>（CDIC &amp; Capital Adequacy）</div>
+			<ul>
+				<li>對「系統性風險」的投保與監管</li>
+				<li>決定銀行的「槓桿上限與資本厚度」</li>
+			</ul>
+		</td></tr></table>
+	</div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>廣義授信</div>
+		<h2>傳統企業與個人放貸</h2>
+	</div>
+	<div class='fill'><ul>
+		<li><b>金融本質：</b> 銀行將資金借給個人（房貸、信貸）或企業（週轉金、聯貸）。</li>
+		<li><b>風險核心：</b> 信用風險（Credit Risk）。核心問題是「借款人會不會違約（PD）」與「違約後能收回多少（LGD）」。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>事前：</b> 利用替代數據（Alternative Data）+ XGBoost / 神經網絡進行自動化信用評估與風險定價；利用 可解釋 AI (XAI / SHAP) 提供法規要求的「拒貸理由解釋」。</li>
+			<li><b>事後：</b> 時間序列模型動態監測帳戶金流，建立早期預警系統（EWS）；利用生成式 AI 或智能演算法進行自動化催收與債務重組。</li>
+		</ul></li>
+		<li>零售與企業放貸（信用風險）<ul>
+			<li>授信風控（替代數據 + XGBoost/XAI）</li>
+			<li>違約預警（PD/LGD 評估 + EWS 早期預警）</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>廣義授信</div>
+		<h2>政府債券與公債投資</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>對政府的放貸</li>
+		<li><b>金融本質：</b> 銀行買政府債券，本質上就是把錢「借給政府」（主權授信 Sovereign Lending）。因為政府被視為「絕不違約（No Credit Risk）」，所以公債在銀行資產負債表上被視為高流動性優質資產（HQLA）。</li>
+		<li><b>風險核心：</b> 利率風險（Interest Rate Risk）與殖利率曲線風險（Yield Curve Risk）。雖然政府不會跑路，但如果市場升息，債券價格會下跌（如矽谷銀行 SVB 倒閉的主因就是買太多長天期美債，遇到升息產生未實現虧損而遭擠兌）。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>殖利率曲線預測與 ALM 最佳化：</b> 利用 LSTM / Transformer 等時間序列模型，預測央行升/降息路徑與殖利率曲線變化（Yield Curve Shifts）。</li>
+			<li><b>資產負債匹配（Asset-Liability Matching）：</b> AI 演算法動態計算 Duration Gap（存續期間缺口），自動建議公債買賣組合，以對沖存款端（短期）與資產端（長期）的利率錯配風險。</li>
+		</ul></li>
+		<li>政府債券與資產負債管理（利率與流動性風險）<ul>
+			<li>買公債的本質：對主權的授信與 HQLA 流動性管理</li>
+			<li>AI 在利率預測、Yield Curve 與 Duration Gap（矽谷銀行 SVB 案例）的應用</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<div style='width:100%'>
+		<div class='pfx'>廣義授信</div>
+		<h2>中央存保與監管指標</h2>
+	</div>
+	<div class='fill'><ul>
+		<li>銀行的安全安全網</li>
+		<li><b>金融本質：</b> 銀行向「中央存款保險公司」繳納保費（為存款人的錢買保險），並接受金管會/中央銀行的<em>資本適足率（BIS Ratio / 資本充足率）與流動性覆蓋率（LCR）</em>監管。</li>
+		<li><b>風險核心：</b> 系統性風險（Systemic Risk）與流動性風險（Liquidity Risk）。放貸與買債放得越多，需要留存的法定準備金與自有資本就越多。</li>
+		<li><b>AI 的發揮空間：</b><ul>
+			<li><b>動態壓力測試（Dynamic Stress Testing）：</b> 利用 AI 模擬極端市場情境（例如：房價大跌 30% + 利率暴升 2% + 10% 存款戶同時提款），計算銀行的資本適足率是否會低於 8% 監管紅線。</li>
+			<li><b>監理科技 (SupTech / RegTech)：</b> 自動化監理報表生成，即時計算存保費率等級（Risk-based CDIC Premium Rate）。</li>
+		</ul></li>
+		<li>存保機制、資本適足率與監理科技（系統性風險）<ul>
+			<li>巴塞爾協定三（Basel III）資產風險權數計算</li>
+			<li>AI 壓力測試與 SupTech 自動監理報表</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<h2>資產鑑定、AVM 與抵押品動態風控</h2>
+	<div class='fill'><ul>
+		<li><b>資產鑑定的金融邏輯與風險：</b><ul>
+			<li>LTV ( Loan-to-Value，貸款成數) 與 LGD (違約損失率) 的數學關係。</li>
+			<li>抵押品類型：不動產（房地）、動產（車輛/機器）、金融資產（股票/債券/存單）。</li>
+			<li>鑑價三大傳統方法：市場比較法、成本法、收益法。</li>
+		</ul></li>
+		<li><b>AI 與科技在資產鑑定的應用：</b><ul>
+			<li>不動產： AVM (Automated Valuation Model) 自動估價演算法與特徵工程。</li>
+			<li>動產與存貨： IoT + 電腦視覺 (CV) 實現「動產質押」的實時監控。</li>
+			<li>動態 LTV 預警： 市場價格波動下的抵押品維持率監測。</li>
+			<li>代幣化前哨站 (RWA &amp; Liquidation Preview)：<ul>
+				<li>當抵押品從「實體房屋」變成「數位代幣/加密資產」時，估價邏輯會如何改變？</li>
+				<li>預言機 (Oracle) 與自動清算機制簡介。</li>
+			</ul></li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<table class='nvtable'><tr>
+		<th>評估人：</th><td>事前授信風控與替代數據（信用評分）</td>
+	</tr><tr>
+		<th>評估物：</th><td>資產鑑定與 AVM（抵押品與 LTV）</td>
+	</tr><tr>
+		<th>評估事（違約）：</th><td>事後違約預警與處置（PD/LGD/EWS）</td>
+	</tr></table>
+</section>
+
+</div></main></body>
+</html>
