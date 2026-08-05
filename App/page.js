@@ -452,14 +452,18 @@ data: class extends _E
 {	// {{{
 	static async fetch (doc)
 	{	// {{{
-		let res=undefined;
+		let res=undefined,
+				resolve = doc.rbase ? (u)=>(
+					(rb,u)=>u.indexOf('://')>0 ? u : (rb[0] + (u.startsWith('/') ? '' : rb[1]) + u)
+				)(doc.rbase,u) : (u)=>u;
+
 		if (doc.post) {
-			res=await fetch(doc.post, {
+			res=await fetch(resolve(doc.post), {
       			method: 'POST',
       			headers: { 'Content-Type': 'application/json' },
       			body: doc.payload||'{}'
 			});
-		}else if (doc.get) res=await fetch(doc.get);
+		}else if (doc.get) res=await fetch(resolve(doc.get));
 		if (res) {
 			if (res.ok) try {
 				if (res.headers.has('content-type')) {
@@ -485,12 +489,19 @@ data: class extends _E
 	constructor (re) {
 		super(Apps.E(re).query('[data-def="data"]')||re);
 	}
+	async createRequest () {
+		const doc = await (new Apps.NT.template(this.E)).get();
+		try {
+			doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
+		} catch(x) { }
+		return doc;
+	}
 	async put (doc) // doc:DOC Object
 	{	// write DOC to data source {{{
 	}	// }}}
 	async get ()
 	{	// read DOC from data Source {{{
-		const doc = await (new Apps.NT.template(this.E)).get();
+		const doc = await this.createRequest();
 		if (doc.doc) return JSON.parse(doc.doc);
 		if (doc.raw) return doc.raw;
 		this.URL = doc.post || doc.get;
