@@ -708,7 +708,7 @@ class Content
 			break;
 		}
 		let em=this.find(this.PageIndex[pn-1]);
-		console.assert(em, `Page not found (PN:${pn},v:${v})`);
+		ASSERT(em, `Page not found (PN:${pn},v:${v})`);
 		if (force) em.classList.remove('current');
 		if (!em.classList.contains('current')) {
 			// #. MOVE .current flag to new current
@@ -1018,8 +1018,10 @@ class Player
 		} catch(x) { console.log(x); }
 	}	// }}}
 
-	go (target)
-	{	return this.PageNumber=target;	}
+	go (target, dft_url)
+	{	// {{{
+		try { return this.PageNumber=target; } catch(x) { if (dft_url) location.replace(dft_url); }
+	}	// }}}
 
 	sw (TK)
 		// <class='switch' <data-case='A'> <data-case='B'>>
