@@ -1,230 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
-	<base target='_blank'></base>
-	<title>porshenlai.github.io</title>
-	<!--link rel="icon" type="image/png" href="/images/favicon.png"/-->
-	<!--link rel="stylesheet" href="style.css"/-->
-	<script>
-		document.onload=() => {
-			document.onload=()=>undefined;
-			let SS=new Piers.Session.MSHome();
-			console.log(SS, Piers.Widget);
-		}
-	</script>
-	<style>
-		html, body {
-			width:100%; height:100%; border:0; margin:0; padding:0; overflow:hidden;
-		}
-		body { 
-			font-size: 4vmin;
-			background: black url('res/cyberpiers.jpg') no-repeat center center/cover;
-			color: white;
-			display: flex; flex-flow: column nowrap;
-		}
-		header {
-			display: flex; flex-flow:row nowrap; justify-content:space-between; align-items:flex-start;
-			padding: 0.7vh 0.7vw;
-			background: rgba(0,0,128,0.2);
-		}
-		main {
-			flex:1 1 auto; width:100%; height:100%; overflow-y:auto;
-			border:0; margin:0; padding:0; overflow:hidden;
-		}
-		footer {
-			font-size:60%;
-			display:flex; flex-flow:row nowrap; justify-content:space-between; align-items:flex-end;
-		}
-
-		[page] {
-			width: 100%; height: 100%; overflow:hidden auto;
-		}
-		[page]:not(.current) { display:none; }
-		[page="frame"] iframe {
-			position:relative;
-			margin:0; padding:0; border:0;
-			width:100%; height:100%; overflow:hidden;
-			background: rgba(240,240,240,0.5);
-		}
-		[page^="list-"] {
-			background: rgba(0,0,0,0.5);
-			padding:2%; margin:0;
-		}
-		.autolist {
-			display: flex; flex-flow: row wrap; justify-content:flex-start; align-items:center;
-		}
-		.autolist>div {
-			flex: 1 0 auto;
-			margin: 0.5%; padding: 1%;
-			width: 80%; max-width:97%;
-		}
-		@media (orientation: landscape) {
-			.autolist>div {
-				width:40%; max-width:47%;
-			}
-		}
-		.autolist>h1, .autolist>h2 {
-			width: 100%;
-			text-shadow: -1px -1px 0 orange, 1px -1px 0 orange, -1px 1px 0 orange, 1px 1px 0 orange;
-		}
-		.autolist a {
-			color:yellow;
-			text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-		}
-		.autolist a:hover {
-			color:white;
-		}
-
-		#MainMenu td {
-			background:rgba(0,0,0,0.5);
-			vertical-align:middle;
-			text-align:center;
-			font-size:6vmin;
-			text-shadow:2px 1px lightblue;
-		}
-		#MainMenu a, #MainMenu a:hover { color:white; }
-	</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="App/page.js"></script>
+<title>Home Page in pStyle</title>
+<base target='_blank'></base>
+<style>
+	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
+	.M { background-color:rgba(255,255,255,0.5); color:black; }
+	.W { background-color:rgba(0,0,0,0.5); color:yellow; }
+	.fwd { width:95%; }
+</style>
 </head>
-<body>
-	<header>
-		<b __h__='home'>Cyberpiers</b>
-		<select __h__='launch'>
-			<option value='-' lang='zh'>小工具</option>
-			<option value='Tools/Calc.html' lang='zh'>計算機</option>
-			<option value='Tools/TRAPP.html' lang='zh'>臺鐵 PP 座位查詢</option>
-			<option value='Tools/TRAPP2.html' lang='zh'>臺鐵 PP 座位查詢 2</option>
-		</select>
-	</header>
-	<main>
-		<div page='home'>
-			<table id='MainMenu' border='0' cellspacing='32', cellpadding='32' width='100%' height='100%'><tbody>
-				<tr>
-					<td width='50%' height='50%' __h__='goto' value="Course">
-						<div>學習<br/>Study</div>
-					</td>
-					<td width='50%' height='50%' __h__='goto' value="Resource">
-						<div>資源<br/>Resources</div>
-					</a></td>
-				</tr>
-				<tr>
-					<td width='50%' height='50%' __h__='goto' value="Travel">
-						<div>探索<br/>Discovery</div>
-					</a></td>
-					<td width='50%' height='50%' __h__='goto' value="Services">
-						<div>服務<br/>Services</div>
-					</a></td>
-				</tr>
-			</tbody></table>
-		</div>
-		<div page='list-Course'><div class='autolist'>
-			<h2>課程</h2>
-			<div><a href='Study/Course_Python.html'>114-2 程式開發</a></div>
-			<div><a href='Study/Course_AI.html'>114-2 人工智慧商務應用</a></div>
-			<div><a href='Study/Course_SIPT.html'>114-2 智能投資與程式交易</a></div>
-			<h2>人工智慧 (Artificial Intelligence)</h2>
-			<div><a href='Study/AI900/index.html'>人工智慧: MCF-AI-900</a></div>
-			<div><a href='Study/AI_MLModels/index.html'>人工智慧: Machine Learning Models</a></div>
-			<div><a href='Study/LLM_Models.html'>人工智慧: LLM Models</a></div>
-			<div><a href='Course/DataPreProcessing.html'>資料預處理</a></div>
-			<div><a href='Course/DataAnalysis.html'>資料分析</a></div>
-			<h2>系統開發 (Development)</h2>
-			<div><a href='Study/Python/index.html'>程式語言: ITS-Python</a></div>
-			<div><a href='Study/Excel/index.html'>工具程式: Excel</a></div>
-			<div><a href='Course/Web/HTTP.html'>Web: (HTTP) HyperText Transfer Protocol</a></div>
-			<div><a href='Course/Web/HTTPS.html'>Web: (HTTPS) HyperText Transfer Protocol Secure</a></div>
-			<div><a href='Course/Web/DesignOfServerAPI.html'>Web: Design of Server API</a></div>
-			<h1>財務金融 (Finance)</h1>
-			<div><a href='Course/Financial-Terms.html'>投資用語</a></div>
-			<div><a href='Course/PowerBI-Tutorial.html'>Power BI 導論</a></diV>
-			<div><a href='Course/PowerBI-Reports.html'>Power BI 報告</a></div>
-			<h1>其他 (Miscellaneous)</h1>
-			<div><a href='Course/IPA.html'>國際音標</a></div>
-		</div></div>
-		<div page='list-Resource'><div class='autolist'>
-			<h1>Resources</h1>
-		</div></div>
-		<div page='list-Travel'><div class='autolist'>
-			<h1>Discovery</h1>
+<body style='opacity:0'><main data-controls='aside'><div id='content'>
 
-			<div><a href="https://d288slw6nyxep2.cloudfront.net/index.html">
-				2026, EURO/ FSI 法瑞義 雪山軌道大穿越
-			</a></div>
-			<div>
-				2025, USA/ ChiYork 芝加哥-紐約
-			</div>
-			<div>
-				2025, JP/ Chihlee 熊本，阿蘇，福岡
-			</div>
-			<div>
-				2024, EURO/ 布拉格，漢堡，哥本哈根，斯德哥爾摩，維也納
-			</div>
-		</div></div>
-		<div page='list-Services'><div class='autolist'>
-			<h1>Services</h1>
-			<div><a href="http://g3c.cyberpiers.com:4780/FTSA/index.html">
-				2026, FTSA Financial Time Series Analyzer
-			</a></div>
-		</div></div>
-		<div page='frame' class='current'>
-			<iframe></iframe>
+<section id='pStyle' class='fs col' data-style='bg::res/cyberpiers.jpg'>
+	<div class='bar'>
+		<h2 class='f W'>pStyle Page</h2>
+		<div class='button W' data-h='set:Overlay:menu'>☰</div>
+	</div>
+	<div class='fill zcs' style='padding:3%'>
+		<div class='M swd' data-h='go:工具索引'>
+			<div>工具<br/>Tools</div>
 		</div>
-		<script>
-			((SE)=>{
-				let RE=SE.parentNode;
-				RE._H_=new (class {
-					constructor () {
-						this.switchPage('home');
-					}
-					getPage (pageID) {
-						return RE.querySelector(`[page="${pageID}"]`);
-					}
-					switchPage (pageID) {
-						Array.from(RE.querySelectorAll('[page]'))
-						.forEach((p)=>p.classList[pageID==p.getAttribute("page")?"add":"remove"]("current"));
-					}
-					playHTML (url) {
-						console.log(url);
-						this.getPage('frame').querySelector('iframe').setAttribute("src",url);
-						this.switchPage('frame');
-					}
-				})();
-			})(document.currentScript)
-		</script>
-	</main>
-	<footer>
-		<span>&copy; Cyberpiers Co.Ltd,</span>
-		<span align='right'>2026/4/2</span>
-	</footer>
-	<script>
-let SE=document.currentScript, RE=SE.parentNode;
-if (!RE.__h__) {
-	RE.__h__=(evt)=>{
-		let e,f;
-		try {
-			for(e=evt.target;!e.matches('[__h__]');e=e.parentNode);
-			f=evt.type+"-"+e.getAttribute("__h__");
-		} catch(x) { return; }
-		switch (f) {
-		case 'click-home':
-			document.querySelector('main')._H_.switchPage('home');
-			break;
-		case 'click-goto':
-			document.querySelector('main')._H_.switchPage('list-'+e.getAttribute('value'));
-			break;
-		case 'change-launch':
-			document.querySelector('main')._H_.playHTML(e.value);
-			e.value='-';
-			break;
-		}
-	};
-} else {
-	RE.removeEventListener("click",RE.__h__);
-	RE.removeEventListener("change",RE.__h__);
-}
-RE.addEventListener("click",RE.__h__);
-RE.addEventListener("change",RE.__h__);
-	</script>
-</body>
+		<div class='M swd' data-h='go:學習索引'>
+			<div>學習<br/>Study</div>
+		</div>
+		<div class='M swd' data-h='go:資源索引'>
+			<div>資源<br/>Resources</div>
+		</div>
+		<div class='M swd' data-h='go:生活索引'>
+			<div>生活<br/>Resources</div>
+		</div>
+		</div>
+	</div>
+</section>
+
+<section id='工具索引' class='fs col' data-style='bg::res/cyberpiers.jpg'>
+	<div class='bar'>
+		<h2 class='f W'>工具 Tools</h2>
+		<div class='button W' data-h='set:Overlay:menu'>☰</div>
+	</div>
+	<div class='fill zcs' style='padding:3%'>
+		<div class='M swd'><ul>
+			<li data-h='go:pStyle'>[目錄]</li>
+			<li><a href='Tools/Calc.html'>計算機</a></li>
+			<li><a href='Tools/TRAPP.html'>臺鐵 PP 座位查詢</a></li>
+			<li><a href='Tools/TRAPP2.html'>臺鐵 PP 座位查詢 II</a></li>
+		</ul></div>
+		<div class='M swd'><h3>財務工具</h3><ul>
+			<li><a href="http://g3c.cyberpiers.com:4780/FTSA/index.html">
+				2026, FTSA Financial Time Series Analyzer
+			</a></li>
+		</ul></div>
+	</div>
+</section>
+
+<section id='學習索引' class='fs col' data-style='bg::res/cyberpiers.jpg'>
+	<div class='bar'>
+		<h2 class='f W'>學習 Study</h2>
+		<div class='button W' data-h='set:Overlay:menu'>☰</div>
+	</div>
+	<div class='fill zcs' style='padding:3%'>
+		<div class='M swd'><ul>
+			<li data-h='go:根索引'>[目錄]</li>
+		</ul></div>
+	</div>
+</section>
+
+<section id='資源索引' class='fs col' data-style='bg::res/cyberpiers.jpg'>
+	<div class='bar'>
+		<h2 class='f W'>資源 Resource</h2>
+		<div class='button W' data-h='set:Overlay:menu'>☰</div>
+	</div>
+	<div class='fill zcs' style='padding:3%'>
+		<div class='M swd'><ul>
+			<li data-h='go:根索引'>[目錄]</li>
+		</ul></div>
+	</div>
+</section>
+
+<section data-def='data'>
+	<input data-v='value:get' value='Life/index.html'></input>
+</section>
+
+</div></main></body>
 </html>

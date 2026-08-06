@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title>Life Page in pStyle</title>
+<base target='_blank'></base>
+<style>
+	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
+	.M { background-color:rgba(255,255,255,0.5); color:black; }
+	.W { background-color:rgba(0,0,0,0.5); color:yellow; }
+	.fwd { width:95%; }
+</style>
+</head>
+<body style='opacity:0'><main data-controls='aside'><div id='content'>
+
+<section id='生活索引' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
+	<div class='bar'>
+		<h2 class='f W'>生活 Life</h2>
+		<div class='button W' data-h='set:Overlay:menu'>☰</div>
+	</div>
+	<div class='fill zcs' style='padding:3%'>
+		<div class='M swd'>
+			<style>
+				#travel_list th[rowspan] {
+					vertical-align:top;
+					border:2px solid darkgreen; border-width:2px 2px 0 0;
+				}
+				#travel_list th:not([rowspan]) {
+					text-align:left;
+					border-top:2px dotted lightgreen;
+				}
+				#travel_list td[colspan="2"] { font-size:72%; }
+			</style>
+			<table width='100%' border='0' cellpadding='8' id='travel_list'><tr>
+				<th rowspan='4'>2026</th>
+				<th>夏</th><th><a href="2026.GasshoDisney/index.html">Gasho Disney</a></th>
+			</tr><tr>
+				<td colspan='2'>名古屋/高山/合掌村 - 東京/千葉/迪士尼</td>
+			</tr><tr>
+				<th>冬</th><th><a href="https://d288slw6nyxep2.cloudfront.net/index.html">Euro.FSI</a></th>
+			</tr><tr>
+				<td colspan='2'>歐陸 法瑞義 雪山軌道大穿越</td>
+			</tr><tr>
+				<th rowspan='4'>2025</th>
+				<th>春</th><th>Chihlee</th>
+			</tr><tr>
+				<td colspan='2'>熊本，阿蘇，福岡</td>
+			</tr><tr>
+				<th>冬</th><th>ChiYork</th>
+			</tr><tr>
+				<td colspan='2'>芝加哥，紐約</td>
+			</tr><tr>
+				<th rowspan='2'>2024</th>	
+				<th>冬</th><th>Euro.GoNorth</th>
+			</tr><tr>
+				<td colspan='2'>布拉格，漢堡，哥本哈根，斯德哥爾摩，維也納</td>
+			</tr><table>
+		</div>
+	</div>
+</section>
+
+</div></main></body>
+</html>

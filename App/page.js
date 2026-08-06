@@ -89,29 +89,31 @@ section.current {
 .PlayMode_1 section,
 .PlayMode_2 section { min-height:calc(100% - 2 * var(--base-margin)); }
 section.page { height:calc(100% - 2 * var(--base-margin)); }
+section.fs { height:100%; border:0; border-radius:0; margin:0; padding:0; }
 .PlayMode_2 section:not(.current) { display:none; }
 
 .fill,.full,.mask { width:100%; height:100%; left:0; top:0; margin:0; padding:0; overflow:hidden; }
 .fill { overflow-y:auto; }
 .mask { position:absolute;background-color:rgba(255,255,255,0.5); }
 
-.ncs,.zcs,.col,.row,.tabBar
+.ncs,.zcs,.col,.row,.bar,.tabBar
 { display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;overflow:hidden; }
 .col { flex-direction:column; }
 .zcs { flex-wrap:wrap;align-items:flex-start;overflow-y:auto; }
 .ncs { overflow-x:auto; }
 .col>.fill,.row>.fill { flex:1 1 auto; }
 
-.tabBar { width:100%; margin:8px; padding:8px; }
+.tabBar,.bar { width:100%; margin:8px; padding:8px; }
 .tabBar [data-h^="sw"] { flex:1 1 auto; background:darkblue; color:white; border-radius:8px; margin:8px; text-align:center; }
 .tabBar [data-h^="sw"].current { background:white; color:darkblue; font-weight:bolder; }
+
+.bar>.f { flex:1 1 auto; }
 
 .link { color:blue; text-decoration:underline; pointer:cursor; }
 .link:hover { font-weight:bold; color:darkblue; }
 
 .swd { flex:1 0 auto;width:80%;max-width:97%; }
 @media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
-.fill>.swd { height:100%; }
 
 [data-h] { cursor:pointer; }
 [data-h="display"] { text-decoration:underline;color:blue; }
@@ -826,7 +828,7 @@ class Player
 
 			this.Keywords = this.Content.Keywords;
 			this.PageCount = this.Content.PageIndex.length;
-			this.PageNumber = location.hash ? (this.Content.indexOf(location.hash.substr(1))+1) : 1;
+			this.PageNumber = location.hash ? (this.Content.indexOf(decodeURI(location.hash).substr(1))+1) : 1;
 			this.FontScale = this.Settings.FontScale[0].value;
 			this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
 
@@ -993,7 +995,6 @@ class Player
 
 	call (fn, ...args)
 	{	// {{{
-		console.log(fn, args);
 		try {
 			Apps[fn](...args);
 		} catch(x) { console.log(x); }
