@@ -5,16 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
-<title></title>
+<title>Tool Page in pStyle</title>
+<base target='_blank'></base>
+<style>
+	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
+	.M { background-color:rgba(255,255,255,0.5); color:black; }
+	.W { background-color:rgba(0,0,0,0.5); color:yellow; }
+	.fwd { width:95%; }
+</style>
 </head>
-<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+<body style='opacity:0'><main data-controls='aside'><div id='content'>
 
-<section>
-	<h2>STUDY</h2>
-	<ul>
-		<li><a href='LocalLLM.html'>地端 AI 系統整合實作</a></li>
-		<li><a href='FinTechAI.html'>金融 AI 應用實作</a></li>
-	</ul>
+<section id='學習索引' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
+	<div class='bar'>
+		<h2 class='f W'>學習 Study</h2>
+		<div class='button W' data-h='set:Overlay:menu'>☰</div>
+	</div>
+	<div class='fill zcs' style='padding:3%'>
+		<div class='M swd'><ul>
+			<li data-h='go:pStyle'>[目錄]</li>
+			<li><a href='ML/PrivateLLM.html'>地端 AI 系統整合實作</a></li>
+			<li><a href='Finance/Banking.html'>金融 AI 應用實作</a></li>
+		</ul></div>
+		<div class='M swd switch'>
+			<span data-h='sw:Course-1151' class='button current'>115-1</span>
+			<ul data-case='Course-1151'>
+				<li><a href='Course/115-1-AI.html'>人工智慧概論</a></li>
+				<li><a href='Course/115-1-PrivateLLM.html'>地端AI系統整合實作</a></li>
+				<li><a href='Course/115-1-FinTechAI.html'>金融 AI 應用實作</a></li>
+				<li><a href='Course/115-1-FinTechApp.html'>金融應用程式</a></li>
+				<li><a href='Course/115-1-Python.html'>計算邏輯與程式應用</a></li>
+				<li><a href='Course/115-1-Python-N.html'>(進修部) 計算邏輯與程式應用</a></li>
+			</ul>
+			<span data-h='sw:Course-1142' class='button'>114-2</span>
+			<ul data-case='Course-1142' class='hide'>
+				<li><a href='Course/114-2-AI.html'>人工智慧商務應用</a></li>
+				<li><a href='Course/114-2-Excel.html'>程式設計 / Excel</a></li>
+				<li><a href='Course/114-2-SIPT.html'>智能投資與程式交易</a></li>
+			</ul>
+		</ul></div>
 </section>
 
 </div></main></body>

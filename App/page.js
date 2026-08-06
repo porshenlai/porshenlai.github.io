@@ -112,6 +112,10 @@ section.fs { height:100%; border:0; border-radius:0; margin:0; padding:0; }
 .link { color:blue; text-decoration:underline; pointer:cursor; }
 .link:hover { font-weight:bold; color:darkblue; }
 
+.button { padding:1px 2px; margin:1px 2px; border:1px outset silver; border-radius:4px; }
+.button:not(.current):hover { cursor:pointer; font-weight:bold; }
+.button.current { border:0px; }
+
 .swd { flex:1 0 auto;width:80%;max-width:97%; }
 @media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
 
@@ -351,6 +355,9 @@ changeRoot: (doc, url) => {
 	}
 	Array.from(doc.querySelectorAll('[src]')).forEach(
 		(e)=>e.setAttribute("src",rn(e.getAttribute("src")))
+	);
+	Array.from(doc.querySelectorAll('[href]')).forEach(
+		(e)=>e.setAttribute("href",rn(e.getAttribute("href")))
 	);
 	Array.from(doc.querySelectorAll('section')).forEach(
 		(e)=>e.dataset.rbase=JSON.stringify([url.origin,url.pathname])
