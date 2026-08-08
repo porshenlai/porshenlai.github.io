@@ -809,7 +809,9 @@ class Player
 			for (e of from.querySelectorAll('[data-def]'))
 				if (e.dataset.def.indexOf(':')>0) docs.appendChild(e);
 			for (e of from.querySelectorAll('section'))
+				// TODO apply KeyFilter
 				if (e.dataset.def==='data') {
+					// import external html sections
 					const D = new Apps.NT.data(e);
 					for (const d of ASSERT(await D.get(),[e,'not available'])) {
 						Apps.changeRoot(d, D.URL);
