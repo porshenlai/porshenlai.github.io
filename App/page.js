@@ -295,7 +295,7 @@ class _E
 		return this;
 	}
 	get (cn) {
-		cn=cn.split(':');
+		cn=Array.isArray(cn) ? cn : cn.split(':');
 		switch (cn[0]) {
 		case 'text': return this.E.textContent;
 		case 'value': return this.E.value;
@@ -304,7 +304,7 @@ class _E
 		}
 	}
 	put (cn, val) {
-		cn=cn.split(':');
+		cn=Array.isArray(cn) ? cn : cn.split(':');
 		switch (cn) {
 		case 'text': this.E.textContent = val; break;
 		case 'value': this.E.value = val; break;
@@ -316,27 +316,39 @@ class _E
 
 class _D
 {	// {{{
+	// let d = new _D({"A":{"a":123},"B":456});
 	constructor (d) {
-		this.D = d;
+		this.D = "string" === typeof(d) ? JSON.parse(d) : d;
 	}
+	// d.get("A.a") => 123
 	get (p) {
-		let nv={}, rv=p.split('.').filter((n)=>n).reduce((d,n)=>n in d ? d[n] : nv,this.D);
+		let nv = {},
+				rv = (Array.isArray(p) ? p : p.split('.'))
+					.filter((n)=>n)
+					.reduce((d,n)=>n in d ? d[n] : nv,this.D);
 		return rv!==nv ? rv : undefined;
 	}
+	// d.put("A.a",999)
 	put (p,v) {
-		p = p.split('.').filter((n)=>n);
+		p = (Array.isArray(p) ? p : p.split('.')).filter((n)=>n);
 		let n = p.pop(),
 			d = p.reduce((d,n)=> { if (!(n in d)) d[n] = {}; return d[n]; }, this.D);
 		d[n] = v;
+	}
+	// toString() => JSON string
+	toString () {
+		return JSON.stringify(this.D);
 	}
 }	// }}}
 
 class _U
 {	// {{{
+	// let u = new _U('http://localhost:8080/Study/index.html');
 	constructor (u) {
 		u = u||location;
 		this.Base = u.href || u;
 	}
+	// URL ret = u.resolve("Course/index.html");
 	resolve (u) {
 		let r = URL.parse(u);
 		if (!r) {
@@ -349,26 +361,33 @@ class _U
 
 class _R
 {	// {{{
+	// let r = new _R(URL.parse(...))
+	// let r = new _R(<... <data-v="url:..."> ...>)
+	// let r = new _R("data string")
+	// let r = new _R({object})
 	constructor (a) {
 		if (!a) throw('null argument');
 		if (a instanceof URL)
 			a = { "url": a };
 		if (a instanceof Element)
-			a = Array.from(a.querySelectorAll('[data-v]')).reduce((e)=>{
-				console.log("TODO:EVReader");
-			},{});
+			a = Array.from(a.querySelectorAll('[data-v]')).reduce((r,e)=>{
+				let ep=e.dataset.v.split(':');
+				r.set(ep.pop(),e.get(ep));
+				return r;
+			},new _D({})).D;
 		if ('string' === typeof(a))
 			a = { "text": a };
 		if ('object' === typeof(a) && !("url" in a || "text" in a || "doc" in a) )
 			a = { "doc": a };
 		this.A = a;
 	}
+	// {} | <> | "" = await r.get({payload})
 	async get (payload) {
 		if (this.A.url) {
 			let res = payload ? await fetch(this.A.url, {
       				method: 'POST',
       				headers: { 'Content-Type': 'application/json' },
-      				body: payload
+      				body: 'string'===typeof(payload) ? payload : JSON.stringify(payload)
 				}) : await fetch(this.A.url);
 			if (res.ok) {
 				if (res.headers.has('content-type'))
@@ -390,8 +409,8 @@ class _R
 }	// }}}
 
 (async () => {
-	//console.log(await (new _U()).resolve('list_test.json').get());
-	console.log(await (new _R((new _U()).resolve('list_test.json'))).get());
+	// console.log(await (new _U()).resolve('list_test.json').get());
+	// console.log(await (new _R((new _U()).resolve('list_test.json'))).get());
 })();
 
 const Apps = {
