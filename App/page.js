@@ -265,8 +265,8 @@ const HTML_ASIDE= // {{{
 	</div>
 </aside>`; // }}}
 
-class _E {
-	// {{{
+class _E
+{ 	// {{{
 	constructor (e) { this.E = e; }
 	trace (...cs) {
 		for (let e=this.E; e instanceof Element; e=e.parentNode)
@@ -294,7 +294,105 @@ class _E {
 		this.E=ce;
 		return this;
 	}
+	get (cn) {
+		cn=cn.split(':');
+		switch (cn[0]) {
+		case 'text': return this.E.textContent;
+		case 'value': return this.E.value;
+		case 'data': return this.dataset[cn[1]];
+		case 'style': return this.style[cn[1]];
+		}
+	}
+	put (cn, val) {
+		cn=cn.split(':');
+		switch (cn) {
+		case 'text': this.E.textContent = val; break;
+		case 'value': this.E.value = val; break;
+		case 'data': this.E.dataset[cn[1]] = val; break;
+		case 'style': this.E.style[cn[1]] = val; break;
+		}
+	}
 }	// }}}
+
+class _D
+{	// {{{
+	constructor (d) {
+		this.D = d;
+	}
+	get (p) {
+		let nv={}, rv=p.split('.').filter((n)=>n).reduce((d,n)=>n in d ? d[n] : nv,this.D);
+		return rv!==nv ? rv : undefined;
+	}
+	put (p,v) {
+		p = p.split('.').filter((n)=>n);
+		let n = p.pop(),
+			d = p.reduce((d,n)=> { if (!(n in d)) d[n] = {}; return d[n]; }, this.D);
+		d[n] = v;
+	}
+}	// }}}
+
+class _U
+{	// {{{
+	constructor (u) {
+		u = u||location;
+		this.Base = u.href || u;
+	}
+	resolve (u) {
+		let r = URL.parse(u);
+		if (!r) {
+			r = URL.parse(this.Base);
+			r.pathname = u.startsWith('/') ? u : (r.pathname.replace(/[^\/]*$/,'')+u);
+		}
+		return r;
+	}
+}	// }}}
+
+class _R
+{	// {{{
+	constructor (a) {
+		if (!a) throw('null argument');
+		if (a instanceof URL)
+			a = { "url": a };
+		if (a instanceof Element)
+			a = Array.from(a.querySelectorAll('[data-v]')).reduce((e)=>{
+				console.log("TODO:EVReader");
+			},{});
+		if ('string' === typeof(a))
+			a = { "text": a };
+		if ('object' === typeof(a) && !("url" in a || "text" in a || "doc" in a) )
+			a = { "doc": a };
+		this.A = a;
+	}
+	async get (payload) {
+		if (this.A.url) {
+			let res = payload ? await fetch(this.A.url, {
+      				method: 'POST',
+      				headers: { 'Content-Type': 'application/json' },
+      				body: payload
+				}) : await fetch(this.A.url);
+			if (res.ok) {
+				if (res.headers.has('content-type'))
+				switch (res.headers.get('content-type').replaceAll(/;.*$/g,'')) {
+				case 'application/json':
+					return await res.json();
+				case 'text/html':
+					return ((s)=>{
+    					const parser = new DOMParser();
+    					const doc = parser.parseFromString(s, 'text/html');
+						return doc;
+					})(await res.text());
+				}
+				return await res.text();
+			}
+			console.log({"E":res.statusText});
+		} else return this.A.doc || this.A.text;
+	}
+}	// }}}
+
+(async () => {
+	//console.log(await (new _U()).resolve('list_test.json').get());
+	console.log(await (new _R((new _U()).resolve('list_test.json'))).get());
+})();
 
 const Apps = {
 
@@ -459,6 +557,12 @@ template: class extends _E
 },	// NT.template }}}
 data: class extends _E
 {	// {{{
+	//	<data-def='date'
+	//		<data-v='value:get' value='...'/>	=> fetch(D.get)
+	//		<data-v='value:post' value='...'/>	=> fetch(D.post, D.payload)
+	//		<data-v='value:raw value='...'/>	=> D.raw	
+	//		<data-v='value:doc value='...'/>	=> JSON.parse(D.doc)
+	//	>
 	static async fetch (doc)
 	{	// {{{
 		let res=undefined,
@@ -516,7 +620,7 @@ data: class extends _E
 		this.URL = doc.post || doc.get;
 		let r = await Apps.NT.data.fetch(doc);
 		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
-			r=this.E.cloneNode(true);
+			r = this.E.cloneNode(true);
 			delete r.dataset.def;
 		}
 		return r;
@@ -641,6 +745,10 @@ class Content
 		if (Apps.after_load) // after_load for Page override
 			Apps.after_load(this);
 	}	// }}}
+
+	installSections (doc, before) {
+		console.log("INSTALL",doc);
+	}
 
 	getByName (n, e) // n: class name or variable name, e: element to find data
 	{	// {{{
@@ -809,13 +917,16 @@ class Player
 			for (e of from.querySelectorAll('[data-def]'))
 				if (e.dataset.def.indexOf(':')>0) docs.appendChild(e);
 			for (e of from.querySelectorAll('section'))
-				// TODO apply KeyFilter
 				if (e.dataset.def==='data') {
 					// import external html sections
 					const D = new Apps.NT.data(e);
 					for (const d of ASSERT(await D.get(),[e,'not available'])) {
-						Apps.changeRoot(d, D.URL);
-						_cp_ (d, docs);
+						if (d instanceof Element)
+							docs.appendChild(d);
+						else {
+							Apps.changeRoot(d, D.URL);
+							_cp_ (d, docs);
+						}
 					}
 				} else docs.appendChild(e);
 			return docs;
@@ -1024,6 +1135,15 @@ class Player
 	{	// {{{
 		try { return this.PageNumber=target; } catch(x) { if (dft_url) location.replace(dft_url); }
 	}	// }}}
+
+	async submit ()
+	{
+		let de = new Apps.NT.data(Apps.E(event.target).trace('section')),
+			doc = await de.createRequest();
+		if (doc.fget) doc.get = doc.fget; // TODO
+		doc = await Apps.NT.data.fetch(doc);
+		this.Content.installSections(doc, de);
+	}
 
 	sw (TK)
 		// <class='switch' <data-case='A'> <data-case='B'>>
