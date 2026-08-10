@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Table-based Flowchart with SVG Links</title>
+	<style>
+		/* Table Grid Layout */
+		table.flowchart {
+			border-collapse: collapse;
+			margin: 20px auto;
+		}
+		table.flowchart td {
+			width: 100px;
+			height: 60px;
+			text-align: center;
+			vertical-align: middle;
+			padding: 0;
+			position: relative;
+		}
+
+		/* Process Blocks */
+		td.block {
+			border: 2px solid #333;
+			border-radius: 6px;
+			background-color: #f8f9fa;
+			font-weight: bold;
+			font-family: sans-serif;
+		}
+
+		/* SVG Connector Cells */
+		td.link {
+			border: none;
+		}
+		td.link svg {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+
+	<!-- Example 3x3 Flowchart Grid -->
+	<table class="flowchart">
+		<tr>
+			<td class="block">Start</td>
+			<td class="link" id="arrow1"></td>
+			<td class="block">Process</td>
+		</tr>
+		<tr>
+			<td class="link"></td>
+			<td class="link" id="arrowx"></td>
+			<td class="link" id="arrow2"></td>
+		</tr>
+		<tr>
+			<td class="block">End</td>
+			<td class="link" id="arrow4"></td>
+			<td class="block">Review</td>
+		</tr>
+	</table>
+
+	<script>
+
+		function addLink(cell, pathType, options = {}) {
+			const color = options.color || '#333';
+			const strokeWidth = options.strokeWidth || 2;
+			const markerId = 'arrowhead-' + Math.random().toString(36).substr(2, 9);
+
+			// Extract base path shape
+			const pathData = {
+				// Straight lines
+				"|": "M 50,0 L 50,100",
+				"-": "M 0,50 L 100,50",
+				// Z / Step paths (horizontal-vertical-horizontal)
+				"Z": "M 5,5 L 50,5 L 50,95 L 95,95",
+				"z": "M 95,5 L 50,5 L 50,95 L 5,95",
+				// N / Step paths (vertical-horizontal-vertical)
+				"N": "M 95,5 L 95,50 L 5,50 L 5,95",
+				"n": "M 5,5 L 5,50 L 95,50 L 95,95",
+				// Common L-corners (optional additions)
+				"rD": "M 0,50 L 50,50 L 50,100",	// Right then Down
+				"rU": "M 0,50 L 50,50 L 50,0",		// Right then Up
+				"dL": "M 50,0 L 50,50 L 0,50",		// Down then Left
+				"dR": "M 50,0 L 50,50 L 100,50"	 // Down then Right
+			}[pathType.replaceAll('_', '')];
+
+			if (!pathData) {
+				console.warn(`Unknown path type: "${pathType}"`);
+				return '';
+			}
+
+			// Determine arrow markers based on leading/trailing underscores
+			const startAttr = pathType.startsWith('_') ? `marker-start="url(#${markerId})"` : '';
+			const endAttr	 = pathType.endsWith('_') ? `marker-end="url(#${markerId})"`	 : '';
+
+			const svgHTML = `
+				<svg viewBox="0 0 100 100" preserveAspectRatio="none">
+					<defs>
+						<marker id="${markerId}" 
+										viewBox="0 0 10 10" 
+										refX="6" refY="5" 
+										markerWidth="6" 
+										markerHeight="6" 
+										orient="auto-start-reverse">
+							<path d="M 0 0 L 10 5 L 0 10 z" fill="${color}" />
+						</marker>
+					</defs>
+					<path d="${pathData}" 
+								stroke="${color}" 
+								stroke-width="${strokeWidth}" 
+								fill="none" 
+								vector-effect="non-scaling-stroke"
+					      ${startAttr} ${endAttr} />
+				</svg>
+			`;
+			cell.innerHTML = svgHTML;
+		}
+
+		// --- Example Usage ---
+		addLink(document.getElementById('arrow1'), '_Z_');
+		addLink(document.getElementById('arrow2'), '_n_');
+		addLink(document.getElementById('arrowx'), '_N_');
+		addLink(document.getElementById('arrow4'), '_z_');
+	</script>
+</body>
+</html>
