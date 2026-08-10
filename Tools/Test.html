@@ -48,8 +48,8 @@
 			<td class="block">Process</td>
 		</tr>
 		<tr>
-			<td class="link"></td>
 			<td class="link" id="arrowx"></td>
+			<td class="link"></td>
 			<td class="link" id="arrow2"></td>
 		</tr>
 		<tr>
@@ -61,10 +61,11 @@
 
 	<script>
 
-		function addLink(cell, pathType, options = {}) {
+		function addLink(cell, pathType, options = {})
+		{	// {{{
 			const color = options.color || '#333';
 			const strokeWidth = options.strokeWidth || 2;
-			const markerId = 'arrowhead-' + Math.random().toString(36).substr(2, 9);
+			const markerId = Math.random().toString(36).substr(2, 9);
 
 			// Extract base path shape
 			const pathData = {
@@ -72,11 +73,11 @@
 				"|": "M 50,0 L 50,100",
 				"-": "M 0,50 L 100,50",
 				// Z / Step paths (horizontal-vertical-horizontal)
-				"Z": "M 5,5 L 50,5 L 50,95 L 95,95",
-				"z": "M 95,5 L 50,5 L 50,95 L 5,95",
+				"Z": "M 0,5 L 50,5 L 50,95 L 100,95",
+				"z": "M 100,5 L 50,5 L 50,95 L 0,95",
 				// N / Step paths (vertical-horizontal-vertical)
-				"N": "M 95,5 L 95,50 L 5,50 L 5,95",
-				"n": "M 5,5 L 5,50 L 95,50 L 95,95",
+				"N": "M 95,0 L 95,50 L 5,50 L 5,100",
+				"n": "M 5,0 L 5,50 L 95,50 L 95,100",
 				// Common L-corners (optional additions)
 				"rD": "M 0,50 L 50,50 L 50,100",	// Right then Down
 				"rU": "M 0,50 L 50,50 L 50,0",		// Right then Up
@@ -89,16 +90,19 @@
 				return '';
 			}
 
-			// Determine arrow markers based on leading/trailing underscores
-			const startAttr = pathType.startsWith('_') ? `marker-start="url(#${markerId})"` : '';
-			const endAttr	 = pathType.endsWith('_') ? `marker-end="url(#${markerId})"`	 : '';
+			const arrow = [];
+			if (pathType.startsWith('_'))
+				arrow.push(`marker-start="url(#ah-${markerId})"`);
+			if (pathType.endsWith('_'))
+				arrow.push(`marker-end="url(#ah-${markerId})"`);
+			console.log(arrow);
 
 			const svgHTML = `
 				<svg viewBox="0 0 100 100" preserveAspectRatio="none">
 					<defs>
-						<marker id="${markerId}" 
+						<marker id="ah-${markerId}" 
 										viewBox="0 0 10 10" 
-										refX="6" refY="5" 
+										refX="10" refY="5" 
 										markerWidth="6" 
 										markerHeight="6" 
 										orient="auto-start-reverse">
@@ -110,15 +114,15 @@
 								stroke-width="${strokeWidth}" 
 								fill="none" 
 								vector-effect="non-scaling-stroke"
-					      ${startAttr} ${endAttr} />
+								${arrow.join(' ')} />
 				</svg>
 			`;
 			cell.innerHTML = svgHTML;
-		}
+		}	// }}}
 
 		// --- Example Usage ---
-		addLink(document.getElementById('arrow1'), '_Z_');
-		addLink(document.getElementById('arrow2'), '_n_');
+		addLink(document.getElementById('arrow1'), '_dL_');
+		addLink(document.getElementById('arrow2'), '_dR_');
 		addLink(document.getElementById('arrowx'), '_N_');
 		addLink(document.getElementById('arrow4'), '_z_');
 	</script>
