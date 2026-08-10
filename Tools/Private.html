@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+	<meta charset="UTF-8">
+	<title>Web Crypto Tool</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			max-width: 600px;
+			margin: 20px auto;
+			padding: 0 10px;
+		}
+		.field {
+			margin-bottom: 15px;
+		}
+		#toolbar,#secretKey {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			align-items: center;
+			overflow: hidden;
+		}
+		#toolbar button {
+			flex: 1 1 auto;
+			margin: 4px;
+		}
+		#secretKey {
+			flex-wrap: wrap;
+		}
+		#secretKey>span {
+			display:flex;
+			flex:1 1 auto;
+			line-height: 2;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		#secretKey>span>input {
+			flex:1 1 auto;
+			margin:1px 4px;
+		}
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+		textarea, select {
+			width: 100%;
+			box-sizing: border-box;
+			padding: 8px;
+		}
+		button {
+			padding: 10px 15px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		#error {
+			color: red;
+			margin-top: 10px;
+			white-space: pre-wrap;
+		}
+	</style>
+</head>
+<body>
+	<h2>加解密工具</h2>
+
+	<div class='field' id='secretKey'>
+		<span>姓名:<input data-v='name' type='text'></input></span>
+		<span>學號:<input data-v='sno' type='password'></input></span>
+		<span>生日:<input data-v='date' type='date'></input></span>
+		<span>父親:<input data-v='padate' type='date'></input></span>
+		<span>母親:<input data-v='madate' type='date'></input></span>
+		<span>配偶:<input data-v='wfdate' type='date'></input></span>
+		<output style='display:none;'>密碼未設定</output>
+	</div>
+
+	<div class="field" id='toolbar'>
+		<button data-h="encrypt">編碼</button>
+		<button data-h="download">下載</button>
+		<button data-h="clear">清空</button>
+		<button data-h="upload">上傳</button>
+		<button data-h="decrypt">解碼</button>
+		<input type='hidden' data-v='filename' value='NONAME'></input>
+	</div>
+
+	<div class="field">
+		<label for="inputText">內容:</label>
+		<textarea id="inputText" rows='20'></textarea>
+	</div>
+
+	<div id="error"></div>
+
+	<script>
+		const encoder = new TextEncoder();
+		const decoder = new TextDecoder();
+
+		// Helper: Buffer to Base64
+		function bufferToBase64(buffer) {
+			const bytes = new Uint8Array(buffer);
+			let binary = '';
+			for (let i = 0; i < bytes.byteLength; i++) {
+				binary += String.fromCharCode(bytes[i]);
+			}
+			return btoa(binary);
+		}
+
+		// Helper: Base64 to Buffer
+		function base64ToBuffer(base64) {
+			const binaryString = atob(base64);
+			const bytes = new Uint8Array(binaryString.length);
+			for (let i = 0; i < binaryString.length; i++) {
+				bytes[i] = binaryString.charCodeAt(i);
+			}
+			return bytes;
+		}
+
+		// --- Web Crypto Logic ---
+
+		// Hashes string of ANY length via SHA-256 -> yields exactly 32 bytes (256 bits) for AES-256
+		async function getCryptoKey(rawKeyString) {
+			const keyData = encoder.encode(rawKeyString);
+			
+			// Compute SHA-256 digest
+			const hashBuffer = await window.crypto.subtle.digest("SHA-256", keyData);
+
+			// Import the 32-byte hash as an AES-GCM CryptoKey
+			return await window.crypto.subtle.importKey(
+				"raw",
+				hashBuffer,
+				{ name: "AES-GCM" },
+				false,
+				["encrypt", "decrypt"]
+			);
+		}
+
+		// Encrypt
+		async function encryptText(plaintext, rawKeyString) {
+			const cryptoKey = await getCryptoKey(rawKeyString);
+			const iv = window.crypto.getRandomValues(new Uint8Array(12)); // 96-bit IV
+			const data = encoder.encode(plaintext);
+
+			const cipherBuffer = await window.crypto.subtle.encrypt(
+				{ name: "AES-GCM", iv: iv },
+				cryptoKey,
+				data
+			);
+
+			// Combine IV (12 bytes) + Ciphertext
+			const combined = new Uint8Array(iv.length + cipherBuffer.byteLength);
+			combined.set(iv, 0);
+			combined.set(new Uint8Array(cipherBuffer), iv.length);
+
+			return bufferToBase64(combined);
+		}
+
+		// Decrypt
+		async function decryptText(base64Ciphertext, rawKeyString) {
+			const cryptoKey = await getCryptoKey(rawKeyString);
+			const combined = base64ToBuffer(base64Ciphertext);
+
+			const iv = combined.slice(0, 12);
+			const cipherData = combined.slice(12);
+
+			const decryptedBuffer = await window.crypto.subtle.decrypt(
+				{ name: "AES-GCM", iv: iv },
+				cryptoKey,
+				cipherData
+			);
+
+			return decoder.decode(decryptedBuffer);
+		}
+
+		// --- DOM Handling ---
+		((F) => F.addEventListener('change', ()=>{
+			F.querySelector('output').value =
+				Array.from(F.querySelectorAll('[data-v]')).reduce((r,v)=>r+v.value+':','');
+		}))(document.getElementById('secretKey'));
+
+		((B,T,K,E) => B.addEventListener('click', async (event) => {
+			E.textContent = ''; // 每次執行前先清空錯誤訊息
+			const text = T.value.trim();
+
+			// 非上傳/清空動作時，需驗證內容不可為空
+			const action = event.target.dataset.h;
+			if (!text && action !== 'upload' && action !== 'clear') return;
+
+			try {
+				for (let b=event.target; b!==B; b=b.parentNode) switch (b.dataset.h) {
+					case 'encrypt':
+						T.value = await encryptText(text, K.value);
+						return;
+					case 'decrypt':
+						T.value = await decryptText(text, K.value);
+						return;
+					case 'clear':
+						T.value = '';
+						return;
+					case 'upload':
+						// 建立隱藏的 file input 觸發檔案選擇器
+						const fileInput = document.createElement('input');
+						fileInput.type = 'file';
+						fileInput.accept = '.json,application/json;';
+						fileInput.onchange = (e) => {
+							const file = e.target.files[0];
+							if (!file) return;
+							B.querySelector('input[data-v="filename"]').value=file.name;
+							const reader = new FileReader();
+							reader.onload = (evt) => {
+								T.value = evt.target.result;
+							};
+							reader.readAsText(file);
+						};
+						fileInput.click();
+						return;
+					case 'download':
+						// 將 T.value 轉成 Blob 存檔下載
+						const blob = new Blob([T.value], { type: 'text/plain;charset=utf-8' });
+						const url = URL.createObjectURL(blob);
+						const a = document.createElement('a');
+						a.href = url;
+						a.download =((t)=>[
+							B.querySelector('input[data-v="filename"]').value,
+							t.getFullYear(), 1+t.getMonth(), t.getDate(),
+							t.getHours(), t.getMinutes()
+						].join("-"))(new Date());
+						document.body.appendChild(a);
+						a.click();
+						document.body.removeChild(a);
+						URL.revokeObjectURL(url);
+						return;
+				}
+			} catch (err) {
+				E.textContent = 'Operation failed: ' + err.message + '\n(Check if cipher text or key is correct)';
+			}
+		}))(
+			document.getElementById('toolbar'),
+			document.getElementById('inputText'),
+			document.body.querySelector('#secretKey output'),
+			document.getElementById('error')
+		);
+	</script>
+</body>
+</html>
