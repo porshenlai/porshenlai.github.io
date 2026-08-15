@@ -408,6 +408,132 @@ class _R
 	}
 }	// }}}
 
+class Template extends _E
+{	// Template {{{
+	async put (doc) // doc:DOC Object
+	{	// write DOC to template Element {{{
+		const e = this.E.cloneNode(true);
+		if (e.dataset.def) e.removeAttribute('data-def');
+		function w(e, d, nr=false)
+		{	// {{{
+			if (!nr) return;
+			if (e.dataset.c)
+				for (let args of e.dataset.c.split(';').filter((a)=>a))
+					((cmd, ...args) => {
+						switch (cmd) {
+						case "repeat": case 'foreach':
+							((t,p,d)=>{
+								p.removeChild(t);
+								if (!Array.isArray(d))
+									d=Object.entries(d).reduce((r,p)=>{
+										let o=('object'===typeof(p[1])) ? p[1] : {_v_:p[1]};
+										o._k_=p[0];
+										r.push(o); return r;
+									},[]);
+								for (let i=0; i<d.length; i++) {
+									const D=d[i], row=t.cloneNode(true);
+									if (row.dataset.def) row.removeAttribute('data-def');
+									if (row.dataset.c) row.removeAttribute('data-c');
+									row.dataset.index=(i%2)+"-"+i;
+									p.appendChild(row);
+									w(row,D);
+								}
+							})(e,e.parentNode,d[args[0]]||[]);
+							break;
+						}
+					})(...Apps.splitArgs(args))
+
+			if (e.dataset.v)
+				for (let args of e.dataset.v.split(';').filter((a)=>a))
+					((cmd, a1, a2) => {
+						try {
+							switch (cmd) {
+							case "text": e.textContent=a1 ? d[a1] : d; break;
+							case "value": e.value=a1 ? d[a1] : d; break;
+							case "data": e.dataset[a1]=d[a2]; break;
+							}
+						} catch(x) { console.log(x); console.log(e,d); }
+					})(...Apps.splitArgs(args));
+			else {
+				if (e.dataset.v||e.dataset.c) w(e, d, true);
+
+				for (let c=e.firstChild; c; c=c.nextSibling) {
+					if (c.nodeType!==1) continue;
+					w(c,d);
+				}
+			}
+		}	// }}}
+		if (!doc) console.trace();
+		for (doc of ASSERT(doc,'template:put > document is not available')) w(e, doc);
+		return e;
+	}	// }}}
+	async get ()
+	{	// read DOC from template Element {{{
+		let rd={};
+		(function w(e, d, nr=0) {
+			if (nr===2) {
+				if (e.dataset.c)
+					for (let args of e.dataset.c.split(';').filter((a)=>a))
+						((cmd, ...args) => {
+							switch (cmd) {
+							case "repeat": // TODO
+								break;
+							}
+						})(...Apps.splitArgs(args))
+				if (e.dataset.v)
+					for (let args of e.dataset.v.split(';').filter((a)=>a))
+						((cmd, a1, a2) => {
+							switch (cmd) {
+							case "text": d[a1]=e.textContent; break;
+							case "value": d[a1]=e.value; break;
+							case "data": d[a2]=e.dataset[a1]; break;
+							}
+						})(...Apps.splitArgs(args));
+			} else {
+				if (e.dataset.v||e.dataset.c) w(e, d, 2);
+				for (let c=e.firstChild; c; c=c.nextSibling) {
+					if (c.nodeType!==1) continue;
+					if (e.dataset.h&&nr>0) continue;
+					w(c,d,1);
+				}
+			}
+			return d;
+		})(this.E,rd,0);
+		return rd;
+	}	// }}}
+	});
+}	// }}}
+
+class Data extends _E
+{	// Data {{{
+	constructor (re) {
+		super(Apps.E(re).query('[data-def="data"]')||re);
+	}
+	async createRequest () {
+		const doc = await (new Apps.NT.template(this.E)).get();
+		try {
+			doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
+		} catch(x) { }
+		return doc;
+	}
+	async put (doc) // doc:DOC Object
+	{	// write DOC to data source {{{
+	}	// }}}
+	async get ()
+	{	// read DOC from data Source {{{
+		const doc = await this.createRequest();
+		if (doc.doc) return JSON.parse(doc.doc);
+		if (doc.raw) return doc.raw;
+		this.URL = doc.post || doc.get;
+		let r = await Apps.fetch(doc);
+		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
+			r = this.E.cloneNode(true);
+			delete r.dataset.def;
+		}
+		return r;
+	}	// }}}
+}	// Data }}}
+
 (async () => {
 	// console.log(await (new _U()).resolve('list_test.json').get());
 	// console.log(await (new _R((new _U()).resolve('list_test.json'))).get());
@@ -481,171 +607,64 @@ changeRoot: (doc, url) => {
 	);
 },	// change root }}}
 
-NT:{
-template: class extends _E
-{	// {{{
-	async put (doc) // doc:DOC Object
-	{	// write DOC to template Element {{{
-		const e = this.E.cloneNode(true);
-		if (e.dataset.def) e.removeAttribute('data-def');
-		function w(e, d, nr=false)
-		{	// {{{
-			if (nr) {
-				if (e.dataset.c)
-					for (let args of e.dataset.c.split(';').filter((a)=>a))
-						((cmd, ...args) => {
-							switch (cmd) {
-							case "repeat": case 'foreach':
-								((t,p,d)=>{
-									p.removeChild(t);
-									if (!Array.isArray(d))
-										d=Object.entries(d).reduce((r,p)=>{
-											let o=('object'===typeof(p[1])) ? p[1] : {_v_:p[1]};
-											o._k_=p[0];
-											r.push(o); return r;
-										},[]);
-									for (let i=0; i<d.length; i++) {
-										const D=d[i], row=t.cloneNode(true);
-										if (row.dataset.def) row.removeAttribute('data-def');
-										if (row.dataset.c) row.removeAttribute('data-c');
-										row.dataset.index=(i%2)+"-"+i;
-										p.appendChild(row);
-										w(row,D);
-									}
-								})(e,e.parentNode,d[args[0]]||[]);
-								break;
-							}
-						})(...Apps.splitArgs(args))
-				if (e.dataset.v)
-					for (let args of e.dataset.v.split(';').filter((a)=>a))
-						((cmd, a1, a2) => {
-							try {
-								switch (cmd) {
-								case "text": e.textContent=a1 ? d[a1] : d; break;
-								case "value": e.value=a1 ? d[a1] : d; break;
-								case "data": e.dataset[a1]=d[a2]; break;
-								}
-							} catch(x) { console.log(x); console.log(e,d); }
-						})(...Apps.splitArgs(args));
-			} else {
-				if (e.dataset.v||e.dataset.c) w(e, d, true);
-				for (let c=e.firstChild; c; c=c.nextSibling) {
-					if (c.nodeType!==1) continue;
-					w(c,d);
-				}
-			}
-		}	// }}}
-		if (!doc) console.trace();
-		for (doc of ASSERT(doc,'template:put > document is not available')) w(e, doc);
-		return e;
-	}	// }}}
-	async get ()
-	{	// read DOC from template Element {{{
-		let rd={};
-		(function w(e, d, nr=0) {
-			if (nr===2) {
-				if (e.dataset.c)
-					for (let args of e.dataset.c.split(';').filter((a)=>a))
-						((cmd, ...args) => {
-							switch (cmd) {
-							case "repeat": // TODO
-								break;
-							}
-						})(...Apps.splitArgs(args))
-				if (e.dataset.v)
-					for (let args of e.dataset.v.split(';').filter((a)=>a))
-						((cmd, a1, a2) => {
-							switch (cmd) {
-							case "text": d[a1]=e.textContent; break;
-							case "value": d[a1]=e.value; break;
-							case "data": d[a2]=e.dataset[a1]; break;
-							}
-						})(...Apps.splitArgs(args));
-			} else {
-				if (e.dataset.v||e.dataset.c) w(e, d, 2);
-				for (let c=e.firstChild; c; c=c.nextSibling) {
-					if (c.nodeType!==1) continue;
-					if (e.dataset.h&&nr>0) continue;
-					w(c,d,1);
-				}
-			}
-			return d;
-		})(this.E,rd,0);
-		return rd;
-	}	// }}}
-},	// NT.template }}}
-data: class extends _E
-{	// {{{
-	//	<data-def='date'
-	//		<data-v='value:get' value='...'/>	=> fetch(D.get)
-	//		<data-v='value:post' value='...'/>	=> fetch(D.post, D.payload)
-	//		<data-v='value:raw value='...'/>	=> D.raw	
-	//		<data-v='value:doc value='...'/>	=> JSON.parse(D.doc)
-	//	>
-	static async fetch (doc)
-	{	// {{{
-		let res=undefined,
-				resolve = doc.rbase ? (u)=>(
-					(rb,u)=>u.indexOf('://')>0 ? u : (rb[0] + (u.startsWith('/') ? '' : rb[1]) + u)
-				)(doc.rbase,u) : (u)=>u;
+fetch: async (doc) => {
+	// { "get":url, "post":url, "raw":text, "doc":doc }
+	// {{{
+	let res=undefined,
+			resolve = doc.rbase ? (u)=>(
+				(rb,u)=>u.indexOf('://')>0 ? u : (rb[0] + (u.startsWith('/') ? '' : rb[1]) + u)
+			)(doc.rbase,u) : (u)=>u;
 
-		if (doc.post) {
-			res=await fetch(resolve(doc.post), {
-      			method: 'POST',
-      			headers: { 'Content-Type': 'application/json' },
-      			body: doc.payload||'{}'
-			});
-		}else if (doc.get) res=await fetch(resolve(doc.get));
-		if (res) {
-			if (res.ok) try {
-				if (res.headers.has('content-type')) {
-					switch (res.headers.get('content-type').replaceAll(/;.*$/g,'')) {
-					case 'application/json':
-						return await res.json();
-					case 'text/html':
-						return ((s)=>{
-    						const parser = new DOMParser();
-    						const doc = parser.parseFromString(s, 'text/html');
-							return doc;
-						})(await res.text());
-					default:
-						console.log(res.headers.get('content-type').replaceAll(/;.*$/g,''));
-						return await res.text();
-					}
-				} else return await res.json();
-			} catch(x) { return await res.text(); }
-			console.log({"E":res.statusText});
-		}
-	}	// }}}
+	if (doc.post) {
+		res=await fetch(resolve(doc.post), {
+    		method: 'POST',
+     		headers: { 'Content-Type': 'application/json' },
+     		body: doc.payload||'{}'
+		});
+	}else if (doc.get) res=await fetch(resolve(doc.get));
+	if (res) {
+		if (res.ok) try {
+			if (res.headers.has('content-type')) {
+				console.log(doc.get,res.headers.get('content-type'));
+				switch (res.headers.get('content-type').replaceAll(/;.*$/g,'')) {
+				case 'application/json':
+					return await res.json();
+				case 'text/html':
+					return ((s)=>{
+    					const parser = new DOMParser();
+    					const doc = parser.parseFromString(s, 'text/html');
+						return doc;
+					})(await res.text());
+				default:
+					console.log(res.headers.get('content-type').replaceAll(/;.*$/g,''));
+					return await res.text();
+				}
+			} else return await res.json();
+		} catch(x) { return await res.text(); }
+		console.log({"E":res.statusText});
+	}
+	// }}}
+},
 
-	constructor (re) {
-		super(Apps.E(re).query('[data-def="data"]')||re);
+Ns: new (class
+{	// Named Object Database {{{
+	constructor () {
+		this.CDB = {
+			template: Template,
+			date: Data
+		},
+		this.DB = {};
 	}
-	async createRequest () {
-		const doc = await (new Apps.NT.template(this.E)).get();
-		try {
-			doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
-		} catch(x) { }
-		return doc;
+	reg (n, o) { this.DB[n]=o; }
+	get (n, dft) { return this.DB[n] || dft; }
+	async sync (n, payload) {
+		return await ( n in this.DB ?
+			this.DB[n].get() :
+			Apps.fetch(payload ? {"post":n,"payload":payload} : {"get":n})
+		);
 	}
-	async put (doc) // doc:DOC Object
-	{	// write DOC to data source {{{
-	}	// }}}
-	async get ()
-	{	// read DOC from data Source {{{
-		const doc = await this.createRequest();
-		if (doc.doc) return JSON.parse(doc.doc);
-		if (doc.raw) return doc.raw;
-		this.URL = doc.post || doc.get;
-		let r = await Apps.NT.data.fetch(doc);
-		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
-			r = this.E.cloneNode(true);
-			delete r.dataset.def;
-		}
-		return r;
-	}	// }}}
-}	// NT.data }}}
-},	// NameType
+	getClass (n, dft) { return this.CDB[n] || dft; }
+})(),	// }}}
 
 KeyFilter: class
 {	// Format: A.B.C|D.E => (A and B and C) || (D and E) => [[A,B,C],[D,E]] {{{
@@ -657,8 +676,12 @@ KeyFilter: class
 			return this.D.reduce((r,a)=>(r || a.reduce((r,v)=>(r && (ks.indexOf(v)>=0)),true)),false);
 		else return true;
 	}	// }}}
-}	// }}}
+},	// }}}
+
 };
+
+Apps.Ns.reg('MView', Apps.html2DOM(`<div class='fill'><div data-xl='media' class='fill'><div data-v='data:media:media'></div></div></div>`));
+
 window.Apps = Object.assign(Apps, window.Apps||{});
 
 class Content
@@ -668,11 +691,6 @@ class Content
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
-		this.Ns = {
-			MView: Apps.html2DOM(`<div class='fill'><div data-xl='media' class='fill'>
-	<div data-v='data:media:media'></div>
-</div></div>`)
-		}; // database of Namespaces
 
 		this.Xs={
 			template:async function (slide, elem, name, buf)
@@ -682,7 +700,7 @@ class Content
 
 				[name,buf] = [name,buf].map((v)=>(!v || v==='&this') ? elem : v);
 
-				if ("string" === typeof(buf))	buf = slide.Ns[buf];
+				if ("string" === typeof(buf))	buf = Apps.Ns[buf];
 				if (buf instanceof Element)		buf = new Apps.NT.data(buf);
 				buf = await buf.get();
 				if (buf instanceof Element) {
@@ -702,13 +720,13 @@ class Content
 											let i=/([^}]+)}(.*)/.exec(v);
 											return i ? r+d[i[1]]+i[2] : r+v;
 										},"");
-									or(Apps.NT.data.fetch(f));
+									or(Apps.fetch(f));
 								})(); break;
 							}
 						});
 					});
 				}
-				if ("string" === typeof(name))	name = slide.Ns[name];
+				if ("string" === typeof(name))	name = Apps.Ns[name];
 				if (name instanceof Element)	name = new Apps.NT.template(name);
 				Apps.E(elem).replace(buf=await name.put(buf||{}));
 				slide.extendMods(Array.from(buf.querySelectorAll('[data-xl]')));
@@ -729,7 +747,7 @@ class Content
 		Apps.E(doc).forEach('[data-def]', (e) => {
 			Apps.handleArgs(e.dataset.def, (cs, key) => {
 				if (!key) return
-				this.Ns[key] = new Apps.NT[cs](e);
+				Apps.Ns[key] = new Apps.NT[cs](e);
 				e.parentNode.removeChild(e);
 			});
 		}); // declare template and data
@@ -768,12 +786,6 @@ class Content
 	installSections (doc, before) {
 		console.log("INSTALL",doc);
 	}
-
-	getByName (n, e) // n: class name or variable name, e: element to find data
-	{	// {{{
-		if (n in this.Ns) return this.Ns[n];
-		if (n in this.Ns_CS) return new (this.Ns_CS[n])(e);
-	}	// }}}
 
 	extendMods (mods) // mods: [data-x="..."] || [data-xl="..."]
 	{	// 安裝外部模組 {{{
@@ -1160,7 +1172,7 @@ class Player
 		let de = new Apps.NT.data(Apps.E(event.target).trace('section')),
 			doc = await de.createRequest();
 		if (doc.fget) doc.get = doc.fget; // TODO
-		doc = await Apps.NT.data.fetch(doc);
+		doc = await Apps.fetch(doc);
 		this.Content.installSections(doc, de);
 	}
 
