@@ -949,7 +949,7 @@ class Player
 			for (e of from.querySelectorAll('section'))
 				if (e.dataset.def==='data') {
 					// import external html sections
-					const D = new Apps.NT.data(e);
+					const D = Apps.Ns.create('data', e);
 					for (const d of ASSERT(await D.get(),[e,'not available'])) {
 						if (d instanceof Element)
 							docs.appendChild(d);
