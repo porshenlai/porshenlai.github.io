@@ -408,6 +408,36 @@ class _R
 	}
 }	// }}}
 
+class Data extends _E
+{	// Data {{{
+	constructor (re) {
+		super(Apps.E(re).query('[data-def="data"]')||re);
+	}
+	async createRequest () {
+		const doc = await Apps.Ns.create('template',this.E).get();
+		try {
+			doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
+		} catch(x) { }
+		return doc;
+	}
+	async put (doc) // doc:DOC Object
+	{	// write DOC to data source {{{
+	}	// }}}
+	async get ()
+	{	// read DOC from data Source {{{
+		const doc = await this.createRequest();
+		if (doc.doc) return JSON.parse(doc.doc);
+		if (doc.raw) return doc.raw;
+		this.URL = doc.post || doc.get;
+		let r = await Apps.fetch(doc);
+		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
+			r = this.E.cloneNode(true);
+			delete r.dataset.def;
+		}
+		return r;
+	}	// }}}
+}	// Data }}}
+
 class Template extends _E
 {	// Template {{{
 	async put (doc) // doc:DOC Object
@@ -416,45 +446,45 @@ class Template extends _E
 		if (e.dataset.def) e.removeAttribute('data-def');
 		function w(e, d, nr=false)
 		{	// {{{
-			if (!nr) return;
-			if (e.dataset.c)
-				for (let args of e.dataset.c.split(';').filter((a)=>a))
-					((cmd, ...args) => {
-						switch (cmd) {
-						case "repeat": case 'foreach':
-							((t,p,d)=>{
-								p.removeChild(t);
-								if (!Array.isArray(d))
-									d=Object.entries(d).reduce((r,p)=>{
-										let o=('object'===typeof(p[1])) ? p[1] : {_v_:p[1]};
-										o._k_=p[0];
-										r.push(o); return r;
-									},[]);
-								for (let i=0; i<d.length; i++) {
-									const D=d[i], row=t.cloneNode(true);
-									if (row.dataset.def) row.removeAttribute('data-def');
-									if (row.dataset.c) row.removeAttribute('data-c');
-									row.dataset.index=(i%2)+"-"+i;
-									p.appendChild(row);
-									w(row,D);
-								}
-							})(e,e.parentNode,d[args[0]]||[]);
-							break;
-						}
-					})(...Apps.splitArgs(args))
-
-			if (e.dataset.v)
-				for (let args of e.dataset.v.split(';').filter((a)=>a))
-					((cmd, a1, a2) => {
-						try {
+			if (nr) {
+				if (e.dataset.c)
+					for (let args of e.dataset.c.split(';').filter((a)=>a))
+						((cmd, ...args) => {
 							switch (cmd) {
-							case "text": e.textContent=a1 ? d[a1] : d; break;
-							case "value": e.value=a1 ? d[a1] : d; break;
-							case "data": e.dataset[a1]=d[a2]; break;
+							case "repeat": case 'foreach':
+								((t,p,d)=>{
+									p.removeChild(t);
+									if (!Array.isArray(d))
+										d=Object.entries(d).reduce((r,p)=>{
+											let o=('object'===typeof(p[1])) ? p[1] : {_v_:p[1]};
+											o._k_=p[0];
+											r.push(o); return r;
+										},[]);
+									for (let i=0; i<d.length; i++) {
+										const D=d[i], row=t.cloneNode(true);
+									if (row.dataset.def) row.removeAttribute('data-def');
+										if (row.dataset.c) row.removeAttribute('data-c');
+										row.dataset.index=(i%2)+"-"+i;
+											p.appendChild(row);
+										w(row,D);
+									}
+								})(e,e.parentNode,d[args[0]]||[]);
+								break;
 							}
-						} catch(x) { console.log(x); console.log(e,d); }
-					})(...Apps.splitArgs(args));
-			else {
+						})(...Apps.splitArgs(args))
+
+				if (e.dataset.v)
+					for (let args of e.dataset.v.split(';').filter((a)=>a))
+						((cmd, a1, a2) => {
+							try {
+								switch (cmd) {
+								case "text": e.textContent=a1 ? d[a1] : d; break;
+								case "value": e.value=a1 ? d[a1] : d; break;
+								case "data": e.dataset[a1]=d[a2]; break;
+								}
+							} catch(x) { console.log(x); console.log(e,d); }
+						})(...Apps.splitArgs(args));
+			} else {
 				if (e.dataset.v||e.dataset.c) w(e, d, true);
 
 				for (let c=e.firstChild; c; c=c.nextSibling) {
@@ -501,38 +531,7 @@ class Template extends _E
 		})(this.E,rd,0);
 		return rd;
 	}	// }}}
-	});
 }	// }}}
-
-class Data extends _E
-{	// Data {{{
-	constructor (re) {
-		super(Apps.E(re).query('[data-def="data"]')||re);
-	}
-	async createRequest () {
-		const doc = await (new Apps.NT.template(this.E)).get();
-		try {
-			doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
-		} catch(x) { }
-		return doc;
-	}
-	async put (doc) // doc:DOC Object
-	{	// write DOC to data source {{{
-	}	// }}}
-	async get ()
-	{	// read DOC from data Source {{{
-		const doc = await this.createRequest();
-		if (doc.doc) return JSON.parse(doc.doc);
-		if (doc.raw) return doc.raw;
-		this.URL = doc.post || doc.get;
-		let r = await Apps.fetch(doc);
-		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
-			r = this.E.cloneNode(true);
-			delete r.dataset.def;
-		}
-		return r;
-	}	// }}}
-}	// Data }}}
 
 (async () => {
 	// console.log(await (new _U()).resolve('list_test.json').get());
@@ -625,7 +624,6 @@ fetch: async (doc) => {
 	if (res) {
 		if (res.ok) try {
 			if (res.headers.has('content-type')) {
-				console.log(doc.get,res.headers.get('content-type'));
 				switch (res.headers.get('content-type').replaceAll(/;.*$/g,'')) {
 				case 'application/json':
 					return await res.json();
@@ -651,11 +649,12 @@ Ns: new (class
 	constructor () {
 		this.CDB = {
 			template: Template,
-			date: Data
+			data: Data
 		},
 		this.DB = {};
 	}
 	reg (n, o) { this.DB[n]=o; }
+	create (cn, a) { return new (this.CDB[cn])(a); }
 	get (n, dft) { return this.DB[n] || dft; }
 	async sync (n, payload) {
 		return await ( n in this.DB ?
@@ -700,8 +699,8 @@ class Content
 
 				[name,buf] = [name,buf].map((v)=>(!v || v==='&this') ? elem : v);
 
-				if ("string" === typeof(buf))	buf = Apps.Ns[buf];
-				if (buf instanceof Element)		buf = new Apps.NT.data(buf);
+				if ("string" === typeof(buf))	buf = Apps.Ns.get(buf);
+				if (buf instanceof Element)		buf = Apps.Ns.create('data',buf);
 				buf = await buf.get();
 				if (buf instanceof Element) {
 					buf = await new Promise((or,oe)=>{
@@ -712,8 +711,8 @@ class Content
 							if (e) switch (e.dataset.h) {
 							case 'submit':
 								(async ()=>{
-									let d = await (new Apps.NT.template(elem)).get(),
-										f = await (new Apps.NT.template(e)).get();
+									let d = await Apps.Ns.create('template', elem).get(),
+										f = await Apps.Ns.create('template', e).get();
 									for (let k in f)
 										f[k]=f[k].split('${').reduce((r,v)=>{
 											if (!r.length) return v;
@@ -726,8 +725,8 @@ class Content
 						});
 					});
 				}
-				if ("string" === typeof(name))	name = Apps.Ns[name];
-				if (name instanceof Element)	name = new Apps.NT.template(name);
+				if ("string" === typeof(name))	name = Apps.Ns.get(name);
+				if (name instanceof Element)	name = Apps.Ns.create('template', name);
 				Apps.E(elem).replace(buf=await name.put(buf||{}));
 				slide.extendMods(Array.from(buf.querySelectorAll('[data-xl]')));
 			}	// }}}
@@ -747,7 +746,7 @@ class Content
 		Apps.E(doc).forEach('[data-def]', (e) => {
 			Apps.handleArgs(e.dataset.def, (cs, key) => {
 				if (!key) return
-				Apps.Ns[key] = new Apps.NT[cs](e);
+				Apps.Ns.reg(key, Apps.Ns.create(cs,e));
 				e.parentNode.removeChild(e);
 			});
 		}); // declare template and data

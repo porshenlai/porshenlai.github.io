@@ -12,7 +12,7 @@ SCRIPT.value=async function (slide, elem, code) {
 	elem.classList.add('resolved');
 
 	if (!code)
-		code = await (new Apps.NT.data(elem)).get();
+		code = await Apps.Ns.create('data', elem).get();
 
 	Apps.E(elem).replace(await (async (e)=>{
 		e.innerHTML = (await (await Init).render('graphDiv', code)).svg;
