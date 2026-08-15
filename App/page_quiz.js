@@ -167,6 +167,21 @@ class Quiz
 
 		this.QEs[e._K_]=e;
 
+		// shuffle opotions
+		let te=[],pe=[];
+		Apps.E(e).forEach('[data-o]',(oe)=>{
+			const we = document.createElement("div");
+			oe.parentNode.insertBefore(we,oe);
+			we._RN_=Math.random();
+			pe.push(we);
+			te.push(oe);
+		});
+		pe=pe.sort((a,b)=>a._RN_-b._RN_);
+		te.forEach((e,i)=>{
+			pe[i].parentNode.insertBefore(e, pe[i]);
+			pe[i].parentNode.removeChild(pe[i]);
+		});
+
 		if (!e._Q_on_click_) {
 			e._Q_on_click_=(evt)=>{
 				try {
