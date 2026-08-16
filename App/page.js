@@ -728,7 +728,10 @@ class Content
 				if ("string" === typeof(name))	name = Apps.Ns.get(name);
 				if (name instanceof Element)	name = Apps.Ns.create('template', name);
 				Apps.E(elem).replace(buf=await name.put(buf||{}));
-				slide.extendMods(Array.from(buf.querySelectorAll('[data-xl]')));
+
+				Promise.all(
+					Array.from(this.E.querySelectorAll('[data-xl]')).map((xe) => this.prepare(xe))
+				).then(()=>0, ()=>0);
 			}	// }}}
 		};
 		Apps.loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
@@ -775,31 +778,32 @@ class Content
 		this.PageIndex=PageIndex;
 
 		// 套用應用載入階段擴充
-		this.extendMods(Array.from(this.E.querySelectorAll('[data-x]')));
+		Promise.all(
+			Array.from(this.E.querySelectorAll('[data-x]')).map((xe) => this.prepare(xe))
+		).then(() => {
+			// 使用者介面安裝後處理
+			if (Apps.after_load) // after_load for Page override
+				Apps.after_load(this);
+		}, console.log);
 
-		// 使用者介面安裝後處理
-		if (Apps.after_load) // after_load for Page override
-			Apps.after_load(this);
 	}	// }}}
 
 	installSections (doc, before) {
 		console.log("INSTALL",doc);
 	}
 
-	extendMods (mods) // mods: [data-x="..."] || [data-xl="..."]
-	{	// 安裝外部模組 {{{
-		Promise.all(
-			mods.reduce((R,e)=>{
-				const args=Apps.splitArgs(e.dataset.x||e.dataset.xl||"",':'), mn=args.shift();
-				if (mn) R.push((async (T, N, E)=>{
-					if (!T.Xs[N])
-						T.Xs[N] = Apps.loadScript(
-							currentScript.getAttribute("src").replace(/\.js/,`_${N}.js`) );
-					(await (T.Xs[N]))(T, E, ...args);
-				})(this, mn, e));
-				return R;
-			},[])
-		).then(()=>false,console.log);
+	async prepare (e, mn, args)
+	{	// prepare module extended node < data-xl >, < data-x > or <> module_name, args {{{
+		if (!mn) {
+			args = (e.dataset.xl || e.dataset.x).split(':');
+			mn = args.shift();
+		}
+		if (!mn) throw Exception('Module name missing');
+		if (!this.Xs[mn])
+			this.Xs[mn] = Apps.loadScript(
+				currentScript.getAttribute("src").replace(/\.js/,`_${mn}.js`)
+			);
+		return (await (this.Xs[mn]))(this, e, ...args);
 	}	// }}}
 
 	find (id) // rv: Section Element
@@ -881,18 +885,21 @@ class Content
 			});
 
 			em.classList.add('current');
+
 			// #. UPDATE URL HASH
 			if (history.replaceState)
 				history.replaceState(null, null, '#' + em.id);
 			else location.hash = '#' + em.id;
+
 			// #. Call Apps.page_load override
 			if (!force && Apps.page_load)
 				Apps.page_load(em);
-			// E. Trigger module extend of section loading
+
+			// Trigger module extend of section loading
 			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
-			if(ms.length>0) this.extendMods(ms);
-			// 5. SCROLL INTO VIEW
-			setTimeout(()=>{
+			if(ms.length>0) Promise.all(ms.map((xe)=>this.prepare(xe))).then(()=>0,()=>0);
+
+			setTimeout(()=>{ // SCROLL INTO VIEW
 				em.scrollIntoView({
 					behavior: scroll ? 'smooth' : 'auto',
 					block: 'start'
@@ -1199,7 +1206,7 @@ class Player
 		if (args[args.length-1] instanceof Element)
 			VE.innerHTML=args.pop().innerHTML;
 		VE.dataset.xl = args.join(":");
-		this.Content.extendMods([VE]);
+		this.Content.prepare(VE);
 		this.Overlay='dialog';
 		((DLG)=>{
 			DLG.querySelector('div').textContent=caption||'Dialog';
@@ -1210,6 +1217,11 @@ class Player
 			rv.appendChild(VE);
 		})(this.GC.querySelector('[data-uid="Dialog"]'));
 	}	// }}}
+
+	prepare (elem, mn, ...args)
+	{	// prepare:&this:template:...
+		return this.Content.prepare(elem, mn, args).then(()=>0,()=>0);
+	}
 
 	async speak (text, lang='en')
 		// speak('bonjour','fr');
