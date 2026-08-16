@@ -924,6 +924,82 @@
 </div>
 </section>
 
+<section><h2>大數據工程</h2>
+<ul>
+	<li>Kafka：數據總線/訊息佇列（負責即時數據串流 ingest）</li>
+	<li>Flink：即時/串流計算引擎（低延遲處理與即時分析）</li>
+	<li>Spark：微批次/批次計算與數據處理引擎（ML、ETL、大規模數據處理）</li>
+	<li>Hadoop (HDFS/YARN)：底層分散式儲存與資源調度中心</li>
+	<li>Hive：分散式資料倉儲（基於 HDFS 提供 SQL 查詢與 Schema 管理）</li>
+</ul>
+<div data-xl='mermaid'><textarea data-v='value:raw'>
+flowchart TD
+    %% 數據源
+    subgraph DataSources [數據源]
+        A1[IoT 設備 / App 日誌]
+        A2[業務資料庫 RDBMS / 原始日誌]
+    end
+
+    %% 訊息與傳輸層
+    subgraph Ingestion [訊息與傳輸層]
+        Kafka[Apache Kafka<br/>即時訊息佇列 / 數據總線]
+    end
+
+    %% 計算與處理層
+    subgraph Processing [計算與處理層]
+        Flink[Apache Flink<br/>即時串流處理 / 低延遲 ETL]
+        Spark[Apache Spark<br/>高效能批次 / 微批次 / ML]
+        Pig[Apache Pig<br/>傳統批次 ETL / Pig Latin 腳本]
+    end
+
+    %% 儲存與倉儲層
+    subgraph Storage [儲存與資料倉儲層]
+        Hive[Apache Hive<br/>數據倉儲 / Schema 管理 / Batch SQL]
+        HDFS[(Hadoop HDFS<br/>分散式檔案儲存)]
+    end
+
+    %% 資源管理層
+    subgraph ResourceManagement [資源調度層]
+        YARN[Hadoop YARN<br/>集群資源管理器]
+    end
+
+    %% 數據流向關係
+    A1 -->|即時寫入| Kafka
+    A2 -->|批次/CDC 匯入| Kafka
+    A2 -->|批次備份/日誌傾印| HDFS
+
+    Kafka -->| Consume 串流 | Flink
+    Kafka -->| Consume 批次 | Spark
+
+    Flink -->|即時寫入| HDFS
+    Flink -->|即時指標| Hive
+
+    Spark -->|大規模 ETL / 數據寫入| HDFS
+    Spark -->|讀寫 Hive 表格| Hive
+
+    %% Pig 的數據流向
+    HDFS -->|讀取原始未結構化資料| Pig
+    Pig -->|清洗與轉換後寫入| HDFS
+    Pig -->|載入處理後的數據| Hive
+
+    Hive -.->|元數據與資料映射| HDFS
+
+    %% 資源調度關係
+    YARN -.->|調度資源| Spark
+    YARN -.->|調度資源| Flink
+    YARN -.->|調度資源| Hive
+    YARN -.->|調度 MapReduce / Tez 資源| Pig
+</textarea></div>
+<h3>各組件的角色分工簡述</h3>
+<ul>
+	<li>Kafka 作為即時數據管道，負責接收與緩衝來自各系統的日誌與事件串流。</li>
+	<li>Flink 訂閱 Kafka 的數據進行毫秒級的即時計算（例如即時風控、實時看板），並將處理好的數據存入 HDFS 或 Hive。</li>
+	<li>Spark 適合做大規模批次處理、機器學習與複雜 ETL，可從 Kafka 讀取微批次數據，或直接處理儲存在 HDFS/Hive 上的海量數據。</li>
+	<li>Hive 在 HDFS 之上建構資料倉儲 (Data Warehouse)，透過 Hive Metastore 管理數據結構，讓使用者能用 SQL 查詢 HDFS 中的數據。</li>
+	<li>Hadoop 提供 HDFS 做為最終的巨量數據落地儲存區，並透過 YARN 為 Spark、Flink 與 Hive 提供統一的集群資源調度。</li>
+</ul>
+</section>
+
 <section><h2>111-120</h2>
 <div data-x='quiz:s'>
     哪一種情況可能導致匿名性被侵蝕，即使個別數據點已被去識別？
