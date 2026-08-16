@@ -161,15 +161,15 @@ class Quiz
 		qe.classList.add(`QR${v}`);
 	}
 
-	install (e) {
-		if (undefined===e._K_) e._K_=`${new Date().getTime().toString(36)}${Object.keys(this.QEs).length}`;
-		if (e._K_ in this.QEs) return;
+	install (xe) {
+		if (undefined===xe._K_) xe._K_=`${new Date().getTime().toString(36)}${Object.keys(this.QEs).length}`;
+		if (xe._K_ in this.QEs) return;
 
-		this.QEs[e._K_]=e;
+		this.QEs[xe._K_]=xe;
 
 		// shuffle opotions
 		let te=[],pe=[];
-		Apps.E(e).forEach('[data-o]',(oe)=>{
+		Apps.E(xe).forEach('[data-o]',(oe)=>{
 			const we = document.createElement("div");
 			oe.parentNode.insertBefore(we,oe);
 			we._RN_=Math.random();
@@ -182,8 +182,8 @@ class Quiz
 			pe[i].parentNode.removeChild(pe[i]);
 		});
 
-		if (!e._Q_on_click_) {
-			e._Q_on_click_=(evt)=>{
+		if (!xe._Q_on_click_) {
+			xe._Q_on_click_=(evt)=>{
 				try {
 					let e=evt.target;
 					while (e) {
@@ -191,39 +191,38 @@ class Quiz
 							if (e.getAttribute('data-o')!=='value') {
 								evt.preventDefault();
 								evt.stopPropagation();
-								this.answer(e);
+								this.answer(e, undefined, xe);
 							}
 							break;
 						}else
 						if (e.matches('.HT')) {
-							this.__setStatus__(findParent(e,'[data-x^="quiz:"]'), '-');
+							this.__setStatus__(xe, '-');
 							break;
 						}
 						e=e.parentNode;
 					}
 				} catch (x) {}
 			}
-			e.addEventListener('click',e._Q_on_click_);
+			xe.addEventListener('click',xe._Q_on_click_);
 		}
-		if (!e._Q_on_change_) {
-			e._Q_on_change_=(evt)=>{
+		if (!xe._Q_on_change_) {
+			xe._Q_on_change_=(evt)=>{
 				let v=evt.target.dateset.o
 				if(v==='value') {
 					evt.preventDefault();
 					evt.stopPropagation();
 					evt.target.classList.remove('QS');
-					this.answer(evt.target,evt.target.value);
+					this.answer(evt.target, evt.target.value, xe);
 				}
 			}
-			e.addEventListener('change',e._Q_on_change_);
+			xe.addEventListener('change',xe._Q_on_change_);
 		}
 		return this;
 	}
-	answer (e, v)
+	answer (e, v, p)
 	{
 		// locate the quiz block
 		e=findParent(e,'[data-o]');
-		const p=findParent(e,'[data-x^="quiz:"]');
 		if (!p) return;
 		switch (p.dataset.x.substring(5)) {
 		case 's':
@@ -277,7 +276,7 @@ class Quiz
 }
 
 let H=undefined;
-SCRIPT.value=async function (slide,elem) {
+SCRIPT.value=async function (slide, elem, args) {
 	if (!H) H=new Quiz(slide);
 	H.install(elem);
 };
