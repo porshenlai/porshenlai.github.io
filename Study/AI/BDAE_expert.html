@@ -21,8 +21,82 @@
 	</div>
 </section>
 
+<section>
+	<h2>大數據</h2>
+	<ul>
+		<li>特性<ul>
+			<li>Volume 容量</li>
+			<li>Velocity 速度</li>
+			<li>Variety 種類</li>
+			<hr/>
+			<li>Veracity 真實性</li>
+			<li>Value 價值</li>
+		</ul></li>
+		<li>資料儲存形式<ul>
+			<li>結構化資料</li>
+			<li>非結構化資料</li>
+			<li>半結構化資料</li>
+		</ul></li>
+		<li>總量優勢 &gt; 品質缺陷<ul>
+			<li>樣本 = 總體</li>
+			<li>混雜 不精確</li>
+		</ul></li>
+		<li>因果 &garr; 相關<ul>
+			<li>相關關係分析</li>
+			<li>相互關係與變數</li>
+			<li>驗證因果關係</li>
+		</ul></li>
+		<li>大數據的時間軸<ul>
+			<li>固定報表: 過去發生什麼事 ?</li>
+			<li>多維度分析(資料倉儲, OLAP...): 為什麼發生 ?</li>
+			<li>監控, 商業智慧(儀錶板,KPI...): 目前發生什麼 ?</li>
+			<li>預測分析, 智慧化(資料探勘,機器學習...): 將發生什麼 ?</li>
+		</ul></li>
+		<li>分析類型<ul>
+			<li>描述性: 發生了什麼 ?<ul>
+				<li>總結過去數據特徵</li>
+				<li>平均數, 標準差, 視覺化圖表</li>
+				<li>依賴集中趨勢與離散程度</li>
+				<li>銷售趨勢, 網站流量</li>
+			</ul></li>
+			<li>診斷性: 為什麼發生 ?<ul>
+				<li>識別根本模式與趨勢</li>
+				<li>相關性分析, 假設檢定, ANOVA</li>
+				<li>假設檢定與推論核心</li>
+				<li>使用者流失, 退貨原因分析</li>
+			</ul></li>
+			<li>預測性: 將發生什麼 ?<ul>
+				<li>利用模型預測未來</li>
+				<li>迴歸分析, 機器學習, 深度學習</li>
+				<li>迴歸分析與評估指標(MSE)</li>
+				<li>疾病風險, 客戶流失預測</li>
+			</ul></li>
+			<li>規範性: <ul>
+				<li>提供未來最佳決策建議</li>
+				<li>最佳化演算法, 強化學習</li>
+				<li>模擬分析與抽樣理論</li>
+				<li>物流路線優化, 定價策略</li>
+			</ul></li>
+			<li>即時: <ul>
+				<li>即時掌握現況並反應</li>
+				<li>Spark, Kaka, PowerBI</li>
+				<li>依賴統計指標快速更新邏輯</li>
+				<li>詐騙即時偵測, 智慧工廠預警</li>
+			</ul></li>
+		</ul></li>
+		<li>處理階段<ul>
+			<li>數據獲取: ETL, scribe, ...</li>
+			<li>數據存儲: HDFS, Hbase, Kudu, Kafka, ...</li>
+			<li>數據管理: Hue, Kerbros, ...</li>
+			<li>數據分析: Map Reduce, Spark, Storm, Hive, Impala, Druid, ...</li>
+			<li>演算法: 機器學習, 自然語言, 數據採擷, 統計分析, ...</li>
+			<li>數據可視化: E-Chart, Javascript, H5/App, ...</li>
+		</ul>
+	</ul>
+</section>
+
 <section data-ks='CertBDAE,BigData'>
-<h2>大數據</h2><!--{{{-->
+<h2>BDAE: 大數據</h2><!--{{{-->
 <div data-x='quiz:s' class='frame'>
     Big data 處理的主要特徵是哪三個 V？
     <div data-o='O'>Volume、Variety、Velocity</div>
@@ -257,7 +331,7 @@
 </section><!--}}}-->
 
 <section data-ks='CertBDAE,DataPreparation'>
-<h2>資料預處理</h2><!--{{{-->
+<h2>BDAE: 資料預處理</h2><!--{{{-->
 <div data-x='quiz:s' class='frame'>
     在 AI 專案中，為什麼資料品質如此重要？
     <div data-o='O'>因為資料品質直接影響 AI 模型的性能</div>
@@ -450,7 +524,7 @@
 </section><!--}}}-->
 
 <section data-ks='CertBDAE,DataAnalysis,Visualization'>
-<h2>資料分析</h2><!--{{{-->
+<h2>BDAE: 資料分析</h2><!--{{{-->
 <div data-x='quiz:s' class='frame'>
     為什麼機率分佈在分析資料時很重要？
     <div data-o='O'>它們有助於理解資料的分佈和變化</div>
@@ -629,7 +703,7 @@
 </section><!--}}}-->
 
 <section data-ks='Hadoop'>
-<h2>大數據工程</h2><!--{{{-->
+<h2>Hadoop 生態系</h2><!--{{{-->
 <ul>
 	<li>Kafka：數據總線/訊息佇列（負責即時數據串流 ingest）</li>
 	<li>Flink：即時/串流計算引擎（低延遲處理與即時分析）</li>
@@ -706,7 +780,7 @@ flowchart TD
 </section><!--}}}-->
 
 <section data-ks='CertBDAE,Hadoop'>
-<h2>大數據工程</h2><!--{{{-->
+<h2>BDAE: Hadoop 生態系</h2><!--{{{-->
 <div data-x='quiz:s' class='frame'>
     哪種分佈式計算框架適合大規模數據處理？
     <div data-o='O'>Apache Hadoop</div>
@@ -768,14 +842,24 @@ flowchart TD
 <section data-ks='DAI,PAI,GAI'>
 <h2>人工智慧</h2><!--{{{-->
 <ul>
+	<li>知識圖譜: Knowledge Graph<ul>
+		<li>相關: 無方向</li>
+		<li>因果: 有方向</li>
+	</ul></li>
+</ul>
+<h3>應用類型</h3>
+<ul>
 	<li>鑑別式 AI : Discriminative</li>
 	<li>預測式 AI : Predictive</li>
-	<li>生成式 AI : Generative</li>
+	<li>生成式 AI : Generative<ul>
+		<li>Tokenization: 切分成基本單位</li>
+		<li>挑選基本單位合成輸出</li>
+	</ul></li>
 </ul>
 </section><!--}}}-->
 
-<section data-ks='CertBDAE,AI'>
-<h2>人工智慧</h2><!--{{{-->
+<section data-ks='CertBDAE,AI,CV,NLP'>
+<h2>BDAE: 人工智慧</h2><!--{{{-->
 <div data-x='quiz:s' class='frame'>
     AI 和大數據在經濟預測中的應用，對哪些部門的決策過程有影響？
     <div data-o='O'>公共和私營部門</div>
@@ -1000,10 +1084,178 @@ flowchart TD
     <div data-o='X'>建立在開箱即用部署模型上的自定義應用</div>
     <div data-o='X'>開箱即用生成式 AI 工具</div>
 </div>
+
+<h3>鑑別式人工智慧</h3>
+<div data-x='quiz:s' class='frame'>
+    鑑別式 AI 模型在機器學習中主要解決什麼問題？
+    <div data-o='O'>如何將數據分類到預定類別中</div>
+    <div data-o='X'>如何生成新數據</div>
+    <div data-o='X'>如何模擬人類思維</div>
+    <div data-o='X'>如何提高運算速度</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    鑑別式 AI 模型如何與生成式 AI 模型區分開來？
+    <div data-o='O'>側重於輸入與輸出之間的關係</div>
+    <div data-o='X'>使用無標籤數據訓練</div>
+    <div data-o='X'>專注於生成新數據</div>
+    <div data-o='X'>需要更多的計算資源</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    鑑別式 AI 模型通常用於哪些應用？
+    <div data-o='O'>圖像和語音識別</div>
+    <div data-o='X'>產品設計</div>
+    <div data-o='X'>內容生成</div>
+    <div data-o='X'>自然語言生成</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    鑑別式 AI 模型的主要目標是什麼？
+    <div data-o='O'>將現有數據分類到預定類別中</div>
+    <div data-o='X'>生成新數據</div>
+    <div data-o='X'>模擬人類思考</div>
+    <div data-o='X'>提高計算速度</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    鑑別式 AI 模型的哪個特性使其在企業應用中受到青睞？
+    <div data-o='O'>高解釋性和透明度</div>
+    <div data-o='X'>自動生成數據</div>
+    <div data-o='X'>高創造力</div>
+    <div data-o='X'>高效的數據處理速度</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    為什麼鑑別式 AI 在企業採用 AI 時更受青睞？
+    <div data-o='O'>更容易理解和解釋</div>
+    <div data-o='X'>更容易生成新數據</div>
+    <div data-o='X'>更具創造性</div>
+    <div data-o='X'>更具靈活性</div>
+</div>
+
+<h3>電腦視覺</h3>
+<div data-x='quiz:s' class='frame'>
+    ImageNet 數據集在何時發布，並對 CNN 發展有何影響？
+    <div data-o='O'>2010 年，提供了大量標註的圖像數據</div>
+    <div data-o='X'>2000 年，標準化數據標註</div>
+    <div data-o='X'>2012 年，促進了深度學習的突破</div>
+    <div data-o='X'>2015 年，改進了圖像生成技術</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    電腦視覺如何幫助提高自動駕駛汽車的安全性？
+    <div data-o='O'>檢測交通標誌</div>
+    <div data-o='X'>進行財務分析</div>
+    <div data-o='X'>提供音樂建議</div>
+    <div data-o='X'>撰寫新聞報導</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    在健康保健領域，電腦視覺如何協助醫療專業人員？
+    <div data-o='O'>分析醫療圖像</div>
+    <div data-o='X'>設計時尚服裝</div>
+    <div data-o='X'>撰寫文學作品</div>
+    <div data-o='X'>提供法律諮詢</div>
+</div>
+<hr/>
+<div data-x='quiz:s' class='frame'>
+    下列哪一項是電腦視覺在醫療保健中的應用？
+    <div data-o='O'>醫療圖像分析</div>
+    <div data-o='X'>天氣預測</div>
+    <div data-o='X'>體育比賽分析</div>
+    <div data-o='X'>網路安全</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    深度學習模型在處理數位影像時，主要利用哪種技術來識別和分類物體？
+    <div data-o='O'>卷積神經網路（CNN）</div>
+    <div data-o='X'>隨機森林</div>
+    <div data-o='X'>強化學習</div>
+    <div data-o='X'>支持向量機</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    電腦視覺技術在公共安全中的一項應用是什麼？
+    <div data-o='O'>人臉識別</div>
+    <div data-o='X'>音樂創作</div>
+    <div data-o='X'>寫作輔助</div>
+    <div data-o='X'>商業分析</div>
+</div>
+
+<h3>自然語言處理</h3>
+<div data-x='quiz:s' class='frame'>
+    自然語言處理如何影響人機交互？
+    <div data-o='O'>使交互變得更加自然和流暢</div>
+    <div data-o='X'>使交互變得更加複雜</div>
+    <div data-o='X'>使交互不再需要人工介入</div>
+    <div data-o='X'>使交互僅限於文本形式</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    自然語言處理（NLP）主要涉及哪些任務？
+    <div data-o='O'>文本分析、情感分析、機器翻譯和語音識別</div>
+    <div data-o='X'>網路安全和密碼學</div>
+    <div data-o='X'>數據挖掘和模式識別</div>
+    <div data-o='X'>圖像識別和計算機視覺</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    NLP 主要依賴於哪三種技術來準確解釋和回應人類語言？
+    <div data-o='O'>語言規則、統計模型、機器學習算法</div>
+    <div data-o='X'>物聯網、區塊鏈、大數據</div>
+    <div data-o='X'>網路安全、雲計算、人工神經網路</div>
+    <div data-o='X'>計算機視覺、語音識別、數據挖掘</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    在 NLP 中，語法（Syntax）是什麼？
+    <div data-o='O'>分析句子結構以創建語法正確的句子</div>
+    <div data-o='X'>提高語音識別的準確性</div>
+    <div data-o='X'>確定文本的情感傾向</div>
+    <div data-o='X'>分析圖片中的物體</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    在 NLP 中，什麼是停止詞（Stop Words）？
+    <div data-o='O'>經常出現但不攜帶太多意義的單詞</div>
+    <div data-o='X'>用於語法分析的關鍵詞</div>
+    <div data-o='X'>用於情感分析的專有名詞</div>
+    <div data-o='X'>用於數據壓縮的常用詞</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    以下哪個選項正確描述了 LLMs 與 NLP 的關係？
+    <div data-o='O'>LLMs 是 NLP 的子集</div>
+    <div data-o='X'>LLMs 完全取代了 NLP</div>
+    <div data-o='X'>LLMs 與 NLP 無關</div>
+    <div data-o='X'>LLMs 是 NLP 的超集</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    NLP 和生成式 AI 在技術上有何相似之處？
+    <div data-o='O'>都依賴於機器學習，特別是深度學習模型</div>
+    <div data-o='X'>都使用物聯網技術</div>
+    <div data-o='X'>都主要用於圖像處理</div>
+    <div data-o='X'>都專注於數據壓縮</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    自然語言處理（NLP）和生成式 AI 的結合如何改變人機互動？
+    <div data-o='O'>使機器能夠超越基本的語言處理</div>
+    <div data-o='X'>僅影響網路安全</div>
+    <div data-o='X'>僅用於數據分析</div>
+    <div data-o='X'>僅用於娛樂行業</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    Google 的 BERT 模型在 NLP 中有什麼特點？
+    <div data-o='O'>擅長理解句子中單詞的語境</div>
+    <div data-o='X'>提供即時語音翻譯</div>
+    <div data-o='X'>可用於數據加密</div>
+    <div data-o='X'>專注於圖像生成</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    生成式 AI 在 NLP 中的角色是什麼？
+    <div data-o='O'>生成具有人類特徵的文本</div>
+    <div data-o='X'>提供語音識別功能</div>
+    <div data-o='X'>僅用於數據儲存</div>
+    <div data-o='X'>用於圖像增強</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    深度學習如何在自然語言處理中發揮作用？
+    <div data-o='O'>通過處理和生成大規模的人類語言數據</div>
+    <div data-o='X'>通過生成音樂和藝術作品</div>
+    <div data-o='X'>通過進行物理模擬和計算</div>
+    <div data-o='X'>通過預測股票市場走勢</div>
+</div>
 </section><!--}}}-->
 
 <section data-ks='CertBDAE,MachineLearning'>
-<h2>機器學習</h2><!--{{{-->
+<h2>BDAE: 機器學習</h2><!--{{{-->
 <div data-x='quiz:s' class='frame'>
     什麼技術使機器學習成為現代經濟的一部分？
     <div data-o='O'>雲計算</div>
@@ -1146,183 +1398,54 @@ flowchart TD
 </div>
 </section><!--}}}-->
 
-<section data-ks='CertBDAE'>
-<h2>鑑別式人工智慧</h2><!--{{{-->
-<div data-x='quiz:s' class='frame'>
-    鑑別式 AI 模型在機器學習中主要解決什麼問題？
-    <div data-o='O'>如何將數據分類到預定類別中</div>
-    <div data-o='X'>如何生成新數據</div>
-    <div data-o='X'>如何模擬人類思維</div>
-    <div data-o='X'>如何提高運算速度</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    鑑別式 AI 模型如何與生成式 AI 模型區分開來？
-    <div data-o='O'>側重於輸入與輸出之間的關係</div>
-    <div data-o='X'>使用無標籤數據訓練</div>
-    <div data-o='X'>專注於生成新數據</div>
-    <div data-o='X'>需要更多的計算資源</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    鑑別式 AI 模型通常用於哪些應用？
-    <div data-o='O'>圖像和語音識別</div>
-    <div data-o='X'>產品設計</div>
-    <div data-o='X'>內容生成</div>
-    <div data-o='X'>自然語言生成</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    鑑別式 AI 模型的主要目標是什麼？
-    <div data-o='O'>將現有數據分類到預定類別中</div>
-    <div data-o='X'>生成新數據</div>
-    <div data-o='X'>模擬人類思考</div>
-    <div data-o='X'>提高計算速度</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    鑑別式 AI 模型的哪個特性使其在企業應用中受到青睞？
-    <div data-o='O'>高解釋性和透明度</div>
-    <div data-o='X'>自動生成數據</div>
-    <div data-o='X'>高創造力</div>
-    <div data-o='X'>高效的數據處理速度</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    為什麼鑑別式 AI 在企業採用 AI 時更受青睞？
-    <div data-o='O'>更容易理解和解釋</div>
-    <div data-o='X'>更容易生成新數據</div>
-    <div data-o='X'>更具創造性</div>
-    <div data-o='X'>更具靈活性</div>
-</div>
-</section><!--}}}-->
+<section data-ks='GAI'>
+	<h2>生成式 AI</h2><!--{{{-->
+	<div data-xl='mermaid'><textarea data-v='value:raw'>flowchart TD
+	%%{init: { "themeCSS": ".nodeLabel { white-space: nowrap !important; }" }}%%
+	%% 1. 輸入與斷詞
+	subgraph Phase1 [1. 學習與斷詞]
+		Data[學習資料<br/>Learning Data] --&gt;|Tokenize| Tokens[基本單元<br/>Tokens]
+	end
 
-<section data-ks='CertBDAE,CV'>
-<h2>電腦視覺</h2><!--{{{-->
-<div data-x='quiz:s' class='frame'>
-    ImageNet 數據集在何時發布，並對 CNN 發展有何影響？
-    <div data-o='O'>2010 年，提供了大量標註的圖像數據</div>
-    <div data-o='X'>2000 年，標準化數據標註</div>
-    <div data-o='X'>2012 年，促進了深度學習的突破</div>
-    <div data-o='X'>2015 年，改進了圖像生成技術</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    電腦視覺如何幫助提高自動駕駛汽車的安全性？
-    <div data-o='O'>檢測交通標誌</div>
-    <div data-o='X'>進行財務分析</div>
-    <div data-o='X'>提供音樂建議</div>
-    <div data-o='X'>撰寫新聞報導</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    在健康保健領域，電腦視覺如何協助醫療專業人員？
-    <div data-o='O'>分析醫療圖像</div>
-    <div data-o='X'>設計時尚服裝</div>
-    <div data-o='X'>撰寫文學作品</div>
-    <div data-o='X'>提供法律諮詢</div>
-</div>
-<hr/>
-<div data-x='quiz:s' class='frame'>
-    下列哪一項是電腦視覺在醫療保健中的應用？
-    <div data-o='O'>醫療圖像分析</div>
-    <div data-o='X'>天氣預測</div>
-    <div data-o='X'>體育比賽分析</div>
-    <div data-o='X'>網路安全</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    深度學習模型在處理數位影像時，主要利用哪種技術來識別和分類物體？
-    <div data-o='O'>卷積神經網路（CNN）</div>
-    <div data-o='X'>隨機森林</div>
-    <div data-o='X'>強化學習</div>
-    <div data-o='X'>支持向量機</div>
-</div>
-<hr/>
-<div data-x='quiz:s' class='frame'>
-    電腦視覺技術在公共安全中的一項應用是什麼？
-    <div data-o='O'>人臉識別</div>
-    <div data-o='X'>音樂創作</div>
-    <div data-o='X'>寫作輔助</div>
-    <div data-o='X'>商業分析</div>
-</div>
-</section><!--}}}-->
+	%% 2. 知識圖譜（Embedding Space 與 State Vector Space）
+	subgraph KnowledgeGraph ["2. 知識圖譜 (Knowledge Graphs)"]
+		subgraph EmbeddingSpace [Embedding Space 相關性圖譜]
+			T1((Token A)) <==>|語義相似度高| T2((Token B))
+			T2 <--->|弱相關| T3((Token C))
+			T1 <===>|強相關| T3
+		end
 
-<section data-ks='CertBDAE,NLP'>
-<h2>自然語言處理</h2><!--{{{-->
-<div data-x='quiz:s' class='frame'>
-    自然語言處理如何影響人機交互？
-    <div data-o='O'>使交互變得更加自然和流暢</div>
-    <div data-o='X'>使交互變得更加複雜</div>
-    <div data-o='X'>使交互不再需要人工介入</div>
-    <div data-o='X'>使交互僅限於文本形式</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    自然語言處理（NLP）主要涉及哪些任務？
-    <div data-o='O'>文本分析、情感分析、機器翻譯和語音識別</div>
-    <div data-o='X'>網路安全和密碼學</div>
-    <div data-o='X'>數據挖掘和模式識別</div>
-    <div data-o='X'>圖像識別和計算機視覺</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    NLP 主要依賴於哪三種技術來準確解釋和回應人類語言？
-    <div data-o='O'>語言規則、統計模型、機器學習算法</div>
-    <div data-o='X'>物聯網、區塊鏈、大數據</div>
-    <div data-o='X'>網路安全、雲計算、人工神經網路</div>
-    <div data-o='X'>計算機視覺、語音識別、數據挖掘</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    在 NLP 中，語法（Syntax）是什麼？
-    <div data-o='O'>分析句子結構以創建語法正確的句子</div>
-    <div data-o='X'>提高語音識別的準確性</div>
-    <div data-o='X'>確定文本的情感傾向</div>
-    <div data-o='X'>分析圖片中的物體</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    在 NLP 中，什麼是停止詞（Stop Words）？
-    <div data-o='O'>經常出現但不攜帶太多意義的單詞</div>
-    <div data-o='X'>用於語法分析的關鍵詞</div>
-    <div data-o='X'>用於情感分析的專有名詞</div>
-    <div data-o='X'>用於數據壓縮的常用詞</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    以下哪個選項正確描述了 LLMs 與 NLP 的關係？
-    <div data-o='O'>LLMs 是 NLP 的子集</div>
-    <div data-o='X'>LLMs 完全取代了 NLP</div>
-    <div data-o='X'>LLMs 與 NLP 無關</div>
-    <div data-o='X'>LLMs 是 NLP 的超集</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    NLP 和生成式 AI 在技術上有何相似之處？
-    <div data-o='O'>都依賴於機器學習，特別是深度學習模型</div>
-    <div data-o='X'>都使用物聯網技術</div>
-    <div data-o='X'>都主要用於圖像處理</div>
-    <div data-o='X'>都專注於數據壓縮</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    自然語言處理（NLP）和生成式 AI 的結合如何改變人機互動？
-    <div data-o='O'>使機器能夠超越基本的語言處理</div>
-    <div data-o='X'>僅影響網路安全</div>
-    <div data-o='X'>僅用於數據分析</div>
-    <div data-o='X'>僅用於娛樂行業</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    Google 的 BERT 模型在 NLP 中有什麼特點？
-    <div data-o='O'>擅長理解句子中單詞的語境</div>
-    <div data-o='X'>提供即時語音翻譯</div>
-    <div data-o='X'>可用於數據加密</div>
-    <div data-o='X'>專注於圖像生成</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    生成式 AI 在 NLP 中的角色是什麼？
-    <div data-o='O'>生成具有人類特徵的文本</div>
-    <div data-o='X'>提供語音識別功能</div>
-    <div data-o='X'>僅用於數據儲存</div>
-    <div data-o='X'>用於圖像增強</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    深度學習如何在自然語言處理中發揮作用？
-    <div data-o='O'>通過處理和生成大規模的人類語言數據</div>
-    <div data-o='X'>通過生成音樂和藝術作品</div>
-    <div data-o='X'>通過進行物理模擬和計算</div>
-    <div data-o='X'>通過預測股票市場走勢</div>
-</div>
+		subgraph StateVectorSpace [State Vector Space 因果/機率轉移圖譜]
+			S1[Context State] -->|高機率轉移| S2[Token X]
+			S1 -->|低機率轉移| S3[Token Y]
+			S2 -->|狀態更新| S4[Next State]
+		end
+	end
+
+	%% 3. 推論與合成
+	subgraph Phase3 [3. 推論與逐字合成]
+		Engine[推論引擎<br/>Inference Engine]
+		subgraph Generation [逐字生成]
+			Gen1["Step 1: 挑選 Token 1"] --&gt; Gen2["Step 2: 挑選 Token 2"]
+			Gen2 --&gt; Gen3["Step 3: 挑選 Token N"]
+		end
+		Output[輸出資料<br/>Output Data]
+	end
+
+	%% 跨模組連接
+	Tokens --&gt; EmbeddingSpace
+	Tokens --&gt; StateVectorSpace
+    
+	EmbeddingSpace -.-&gt;|提供向量位置與關聯| Engine
+	StateVectorSpace -.-&gt;|提供下一個Token的條件機率| Engine
+    
+	Engine --&gt; Generation
+	Generation --&gt; Output
+</textarea></div>
 </section><!--}}}-->
 
 <section data-ks='CertBDAE,GAI'>
-<h2>生成式人工智慧</h2><!--{{{-->
+<h2>BDAE: 生成式人工智慧</h2><!--{{{-->
 <div data-x='quiz:s' class='frame'>
     什麼是生成式人工智慧（GenAI）？
     <div data-o='O'>一種可以生成新創意的人工智慧</div>
@@ -1610,13 +1733,106 @@ flowchart TD
     <div data-o='X'>部署與推廣階段</div>
     <div data-o='X'>設計階段</div>
 </div>
-
 <div data-x='quiz:s' class='frame'>
     什麼是對 AI 大模型的提示注入攻擊？
     <div data-o='O'>攻擊者通過偽裝惡意輸入來操控生成式 AI 系統</div>
     <div data-o='X'>針對模型架構的物理損壞</div>
     <div data-o='X'>利用第三方組件漏洞的供應鏈攻擊</div>
     <div data-o='X'>對數據集進行未經授權的復 制</div>
+</div>
+
+<h3>多模態模型</h3>
+<div data-x='quiz:s' class='frame'>
+    多模態 AI 是什麼？
+    <div data-o='O'>能夠同時處理和整合多種數據類型的 AI 模型</div>
+    <div data-o='X'>僅用於圖像識別的 AI 模型</div>
+    <div data-o='X'>僅能處理單一數據類型的 AI 模型</div>
+    <div data-o='X'>僅用於語音識別的 AI 模型</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    生成式人工智慧（GenAI）的哪一種能力將使其在多個資訊類型之間進行無縫理解和組合？
+    <div data-o='O'>多模態能力</div>
+    <div data-o='X'>模式識別</div>
+    <div data-o='X'>單一任務處理</div>
+    <div data-o='X'>單模態能力</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    多模態 AI 的主要優勢是什麼？
+    <div data-o='O'>能夠提高任務的準確性和強健性</div>
+    <div data-o='X'>僅能處理圖像數據</div>
+    <div data-o='X'>無法處理噪音數據</div>
+    <div data-o='X'>僅能處理文本數據</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    整合多種數據類型的主要優勢是什麼？
+    <div data-o='O'>提供更準確且具上下文意識的回應</div>
+    <div data-o='X'>增強數據的安全性</div>
+    <div data-o='X'>提供更多的數據儲存空間</div>
+    <div data-o='X'>減少數據處理時間</div>
+</div>
+<h3>多摩態模型應用</h3>
+<div data-x='quiz:s' class='frame'>
+    多模態 AI 如何改善人機互動？
+    <div data-o='O'>提供更自然和直觀的界面</div>
+    <div data-o='X'>僅使用語音指令</div>
+    <div data-o='X'>僅透過鍵盤輸入</div>
+    <div data-o='X'>僅依賴於圖形界面</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    多模態 AI 在醫療保健中的應用包括哪些？
+    <div data-o='O'>改善醫學影像分析和個性化治療計畫</div>
+    <div data-o='X'>僅用於行政管理</div>
+    <div data-o='X'>僅限於病歷管理</div>
+    <div data-o='X'>僅依賴於藥物研發</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    在金融詐欺檢測與風險管理中，哪一種技術被應用於分析交易數據與客戶行為模式以偵測詐欺？
+    <div data-o='O'>多模態 AI</div>
+    <div data-o='X'>機器學習</div>
+    <div data-o='X'>單一模式 AI</div>
+    <div data-o='X'>深度學習</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    在災難響應和管理中，多模態 AI 如何提供幫助？
+    <div data-o='O'>通過整合和分析社交媒體、衛星圖像和感測器數據</div>
+    <div data-o='X'>僅依賴歷史數據</div>
+    <div data-o='X'>僅提供靜態報告</div>
+    <div data-o='X'>僅收集傳統新聞報告</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    多模態 AI 如何在自動駕駛中發揮作用？
+    <div data-o='O'>整合多種感測器數據以實現自動導航</div>
+    <div data-o='X'>僅用於娛樂系統</div>
+    <div data-o='X'>僅依賴於駕駛員的指令</div>
+    <div data-o='X'>僅限於車內通訊</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    多模態 AI 對於機器人技術的發展有何重要性？
+    <div data-o='O'>幫助機器人更成功地與真實環境交互</div>
+    <div data-o='X'>僅用於數據儲存</div>
+    <div data-o='X'>僅限於室內應用</div>
+    <div data-o='X'>僅用於遊戲開發</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    在客服領域，多模態 AI 如何改善客戶互動？
+    <div data-o='O'>分析文字、聲音語調和面部表情</div>
+    <div data-o='X'>使用單一模式 AI</div>
+    <div data-o='X'>僅透過面部表情分析</div>
+    <div data-o='X'>僅透過文字分析</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    使用多模態 AI 的虛擬助手如何改善用戶體驗？
+    <div data-o='O'>能夠處理語音命令和檢測上下文線索</div>
+    <div data-o='X'>僅提供圖像識別</div>
+    <div data-o='X'>僅提供基於位置的建議</div>
+    <div data-o='X'>僅提供文本響應</div>
+</div>
+<div data-x='quiz:s' class='frame'>
+    CLIP 是一種多模態 AI 系統，用於完成哪些任務？
+    <div data-o='O'>完成廣泛的圖文匹配任務</div>
+    <div data-o='X'>僅限於數據儲存</div>
+    <div data-o='X'>僅用於音頻分析</div>
+    <div data-o='X'>僅用於翻譯文本</div>
 </div>
 
 <h3>RAG 檢索增強生成</h3>
@@ -1685,105 +1901,8 @@ flowchart TD
     <div data-o='X'>提高模型的多語言翻譯能力</div>
     <div data-o='X'>擴展 LLM 的初始訓練範疇</div>
 </div>
-</section><!--}}}-->
 
-<section data-ks='CertBDAE,MultiModal'>
-<h2>多模態模型</h2><!--{{{-->
-<div data-x='quiz:s' class='frame'>
-    多模態 AI 是什麼？
-    <div data-o='O'>能夠同時處理和整合多種數據類型的 AI 模型</div>
-    <div data-o='X'>僅用於圖像識別的 AI 模型</div>
-    <div data-o='X'>僅能處理單一數據類型的 AI 模型</div>
-    <div data-o='X'>僅用於語音識別的 AI 模型</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    生成式人工智慧（GenAI）的哪一種能力將使其在多個資訊類型之間進行無縫理解和組合？
-    <div data-o='O'>多模態能力</div>
-    <div data-o='X'>模式識別</div>
-    <div data-o='X'>單一任務處理</div>
-    <div data-o='X'>單模態能力</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    多模態 AI 如何改善人機互動？
-    <div data-o='O'>提供更自然和直觀的界面</div>
-    <div data-o='X'>僅使用語音指令</div>
-    <div data-o='X'>僅透過鍵盤輸入</div>
-    <div data-o='X'>僅依賴於圖形界面</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    多模態 AI 的主要優勢是什麼？
-    <div data-o='O'>能夠提高任務的準確性和強健性</div>
-    <div data-o='X'>僅能處理圖像數據</div>
-    <div data-o='X'>無法處理噪音數據</div>
-    <div data-o='X'>僅能處理文本數據</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    整合多種數據類型的主要優勢是什麼？
-    <div data-o='O'>提供更準確且具上下文意識的回應</div>
-    <div data-o='X'>增強數據的安全性</div>
-    <div data-o='X'>提供更多的數據儲存空間</div>
-    <div data-o='X'>減少數據處理時間</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    多模態 AI 在醫療保健中的應用包括哪些？
-    <div data-o='O'>改善醫學影像分析和個性化治療計畫</div>
-    <div data-o='X'>僅用於行政管理</div>
-    <div data-o='X'>僅限於病歷管理</div>
-    <div data-o='X'>僅依賴於藥物研發</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    在金融詐欺檢測與風險管理中，哪一種技術被應用於分析交易數據與客戶行為模式以偵測詐欺？
-    <div data-o='O'>多模態 AI</div>
-    <div data-o='X'>機器學習</div>
-    <div data-o='X'>單一模式 AI</div>
-    <div data-o='X'>深度學習</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    在災難響應和管理中，多模態 AI 如何提供幫助？
-    <div data-o='O'>通過整合和分析社交媒體、衛星圖像和感測器數據</div>
-    <div data-o='X'>僅依賴歷史數據</div>
-    <div data-o='X'>僅提供靜態報告</div>
-    <div data-o='X'>僅收集傳統新聞報告</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    多模態 AI 如何在自動駕駛中發揮作用？
-    <div data-o='O'>整合多種感測器數據以實現自動導航</div>
-    <div data-o='X'>僅用於娛樂系統</div>
-    <div data-o='X'>僅依賴於駕駛員的指令</div>
-    <div data-o='X'>僅限於車內通訊</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    多模態 AI 對於機器人技術的發展有何重要性？
-    <div data-o='O'>幫助機器人更成功地與真實環境交互</div>
-    <div data-o='X'>僅用於數據儲存</div>
-    <div data-o='X'>僅限於室內應用</div>
-    <div data-o='X'>僅用於遊戲開發</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    在客服領域，多模態 AI 如何改善客戶互動？
-    <div data-o='O'>分析文字、聲音語調和面部表情</div>
-    <div data-o='X'>使用單一模式 AI</div>
-    <div data-o='X'>僅透過面部表情分析</div>
-    <div data-o='X'>僅透過文字分析</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    使用多模態 AI 的虛擬助手如何改善用戶體驗？
-    <div data-o='O'>能夠處理語音命令和檢測上下文線索</div>
-    <div data-o='X'>僅提供圖像識別</div>
-    <div data-o='X'>僅提供基於位置的建議</div>
-    <div data-o='X'>僅提供文本響應</div>
-</div>
-<div data-x='quiz:s' class='frame'>
-    CLIP 是一種多模態 AI 系統，用於完成哪些任務？
-    <div data-o='O'>完成廣泛的圖文匹配任務</div>
-    <div data-o='X'>僅限於數據儲存</div>
-    <div data-o='X'>僅用於音頻分析</div>
-    <div data-o='X'>僅用於翻譯文本</div>
-</div>
-</section><!--}}}-->
-
-<section data-ks='CertBDAE,影像生成'>
-<h2>影像生成</h2><!--{{{-->
+<h3>影像生成</h3>
 <div data-x='quiz:s' class='frame'>
     什麼是擴散模型的主要應用？
     <div data-o='O'>高品質圖像生成</div>
@@ -1850,7 +1969,7 @@ flowchart TD
 </section><!--}}}-->
 
 <section data-ks='CertBDAE'>
-<h2>數據治理與風險管理</h2><!--{{{-->
+<h2>BDAE: 數據治理與風險管理</h2><!--{{{-->
 <div data-x='quiz:s' class='frame'>
     在 AI 專案中，為什麼需要進行數據治理？
     <div data-o='O'>確保數據的品質、完整性和隱私</div>

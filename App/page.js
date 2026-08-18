@@ -510,7 +510,7 @@ class Template extends _E
 								break;
 							}
 						})(...Apps.splitArgs(args))
-				if (e.dataset.v)
+				if (e.dataset.v) {
 					for (let args of e.dataset.v.split(';').filter((a)=>a))
 						((cmd, a1, a2) => {
 							switch (cmd) {
@@ -519,6 +519,7 @@ class Template extends _E
 							case "data": d[a2]=e.dataset[a1]; break;
 							}
 						})(...Apps.splitArgs(args));
+				}
 			} else {
 				if (e.dataset.v||e.dataset.c) w(e, d, 2);
 				for (let c=e.firstChild; c; c=c.nextSibling) {

@@ -3,7 +3,11 @@
 const Init = (async () => {
 	// https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
 	await Apps.loadScript(Apps.JSPrefix+'js/mermaid.min.js');
-	mermaid.initialize({ startOnLoad: false, theme: 'default' });
+	mermaid.initialize({
+		startOnLoad: false,
+//		themeCSS: '.nodeLabel { white-space: nowrap !important; }'
+		theme: 'default'
+	});
 	return mermaid;
 })();
 
