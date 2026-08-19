@@ -235,11 +235,11 @@ const HTML_ASIDE= // {{{
 		<nav class='tabPage' data-case='TOC'></nav>
 		<div class='tabPage hide' data-case='Settings'>
 			<div data-uid='Settings:PlayMode'>
-				<label>播放模式</lable>
-				<div data-uid='Switch' class='HSelect'>
-					<div data-h='set:PlayMode:0'>連續</div>
-					<div data-h='set:PlayMode:1'>滿框</div>
-					<div data-h='set:PlayMode:2'>分頁</div>
+				<div class='tabBar' style='justify-content:flex-start;'>
+					<div style='flex:1 1 auto'>播放模式</div>
+					<div data-h='set:PlayMode:0' class='button'>連續</div>
+					<div data-h='set:PlayMode:1' class='button'>滿框</div>
+					<div data-h='set:PlayMode:2' class='button'>分頁</div>
 				</div>
 			</div>
 			<div data-uid='Settings:FontScale'>
@@ -1044,6 +1044,7 @@ class Player
 				set value (v)	{ this.E.setAttribute('max',parseInt(v)); }
 				get value ()	{ return this.E.getAttribute('max'); }
 			})(A.querySelector('[data-uid="Aside:Pager"] input')));
+/*
 			this.bindS('PlayMode', new (class {
 				constructor (e) { this.EOs = Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]')); }
 				set value (v)	{
@@ -1055,6 +1056,7 @@ class Player
 					return this.EOs.find((e)=>e.classList.contains('current')).dataset.h.replace(/.*:/,'');
 				}
 			})(A.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]')));
+*/
 			this.bindS('FontScale', A.querySelector('[data-uid="Settings:FontScale"] input'));
 			this.bindS('FontScale', A.querySelector('[data-uid="Settings:FontScale"] output'));
 			this.bindS('Keywords', new (class {
