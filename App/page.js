@@ -64,7 +64,7 @@ main>[data-uid="ControlBar"] {
 //
 // fill cm col
 
-const ASSERT = (ta, msg) => (Array.isArray(ta) ? ta : [ta]).filter((t)=>t||console.log(msg));
+const ASSERT = (ta, msg) => (Array.isArray(ta) ? ta : [ta]).filter((t)=>t||console.trace(msg));
 
 const CSS_CONTENT= // {{{
 `
@@ -265,279 +265,6 @@ const HTML_ASIDE= // {{{
 	</div>
 </aside>`; // }}}
 
-class _E
-{ 	// {{{
-	constructor (e) { this.E = e; }
-	trace (...cs) {
-		for (let e=this.E; e instanceof Element; e=e.parentNode)
-			for (let c of cs) if (e.matches(c)) return e;
-	}
-	query (cs) {
-		if (this.E.matches(cs)) return this.E;
-		return this.E.querySelector(cs);
-	}
-	list (cs) {
-		let r=Array.from(this.E.querySelectorAll(cs));
-		if (this.E.matches(cs)) r.unshift(this.E);
-		return r;
-	}
-	forEach (cs, h) {
-		this.E.matches(cs) && h(this.E);
-		Array.from(this.E.querySelectorAll(cs)).forEach(h);
-		return this;
-	}
-	replace (ce) {
-		const pe = this.E.parentNode;
-		if (!pe) throw new Error('Not in DOM tree:', this.E);
-		pe.insertBefore(ce, this.E);
-		pe.removeChild(this.E);
-		this.E=ce;
-		return this;
-	}
-	get (cn) {
-		cn=Array.isArray(cn) ? cn : cn.split(':');
-		switch (cn[0]) {
-		case 'text': return this.E.textContent;
-		case 'value': return this.E.value;
-		case 'data': return this.dataset[cn[1]];
-		case 'style': return this.style[cn[1]];
-		}
-	}
-	put (cn, val) {
-		cn=Array.isArray(cn) ? cn : cn.split(':');
-		switch (cn) {
-		case 'text': this.E.textContent = val; break;
-		case 'value': this.E.value = val; break;
-		case 'data': this.E.dataset[cn[1]] = val; break;
-		case 'style': this.E.style[cn[1]] = val; break;
-		}
-	}
-}	// }}}
-
-class _D
-{	// {{{
-	// let d = new _D({"A":{"a":123},"B":456});
-	constructor (d) {
-		this.D = "string" === typeof(d) ? JSON.parse(d) : d;
-	}
-	// d.get("A.a") => 123
-	get (p) {
-		let nv = {},
-				rv = (Array.isArray(p) ? p : p.split('.'))
-					.filter((n)=>n)
-					.reduce((d,n)=>n in d ? d[n] : nv,this.D);
-		return rv!==nv ? rv : undefined;
-	}
-	// d.put("A.a",999)
-	put (p,v) {
-		p = (Array.isArray(p) ? p : p.split('.')).filter((n)=>n);
-		let n = p.pop(),
-			d = p.reduce((d,n)=> { if (!(n in d)) d[n] = {}; return d[n]; }, this.D);
-		d[n] = v;
-	}
-	// toString() => JSON string
-	toString () {
-		return JSON.stringify(this.D);
-	}
-}	// }}}
-
-class _U
-{	// {{{
-	// let u = new _U('http://localhost:8080/Study/index.html');
-	constructor (u) {
-		u = u||location;
-		this.Base = u.href || u;
-	}
-	// URL ret = u.resolve("Course/index.html");
-	resolve (u) {
-		let r = URL.parse(u);
-		if (!r) {
-			r = URL.parse(this.Base);
-			r.pathname = u.startsWith('/') ? u : (r.pathname.replace(/[^\/]*$/,'')+u);
-		}
-		return r;
-	}
-}	// }}}
-
-class _R
-{	// {{{
-	// let r = new _R(URL.parse(...))
-	// let r = new _R(<... <data-v="url:..."> ...>)
-	// let r = new _R("data string")
-	// let r = new _R({object})
-	constructor (a) {
-		if (!a) throw('null argument');
-		if (a instanceof URL)
-			a = { "url": a };
-		if (a instanceof Element)
-			a = Array.from(a.querySelectorAll('[data-v]')).reduce((r,e)=>{
-				let ep=e.dataset.v.split(':');
-				r.set(ep.pop(),e.get(ep));
-				return r;
-			},new _D({})).D;
-		if ('string' === typeof(a))
-			a = { "text": a };
-		if ('object' === typeof(a) && !("url" in a || "text" in a || "doc" in a) )
-			a = { "doc": a };
-		this.A = a;
-	}
-	// {} | <> | "" = await r.get({payload})
-	async get (payload) {
-		if (this.A.url) {
-			let res = payload ? await fetch(this.A.url, {
-      				method: 'POST',
-      				headers: { 'Content-Type': 'application/json' },
-      				body: 'string'===typeof(payload) ? payload : JSON.stringify(payload)
-				}) : await fetch(this.A.url);
-			if (res.ok) {
-				if (res.headers.has('content-type'))
-				switch (res.headers.get('content-type').replaceAll(/;.*$/g,'')) {
-				case 'application/json':
-					return await res.json();
-				case 'text/html':
-					return ((s)=>{
-    					const parser = new DOMParser();
-    					const doc = parser.parseFromString(s, 'text/html');
-						return doc;
-					})(await res.text());
-				}
-				return await res.text();
-			}
-			console.log({"E":res.statusText});
-		} else return this.A.doc || this.A.text;
-	}
-}	// }}}
-
-class Data extends _E
-{	// Data {{{
-	constructor (re) {
-		super(Apps.E(re).query('[data-def="data"]')||re);
-	}
-	async createRequest () {
-		const doc = await Apps.Ns.create('template',this.E).get();
-		try {
-			doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
-		} catch(x) { }
-		return doc;
-	}
-	async put (doc) // doc:DOC Object
-	{	// write DOC to data source {{{
-	}	// }}}
-	async get ()
-	{	// read DOC from data Source {{{
-		const doc = await this.createRequest();
-		if (doc.doc) return JSON.parse(doc.doc);
-		if (doc.raw) return doc.raw;
-		this.URL = doc.post || doc.get;
-		let r = await Apps.fetch(doc);
-		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
-			r = this.E.cloneNode(true);
-			delete r.dataset.def;
-		}
-		return r;
-	}	// }}}
-}	// Data }}}
-
-class Template extends _E
-{	// Template {{{
-	async put (doc) // doc:DOC Object
-	{	// write DOC to template Element {{{
-		const e = this.E.cloneNode(true);
-		if (e.dataset.def) e.removeAttribute('data-def');
-		function w(e, d, nr=false)
-		{	// {{{
-			if (nr) {
-				if (e.dataset.c)
-					for (let args of e.dataset.c.split(';').filter((a)=>a))
-						((cmd, ...args) => {
-							switch (cmd) {
-							case "repeat": case 'foreach':
-								((t,p,d)=>{
-									p.removeChild(t);
-									if (!Array.isArray(d))
-										d=Object.entries(d).reduce((r,p)=>{
-											let o=('object'===typeof(p[1])) ? p[1] : {_v_:p[1]};
-											o._k_=p[0];
-											r.push(o); return r;
-										},[]);
-									for (let i=0; i<d.length; i++) {
-										const D=d[i], row=t.cloneNode(true);
-									if (row.dataset.def) row.removeAttribute('data-def');
-										if (row.dataset.c) row.removeAttribute('data-c');
-										row.dataset.index=(i%2)+"-"+i;
-											p.appendChild(row);
-										w(row,D);
-									}
-								})(e,e.parentNode,d[args[0]]||[]);
-								break;
-							}
-						})(...Apps.splitArgs(args))
-
-				if (e.dataset.v)
-					for (let args of e.dataset.v.split(';').filter((a)=>a))
-						((cmd, a1, a2) => {
-							try {
-								switch (cmd) {
-								case "text": e.textContent=a1 ? d[a1] : d; break;
-								case "value": e.value=a1 ? d[a1] : d; break;
-								case "data": e.dataset[a1]=d[a2]; break;
-								}
-							} catch(x) { console.log(x); console.log(e,d); }
-						})(...Apps.splitArgs(args));
-			} else {
-				if (e.dataset.v||e.dataset.c) w(e, d, true);
-
-				for (let c=e.firstChild; c; c=c.nextSibling) {
-					if (c.nodeType!==1) continue;
-					w(c,d);
-				}
-			}
-		}	// }}}
-		if (!doc) console.trace();
-		for (doc of ASSERT(doc,'template:put > document is not available')) w(e, doc);
-		return e;
-	}	// }}}
-	async get ()
-	{	// read DOC from template Element {{{
-		let rd={};
-		(function w(e, d, nr=0) {
-			if (nr===2) {
-				if (e.dataset.c)
-					for (let args of e.dataset.c.split(';').filter((a)=>a))
-						((cmd, ...args) => {
-							switch (cmd) {
-							case "repeat": // TODO
-								break;
-							}
-						})(...Apps.splitArgs(args))
-				if (e.dataset.v) {
-					for (let args of e.dataset.v.split(';').filter((a)=>a))
-						((cmd, a1, a2) => {
-							switch (cmd) {
-							case "text": d[a1]=e.textContent; break;
-							case "value": d[a1]=e.value; break;
-							case "data": d[a2]=e.dataset[a1]; break;
-							}
-						})(...Apps.splitArgs(args));
-				}
-			} else {
-				if (e.dataset.v||e.dataset.c) w(e, d, 2);
-				for (let c=e.firstChild; c; c=c.nextSibling) {
-					if (c.nodeType!==1) continue;
-					if (e.dataset.h&&nr>0) continue;
-					w(c,d,1);
-				}
-			}
-			return d;
-		})(this.E,rd,0);
-		return rd;
-	}	// }}}
-}	// }}}
-
-(async () => {
-	// console.log(await (new _U()).resolve('list_test.json').get());
-	// console.log(await (new _R((new _U()).resolve('list_test.json'))).get());
-})();
 
 const Apps = {
 
@@ -545,7 +272,7 @@ JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
 loadScript: async function (src,attrs={})
 {	// {{{
 	const se=document.createElement("script"),
-	      rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
+    	  rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
 	for(let key in attrs) se.setAttribute(key,attrs[key]);
 	se.src=src;
 	document.head.appendChild(se);
@@ -563,8 +290,8 @@ loadStyle: async function (css, ukey, container)
 			return e;
 		})(document.createElement('style')), be);
 },	// }}}
-E: (e)=>new _E(e),
 
+E: (e)=>new Apps._E(e),
 splitArgs: function (s, d=':')
 {	// {{{
 	let m=undefined, bf=[];
@@ -583,10 +310,12 @@ splitArgs: function (s, d=':')
 	},[]);
 },	// }}}
 handleArgs: (s, h) => s.split(';').filter((a)=>a).forEach((a)=>h(...Apps.splitArgs(a))),
-html2DOM: (s) => (new DOMParser()).parseFromString('<html><body>'+s+'</body></html>','text/html').body.firstChild,
+html2DOM: (s) => (new DOMParser()).parseFromString(
+	'<html><body>'+s+'</body></html>','text/html'
+).body.firstChild,
 
-changeRoot: (doc, url) => {
-	// {{{
+changeRoot: function (doc, url)
+{	// {{{
 	url = (url.indexOf('://')<0) ? ((r)=>{
 		r.pathname = url.startsWith('/') ? url : (r.pathname.replace(/[^\/]*$/,'')+url.replace(/[^\/]*$/,''));
 		return r;
@@ -605,84 +334,28 @@ changeRoot: (doc, url) => {
 	Array.from(doc.querySelectorAll('section')).forEach(
 		(e)=>e.dataset.rbase=JSON.stringify([url.origin,url.pathname])
 	);
-},	// change root }}}
+}	// change root }}}
 
-fetch: async (doc) => {
-	// { "get":url, "post":url, "raw":text, "doc":doc }
-	// {{{
-	let res=undefined,
-			resolve = doc.rbase ? (u)=>(
-				(rb,u)=>u.indexOf('://')>0 ? u : (rb[0] + (u.startsWith('/') ? '' : rb[1]) + u)
-			)(doc.rbase,u) : (u)=>u;
+};
 
-	if (doc.post) {
-		res=await fetch(resolve(doc.post), {
-    		method: 'POST',
-     		headers: { 'Content-Type': 'application/json' },
-     		body: doc.payload||'{}'
-		});
-	}else if (doc.get) res=await fetch(resolve(doc.get));
-	if (res) {
-		if (res.ok) try {
-			if (res.headers.has('content-type')) {
-				switch (res.headers.get('content-type').replaceAll(/;.*$/g,'')) {
-				case 'application/json':
-					return await res.json();
-				case 'text/html':
-					return ((s)=>{
-    					const parser = new DOMParser();
-    					const doc = parser.parseFromString(s, 'text/html');
-						return doc;
-					})(await res.text());
-				default:
-					console.log(res.headers.get('content-type').replaceAll(/;.*$/g,''));
-					return await res.text();
-				}
-			} else return await res.json();
-		} catch(x) { return await res.text(); }
-		console.log({"E":res.statusText});
-	}
-	// }}}
-},
+Apps.Ready = (()=>{
+	let swap = undefined,
+		ps = new Promise((or,oe)=>(swap=[or,oe]));
+	[ps.setReady, ps.setError] = swap;
+	return ps;
+})();
 
-Ns: new (class
-{	// Named Object Database {{{
-	constructor () {
-		this.CDB = {
-			template: Template,
-			data: Data
-		},
-		this.DB = {};
-	}
-	reg (n, o) { this.DB[n]=o; }
-	create (cn, a) { return new (this.CDB[cn])(a); }
-	get (n, dft) { return this.DB[n] || dft; }
-	async sync (n, payload) {
-		return await ( n in this.DB ?
-			this.DB[n].get() :
-			Apps.fetch(payload ? {"post":n,"payload":payload} : {"get":n})
-		);
-	}
-	getClass (n, dft) { return this.CDB[n] || dft; }
-})(),	// }}}
-
-KeyFilter: class
+class KeyFilter 
 {	// Format: A.B.C|D.E => (A and B and C) || (D and E) => [[A,B,C],[D,E]] {{{
 	constructor (s) { this.D = 'string'===typeof(s) ? s.split('|').map((v) => v.split('.')) : (s||[]); }
 	toString () { return this.D.map((a)=>a.join('.')).join('|'); }
 	matches (ks)
-	{	// {{{
+	{
 		if (this.D.length > 0)
 			return this.D.reduce((r,a)=>(r || a.reduce((r,v)=>(r && (ks.indexOf(v)>=0)),true)),false);
 		else return true;
-	}	// }}}
-},	// }}}
-
-};
-
-Apps.Ns.reg('MView', Apps.html2DOM(`<div class='fill'><div data-xl='media' class='fill'><div data-v='data:media:media'></div></div></div>`));
-
-window.Apps = Object.assign(Apps, window.Apps||{});
+	}
+}	// }}}
 
 class Content
 {	// 顯示頁面管理界面 {{{
@@ -991,7 +664,7 @@ class Player
 				e.insertBefore(c,e.firstChild);
 			}
 			// 建立頁面管理物件
-			this.Filters = new Apps.KeyFilter(args.s)
+			this.Filters = new KeyFilter(args.s)
 			this.Content = new Content(c);
 			this.Content.install(pages, this.Filters); // 安裝頁面
 
@@ -1099,9 +772,9 @@ class Player
 				return rs;
 			}, "")+"</ol>";
 		})(this.GC.querySelector('[data-uid="Overlay"] aside')); // }}}
-	}	// init }}}
+	}	// init
 
-	// Settings Utility {{{
+	// Settings Utility
 	setS (n, v) {
 		console.assert(n in this.Settings, 'No Such Setting');
 		this.Settings[n].forEach((e)=>(e.value=v));
@@ -1147,17 +820,16 @@ class Player
 	set Controls (v)	{ this.setS('Controls', v); }
 	get Controls ()		{ return this.Settings.Controls[0].value; }
 	set Overlay (v)
-	{	// {{{
+	{
 		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
 		CL.remove('menu','dialog');
 		for (let key of ['menu','dialog']) if (key===v) CL.add(key);
-	}	// }}}
+	}
 	get Overlay ()
-	{	// {{{
+	{
 		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
 		return CL.contains('menu') ? 'menu' : CL.contains('dialog') ? 'dialog' : undefined;
-	}	// }}}
-	// }}}
+	}
 
 	nop () { }
 
@@ -1165,16 +837,16 @@ class Player
 	{	return this[name]=value; }
 
 	call (fn, ...args)
-	{	// {{{
+	{
 		try {
 			Apps[fn](...args);
 		} catch(x) { console.log(x); }
-	}	// }}}
+	}
 
 	go (target, dft_url)
-	{	// {{{
+	{
 		try { return this.PageNumber=target; } catch(x) { if (dft_url) location.replace(dft_url); }
-	}	// }}}
+	}
 
 	async submit ()
 	{
@@ -1187,7 +859,7 @@ class Player
 
 	sw (TK)
 		// <class='switch' <data-case='A'> <data-case='B'>>
-	{	// {{{
+	{
 		Apps.E(Apps.E(event.target).trace('.switch'))
 		.forEach(
 			'[data-h^="sw:"]',
@@ -1197,12 +869,12 @@ class Player
 			'[data-case]',
 			(e) => e.classList[e.dataset.case === TK ? 'remove' : 'add']('hide')
 		);
-	}	// }}}
+	}
 
 	play (caption, mn, ...args)
 		// play:dom:&this:Caption
 		// play('dom',document.getElementById(...),'Caption');
-	{	// {{{
+	{
 		const VE = document.createElement("div");
 		let e = undefined;
 		args.unshift(mn);
@@ -1219,7 +891,7 @@ class Player
 			// rv._EH_=EH;
 			rv.appendChild(VE);
 		})(this.GC.querySelector('[data-uid="Dialog"]'));
-	}	// }}}
+	}
 
 	prepare (elem, mn, ...args)
 	{	// prepare:&this:template:...
@@ -1229,7 +901,7 @@ class Player
 	async speak (text, lang='en')
 		// speak('bonjour','fr');
 		// <span data-h='speak:&text:fr'>bonjour</span>
-	{	// {{{
+	{
 		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
@@ -1237,30 +909,30 @@ class Player
 			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
 			speechSynthesis.speak (utterance);
 		} else alert('您的瀏覽器不支援 Speech Synthesis API。');
-	}	// }}}
+	}
 
 	filter (cmd)
-	{	// {{{
+	{
 		if (cmd==='add') {
 			//<div data-uid='Settings:Keywords'><span data-h='filter:add'>➕</span></div>
 			let flts=this.Filters;
 			flts.push(this.Keywords);
 			this.Filters.set(flts);
 		} else if (cmd==='run') {
-			location.replace(`?s=${(new Apps.KeyFilter(this.Filters)).toString()}`);
+			location.replace(`?s=${(new KeyFilter(this.Filters)).toString()}`);
 			location.replace(`?s=${encodeFilter(this.Filters)}`);
 		}
-	}	// }}}
+	}
 
 	search (key)
-	{	// {{{
+	{
 		let ts=this.Content.E.querySelector(`section[data-ks~="${key}"]`);
 		if (ts) ts.click();
 		this.set('Overlay','none');
-	}	// }}}
+	}
 
 	fullscreen (e)
-	{	// {{{
+	{
 		switch (e) {
 		case 'body' : e = document.body; break;
 		case 'main' : e = this.GC; break;
@@ -1274,10 +946,10 @@ class Player
 		}
 		if ((!e) && document.fullscreenElement)
 			document.exitFullscreen(); // exit fullscreen mode
-	}	// }}}
+	}
 
 	_EH_ (evt)
-	{	// {{{
+	{
 		try {
 			for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
 				if (e && e.dataset && e.dataset.h) {
@@ -1306,10 +978,10 @@ class Player
 				}
 			}
 		} catch(x) { console.log("Exception:",x); }
-	}	// }}}
+	}
 
 	_KH_ (evt)
-	{	// {{{
+	{
 		try {
 			if (evt.key === 'ArrowLeft')
 				this.PageNumber = 'prev';
@@ -1320,11 +992,40 @@ class Player
 			else return;
 			evt.preventDefault();
 		} catch(x) { }
-	}	// }}}
+	}
 }	// }}}
 
-document.addEventListener('DOMContentLoaded', async () => { // {{{
+(async (Ps)=>{
+	Object.assign(Apps, await Ps);
 
+	Apps.Ns = new (class
+	{	// Named Object Database {{{
+		constructor () {
+			this.CDB = {
+				template: Apps.Template,
+				data: Apps.Data
+			},
+			this.DB = {};
+		}
+		reg (n, o) { this.DB[n]=o; }
+		create (cn, a) { return new (this.CDB[cn])(a); }
+		get (n, dft) { return this.DB[n] || dft; }
+		async sync (n, payload) {
+			return await ( n in this.DB ?
+				this.DB[n].get() :
+				Apps.fetch(payload ? {"post":n,"payload":payload} : {"get":n})
+			);
+		}
+		getClass (n, dft) { return this.CDB[n] || dft; }
+	})();	// }}}
+	Apps.Ns.reg('MView', Apps.html2DOM(`<div class='fill'><div data-xl='media' class='fill'><div data-v='data:media:media'></div></div></div>`));
+
+	window.Apps = Object.assign(Apps, window.Apps||{});
+	Apps.Ready.setReady(Apps);
+
+})(Apps.loadScript(Apps.JSPrefix+"piers.js"));
+
+document.addEventListener('DOMContentLoaded', async () => { // {{{
 	const
 	Args = (location.search||'?').substr(1).split('&').reduce((r,a) => {
 		const pa = /^([^=]+)=(.*)$/.exec(a);
@@ -1332,19 +1033,21 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		return r;
 	}, {});
 
-	Apps.Player = new Player();
-	await window.Apps.Player.init(Args);
+	await Apps.Ready;
 
-	document.body.addEventListener('click', (evt)=>window.Apps.Player._EH_(evt));
-	document.body.addEventListener('change', (evt)=>window.Apps.Player._EH_(evt));
-	window.addEventListener('keydown', (evt)=>window.Apps.Player._KH_(evt));
+	Apps.Player = new Player();
+	await Apps.Player.init(Args);
+
+	document.body.addEventListener('click', (evt)=>Apps.Player._EH_(evt));
+	document.body.addEventListener('change', (evt)=>Apps.Player._EH_(evt));
+	window.addEventListener('keydown', (evt)=>Apps.Player._KH_(evt));
 	window.addEventListener('resize', (evt)=>{
-		window.Apps.Player.FontScale = window.Apps.Player.FontScale;
-		window.Apps.Player.Content.PageNumber = 'refresh';
+		Apps.Player.FontScale = Apps.Player.FontScale;
+		Apps.Player.Content.PageNumber = 'refresh';
 	});
 
 	let timer=setInterval(()=>{
-		const cp=window.Apps.Player.Content.CurPage;
+		const cp=Apps.Player.Content.CurPage;
 		if (cp && cp.tick) cp.tick(true);
 	},500);
 
