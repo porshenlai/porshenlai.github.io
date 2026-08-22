@@ -269,6 +269,12 @@ const HTML_ASIDE= // {{{
 const Apps = {
 
 JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
+Args: (location.search||'?').substr(1).split('&').reduce((r,a) => {
+	const pa = /^([^=]+)=(.*)$/.exec(a);
+	if (pa) r[pa[1]] = pa ? decodeURIComponent(pa[2]) : true;
+	return r;
+}, {}),
+
 loadScript: async function (src,attrs={})
 {	// {{{
 	const se=document.createElement("script"),
@@ -291,7 +297,6 @@ loadStyle: async function (css, ukey, container)
 		})(document.createElement('style')), be);
 },	// }}}
 
-E: (e)=>new Apps._E(e),
 splitArgs: function (s, d=':')
 {	// {{{
 	let m=undefined, bf=[];
@@ -310,9 +315,6 @@ splitArgs: function (s, d=':')
 	},[]);
 },	// }}}
 handleArgs: (s, h) => s.split(';').filter((a)=>a).forEach((a)=>h(...Apps.splitArgs(a))),
-html2DOM: (s) => (new DOMParser()).parseFromString(
-	'<html><body>'+s+'</body></html>','text/html'
-).body.firstChild,
 
 changeRoot: function (doc, url)
 {	// {{{
@@ -338,16 +340,15 @@ changeRoot: function (doc, url)
 
 };
 
-Apps.Ready = (()=>{
-	let swap = undefined,
-		ps = new Promise((or,oe)=>(swap=[or,oe]));
+Apps.Ready = (() => {
+	let swap = undefined, ps = new Promise((or,oe)=>(swap=[or,oe]));
 	[ps.setReady, ps.setError] = swap;
 	return ps;
 })();
 
 class KeyFilter 
 {	// Format: A.B.C|D.E => (A and B and C) || (D and E) => [[A,B,C],[D,E]] {{{
-	constructor (s) { this.D = 'string'===typeof(s) ? s.split('|').map((v) => v.split('.')) : (s||[]); }
+	constructor (s) { this.D = 'string'===typeof(s) ? s.split('|').map((v) => v.split('.')) : (s||[]) ; }
 	toString () { return this.D.map((a)=>a.join('.')).join('|'); }
 	matches (ks)
 	{
@@ -858,23 +859,20 @@ class Player
 	}
 
 	sw (TK)
-		// <class='switch' <data-case='A'> <data-case='B'>>
-	{
-		Apps.E(Apps.E(event.target).trace('.switch'))
-		.forEach(
+	{	// <class='switch' <data-case='A'> <data-case='B'>>
+		(	Apps.E(Apps.E(event.target).trace('.switch'))
+		).forEach(
 			'[data-h^="sw:"]',
 			(e) => e.classList[e.dataset.h === `sw:${TK}` ? 'add' : 'remove']('current')
-		)
-		.forEach(
+		).forEach(
 			'[data-case]',
 			(e) => e.classList[e.dataset.case === TK ? 'remove' : 'add']('hide')
 		);
 	}
 
 	play (caption, mn, ...args)
-		// play:dom:&this:Caption
+	{	// play:dom:&this:Caption
 		// play('dom',document.getElementById(...),'Caption');
-	{
 		const VE = document.createElement("div");
 		let e = undefined;
 		args.unshift(mn);
@@ -898,27 +896,28 @@ class Player
 		return this.Content.prepare(elem, mn, args).then(()=>0,()=>0);
 	}
 
+	// speak('bonjour','fr');
+	// <span data-h='speak:&text:fr'>bonjour</span>
 	async speak (text, lang='en')
-		// speak('bonjour','fr');
-		// <span data-h='speak:&text:fr'>bonjour</span>
 	{
 		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
-			utterance.lang = lang; // 根據語言代碼設定發音引擎
+			utterance.lang = lang;
 			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
 			speechSynthesis.speak (utterance);
-		} else alert('您的瀏覽器不支援 Speech Synthesis API。');
+		} else alert('Speech Synthesis API not supported.');
 	}
 
 	filter (cmd)
 	{
-		if (cmd==='add') {
+		if (cmd === 'add') {
 			//<div data-uid='Settings:Keywords'><span data-h='filter:add'>➕</span></div>
 			let flts=this.Filters;
 			flts.push(this.Keywords);
 			this.Filters.set(flts);
-		} else if (cmd==='run') {
+		} else
+		if (cmd === 'run') {
 			location.replace(`?s=${(new KeyFilter(this.Filters)).toString()}`);
 			location.replace(`?s=${encodeFilter(this.Filters)}`);
 		}
@@ -926,19 +925,19 @@ class Player
 
 	search (key)
 	{
-		let ts=this.Content.E.querySelector(`section[data-ks~="${key}"]`);
+		let ts = this.Content.E.querySelector(`section[data-ks~="${key}"]`);
 		if (ts) ts.click();
 		this.set('Overlay','none');
 	}
 
 	fullscreen (e)
 	{
-		switch (e) {
-		case 'body' : e = document.body; break;
-		case 'main' : e = this.GC; break;
-		case 'section': e = this.Content.CurPage; break;
-		default: e = this.Content.CurPage.querySelector(e); break;
-		}
+		e = ({
+			"body": ()=>document.body,
+			"main": ()=>this.GC,
+			"section": ()=>this.Content.CurPage
+		}[e] || (()=>this.Content.CurPage.querySelector(e)))();
+
 		if (e instanceof Element) {
 			if (e !== document.fullscreenElement)
 				e.requestFullscreen();
@@ -998,14 +997,16 @@ class Player
 (async (Ps)=>{
 	Object.assign(Apps, await Ps);
 
-	Apps.Ns = new (class
-	{	// Named Object Database {{{
+	Apps.Ns = new (class {
+		// Named Object Database {{{
 		constructor () {
 			this.CDB = {
 				template: Apps.Template,
 				data: Apps.Data
 			},
-			this.DB = {};
+			this.DB = {
+				"MView": Apps.E(`<div class='fill'><div data-xl='media' class='fill'><div data-v='data:media:media'></div></div></div>`).E
+			};
 		}
 		reg (n, o) { this.DB[n]=o; }
 		create (cn, a) { return new (this.CDB[cn])(a); }
@@ -1017,26 +1018,19 @@ class Player
 			);
 		}
 		getClass (n, dft) { return this.CDB[n] || dft; }
-	})();	// }}}
-	Apps.Ns.reg('MView', Apps.html2DOM(`<div class='fill'><div data-xl='media' class='fill'><div data-v='data:media:media'></div></div></div>`));
+		// }}}
+	})();
 
 	window.Apps = Object.assign(Apps, window.Apps||{});
 	Apps.Ready.setReady(Apps);
-
 })(Apps.loadScript(Apps.JSPrefix+"piers.js"));
 
-document.addEventListener('DOMContentLoaded', async () => { // {{{
-	const
-	Args = (location.search||'?').substr(1).split('&').reduce((r,a) => {
-		const pa = /^([^=]+)=(.*)$/.exec(a);
-		if (pa) r[pa[1]] = pa ? decodeURIComponent(pa[2]) : true;
-		return r;
-	}, {});
-
+document.addEventListener('DOMContentLoaded', async () => {
+	// {{{
 	await Apps.Ready;
 
 	Apps.Player = new Player();
-	await Apps.Player.init(Args);
+	await Apps.Player.init(Apps.Args);
 
 	document.body.addEventListener('click', (evt)=>Apps.Player._EH_(evt));
 	document.body.addEventListener('change', (evt)=>Apps.Player._EH_(evt));
@@ -1050,8 +1044,8 @@ document.addEventListener('DOMContentLoaded', async () => { // {{{
 		const cp=Apps.Player.Content.CurPage;
 		if (cp && cp.tick) cp.tick(true);
 	},500);
-
 	document.body.style.opacity='1';
-});	// }}}
+	// }}}
+});
 
 })(document.currentScript);
