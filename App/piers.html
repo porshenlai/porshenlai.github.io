@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+</head>
+<body>
+
+<div class='BOUND'>
+	<div id='TEST-1'>
+		<div data-v='text:A.A'>TARGET</div>
+		<div><input data-v='value:A.B' value='INPUT'></input></div>
+	</div>
+</div>
+
+<script>
+const ft={
+
+test_E: async function (Apps) {
+	const E = Apps.E(document.getElementById("TEST-1"));
+	let rv = [
+		()=>E.trace('.BOUND').getAttribute("class") === 'BOUND',
+		()=>E.query('[data-v]').dataset.v === 'text:A.A',
+		()=>{
+			let answer={"text:A.A":true,"value:A.B":true},ok=true;
+			E.forEach('[data-v]',(e) => ok&=!!answer[e.dataset.v]);
+			return ok;
+		},
+		()=>{
+			let da = {"A":{"A":"Data-A","B":"Data-B"}};
+			E.put(da);
+			db = E.get();
+			for(let k in da.A) if (da.A[k] !== db.A[k]) return false;
+			return true;
+		}
+	].reduce((r,t)=>t()&&r,true);
+	console.log("test_E:",rv ? "Succeed" : "Failed");
+},
+
+test_R: async function(Apps) {
+	try {
+		let rv = false;
+		let base = Apps.R().resolve('/Study/index.html');
+		let doc = await Apps.D({"url":"test.json"}).request(base);
+		console.log("test_R: Succeed");
+	} catch(x) {
+		console.log("test_R: Failed");
+	}
+},
+
+run: async function(Apps) {
+	for (let k in ft) if (k.startsWith('test_')) {
+		await ft[k](Apps);
+	}
+}
+
+};
+</script>
+<script src="piers.js" onload='ft.run(this.value)'></script>
+
+</body>
+</html>

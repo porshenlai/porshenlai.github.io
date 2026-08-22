@@ -46,10 +46,10 @@ class E
 	get (cn) {
 		const read=(e, n) => {
 			return {
-				text: ()=>this.E.textContent,
-				value: ()=>this.E.value,
-				data: (n)=>this.E.dataset[n],
-				style: (n)=>this.E.style[n]
+				text: ()=>e.textContent.trim(),
+				value: ()=>e.value,
+				data: (n)=>e.dataset[n],
+				style: (n)=>e.style[n]
 			}[n.shift()](...n);
 		}
 		return cn ?
@@ -64,10 +64,10 @@ class E
 	put (val, cn) {
 		const write=(e, v, n) => {
 			return {
-				text: (v)=>(this.E.textContent=v),
-				value: (v)=>(this.E.value=v),
-				data: (v, a)=>(this.E.dataset[a]=v),
-				style: (v, a)=>(this.E.style[a]=v)
+				text: (v)=>(e.textContent=v),
+				value: (v)=>(e.value=v),
+				data: (v, a)=>(e.dataset[a]=v),
+				style: (v, a)=>(e.style[a]=v)
 			}[n.shift()](v, ...n);
 		}, d=new D({})
 		if (cn) return write(this.E, val, Array.isArray(cn) ? cn : cn.split(':'));
@@ -104,17 +104,26 @@ class D
 	toString () {
 		return JSON.stringify(this.D);
 	}
+	// let d = new D({"url":"網址","payload":{負載}})
+	// d.request(R)
+	async request (base) {
+		if (this.D.url)
+			return await (base ?
+				base.resolve(this.D.url) :
+				new R(URL.parse(this.D.url))
+			).fetch(this.D.payload);
+		else return
+			this.D.doc ? JSON.parse(this.D.doc) :
+			this.D.raw ? this.D.raw : {};
+	}
 }	// }}}
 
-//	R = new R();
-//	R = new R(URL.parse(網址));
-//	R = new R(<... <data-v='url:網址'>...>)
-//	R = new R("JSON 或 文字資料")
-//	R = await base.resolve(位置);
-//	D = R.fetch(籌載);
-//	D = await base.sync({ url: 位置, payload: 籌載 });
 class R
 {	// {{{
+	//	R = new R();
+	//	R = new R(URL.parse(網址));
+	//	R = new R(<... <data-v='url:網址'>...>)
+	//	R = new R("JSON 或 文字資料")
 	constructor (a)
 	{
 		if (!a) a=URL.parse(location.href);
@@ -134,6 +143,14 @@ class R
 			} catch (x) { a = {"doc": a}; }
 		this.A = a;
 	}
+	//	R = base.resolve(位置);
+	resolve (src) // R = R.resolve('test.json')
+	{
+		let u = URL.parse(this.A.url);
+		u.pathname = src.startsWith('/') ? src : (u.pathname.replace(/[^\/]*$/,'')+src);
+		return new R(u);
+	}
+	// D = await R.fetch(籌載);
 	// {} | <> | "" = await r.get({payload})
 	async fetch (payload)
 	{
@@ -159,174 +176,12 @@ class R
 		}
 		return {'E':res.statusText};
 	}
-	resolve (src) // R = R.resolve('test.json')
-	{
-		let u = URL.parse(this.A.url);
-		u.pathname = src.startsWith('/') ? src : (u.pathname.replace(/[^\/]*$/,'')+src);
-		return new R(u);
-	}
-	async sync (cfg)	// this:<base>, ({ url:..., payload:..., raw:... })
-	{
-		if (cfg.url)
-			return await this.resolve(cfg.url).fetch(cfg.payload);
-		else
-		if (cfg.doc)
-			try {
-				return JSON.parse(cfg.doc);
-			} catch(x) { return cfg.doc; }
-		else
-		if (cfg.raw)
-			return cfg.raw;
-	}
-}	// }}}
-
-class Data extends E
-{	// Data {{{
-	constructor (re) {
-		super((new Apps.E(re)).query('[data-def="data"]')||re);
-	}
-	async createRequest () {
-		const doc = await Apps.Ns.create('template',this.E).get();
-		try {
-			doc.rbase=JSON.parse((new Apps.E(this.E)).trace('section').dataset.rbase);
-		} catch(x) { }
-		return doc;
-	}
-	async put (doc) // doc:DOC Object
-	{	// write DOC to data source
-	}
-	async get ()
-	{	// read DOC from data Source
-		let doc = await this.createRequest();
-		doc = Object.keys(doc).reduce((r,k)=>{
-			switch(k){
-			case 'get': case 'post':
-				r.url = doc[k]; break;
-			default:
-				r[k] = doc[k]; break;
-			}
-			return r;
-		},{})
-
-		if (doc.url) this.URL = doc.url;
-		let r = await (new R()).sync(doc);
-
-		if ((!r) && this.E.querySelector('[data-h="submit"]')) {
-			r = this.E.cloneNode(true);
-			delete r.dataset.def;
-		}
-		return r;
-	}
-}	// Data }}}
-
-class Template extends E
-{	// Template {{{
-	async put (doc) // doc:DOC Object
-	{	// write DOC to template Element {{{
-		const e = this.E.cloneNode(true);
-		if (e.dataset.def) e.removeAttribute('data-def');
-		console.log("DEBUGGGGGGGGGGGGGGGGGGGG",doc);
-		function w(e, d, nr=false)
-		{	// {{{
-			if (nr) {
-				if (e.dataset.c)
-					for (let args of e.dataset.c.split(';').filter((a)=>a))
-						((cmd, ...args) => {
-							switch (cmd) {
-							case "repeat": case 'foreach':
-								((t,p,d)=>{
-									p.removeChild(t);
-									if (!Array.isArray(d))
-										d=Object.entries(d).reduce((r,p)=>{
-											let o=('object'===typeof(p[1])) ? p[1] : {_v_:p[1]};
-											o._k_=p[0];
-											r.push(o); return r;
-										},[]);
-									for (let i=0; i<d.length; i++) {
-										const D=d[i], row=t.cloneNode(true);
-									if (row.dataset.def) row.removeAttribute('data-def');
-										if (row.dataset.c) row.removeAttribute('data-c');
-										row.dataset.index=(i%2)+"-"+i;
-											p.appendChild(row);
-										w(row,D);
-									}
-								})(e,e.parentNode,d[args[0]]||[]);
-								break;
-							}
-						})(...Apps.splitArgs(args))
-
-				if (e.dataset.v)
-					for (let args of e.dataset.v.split(';').filter((a)=>a))
-						((cmd, a1, a2) => {
-							try {
-								switch (cmd) {
-								case "text": e.textContent=a1 ? d[a1] : d; break;
-								case "value": e.value=a1 ? d[a1] : d; break;
-								case "data": e.dataset[a1]=d[a2]; break;
-								}
-							} catch(x) { console.log(x); console.log(e,d); }
-						})(...Apps.splitArgs(args));
-			} else {
-				if (e.dataset.v||e.dataset.c) w(e, d, true);
-
-				for (let c=e.firstChild; c; c=c.nextSibling) {
-					if (c.nodeType!==1) continue;
-					w(c,d);
-				}
-			}
-		}	// }}}
-		if (!doc) console.trace();
-		for (doc of ASSERT(doc,'template:put > document is not available')) w(e, doc);
-		return e;
-	}	// }}}
-	async get ()
-	{	// read DOC from template Element {{{
-		let rd={};
-		(function w(e, d, nr=0) {
-			if (nr===2) {
-				if (e.dataset.c)
-					for (let args of e.dataset.c.split(';').filter((a)=>a))
-						((cmd, ...args) => {
-							switch (cmd) {
-							case "repeat": // TODO
-								break;
-							}
-						})(...Apps.splitArgs(args))
-				if (e.dataset.v) {
-					for (let args of e.dataset.v.split(';').filter((a)=>a))
-						((cmd, a1, a2) => {
-							switch (cmd) {
-							case "text": d[a1]=e.textContent; break;
-							case "value": d[a1]=e.value; break;
-							case "data": d[a2]=e.dataset[a1]; break;
-							}
-						})(...Apps.splitArgs(args));
-				}
-			} else {
-				if (e.dataset.v||e.dataset.c) w(e, d, 2);
-				for (let c=e.firstChild; c; c=c.nextSibling) {
-					if (c.nodeType!==1) continue;
-					if (e.dataset.h&&nr>0) continue;
-					w(c,d,1);
-				}
-			}
-			return d;
-		})(this.E,rd,0);
-		return rd;
-	}	// }}}
 }	// }}}
 
 SCRIPT.value={
-	E: (...a)=>new E(...a),
+	E: (...a)=>new E(...a), _E:E,
 	D: (...a)=>new D(...a),
-	U: (...a)=>new U(...a),
 	R: (...a)=>new R(...a),
-	Data: Data, Template: Template,
-	fetch: fetch,
-	test: async () => {
-		console.log(await (new U()).resolve('list_test.json').get());
-		console.log(await (new R((new U()).resolve('list_test.json'))).get());
-	}
 };
 
 })(document.currentScript);
