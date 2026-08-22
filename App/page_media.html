@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="App/page.js"></script>
+<title>Media Test</title>
+</head>
+<body style='opacity:0'><main><div id='content'>
+
+<div data-template='PlayMedia' class='fill'>
+	<div data-xl='media' class='fill'>
+		<div data-c="repeat:Ms" data-v="data:media:media"></div>
+	</div>
+</div>
+
+<section><h2>Mermaid 擴充</h2><!--{{{-->
+<div class='sample'><div data-xl='mermaid'><textarea>
+flowchart TD
+	A{下大雨} -->|YES| C[停賽]
+	A -->|NO| B
+	B{颳大風} -->|YES| D[停賽]
+	B -->|NO| E[比賽]
+</textarea></div></div>
+</section><!--}}}-->
+
+<section class='page col'><!-- 媒體控制 {{{-->
+	<h2>媒體控制</h2>
+	<div class='fill' data-xl='media' style='border:1px solid gold;'>
+		<div data-media="https://d288slw6nyxep2.cloudfront.net/music/260217-米蘭・時空的交響.mp3">
+			<div data-ts='0+'>
+				<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"></div>
+				<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"></div>
+				<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/100005_V.jpg"></div>
+				<div data-dur='3' data-image="https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/115114.jpg"></div>
+			</div>
+			<div data-ts='3'>
+				<div data-dur='5'>Hello World</div>
+				<div data-dur='5'>Hello Kitty</div>
+			</div>
+		</div>
+	</div>
+</section><!--}}}-->
+
+</div></main></body>
+</html>
