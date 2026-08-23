@@ -12,6 +12,7 @@ const Init=(async () => {
 SCRIPT.value=async function (slide, elem, code) {
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
+
 	if (!code)
 		code = await Apps.Ns.create('data', elem).get();
 

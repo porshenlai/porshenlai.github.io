@@ -1000,12 +1000,12 @@ class Player
 	Apps.Data = class extends Apps._E
 	{
 		constructor (re) {
-			super((new Apps.E(re)).query('[data-def="data"]')||re);
+			super(Apps.E(re).query('[data-def="data"]')||re);
 		}
 		async createRequest () {
 			const doc = await Apps.Ns.create('template',this.E).get();
 			try {
-				doc.rbase=JSON.parse((new Apps.E(this.E)).trace('section').dataset.rbase);
+				doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
 			} catch(x) { }
 			return doc;
 		}
@@ -1014,19 +1014,12 @@ class Player
 		}
 		async get ()
 		{	// read DOC from data Source
-			let doc = await this.createRequest();
-			doc = Object.keys(doc).reduce((r,k)=>{
-				switch(k){
-				case 'get': case 'post':
-					r.url = doc[k]; break;
-				default:
-					r[k] = doc[k]; break;
-				}
-				return r;
-			},{})
-
+			let doc = await this.createRequest(), od = {};
+			for (let k in doc)
+				if (k==='get'||k==='post') od.url=doc[k]; else od[k]=doc[k];
 			if (doc.url) this.URL = doc.url;
-			let r = await (new R()).sync(doc);
+
+			let r = await Apps.D(doc).request(); // ?? base 
 
 			if ((!r) && this.E.querySelector('[data-h="submit"]')) {
 				r = this.E.cloneNode(true);

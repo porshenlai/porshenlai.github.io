@@ -6,7 +6,7 @@ class E
 	// E = new E("HTML")
 	constructor (e) {
 		if ('string' === typeof(e)) {
-			e = (new DOMParser()).parseFromString('<html><body>'+html+'</body></html>','text/html');
+			e = (new DOMParser()).parseFromString('<html><body>'+e+'</body></html>','text/html');
 			e = e.body.firstChild;
 		}
 		this.E = e;
@@ -110,11 +110,12 @@ class D
 		if (this.D.url)
 			return await (base ?
 				base.resolve(this.D.url) :
-				new R(URL.parse(this.D.url))
+				(new R()).resolve(this.D.url)
 			).fetch(this.D.payload);
-		else return
+		else return (
 			this.D.doc ? JSON.parse(this.D.doc) :
-			this.D.raw ? this.D.raw : {};
+			this.D.raw ? this.D.raw : {}
+		);
 	}
 }	// }}}
 

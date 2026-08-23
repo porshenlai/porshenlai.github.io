@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="page.js"></script>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<section>
+<h2>Mermaid in Page</h2>
+<div data-xl='mermaid'>
+	<textarea data-v='value:raw'>flowchart TD
+	A{下大雨} -->|YES| C[停賽]
+	A -->|NO| B
+	B{颳大風} -->|YES| D[停賽]
+	B -->|NO| E[比賽]
+</textarea>
+</div>
+</section>
+
+<section>
+<h2>Mermaid in Dialog</h2>
+<button data-h='play:決策樹:mermaid:&this'>Mermaid
+	<textarea class='hide' data-v='value:raw'>flowchart TD
+A{下大雨} -->|YES| C[停賽]
+A -->|NO| B
+B{颳大風} -->|YES| D[停賽]
+B -->|NO| E[比賽]
+</textarea>
+</button>
+</section>
+
+</div></main></body>
+</html>
