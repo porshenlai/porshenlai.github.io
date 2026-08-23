@@ -26,11 +26,7 @@
 		}
 	};	// }}}
 </script>
-<script src="App/page.js"></script>
-<style>
-	h2 { background:rgba(255,255,255,0.7); padding:4px 12px; border-radius:6px;}
-</style>
-<title>The Tutorial of pStyle Page</title>
+<script src="page.js"></script>
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
 
@@ -39,71 +35,12 @@
 	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='1'></textarea>
 </div>
 
-<div data-def='template:公告模板'>
-	這是公告模板的範例，頁面中置入模版延伸模組的地方會自動從定義的內容複製填入。
-</div>
-
-<div data-def='template:資料模板'>
-	<div>標題: <b data-v="text:標題"></b></div>
-	<div>訊息: <b data-v="text:訊息"></b></div>
-</div>
-
-<div data-def='template:列舉模板'>
-	<!-- 使用 <em>data-c='repeat:串列名稱'</em> 指定要重複列舉的樣板與串列資料 -->
-	<!-- 串列成員將依序填入子節點 data-v 指定的位置 -->
-	<div data-v='text:表格名稱' style='text-align:center'></div>
-	<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
-		<tbody>
-			<tr data-c='repeat:串列名稱'>
-				<th data-v="text:項目名稱"></th>
-				<td data-v="text:項目數值" align='center'></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-
-<div data-def='template:登入'>
-	<div style='text-align:center'>帳號:<input type='text' data-v='value:U'/></div>
-	<div style='text-align:center'>密碼:<input type='password' data-v='value:S'/></div>
-	<div style='text-align:center'><button>登入</button></div>
-</div>
-
-<div data-def='data:test'>
-	<div>U:<input type='text' data-v='value:U' value='porshenlai'></input></div>
-	<div>S:<input type='password' data-v='value:S' value='abcd1234'></input></div>
-	<div data-h='submit'>
-		<div class='hidden'>
-			<input type='hidden' data-v='value:get' value='list_test.json?U=${U}&S=${S}'></input>
-		</div>
-		<button>送出</button>
-	</div>
-</div>
-
-<div data-def='data:test2'>
-	<div data-h='submit'>
-		<div class='hidden'>
-			<input type='hidden' data-v='value:get' value='include.html'></input>
-		</div>
-		<button>送出</button>
-	</div>
-</div>
-
-<section class='fs' data-style='bg::res/cyberpiers.jpg'>
-	<table width='100%' height='100%' border='1'><tr>
-		<th>Hello World</th>
-	</tr></table>
-</section>
-
-<section class='page col'><h2>TEST</h2>
-<div class='fill'>
-	<div data-xl='template:列舉模板:test2'></div>
-</div>
-</section>
-
 <section class='page col'>
-	<div class='h1'>pStyle Page</div>
-	<div class='h3'>the Tutorial</div>
-	<div></div>
+	<div style='text-align:center'>
+		<div class='h1'>pStyle Page</div>
+		<div class='h3'>the Tutorial</div>
+	</div>
+	<br/>
 	<div class='frame'>
 		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
 		<div><em>Department of Finance</em></div>
@@ -111,10 +48,10 @@
 	</div>
 </section>
 
-<section class='page col' data-style='bg::res/cyberpiers.jpg'><h2>樣式套用</h2>
-	<div class='fill frame' data-style='bg:white'>
-		<div data-xl='template:列舉模板:test'></div>
-	</div>
+<section class='fs' data-style='bg::/res/cyberpiers.jpg'>
+	<table width='100%' height='100%' border='1'><tr>
+		<th style='color:yellow;'>Fullscreen Layout</th>
+	</tr></table>
 </section>
 
 <section class='page col'><h2>播放模式 (Play Mode)</h2><!--{{{-->
@@ -188,130 +125,10 @@
 </div>
 </div></section><!--}}}-->
 
-<section class='page col'><h2>模板宣告</h2><!--{{{-->
-<div data-xl='template:原始碼'></div>
-<div class='fill'>
-	<ul>
-		<li>建立 [data-template="模板名稱"] 節點來進行模板的宣告</li>
-		<li>利用 [data-v="功能:資料名稱"] 來設定自動填入資料的方法與目標資料變數</li>
-		<li>利用 [data-c="功能:資料名稱"] 來設定 DOM 自動建立邏輯與對應的目標資料變數</li>
-		<div class='sample'>
-		</div>
-	</ul>
-</div>
-</section><!--}}}-->
-
-<section class='page col'><h2>模板使用</h2><!--{{{-->
-<div data-xl='template:原始碼'></div>
-<div class='fill'>
-	<ul>
-		<li>建立帶有資料的 <em>textarea[data-xl="template:模板名稱"]</em> 元件來自模板複製元件並填入資料。</li>
-		<li><b>原始碼</b>為兩個不帶資料的模板使用範例:<div class='sample'>
-<div data-xl='template:公告模板'></div>
-<div data-xl='template:資料模板' data-def='data'>
-	<textarea data-v='value:doc'>{"標題":"1","訊息":"使用 data-v 設定目標變數與填入的方法"}</textarea>
-</div></li>
-	</ul>
-</div>
-</section><!--}}}-->
-
-<section class='page col'><h2>模板 - 資料帶入</h2><!--{{{-->
-<div data-xl='template:原始碼'></div>
-<div class='fill sample'>
-	<div data-xl='template:資料模板' data-def='data'>
-		<textarea data-v='value:doc'>{"標題":"1","訊息":"使用 data-v 指定將對應變數填入的方式"}</textarea>
-	</div>
-	<div data-xl='template:資料模板' data-def='data'>
-		<textarea data-v='value:doc'>{"標題":"2","訊息":"text:變數名 - 節點.textContent = 資料[變數名]"}</textarea>
-	</div>
-	<div data-xl='template:資料模板' data-def='data'>
-		<textarea data-v='value:doc'>{"標題":"3","訊息":"value:變數名 - 節點.value = 資料[變數名]"}</textarea>
-	</div>
-	<div data-xl='template:資料模板' data-def='data'>
-		<textarea data-v='value:doc'>{"標題":"4","訊息":"data:參數名:變數名 - 節點.dataset[參數名] = 資料[變數名]"}</textarea>
-	</div>
-</div>
-</section><!--}}}-->
-
-<section class='page col'><h2>模板 - 資料列舉</h2><!--{{{-->
-<div data-xl='template:原始碼'></div>
-<div class='fill'>
-	<ul>
-		<li>範例 <div class='sample'>
-			<div data-xl='template:列舉模板'>
-				<textarea data-v='value:doc'>{
-	"表格名稱":"表格標題",
-	"串列名稱":[
-		{"項目名稱":"John","項目數值":"95"},
-		{"項目名稱":"Mary","項目數值":"99"},
-		{"項目名稱":"Sam","項目數值":"90"},
-		{"項目名稱":"Vicky","項目數值":"92"}
-	]
-}</textarea>
-			</div>
-		</div></li>
-	</ul>
-</div>
-</section><!--}}}-->
-
-<section><h2>Dialog 對話框</h2><!--{{{-->
-<div data-xl='template:原始碼'></div>
-<div class='sample'>
-	<button data-h='play:Dialog:template:公告模板'>公告模板</button>
-	<button data-h='play:Please Login:template:登入:&this'>
-		對話框
-		<div  data-def='data'>
-			<table><tbody><tr>
-				<th align='right'>User:</th>
-				<td><input data-v='value:U' type='text' value='porshenlai'></input></td>
-			</tr><tr>
-				<th align='right'>Secret:</th>
-				<td><input data-v='value:S' type='password' value='abcd1234'></input></td>
-			</tr><tr>
-				<th colspan='2'>
-					<input data-v='value:POST' type='hidden' value='test.aspx'></input>
-					<button data-h='reset'>Reset</button>
-					<button data-h='submit'>Submit</button>
-				</th>
-			</tr></tbody></table>
-		</div>
-	</button>
-
-</div>
-</section><!--}}}-->
-
-<section class='page col'><h2>資料來源 - 套用至模板</h2><!--{{{-->
-<div data-xl='template:原始碼'></div>
-<div class='fill'>
-	<ul>
-		<li>範例 <div class='sample'>
-			<div data-xl='template:列舉模板'>
-				<div data-def='data'>
-					<input data-v='value:get' value='list_test.json'></input>
-					<!--input data-v='value:post' value='list_test.json'></input>
-					<textarea data-v='value:payload'>{"A":123,"B":456}</textarea-->
-				</div>
-			</div>
-		</div></li>
-	</ul>
-</div>
-</section><!--}}}-->
-
 <section>
 	<h2>Import Calculator</h2>
 	<div data-xl='import:Tools/Calc.html'></div>
 </section>
-
-<section class='page col'><h2>資料來源 - TEST</h2><!--{{{-->
-<div data-xl='template:原始碼'></div>
-<div class='fill'>
-	<ul>
-		<li>範例 <div class='sample'>
-			<div data-xl='template:列舉模板:JSONGet'></div>
-		</div></li>
-	</ul>
-</div>
-</section><!--}}}-->
 
 <section class='page col'><h2>管道</h2><!--{{{-->
 <style>

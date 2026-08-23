@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="page.js"></script>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<section class='page col'>
+<h2>模板宣告</h2>
+<div class='fill'>
+	<ul>
+		<li>建立 [data-template="模板名稱"] 節點來進行模板的宣告</li>
+		<li>利用 [data-v="功能:資料名稱"] 來設定自動填入資料的方法與目標資料變數</li>
+		<li>利用 [data-c="功能:資料名稱"] 來設定 DOM 自動建立邏輯與對應的目標資料變數</li>
+	</ul>
+</div>
+</section>
+
+<div data-def='template:公告模板'>
+	這是公告模板的範例，頁面中置入模版延伸模組的地方會自動從定義的內容複製填入。
+</div>
+
+<section class='page col'>
+<h2>模板使用</h2>
+<div class='fill'>
+	<ul>
+		<li>建立帶有資料的 <em>textarea[data-xl="template:模板名稱"]</em> 元件來自模板複製元件並填入資料。</li>
+		<li><div class='sample'>
+			<div data-xl='template:公告模板'></div>
+			<div data-xl='template:公告模板'></div>
+			<div data-xl='template:公告模板'></div>
+			<div data-xl='template:公告模板'></div>
+		</div></li>
+	</ul>
+</div>
+</section>
+
+<div data-def='template:資料模板'>
+	<div>標題: <b data-v="text:標題"></b></div>
+	<div>訊息: <b data-v="text:訊息"></b></div>
+</div>
+
+<section class='page col'>
+<h2>模板 - 資料帶入</h2>
+<data class='fill'>
+<div data-xl='template:資料模板' data-def='data'>
+	<textarea data-v='value:doc'>{"標題":"1","訊息":"使用 data-v 指定將對應變數填入的方式"}</textarea>
+</div>
+<div data-xl='template:資料模板' data-def='data'>
+	<textarea data-v='value:doc'>{"標題":"2","訊息":"text:變數名 - 節點.textContent = 資料[變數名]"}</textarea>
+</div>
+<div data-xl='template:資料模板' data-def='data'>
+	<textarea data-v='value:doc'>{"標題":"3","訊息":"value:變數名 - 節點.value = 資料[變數名]"}</textarea>
+</div>
+<div data-xl='template:資料模板' data-def='data'>
+	<textarea data-v='value:doc'>{"標題":"4","訊息":"data:參數名:變數名 - 節點.dataset[參數名] = 資料[變數名]"}</textarea>
+</div>
+</div>
+</section>
+
+<div data-def='template:列舉模板'>
+	<!-- 使用 <em>data-c='repeat:串列名稱'</em> 指定要重複列舉的樣板與串列資料 -->
+	<!-- 串列成員將依序填入子節點 data-v 指定的位置 -->
+	<div data-v='text:表格名稱' style='text-align:center'></div>
+	<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
+		<tbody>
+			<tr data-c='repeat:串列名稱'>
+				<th data-v="text:項目名稱"></th>
+				<td data-v="text:項目數值" align='center'></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<section class='page col'>
+<h2>模板 - 資料列舉</h2>
+<div class='fill'>
+<div data-xl='template:列舉模板'>
+	<textarea data-v='value:doc'>{
+	"表格名稱":"表格標題",
+	"串列名稱":[
+		{"項目名稱":"John","項目數值":"95"},
+		{"項目名稱":"Mary","項目數值":"99"},
+		{"項目名稱":"Sam","項目數值":"90"},
+		{"項目名稱":"Vicky","項目數值":"92"}
+	]
+}</textarea>
+</div></div>
+</section>
+
+<div data-def='template:登入'>
+	<div style='text-align:center'>帳號:<input type='text' data-v='value:U'/></div>
+	<div style='text-align:center'>密碼:<input type='password' data-v='value:S'/></div>
+	<div style='text-align:center'><button>登入</button></div>
+</div>
+
+<section>
+<h2>Template in Dialog</h2>
+<button data-h='play:Dialog:template:公告模板'>公告模板</button>
+<button data-h='play:Please Login:template:登入:&this'>
+	對話框
+	<div data-def='data'>
+		<table><tbody><tr>
+			<th align='right'>User:</th>
+			<td><input data-v='value:U' type='text' value='porshenlai'></input></td>
+		</tr><tr>
+			<th align='right'>Secret:</th>
+			<td><input data-v='value:S' type='password' value='abcd1234'></input></td>
+		</tr><tr>
+			<th colspan='2'>
+				<input data-v='value:POST' type='hidden' value='test.aspx'></input>
+				<button data-h='reset'>Reset</button>
+				<button data-h='submit'>Submit</button>
+			</th>
+		</tr></tbody></table>
+	</div>
+</button>
+</section>
+
+</div></main></body>
+</html>
