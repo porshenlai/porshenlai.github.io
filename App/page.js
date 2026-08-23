@@ -405,7 +405,7 @@ class Content
 				Apps.E(elem).replace(buf=await name.put(buf||{}));
 
 				Promise.all(
-					Array.from(this.E.querySelectorAll('[data-xl]')).map((xe) => this.prepare(xe))
+					Array.from(slide.E.querySelectorAll('[data-xl]')).map((xe) => slide.prepare(xe))
 				).then(()=>0, ()=>0);
 			}	// }}}
 		};
