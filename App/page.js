@@ -995,7 +995,7 @@ class Player
 (async (Ps)=>{
 	Object.assign(Apps, await Ps);
 
-	Apps.Data = class extends Apps._E
+	Apps.Data = class extends Apps.E.Class
 	{
 		constructor (re) {
 			super(Apps.E(re).query('[data-def="data"]')||re);
@@ -1026,7 +1026,7 @@ class Player
 		}
 	};	// Data }}}
 
-	Apps.Template = class extends Apps._E
+	Apps.Template = class extends Apps.E.Class
 	{
 		async put (doc) // doc:DOC Object
 		{	// write DOC to template Element {{{
