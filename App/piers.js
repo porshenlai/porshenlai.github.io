@@ -83,7 +83,9 @@ class D
 {	// {{{
 	// let d = new D({"A":{"a":123},"B":456});
 	constructor (d) {
-		this.D = "string" === typeof(d) ? JSON.parse(d) : d;
+		if (d instanceof Element) d = (new E(d)).get();
+		if ('string'===typeof(d)) d=JSON.parse(d);
+		this.D = d;
 	}
 	// d.get("A.a") => 123
 	get (p) {

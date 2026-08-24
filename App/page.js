@@ -625,24 +625,22 @@ class Player
 	async init (args)
 	{	// init
 		const pages = await (async function _cp_ (from, docs=document.createElement("div")) {
-			let e;
-			for (e of from.querySelectorAll('[data-def]'))
+			Array.from(from.querySelectorAll('[data-def]')).forEach((e)=>{
 				if (e.dataset.def.indexOf(':')>0) docs.appendChild(e);
-			for (e of from.querySelectorAll('section'))
+			});
+			for (let e of Array.from(from.querySelectorAll('section'))) {
 				if (e.dataset.def==='data') {
 					// import external html sections
-					const D = Apps.Ns.create('data', e);
-					for (const d of ASSERT(await D.get(),[e,'not available'])) {
-						if (d instanceof Element)
-							docs.appendChild(d);
-						else {
-							Apps.changeRoot(d, D.URL);
-							_cp_ (d, docs);
-						}
+					const D = new Apps.Data(e);
+					let db = (await D.get()).body;
+					if (db) {
+						if (D.URL) Apps.changeRoot(db, D.URL);
+						await _cp_(db, docs);
 					}
 				} else docs.appendChild(e);
+			}
 			return docs;
-		})(document); // ## 準備成員資料
+		})(document.body); // ## 準備成員資料
 
 		this.GC = ((e)=>{ // e: <main data-controls='aside,control'> 頁面容器
 			// 準備顯示畫面
@@ -1003,7 +1001,7 @@ class Player
 			super(Apps.E(re).query('[data-def="data"]')||re);
 		}
 		async createRequest () {
-			const doc = await Apps.Ns.create('template',this.E).get();
+			const doc = Apps.E(this.E).get();
 			try {
 				doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
 			} catch(x) { }
@@ -1017,9 +1015,8 @@ class Player
 			let doc = await this.createRequest(), od = {};
 			for (let k in doc)
 				if (k==='get'||k==='post') od.url=doc[k]; else od[k]=doc[k];
-			if (doc.url) this.URL = doc.url;
-
-			let r = await Apps.D(doc).request(); // ?? base 
+			if (od.url) this.URL = od.url;
+			let r = await Apps.D(od).request(); // ?? base 
 
 			if ((!r) && this.E.querySelector('[data-h="submit"]')) {
 				r = this.E.cloneNode(true);
