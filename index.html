@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="App/page.js"></script>
-<title>Home Page in pStyle</title>
+<title>pStyle in Cyberpies</title>
 <base target='_blank'></base>
 <style>
 	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
 	.M { background-color:rgba(255,255,255,0.5); color:black; width:40%; height:auto; }
 	.W { background-color:rgba(0,0,0,0.5); color:yellow; }
 	.fwd { width:95%; }
+	.icon { height:45%; }
 </style>
 </head>
 <body style='opacity:0'><main data-controls='aside'><div id='content'>
@@ -22,19 +23,46 @@
 		<div class='button W' data-h='set:Overlay:menu'>☰</div>
 	</div>
 	<div class='fill zcs' style='padding:3%;align-items:flex-start;'>
-		<div class='M swd' data-h='go:工具索引'>
-			<div>工具</div>
-			<div>Tools</div>
+		<div class='M swd icon' data-h='go:Cyberpiers'>
+			<h3>雲際碼頭 Cyberpiers</h3>
 		</div>
-		<div class='M swd' data-h='go:學習索引'>
-			<div>學習</div>
-			<div>Study</div>
+		<div class='M swd icon' data-h='go:工具索引'>
+			<h3>常用工具 Tools</h3>
 		</div>
-		<div class='M swd' data-h='go:生活索引'>
-			<div>生活</div>
-			<div>Life</div>
+		<div class='M swd icon' data-h='go:學習索引'>
+			<h3>學習成長 Study</h3>
 		</div>
-		<div class='swd' style='margin:4px;padding:4px;height:100%;'></div>
+		<div class='M swd icon' data-h='go:生活索引'>
+			<h3>生活體驗 Life</h3>
+		</div>
+	</div>
+</section>
+
+<section id='Cyberpiers' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
+	<div class='bar'>
+		<div class='button W' data-h='go:pStyle:/index.html'>🏠</div>
+		<h2 class='f W'>Cyberpiers 雲際碼頭</h2>
+		<div class='button W' data-h='set:Overlay:menu'>☰</div>
+	</div>
+	<div class='fill zcs' style='padding:3%;align-items:flex-start;'>
+		<div class='M swd'><ul>
+			<li><a href='App/piers.html'>Piers</a></li>
+			<li><a href='App/pages.html'>Page</a></li>
+			<li><a href='App/MDEditor.html'>[TODO] MDEditor: Markdown 編輯器</a></li>
+			<li><a href='App/TXEditor.html'>[TODO] TXEditor: 文件編輯器</a></li>
+			<li><a href='App/TXViewer.html'>[TODO] TXViewer: 文件檢視器</a></li>
+			<li><a href='App/epub.html'>[TODO] EPub: EPub 模組</a></li>
+		</ul></div>
+		<div class='M swd'><ul>
+			<li><a href='App/page_card.html'>Flash Card: 互動介面</a></li>
+			<li><a href='App/page_embed.html'>Embedded: 頁面整合</a></li>
+			<li><a href='App/page_markdown.html'>Markdown: 文件編輯</a></li>
+			<li><a href='App/page_media.html'>Media: 多媒體播放</a></li>
+			<li><a href='App/page_mermaid.html'>Mermaid: 流程圖繪製</a></li>
+			<li><a href='App/page_quiz.html'>Quiz: 問答介面</a></li>
+			<li><a href='App/page_qr.html'>[TODO] QR: QRCode</a></li>
+			<li><a href='App/page_template.html'>Template: 樣板編輯</a></li>
+		</ul></div>
 	</div>
 </section>
 
