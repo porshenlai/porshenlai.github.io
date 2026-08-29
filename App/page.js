@@ -86,8 +86,8 @@ class KeyFilter
 
 class Content
 {	// 顯示頁面管理界面 {{{
-	constructor (e) { // e: #content 顯示區塊
-		// 顯示區塊操作物件 {{{
+	constructor (e)
+	{	// e: 顯示區塊 {{{
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
@@ -402,21 +402,18 @@ class Player
 			this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
 
 			await (async (flags, plugins)=>{
-				const ge=async (url,tag='div')=>(await Apps.R({"url":url}).fetch()).body.querySelector(tag);
 				// 安裝輔助工具 
 				if ('control' in flags) // ## 新增控制列
 					((cp)=>{
 						this.bindS('PageNumber',cp.querySelector('[data-uid="PageNumber"]'));
 						this.bindS('PageCount',cp.querySelector('[data-uid="PageCount"]'));
 						e.appendChild(cp);
-					})(await ge("/App/page_controlbar.html"));
+					})(await Apps.R({url:"/App/page_control.html",cs:"#control"}).fetch());
 
-				const ol = document.createElement("div");
-				ol.dataset.uid = 'Overlay';
-				ol.dataset.h = 'set:Overlay:none';
-				ol.appendChild(await ge("/App/page_dialog.html"));
+				const ol = Apps.E('<div id="overlay" data-h="set:Overlay:none"></div>','#overlay').E;
+				ol.appendChild(await Apps.R({url:"/App/page_dialog.html",cs:"#dialog"}).fetch());
 				if ('aside' in flags) // 準備 目錄與設定控制列
-					ol.appendChild(await ge('/App/page_aside.html','aside'));
+					ol.appendChild(await Apps.R({url:'/App/page_aside.html',cs:'aside'}).fetch());
 				e.appendChild(ol);
 			})( this.Controls.reduce((r,v)=>{ r[v]=true; return r; },{}), "" );
 			return e;
@@ -605,7 +602,7 @@ class Player
 			rv.removeAttribute('class');
 			// rv._EH_=EH;
 			rv.appendChild(VE);
-		})(this.GC.querySelector('[data-uid="Dialog"]'));
+		})(this.GC.querySelector('#dialog'));
 	}
 
 	prepare (elem, mn, ...args)

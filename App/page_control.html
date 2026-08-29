@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div data-uid='ControlBar' style='padding:0.2%;font-size:160%;'>
+<div id='control' style='padding:0.2%;font-size:160%;'>
 <style>
-[data-uid="ControlBar"] {
+#control {
 	color:black;background:silver;
 	display:flex; flex-direction:column;
 	justify-content:space-between; align-items:center;
 }
-[data-uid="ControlBar"] [data-h]:hover { color:blue; }
+#control [data-h]:hover { color:blue; }
 @media (max-aspect-ratio: 1/1) {
-	[data-uid="ControlBar"] {
+	#control {
 		color:black;background:silver;
 		display:flex; flex-direction:row;
 		justify-content:space-between; align-items:center;
+		line-height:172%;
 	}
-	[data-uid="ControlBar"] { line-height:172%; }
 }
 </style>
 <span data-h='set:PageNumber:prev'>◤</span>

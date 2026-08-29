@@ -1,7 +1,7 @@
 ((SCRIPT) => {
 
 class E { 
-	// new E(<>); new E("<html>"); {{{
+	// new E(<>); new E("<html>", "CSS_Selector"); {{{
 	constructor (e) {
 		if ('string' === typeof(e)) {
 			e = (new DOMParser()).parseFromString('<html><body>'+e+'</body></html>','text/html');
@@ -158,10 +158,9 @@ class R {
 			case 'application/json':
 				return await res.json();
 			case 'text/html':
-				return ((s)=>{
-    				const parser = new DOMParser();
-    				const doc = parser.parseFromString(s, 'text/html');
-					return doc;
+				return ((s) => {
+    				const doc = (new DOMParser).parseFromString(s, 'text/html');
+					return this.A.cs ? doc.body.querySelector(this.A.cs) : doc;
 				})(await res.text());
 			}
 			return await res.text();
