@@ -72,6 +72,9 @@ class E {
 			write(e, val.get(n.pop()), n);
 		});
 	}	// }}}
+	append (pe, ne) { // E.append(父元件, 弟元件=undefined)  {{{
+		pe.insertBefore(this.E, ne);
+	}	// }}}
 }	// class E
 
 class D {
@@ -167,6 +170,7 @@ class R {
 	}	// }}}
 }
 
+(new E('<link rel="stylesheet" href="/App/piers.css"/>')).append(document.head);
 SCRIPT.value={
 	E: (...a)=>new E(...a),
 	D: (...a)=>new D(...a),

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div data-uid='Dialog'>
+<style>
+[data-uid="Dialog"] {
+	position:fixed; overflow:hidden auto;
+	left:var(--base-margin); top:var(--base-margin); right:var(--base-margin); bottom:var(--base-margin);
+	display:none; flex-flow:column nowrap;
+}
+.dialog [data-uid="Dialog"] { display:flex; }
+</style>
+<div data-h='set:Overlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
+<section data-h='nop' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
+</div>
+</body>
+</html>

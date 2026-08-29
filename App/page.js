@@ -2,269 +2,7 @@
 
 const currentScript = document.currentScript;
 
-const CSS_PAGE= // {{{
-`:root {
-	--base-font-size:24px;
-	--base-margin:calc(var(--base-font-size) / 3);
-	--base-indent:var(--base-font-size);
-}
-* {
-	box-sizing:border-box;
-}
-html, body {
-	height:100%; margin:0;
-}
-body {
-	font-size:var(--base-font-size);
-	font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,Segoe UI,Arial;
-	line-height:1.5;
-	color:#222; background:#fff;
-	scroll-behavior:smooth; overflow:hidden;
-	opacity:0;
-}
-body>main { width:100%; height:100%; }
-
-main {
-	display:flex;
-	flex-flow:row nowrap;
-}
-main>[data-uid="ControlBar"] {
-	color:black;background:silver;
-	display:flex; flex-direction:column;
-	justify-content:space-between; align-items:center;
-}
-@media (max-aspect-ratio: 1/1) {
-	main { flex-flow:column nowrap; }
-	main>[data-uid="ControlBar"] {
-		color:black;background:silver;
-		display:flex; flex-direction:row;
-		justify-content:space-between; align-items:center;
-	}
-	[data-uid="ControlBar"] { line-height:172%; }
-}
-[data-uid="ControlBar"] [data-h]:hover { color:blue; }
-[data-def] { display:none; }
-
-#content {
-	flex:1 1 auto;
-	width:100%; height:100%;
-	overflow:hidden auto;
-	background:#f0f0f0;
-}
-#content.PlayMode_1,
-#content.PlayMode_2 { scroll-snap-type:y mandatory; }`;
-
-// }}}
-// PlayMode_*: all sections compacted in continuous pages
-// PlayMode_1: all the minimal height of sections are greater than the page height 
-// PlayMode_2: all the section not currently displayed is hidden
-// section.page: expand the slide to full page in all mode
-// section.cfbox: force layout expand to full page and centralize content
-// section.fbox: force layout expand to full page
-//
-// fill cm col
-
 const ASSERT = (ta, msg) => (Array.isArray(ta) ? ta : [ta]).filter((t)=>t||console.trace(msg));
-
-const CSS_CONTENT= // {{{
-`
-section {
-	margin:var(--base-margin);
-	padding:calc(2 * var(--base-margin));
-	border:2px solid #e6e6e6;
-	border-radius:14px;
-	box-shadow:0 2px 8px rgba(0,0,0,0.03);
-	transition:border-color 0.4s ease,box-shadow 0.4s ease,background-color 0.4s ease;
-	scroll-margin-top:var(--base-margin);
-	background:white;
-	cursor:pointer;
-}
-section:hover { border-color:#ccc; }
-section.current {
-	border-color:#26A69A;
-	box-shadow:0 4px 16px rgba(38, 166, 154, 0.2);
-	cursor:default;
-}
-
-.PlayMode_1 section,
-.PlayMode_2 section { min-height:calc(100% - 2 * var(--base-margin)); }
-section.page { height:calc(100% - 2 * var(--base-margin)); }
-section.fs { height:100%; border:0; border-radius:0; margin:0; padding:0; }
-.PlayMode_2 section:not(.current) { display:none; }
-
-.fill,.full,.mask { width:100%; height:100%; left:0; top:0; margin:0; padding:0; overflow:hidden; }
-.fill { overflow-y:auto; }
-.mask { position:absolute;background-color:rgba(255,255,255,0.5); }
-
-.ncs,.zcs,.col,.row,.bar,.tabBar
-{ display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;overflow:hidden; }
-.col { flex-direction:column; }
-.zcs { flex-wrap:wrap;align-items:flex-start;overflow-y:auto; }
-.ncs { overflow-x:auto; }
-.col>.fill,.row>.fill { flex:1 1 auto; }
-
-.tabBar,.bar { width:100%; margin:8px; padding:8px; }
-.tabBar [data-h^="sw"] { flex:1 1 auto; background:darkblue; color:white; border-radius:8px; margin:8px; text-align:center; }
-.tabBar [data-h^="sw"].current { background:white; color:darkblue; font-weight:bolder; }
-
-.bar>.f { flex:1 1 auto; }
-
-.link { color:blue; text-decoration:underline; pointer:cursor; }
-.link:hover { font-weight:bold; color:darkblue; }
-
-.button { padding:1px 2px; margin:1px 2px; border:1px outset silver; border-radius:4px; }
-.button:not(.current):hover { cursor:pointer; font-weight:bold; }
-.button.current { border:0px; }
-
-.swd { flex:1 0 auto;width:80%;max-width:97%; }
-@media (orientation: landscape) { .swd { width:40%;max-width:47%; } }
-
-[data-h] { cursor:pointer; }
-[data-h="display"] { text-decoration:underline;color:blue; }
-[data-h="display"] [caption] { display:none; }
-
-button {
-	appearance:none;
-	border:1px solid #cfd8dc;
-	background:#fff;
-	padding:8px 12px;
-	border-radius:10px;
-	cursor:pointer;
-	font-size:95%;
-}
-button:hover { border-color:#90a4ae; }
-h1,.h1 { font-size:200%;font-weight:bold;color:#1E88E5;margin:var(--base-margin);width:100%; }
-h2,.h2 { font-size:172%;font-weight:bold;color:#1E88E5;margin:var(--base-margin);width:100%; }
-h3,.h3 { font-size:128%;font-weight:bold;color:#0d5ea8;margin:var(--base-margin);width:100%; }
-ul li, ol li { line-height:1.8 }
-
-table.std { margin:auto; border:1px solid silver; }
-table.std th, table.std td { padding:2px 16px; border:1px solid black; }
-table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; }
-table.std>tbody th, table.std>tbody td { background:white; }
-
-.nvtable { border:1px solid black; padding:8px; }
-.nvtable th { border:0;padding:0 2px; text-align:right; vertical-align:middle; }
-.nvtable td { border:0;padding:0 4px; border-bottom:1px solid silver; text-align:left; vertical-align:top; }
-
-.cb { white-space: nowrap; padding-left:var(--base-indent); font-weight:bolder; overflow-x:auto; }
-.frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
-
-.al { text-align:left; vertical-align:top; }
-.ac { text-align:center; vertical-align:middle; }
-.ar { text-align:right; vertical-align:bottom; }
-
-.black { color:black; }
-.grey { color:grey; }
-.red { color:red; }
-.green { color:green; }
-.blue { color:blue; }
-.brown { color:brown; }
-.orange { color:orange; }
-.purple { color:purple; }
-
-.hide,.disabled { display:none; }
-
-[data-uid="Overlay"] {
-	position:fixed; top:0; left:0; right:0; bottom:0; z-index:10001; background:rgba(0,0,0,0.4);
-	visibility:hidden; opacity:0;
-	transition:opacity 0.3s ease, visibility 0.3s;
-}
-[data-uid="Overlay"].menu, [data-uid="Overlay"].dialog {
-	visibility:visible; opacity:1;
-}
-[data-uid="Dialog"] {
-	position:fixed; overflow:hidden auto;
-	left:var(--base-margin); top:var(--base-margin); right:var(--base-margin); bottom:var(--base-margin);
-	display:none; flex-flow:column nowrap;
-}
-.dialog [data-uid="Dialog"] { display:flex; }
-`; // }}}
-const CSS_ASIDE= // {{{
-`
-aside {
-	position:fixed; top:0; right:0; bottom:0; z-index:10002;
-	min-width:calc(var(--base-font-size) * 24); max-width:90vw;
-	border-left:1px solid #eee; box-shadow:-2px 0 10px rgba(0,0,0,0.1);
-	font-size:72%;
-	transform:translateX(100%);transition:transform 0.3s ease;
-	display:flex; flex-flow:column nowrap; justify-content:space-between; align-items:center;
-}
-.menu aside { transform:translateX(0); }
-
-aside [data-uid^="Settings:"] { margin:4px;padding:4px 8px;border:2px solid silver;border-radius:8px; }
-aside [data-uid^="Settings:"] label { font-size:110%; font-weight:bold; }
-
-aside nav ol { list-style:none; padding:0; margin:0;}
-aside nav li { border-bottom:1px solid silver; }
-
-[data-uid="Settings:Keywords"] {
-	display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center;
-} 
-[data-uid="Settings:Keywords"]>div {
-	flex:1 1 auto; border-bottom:1px solid black; margin:1px 4px;
-}
-[data-uid="Settings:Keywords"]>div:hover {
-	color:blue; border-color:blue;
-}
-`; // }}}
-const HTML_CONTROL= // {{{
-`
-<span data-h='set:PageNumber:prev'>◤</span>
-<output data-uid='PageNumber' style='font-size:72%'></output>
-<span>
-	<span data-h='set:Overlay:menu'>☰</span>
-</span>
-<output data-uid='PageCount' style='font-size:72%'></output>
-<span data-h='set:PageNumber:next'>◢</span>
-`;	// }}}
-const HTML_DIALOG= // {{{
-`
-<div data-uid='Dialog'>
-	<div data-h='set:Overlay:none' style='border-bottom:2px solid gold;margin-bottom:4px;padding:0 4px;border-radius:4px;background:white;'></div>
-	<section data-h='nop' style='flex:1 1 auto;height:100%;background:white;padding:0 4px;margin:4px 0;border-radius:6px;overflow:hidden;'></section>
-</div>`;	// }}}
-const HTML_ASIDE= // {{{
-`
-<aside class='switch' style='background:white;'>
-	<div class='tabBar'>
-		<div data-h="sw:TOC" class='current'>導覽</div>
-		<div data-h="sw:Settings">設定</div>
-	</div>
-	<div style="flex:1 1 auto; overflow:hidden auto; width:100%; height:100%; padding:2px 8px; margin:0;background:white;">
-		<nav class='tabPage' data-case='TOC'></nav>
-		<div class='tabPage hide' data-case='Settings'>
-			<div data-uid='Settings:PlayMode'>
-				<div class='tabBar' style='justify-content:flex-start;'>
-					<div style='flex:1 1 auto'>播放模式</div>
-					<div data-h='set:PlayMode:0' class='button'>連續</div>
-					<div data-h='set:PlayMode:1' class='button'>滿框</div>
-					<div data-h='set:PlayMode:2' class='button'>分頁</div>
-				</div>
-			</div>
-			<div data-uid='Settings:FontScale'>
-				<label>字型縮放 (<output value='1'></output>)</label>
-				<div style='display:flex;flex-flow:row nowrap;align-items:center;'>
-					0.8 <input data-h='set:FontScale:&value' type='range' min='0.8' max='1.5' step='0.1' value='1.0' style='flex:1 1 auto;width:100%'/> 1.5
-				</div>
-			</div>
-			<div data-uid='Settings:KWFilters'>
-				<div style='display:flex;flex-flow:row nowrap;justify-content:space-between;padding:2px 6px;'>
-					<label>關鍵字篩選</label>
-					<span data-h='filter:run'>➤</span>
-				</div>
-				<div data-uid='Settings:Keywords'><span data-h='filter:add'>➕</span></div>
-				<div data-uid='Settings:Filters'></div>
-			</div>
-		</div>
-	</div>
-	<div data-uid='Aside:Pager' style="width:100%;display:flex;flex-flow:row nowrap;align-items:center;background:#eee;">
-		<input style='flex:1 1 auto;width:100%;margin:0 4px;' data-h='set:PageNumber:&value' type='range' min='1'/>
-		<output style='margin:0 4px;'></output> /
-		<span></span>
-	</div>
-</aside>`; // }}}
-
 
 const Apps = {
 
@@ -283,18 +21,6 @@ loadScript: async function (src,attrs={})
 	se.src=src;
 	document.head.appendChild(se);
 	return (await rv)||se;
-},	// }}}
-loadStyle: async function (css, ukey, container)
-{	// loadStyle (CSSText, "StylePage") {{{
-	// loadStyle (CSSText, "StyleContent", this.Content)
-	let be=undefined;
-	if (container) be=container.firstChild; else container=document.head;
-	if (!ukey || !container.querySelector(`#${ukey}`))
-		container.insertBefore(((e)=>{
-			if(ukey) e.id=ukey;
-			e.innerHTML=css;
-			return e;
-		})(document.createElement('style')), be);
 },	// }}}
 
 splitArgs: function (s, d=':')
@@ -409,7 +135,12 @@ class Content
 				).then(()=>0, ()=>0);
 			}	// }}}
 		};
-		Apps.loadStyle(CSS_CONTENT, 'CSS_CONTENT', e);
+
+		((e)=>{
+			e.setAttribute("rel", "stylesheet");
+			e.setAttribute("href", "/App/page.css");
+			document.head.appendChild(e);
+		})(document.createElement("link"));
 	}	// }}}
 
 	install (doc, filters) { // doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
@@ -607,9 +338,6 @@ class Content
 class Player
 {	// Content + ...輔助工具列 {{{
 	constructor () {
-		// ## 新增樣式
-		Apps.loadStyle(CSS_PAGE, 'CSS_PAGE');
-
 		// ## 初始化設定變數
 		this.Settings = {
 			Controls:[{value:""}],
@@ -642,7 +370,7 @@ class Player
 			return docs;
 		})(document.body); // ## 準備成員資料
 
-		this.GC = ((e)=>{ // e: <main data-controls='aside,control'> 頁面容器
+		this.GC = await (async (e)=>{ // e: <main data-controls='aside,control'> 頁面容器
 			// 準備顯示畫面
 			if (!e)
 				e = document.createElement("main");
@@ -673,32 +401,23 @@ class Player
 			this.FontScale = this.Settings.FontScale[0].value;
 			this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
 
-			((flags,plugins)=>{
+			await (async (flags, plugins)=>{
+				const ge=async (url,tag='div')=>(await Apps.R({"url":url}).fetch()).body.querySelector(tag);
 				// 安裝輔助工具 
 				if ('control' in flags) // ## 新增控制列
-					e.appendChild(((cp)=>{
-						cp.dataset.uid='ControlBar';
-						[
-							['padding','0.2%'],
-							['fontSize','160%']
-						].forEach((v)=>cp.style[v[0]]=v[1]);
-						cp.innerHTML=HTML_CONTROL;
+					((cp)=>{
 						this.bindS('PageNumber',cp.querySelector('[data-uid="PageNumber"]'));
 						this.bindS('PageCount',cp.querySelector('[data-uid="PageCount"]'));
-						return cp;
-					})(document.createElement("div")))
+						e.appendChild(cp);
+					})(await ge("/App/page_controlbar.html"));
 
-				plugins+=HTML_DIALOG;
-				if ('aside' in flags) { // 準備 目錄與設定控制列
-					Apps.loadStyle(CSS_ASIDE, 'CSS_ASIDE', e);
-					plugins += HTML_ASIDE;
-				}
-				e.appendChild(((o)=>{ // [data-uid="Overlay"] -> <main <#content> <data-uid='Overlay'>>
-					o.dataset.uid='Overlay';
-					o.dataset.h='set:Overlay:none';
-					o.innerHTML=plugins;
-					return o;
-				})(document.createElement("div")));
+				const ol = document.createElement("div");
+				ol.dataset.uid = 'Overlay';
+				ol.dataset.h = 'set:Overlay:none';
+				ol.appendChild(await ge("/App/page_dialog.html"));
+				if ('aside' in flags) // 準備 目錄與設定控制列
+					ol.appendChild(await ge('/App/page_aside.html','aside'));
+				e.appendChild(ol);
 			})( this.Controls.reduce((r,v)=>{ r[v]=true; return r; },{}), "" );
 			return e;
 		})(document.querySelector('main'));

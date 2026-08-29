@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div data-uid='ControlBar' style='padding:0.2%;font-size:160%;'>
+<style>
+[data-uid="ControlBar"] {
+	color:black;background:silver;
+	display:flex; flex-direction:column;
+	justify-content:space-between; align-items:center;
+}
+[data-uid="ControlBar"] [data-h]:hover { color:blue; }
+@media (max-aspect-ratio: 1/1) {
+	[data-uid="ControlBar"] {
+		color:black;background:silver;
+		display:flex; flex-direction:row;
+		justify-content:space-between; align-items:center;
+	}
+	[data-uid="ControlBar"] { line-height:172%; }
+}
+</style>
+<span data-h='set:PageNumber:prev'>◤</span>
+<output data-uid='PageNumber' style='font-size:72%'></output>
+<span><span data-h='set:Overlay:menu'>☰</span></span>
+<output data-uid='PageCount' style='font-size:72%'></output>
+<span data-h='set:PageNumber:next'>◢</span>
+</div>
+</body>
+</html>
