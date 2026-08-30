@@ -48,13 +48,28 @@ class E {
 				style: (n)=>e.style[n]
 			}[n.shift()](...n);
 		}
+
+		const e = this.E, d=new D({});
+
+		for (let ce of Array.from(e.querySelectorAll('[data-c]'))) {
+			let cn=ce.dataset.c.split(':'), da=[];
+			
+			for (let row of Array.from(ce.querySelectorAll('[data-aid]'))) {
+				let rid=parseInt(row.dataset.aid);
+				da[rid]=Object.assign(da[rid]||{},TODO());
+			}
+			d.put(cn[1],da);
+			// read data from rows
+			ce.parentNode.removeChild(ce);
+		}
+
 		return cn ?
 		read(this.E, Array.isArray(cn) ? cn : cn.split(':')) :
-		Array.from(this.E.querySelectorAll('[data-v]')).reduce((r, e)=>{
+		Array.from(e.querySelectorAll('[data-v]')).reduce((r, e)=>{
 			let n=e.dataset.v.split(':');
 			r.put(n.pop(), read(e, n));
 			return r;
-		}, new D({})).D ;
+		}, d).D ;
 	}	// }}}
 	put (val, cn) { // E.put("text | value | data:名稱 | style:名稱", "內容") {{{
 		const write=(e, v, n) => {
@@ -69,19 +84,19 @@ class E {
 				let n=ve.dataset.v.split(':');
 				write(ve, val.get(n.pop()), n);
 			}
-			console.log("xw",e,val);
 			for (let ce of Array.from(e.querySelectorAll('[data-c]'))) {
-				const a=ce.dataset.c.split(':'), t=a.shift();
+				const a=ce.dataset.c.split(':'), t=a.shift() ;
 				switch (t) {
 				case 'forEach':
-					for (let v of val.get(a)) {
+					val.get(a).forEach((v,i) => {
 						const te = ce.cdata.te.cloneNode(true);
 						xw(te, new D(v));
-						while (te.firstChild) {
-							te.dataset.rowid = 0;
+						console.log(te);
+						while (te.firstChild) if(te.firstChild.nodeType===1) {
+							te.firstChild.dataset.aid=i;
 							ce.appendChild(te.firstChild);
-						}
-					}
+						} else te.removeChild(te.firstChild);
+					});
 					break;
 				}
 			}

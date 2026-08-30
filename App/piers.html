@@ -40,6 +40,7 @@ test_E: async function (Apps) {
 			};
 			E.put(da);
 			db = E.get();
+			console.log("=====>",db);
 			//for(let k in da.A) if (da.A[k] !== db.A[k]) return false;
 			return true;
 		}
