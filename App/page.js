@@ -14,14 +14,14 @@ Args: (location.search||'?').substr(1).split('&').reduce((r,a) => {
 }, {}),
 
 loadScript: async function (src,attrs={})
-{	// {{{
+{	// 載入 JS {{{
 	const se=document.createElement("script"),
     	  rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
 	for(let key in attrs) se.setAttribute(key,attrs[key]);
 	se.src=src;
 	document.head.appendChild(se);
 	return (await rv)||se;
-},	// }}}
+},	// loadScript }}}
 
 splitArgs: function (s, d=':')
 {	// {{{
@@ -136,11 +136,7 @@ class Content
 			}	// }}}
 		};
 
-		((e)=>{
-			e.setAttribute("rel", "stylesheet");
-			e.setAttribute("href", "/App/page.css");
-			document.head.appendChild(e);
-		})(document.createElement("link"));
+		Apps.E('<link rel="stylesheet" href="/App/page.css"></link>').join(document.head);
 	}	// }}}
 
 	install (doc, filters) { // doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
@@ -712,7 +708,7 @@ class Player
 	Object.assign(Apps, await Ps);
 
 	Apps.Data = class extends Apps.E.Class
-	{
+	{	// {{{
 		constructor (re) {
 			super(Apps.E(re).query('[data-def="data"]')||re);
 		}
@@ -743,7 +739,7 @@ class Player
 	};	// Data }}}
 
 	Apps.Template = class extends Apps.E.Class
-	{
+	{	// {{{
 		async put (doc) // doc:DOC Object
 		{	// write DOC to template Element {{{
 			const e = this.E.cloneNode(true);
@@ -836,7 +832,7 @@ class Player
 			})(this.E,rd,0);
 			return rd;
 		}	// }}}
-	};	// Template
+	};	// Template }}}
 
 	Apps.Ns = new (class {
 		// Named Object Database {{{

@@ -64,15 +64,40 @@ class E {
 				data: (v, a)=>(e.dataset[a]=v),
 				style: (v, a)=>(e.style[a]=v)
 			}[n.shift()](v, ...n);
-		}, d=new D({})
+		}, xw=(e, val) => {
+			for (let ve of Array.from(e.querySelectorAll('[data-v]'))) {
+				let n=ve.dataset.v.split(':');
+				write(ve, val.get(n.pop()), n);
+			}
+			console.log("xw",e,val);
+			for (let ce of Array.from(e.querySelectorAll('[data-c]'))) {
+				const a=ce.dataset.c.split(':'), t=a.shift();
+				switch (t) {
+				case 'forEach':
+					for (let v of val.get(a)) {
+						const te = ce.cdata.te.cloneNode(true);
+						xw(te, new D(v));
+						while (te.firstChild) {
+							te.dataset.rowid = 0;
+							ce.appendChild(te.firstChild);
+						}
+					}
+					break;
+				}
+			}
+		}, d=new D({});
+
 		if (cn) return write(this.E, val, Array.isArray(cn) ? cn : cn.split(':'));
-		val = new D(val);
-		Array.from(this.E.querySelectorAll('[data-v]')).forEach((e)=>{
-			let n=e.dataset.v.split(':');
-			write(e, val.get(n.pop()), n);
-		});
+		for (let ce of Array.from(this.E.querySelectorAll('[data-c]'))) {
+			if (!ce.cdata) {
+				ce.cdata = {te: ce.cloneNode(true)};
+				ce.cdata.te.removeAttribute("data-c");
+			}
+			while (ce.firstChild) ce.removeChild(ce.firstChild);
+		}
+		xw(this.E, new D(val));
 	}	// }}}
-	append (pe, ne) { // E.append(父元件, 弟元件=undefined)  {{{
+	join (pe, ne) { // E.join(父元件, 弟元件=undefined)  {{{
 		pe.insertBefore(this.E, ne);
 	}	// }}}
 }	// class E
@@ -169,7 +194,7 @@ class R {
 	}	// }}}
 }
 
-(new E('<link rel="stylesheet" href="/App/piers.css"/>')).append(document.head);
+(new E('<link rel="stylesheet" href="/App/piers.css"/>')).join(document.head);
 SCRIPT.value={
 	E: (...a)=>new E(...a),
 	D: (...a)=>new D(...a),

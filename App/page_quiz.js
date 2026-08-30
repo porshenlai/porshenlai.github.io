@@ -13,60 +13,7 @@ class Quiz
 	constructor (app)
 	{
 		this.QEs={};
-		if (!document.head.querySelector('style[data-cssid="Quiz"]')) (() => {
-			const SE=document.createElement("style"); // install style for Quiz
-			SE.dataset.cssid='Quiz';
-			SE.innerHTML=`
-[data-x^="quiz:"] select {
-	font-size:100%;
-}
-[data-x^="quiz:"] [data-o] {
-	padding:.3vw;
-	margin:.1vw;
-	border:1px solid lightgrey;
-	background-image:linear-gradient(white 60%,lightgrey);
-}
-[data-x^="quiz:"] [data-o]:hover {
-	border-color:grey;
-	background-image:linear-gradient(white 60%,grey);
-}
-[data-x^="quiz:"] {
-	border:1px solid blue;
-	border-radius:.5vw;
-	padding:.3vw;
-	margin:.1vw 0;
-}
-[data-x^="quiz:"].QRX {
-	border-color:red;
-	background-image:linear-gradient(to right,white 60%,pink);
-}
-[data-x^="quiz:"].QRO {
-	border-color:green;
-	background-image:
-	linear-gradient(to right,white 60%,lightgreen);
-}
-
-[data-x^="quiz:"] .cols { display:flex; flex-flow:rows nowrap; }
-[data-x^="quiz:"] .cols>div { flex:1 1 auto;text-align:center; }
-[data-x^="quiz:"] .row>div { flex:1 1 auto;text-align:center; }
-
-[data-x^="quiz:"].QRO [data-o]:not(.QS),
-[data-x^="quiz:"]:not(.QRO) .answer,
-[data-x^="quiz:"].QR_>:not(.HT),
-[data-x^="quiz:"]:not(.QR_)>.HT
-{ display:none; }
-
-[data-x^="quiz:"] :not([data-o="value"]).QS {
-	color:blue;
-	font-weight:bolder;
-}
-.answer { font-size:60%; font-style:italic; color:green; }
-.HT { border:1px outset silver;padding:2px;text-align:center; }
-.hbar [data-o] { flex:1 1 auto; text-align:center; }
-`;
-			document.head.appendChild(SE);
-		})();
-
+		Apps.E('<link rel="stylesheet" href="/App/page_quiz.css"/>').join(document.head);
 		// install utilities services of Quiz.
 /*
 		if (app) app.Aside.installSetting((()=>{
@@ -227,7 +174,6 @@ class Quiz
 		switch (p.dataset.x.substring(5)) {
 		case 's':
 			if (e.classList.contains('QS')) {
-				console.log("RESET");
 				// click selected one, clear all
 				Array.from(p.querySelectorAll('.QS'))
 					.forEach((e)=>e.classList.remove('QS'));

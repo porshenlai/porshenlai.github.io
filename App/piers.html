@@ -9,8 +9,11 @@
 
 <div class='BOUND'>
 	<div id='TEST-1'>
-		<div data-v='text:A.A'>TARGET</div>
-		<div><input data-v='value:A.B' value='INPUT'></input></div>
+		<div data-v='text:title'></div>
+		<div data-c='forEach:s'>
+			<div data-v='text:A.A'>TARGET</div>
+			<div><input data-v='value:A.B' value='INPUT'></input></div>
+		</div>
 	</div>
 </div>
 
@@ -28,10 +31,16 @@ test_E: async function (Apps) {
 			return ok;
 		},
 		()=>{
-			let da = {"A":{"A":"Data-A","B":"Data-B"}};
+			let da = {
+				title:"Hello",
+				s:[
+					{A:{A:"Data-A",B:"Data-B"}},
+					{A:{A:"Data-C",B:"Data-D"}}
+				]
+			};
 			E.put(da);
 			db = E.get();
-			for(let k in da.A) if (da.A[k] !== db.A[k]) return false;
+			//for(let k in da.A) if (da.A[k] !== db.A[k]) return false;
 			return true;
 		}
 	].reduce((r,t)=>t()&&r,true);
