@@ -40,36 +40,35 @@ class E {
 		return this;
 	}	// }}}
 	get (cn) { // "內容" = E.get("text | value | data:名稱 | style:名稱") {{{
-		const read=(e, n) => {
+		const read = (e, n) => {
 			return {
 				text: ()=>e.textContent.trim(),
 				value: ()=>e.value,
 				data: (n)=>e.dataset[n],
 				style: (n)=>e.style[n]
 			}[n.shift()](...n);
-		}
-
-		const e = this.E, d=new D({});
-
-		for (let ce of Array.from(e.querySelectorAll('[data-c]'))) {
-			let cn=ce.dataset.c.split(':'), da=[];
-			
-			for (let row of Array.from(ce.querySelectorAll('[data-aid]'))) {
-				let rid=parseInt(row.dataset.aid);
-				da[rid]=Object.assign(da[rid]||{},TODO());
+		}, readAll = (e, d) => {
+			// 讀取串列資料
+			for (let ce of Array.from(e.querySelectorAll('[data-c]'))) {
+				let cn=ce.dataset.c.split(':'), da=[];
+				for (let row of Array.from(ce.querySelectorAll('[data-aid]'))) {
+					let rid=parseInt(row.dataset.aid);
+					if (!da[rid]) da[rid]={};
+					readAll(row,new D(da[rid]));
+				}
+				d.put(cn[1],da);
+				ce.parentNode.removeChild(ce);
 			}
-			d.put(cn[1],da);
-			// read data from rows
-			ce.parentNode.removeChild(ce);
-		}
-
+			// 讀取單一資料
+			return (new E(e)).list('[data-v]').reduce((r, e)=>{
+				let n=e.dataset.v.split(':');
+				r.put(n.pop(), read(e, n));
+				return r;
+			}, d).D ;
+		};
 		return cn ?
-		read(this.E, Array.isArray(cn) ? cn : cn.split(':')) :
-		Array.from(e.querySelectorAll('[data-v]')).reduce((r, e)=>{
-			let n=e.dataset.v.split(':');
-			r.put(n.pop(), read(e, n));
-			return r;
-		}, d).D ;
+			read(this.E, Array.isArray(cn) ? cn : cn.split(':')) :
+			readAll(this.E.cloneNode(true), new D({})) ;
 	}	// }}}
 	put (val, cn) { // E.put("text | value | data:名稱 | style:名稱", "內容") {{{
 		const write=(e, v, n) => {
@@ -79,7 +78,7 @@ class E {
 				data: (v, a)=>(e.dataset[a]=v),
 				style: (v, a)=>(e.style[a]=v)
 			}[n.shift()](v, ...n);
-		}, xw=(e, val) => {
+		}, writeAll=(e, val) => {
 			for (let ve of Array.from(e.querySelectorAll('[data-v]'))) {
 				let n=ve.dataset.v.split(':');
 				write(ve, val.get(n.pop()), n);
@@ -90,8 +89,7 @@ class E {
 				case 'forEach':
 					val.get(a).forEach((v,i) => {
 						const te = ce.cdata.te.cloneNode(true);
-						xw(te, new D(v));
-						console.log(te);
+						writeAll(te, new D(v));
 						while (te.firstChild) if(te.firstChild.nodeType===1) {
 							te.firstChild.dataset.aid=i;
 							ce.appendChild(te.firstChild);
@@ -110,7 +108,7 @@ class E {
 			}
 			while (ce.firstChild) ce.removeChild(ce.firstChild);
 		}
-		xw(this.E, new D(val));
+		writeAll(this.E, new D(val));
 	}	// }}}
 	join (pe, ne) { // E.join(父元件, 弟元件=undefined)  {{{
 		pe.insertBefore(this.E, ne);

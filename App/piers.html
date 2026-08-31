@@ -24,25 +24,20 @@ test_E: async function (Apps) {
 	const E = Apps.E(document.getElementById("TEST-1"));
 	let rv = [
 		()=>E.trace('.BOUND').getAttribute("class") === 'BOUND',
-		()=>E.query('[data-v]').dataset.v === 'text:A.A',
-		()=>{
-			let answer={"text:A.A":true,"value:A.B":true},ok=true;
-			E.forEach('[data-v]',(e) => ok&=!!answer[e.dataset.v]);
-			return ok;
-		},
+		()=>E.query('[data-v]').dataset.v === 'text:title',
 		()=>{
 			let da = {
-				title:"Hello",
 				s:[
 					{A:{A:"Data-A",B:"Data-B"}},
 					{A:{A:"Data-C",B:"Data-D"}}
-				]
+				],
+				title:"Hello"
 			};
 			E.put(da);
 			db = E.get();
-			console.log("=====>",db);
-			//for(let k in da.A) if (da.A[k] !== db.A[k]) return false;
-			return true;
+			console.log("<",JSON.stringify(da),">");
+			console.log("<",JSON.stringify(db),">");
+			return JSON.stringify(da)===JSON.stringify(db);
 		}
 	].reduce((r,t)=>t()&&r,true);
 	console.log("test_E:",rv ? "Succeed" : "Failed");
@@ -51,8 +46,8 @@ test_E: async function (Apps) {
 test_R: async function(Apps) {
 	try {
 		let rv = false;
-		let base = Apps.R().resolve('/Study/index.html');
-		let doc = await Apps.D({"url":"test.json"}).request(base);
+		let base = Apps.R().resolve('/App/piers.html');
+		let doc = await Apps.D({"url":"piers.json"}).request(base);
 		console.log("test_R: Succeed");
 	} catch(x) {
 		console.log("test_R: Failed");
