@@ -1,5 +1,15 @@
 ((SCRIPT) => {
 
+function dfs (e,h) {
+	const r=[];
+	for (let i=e.firstChild; i; i=i.nextSibling) if (i.nodeType===1) {
+		const m=h(i);
+		if (m) r.push(i);
+		if ('boolean'===typeof(m)) r.push(...dfs(i,h));
+	}
+	return r;
+}
+
 class E { 
 	// new E(<>); new E("<html>", "CSS_Selector"); {{{
 	constructor (e) {
@@ -31,6 +41,7 @@ class E {
 		Array.from(this.E.querySelectorAll(cs)).forEach(h);
 		return this;
 	}	// }}}
+	dfs (h) { return dfs(this.E,h); }
 	replace (ce) { // E.replace(<用來取代目前元件的新元件>) {{{
 		const pe = this.E.parentNode;
 		if (pe) {
@@ -80,35 +91,31 @@ class E {
 				style: (v, a)=>(e.style[a]=v)
 			}[n.shift()](v, ...n);
 		}, writeAll=(e, val) => {
-			for (let ve of Array.from(e.querySelectorAll('[data-v]'))) {
-				let n=ve.dataset.v.split(':');
-				write(ve, val.get(n.pop()), n);
-			}
-			for (let ce of Array.from(e.querySelectorAll('[data-c]'))) {
-				const a=ce.dataset.c.split(':'), t=a.shift() ;
-				switch (t) {
-				case 'forEach':
-					val.get(a).forEach((v,i) => {
-						const te = ce.cdata.te.cloneNode(true);
-						writeAll(te, new D(v));
-						while (te.firstChild) if(te.firstChild.nodeType===1) {
-							te.firstChild.dataset.aid=i;
-							ce.appendChild(te.firstChild);
-						} else te.removeChild(te.firstChild);
-					});
-					break;
+			for (let i of (new E(e).dfs((e)=>e.matches('[data-c]') ? 1 : e.matches('[data-v]'))) {
+				if (i.dataset.v) for (let cn of i.dataset.v.split(';')) {
+					cn = cn.split(':');
+					write(i, val.get(cn.pop()), cn)
+				}
+				if (i.dataset.c) {
+					const a=ce.dataset.c.split(':'), t=a.shift() ;
+					// case t='forEach'
+						ce.cdata.te=((te)=>{
+							while (ce.firstChild) te.appendChild(ce.firstChild);
+							return te;
+						})(document.createElement("div"));
+						val.get(a.pop()).forEach((v,i) => {
+							const te = ce.cdata.te.cloneNode(true);
+							writeAll(te, new D(v));
+							while (te.firstChild) if(te.firstChild.nodeType===1) {
+								te.firstChild.dataset.aid=i;
+								ce.appendChild(te.firstChild);
+							}
+						});
 				}
 			}
-		}, d=new D({});
+		};
 
 		if (cn) return write(this.E, val, Array.isArray(cn) ? cn : cn.split(':'));
-		for (let ce of Array.from(this.E.querySelectorAll('[data-c]'))) {
-			if (!ce.cdata) {
-				ce.cdata = {te: ce.cloneNode(true)};
-				ce.cdata.te.removeAttribute("data-c");
-			}
-			while (ce.firstChild) ce.removeChild(ce.firstChild);
-		}
 		writeAll(this.E, new D(val));
 	}	// }}}
 	join (pe, ne) { // E.join(父元件, 弟元件=undefined)  {{{
