@@ -33,9 +33,10 @@ class E {
 	}	// }}}
 	replace (ce) { // E.replace(<用來取代目前元件的新元件>) {{{
 		const pe = this.E.parentNode;
-		if (!pe) throw new Error('Not in DOM tree:', this.E);
-		pe.insertBefore(ce, this.E);
-		pe.removeChild(this.E);
+		if (pe) {
+			pe.insertBefore(ce, this.E);
+			pe.removeChild(this.E);
+		}
 		this.E=ce;
 		return this;
 	}	// }}}
