@@ -1,10 +1,13 @@
 ((SCRIPT) => {
 
-function dfs (e,h) {
-	const r=[];
+function dfs (e,h,x=false) {
+	let r=[],m;
+	if (x) {
+		m=h(e); if (m) r.push(e);
+		if ('boolean'!==typeof(m)) return r;
+	}
 	for (let i=e.firstChild; i; i=i.nextSibling) if (i.nodeType===1) {
-		const m=h(i);
-		if (m) r.push(i);
+		m=h(i); if (m) r.push(i);
 		if ('boolean'===typeof(m)) r.push(...dfs(i,h));
 	}
 	return r;
@@ -41,7 +44,7 @@ class E {
 		Array.from(this.E.querySelectorAll(cs)).forEach(h);
 		return this;
 	}	// }}}
-	dfs (h) { return dfs(this.E,h); }
+	dfs (h,x=false) { return dfs(this.E,h,x); }
 	replace (ce) { // E.replace(<用來取代目前元件的新元件>) {{{
 		const pe = this.E.parentNode;
 		if (pe) {
@@ -59,62 +62,61 @@ class E {
 				data: (n)=>e.dataset[n],
 				style: (n)=>e.style[n]
 			}[n.shift()](...n);
-		}, readAll = (e, d) => {
-			// 讀取串列資料
-			for (let ce of Array.from(e.querySelectorAll('[data-c]'))) {
-				let cn=ce.dataset.c.split(':'), da=[];
-				for (let row of Array.from(ce.querySelectorAll('[data-aid]'))) {
-					let rid=parseInt(row.dataset.aid);
-					if (!da[rid]) da[rid]={};
-					readAll(row,new D(da[rid]));
+		}, readAll = (e, val) => {
+			for (let i of (new E(e)).dfs((e)=>e.matches('[data-c]') ? 1 : e.matches('[data-v]'), true)) {
+				if (i.dataset.v) for (let cn of i.dataset.v.split(';')) {
+					cn = cn.split(':');
+					val.put(cn.pop(), read(i, cn));
 				}
-				d.put(cn[1],da);
-				ce.parentNode.removeChild(ce);
+				if (i.dataset.c) {
+					const a=i.dataset.c.split(':'), t=a.shift(), da=[];
+					for (let row of Array.from(i.querySelectorAll('[data-aid]'))) {
+						let rid=parseInt(row.dataset.aid);
+						if (!da[rid]) da[rid]={};
+						readAll(row,new D(da[rid]));
+					}
+					val.put(a.pop(), da);
+				}
 			}
-			// 讀取單一資料
-			return (new E(e)).list('[data-v]').reduce((r, e)=>{
-				let n=e.dataset.v.split(':');
-				r.put(n.pop(), read(e, n));
-				return r;
-			}, d).D ;
+			return val.D;
 		};
 		return cn ?
 			read(this.E, Array.isArray(cn) ? cn : cn.split(':')) :
-			readAll(this.E.cloneNode(true), new D({})) ;
+			readAll(this.E, new D({})) ;
 	}	// }}}
 	put (val, cn) { // E.put("text | value | data:名稱 | style:名稱", "內容") {{{
-		const write=(e, v, n) => {
+		const write = (e, v, n) => {
 			return {
 				text: (v)=>(e.textContent=v),
 				value: (v)=>(e.value=v),
 				data: (v, a)=>(e.dataset[a]=v),
 				style: (v, a)=>(e.style[a]=v)
 			}[n.shift()](v, ...n);
-		}, writeAll=(e, val) => {
-			for (let i of (new E(e).dfs((e)=>e.matches('[data-c]') ? 1 : e.matches('[data-v]'))) {
+		}, writeAll = (e, val) => {
+			for (let i of (new E(e)).dfs((e)=>e.matches('[data-c]') ? 1 : e.matches('[data-v]'))) {
 				if (i.dataset.v) for (let cn of i.dataset.v.split(';')) {
 					cn = cn.split(':');
 					write(i, val.get(cn.pop()), cn)
 				}
 				if (i.dataset.c) {
-					const a=ce.dataset.c.split(':'), t=a.shift() ;
-					// case t='forEach'
-						ce.cdata.te=((te)=>{
-							while (ce.firstChild) te.appendChild(ce.firstChild);
+					const a=i.dataset.c.split(':'), t=a.shift() ;
+					if (t === 'forEach') {
+						i.template=((te)=>{
+							while (i.firstChild) te.appendChild(i.firstChild);
 							return te;
 						})(document.createElement("div"));
-						val.get(a.pop()).forEach((v,i) => {
-							const te = ce.cdata.te.cloneNode(true);
+						val.get(a.pop()).forEach((v,x) => {
+							const te = i.template.cloneNode(true);
 							writeAll(te, new D(v));
 							while (te.firstChild) if(te.firstChild.nodeType===1) {
-								te.firstChild.dataset.aid=i;
-								ce.appendChild(te.firstChild);
-							}
+								te.firstChild.dataset.aid=x;
+								i.appendChild(te.firstChild);
+							} else te.removeChild(te.firstChild);
 						});
+					}
 				}
 			}
 		};
-
 		if (cn) return write(this.E, val, Array.isArray(cn) ? cn : cn.split(':'));
 		writeAll(this.E, new D(val));
 	}	// }}}

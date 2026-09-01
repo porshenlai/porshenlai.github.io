@@ -27,16 +27,14 @@ test_E: async function (Apps) {
 		()=>E.query('[data-v]').dataset.v === 'text:title',
 		()=>{
 			let da = {
+				title:"Hello",
 				s:[
 					{A:{A:"Data-A",B:"Data-B"}},
 					{A:{A:"Data-C",B:"Data-D"}}
-				],
-				title:"Hello"
+				]
 			};
 			E.put(da);
 			db = E.get();
-			console.log("<",JSON.stringify(da),">");
-			console.log("<",JSON.stringify(db),">");
 			return JSON.stringify(da)===JSON.stringify(db);
 		}
 	].reduce((r,t)=>t()&&r,true);
