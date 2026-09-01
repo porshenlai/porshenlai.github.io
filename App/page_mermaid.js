@@ -16,7 +16,7 @@ SCRIPT.value=async function (slide, elem, code) {
 	elem.classList.add('resolved');
 
 	if (!code)
-		code = await Apps.Ns.create('data', elem).get();
+		code = await Apps.Ns.resolve('data', elem).get();
 
 	elem.innerHTML='<span>Rendering ...</span>';
 	Apps.E(elem).replace(await (async (e)=>{
