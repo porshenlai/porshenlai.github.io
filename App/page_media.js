@@ -1,14 +1,37 @@
 (function(SCRIPT){
 
-window.Apps.loadStyle(`
-.MediaItem, .MediaItem [data-dur], .MediaItem [data-ts] {
-	position:absolute; left:0; top:0; width:100%; height:100%; overflow:hidden;
-	border:0; margin:0; padding:0;
-}
-.MediaItem { position:relative; }
-`,'CSS_X_Media');
+if (!document.head.querySelector('#ms_media'))
+	Apps.E('<link id="ms_media" rel="stylesheet" href="/App/page_media.css"/>')
+	.join(document.head);
 
-class MediaShot {
+class MediaShot
+{
+	static loadConfig (cfg)
+	{	// [起始時間, [...[間隔時間,..."畫面元件"]]]
+		let r = document.createElement("div");
+		r.dataset.ts = cfg.shift();
+
+		function af (e, d) {
+			if (d.startsWith("html:"))
+				e.innerHTML=d.substr(5);
+			else
+			if (d.startsWith("text:"))
+				e.textContent=d.substr(5);
+			else
+				console.log(d);
+			return e;
+		}
+
+		for (let s of cfg) {
+			if (Array.isArray(s)) {
+				let f = document.createElement("div");
+				f.dataset.dur = s.shift();
+				s.reduce(af,f)
+				r.appendChild(f);
+			} else af(r,s);
+		}
+		return r;
+	}
 	constructor (e) { // e: <[data-ts=開始時間(+:循環播放)] ...<[data-dur=長度]>>
 		// 時間段落物件 {{{
 		this.E = e;
@@ -48,7 +71,16 @@ class MediaShot {
 	}	// }}}
 }
 
-class MediaItem {
+class MediaItem
+{
+	static loadConfig (cfg)
+	{	// [ 媒體URL, ...MediaShot] 
+		let r=document.createElement("div");
+		r.dataset.media=cfg.shift();
+		for (let s of cfg)
+			r.appendChild(MediaShot.loadConfig(s));
+		return r;
+	}
 	static createDOM (s) { // s:HTML 腳本
 		// 根據 HTML 建立元件 {{{
 		const C=document.createElement("div");
@@ -290,6 +322,14 @@ class YouTubeItem extends MediaItem {
 }
 
 class MediaList {
+	static loadConfig (cfg)
+	{	// [ ...MediaItem ] 
+		let r=document.createElement("div");
+		for (let i of cfg)
+			r.appendChild(MediaItem.loadConfig(i))
+		console.log("DEBUG",r);
+		return r;
+	}
 /*
 	static invoke (e, ...a) {
 		// {{{
@@ -300,8 +340,8 @@ class MediaList {
 		})(document.createEvent("Event")));
 	}	// }}}
 */
-	constructor (e, rb) {
-		// {{{
+	constructor (e, rb)
+	{ // {{{
 		this.E = e;
 
 		// 建立播放清單
@@ -388,10 +428,18 @@ class MediaList {
 	get Current () { return this.E.querySelector('[data-uid="pager"]').value-1; }
 }
 
-SCRIPT.value=async function (slide, elem) {
+SCRIPT.value=async function (slide, elem, data) {
 	const rbase = slide.E.querySelector('section.current:not(.disabled)').dataset.rbase;
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
+
+	if (!data || data==='&this') data=elem;
+	let D = Apps.Ns.resolve('data',elem);
+	data = await D.get();
+	if (data) {
+		while(elem.firstChild) elem.removeChild(elem.firstChild);
+		elem.appendChild(MediaList.loadConfig(data));
+	}
 	const ML = new MediaList(elem, rbase);
 	window.Apps.E(elem).trace('section').tick = (v) => ML.tick(v);
 };

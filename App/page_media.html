@@ -17,45 +17,39 @@
 <section class='page col'>
 <h2>媒體控制</h2>
 <div class='fill' data-xl='media' style='border:1px solid gold;'>
-	<textarea data-v='doc'>[
-[ 	"https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg",
-	[0,[
-		[3,"html:0-3 seconds"],
-		[5,"html:3-8 seconds"]
-	]]
-],[	"https://www.w3schools.com/html/movie.mp4",
-	[0,"style:height:50%;width:50%",[
+	<textarea data-v='value:doc'>[
+[ "https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg",
+	[0,[3,"html:0-3 seconds"],[5,"html:3-8 seconds"]]
+],
+[ "https://www.w3schools.com/html/movie.mp4",
+	[0,"style:height:50%;width:50%",
 		[5,"style:border:1px solid red","text:TEST-1"],
 		[0,"style:border:1px solid red;background:rgba(255,255,255,0.5)","text:TEST-2"]
-	]]
-],[	"https://d288slw6nyxep2.cloudfront.net/music/260217-米蘭・時空的交響.mp3"
-	["0+",[
+	]
+],
+[	"https://d288slw6nyxep2.cloudfront.net/music/260217-米蘭・時空的交響.mp3",
+	["0+",
 		[3,"image:https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/111537.jpg"],
 		[3,"image:https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/104722.jpg"],
 		[3,"image:https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/100005_V.jpg"],
 		[3,"image:https://d288slw6nyxep2.cloudfront.net/20260216-BerninaExpress/115114.jpg"]
-	],[3,[
+	],
+	[3,
 		[5, "text:Hello World"],
 		[5, "text:Hello Kitty"]
-	]]
-],[	"https://www.youtube.com/watch?v=7kCb_aV3RGg"
-	[0,[
+	]
+],
+[ "https://www.youtube.com/watch?v=7kCb_aV3RGg",
+	[0,
 		[10, "html:&lt;span style='background:white;'&gt;Youtube Video&lt;/span&gt;"],
 		[0, "html:&lt;span style='background:white;'&gt;Paused&lt;/span&gt;"]
-	]]
+	]
 ]
 ]</textarea>
-<!--
-	<div data-c="foreach:" data-v="data:media:m"/>
-		<div data-c="foreach:s" data-v="data:ts:ts">
-			<div data-v="data:dur:dur;html:html;style:style"></div>
-		</div>
-	</div>
--->
 </div>
 </section>
 
-<div data-def='template:PlayMedia' class='fill'>
+<!--div data-def='template:PlayMedia' class='fill'>
 	<div data-xl='media' class='fill'>
 		<div data-c="repeat:Ms" data-v="data:media:media"></div>
 	</div>
@@ -71,7 +65,7 @@
 ]}</textarea>
 </button>
 </div>
-</section>
+</section-->
 
 </div></main></body>
 </html>

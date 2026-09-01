@@ -722,9 +722,9 @@ class Player
 			this.DB[n] = new this.CDB[cn] (...a);
 		}
 		resolve (n, ...a) {
-			return n in this.DB ?
-			this.DB[n] : n in this.CDB ?
-			new this.CDB[n] (...a) : a ;
+			return n in this.DB ? this.DB[n] :
+				n in this.CDB ? new this.CDB[n] (...a) :
+				a[0]; 
 		}
 /*
 		async sync (n, payload) {
