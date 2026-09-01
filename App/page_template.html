@@ -39,23 +39,23 @@
 </section>
 
 <div data-def='template:資料模板'>
-	<div>標題: <b data-v="text:標題"></b></div>
+	<div style='color:blue'>標題: <b data-v="text:標題"></b></div>
 	<div>訊息: <b data-v="text:訊息"></b></div>
 </div>
 
 <section class='page col'>
 <h2>模板 - 資料帶入</h2>
 <data class='fill'>
-<div data-xl='template:資料模板' data-def='data'>
+<div data-xl='template:資料模板'>
 	<textarea data-v='value:doc'>{"標題":"1","訊息":"使用 data-v 指定將對應變數填入的方式"}</textarea>
 </div>
-<div data-xl='template:資料模板' data-def='data'>
+<div data-xl='template:資料模板'>
 	<textarea data-v='value:doc'>{"標題":"2","訊息":"text:變數名 - 節點.textContent = 資料[變數名]"}</textarea>
 </div>
-<div data-xl='template:資料模板' data-def='data'>
+<div data-xl='template:資料模板'>
 	<textarea data-v='value:doc'>{"標題":"3","訊息":"value:變數名 - 節點.value = 資料[變數名]"}</textarea>
 </div>
-<div data-xl='template:資料模板' data-def='data'>
+<div data-xl='template:資料模板'>
 	<textarea data-v='value:doc'>{"標題":"4","訊息":"data:參數名:變數名 - 節點.dataset[參數名] = 資料[變數名]"}</textarea>
 </div>
 </div>
@@ -66,8 +66,8 @@
 	<!-- 串列成員將依序填入子節點 data-v 指定的位置 -->
 	<div data-v='text:表格名稱' style='text-align:center'></div>
 	<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
-		<tbody>
-			<tr data-c='repeat:串列名稱'>
+		<tbody data-c='forEach:串列名稱'>
+			<tr>
 				<th data-v="text:項目名稱"></th>
 				<td data-v="text:項目數值" align='center'></td>
 			</tr>

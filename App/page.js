@@ -129,20 +129,11 @@ class Content
 				// 樣板資料填入
 				if ("string" === typeof(name))	name = Apps.Ns.get(name);
 				if (name instanceof Element)	name = new Apps.Template(name);
-				while(elem.firstChild) elem.removeChild(elem.firstChild);
-				name = await name.put(buf||{});
-				while(name.firstChild) elem.appendChild(name.firstChild);
-/*
-				// 顯示元件置換
-				console.log('ZZZZZZZZZZZZZZZZZZ',elem,name);
-				//Apps.E(elem).replace(name);
-				elem.appendChild(name);
-				console.log(name);
+				await name.put(elem, buf||{});
 				// 擴充模組驅動
 				Promise.all(
 					Array.from(slide.E.querySelectorAll('[data-xl]')).map((xe) => slide.prepare(xe))
 				).then(()=>0, ()=>0);
-*/
 			}
 		};
 
@@ -492,7 +483,7 @@ class Player
 				}
 				return rs;
 			}, "")+"</ol>";
-		})(this.GC.querySelector('[data-uid="Overlay"] aside')); // }}}
+		})(this.GC.querySelector('#overlay aside')); // }}}
 	}	// init
 
 	// Settings Utility
@@ -542,13 +533,13 @@ class Player
 	get Controls ()		{ return this.Settings.Controls[0].value; }
 	set Overlay (v)
 	{
-		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
+		const CL=this.GC.querySelector('#overlay').classList;
 		CL.remove('menu','dialog');
 		for (let key of ['menu','dialog']) if (key===v) CL.add(key);
 	}
 	get Overlay ()
 	{
-		const CL=this.GC.querySelector('[data-uid="Overlay"]').classList;
+		const CL=this.GC.querySelector('#overlay').classList;
 		return CL.contains('menu') ? 'menu' : CL.contains('dialog') ? 'dialog' : undefined;
 	}
 
@@ -669,34 +660,32 @@ class Player
 
 	_EH_ (evt)
 	{
-		try {
-			for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
-				if (e && e.dataset && e.dataset.h) {
-					let args = Apps.splitArgs(e.dataset.h,':'), cmd = args.shift();
-					args = args.map((a)=>{
-						switch (a) {
-						case '&this': return e;
-						case '&text': return e.textContent;
-						case '&value': return e.value;
-						case '&target': return evt.target;
-						case '&event': return evt;
-						default: return a; }
-					});
-					if (cmd in this && 'function' === typeof(this[cmd])) {
-						this[cmd](...args);
-					} else continue;
-					evt.stopPropagation();
-					// evt.preventDefault(); // default handler essential to change events
-					break;
-				}
-				if (e && e.tagName==='SECTION' && e.id) {
-					((pn)=>{
-						if (pn>=0) this.PageNumber=(pn+1);
-					})(this.Content.indexOf(e.id));
-					break;
-				}
+		for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
+			if (e && e.dataset && e.dataset.h) {
+				let args = Apps.splitArgs(e.dataset.h,':'), cmd = args.shift();
+				args = args.map((a)=>{
+					switch (a) {
+					case '&this': return e;
+					case '&text': return e.textContent;
+					case '&value': return e.value;
+					case '&target': return evt.target;
+					case '&event': return evt;
+					default: return a; }
+				});
+				if (cmd in this && 'function' === typeof(this[cmd])) {
+					this[cmd](...args);
+				} else continue;
+				evt.stopPropagation();
+				// evt.preventDefault(); // default handler essential to change events
+				break;
 			}
-		} catch(x) { console.log("Exception:",x); }
+			if (e && e.tagName==='SECTION' && e.id) {
+				((pn)=>{
+					if (pn>=0) this.PageNumber=(pn+1);
+				})(this.Content.indexOf(e.id));
+				break;
+			}
+		}
 	}
 
 	_KH_ (evt)
@@ -748,25 +737,18 @@ class Player
 		}
 	};	// Data }}}
 
-	Apps.Template = class extends Apps.E.Class
-	{	// {{{
-		async put (doc) // doc:DOC Object
-		{	// write DOC to template Element {{{
-			super.put(doc);
-			return this.E;
-		}	// }}}
-		async get ()
-		{	// read DOC from template Element {{{
-			let rd={};
-			return rd;
-		}	// }}}
-	};	// Template }}}
-
 	Apps.Ns = new (class {
 		// Named Object Database {{{
 		constructor () {
 			this.CDB = {
-				template: Apps.Template,
+				template: class {
+					constructor (e) { this.Temp = e.innerHTML; }
+					async put (e,d) {
+						e.innerHTML = this.Temp;
+						await Apps.E(e).put(d);
+						return e;
+					}
+				},
 				data: Apps.Data
 			},
 			this.DB = {
