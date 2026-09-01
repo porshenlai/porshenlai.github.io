@@ -129,7 +129,7 @@ class D {
 	// new D({"A":{"a":123},"B":456}); {{{
 	constructor (d) {
 		if (d instanceof Element) d = (new E(d)).get();
-		if ('string'===typeof(d)) d=JSON.parse(d);
+		if ('string'===typeof(d)) d=JSON.parse(d||'{}');
 		this.D = d;
 	}	// }}}
 	// d.get("A.a") => 123 {{{

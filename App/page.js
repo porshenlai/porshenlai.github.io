@@ -93,43 +93,23 @@ class Content
 		this.PageIndex = [];
 
 		this.Xs={
-			template:async function (slide, elem, name, buf)
+			template: async function (slide, elem, temp, data)
 			{
 				if (elem.classList.contains('resolved')) return;
 				elem.classList.add('resolved');
-
-				[name,buf] = [name,buf].map((v)=>(!v || v==='&this') ? elem : v);
-
-				if ("string" === typeof(buf))	buf = Apps.Ns.resolve(buf);
-				if (buf instanceof Element)		buf = Apps.Ns.resolve('data',buf);
-				buf = await buf.get();
-				if (buf instanceof Element) {
-					buf = await new Promise((or,oe)=>{
-						Apps.E(elem).replace(buf);
-						elem=buf;
-						elem.addEventListener('click',(evt)=>{
-							let e=Apps.E(evt.target).trace('[data-h]');
-							if (e) switch (e.dataset.h) {
-							case 'submit':
-								(async ()=>{
-									let d = await Apps.Ns.resolve('template',elem).get(),
-										f = await Apps.Ns.resolve('template', e).get();
-									for (let k in f)
-										f[k]=f[k].split('${').reduce((r,v)=>{
-											if (!r.length) return v;
-											let i=/([^}]+)}(.*)/.exec(v);
-											return i ? r+d[i[1]]+i[2] : r+v;
-										},"");
-									or(Apps.fetch(f));
-								})(); break;
-							}
-						});
-					});
+				// 檢索參數
+				const I={'template':temp||elem,'data':data||elem};
+				for (let k in I) {
+					if (!I[k] || I[k] === '&this') I[k] = elem;
+					I[k] = 'string' === typeof(I[k]) ? Apps.Ns.resolve(I[k])
+						 : I[k] instanceof Element ? Apps.Ns.resolve(k,I[k]) : I[k] ;
 				}
+				[temp,data] = [I.template, I.data];
+				// 取得資料
+				data = await data.get();
 				// 樣板資料填入
-				if ("string" === typeof(name))	name = Apps.Ns.resolve(name);
-				if (name instanceof Element)	name = Apps.Ns.resolve('template',name);
-				await name.put(elem, buf||{});
+				await temp.put(elem, data);
+
 				// 擴充模組驅動
 				Promise.all(
 					Array.from(slide.E.querySelectorAll('[data-xl]')).map((xe) => slide.prepare(xe))
@@ -718,30 +698,19 @@ class Player
 						return e;
 					}
 				},
-				data: class extends Apps.E.Class {
+				data: class {
 					constructor (re) {
-						super(Apps.E(re).query('[data-def="data"]')||re);
-					}
-					async createRequest () {
-						const doc = Apps.E(this.E).get();
-						try {
-							doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
-						} catch(x) { }
-						return doc;
-					}
-					async get ()
-					{	// read DOC from data Source
-						let doc = await this.createRequest(), od = {};
-						for (let k in doc)
-							if (k==='get'||k==='post') od.url=doc[k]; else od[k]=doc[k];
-						if (od.url) this.URL = od.url;
-						let r = await Apps.D(od).request(); // ?? base 
-
-						if ((!r) && this.E.querySelector('[data-h="submit"]')) {
-							r = this.E.cloneNode(true);
-							delete r.dataset.def;
+						re = Apps.E(re).query('[data-def="data"]') || re;
+						this.D = Apps.E(re).get();
+						if (this.D.url) {
+							let rb = Apps.E(re).trace('section');
+							this.RBase = Apps.R((rb && rb.dataset.rbase) ? {"url":rb.dataset.rbase} : undefined);
 						}
-						return r;
+					}
+					async get () {
+						return this.D.url ? await this.RBase.resolve(this.D.url).fetch(this.D.payload)
+							: this.D.doc ? JSON.parse(this.D.doc)
+							: (this.D.raw || "");
 					}
 				}
 			},
@@ -757,6 +726,7 @@ class Player
 			this.DB[n] : n in this.CDB ?
 			new this.CDB[n] (...a) : a ;
 		}
+/*
 		async sync (n, payload) {
 			return await ( n in this.DB ?
 				this.DB[n].get() :
@@ -764,6 +734,7 @@ class Player
 			);
 		}
 		getClass (n, dft) { return this.CDB[n] || dft; }
+*/
 		// }}}
 	})();
 
