@@ -100,8 +100,8 @@ class Content
 
 				[name,buf] = [name,buf].map((v)=>(!v || v==='&this') ? elem : v);
 
-				if ("string" === typeof(buf))	buf = Apps.Ns.get(buf);
-				if (buf instanceof Element)		buf = Apps.Ns.create('data',buf);
+				if ("string" === typeof(buf))	buf = Apps.Ns.resolve(buf);
+				if (buf instanceof Element)		buf = Apps.Ns.resolve('data',buf);
 				buf = await buf.get();
 				if (buf instanceof Element) {
 					buf = await new Promise((or,oe)=>{
@@ -112,8 +112,8 @@ class Content
 							if (e) switch (e.dataset.h) {
 							case 'submit':
 								(async ()=>{
-									let d = await Apps.Ns.create('template', elem).get(),
-										f = await Apps.Ns.create('template', e).get();
+									let d = await Apps.Ns.resolve('template',elem).get(),
+										f = await Apps.Ns.resolve('template', e).get();
 									for (let k in f)
 										f[k]=f[k].split('${').reduce((r,v)=>{
 											if (!r.length) return v;
@@ -127,8 +127,8 @@ class Content
 					});
 				}
 				// 樣板資料填入
-				if ("string" === typeof(name))	name = Apps.Ns.get(name);
-				if (name instanceof Element)	name = new Apps.Template(name);
+				if ("string" === typeof(name))	name = Apps.Ns.resolve(name);
+				if (name instanceof Element)	name = Apps.Ns.resolve('template',name);
 				await name.put(elem, buf||{});
 				// 擴充模組驅動
 				Promise.all(
@@ -152,7 +152,7 @@ class Content
 		Apps.E(doc).forEach('[data-def]', (e) => {
 			Apps.handleArgs(e.dataset.def, (cs, key) => {
 				if (!key) return
-				Apps.Ns.reg(key, Apps.Ns.create(cs,e));
+				Apps.Ns.register(key, cs, e);
 				e.parentNode.removeChild(e);
 			});
 		}); // declare template and data
@@ -356,7 +356,7 @@ class Player
 			for (let e of Array.from(from.querySelectorAll('section'))) {
 				if (e.dataset.def==='data') {
 					// import external html sections
-					const D = new Apps.Data(e);
+					const D = Apps.Ns.resolve('data',e);
 					let db = (await D.get()).body;
 					if (db) {
 						if (D.URL) Apps.changeRoot(db, D.URL);
@@ -706,37 +706,6 @@ class Player
 (async (Ps)=>{
 	Object.assign(Apps, await Ps);
 
-	Apps.Data = class extends Apps.E.Class
-	{	// {{{
-		constructor (re) {
-			super(Apps.E(re).query('[data-def="data"]')||re);
-		}
-		async createRequest () {
-			const doc = Apps.E(this.E).get();
-			try {
-				doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
-			} catch(x) { }
-			return doc;
-		}
-		async put (doc) // doc:DOC Object
-		{	// write DOC to data source
-		}
-		async get ()
-		{	// read DOC from data Source
-			let doc = await this.createRequest(), od = {};
-			for (let k in doc)
-				if (k==='get'||k==='post') od.url=doc[k]; else od[k]=doc[k];
-			if (od.url) this.URL = od.url;
-			let r = await Apps.D(od).request(); // ?? base 
-
-			if ((!r) && this.E.querySelector('[data-h="submit"]')) {
-				r = this.E.cloneNode(true);
-				delete r.dataset.def;
-			}
-			return r;
-		}
-	};	// Data }}}
-
 	Apps.Ns = new (class {
 		// Named Object Database {{{
 		constructor () {
@@ -749,15 +718,45 @@ class Player
 						return e;
 					}
 				},
-				data: Apps.Data
+				data: class extends Apps.E.Class {
+					constructor (re) {
+						super(Apps.E(re).query('[data-def="data"]')||re);
+					}
+					async createRequest () {
+						const doc = Apps.E(this.E).get();
+						try {
+							doc.rbase=JSON.parse(Apps.E(this.E).trace('section').dataset.rbase);
+						} catch(x) { }
+						return doc;
+					}
+					async get ()
+					{	// read DOC from data Source
+						let doc = await this.createRequest(), od = {};
+						for (let k in doc)
+							if (k==='get'||k==='post') od.url=doc[k]; else od[k]=doc[k];
+						if (od.url) this.URL = od.url;
+						let r = await Apps.D(od).request(); // ?? base 
+
+						if ((!r) && this.E.querySelector('[data-h="submit"]')) {
+							r = this.E.cloneNode(true);
+							delete r.dataset.def;
+						}
+						return r;
+					}
+				}
 			},
 			this.DB = {
 				"MView": Apps.E(`<div class='fill'><div data-xl='media' class='fill'><div data-v='data:media:media'></div></div></div>`).E
 			};
 		}
-		reg (n, o) { this.DB[n]=o; }
-		create (cn, a) { return new (this.CDB[cn])(a); }
-		get (n, dft) { return this.DB[n] || dft; }
+		register (n, cn, ...a) {
+			this.DB[n] = new this.CDB[cn] (...a);
+		}
+		resolve (n, ...a) {
+			return n in this.DB ?
+			this.DB[n] : n in this.CDB ?
+			new this.CDB[n] (...a) : a ;
+		}
 		async sync (n, payload) {
 			return await ( n in this.DB ?
 				this.DB[n].get() :
@@ -773,7 +772,6 @@ class Player
 })(Apps.loadScript(Apps.JSPrefix+"piers.js"));
 
 document.addEventListener('DOMContentLoaded', async () => {
-	// {{{
 	await Apps.Ready;
 
 	Apps.Player = new Player();
@@ -787,12 +785,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 		Apps.Player.Content.PageNumber = 'refresh';
 	});
 
-	let timer=setInterval(()=>{
-		const cp=Apps.Player.Content.CurPage;
-		if (cp && cp.tick) cp.tick(true);
-	},500);
+	if (!Apps.Timer)
+		Apps.Timer = setInterval(()=>{
+			const cp=Apps.Player.Content.CurPage;
+			if (cp && cp.tick) cp.tick(true);
+		},500);
+
 	document.body.style.opacity='1';
-	// }}}
 });
 
 })(document.currentScript);
