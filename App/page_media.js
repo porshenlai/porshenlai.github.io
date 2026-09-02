@@ -76,6 +76,7 @@ class MediaItem
 	static loadConfig (cfg)
 	{	// [ 媒體URL, ...MediaShot] 
 		let r=document.createElement("div");
+		if (!Array.isArray(cfg)) cfg=[cfg];
 		r.dataset.media=cfg.shift();
 		for (let s of cfg)
 			r.appendChild(MediaShot.loadConfig(s));
@@ -325,21 +326,10 @@ class MediaList {
 	static loadConfig (cfg)
 	{	// [ ...MediaItem ] 
 		let r=document.createElement("div");
-		for (let i of cfg)
+		for (let i of Array.isArray(cfg) ? cfg : cfg.split(';').filter((v)=>v))
 			r.appendChild(MediaItem.loadConfig(i))
-		console.log("DEBUG",r);
 		return r;
 	}
-/*
-	static invoke (e, ...a) {
-		// {{{
-		e.dispatchEvent(((evt) => {
-			evt.initEvent("invokeHandler", true, true);
-			evt.args = a;
-			return evt;
-		})(document.createEvent("Event")));
-	}	// }}}
-*/
 	constructor (e, rb)
 	{ // {{{
 		this.E = e;
@@ -432,10 +422,12 @@ SCRIPT.value=async function (slide, elem, data) {
 	const rbase = slide.E.querySelector('section.current:not(.disabled)').dataset.rbase;
 	if (elem.classList.contains('resolved')) return;
 	elem.classList.add('resolved');
-
 	if (!data || data==='&this') data=elem;
 	let D = Apps.Ns.resolve('data',elem);
-	data = await D.get();
+	try {
+		data = await D.get();
+	} catch(x) { console.log("ERROR",x); }
+	console.log("Data is ",data);
 	if (data) {
 		while(elem.firstChild) elem.removeChild(elem.firstChild);
 		elem.appendChild(MediaList.loadConfig(data));
