@@ -96,7 +96,7 @@ class E {
 			for (let i of (new E(e)).dfs((e)=>e.matches('[data-c]') ? 1 : e.matches('[data-v]'))) {
 				if (i.dataset.v) for (let cn of i.dataset.v.split(';')) {
 					cn = cn.split(':');
-					write(i, val.get(cn.pop()), cn)
+					write(i, cn.length<2 ? val.D : val.get(cn.pop()), cn)
 				}
 				if (i.dataset.c) {
 					const a=i.dataset.c.split(':'), t=a.shift() ;
