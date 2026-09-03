@@ -192,6 +192,13 @@ class R {
 		u.pathname = src.startsWith('/') ? src : (u.pathname.replace(/[^\/]*$/,'')+src);
 		return new R(u);
 	}	// }}}
+	// url base string = getUB() {{{
+	getUB () {
+		let u = this.A.url,p;
+		if ('string'===typeof(u)) u = URL.parse(u);
+		p = u.pathname.split('/'); p.pop(); p = p.join('/');
+		return u.origin+p+'/';
+	}	// }}}
 	// {} | <> | "" = await 網址R.fetch(籌載) {{{
 	async fetch (payload) {
 		if (this.A.raw||this.A.doc) return this.A.raw||this.A.doc;

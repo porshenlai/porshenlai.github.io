@@ -120,8 +120,7 @@ class Content
 		Apps.E('<link rel="stylesheet" href="/App/page.css"></link>').join(document.head);
 	}	// }}}
 
-	install (doc, filters) { // doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
-							 // filter: [ ...[...COND] ]
+	install (doc, bfe) { // doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
 		// 安裝待顯示的頁面 <...section> {{{ 
 
 		// 使用者介面輸入資料前處理
@@ -148,10 +147,11 @@ class Content
 
 			// ensure all sections has ID for location
 			if (!se.id) se.id=`__${k}__`;
-			E.appendChild(se);
+			E.insertBefore(se,bfe);
+			console.log("DEBUG",E);
 
 			// filtering sections
-			if (filters.matches(ks)) {
+			if (true/*this.Filters.matches(ks)*/) {
 				se.classList.remove('disabled');
 				PageIndex.push(se.id);
 			} else se.classList.add('disabled');
@@ -171,8 +171,8 @@ class Content
 
 	}	// }}}
 
-	installSections (doc, before) {
-		console.log("INSTALL",doc);
+	updateTOC () {
+		console.log("TODO");
 	}
 
 	async prepare (e, mn, args)
@@ -370,7 +370,7 @@ class Player
 			// 建立頁面管理物件
 			this.Filters = new KeyFilter(args.s)
 			this.Content = new Content(c);
-			this.Content.install(pages, this.Filters); // 安裝頁面
+			this.Content.install(pages); // 安裝頁面
 
 			this.Keywords = this.Content.Keywords;
 			this.PageCount = this.Content.PageIndex.length;
@@ -538,15 +538,6 @@ class Player
 	go (target, dft_url)
 	{
 		try { return this.PageNumber=target; } catch(x) { if (dft_url) location.replace(dft_url); }
-	}
-
-	async submit ()
-	{
-		let de = new Apps.NT.data(Apps.E(event.target).trace('section')),
-			doc = await de.createRequest();
-		if (doc.fget) doc.get = doc.fget; // TODO
-		doc = await Apps.fetch(doc);
-		this.Content.installSections(doc, de);
 	}
 
 	sw (TK)
