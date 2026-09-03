@@ -129,23 +129,28 @@ class D {
 	// new D({"A":{"a":123},"B":456}); {{{
 	constructor (d) {
 		if (d instanceof Element) d = (new E(d)).get();
-		if ('string'===typeof(d)) d=JSON.parse(d||'{}');
+		try {
+			if ('string'===typeof(d)) d=JSON.parse(d||'{}');
+		} catch(x) {};
 		this.D = d;
 	}	// }}}
 	// d.get("A.a") => 123 {{{
 	get (p) {
+		if (!p) return this.D;
 		let nv = {},
-				rv = (Array.isArray(p) ? p : p.split('.'))
-					.filter((n)=>n)
-					.reduce((d,n)=>n in d ? d[n] : nv,this.D);
+			rv = (Array.isArray(p) ? p : p.split('.'))
+				.filter((n)=>n)
+				.reduce((d,n)=>n in d ? d[n] : nv,this.D);
 		return rv!==nv ? rv : undefined;
 	}	// }}}
 	// d.put("A.a",999) {{{
 	put (p,v) {
-		p = (Array.isArray(p) ? p : p.split('.')).filter((n)=>n);
-		let n = p.pop(),
-			d = p.reduce((d,n)=> { if (!(n in d)) d[n] = {}; return d[n]; }, this.D);
-		d[n] = v;
+		if (p) {
+			p = (Array.isArray(p) ? p : p.split('.')).filter((n)=>n);
+			let n = p.pop(),
+				d = p.reduce((d,n)=> { if (!(n in d)) d[n] = {}; return d[n]; }, this.D);
+			d[n] = v;
+		} else this.D = v;
 	}	// }}}
 	// toString() => JSON string {{{
 	toString () {
