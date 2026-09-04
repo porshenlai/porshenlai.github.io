@@ -95,8 +95,8 @@
 			<div data-v='text:輔導競賽'></div>
 			<div class='red' style='font-size:50%'>參加競賽將得到期末專題優惠</div>
 		</td></tr>
-		<tr><th>成績比率:</th><td>
-			<div data-c='foreach:成績比率'>
+		<tr><th>成績比率:</th><td data-c='kvs:成績比率'>
+			<div>
 				<span data-v='text:_k_'></span>
 				<span data-v='text:_v_'></span>
 			</div>
@@ -106,19 +106,21 @@
 
 <section data-xl='template:&this:Info'>
 	<h2>課程簡介</h2>
-	<div class='frame' data-c='forEach:課程簡介'>
-		<p data-v='text'></p>
+	<div class='frame' data-c='ss:課程簡介'>
+		<p data-v='text:_v_'></p>
 	</div>
-	<div class='frame' data-c='forEach:Brief Introduction'>
-		<p data-v='text'></p>
+	<div class='frame' data-c='ss:Brief Introduction'>
+		<p data-v='text:_v_'></p>
 	</div>
 </section>
 
 <section data-xl='template:&this:Info'>
 	<h2>課程規劃</h2>
-	<table align='center' class='nvtable' width='95%'><tbody>
-		<tr data-c='foreach:行事曆'><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
-	</tbody></table>
+	<table align='center' class='nvtable' width='95%'>
+		<tbody data-c='kvs:行事曆'>
+			<tr><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
+		</tbody>
+	</table>
 </section>
 
 </div></main></body>

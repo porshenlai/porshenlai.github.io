@@ -100,12 +100,21 @@ class E {
 				}
 				if (i.dataset.c) {
 					const a=i.dataset.c.split(':'), t=a.shift() ;
-					if (t === 'forEach') {
-						i.template=((te)=>{
-							while (i.firstChild) te.appendChild(i.firstChild);
-							return te;
-						})(document.createElement("div"));
-						val.get(a.pop()).forEach((v,x) => {
+					i.template=((te)=>{
+						while (i.firstChild) te.appendChild(i.firstChild);
+						return te;
+					})(document.createElement("div"));
+					let v = val.get(a.pop());
+					if (t === 'kvs') {
+						let r=[],k;
+						for(k in v)
+							r.push( 'object' === typeof(val[k])
+								? Object.assign({_k_:k},val[k])
+								: {_k_:k,_v_:v[k]} ) ;
+						v = r;
+					} else if (t === 'ss') v = Array.isArray(v) ? v.map((s)=>({_v_:s})) : [v];
+					if(v)
+						v.forEach((v,x) => {
 							const te = i.template.cloneNode(true);
 							writeAll(te, new D(v));
 							while (te.firstChild) if(te.firstChild.nodeType===1) {
@@ -113,7 +122,6 @@ class E {
 								i.appendChild(te.firstChild);
 							} else te.removeChild(te.firstChild);
 						});
-					}
 				}
 			}
 		};

@@ -148,7 +148,6 @@ class Content
 			// ensure all sections has ID for location
 			if (!se.id) se.id=`__${k}__`;
 			E.insertBefore(se,bfe);
-			console.log("DEBUG",E);
 
 			// filtering sections
 			if (true/*this.Filters.matches(ks)*/) {
