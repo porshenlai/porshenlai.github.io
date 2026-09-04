@@ -112,7 +112,7 @@ class Content
 
 				// 擴充模組驅動
 				Promise.all(
-					Array.from(slide.E.querySelectorAll('[data-xl]')).map((xe) => slide.prepare(xe))
+					Array.from(elem.querySelectorAll('[data-xl]')).map((xe) => slide.prepare(xe))
 				).then(()=>0, ()=>0);
 			}
 		};
@@ -120,9 +120,8 @@ class Content
 		Apps.E('<link rel="stylesheet" href="/App/page.css"></link>').join(document.head);
 	}	// }}}
 
-	install (doc, bfe) { // doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
-		// 安裝待顯示的頁面 <...section> {{{ 
-
+	install (doc, bfe)	// doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
+	{	// 安裝待顯示的頁面 <...section> {{{ 
 		// 使用者介面輸入資料前處理
 		if (Apps.before_load)
 			Apps.before_load(this, doc);
@@ -137,25 +136,30 @@ class Content
 		}); // declare template and data
 
 		// 根據過濾器安裝要求的頁面
-		let ksmap={};
-		let PageIndex=[];
+		let ksmap={}; // TODO inherit from this.Keywords
 		Array.from(doc.querySelectorAll('section'))
 		.reduce((E, se, k) => {
 			// Organize keywords from data-ks 
 			const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
 			ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
 
-			// ensure all sections has ID for location
-			if (!se.id) se.id=`__${k}__`;
-			E.insertBefore(se,bfe);
+			E.insertBefore(se, bfe);
 
 			// filtering sections
 			if (true/*this.Filters.matches(ks)*/) {
 				se.classList.remove('disabled');
-				PageIndex.push(se.id);
 			} else se.classList.add('disabled');
 			return E;
 		}, this.E);
+
+		if (bfe) bfe.parentNode.removeChild(bfe);
+
+		let PageIndex=[];
+		Array.from(this.E.querySelectorAll('section:not(.disabled)'))
+		.forEach((se,k) => { // ensure all sections has ID for location
+			if ((!se.id)||/__.*__/.exec(se.id)) se.id=`__${k}__`;
+			PageIndex.push(se.id);
+		});
 		this.Keywords=Object.keys(ksmap);
 		this.PageIndex=PageIndex;
 
@@ -167,7 +171,6 @@ class Content
 			if (Apps.after_load) // after_load for Page override
 				Apps.after_load(this);
 		}, console.log);
-
 	}	// }}}
 
 	updateTOC () {
@@ -326,6 +329,17 @@ class Player
 		};
 	}	// constructor
 
+	async sync (pages) {
+		this.Content.install(pages, this.Content.CurPage); // 安裝頁面
+
+		this.Keywords = this.Content.Keywords;
+		this.PageCount = this.Content.PageIndex.length;
+		this.PageNumber = location.hash ? (this.Content.indexOf(decodeURI(location.hash).substr(1))+1) : 1;
+		this.FontScale = this.Settings.FontScale[0].value;
+		this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
+		this.Content.E.querySelector('#'+this.Content.PageIndex[this.PageNumber-1]).click();
+	}
+
 	async init (args)
 	{	// init
 		const pages = await (async function _cp_ (from, docs=document.createElement("div")) {
@@ -369,13 +383,7 @@ class Player
 			// 建立頁面管理物件
 			this.Filters = new KeyFilter(args.s)
 			this.Content = new Content(c);
-			this.Content.install(pages); // 安裝頁面
-
-			this.Keywords = this.Content.Keywords;
-			this.PageCount = this.Content.PageIndex.length;
-			this.PageNumber = location.hash ? (this.Content.indexOf(decodeURI(location.hash).substr(1))+1) : 1;
-			this.FontScale = this.Settings.FontScale[0].value;
-			this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
+			this.sync(pages);
 
 			await (async (flags, plugins)=>{
 				// 安裝輔助工具 
