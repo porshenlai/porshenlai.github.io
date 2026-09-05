@@ -60,7 +60,7 @@ changeRoot: function (doc, url)
 		(e)=>e.setAttribute("href",rn(e.getAttribute("href")))
 	);
 	Array.from(doc.querySelectorAll('section')).forEach(
-		(e)=>e.dataset.rbase=JSON.stringify([url.origin,url.pathname])
+		(e)=>(e.dataset.rbase=url.href)
 	);
 }	// change root }}}
 
@@ -702,7 +702,8 @@ class Player
 						this.D = Apps.E(re).get();
 						if (this.D.url) {
 							let rb = Apps.E(re).trace('section');
-							this.RBase = Apps.R((rb && rb.dataset.rbase) ? {"url":rb.dataset.rbase} : undefined);
+							this.RBase = Apps.R( (rb && rb.dataset.rbase)
+								? URL.parse(rb.dataset.rbase) : undefined );
 						}
 					}
 					async get () {

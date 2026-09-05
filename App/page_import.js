@@ -8,10 +8,9 @@ SCRIPT.value=async function (slide, elem, url) {
 		// TODO
 		console.log("TODO");
 	}
-
 	const
 		sp = Apps.E(elem).trace('section'),
-		ur = Apps.R(sp.rbase).resolve(url),
+		ur = Apps.R(URL.parse(sp.dataset.rbase)).resolve(url),
 		ps = (await ur.fetch()).body,
 		ns = [...ps.querySelectorAll('section')];
 	
