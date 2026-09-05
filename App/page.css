@@ -107,9 +107,9 @@ table.std th, table.std td { padding:2px 16px; border:1px solid black; }
 table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; }
 table.std>tbody th, table.std>tbody td { background:white; }
 
-.nvtable { border:1px solid black; padding:8px; }
-.nvtable th { border:0;padding:0 2px; text-align:right; vertical-align:middle; }
-.nvtable td { border:0;padding:0 4px; border-bottom:1px solid silver; text-align:left; vertical-align:top; }
+table.nvtable { border:1px solid black; padding:8px; }
+table.nvtable th { border:0;padding:0 2px; text-align:right; vertical-align:middle; }
+table.nvtable td { border:0;padding:0 4px; border-bottom:1px solid silver; text-align:left; vertical-align:top; }
 
 .cb { white-space: nowrap; padding-left:var(--base-indent); font-weight:bolder; overflow-x:auto; }
 .frame { margin:16px 4px; padding:8px; border:2px dashed silver; border-radius:8px; background:#F0FFF0; }
