@@ -173,12 +173,8 @@ class Content
 		}, console.log);
 	}	// }}}
 
-	updateTOC () {
-		console.log("TODO");
-	}
-
-	async prepare (e, mn, args)
-	{	// prepare module extended node < data-xl >, < data-x > or <> module_name, args {{{
+	async prepare (e, mn, args) // prepare x-module < data-xl >, < data-x > or <> module_name, args
+	{	// 準備 頁面延伸模組 {{{
 		if (!mn) {
 			args = (e.dataset.xl || e.dataset.x).split(':');
 			mn = args.shift();
@@ -236,8 +232,8 @@ class Content
 		}
 		let em=this.find(this.PageIndex[pn-1]);
 		ASSERT(em, `Page not found (PN:${pn},v:${v})`);
-		if (force) em.classList.remove('current');
-		if (!em.classList.contains('current')) {
+		if (em && force) em.classList.remove('current');
+		if (em && !em.classList.contains('current')) {
 			// #. MOVE .current flag to new current
 			Array.from(this.E.querySelectorAll('section:not(.disabled).current'))
 			.forEach((e)=>{
@@ -316,8 +312,8 @@ class Content
 
 class Player
 {	// Content + ...輔助工具列 {{{
-	constructor () {
-		// ## 初始化設定變數
+	constructor ()
+	{ 	// ## 初始化設定變數 {{{
 		this.Settings = {
 			Controls:[{value:""}],
 			FontScale:[{value:1.0}],
@@ -327,9 +323,10 @@ class Player
 			PageNumber:[{value:0}],
 			PlayMode:[{value:2}]
 		};
-	}	// constructor
+	}	// constructor }}}
 
-	async sync (pages) {
+	async sync (pages)
+	{	// 頁面資料匯入更新同步 {{{
 		this.Content.install(pages, this.Content.CurPage); // 安裝頁面
 
 		this.Keywords = this.Content.Keywords;
@@ -338,11 +335,24 @@ class Player
 		this.FontScale = this.Settings.FontScale[0].value;
 		this.PlayMode = this.PlayMode || this.Settings.PlayMode[0].value;
 		this.Content.E.querySelector('#'+this.Content.PageIndex[this.PageNumber-1]).click();
-	}
+
+		const aside = this.GC.querySelector('#overlay aside')
+		// ## INSTALL TABLE of CONTENTS
+		aside.querySelector('[data-case="TOC"]').innerHTML=
+			"<ol>"+this.Content.Sections.reduce((rs, sec, idx) => {
+				let t=sec.querySelector('h1') || sec.querySelector('h2');
+				if (t) {
+					t=t.textContent;
+					rs+=`<li data-h="set:PageNumber:#${sec.id}">${t}</li>`;
+				}
+				return rs;
+			}, "")+"</ol>";
+	}	// }}}
 
 	async init (args)
 	{	// init
-		const pages = await (async function _cp_ (from, docs=document.createElement("div")) {
+		// 蒐集待安裝的頁面
+		const pages=await (async function _cp_ (from, docs=document.createElement("div")) {
 			Array.from(from.querySelectorAll('[data-def]')).forEach((e)=>{
 				if (e.dataset.def.indexOf(':')>0) docs.appendChild(e);
 			});
@@ -358,7 +368,7 @@ class Player
 				} else docs.appendChild(e);
 			}
 			return docs;
-		})(document.body); // ## 準備成員資料
+		})(document.body);
 
 		this.GC = await (async (e)=>{ // e: <main data-controls='aside,control'> 頁面容器
 			// 準備顯示畫面
@@ -383,7 +393,6 @@ class Player
 			// 建立頁面管理物件
 			this.Filters = new KeyFilter(args.s)
 			this.Content = new Content(c);
-			this.sync(pages);
 
 			await (async (flags, plugins)=>{
 				// 安裝輔助工具 
@@ -395,82 +404,73 @@ class Player
 					})(await Apps.R({url:"/App/page_control.html",cs:"#control"}).fetch());
 
 				const ol = Apps.E('<div id="overlay" data-h="set:Overlay:none"></div>','#overlay').E;
-				ol.appendChild(await Apps.R({url:"/App/page_dialog.html",cs:"#dialog"}).fetch());
-				if ('aside' in flags) // 準備 目錄與設定控制列
-					ol.appendChild(await Apps.R({url:'/App/page_aside.html',cs:'aside'}).fetch());
+				//ol.appendChild(await Apps.R({url:"/App/page_dialog.html",cs:"#dialog"}).fetch());
+				if ('aside' in flags) { // 準備 目錄與設定控制列
+					const aside = await Apps.R({url:'/App/page_aside.html',cs:'aside'}).fetch();
+					ol.appendChild(aside);
+					// ## 側板內容綁定 {{{
+					this.bindS('PageNumber', aside.querySelector('[data-uid="Aside:Pager"] input'));
+					this.bindS('PageNumber', aside.querySelector('[data-uid="Aside:Pager"] output'));
+					this.bindS('PageCount', aside.querySelector('[data-uid="Aside:Pager"] span'));
+					this.bindS('PageCount', new (class {
+						constructor (e)	{ this.E=e; }
+						set value (v)	{ this.E.setAttribute('max',parseInt(v)); }
+						get value ()	{ return this.E.getAttribute('max'); }
+					})(aside.querySelector('[data-uid="Aside:Pager"] input')));
+					this.bindS('FontScale', aside.querySelector('[data-uid="Settings:FontScale"] input'));
+					this.bindS('FontScale', aside.querySelector('[data-uid="Settings:FontScale"] output'));
+					this.bindS('Keywords', new (class {
+						constructor (e) { this.E=e; }
+						set value (v) {
+							this.E.innerHTML = v.reduce(
+								(r,k) => r+`<div><input type='checkbox'/>${k}</div>`, ''
+							) + "<span data-h='filter:add'>➕</span>";
+						}
+						get value () {
+							return Array.from(
+								this.E.querySelectorAll('input[type="checkbox"]')
+							).filter((e)=>e.checked)
+							.map((e)=>e.parentNode.textContent);
+						}
+					})(aside.querySelector('[data-uid="Settings:Keywords"]')));
+					this.bindS('Filters',new (class {
+						constructor (e) { this.E = e; }
+						set value (v) {
+							this.E.innerHTML = v.D.reduce((r,a) => r
+								+ "<div class='OR'>"
+								+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
+								+ "</div>",
+							"");
+						}
+						get value () {
+							return Array.from(
+								this.E.querySelectorAll("div")
+							).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
+						}
+					})(aside.querySelector('[data-uid="Settings:Filters"]')));
+					/*this.bindS('PlayMode', new (class {
+						constructor (e) {
+							this.EOs = Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]'));
+						}
+						set value (v)	{
+							this.EOs.forEach((e)=>
+								e.classList[e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove']('current'));
+						}
+						get value ()	{
+							return this.EOs.find((e)=>e.classList.contains('current'))
+							       .dataset.h.replace(/.*:/,'');
+						}
+					})(aside.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]')));*/
+					// }}}
+				}
 				e.appendChild(ol);
 			})( this.Controls.reduce((r,v)=>{ r[v]=true; return r; },{}), "" );
 			return e;
 		})(document.querySelector('main'));
-
 		document.body.insertBefore(this.GC, document.body.querySelector('footer'));
 
-		((A)=>{	// ## 側板內容綁定 {{{
-			if (!A) return;
-
-			this.bindS('PageNumber', A.querySelector('[data-uid="Aside:Pager"] input'));
-			this.bindS('PageNumber', A.querySelector('[data-uid="Aside:Pager"] output'));
-			this.bindS('PageCount', A.querySelector('[data-uid="Aside:Pager"] span'));
-			this.bindS('PageCount', new (class {
-				constructor (e)	{ this.E=e; }
-				set value (v)	{ this.E.setAttribute('max',parseInt(v)); }
-				get value ()	{ return this.E.getAttribute('max'); }
-			})(A.querySelector('[data-uid="Aside:Pager"] input')));
-/*
-			this.bindS('PlayMode', new (class {
-				constructor (e) { this.EOs = Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]')); }
-				set value (v)	{
-					this.EOs.forEach(
-						(e) => e.classList[e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove']('current')
-					);
-				}
-				get value ()	{
-					return this.EOs.find((e)=>e.classList.contains('current')).dataset.h.replace(/.*:/,'');
-				}
-			})(A.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]')));
-*/
-			this.bindS('FontScale', A.querySelector('[data-uid="Settings:FontScale"] input'));
-			this.bindS('FontScale', A.querySelector('[data-uid="Settings:FontScale"] output'));
-			this.bindS('Keywords', new (class {
-				constructor (e) { this.E=e; }
-				set value (v) {
-					this.E.innerHTML = v.reduce(
-						(r,k) => r+`<div><input type='checkbox'/>${k}</div>`, ''
-					) + "<span data-h='filter:add'>➕</span>";
-				}
-				get value () {
-					return Array.from(
-						this.E.querySelectorAll('input[type="checkbox"]')
-					).filter((e)=>e.checked)
-					.map((e)=>e.parentNode.textContent);
-				}
-			})(A.querySelector('[data-uid="Settings:Keywords"]')));
-			this.bindS('Filters',new (class {
-				constructor (e) { this.E = e; }
-				set value (v) {
-					this.E.innerHTML = v.D.reduce((r,a) => r
-						+ "<div class='OR'>"
-						+ a.reduce((r,v)=>r.push(v)&&r,[]).join('&amp;')
-						+ "</div>",
-					"");
-				}
-				get value () {
-					return Array.from(
-						this.E.querySelectorAll("div")
-					).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
-				}
-			})(A.querySelector('[data-uid="Settings:Filters"]')));
-			// ## INSTALL TABLE of CONTENTS
-			const TOC=A.querySelector('[data-case="TOC"]');
-			TOC.innerHTML="<ol>"+this.Content.Sections.reduce((rs, sec, idx) => {
-				let t=sec.querySelector('h1') || sec.querySelector('h2');
-				if (t) {
-					t=t.textContent;
-					rs+=`<li data-h="set:PageNumber:#${sec.id}">${t}</li>`;
-				}
-				return rs;
-			}, "")+"</ol>";
-		})(this.GC.querySelector('#overlay aside')); // }}}
+		// 安裝頁面內容
+		this.sync(pages);
 	}	// init
 
 	// Settings Utility
