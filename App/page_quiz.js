@@ -110,24 +110,21 @@ class Quiz
 
 	install (xe) {
 		if (undefined===xe._K_) xe._K_=`${new Date().getTime().toString(36)}${Object.keys(this.QEs).length}`;
-		if (xe._K_ in this.QEs) return;
+		if (xe._K_ in this.QEs) return this;
+
+		let args=(xe.dataset.xl||xe.dataset.x).split(':');
+		if (args[1]==='c') return this;
 
 		this.QEs[xe._K_]=xe;
 
 		// shuffle opotions
 		let te=[],pe=[];
 		Apps.E(xe).forEach('[data-o]',(oe)=>{
-			const we = document.createElement("div");
-			oe.parentNode.insertBefore(we,oe);
-			we._RN_=Math.random();
-			pe.push(we);
-			te.push(oe);
+			te.push([Math.random(),oe.outerHTML]);
+			pe.push(oe);
 		});
-		pe=pe.sort((a,b)=>a._RN_-b._RN_);
-		te.forEach((e,i)=>{
-			pe[i].parentNode.insertBefore(e, pe[i]);
-			pe[i].parentNode.removeChild(pe[i]);
-		});
+		te=te.sort((a,b)=>a[0]-b[0]);
+		pe.forEach((oe,ix)=>(oe.outerHTML=te[ix][1]));
 
 		if (!xe._Q_on_click_) {
 			xe._Q_on_click_=(evt)=>{
