@@ -26,6 +26,11 @@ body {
 .brown { color:brown; }
 .orange { color:orange; }
 .purple { color:purple; }
+.silver { color:silver; }
+.gold { color:gold; }
+
+.del { text-decoration:line-through; }
+.indent { padding-left:32px; }
 
 .hide,.disabled { display:none; }
 
