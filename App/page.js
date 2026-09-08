@@ -744,13 +744,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 		Apps.Player.FontScale = Apps.Player.FontScale;
 		Apps.Player.Content.PageNumber = 'refresh';
 	});
-/*
 	if (!Apps.Timer)
 		Apps.Timer = setInterval(()=>{
 			const cp=Apps.Player.Content.CurPage;
 			if (cp && cp.tick) cp.tick(true);
 		},500);
-*/
 	document.body.style.opacity='1';
 });
 
