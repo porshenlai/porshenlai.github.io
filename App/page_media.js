@@ -421,13 +421,14 @@ class MediaList {
 SCRIPT.value=async function (slide, elem, data) {
 	const rbase = slide.E.querySelector('section.current:not(.disabled)').dataset.rbase;
 	if (elem.classList.contains('resolved')) return;
-	elem.classList.add('resolved');
+	elem.classList.add('fill','resolved');
 	if (!data || data==='&this') data=elem;
-	let D = Apps.Ns.resolve('data',elem);
-	try {
-		data = await D.get();
-	} catch(x) { console.log("ERROR",x); }
-	console.log("Data is ",data);
+	if (data instanceof Element) {
+		let D = Apps.Ns.resolve('data',data);
+		try {
+			data = await D.get();
+		} catch(x) { console.log("ERROR",x); }
+	}
 	if (data) {
 		while(elem.firstChild) elem.removeChild(elem.firstChild);
 		elem.appendChild(MediaList.loadConfig(data));

@@ -40,15 +40,88 @@ table small { color:#666; }
 .QMix { display:flex;overflow:auto;align-items:center; }
 </style>
 
-<section data-ks='P_FC'><h2>條件式</h2><!--{{{-->
+<section class='page'>
+	<div class='fill col'>
+		<div class='h1 ac'>Python - Flow Control<br/>程式流程控制</div>
+		<br/>
+		<div class='frame'>
+			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+			<div style="text-align:right">2026, Summer</div>
+		</div>
+	</div>
+</section>
+
+<section data-ks='P_FC'>
+	<h2>條件分支 Conditional Branch</h2><!--{{{-->
+	<div class='ar'>
+		<style>
+			[data-id="IfTable"] { text-align:left; margin:auto; border:0; }
+			[data-id="IfTable"] td { border-bottom:1px solid black; padding:0px 6px; }
+			[data-step] div { display:none; }
+			[data-step="0"] .s0, [data-step="1"] .s1, [data-step="2"] .s2,
+			[data-step="3"] .s3, [data-step="4"] .s4 { display:inline; }
+		</style>
+		<table data-id='IfTable' data-step='0' width='90%'><tbody><tr>
+			<td></td>
+			<td><div class='s0 s1 s2'>如果</div>
+				<div class='s3'>if</div>
+				<div class='s4'>if</div></td>
+			<td><div class='s0 s1 s2'>帶超過一百元</div>
+				<div class='s3'>having more than 100 dollars</div>
+				<div class='s4'>dollars &gt;= 100</div></td>
+			<td><div class='s0 s1 s2'>就</div>
+				<div class='s3'>then</div>
+				<div class='s4'>:</div></td>
+			<td><div class='s0 s1 s2'>買便當</div>
+				<div class='s3'>buy a bento</div>
+				<div class='s4'>buy (Bento)</td>
+		</tr><tr>
+			<td><div class='s2'>不然</div>
+				<div class='s3'>else</div>
+				<div class='s4' colspan='2'>elif</div></td>
+			<td><div class='s2'>如果</div>
+				<div class='s3'>if</div></td>
+			<td><div class='s2'>帶超過二十元</div>
+				<div class='s3'>having more than 20 dollars</div>
+				<div class='s4'>dollars &gt;= 20</div></td>
+			<td><div class='s2'>就</div>
+				<div class='s3'>then</div>
+				<div class='s4'>:</div></td>
+			<td><div class='s2'>買饅頭</div>
+				<div class='s3'>buy a Mento</div>
+				<div class='s4'>buy (Mento)</div></td>
+		</tr><tr>
+			<td><div class='s1 s2'>不然</div>
+				<div class='s3'>else</div>
+				<div class='s4'>else</div></td>
+			<td></td><td></td>
+			<td><div class='s1 s2'>就</div>
+				<div class='s3'>then</div>
+				<div class='s4'>:</div></td>
+			<td><div class='s1 s2'>找飲水機</div>
+				<div class='s3'>find Fountain</div>
+				<div class='s4'>find (Fountain)</td>
+		</tr></tbody></table>
+		<select onchange='this.parentNode.querySelector("table").dataset.step=this.value'>
+			<option value='0'>if</option>
+			<option value='1'>if ... else ...</option>
+			<option value='2'>if ... elif ... else ...</option>
+			<option value='3'>English</option>
+			<option value='4'>Python</option>
+		</select>
+	</div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC'>
+	<h2>條件分支流程圖</h2><!--{{{-->
 	<div class='frame'>
 		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
 			<tr><th colspan='4' align='right' valign='middle'>
 				<span style='float:left'>IF</span>
-				<span data-h='play:IF ELSE:template:MView:&this'>
-					&lt;流程圖&gt;
-					<textarea data-v='value:doc' class='hide'>{"media":"3_IF.svg"}</textarea>
-				</span>
+				<span data-h='play:IF ELSE:media:3_IF.svg'>&lt;流程圖&gt;</span>
 			</th></tr>
 			<tr>
 				<th><span class='red'>如果</span></th>
@@ -66,10 +139,7 @@ table small { color:#666; }
 		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
 			<tr><th colspan='4' align='right'>
 				<span style='float:left'>IF ... ELSE ...</span>
-				<span data-h='play:IF.ELSE.:template:MView:&this'>
-					&lt;流程圖&gt;
-					<textarea data-v='value:doc' class='hide'>{"media":"3_IFELSE.svg"}</textarea>
-				</span>
+				<span data-h='play:IF.ELSE.:media:3_IFELSE.svg'>&lt;流程圖&gt;</span>
 			</th></tr>
 			<tr>
 				<th><span class='red'>如果</span></th>
@@ -96,10 +166,7 @@ table small { color:#666; }
 		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
 			<tr><th colspan='4' align='right'>
 				<span style='float:left'>IF ... ELIF ... ELSE ...</span>
-				<span data-h='play:IF.ELIF.ELSE.:template:MView:&this'>
-					&lt;流程圖&gt;
-					<textarea data-v='value:doc' class='hide'>{"media":"3_IFELIFELSE.svg"}</textarea>
-				</span>
+				<span data-h='play:IF.ELIF.ELSE.:media:3_IFELIFELSE.svg'>&lt;流程圖&gt;</span>
 			</th></tr>
 			<tr>
 				<th><span class='red'>如果</span></th>
@@ -130,18 +197,44 @@ table small { color:#666; }
 			</tr>
 		</table>
 	</div>
-</section><!--}}}-->
+	<!--}}}-->
+</section>
 
 <section data-ks='P_FC'>
-	<h2>迴圈</h2><!--{{{-->
+	<h2>反覆 Repeat</h2><!--{{{-->
+	<div><ul>
+		<li>迴圈(Loop) 可被控制程式反覆執行一段程式碼</li>
+		<li>每次的執行，變數的內容會有改變</li>
+		<li>迴圈應設置停止反覆的終止條件</li>
+		<li>Python 支援常用的 for 迴圈與 white 迴圈<div>
+			<table border='1' cellspacing='1' align='center' width='90%'>
+			<tbody style='font-size:70%'><tr>
+				<th>for</th>
+				<th>while</th>
+			</tr><tr>
+				<td>證照通過<b class='blue'>名單</b><b class='green'>中</b>的<b class='brown'>同學</b>，<br/>請<b class='brown del'>同學</b><b class='red'>盡快提出申請</b>。</td>
+				<td><b class='green'>通過</b><b class='blue'>證照考試</b>的<b class='brown'>同學</b>，<br/>請<b class='brown del'>同學</b><b class='red'>儘快提出申請</b>。</td>
+			</tr><tr>
+				<td valign='top'>For each <b class='brown'>student</b> in the qualified <b class='blue'>list</b>,<br/>
+					please <b class='red'>apply as soon as possible</b>.</td>
+				<td valign='top'><b class='brown'>Students</b> who <b class='green'>pass</b> the <b class='blue'>certificate test</b>,<br/>
+					please <b class='red'>apply as soon as possible</b>.</td>
+			</tr><tr>
+				<td valign='top'>for <b class='brown'>student</b> <b class='green'>in</b> <b class='blue'>list</b> :<div style='padding-left:32px;'><b class='red'><b class='brown'>student</b>.apply()</b></div></td>
+				<td valign='top'>while <b class='brown'>student</b>.score <b class='green'>&gt; <b class='blue'>700</b></b> :<div style='padding-left:32px;'><b class='red'><b class='brown'>student</b>.apply()</b></div></td>
+			</tr></tbody></table>
+		</div></li>
+	</ul></div>
+	<!--}}}-->
+</section>
+
+<section data-ks='P_FC'>
+	<h2>迴圈流程圖</h2><!--{{{-->
 	<div class='frame'>
 		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
 			<th colspan='4' align='right'>
 				<span style='float:left'>WHILE</span>
-				<span data-h='play:WHILE:template:MView:&this'>
-					&lt;流程圖&gt;
-					<textarea data-v='value:doc' class='hide'>{"media":"3_WHILE.svg"}</textarea>
-				</span>
+				<span data-h='play:WHILE:media:3_WHILE.svg'>&lt;流程圖&gt;</span>
 			</th>
 		</tr><tr>
 			<th><span class='red'>當持續</span></th>
@@ -156,10 +249,7 @@ table small { color:#666; }
 		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
 			<th colspan='4' align='right'>
 				<span style='float:left'>FOR</span>
-				<span data-h='play:FOR:template:MView:&this'>
-					&lt;流程圖&gt;
-					<textarea data-v='value:doc' class='hide'>{"media":"3_FOR.svg"}</textarea>
-				</span>
+				<span data-h='play:FOR:media:3_FOR.svg'>&lt;流程圖&gt;</span>
 			</th>
 		</tr><tr>
 			<th><span class='red'>對</span></th>

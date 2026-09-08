@@ -404,7 +404,8 @@ class Player
 					})(await Apps.R({url:"/App/page_control.html",cs:"#control"}).fetch());
 
 				const ol = Apps.E('<div id="overlay" data-h="set:Overlay:none"></div>','#overlay').E;
-				//ol.appendChild(await Apps.R({url:"/App/page_dialog.html",cs:"#dialog"}).fetch());
+				// ## 安裝對話框
+				ol.appendChild(await Apps.R({url:"/App/page_dialog.html",cs:"#dialog"}).fetch());
 				if ('aside' in flags) { // 準備 目錄與設定控制列
 					const aside = await Apps.R({url:'/App/page_aside.html',cs:'aside'}).fetch();
 					ol.appendChild(aside);
@@ -560,7 +561,7 @@ class Player
 	}
 
 	play (caption, mn, ...args)
-	{	// play:dom:&this:Caption
+	{	// play:Caption:Module:(args)*:&this
 		// play('dom',document.getElementById(...),'Caption');
 		const VE = document.createElement("div");
 		let e = undefined;
@@ -713,9 +714,7 @@ class Player
 					}
 				}
 			},
-			this.DB = {
-				"MView": Apps.E(`<div class='fill'><div data-xl='media' class='fill'><div data-v='data:media:media'></div></div></div>`).E
-			};
+			this.DB = { };
 		}
 		register (n, cn, ...a) {
 			this.DB[n] = new this.CDB[cn] (...a);
@@ -725,15 +724,6 @@ class Player
 				n in this.CDB ? new this.CDB[n] (...a) :
 				a[0]; 
 		}
-/*
-		async sync (n, payload) {
-			return await ( n in this.DB ?
-				this.DB[n].get() :
-				Apps.fetch(payload ? {"post":n,"payload":payload} : {"get":n})
-			);
-		}
-		getClass (n, dft) { return this.CDB[n] || dft; }
-*/
 		// }}}
 	})();
 
@@ -754,13 +744,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 		Apps.Player.FontScale = Apps.Player.FontScale;
 		Apps.Player.Content.PageNumber = 'refresh';
 	});
-
+/*
 	if (!Apps.Timer)
 		Apps.Timer = setInterval(()=>{
 			const cp=Apps.Player.Content.CurPage;
 			if (cp && cp.tick) cp.tick(true);
 		},500);
-
+*/
 	document.body.style.opacity='1';
 });
 
