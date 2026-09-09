@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
+<base target='_blank'></base>
 <title></title>
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
@@ -16,42 +17,22 @@
 "開課系科":"財務金融系-夜四技-夜金一A",
 "開課教室":"E62",
 "開課時間":"一 (18:20-19:55)",
-"行事曆":{
-	"1":"運算思維與程式設計 (SDGs主題週）",
-	"2":"Python 開發環境與終端機的輸入與輸出",
-	"3":"常數，變數與運算式",
-	"4":"指定運算式與數學運算式",
-	"5":"比較運算式與邏輯運算式",
-	"6":"條件判段式與迴圈",
-	"7":"序列與字典",
-	"8":"函數",
-	"9":"檔案 I/O",
-	"10":"ITS Python 模擬考 (期中考週)",
-	"11":"類別與模組",
-	"12":"Random, DateTime 等常用模組",
-	"13":"List, Tuple, Set, Dictionary: 可變與不可便",
-	"14":"貸款計算與計程車費率試算示範",
-	"15":"猜數字遊戲與臺鐵時刻表示範",
-	"16":"早餐店訂餐示範",
-	"17":"期末專題發表 (期末考週)",
-	"18":"線上期末專題互評"
-},
 "教材課本":"Python零基礎入門班 (ISBN:9786264253352)",
 "授課方式":"課堂教學",
 "是否為全外語教學":"否",
 "輔導證照":["ITS Python"],
 "輔導競賽":[],
 "業師協同教學":"否",
-"教學是否應用IRS":"是",
+"教學是否應用 IRS":"是",
 "是否為創新創業課程":"是",
 "課程是否使用程式語言":"是",
 "是否為 STEM 課程":"是",
-"是否使用AI輔助教學":["Gemini"],
+"是否使用 AI 輔助教學":["Gemini"],
 "SDGs 永續課程":["SDG 8 合適的工作及經濟成長","SDG 9 工業化、創新及基礎建設"],
 "成績比率":{
 	"平時":"50 % (多元彈性學習 10%)",
 	"期中":"25 % (上機測驗)",
-	"期末":"25 % (專題發表)"
+	"期末":"25 % (專題報告)"
 },
 "備註一":"Google Classroom",
 "聯絡方式":{
@@ -85,12 +66,8 @@
 		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
 		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
 		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
-		<tr><th>教材課本:</th><td data-v='text:教材課本'></td></tr>
 		<tr><th>輔導證照:</th><td>
 			<div data-v='text:輔導證照'></div>
-		</td></tr>
-		<tr><th>輔導競賽:</th><td>
-			<div data-v='text:輔導競賽'></div>
 		</td></tr>
 		<tr><th>成績比率:</th><td data-c='kvs:成績比率'>
 			<div>
@@ -112,14 +89,57 @@
 </section>
 
 <section data-xl='template:&this:Info'>
-	<h2>課程規劃</h2>
-	<table align='center' class='nvtable' width='95%'><tbody data-c='kvs:行事曆'>
-		<tr><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
+	<h2>課程內容</h2>
+	<div><b>📖 參考書:</b><span data-v='text:教材課本'></span></div>
+	<div><b>📖 簡報:</b> <a href='../Python/index.html'>Python, An Introduction</a></div>
+	<div><b>📆 行事曆:</b></div>
+	<style>
+		.schedule td { border-width:0 0 1px 0; }
+	</style>
+	<table class='schedule' border='1' align='center' width='95%'><tbody>
+		<tr><td>.</td><th rowspan='8'>2026</th><th rowspan='2'>9</th><td width='90%'>
+			<div>14: (SDGs) 準備周</div>
+			<div>⚑ <a href='https://line.me/R/ti/g/8DBHmBrLxU'>加入 Line 課程群組</a></div>
+			<div>⚑ <a href='https://news.chihlee.edu.tw/GW/'>申請 GM 帳號</a></div>
+			<div>⚑ <a href='https://classroom.google.com/c/ODY2NjIyMTU3MDY0?cjc=4bfrkj7y'>加入 Google Classroom</a></div>
+			<div>⚑ <a href='https://colab.research.google.com/'>Google Colab</a></div>
+			<div>⚑ <a href='https://thonny.org/'>Thonny</a></div>
+			<div>⚑ <a href='https://gemini.google.com/app'>Gemini</a></div>
+		</td></tr>
+		<tr><td>.</td><td rowspan='3'><ul>
+			<li class='green'>扣除假日剩六週</li>
+			<li class='red'>9/28 教師節</li>
+			<li>開發環境與終端機的輸入與輸出</li>
+			<li>常數，變數與運算式</li>
+			<li>指定運算式與數學運算式</li>
+			<li>比較運算式與邏輯運算式</li>
+			<li>條件判段式與迴圈</li>
+			<li>序列與字典</li>
+			<li class='red'>10/26 光復節</li>
+			<li>函數</li>
+			<li>檔案 I/O</li>
+		</ul></td></tr>
+		<tr><td>.</td><th>10</th></tr>
+		<tr><td>.</td><th rowspan='3'>11</th></tr>
+		<tr><td>.</td><td>16: 期中考試 (ITS Python 模擬考)</td></tr>
+		<tr><td>.</td><td rowspan='2'><ul>
+			<li class='green'>扣除假日剩六週</li>
+			<li>類別與模組</li>
+			<li>Random, DateTime 等常用模組</li>
+			<li>List, Tuple, Set, Dictionary: 可變與不可變</li>
+			<li>專案工程</li>
+			<li>Generative AI</li>
+			<li>Vibe Coding</li>
+		</ul></td></tr>
+		<tr><td>.</td><th rowspan='2'>12</th></tr>
+		<tr><td>.</td><td>ITS Python 證照考試 (<a href='https://fd100.chihlee.edu.tw/var/file/33/1033/img/1693/181725836.pdf'>畢業門檻</a>)</td></tr>
+		<tr><td>.</td><th rowspan='2'>2027</th><th rowspan='2'>1</th><td>04: 期末專題發表</td></tr>
+		<tr><td>.</td><td>11: 學習成效回饋作業 (非同步線上學習)</td></tr>
 	</tbody></table>
 </section>
 
-<section data-xl='import:../Python/index.html'>
-	<h2>Python, An Introduction</h2>
+<section data-xl='import:../Python/Music_CodeAndData.html'>
+	<h2>♫ 資料與程序</h2>
 </section>
 
 </div></main></body>

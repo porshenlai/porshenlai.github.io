@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
+<base target='_blank'></base>
 <title></title>
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
@@ -16,34 +17,15 @@
 "開課系科":"財務金融系-日四技-金二A",
 "開課教室":"E62",
 "開課時間":"一 (13:20-15:10)",
-"行事曆":{
-	"1":"SDGs 與金融應用程式",
-	"2":"ISMS 資訊安全管理",
-	"3":"ISMS 資訊安全管理",
-	"4":"CMoney",
-	"5":"CMoney",
-	"6":"XQ",
-	"7":"XQ",
-	"8":"Excel",
-	"9":"Excel",
-	"10":"期中考",
-	"11":"GitHub 與敏捷開發",
-	"12":"使用者故事與使用者體驗",
-	"13":"Power BI",
-	"14":"Power BI",
-	"15":"Pandas",
-	"16":"Pandas",
-	"17":"期末專題發表",
-	"18":"期末專題線上互評"
-},
+"Google教室":"https://classroom.google.com/c/ODU0ODk0MTA3MzQ1?cjc=rej4mj6p",
+"Line群組":"https://line.me/R/ti/g/gWk83SdXsh",
 "教材課本":"自編教材",
 "授課方式":"課堂教學",
 "是否為全外語教學":"否",
 "輔導證照":[],
 "輔導競賽":[],
 "業師協同教學":"否",
-"是否需要申請TA":"否",
-"教學是否應用IRS":"是",
+"教學是否應用 IRS":"是",
 "是否為創新創業課程":"是",
 "課程是否使用程式語言":"是",
 "是否為STEM課程":"是",
@@ -86,7 +68,8 @@
 		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
 		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
 		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
-		<tr><th>教材課本:</th><td data-v='text:教材課本'></td></tr>
+		<tr><th>線上教室:</th><td><a data-v='attr:href:Google教室'>Google Classroom</a></td></tr>
+		<tr><th>課程群組:</th><td><a data-v='attr:href:Line群組'>Line</a></td></tr>
 		<tr><th>輔導證照:</th><td>
 			<div data-v='text:輔導證照'></div>
 		</td></tr>
@@ -111,12 +94,51 @@
 		<p data-v='text:_v_'></p>
 	</div>
 </section>
-
 <section data-xl='template:&this:Info'>
-	<h2>課程規劃</h2>
-	<table align='center' class='nvtable' width='95%'><tbody data-c='kvs:行事曆'>
-		<tr><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
+	<h2>課程內容</h2>
+	<div><b>📖 參考書:</b><span data-v='text:教材課本'></span></div>
+	<div><b>📖 簡報:</b></div>
+	<div><b>📆 行事曆:</b></div>
+	<style>
+		.schedule td { border-width:0 0 1px 0; }
+	</style>
+	<table class='schedule' border='1' align='center' width='95%'><tbody>
+		<tr><td>.</td><th rowspan='7'>2026</th><th rowspan='2'>9</th><td width='90%'>
+			<div>14: SDGs 與金融應用程式 (非同步線上學習)</div>
+		</td></tr>
+		<tr><td>.</td><td rowspan='3'><ul>
+			<li class='green'>扣除假日剩六週</li>
+			<li class='red'>9/28 教師節</li>
+			<li>ISMS 資訊安全管理</li>
+			<li>大數據分析</li>
+			<li>雲端霧端與地端</li>
+			<li>資料分析</li>
+			<li>資料處理</li>
+			<li class='red'>10/26 光復節</li>
+			<li>Excel</li>
+			<li>Google Sheets</li>
+		</ul></td></tr>
+		<tr><td>.</td><th>10</th></tr>
+		<tr><td>.</td><th rowspan='3'>11</th></tr>
+		<tr><td>.</td><td>16: 期中考試</td></tr>
+		<tr><td>.</td><td rowspan='2'><ul>
+			<li class='green'>扣除假日剩六週</li>
+			<li>使用者故事與使用者體驗</li>
+			<li>GitHub 與敏捷開發</li>
+			<li>情境編碼 Vibe Coding</li>
+			<li>CMoney</li>
+			<li>XQ 全球贏家</li>
+			<li>Power BI</li>
+			<li>Python Pandas</li>
+		</ul></td></tr>
+		<tr><td>.</td><th>12</th></tr>
+		<tr><td>.</td><th rowspan='2'>2027</th><th rowspan='2'>1</th><td>04: 期末專題發表</td></tr>
+		<tr><td>.</td><td>11: 學習成效回饋 (非同步線上學習)</td></tr>
 	</tbody></table>
+</section>
+
+<section data-xl='import:../Finance/Music_FinTool.html'>
+	<h2>♫ 大數據金融</h2>
 </section>
 
 </div></main></body>

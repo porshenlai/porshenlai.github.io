@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
+<base target='_blank'></base>
 <title></title>
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
@@ -16,30 +17,12 @@
 "開課系科":"財務金融系-日四技-金二A",
 "開課教室":"E64",
 "開課時間":"二 (13:20-15:10)",
-"行事曆":{
-	"1":"何謂人工智慧 (SDGs主題週)",
-	"2":"人工智慧素養",
-	"3":"學習與推論",
-	"4":"回歸，分類與叢集",
-	"5":"機率，統計與樣本空間",
-	"6":"資料分析",
-	"7":"資料前處理",
-	"8":"電腦視覺",
-	"9":"自然語言處理",
-	"10":"期中考週",
-	"11":"ANI 若人工智慧 / AGI 通用人工智慧 / ASI 超級人工智慧",
-	"12":"Discriminative AI 與 Generative AI",
-	"13":"專案開發 (版本控制, 使用者故事與敏捷開發)",
-	"14":"翻譯任務",
-	"15":"生成任務",
-	"16":"影像生成任務",
-	"17":"期末專題發表",
-	"18":"學習成效線上回饋"
-},
+"Google教室":"https://classroom.google.com/c/ODY2NjE5NzE1NDc5?cjc=ccjfpyb3",
+"Line群組":"https://line.me/R/ti/g/hd_vELFgWL",
 "教材課本":"自編教材",
 "授課方式":"課堂教學",
 "是否為全外語教學":"否",
-"輔導證照":["TQC 生成式 AI 應用與技術"],
+"輔導證照":["AIL 專家級"],
 "輔導競賽":["Coding 101"],
 "業師協同教學":"否",
 "教學是否應用 IRS":"是",
@@ -50,7 +33,7 @@
 "SDGs 永續課程":["SDG 9 工業化、創新及基礎建設"],
 "成績比率":{
 	"平時":"50 % (多元彈性學習 10%, 證照或學習報告 25%, 出席率 15%)",
-	"期中":"25 % (上機考試)",
+	"期中":"25 % (上機測驗)",
 	"期末":"25 % (專題報告, 競賽參與優惠)"
 },
 "備註一":"Google Classroom",
@@ -86,7 +69,8 @@
 		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
 		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
 		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
-		<tr><th>教材課本:</th><td data-v='text:教材課本'></td></tr>
+		<tr><th>線上教室:</th><td><a data-v='attr:href:Google教室'>Google Classroom</a></td></tr>
+		<tr><th>課程群組:</th><td><a data-v='attr:href:Line群組'>Line</a></td></tr>
 		<tr><th>輔導證照:</th><td>
 			<div data-v='text:輔導證照'></div>
 			<div class='red' style='font-size:50%'>參加證照考試可抵免報告作業(25%)成績</div>
@@ -115,15 +99,50 @@
 </section>
 
 <section data-xl='template:&this:Info'>
-	<h2>課程規劃</h2>
-	<table align='center' class='nvtable' width='95%'>
-		<tbody data-c='kvs:行事曆'>
-			<tr><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
-		</tbody>
-	</table>
+	<h2>課程內容</h2>
+	<div><b>📖 參考書:</b><span data-v='text:教材課本'></span></div>
+	<div><b>📖 簡報:</b> <a href='../AI/index.html'>Artificial Intelligence, An Introduction</a></div>
+	<div><b>📆 行事曆:</b></div>
+	<style>
+		.schedule td { border-width:0 0 1px 0; }
+	</style>
+	<table class='schedule' border='1' align='center' width='95%'><tbody>
+		<tr><td>.</td><th rowspan='8'>2026</th><th rowspan='2'>9</th><td width='90%'>
+			<div>15: 人工智慧與 SDGs (非同步線上學習)</div>
+		</td></tr>
+		<tr><td>.</td><td rowspan='3'><ul>
+			<li class='green'>扣除假日剩八週</li>
+			<li>人工智慧素養</li>
+			<li>學習與推論</li>
+			<li>回歸，分類與叢集</li>
+			<li>機率，統計與樣本空間</li>
+			<li>資料分析</li>
+			<li>資料前處理</li>
+			<li>電腦視覺</li>
+			<li>自然語言處理</li>
+		</ul></td></tr>
+		<tr><td>.</td><th>10</th></tr>
+		<tr><td>.</td><th rowspan='3'>11</th></tr>
+		<tr><td>.</td><td>17: 期中考試 (AIL 證照:<a href='https://fd100.chihlee.edu.tw/var/file/33/1033/img/1693/181725836.pdf'>畢業門檻</a>)</td></tr>
+		<tr><td>.</td><td rowspan='2'><ul>
+			<li class='green'>扣除假日剩六週</li>
+			<li>ANI 若人工智慧 / AGI 通用人工智慧 / ASI 超級人工智慧</li>
+			<li>Discriminative AI 與 Generative AI</li>
+			<li>專案開發 (版本控制, 使用者故事與敏捷開發)</li>
+			<li>翻譯任務</li>
+			<li>生成任務</li>
+			<li>影像生成任務</li>
+		</ul></td></tr>
+		<tr><td>.</td><th rowspan='2'>12</th></tr>
+		<tr><td>.</td><td>Coding 101 投稿</td></tr>
+		<tr><td>.</td><th rowspan='2'>2027</th><th rowspan='2'>1</th><td>05: 期末專題發表</td></tr>
+		<tr><td>.</td><td>13: 學習成效回饋 (非同步線上學習)</td></tr>
+	</tbody></table>
 </section>
 
-<section data-xl='import:../AI/index.html'></section>
+<section data-xl='import:../AI/Music_Evolution.html'>
+	<h2>♫ 演化</h2>
+</section>
 
 </div></main></body>
 </html>

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
+<base target='_blank'></base>
 <title></title>
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
@@ -16,37 +17,23 @@
 "開課系科":"財務金融系-日四技-金二A",
 "開課教室":"E72",
 "開課時間":"二 (10:20-12:10)",
-"教學大綱":{
-	"1":"金融科技 與 SDGs",
-	"2":"金融砂盒",
-	"3":"銀行主要業務",
-	"4":"洗錢防制 與 詐欺偵測",
-	"5":"授信 與 貸款",
-	"6":"財富管理 投資 與 保險",
-	"7":"存款 支付 與 整合",
-	"8":"期中測驗",
-	"9":"數據分析 與 資料模型",
-	"10":"前處理 與 建模",
-	"11":"大語言模型",
-	"12":"可解釋性 AI (XAI)",
-	"13":"期末專題"
-},
+"Google教室":"https://classroom.google.com/c/ODU0ODk0MzE3OTI0?cjc=n4tve4ye",
+"Line群組":"https://line.me/R/ti/g/qnjbveBLcD",
 "教材課本":"自編教材",
 "授課方式":"課堂教學",
 "是否為全外語教學":"否",
 "輔導證照":[],
 "輔導競賽":[],
 "業師協同教學":"否",
-"是否需要申請TA":"否",
-"教學是否應用IRS":"是",
+"教學是否應用 IRS":"是",
 "是否為創新創業課程":"是",
 "課程是否使用程式語言":"是",
 "是否為 STEM 課程":"是",
-"是否使用AI輔助教學":["Gemini"],
-"SDGs永續課程":["SDG 9 工業化、創新及基礎建設"],
+"是否使用 AI 輔助教學":["Gemini"],
+"SDGs 永續課程":["SDG 9 工業化、創新及基礎建設"],
 "成績比率":{
 	"平時":"50 % (多元彈性學習 10%)",
-	"期中":"25 % (上機考試)",
+	"期中":"25 % (上機測驗)",
 	"期末":"25 % (專題報告)"
 },
 "備註一":"Google Classroom",
@@ -81,7 +68,8 @@
 		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
 		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
 		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
-		<tr><th>教材課本:</th><td data-v='text:教材課本'></td></tr>
+		<tr><th>線上教室:</th><td><a data-v='attr:href:Google教室'>Google Classroom</a></td></tr>
+		<tr><th>課程群組:</th><td><a data-v='attr:href:Line群組'>Line</a></td></tr>
 		<tr><th>輔導證照:</th><td>
 			<div data-v='text:輔導證照'></div>
 		</td></tr>
@@ -102,16 +90,53 @@
 	<div class='frame' data-c='ss:課程簡介'>
 		<p data-v='text:_v_'></p>
 	</div>
-	<div class='frame' data-c='ss:foreach:Brief Introduction'>
+	<div class='frame' data-c='ss:Brief Introduction'>
 		<p data-v='text:_v_'></p>
 	</div>
 </section>
 
 <section data-xl='template:&this:Info'>
-	<h2>課程規劃</h2>
-	<table align='center' class='nvtable' width='95%'><tbody data-c='kvs:教學大綱'>
-		<tr><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
+	<h2>課程內容</h2>
+	<div><b>📖 參考書:</b><span data-v='text:教材課本'></span></div>
+	<div><b>📖 簡報:</b></div>
+	<div><b>📆 行事曆:</b></div>
+	<style>
+		.schedule td { border-width:0 0 1px 0; }
+	</style>
+	<table class='schedule' border='1' align='center' width='95%'><tbody>
+		<tr><td>.</td><th rowspan='7'>2026</th><th rowspan='2'>9</th><td width='90%'>
+			<div>15: 智慧金融與 SDGs (非同步線上學習)</div>
+		</td></tr>
+		<tr><td>.</td><td rowspan='3'><ul>
+			<li class='green'>扣除假日剩八週</li>
+			<li>金融科技與 SDGs</li>
+			<li>數據分析與資料模型</li>
+			<li>金融砂盒</li>
+			<li>銀行主要業務</li>
+			<li>洗錢防制與詐欺偵測</li>
+			<li>授信與貸款</li>
+			<li>財富管理 投資與保險</li>
+			<li>存款 支付與整合</li>
+			<li>EGS 金融</li>
+		</ul></td></tr>
+		<tr><td>.</td><th>10</th></tr>
+		<tr><td>.</td><th rowspan='3'>11</th></tr>
+		<tr><td>.</td><td>17: 期中考試</td></tr>
+		<tr><td>.</td><td rowspan='2'><ul>
+			<li class='green'>扣除假日剩六週</li>
+			<li>前處理與建模</li>
+			<li>大語言模型</li>
+			<li>檢索增強生成</li>
+			<li>安全系統與可解釋性 AI (XAI)</li>
+		</ul></td></tr>
+		<tr><td>.</td><th>12</th></tr>
+		<tr><td>.</td><th rowspan='2'>2027</th><th rowspan='2'>1</th><td>05: 期末專題發表</td></tr>
+		<tr><td>.</td><td>13: 學習成效回饋 (非同步線上學習)</td></tr>
 	</tbody></table>
+</section>
+
+<section data-xl='import:../Finance/Music_Business.html'>
+	<h2>♫ 金融業務</h2>
 </section>
 
 <!--

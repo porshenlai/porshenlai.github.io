@@ -191,7 +191,9 @@ class Content
 	{	return this.E.querySelector(`section:not(.disabled)#${id}`); }
 
 	indexOf (id) // rv: PageNumber-1
-	{	return this.PageIndex.indexOf(id instanceof Element ? id.id : id); }
+	{
+		return this.PageIndex.indexOf(id instanceof Element ? id.id : id);
+	}
 
 	get Sections () // rv: [enabled sections]
 	{	return Array.from(this.E.querySelectorAll('section:not(.disabled)')); }
@@ -744,13 +746,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 		Apps.Player.FontScale = Apps.Player.FontScale;
 		Apps.Player.Content.PageNumber = 'refresh';
 	});
-/*
 	if (!Apps.Timer)
 		Apps.Timer = setInterval(()=>{
-			const cp=Apps.Player.Content.CurPage;
-			if (cp && cp.tick) cp.tick(true);
-		},500);
-*/
+			try {
+				const cp=Apps.Player.Content.CurPage;
+				if (cp && cp.tick) cp.tick(true);
+			} catch (x) { console.log("tick",x); }
+		},1000);
 	document.body.style.opacity='1';
 });
 

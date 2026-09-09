@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
+<base target='_blank'></base>
 <title></title>
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
@@ -16,41 +17,23 @@
 "開課系科":"財務金融系-日四技-金三A",
 "開課教室":"E41",
 "開課時間":"五 (10:20-12:10)",
-"課程大綱":{
-	"1":"公有雲/私有雲/混和雲 與 SDGs",
-	"2":"Chat GPT/Gemini vs. Hugging Face",
-	"3":"Hugging Face vs. Ollama",
-	"4":"Ollama, Gemma, 與 LangChain",
-	"5":"Ollama 實戰演練",
-	"6":"Deep Learning",
-	"7":"LLM Hidden States 與 Embedding 空間",
-	"8":"Fine Tuning vs. RAG",
-	"9":"Fine Tuning, LoRA 與 Unsloth",
-	"10":"Fine Tuning 實戰演練",
-	"11":"RAG, Chunking 與 ChromaDB",
-	"12":"RAG 實戰演練",
-	"13":"安全系統",
-	"14":"安全系統 實戰演練",
-	"15":"期中考試",
-	"16":"整合與部署 - AI 服務化（Model-as-a-Service）",
-	"17":"期末專題"
-},
+"Google教室":"https://classroom.google.com/c/ODU0ODk0Mjk3NzUy?cjc=2zgo647j",
+"Line群組":"https://line.me/R/ti/g/3TBGYYf5RD",
 "教材課本":"自編教材",
 "授課方式":"課堂教學",
 "是否為全外語教學":"否",
 "輔導證照":[],
 "輔導競賽":[],
 "業師協同教學":"否",
-"是否需要申請TA":"否",
-"教學是否應用IRS":"是",
+"教學是否應用 IRS":"是",
 "是否為創新創業課程":"是",
 "課程是否使用程式語言":"是",
 "是否為 STEM 課程":"是",
-"是否使用AI輔助教學":["Gemini"],
-"SDGs永續課程":["SDG 9 工業化、創新及基礎建設"],
+"是否使用 AI 輔助教學":["Gemini"],
+"SDGs 永續課程":["SDG 9 工業化、創新及基礎建設"],
 "成績比率":{
 	"平時":"50 % (多元彈性學習 10%)",
-	"期中":"25 % (上機考試)",
+	"期中":"25 % (上機測驗)",
 	"期末":"25 % (專題報告)"
 },
 "備註一":"Google Classroom",
@@ -85,7 +68,8 @@
 		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
 		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
 		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
-		<tr><th>教材課本:</th><td data-v='text:教材課本'></td></tr>
+		<tr><th>線上教室:</th><td><a data-v='attr:href:Google教室'>Google Classroom</a></td></tr>
+		<tr><th>課程群組:</th><td><a data-v='attr:href:Line群組'>Line</a></td></tr>
 		<tr><th>輔導證照:</th><td>
 			<div data-v='text:輔導證照'></div>
 		</td></tr>
@@ -112,10 +96,55 @@
 </section>
 
 <section data-xl='template:&this:Info'>
-	<h2>課程規劃</h2>
-	<table align='center' class='nvtable' width='95%'><tbody data-c='kvs:課程大綱'>
-		<tr><th data-v='text:_k_'></th><td data-v='text:_v_'></td></tr>
+	<h2>課程內容</h2>
+	<div><b>📖 參考書:</b><span data-v='text:教材課本'></span></div>
+	<div><b>📖 簡報:</b><a href='../AI/PrivateLLM.html'>地端 AI 建置指南</a></div>
+	<div><b>📆 行事曆:</b></div>
+	<style>
+		.schedule td { border-width:0 0 1px 0; }
+	</style>
+	<table class='schedule' border='1' align='center' width='95%'><tbody>
+		<tr><td>.</td><th rowspan='7'>2026</th><th rowspan='2'>9</th><td width='90%'>
+			<div>18: 雲端與 SDGs (非同步線上學習)</div>
+		</td></tr>
+		<tr><td>.</td><td rowspan='3'><ul>
+			<li class='green'>扣除假日剩六周</li>
+			<li class='red'>9/25 中秋節</li>
+			<li>Chat GPT/Gemini vs. Hugging Face</li>
+			<li>Hugging Face vs. Ollama</li>
+			<li class='red'>10/9 國慶日</li>
+			<li>Ollama, Gemma, 與 LangChain</li>
+			<li>Deep Learning</li>
+			<li>LLM Hidden States 與 Embedding 空間</li>
+			<li>Fine Tuning vs. RAG</li>
+			<li>Fine Tuning, LoRA 與 Unsloth</li>
+			<li>RAG, Chunking 與 ChromaDB</li>
+		</ul></td></tr>
+		<tr><td>.</td><th>10</th></tr>
+		<tr><td>.</td><th rowspan='3'>11</th></tr>
+		<tr><td>.</td><td>20: 期中考試</td></tr>
+		<tr><td>.</td><td rowspan='2'><ul>
+			<li class='green'>扣除假日剩四周</li>
+			<li>Ollama 實戰演練</li>
+			<li>Fine Tuning 實戰演練</li>
+			<li>RAG 實戰演練</li>
+			<li>安全系統</li>
+			<li>安全系統 實戰演練</li>
+			<li>整合與部署 - AI 服務化（Model-as-a-Service）</li>
+			<li><a href='../AI/PriLLM_StockProject.html'>股市分析專題實務</a></li>
+			<li class='red'>12/25 聖誕節</li>
+		</ul></td></tr>
+		<tr><td>.</td><th>12</th></tr>
+		<tr><td>.</td><th rowspan='2'>2027</th><th rowspan='2'>1</th><td>
+			<div class='red'>01: 元旦</div>
+			<div>08: 期末專題發表</div>
+		</td></tr>
+		<tr><td>.</td><td>15: 學習成效回饋 (非同步線上學習)</td></tr>
 	</tbody></table>
+</section>
+
+<section data-xl='import:../AI/Music_SkyAndLand.html'>
+	<h2>♫ 雲端 霧端 與 地端</h2>
 </section>
 
 <!--
@@ -178,19 +207,6 @@
 授課形式分析	個案分析或作品賞析	10%
 授課形式分析	行動實作與報告	50%
 -->
-
-<section class='page col' data-def='data'>
-	<input data-v='value:get' value='../AI/PrivateLLM.html'></input>
-	<!--h2>地端 AI 系統整合</h2>
-	<div class='fill'>
-		<input type='hidden' data-v='value:fget' value='../AI/PrivateLLM.html'></input>
-		<button data-h='submit'>Continue</button>
-	</div-->
-</section>
-
-<section data-def='data'>
-	<input data-v='value:get' value='../AI/PriLLM_StockProject.html'></input>
-</section>
 
 </div></main></body>
 </html>

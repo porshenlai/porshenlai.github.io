@@ -60,7 +60,8 @@ class E {
 				text: ()=>e.textContent.trim(),
 				value: ()=>e.value,
 				data: (n)=>e.dataset[n],
-				style: (n)=>e.style[n]
+				style: (n)=>e.style[n],
+				attr: (n)=>e.getAttribute(n)
 			}[n.shift()](...n);
 		}, readAll = (e, val) => {
 			for (let i of (new E(e)).dfs((e)=>e.matches('[data-c]') ? 1 : e.matches('[data-v]'), true)) {
@@ -90,7 +91,8 @@ class E {
 				text: (v)=>(e.textContent=v),
 				value: (v)=>(e.value=v),
 				data: (v, a)=>(e.dataset[a]=v),
-				style: (v, a)=>(e.style[a]=v)
+				style: (v, a)=>(e.style[a]=v),
+				attr: (v, a)=>e.setAttribute(a,v)
 			}[n.shift()](v, ...n);
 		}, writeAll = (e, val) => {
 			for (let i of (new E(e)).dfs((e)=>e.matches('[data-c]') ? 1 : e.matches('[data-v]'))) {

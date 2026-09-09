@@ -146,9 +146,9 @@ class AudioItem extends MediaItem {
 		this.A = MediaItem.createDOM(CE);
 		this.E.appendChild(this.A);
 		ctrl.appendChild(this.A);
-		this.A.play();
+		//this.A.play();
 	}	// }}}
-	async pause () { this.A[this.A.paused?"play":"pause"](); }
+	async pause (on) { this.A[on ? 'play' : on===false ? 'pause' : this.A.paused ? "play" : "pause"](); }
 }
 
 class VideoItem extends MediaItem {
@@ -186,9 +186,9 @@ Not supported: &lt;video&gt;
 			['width','height','left','top'].forEach((n,i) => (this.E.style[n] = gr[i]+'px'));
 		});
 		this.E.appendChild(this.V);
-		this.V.play();
+		//this.V.play();
 	}	// }}}
-	async pause () { this.V[this.V.paused?"play":"pause"](); }
+	async pause (on) { this.V[on ? 'play' : on===false ? 'pause' : this.A.paused ? "play" : "pause"](); }
 }
 
 class ImageItem extends MediaItem {
@@ -319,7 +319,11 @@ class YouTubeItem extends MediaItem {
 			}
 		});
 	}	// }}}
-	async pause () { this.Player[1===this.Player.getPlayerState() ? "pauseVideo" : "playVideo"](); }
+	async pause (on) { this.Player[
+		on ? "playVideo" :
+		on===false ? "pauseVideo" :
+		1===this.Player.getPlayerState() ? "pauseVideo" : "playVideo"
+	](); }
 }
 
 class MediaList {
@@ -383,7 +387,7 @@ class MediaList {
 */
 	}	// }}}
 	tick (on) {
-		if (this.CurrentMedia) this.CurrentMedia[on ? "tick" : "pause"]();
+		if (this.CurrentMedia) this.CurrentMedia[on ? "tick" : "pause"](on);
 	}
 	set Current (v) {
 		// {{{
@@ -434,6 +438,7 @@ SCRIPT.value=async function (slide, elem, data) {
 		elem.appendChild(MediaList.loadConfig(data));
 	}
 	const ML = new MediaList(elem, rbase);
+	console.log("DEBUGGGGGGGGGGGGGGG===== media module");
 	window.Apps.E(elem).trace('section').tick = (v) => ML.tick(v);
 };
 
