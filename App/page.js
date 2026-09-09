@@ -748,10 +748,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 	if (!Apps.Timer)
 		Apps.Timer = setInterval(()=>{
-			try {
-				const cp=Apps.Player.Content.CurPage;
-				if (cp && cp.tick) cp.tick(true);
-			} catch (x) { console.log("tick",x); }
+			const cp=Apps.Player.Content.CurPage;
+			if (cp && cp.tick) cp.tick(true);
 		},1000);
 	document.body.style.opacity='1';
 });
