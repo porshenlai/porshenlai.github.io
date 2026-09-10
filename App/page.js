@@ -267,6 +267,7 @@ class Content
 				})(e, e.dataset.style);
 			});
 
+			if (Apps.Timer) clearInterval(Apps.Timer);
 			em.classList.add('current');
 
 			// #. UPDATE URL HASH
@@ -280,7 +281,15 @@ class Content
 
 			// Trigger module extend of section loading
 			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
-			if(ms.length>0) Promise.all(ms.map((xe)=>this.prepare(xe))).then(()=>0,()=>0);
+			if(ms.length>0) Promise.all(ms.map((xe)=>this.prepare(xe))).then(()=>{
+				if (em.classList.contains('current')) {
+					if (Apps.Timer) clearInterval(Apps.Timer);
+					if (em && em.tick) em.tick(true);
+					Apps.Timer = setInterval((cpage)=>{
+						if (cpage && cpage.tick) cpage.tick(true);
+					}, 500, em);
+				}
+			},()=>0);
 
 			setTimeout(()=>{ // SCROLL INTO VIEW
 				em.scrollIntoView({
@@ -746,11 +755,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 		Apps.Player.FontScale = Apps.Player.FontScale;
 		Apps.Player.Content.PageNumber = 'refresh';
 	});
-	if (!Apps.Timer)
-		Apps.Timer = setInterval(()=>{
-			const cp=Apps.Player.Content.CurPage;
-			if (cp && cp.tick) cp.tick(true);
-		},1000);
 	document.body.style.opacity='1';
 });
 

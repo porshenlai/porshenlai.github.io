@@ -438,7 +438,6 @@ SCRIPT.value=async function (slide, elem, data) {
 		elem.appendChild(MediaList.loadConfig(data));
 	}
 	const ML = new MediaList(elem, rbase);
-	console.log("DEBUGGGGGGGGGGGGGGG===== media module");
 	window.Apps.E(elem).trace('section').tick = (v) => ML.tick(v);
 };
 
