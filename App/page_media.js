@@ -386,12 +386,10 @@ class MediaList {
 		})(this.E.querySelector('[data-uid="control"]'));
 	}	// }}}
 	tick (on) {
-		console.log("tick",this.CurrentMedia);
 		if (this.CurrentMedia) this.CurrentMedia[on ? "tick" : "pause"](on);
 	}
 	set Current (v) {
 		// {{{
-		console.log("XXXXXXXXXXXXXXXXXXXXXXXXX set Current :",v);
 		const [C, P, MC] = ['canvas', 'pager', 'mctrl'].map(
 			(k) =>
 			this.E.querySelector('[data-uid="'+k+'"]')

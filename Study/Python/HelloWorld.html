@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base target='_blank'></base>
 <script src="/App/page.js"></script>
 </head>
 <body style='opacity:0'>
@@ -31,14 +32,57 @@
 </textarea></div>
 </section>
 
-<section data-xl='import:Music_NounAndVerb.html'><h2>♫ 名詞與動詞</h2></section>
-
-<section>
-	<h2></h2>
-	<ul>
-		<li>開發環境與終端機的輸入與輸出</li>
-	</ul>
+<section class='page col'>
+	<h2>程式流程</h2>
+	<div class='fill'
+		<div data-xl='mermaid'><textarea data-v='value:raw'>flowchart LR
+	I[進口<br/>碼頭] --> PA[進口<br/>報關行] --> P[工廠] --> PZ[出口<br/>報關行] --> O[出口<br/>碼頭]
+	PA -->|DMA| S[倉庫]
+	P <-->|變數<br/>存取| S
+	S -->|DMA| PZ
+</textarea></div>
+		<ul>
+			<li><b>碼頭:</b> 輸出入裝置, 例如: 檔案, 網路, 鍵盤, 螢幕</li>
+			<li><b>報關行:</b> 驅動程式</li>
+			<li><b>工廠:</b> 程序(處理器)</li>
+			<li><b>倉庫:</b> 資料(記憶體)</li>
+		</ul>
+	</div>
 </section>
+
+<section class='page col'>
+	<h2>終端機: 標準輸入 / 標準輸出</h2>
+	<div class='fill'><ul>
+		<li><b>終端機 (console):</b><ul><li>終端機</li></ul></li>
+		<li><b>標準輸入 (stdin):</b><ul>
+			<li>終端機的預設輸入 (檔案ID:0)</li>
+			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#input'>input()</a></li>
+		</ul></li>
+		<li><b>標準輸出 (stdout):</b><ul>
+			<li>終端機資料的預設輸出 (檔案ID:1)</li>
+			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#print'>print()</a></li>
+		</ul></li>
+		<li><b>標準錯誤 (stderr):</b><ul><li>終端機錯誤訊息的預設輸出 (檔案ID:2)</li></ul></li>
+		<li><b>程序 (process):</b><ul><li>程式運行的實體</li></ul></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<h2>測試程式</h2>
+	<pre class='fill' style='font-size:2vw;'>## 註解是給人看得，機器迴避
+
+# name 是一個儲存字串的變數
+# input() 顯示提示字串後傳回使用者經 stdin 輸入的字串
+<span class='blue'>name = input('請問大名')</span>
+
+# 字串變數 name 前端加上 '你好!' 後存到 message 字串變數
+<span class='blue'>message = '你好! '+name</span>
+# 將 message 字串變數的內容傳給 stdout
+<span class='blue'>print(message)</span>
+</pre>
+</section>
+
+<section data-xl='import:Music_NounAndVerb.html'><h2>♫ 名詞與動詞</h2></section>
 
 </body>
 </html>

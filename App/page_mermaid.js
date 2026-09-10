@@ -18,8 +18,10 @@ SCRIPT.value=async function (slide, elem, code) {
 	if (!code)
 		code = await Apps.Ns.resolve('data', elem).get();
 
+try{
 	elem.innerHTML='<span>Rendering ...</span>';
 	elem.innerHTML=(await (await Init).render('graphDiv', code)).svg;
+}catch(x){ console.log(x); }
 
 	const svg = elem.querySelector('svg');
 	console.log(svg.style.maxWidth);
