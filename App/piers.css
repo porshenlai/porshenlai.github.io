@@ -29,6 +29,9 @@ body {
 .silver { color:silver; }
 .gold { color:gold; }
 
+._w_ { background:white; }
+._b_ { background:black; }
+
 .del { text-decoration:line-through; }
 .indent { padding-left:32px; }
 

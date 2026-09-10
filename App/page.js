@@ -610,6 +610,15 @@ class Player
 		} else alert('Speech Synthesis API not supported.');
 	}
 
+	media (task, ...args)
+	{
+		const
+			p = Apps.E(event.target).trace('section'),
+			m = p.querySelector('audio')||cpage.querySelector('video');
+		if (m[task]) m[task](...args);
+		console.log(task,m[task]);
+	}
+
 	filter (cmd)
 	{
 		if (cmd === 'add') {

@@ -133,7 +133,7 @@ class AudioItem extends MediaItem {
 	tick () {
 		// {{{
 		const ts = this.A ? this.A.currentTime : 0;
-		if (ts <= this.LastTick || (ts > 0 && this.A.paused)) return;
+		if (ts === this.LastTick || (ts > 0 && this.A.paused)) return;
 		this.Shots.forEach((s) => {
 			const cmd = s.tick(ts);
 			if (cmd && this[cmd]) this[cmd]();
@@ -155,7 +155,10 @@ class VideoItem extends MediaItem {
 	tick () {
 		// {{{
 		const ts = this.V ? this.V.currentTime : 0;
-		if (ts <= this.LastTick || (ts > 0 && this.V.paused)) return;
+		if (ts <= this.LastTick || (ts > 0 && this.V.paused)){
+			if (ts <= this.LastTick) this.LastTick=ts;
+			return;
+		}
 		this.Shots.forEach((s) => {
 			const cmd = s.tick(ts);
 			if (cmd && this[cmd]) this[cmd]();
@@ -293,7 +296,10 @@ class YouTubeItem extends MediaItem {
 	{	// {{{
 		if (!this.Player.getCurrentTime) return;
 		const ts = this.Player.getCurrentTime();
-		if (ts <= this.LastTick || (ts > 0 && 1 !== this.Player.getPlayerState())) return;
+		if (ts <= this.LastTick || (ts > 0 && 1 !== this.Player.getPlayerState())) {
+			if (ts < this.LastTick) this.LastTick=ts;
+			return;
+		}
 		this.Shots.forEach((s) => {
 			const cmd = s.tick(ts);
 			if(cmd && this[cmd]) this[cmd]();
@@ -378,19 +384,14 @@ class MediaList {
 				}
 			});
 		})(this.E.querySelector('[data-uid="control"]'));
-/*
-		((T)=>{
-			if (e.__Handler__) e.removeEventHandler("invokeHandler", e.__Handler__);
-			e.__Handler__ = (evt)=>T[evt.args.shift()](...evt.args);
-			e.addEventListener("invokeHandler", e.__Handler__, false);
-		})(this);
-*/
 	}	// }}}
 	tick (on) {
+		console.log("tick",this.CurrentMedia);
 		if (this.CurrentMedia) this.CurrentMedia[on ? "tick" : "pause"](on);
 	}
 	set Current (v) {
 		// {{{
+		console.log("XXXXXXXXXXXXXXXXXXXXXXXXX set Current :",v);
 		const [C, P, MC] = ['canvas', 'pager', 'mctrl'].map(
 			(k) =>
 			this.E.querySelector('[data-uid="'+k+'"]')
