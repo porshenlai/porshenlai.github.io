@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>YAML 題庫編輯器</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <style>
+        body { display: flex; height: 100vh; margin: 0; font-family: sans-serif; }
+        #editor, #preview { flex: 1; padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        #editor { background: #2d2d2d; color: #ccc; }
+        #preview { background: #f9f9f9; border-left: 2px solid #ddd; }
+        textarea { width: 100%; height: 90%; background: transparent; color: #fff; border: none; font-family: monospace; font-size: 14px; outline: none; }
+        .error { color: #ff6b6b; background: #3a1c1c; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+        /* 預覽區樣式 */
+        div[q] { background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        div[a] { color: #27ae60; font-weight: bold; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #eee; }
+        div[a]::before { content: "✅ 正確答案："; }
+        .option { color: #555; margin-left: 20px; display: list-item; list-style-type: circle; }
+        pre { background: #eee; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div id="editor">
+    <h3>YAML 原始資料</h3>
+    <div id="error-msg"></div>
+    <textarea id="yaml-input" spellcheck="false">
+---
+q: |
+  下列 Python 程式碼的輸出為何？
+  <pre><code>print(10 // 3)</code></pre>
+a: |
+  3
+o:
+  - 3.33
+  - 1
+  - 0
+
+---
+q: |
+  辨識圖中 AI-900 提到的<b>數據異常</b>：
+  <img src="https://via.placeholder.com/100" style="display:block; margin-top:10px">
+a: Anomaly Detection
+o:
+  - Computer Vision
+  - NLP
+    </textarea>
+</div>
+
+<div id="preview">
+    <h3>即時預覽 (HTML 渲染)</h3>
+    <div id="render-area"></div>
+</div>
+
+<script>
+    const input = document.getElementById('yaml-input');
+    const renderArea = document.getElementById('render-area');
+    const errorMsg = document.getElementById('error-msg');
+
+    function updatePreview() {
+        try {
+            // 使用 loadAll 處理多個 --- 分隔的 YAML 文件
+            const doc = jsyaml.loadAll(input.value);
+            errorMsg.innerHTML = ''; // 清除錯誤
+            
+            let html = '';
+            doc.forEach(item => {
+                if (!item || !item.q) return;
+                
+                // 組合 HTML 結構
+                html += `<div q>\n  ${item.q}`;
+                html += `  <div a>${item.a}</div>`;
+                if (item.o && Array.isArray(item.o)) {
+                    item.o.forEach(opt => {
+                        html += `  <div class="option">${opt}</div>`;
+                    });
+                }
+                html += `</div>\n`;
+            });
+            renderArea.innerHTML = html;
+        } catch (e) {
+            errorMsg.innerHTML = `<div class="error">YAML 語法錯誤：${e.message}</div>`;
+        }
+    }
+
+    input.addEventListener('input', updatePreview);
+    window.onload = updatePreview;
+</script>
+
+</body>
+</html>
