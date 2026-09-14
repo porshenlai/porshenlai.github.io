@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target='_blank'></base>
+<script src="/App/page.js"></script>
+</head>
+<body style='opacity:0'>
+
+<section class='page'>
+	<div class='fill col'>
+		<div class='h1 ac'>網路概論</div>
+		<br/>
+		<div class='frame'>
+			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+			<div style="text-align:right">2026, Summer</div>
+		</div>
+	</div>
+</section>
+
+<section id='Layer_Index' class='page col'>
+	<h2>網路層級</h2>
+	<div class='fill'>
+		<table border='1' cellpadding='8' width='90%' align='center'><tbody><tr>
+			<th colspan='2'>OSI 7</th>
+			<th colspan='2'>TCP/IP</th>
+		</tr></tr>
+			<th rowspan='3'>上<br/>層</th>
+			<td><div><b class='blue'>7. Application (Data)</b></div>
+				<div style='font-size:72%'>End User Layer <span style='float:right'>
+					<b class='button'><a href='HTTPS.html'>HTTPS</a></b>
+					<b class='button'><a href='HTTP.html'>HTTP</a></b>
+					<b class='button'>FTP</b> <b class='button'>IRC</b>
+					<b class='button'>SSH</b> <b class='button'>DNS</b>
+				</span></div></td>
+			<td rowspan='3'><div><b class='blue'>應<br/>用</b></div></td>
+			<th rowspan='3'>應<br/>用<br/>層</th>
+		</tr><tr>
+			<td><div><b class='blue'>6. Presentation (Data)</b></div>
+				<div style='font-size:72%'>Syntax Layer <span style='float:right'>
+					<b class='button'>SSL</b> <b class='button'>SSH</b> <b class='button'>IMAP</b>
+					<b class='button'>FTP</b> <b class='button'>MPEG</b> <b class='button'>JPEG</b>
+				</span></div></td>
+		</tr><tr>
+			<td><div><b class='blue'>5. Session (Data)</b></div>
+				<div style='font-size:72%'>Synch &amp; send to port <span style='float:right'>
+					<b class='button'>API's</b> <b class='button'>Sockets</b> <b class='button'>WinSock</b>
+				</span></div></td>
+		</tr><tr>
+			<th rowspan='4'>下<br/>層</th>
+			<td valign='top'><div><b class='blue'>4. Transport (Segments)</b></div>
+				<div style='font-size:72%'>End-to-end connections <span style='float:right'>
+					<b class='button' data-h='go:#Net_TCP'>TCP</b> <b class='button'>UDP</b>
+				</span></div></td>
+			<td><div><b class='blue'>傳<br/>輸</b></div> </td>
+			<th rowspan='4'>資<br/>料<br/>流<br/>層</th>
+		</tr><tr>
+			<td><div><b class='blue'>3. Network (Packets)</b></div>
+				<div style='font-size:72%'>Packets <span style='float:right'>
+					<b class='button' data-h='go:#Net_IP'>IP</b> <b class='button'>ICMP</b>
+					<b class='button'>IPSec</b> <b class='button'>IGMP</b>
+				</span></div></td>
+			<td><div><b class='blue'>網<br/>路</b></div></td>
+		</tr><tr>
+			<td><div><b class='blue'>2. Data Link (Frames)</b></div>
+				<div style='font-size:72%'>Frames <span style='float:right;'>
+					<b class='button' data-h='go:#Net_Ethernet'>Ethernet</b>
+					<b class='button'>PPP</b> <b class='button'>Switch</b> <b class='button'>Bridge</b>
+				</span></div></td>
+			<td rowspan='2'><div><b class='blue'>連<br/>結</b></div></td>
+		</tr><tr>
+			<td><div><b class='blue'>1. Physical (Bits)</b></div>
+				<div style='font-size:72%'>Physical Structure <span style='float:right'>
+					<b class='button'>Coax</b>
+					<b class='button'>Fiber</b>
+					<b class='button'>Wireless</b>
+					<b class='button'>Hubs</b>
+					<b class='button'>Repeaters</b>
+				</span></div></td>
+		</tr></tbody></table>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> SSL: Security Socket Layer</h2>
+	<div class='fill'>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> SSH: Security Shell Protocol</h2>
+	<div class='fill'>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> HTTP: Hypertext Transfer Protocol</h2>
+	<div class='fill'>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> FTP: File Transfer Protocol</h2>
+	<div class='fill'>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> RDP: Remote Desktop Protocol</h2>
+	<div class='fill'>
+	</div>
+</section>
+
+<section id='Net_TCP' class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> TCP: Transmission Control Protocol</h2>
+	<div class='fill'>
+		<table border='1' cellpadding='4' align='center'>
+			<tr><th rowspan='2'>WO</th><th>Source Port</th><th>16 bits</th></tr>
+			<tr><td>Destination Port</td><td>16 bits</td></tr>
+			<tr><th>W1</th><td>Sequence Number</td><td>32 bits</td></tr>
+			<tr><th>W2</th><td>Acknowledgement Number</td><td>32 bits</td></tr>
+			<tr><th rowspan='4'>W3</th><td>Data Offset</td><td>4 bits</td></tr>
+			<tr><td>Reseved</td><td>4 bits</td></tr>
+			<tr><td>Flags</td><td>8 bits</td></tr>
+			<tr><td>Window</td><td>16 bits</td></tr>
+			<tr><th rowspan='2'>W4</th><td>Checksum</td><td>16 bits</td></tr>
+			<tr><td>Urgent Pointer</td><td>16 bits</td></tr>
+			<tr><th colspan='3'>Options + Padding</th></tr>
+			<tr><th colspan='3'>Data</th></tr>
+		</table>
+	</ul></div>
+</section>
+
+<section id='Net_UDP' class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> UDP: User Datagram Protocol</h2>
+	<div class='fill'>
+		<table border='1' cellpadding='4' align='center'>
+		</table>
+	</ul></div>
+</section>
+
+<section id='Net_IP' class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> IP: Internet Protocol</h2>
+	<div class='fill'>
+		<table border='1' cellpadding='4' align='center'>
+			<tr><th rowspan='4'>WO</th><th>Version</th><th>4 bits</th></tr>
+			<tr><th>IHL</th><th>4 bits</th></tr>
+			<tr><th>Service Type</th><th>8 bits</th></tr>
+			<tr><th>Packet Length</th><th>16 bits</th></tr>
+			<tr><th rowspan='3'>W1</th><th>Identification</th><th>16 bits</th></tr>
+			<tr><th>IP Flags(0,DF,MF)</th><th>3 bits</th></tr>
+			<tr><th>Fragment Offset</th><th>13 bits</th></tr>
+			<tr><th rowspan='3'>W2</th><th>Time to Live (TTL)</th><th>8 bits</th></tr>
+			<tr><th>Protocol</th><th>8 bits</th></tr>
+			<tr><th>Header Checksum</th><th>16 bits</th></tr>
+			<tr><th>W3</th><th>Source Address</th><th>32 bits</th></tr>
+			<tr><th>W4</th><th>Destination Address</th><th>32 bits</th></tr>
+			<tr><th colspan='3'>IP Options</th></tr>
+			<tr><th colspan='3'>Data</th></tr>
+		</table>
+	</div>
+</section>
+
+<section id='Net_ARP' class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> ARP: Address Resolution Protocol</h2>
+	<div class='fill'>
+		<table border='1' cellpadding='4' align='center'><tbody>
+		</table>
+	</div>
+</section>
+
+<section id='Net_ARP' class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> RARP: Reverse Address Resolution Protocol</h2>
+	<div class='fill'>
+	</div>
+</section>
+
+<section id='Net_Ethernet' class='page col'>
+	<h2><span data-h='go:#Layer_Index'>♖</span> Ethernet Protocol</h2>
+	<div class='fill'>
+		<table border='1' cellpadding='4' align='center'><tbody>
+		<tr><th colspan='2'>IEEE 802.3 Ethernet Frame Format</th></tr>
+		<tr><th>Preamble</th><td> 7 bytes</td></tr>
+		<tr><th>SFD</th><td> 1 bytes</td></tr>
+		<tr><th>Destination Address</th><td> 6 bytes</td></tr>
+		<tr><th>Source Address</th><td> 6 bytes</td></tr>
+		<tr><th>Length</th><td> 2 bytes</td></tr>
+		<tr><th>Data</th><td> 46-1500 bytes</td></tr>
+		<tr><th>CRC</th><td> 4 bytes</td></tr>
+		</tbody></table>
+	</div>
+</section>
+
+</body>
+</html>
