@@ -556,7 +556,9 @@ class Player
 
 	go (target, dft_url)
 	{
-		try { return this.PageNumber=target; } catch(x) { if (dft_url) location.replace(dft_url); }
+		if (document.querySelector(target))
+			return this.PageNumber=target;
+		else if (dft_url) location.replace(dft_url);
 	}
 
 	sw (TK)
