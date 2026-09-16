@@ -23,7 +23,7 @@
 .QMix { display:flex;overflow:auto;align-items:center; }
 </style>
 
-<section class='page'>
+<section class='page'> <!--{{{-->
 	<div class='fill col'>
 		<div class='h1 ac'>Python - Expression<br/>運算式</div>
 		<br/>
@@ -34,12 +34,42 @@
 			<div style="text-align:right">2026, Summer</div>
 		</div>
 	</div>
-</section>
+</section> <!--}}}-->
+
+<section> <h2>後序式 Postfix Expression</h2> <!--{{{-->
+<div class='zcs'><div class='swd' style='text-align:center;'>
+
+<div>
+	<span class='blue'>5</span> <span class='red'>*</span> <span class='red'>(</span>
+	<span class='blue'>1</span> <span class='red'>+</span> <span class='blue'>2</span> <span class='red'>)</span>
+	<span class='red'>**</span> <span class='blue'>2</span> <span class='red'>-</span> <span class='blue'>3</span>
+	<span class='red'>+</span> <span class='blue'>4</span> <span class='red'>/</span> <span class='blue'>2</span>
+</div><hr/>
+<div><span class='blue'>5</span>|<span style='background:silver'><span class='blue'>1</span>|<span class='blue'>2</span>|<span class='red'>+</span></span>|<span class='blue'>2</span>|<span class='red'>**</span>|<span class='red'>*</span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
+<div><span class='blue'>5</span>|<span style='background:silver'><span class='blue'>3</span>|<span class='blue'>2</span>|<span class='red'>**</span></span>|<span class='red'>*</span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
+<div><span style='background:silver'><span class='blue'>5</span>|<span class='blue'>9</span>|<span class='red'>*</span></span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
+<div><span style='background:silver'><span class='blue'>45</span>|<span class='blue'>3</span>|<span class='red'>-</span></span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
+<div><span class='blue'>42</span>|<span style='background:silver'><span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span></span>|<span class='red'>+</span></div>
+<div><span style='background:silver'><span class='blue'>42</span>|<span class='blue'>2</span>|<span class='red'>+</span></span></div>
+<div><span class='blue' style='font-size:200%'>44</span></div>
+
+</div><div class='swd'>
+	<div data-xl='mermaid'><textarea data-v='value:raw'>graph TD
+ NA("5") --> M("*")
+ NB("1") --> A("+")
+ NC("2") --> A --> E("**")
+ ND("2") --> E --> M --> S("-")
+ NE("3") --> S --> AB("+")
+ NF("4") --> D("/") --> AB
+ NG("2") --> D
+</textarea></div>
+
+</div></div>
+</section> <!-- }}}-->
 
 <section data-xl='import:Music_NounAndVerb.html'><h2>♫ 名詞與動詞</h2></section>
 
-<section class='page col'>
-	<h2>名詞與動詞</h2>
+<section class='page col'> <h2>名詞與動詞</h2> <!--{{{-->
 	<div class='fill'>
 		<style>
 			.NVCompare td {
@@ -70,7 +100,7 @@
 			<div>⚑ 常數</div></td>
 		</tr></tbody></table>
 	</div>
-</section>
+</section> <!-- }}} -->
 
 <section data-ks='P_EX'><h2>運算元: 資料型態</h2><!--{{{ Data Type -->
 	<div class='C3Tbl'>
@@ -131,6 +161,52 @@
 </section><!--}}}-->
 
 <section data-xl='import:Music_Types.html'><h2>♫ 基本資料型態</h2></section>
+
+<section> <h2>運算子</h2> <!--{{{-->
+<div class='zcs'>
+<table border='1' cellpadding='8' class='swd'><tr>
+	<th rowspan='6' width='2%'>數<br/>值<br/>計<br/>算</th>
+	<td width='49%' valign='top'>5 ** 2</td>
+	<td width='49%' valign='top'>25</td>
+</tr><tr>
+	<td>- 7</td><td>-7</td>
+</tr><tr>
+	<td>9 * 4<br/>9 / 4<br/>9 // 4<br/>9 % 4</td>
+	<td>36<br/>2.25<br/>2<br/>1</td>
+</tr><tr>
+	<td>1 + 2<br/>3 - 1</td><td>3<br/>2</td>
+</tr><tr>
+	<td>1024 &lt;&lt; 2<br/>1 &gt;&gt; 2</td><td>256<br/>4</td>
+</tr><tr>
+	<td>7 &amp; 4<br/>4 | 1</td><td>4<br/>5</td>
+</tr></table>
+
+<table border='1' cellpadding='8' class='swd'><tr>
+	<th width='2%'>數<br/>值<br/>比<br/>較</th>
+	<td width='49%' valign='top'>1 === 2<br/>1 != 2<br/>1 &gt; 2<br/>1 &gt;= 2<br/>1 &lt; 2</br/>1 &lt;= 2<br/>1 in [1,2]<br/>a is b</td>
+	<td width='49%' valign='top'>False<br/>True<br/>False<br/>False<br/>True<br/>True<br/>True<br/>False</td>
+</tr><tr>
+	<th width='2%'>邏<br/>輯<br/>計<br/>算</th>
+	<td width='49%' valign='top'>True and False<br/>True or False<br/>not True</td>
+	<td width='49%' valign='top'>False<br/>True<br/>False</td>
+</tr></table>
+<table border='1' cellpadding='8' class='swd'><tr>
+	<th rowspan='4' width='2%'>指<br/>定<br/>計<br/>算</th>
+	<td width='49%' valign='top'>v **= 2</td>
+	<td width='49%' valign='top'>v:5 &rarr; 25</td>
+</tr><tr>
+	<td>.</td><td>.</td>
+</tr><tr>
+	<td>v *= 4<br/>v /= 4<br/>v //= 4<br/>v %= 4</td>
+	<td>v:9 &rarr; 36<br/>v:9 &rarr; 2.25<br/>v:9 &rarr; 2<br/>v:9 &rarr; 1</td>
+</tr><tr>
+	<td>v += 2<br/>v -= 1</td>
+	<td>v:1 &rarr; 3<br/>v:3 &rarr; 2</td>
+</tr></table>
+<table border='1' cellpadding='8' class='swd'><tr>
+</tr></table>
+
+</section> <!--}}}-->
 
 <section data-ks='P_EX'><h2>🔢 內建函數: 型別轉換</h2><!--{{{ Built-in Functions: Type Conversion --> 
 	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
