@@ -3,6 +3,9 @@
 const currentScript = document.currentScript;
 
 const ASSERT = (ta, msg) => (Array.isArray(ta) ? ta : [ta]).filter((t)=>t||console.trace(msg));
+const ASSERT_THROW = (ta, msg) => (Array.isArray(ta) ? ta : [ta]).filter((t)=>{
+	if(!t) throw Error(msg);
+});
 
 const Apps = {
 
@@ -112,7 +115,7 @@ class Content
 
 				// 擴充模組驅動
 				Promise.all(
-					Array.from(elem.querySelectorAll('[data-xl]')).map((xe) => slide.prepare(xe))
+					Array.from(elem.querySelectorAll('[data-xl]')).map((xe) => slide.__prepare__(xe))
 				).then(()=>0, ()=>0);
 			}
 		};
@@ -120,60 +123,7 @@ class Content
 		Apps.E('<link rel="stylesheet" href="/App/page.css"></link>').join(document.head);
 	}	// }}}
 
-	install (doc, bfe)	// doc: <div <...sections>|<...[data-template]>|<...[data-data]> >
-	{	// 安裝待顯示的頁面 <...section> {{{ 
-		// 使用者介面輸入資料前處理
-		if (Apps.before_load)
-			Apps.before_load(this, doc);
-
-		// 宣告樣本與資料定義
-		Apps.E(doc).forEach('[data-def]', (e) => {
-			Apps.handleArgs(e.dataset.def, (cs, key) => {
-				if (!key) return
-				Apps.Ns.register(key, cs, e);
-				e.parentNode.removeChild(e);
-			});
-		}); // declare template and data
-
-		// 根據過濾器安裝要求的頁面
-		let ksmap={}; // TODO inherit from this.Keywords
-		Array.from(doc.querySelectorAll('section'))
-		.reduce((E, se, k) => {
-			// Organize keywords from data-ks 
-			const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
-			ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
-
-			E.insertBefore(se, bfe);
-
-			// filtering sections
-			if (true/*this.Filters.matches(ks)*/) {
-				se.classList.remove('disabled');
-			} else se.classList.add('disabled');
-			return E;
-		}, this.E);
-
-		if (bfe) bfe.parentNode.removeChild(bfe);
-
-		let PageIndex=[];
-		Array.from(this.E.querySelectorAll('section:not(.disabled)'))
-		.forEach((se,k) => { // ensure all sections has ID for location
-			if ((!se.id)||/__.*__/.exec(se.id)) se.id=`__${k}__`;
-			PageIndex.push(se.id);
-		});
-		this.Keywords=Object.keys(ksmap);
-		this.PageIndex=PageIndex;
-
-		// 套用應用載入階段擴充
-		Promise.all(
-			Array.from(this.E.querySelectorAll('[data-x]')).map((xe) => this.prepare(xe))
-		).then(() => {
-			// 使用者介面安裝後處理
-			if (Apps.after_load) // after_load for Page override
-				Apps.after_load(this);
-		}, console.log);
-	}	// }}}
-
-	async prepare (e, mn, args) // prepare x-module < data-xl >, < data-x > or <> module_name, args
+	async __prepare__ (e, mn, args) // prepare x-module < data-xl >, < data-x > or <> module_name, args
 	{	// 準備 頁面延伸模組 {{{
 		if (!mn) {
 			args = (e.dataset.xl || e.dataset.x).split(':');
@@ -281,7 +231,7 @@ class Content
 
 			// Trigger module extend of section loading
 			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
-			if(ms.length>0) Promise.all(ms.map((xe)=>this.prepare(xe))).then(()=>{
+			if(ms.length>0) Promise.all(ms.map((xe)=>this.__prepare__(xe))).then(()=>{
 				if (em.classList.contains('current')) {
 					if (Apps.Timer) clearInterval(Apps.Timer);
 					if (em && em.tick) em.tick(true);
@@ -338,7 +288,60 @@ class Player
 
 	async sync (pages)
 	{	// 頁面資料匯入更新同步 {{{
-		this.Content.install(pages, this.Content.CurPage); // 安裝頁面
+
+		(function (doc, bfe) { // 安裝待顯示的頁面 <...section> 
+			// doc: <div <...sections>|<...[data-template]>|<...[data-data]> > {{{
+			// 使用者介面輸入資料前處理
+			if (Apps.before_load)
+				Apps.before_load(this, doc);
+
+			// 宣告樣本與資料定義
+			Apps.E(doc).forEach('[data-def]', (e) => {
+				Apps.handleArgs(e.dataset.def, (cs, key) => {
+					if (!key) return
+					Apps.Ns.register(key, cs, e);
+					e.parentNode.removeChild(e);
+				});
+			}); // declare template and data
+
+			// 根據過濾器安裝要求的頁面
+			let ksmap={}; // TODO inherit from this.Keywords
+			Array.from(doc.querySelectorAll('section'))
+			.reduce((E, se, k) => {
+				// Organize keywords from data-ks 
+				const ks=(se.dataset.ks||'').split(/[,\s]/).filter((v)=>v);
+				ks.forEach((k)=>ksmap[k]=(ksmap[k]||0)+1);
+
+				E.insertBefore(se, bfe);
+
+				// filtering sections
+				if (true/*this.Filters.matches(ks)*/) {
+					se.classList.remove('disabled');
+				} else se.classList.add('disabled');
+				return E;
+			}, this.E);
+
+			if (bfe) bfe.parentNode.removeChild(bfe);
+
+			let PageIndex=[];
+			Array.from(this.E.querySelectorAll('section:not(.disabled)'))
+			.forEach((se,k) => { // ensure all sections has ID for location
+				if ((!se.id)||/__.*__/.exec(se.id)) se.id=`__${k}__`;
+				PageIndex.push(se.id);
+			});
+			this.Keywords=Object.keys(ksmap);
+			this.PageIndex=PageIndex;
+
+			// 套用應用載入階段擴充
+			Promise.all(
+				Array.from(this.E.querySelectorAll('[data-x]')).map((xe) => this.__prepare__(xe))
+			).then(() => {
+				// 使用者介面安裝後處理
+				if (Apps.after_load) // after_load for Page override
+					Apps.after_load(this);
+			}, console.log);
+			// }}}
+		}).call(this.Content, pages, this.Content.CurPage);
 
 		this.Keywords = this.Content.Keywords;
 		this.PageCount = this.Content.PageIndex.length;
@@ -573,6 +576,13 @@ class Player
 		);
 	}
 
+	install (mn, ...args)
+	{
+		const elem=Apps.E(event.target).trace('[data-h]');
+		ASSERT_THROW(elem, "container not exist");
+		this.Content.__prepare__(elem, mn, args);
+	}
+
 	play (caption, mn, ...args)
 	{	// play:Caption:Module:(args)*:&this
 		// play('dom',document.getElementById(...),'Caption');
@@ -582,7 +592,7 @@ class Player
 		if (args[args.length-1] instanceof Element)
 			VE.innerHTML=args.pop().innerHTML;
 		VE.dataset.xl = args.join(":");
-		this.Content.prepare(VE);
+		this.Content.__prepare__(VE);
 		this.Overlay='dialog';
 		((DLG)=>{
 			DLG.querySelector('div').textContent=caption||'Dialog';
@@ -596,7 +606,7 @@ class Player
 
 	prepare (elem, mn, ...args)
 	{	// prepare:&this:template:...
-		return this.Content.prepare(elem, mn, args).then(()=>0,()=>0);
+		return this.Content.__prepare__(elem, mn, args).then(()=>0,()=>0);
 	}
 
 	// speak('bonjour','fr');
