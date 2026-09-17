@@ -4,17 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
+<base target='_blank'/>
 <script src="/App/page.js"></script>
 <style>
 	h2 { background:rgba(255,255,255,0.7); padding:4px 12px; border-radius:6px;}
 </style>
-<title>Artificial Intelligence</title>
+<title>人工智慧 Artificial Intelligence</title>
 </head>
 <body style='opacity:0'><main data-controls='aside,control'><div id='content'>
 
 <section class='page'>
 	<div class='fill col'>
-		<div class='h1 ac'>Artificial Intelligence</div>
+		<div class='h1 ac'>人工智慧<br/>Artificial Intelligence</div>
 		<br/>
 		<div class='frame'>
 			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
@@ -27,9 +28,9 @@
 
 <section data-xl='import:Music_Evolution.html'><h2>&#1D11E; 演化</h2></section>
 
-<section class='page col'>
+<section>
 	<h2>智慧這個詞</h2>
-	<div class='fill'><ul>
+	<div><ul>
 		<li>當副詞用<ul>
 			<li><b class='green'>智慧行為：</b>基於智慧進行決策後的行為</li>
 		</ul></li>
@@ -37,14 +38,84 @@
 			<li><b class='green'>智慧機械：</b>能進行智慧行為的機械</li>
 		</ul></li>
 		<li>當名詞用<ul>
-			<li><b class='green'>智慧：</b>揭露世界運行法則的因果，關聯與規則</li>
-			<li><b class='green'>人工智慧：</b>根據觀察資料，產生規則。跟據規則，產生決策。</li>
+			<li><b class='red'>智慧：</b>揭露世界運行法則的因果，關聯與規則</li>
+			<li><b class='orange'>人工智慧：</b>根據觀察資料，產生規則。跟據規則，產生決策。</li>
 		</ul></li>
 	</ul></div>
 </section>
 
+<section>
+	<h2>產生智慧: 資料與模型</h2>
+	<div><ul>
+		<li>增廣見聞 取樣蒐集</li>
+		<li>整頓清理 歸納推論</li>
+		<li>發現規律 假說設定</li>
+		<li>實驗模擬 理論證明</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>產生智慧: 常見抽樣方法</h2>
+	<div><ul>
+		<li><b>簡單隨機抽樣（Simple Random Sampling）：</b><ul>
+			<li>母體中每個個體都有完全相等的機率被抽中，如抽籤或亂數產生器。</li>
+		</ul></li>
+		<li><b>系統抽樣（Systematic Sampling）：</b><ul>
+			<li>將母體編號後依固定的間隔（如每隔 50 人）抽取樣本。</li>
+		</ul></li>
+		<li><b>分層隨機抽樣（Stratified Random Sampling）：</b><ul>
+			<li>先將母體依特徵（如年齡、性別）分成不同子群層，再從各層中進行隨機抽樣。</li>
+		</ul></li>
+		<li><b>便利抽樣（Convenience Sampling）：</b><ul>
+			<li>選擇最容易接觸到的個體（如街頭訪問、社群媒體留言）進行調查。</li>
+		</ul></li>
+		<li><b>滾雪球抽樣（Snowball Sampling）：</b><ul>
+			<li>透過現有受訪者介紹並招募更多符合條件的個體，常用於難以接觸的特殊群體。</li>
+		</ul></li>
+		<div><a href='https://zh.surveymonkey.com/market-research/resources/types-of-sampling/'>[SurveyMonkey: types-of-sampling]</a></div>
+	</ul></div>
+</section>
+
+<section>
+	<h2>常見的抽樣偏誤</h2>
+	<div><ul>
+		<li><b>自我選擇偏誤（Self-Selection Bias）：</b><ul>
+			<li>調查依賴個體自願參與，通常具有極端意見或特定動機的人較願意發聲，無法代表多數中立者的真實想法。</li>
+		</ul></li>
+		<li><b>自存活者偏誤（Survivorship Bias）：</b><ul>
+			<li>只分析成功留存下來的個體，忽略已淘汰或消失的樣本，因而對成功率產生過度樂觀的估計。</li>
+		</ul></li>
+		<li><b>自覆蓋不足偏誤（Undercoverage Bias）：</b><ul>
+			<li>抽樣框不完整或過時，導致母體中某些特定群體完全沒有機會被抽中。</li>
+		</ul></li>
+		<li><b>無回應偏誤（Non-response Bias）：</b><ul>
+			<li>被抽中的樣本拒絕參與或無法聯絡，且這群未回應者的特徵與回應者有系統性差異。</li>
+		</ul></li>
+		<div><a href='https://aiterms.tw/terms/sampling-bias'>[AITerms: 抽樣偏誤探討]</a></div>
+	</ul></div>
+</section>
+
+<section>
+	<h2>使用智慧: 智慧工具</h2>
+	<table border='0' width='90%' align='90%'><tr>
+		<th width='5%' valign='top'>📝</th>
+		<td valign='top' style='border:3px solid blue;border-radius:8px;'><ul>
+			<li>想想看有什麼麻煩事，處理起來很累人的。</li>
+			<li>問問看大語言模型，除了他以外，有什麼工具可以使用的。</li>
+			<li>問問看這些工具使用上有沒有限制，是不是免費的...</li>
+		</ul></td>
+		<td valign='top' style='border:3px solid green;border-radius:8px;'><ul>
+			<li>我有一張簽到單的掃描影像，簽到單上只有出席者的簽名。我可以提供預定出席者的名單，可以幫我文字辨識簽名單並找出沒簽名與沒報名的人員嗎  ?</li>
+			<li>除了你之外，有其他免費的文字辨識工具，可以比對手寫字並從候選字中找到可能對應嗎 ?</li>
+			<li>...</li>
+		</ul></td>
+	</tr></table>
+</section>
+
+<section data-xl='import:Music_CVAndNLP.html'><h2>&#1D11E; 電腦視覺與自然語言處理</h2></section>
+
 <section class='page col'>
-	<h2>哪些動詞需要智慧？</h2>
+	<h2>工作類型: 哪些動詞需要智慧？</h2>
 	<div class='fill'><ul>
 		<li>(根據樣本來產生智慧)</li>
 		<li>決策 &rarr; YES/NO &rarr; 認知 &rarr; 分類</li>
