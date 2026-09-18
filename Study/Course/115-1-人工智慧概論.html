@@ -22,8 +22,8 @@
 "教材課本":"自編教材",
 "授課方式":"課堂教學",
 "是否為全外語教學":"否",
-"輔導證照":["AIL 專家級"],
-"輔導競賽":["Coding 101"],
+"輔導證照":[{"N":"AIL 專家級","U":"https://ipoetech.jyic.net/AIL"}],
+"輔導競賽":[{"N":"Coding 101","U":"https://2026.coding101.tw/"}],
 "業師協同教學":"否",
 "教學是否應用 IRS":"是",
 "是否為創新創業課程":"是",
@@ -71,12 +71,11 @@
 		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
 		<tr><th>線上教室:</th><td><a data-v='attr:href:Google教室'>Google Classroom</a></td></tr>
 		<tr><th>課程群組:</th><td><a data-v='attr:href:Line群組'>Line</a></td></tr>
-		<tr><th>輔導證照:</th><td>
-			<div data-v='text:輔導證照'></div>
-			<div class='red' style='font-size:50%'>參加證照考試可抵免報告作業(25%)成績</div>
+		<tr><th>輔導證照:</th><td data-c='foreach:輔導證照'>
+			<a data-v='attr:href:U'><div data-v='text:N'></div></a>
 		</td></tr>
-		<tr><th>輔導競賽:</th><td>
-			<div data-v='text:輔導競賽'></div>
+		<tr><th>輔導競賽:</th><td data-c='foreach:輔導競賽'>
+			<a data-v='attr:href:U'><div data-v='text:N'></div></a>
 			<div class='red' style='font-size:50%'>參加競賽將得到期末專題優惠</div>
 		</td></tr>
 		<tr><th>成績比率:</th><td data-c='kvs:成績比率'>
@@ -140,9 +139,10 @@
 	</tbody></table>
 </section>
 
-<section data-xl='import:../AI/Music_Evolution.html'>
-	<h2>♫ 演化</h2>
-</section>
+<section data-xl='import:../AI/Music_Evolution.html'><h2>♫ 演化</h2></section>
+<section data-xl='import:../AI/Music_CVAndNLP.html'><h2>♫ 視覺與自然語言</h2></section>
+<section data-xl='import:../AI/Music_DeepLearning.html'><h2>♫ 深度學習</h2></section>
+<section data-xl='import:../AI/Music_Functions.html'><h2>♫ 分類分群預測與生成</h2></section>
 
 </div></main></body>
 </html>
