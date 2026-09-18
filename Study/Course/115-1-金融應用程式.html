@@ -17,7 +17,9 @@
 "開課系科":"財務金融系-日四技-金二A",
 "開課教室":"E62",
 "開課時間":"一 (13:20-15:10)",
-"教材課本":"自編教材",
+"Google教室":"https://classroom.google.com/c/ODU0ODk0MTA3MzQ1?cjc=rej4mj6p",
+"Line群組":"https://line.me/R/ti/g/gWk83SdXsh",
+"教材課本":[],
 "授課方式":"課堂教學",
 "是否為全外語教學":"否",
 "輔導證照":[],
@@ -26,10 +28,10 @@
 "教學是否應用 IRS":"是",
 "是否為創新創業課程":"是",
 "課程是否使用程式語言":"是",
-"是否為STEM課程":"是",
-"是否使用AI輔助教學":["Gemini"],
-"SDGs永續課程":["SDG 8 合適的工作及經濟成長","SDG 9 工業化、創新及基礎建設"],
-"成績比率": {
+"是否為 STEM 課程":"是",
+"是否使用 AI 輔助教學":["Gemini"],
+"SDGs 永續課程":["SDG 8 合適的工作及經濟成長","SDG 9 工業化、創新及基礎建設"],
+"成績比率":{
 	"平時":"50 % (多元彈性學習 10%)",
 	"期中":"25 % (上機測驗)",
 	"期末":"25 % (專題報告)"
@@ -66,8 +68,14 @@
 		<tr><th>開課系科:</th><td data-v='text:開課系科'></td></tr>
 		<tr><th>開課時間:</th><td data-v='text:開課時間'></td></tr>
 		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
-		<tr><th>輔導證照:</th><td>
-			<div data-v='text:輔導證照'></div>
+		<tr><th>線上教室:</th><td><a data-v='attr:href:Google教室'>Google Classroom</a></td></tr>
+		<tr><th>課程群組:</th><td><a data-v='attr:href:Line群組'>Line</a></td></tr>
+		<tr><th>輔導證照:</th><td data-c='foreach:輔導證照'>
+			<a data-v='attr:href:U'><div data-v='text:N'></div></a>
+		</td></tr>
+		<tr><th>輔導競賽:</th><td data-c='foreach:輔導競賽'>
+			<a data-v='attr:href:U'><div data-v='text:N'></div></a>
+			<div class='red' style='font-size:50%'>參加競賽將得到期末專題優惠</div>
 		</td></tr>
 		<tr><th>成績比率:</th><td data-c='kvs:成績比率'>
 			<div>
@@ -81,11 +89,11 @@
 <section class='page col'>
 	<h2>課程群組 (LINE)</h2>
 	<div class='fill row'>
-		<a href=''>
+		<a href='https://line.me/R/ti/g/gWk83SdXsh'>
 			<div style='border:1px solid black;padding:8px;text-align:right;'>
 				<div style='width:384px;height:384px;margin:auto;'
-					data-xl='qrcode:'></div>
-				<div></div>
+					data-xl='qrcode:https%3A//line.me/R/ti/g/gWk83SdXsh'></div>
+				<div>https://line.me/R/ti/g/gWk83SdXsh</div>
 			</div>
 		</a>
 	</div>
@@ -106,13 +114,13 @@
 	<h2>Google 教室</h2>
 	<div class='fill row'>
 		<div style='border:1px solid black;padding:8px;text-align:left;'>
-			<a href=''>
+			<a href='https://classroom.google.com/c/ODU0ODk0MTA3MzQ1?cjc=rej4mj6p'>
 				<div style='width:384px;height:384px;margin:auto;'
-					data-xl='qrcode:'></div>
-				<div></div>
+					data-xl='qrcode:https%3A//classroom.google.com/c/ODU0ODk0MTA3MzQ1?cjc=rej4mj6p'></div>
+				<div>https://classroom.google.com/c/ODU0ODk0MTA3MzQ1?cjc=rej4mj6p</div>
 			</a>
-			<a href=''>
-				(Google Meet) 
+			<a href='https://meet.google.com/car-kzfc-ybq'>
+				(Google Meet) https://meet.google.com/car-kzfc-ybq
 			</a>
 		</div>
 	</div>
@@ -131,7 +139,7 @@
 <section data-xl='template:&this:Info'>
 	<h2>課程內容</h2>
 	<div><b>📖 參考書:</b><span data-v='text:教材課本'></span></div>
-	<div><b>📖 簡報:</b></div>
+	<!--div><b>📖 簡報:</b></div-->
 	<div><b>📆 行事曆:</b></div>
 	<style>
 		.schedule td { border-width:0 0 1px 0; }
@@ -171,21 +179,23 @@
 	</tbody></table>
 </section>
 
-<section data-xl='import:../Finance/Music_BDFinance.html'>
-	<h2>♫ 大數據金融</h2>
-</section>
+<section data-xl='import:../Finance/Music_BDFinance.html'><h2>♫ 大數據金融</h2></section>
 
+<section>
+	<h2>電源管理與自主減碳</h2>
+	<div><ul>
+		<li><a href='https://chihleepj.flowring.dev/'>Demo Site</a></li>
+		<li><b>U: </b><input value='user001'/></li>
+		<li><b>S: </b><input value='user123'/></li>
+	</ul></div>
+</section>
 
 <section>
 	<h2>討論事項</h2>
 	<div><ul>
 		<li>在電腦教室上課，飲食禁止，有飲食需求，請在教室外面完成。</li>
+		<li>中間下課時間取消，有事自行處理。第二節提早十分鐘下課。</li>
 		<li><a href='https://aa100.chihlee.edu.tw/p/406-1002-111277,r652.php'>學術倫理</a></li>
-		<li>第一週為 SDGS 永續發展週，除了完備同學課程需求的帳號與工具設定外，還想跟大家討論看看程式與人工智慧對我們的生活會產生哪些影響？<ul>
-			<li><a href='https://sdgs.un.org/goals'>UN: the 17 SDGs</a></li>
-			<li><a href='https://globalgoals.tw/'>17 項永續發展目標</a></li>
-			<li><a href='https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/lanina/enso_evolution-status-fcsts-web.pdf'>ENSO: Recent Evolution, Current Status and Predictions</li>
-		</ul></li>
 	</ul></div>
 </section>
 

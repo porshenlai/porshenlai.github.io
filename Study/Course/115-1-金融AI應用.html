@@ -70,11 +70,12 @@
 		<tr><th>開課教室:</th><td data-v='text:開課教室'></td></tr>
 		<tr><th>線上教室:</th><td><a data-v='attr:href:Google教室'>Google Classroom</a></td></tr>
 		<tr><th>課程群組:</th><td><a data-v='attr:href:Line群組'>Line</a></td></tr>
-		<tr><th>輔導證照:</th><td>
-			<div data-v='text:輔導證照'></div>
+		<tr><th>輔導證照:</th><td data-c='foreach:輔導證照'>
+			<a data-v='attr:href:U'><div data-v='text:N'></div></a>
 		</td></tr>
-		<tr><th>輔導競賽:</th><td>
-			<div data-v='text:輔導競賽'></div>
+		<tr><th>輔導競賽:</th><td data-c='foreach:輔導競賽'>
+			<a data-v='attr:href:U'><div data-v='text:N'></div></a>
+			<div class='red' style='font-size:50%'>參加競賽將得到期末專題優惠</div>
 		</td></tr>
 		<tr><th>成績比率:</th><td data-c='kvs:成績比率'>
 			<div>
@@ -83,6 +84,46 @@
 			</div>
 		</td></tr>
 	</tbody></table>
+</section>
+
+<section class='page col'>
+	<h2>課程群組 (LINE)</h2>
+	<div class='fill row'>
+		<a href='https://line.me/R/ti/g/qnjbveBLcD'>
+			<div style='border:1px solid black;padding:8px;text-align:right;'>
+				<div style='width:384px;height:384px;margin:auto;'
+					data-xl='qrcode:https://line.me/R/ti/g/qnjbveBLcD'></div>
+				<div>https://line.me/R/ti/g/qnjbveBLcD</div>
+			</div>
+		</a>
+	</div>
+</section>
+
+<section>
+	<h2>致理帳號</h2>
+	<div><ul>
+		<li><a href='https://www.chihlee.edu.tw/'>致理官方網站</a></li>
+		<li><a href='https://cip1.chihlee.edu.tw/'>校園入口網</a></li>
+		<li><a href='https://ilife.chihlee.edu.tw/'>致理 i 生活</a></li>
+		<li><a href='https://dlc.chihlee.edu.tw/'>致理數位學院</a></li>
+		<li><a href='https://news.chihlee.edu.tw/GSuite3/'>GM 帳號申請</a></li>
+	</ul></div>
+</section>
+
+<section class='page col'>
+	<h2>Google 教室</h2>
+	<div class='fill row'>
+		<div style='border:1px solid black;padding:8px;text-align:left;'>
+			<a href='https://classroom.google.com/c/ODU0ODk0MzE3OTI0?cjc=n4tve4ye'>
+				<div style='width:384px;height:384px;margin:auto;'
+					data-xl='qrcode:https://classroom.google.com/c/ODU0ODk0MzE3OTI0?cjc=n4tve4ye'></div>
+				<div>https%3A//classroom.google.com/c/ODU0ODk0MzE3OTI0?cjc=n4tve4ye</div>
+			</a>
+			<a href='https://meet.google.com/qws-oypp-sdv'>
+				(Google Meet) https://meet.google.com/qws-oypp-sdv
+			</a>
+		</div>
+	</div>
 </section>
 
 <section data-xl='template:&this:Info'>
@@ -132,8 +173,24 @@
 	</tbody></table>
 </section>
 
-<section data-xl='import:../Finance/Music_Banking.html'>
-	<h2>♫ 金融</h2>
+<section data-xl='import:../Finance/Music_Banking.html'><h2>♫ 金融</h2></section>
+
+<section>
+	<h2>電源管理與自主減碳</h2>
+	<div><ul>
+		<li><a href='https://chihleepj.flowring.dev/'>Demo Site</a></li>
+		<li><b>U: </b><input value='user001'/></li>
+		<li><b>S: </b><input value='user123'/></li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>討論事項</h2>
+	<div><ul>
+		<li>在電腦教室上課，飲食禁止，有飲食需求，請在教室外面完成。</li>
+		<li>中間下課時間取消，有事自行處理。第二節提早十分鐘下課。</li>
+		<li><a href='https://aa100.chihlee.edu.tw/p/406-1002-111277,r652.php'>學術倫理</a></li>
+	</ul></div>
 </section>
 
 </div></main></body>
