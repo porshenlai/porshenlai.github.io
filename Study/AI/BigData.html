@@ -3,87 +3,196 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title></title>
+<title>Big Data 大數據</title>
 <script src="/App/page.js"></script>
 </head>
 <body>
 
-<div id="content">
-	<section>
-		<h1 class="title">特徵工程<br/>Feature Engineering</h1>
-		<div>
-			<p class="meta">Lecturer: Porshen Lai<a href="mailto:porshenlai@gm.chihlee.edu.tw">📧</a> · Department of Finance, Chihlee University of Technology<br>2025, Winter</p>
-		</div>
-	</section>
-	<section>
-		<p>皮爾森積差相關分析 (Pearson Correlation)、主成分分析 (PCA) 和隨機森林 (Random Forest)，在特徵工程中扮演的角色與機制有本質上的差異。</p>
-		<p>它們主要可分為兩大類：<strong>特徵選擇/降維</strong>和<strong>特徵重要性評估</strong>。</p>
-		<p>以下是三種方法在特徵工程上的詳細比較：</p>
-		<h2>三方法在特徵工程上的差異比較</h2>
-		<figure class="table">
-			<table><thead><tr>
-				<th><strong>方法名稱</strong></th>
-				<th><strong>核心目的 (在特徵工程中)</strong></th>
-				<th><strong>執行機制與功能</strong></th>
-				<th><strong>產出結果 (用於特徵工程)</strong></th>
-				<th><strong>適用情境與差異</strong></th>
-			</tr></thead><tbody><tr>
-				<td><strong>1. 皮爾森積差相關分析</strong> (Pearson Correlation)</td>
-				<td><strong>特徵選擇：</strong> 測量特徵間的<strong>線性冗餘</strong>及特徵與目標變量間的<strong>線性關係</strong>。</td>
-				<td>計算兩個<strong>連續變量</strong>之間的<strong>線性相關係數</strong> ($\rho$)。</td>
-				<td><strong>相關係數矩陣：</strong> 幫助識別高度相關的冗餘特徵（$\rho \approx \pm 1$），或與目標變量相關性低的特徵（$\rho \approx 0$）。</td>
-				<td><strong>單純性：</strong> 只能捕捉<strong>線性關係</strong>。作為最簡單的初步特徵篩選工具。</td>
-			</tr><tr>
-				<td><strong>2. 主成分分析</strong> (Principal Components Analysis, PCA)</td>
-				<td><strong>特徵降維/特徵衍生：</strong> 通過線性轉換，將高維數據轉換為一組<strong>不相關的新特徵</strong>（主成分）。</td>
-				<td>尋找數據中<strong>變異度（Variance）最大</strong>的方向，將原始特徵投影上去，以保留最多資訊。是一種<strong>無監督學習</strong>方法。</td>
-				<td><strong>主成分：</strong> 數量更少、彼此獨立的新特徵組合。常與<strong>多重共線性</strong>問題有關。</td>
-				<td><strong>轉換性：</strong> 是一種<strong>降維方法</strong>，不直接保留原始特徵，而是創建<strong>無法解釋的新特徵</strong>。</td>
-			</tr><tr>
-				<td><strong>3. 隨機森林</strong> (Random Forest)</td>
-				<td><strong>特徵重要性評估：</strong> 評估每個特徵對模型預測能力的<strong>非線性貢獻</strong>。</td>
-				<td>屬於<strong>有監督學習</strong>方法。通過計算特徵在所有決策樹中**平均減少雜質（如 Gini Impurity）**的程度來排序其重要性。</td>
-				<td><strong>特徵重要性分數：</strong> 提供一個量化指標，用於<strong>非線性特徵選擇</strong>或理解變量與目標變量間的複雜關係。</td>
-				<td><strong>非線性性：</strong> 擅長捕捉<strong>非線性關係</strong>。用於在不假設線性關係的前提下，選出對預測最有價值的特徵。</td>
-			</tr></tbody></table>
-		</figure>
-		<h2>總結區分</h2>
-		<figure class="table">
-			<table><thead><tr>
-				<th><strong>區分維度</strong></th>
-				<th><strong>皮爾森相關 (Pearson)</strong></th>
-				<th><strong>主成分分析 (PCA)</strong></th>
-				<th><strong>隨機森林 (Random Forest)</strong></th>
-			</tr></thead><tbody><tr>
-				<td><strong>目標</strong></td>
-				<td>冗餘特徵剔除（相關性）</td>
-				<td>數據降維（變異度）</td>
-				<td>特徵重要性評估（預測貢獻）</td>
-			</tr><tr>
-				<td><strong>機制</strong></td>
-				<td>測量<strong>線性</strong>相關</td>
-				<td>進行<strong>線性</strong>轉換與投影（無監督）</td>
-				<td>捕捉<strong>非線性</strong>關係（有監督）</td>
-			</tr><tr>
-				<td><strong>處理特徵</strong></td>
-				<td>選擇性<strong>保留/刪除</strong>原始特徵</td>
-				<td>產生<strong>全新、無法解釋</strong>的特徵</td>
-				<td>選擇性<strong>保留/刪除</strong>原始特徵</td>
-			</tr><tr>
-				<td><strong>應用時機</strong></td>
-				<td>處理<strong>連續變量</strong>的初步篩選</td>
-				<td>處理<strong>多重共線性</strong>、視覺化高維數據</td>
-				<td>處理<strong>非線性</strong>、<strong>複雜關係</strong>的特徵選擇</td>
-			</tr></tbody></table>
-		</figure>
-		<p>在實際的特徵工程流程中，這三種方法通常會搭配使用，以達到全面的優化效果：</p>
-		<ol>
-			<li><strong>皮爾森相關</strong>：快速檢查並移除過度相似的冗餘特徵。</li>
-			<li><strong>PCA</strong>：若特徵數量仍過多或存在多重共線性，可使用 PCA 進行降維或特徵衍生。</li>
-			<li><strong>隨機森林</strong>：使用其特徵重要性分數，從剩餘的特徵集合（或 PCA 之後的主成分）中，選出對最終模型預測最具貢獻的特徵子集。</li>
-		</ol>
-	</section>
-</div>
+<section>
+	<h2>Big Data - 大數據</h2>
+	<div><ul>
+		<li>大數據又稱為巨量資料。</li>
+		<li>定義上指的是當資料量大到資料庫系統無法在合理時間內完成儲存，運算和資料處理，透過分析成為能夠解讀的結果資訊。</li>
+		<li>並不是一個全新的觀念，事實上科學家已經面對巨量資料數十年，只是隨著科技發展更新儲存與分析的技術，為原本的問題提供了解覺得方法。</li>
+	</ul></div>
+	<div data-h='install:mermaid' style='text-align:center'>
+		<button>資料進程</button>
+	<textarea data-v='value:raw' style='display:none'>flowchart LR
+	A(Storage<br/>儲存) -->|看到| B(Data<br/>資料) -->|看懂| C(Information<br/>資訊) -->|能使用| D(Intelligence<br/>情報)
+</textarea>
+</section>
+
+<section>
+	<h2>3V &rarr; 4V &rarr; 5V</h2>
+	<div><ol>
+		<li><b>資料量（Volume）：</b>資料規模極度龐大，基本單位通常達到 TB（兆位元組）、PB（千兆位元組）甚至 EB 等級，無法用傳統資料庫處理。</li>
+		<li><b>速度（Velocity）：</b>資料生成、傳輸與變化的速度極快，必須即時進行處理、分析與回應。</b></li>
+		<li><b>多樣性（Variety）：</b>資料來源廣泛且格式繁多，包含結構化、半結構化及大量的非結構化資料（如影片、音訊、社群貼文等）。</li>
+		<hr/>
+		<li><b>真實性（Veracity）：</b>資料品質參差不齊，充滿雜訊或錯誤資訊，必須經過濾與驗證以確保分析結果正確（避免垃圾進、垃圾出）。</li>
+		<hr/>
+		<li><b>價值性（Value）：</b>資料本身規模大、速度快並非重點，關鍵在於能否透過分析將其轉化為有意義的商業洞察或實際效益。</li>
+	</ol></div>
+</section>
+
+<section>
+	<h2>資料取得（Data Ingestion & Collection）</h2>
+	<div><ul>
+		<li>這是大數據處理的第一步，負責從各種來源收集大數據，並將其匯入系統。</li>
+		<li><b>主要任務：</b>處理多樣性（Variety）與高速度（Velocity）的資料。</li>
+		<li><b>資料來源：</b>感測器（IoT）、社群媒體、網站日誌（Log）、交易紀錄、資料庫（ERP/CRM）。</li>
+		<li><b>核心技術：</b>Apache Kafka、Apache Flume（用於即時串流資料收集）、傳統的 ETL 工具。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>資料儲存（Data Storage）</h2>
+	<div><ul>
+		<li>大數據的資料量（Volume）龐大且格式不一，傳統關係型資料庫難以負荷，因此需要特殊的儲存架構。</li>
+		<li><b>主要任務：</b>以高擴充性、低成本的方式安全儲存結構化與非結構化資料。</li>
+		<li><b>儲存架構：</b><ul>
+			<li><b>資料湖（Data Lake）：</b>儲存原始、未經處理的各種格式資料（如 AWS S3）。</li>
+			<li><b>資料倉庫（Data Warehouse）：</b>儲存經過清洗、結構化且有特定分析目的的資料（如 Google BigQuery、Snowflake）。</li>
+		</ul></li>
+		<li><b>核心技術：</b>Hadoop HDFS、NoSQL 資料庫（如 MongoDB、HBase）。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>資料運算與分析（Data Processing & Analytics）</h2>
+	<div><ul>
+		<li>此步驟是整個流程的核心，負責清洗資料、執行複雜運算並從中提取出有用的資訊。</li>
+		<li><b>主要任務：</b>將雜亂的資料（Veracity）透過演算法轉化為可預測或具洞察力的結果。</li>
+		<li><b>處理模式：</b><ul>
+			<li><b>批次處理（Batch Processing）：</b>定期處理大量累積的歷史資料（如每晚結算）。</li>
+			<li><b>即時/串流處理（Stream Processing）：</b>對剛產生的資料進行秒級甚至毫秒級的即時運算（如信用卡防詐欺偵測）。</li>
+		</ul></li>
+		<li><b>核心技術：</b>Apache Spark（主流分散式運算架構）、Python/R 語言、機器學習（Machine Learning）演算法</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>資料視覺化（Data Visualization）</h2>
+	<div><ul>
+		<li>這是大數據展現價值（Value）的最後一哩路，負責將枯燥的數據與分析結果轉化為直觀的圖表。</li>
+		<li><b>主要任務：</b>幫助決策者一目了然地看懂數據背後的趨勢、異常與關聯性。</li>
+		<li><b>呈現形式：</b>互動式儀表板（Dashboard）、即時監控圖表、趨勢分析報告。核心技術：Tableau、Power BI、Google Looker Studio、D3.js。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>分析方法</h2>
+	<div><table border='1' width='95%' align='center'><thead>
+		<tr><th>分析方法</th><th>核心問題</th><th>焦點時期</th><th>技術複雜度</th><th>商業價值</th>
+	</thead><tbody>
+		<tr><th>描述性分析</th><td>發生了什麼事？</td><td>過去</td><td>🟨 低</td><td>🟩 低</td></tr>
+		<tr><th>診斷性分析</th><td>為什麼會發生？</td><td>過去 / 現在</td><td>🟧 中</td><td>🟨 中</td></tr>
+		<tr><th>預測性分析</th><td>未來可能發生什麼？</td><td>未來</td><td>🟥 高</td><td>🟧 高</td></tr>
+		<tr><th>指示性分析</th><td>我們該怎麼做？</td><td>未來</td><td>⬛ 極高</td><td>🟥 極高</td></tr>
+	</tbody></table></div>
+</section>
+
+<section>
+	<h2>💡描述性分析</h2>
+	<div><ul>
+		<li>Descriptive Analytics</li>
+		<li>發生了什麼事？這是最基礎、最常見的分析方法，主要利用歷史數據來總結與回顧過去發生的狀況。</li>
+		<li><b>核心目的：</b>了解現狀與過去的績效。</li>
+		<li><b>應用範例：</b><ul>
+			<li>電商平台產出「上個月各品類的銷售業績與點擊率報告」。</li>
+			<li>串流平台統計「本週最受歡迎的 Top 10 電影」。</li>
+		</ul></li>
+		<li><b>常見工具：</b>Power BI、Tableau 的靜態或動態儀表板，以及傳統的 Excel 商業智能報告。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>🔎診斷性分析</h2>
+	<div><ul>
+		<li>Diagnostic Analytics</li>
+		<li>為什麼會發生？當描述性分析發現異常或特定趨勢時，診斷性分析會進一步探究背後的原因，找出資料之間的因果關係或關聯性。</li>
+		<li><b>核心目的：</b>找出問題的根源（Root Cause）。</li>
+		<li><b>應用範例：</b><ul>
+			<li>發現北部業績下滑 20%（描述性），分析後發現是因為「北部物流發生嚴重遲到」或「競品在北部舉辦大型促銷」。</li>
+			<li>網站轉換率驟降，追蹤使用者行為紀錄後發現「結帳按鈕在 iOS 系統上有 Bug」。</li>
+		</ul></li>
+		<li><b>常見工具：</b>資料探勘（Data Mining）、鑽取技術（Drill-down）、關聯規則分析。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>📈預測性分析</h2>
+	<div><ul>
+		<li>Predictive Analytics</li>
+		<li>未來可能會發生什麼？利用歷史數據與統計模型、機器學習演算法，來預測未來趨勢、行為或事件發生的機率。</li>
+		<li><b>核心目的：</b>預防風險、捕捉未來的商業機會。</li>
+		<li><b>應用範例：</b><ul>
+			<li>金融機構根據客戶的信用紀錄與消費習慣，預測其「信用卡違約或詐欺機率」。</li>
+			<li>製造業利用機台感測器數據，預測「零件何時會損壞並提前發出維修警報（預測性維護）」。</li>
+		</ul></li>
+		<li><b>常見工具：</b>迴歸分析（Regression）、時間序列預測、隨機森林（Random Forest）、神經網路。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>➡️ 指示性分析 / 規範性分析</h2>
+	<div><ul>
+		<li>Prescriptive Analytics</li>
+		<li>我們該怎麼做？這是難度最高、價值也最大的分析階段。它不僅預測未來，還能直接給出具體的行動建議或自動做出最佳決策。</li>
+		<li><b>核心目的：</b>自動化決策、實現效益最佳化。</li>
+		<li><b>應用範例：</b><ul>
+			<li>外送平台（如 Uber Eats、Foodpanda）根據即時天氣、外送員數量與訂單量，自動動態調整外送費與預估抵達時間。</li>
+			<li>導航軟體（如 Google Maps）發現前方車禍（診斷）預估會塞車 20 分鐘（預測），自動為你重新規劃一條最快抵達的路線。</li>
+		</ul></li>
+		<li><b>常見工具：</b>運籌優化演算法（Optimization）、線性規劃、模擬（Simulation）、強化學習（Reinforcement Learning）。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>💡描述性分析應用</h2>
+	<div><ul>
+	掌握營運與客戶現狀金融機構透過歷史交易數據，回顧既有的業務表現與客戶基礎畫像。
+	金融場景：季度信用卡消費報告與客戶資產 AUM（資產管理規模）統計。
+	具體應用：銀行分析過去一年的數據，發現「25-35 歲的年輕客群在行動支付上的交易量比去年成長了 40%，且主要集中在海外電商與外送平台」。
+	商業價值：讓管理階層看清目前的市場市佔率與營收來源。
+	</ul></div>
+</section>
+
+<section>
+	<h2>🔎診斷性分析應用</h2>
+	<div><ul>
+		<li>找出潛在風險與行為成因當數據出現異常波動（如不良債權率上升、客戶流失），透過資料探勘找出背後的真正原因。</li>
+		<li><b>金融場景：</b>貸款違約原因分析或數位銀行 App 點擊流（Clickstream）分析。</li>
+		<li><b>具體應用：</b>某數位銀行發現某個月份的「線上貸款申請放棄率」突然飆升 15%。經過診斷性分析後發現，原因並非利息不吸引人，而是因為該月份改版後的 App 介面在「上傳雙證件」步驟的載入時間過長，導致使用者失去耐心。</li>
+		<li><b>商業價值：</b>精準定位產品痛點或營運漏洞，避免盲目修改策略。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>📈預測性分析應用</h2>
+	<div><ul>
+		<li>評估未來風險與潛在價值利用機器學習與統計模型，預測客戶未來的行為、信用風險或市場走勢。</li>
+		<li><b>金融場景：</b>信用評分（Credit Scoring）與客戶流失預測（Churn Prediction）。</li>
+		<li><b>具體應用：</b><ul>
+			<li><b>新型信用評估：</b>針對缺乏傳統聯徵紀錄的「金融小白」（如社會新鮮人、自由業者）， FinTech 公司利用其電信帳單繳費紀錄、電商購物頻率、甚至是社群互動數據，預測其未來的貸款違約機率。</li>
+			<li><b>理財預測：</b>預測哪些高資產客戶在未來 3 個月內有轉移資產（流失）的風險，以便理專提前介入。</li>
+		</ul></li>
+		<li><b>商業價值：</b>將事後補救轉為事前預防，降低壞帳率並捕捉先機。</li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>➡️指示性分析應用</h2>
+	<div><ul>
+		<li>自動化決策與即時阻斷結合即時運算與優化演算法，在預測結果發生的當下，自動做出最佳的應對決策。</li>
+		<li><b>金融場景：</b>即時信用卡反詐欺系統（Fraud Detection）與智能理財機器人（Robo-Advisor）。<li>
+		<li><b>具體應用：</b><ul>
+			<li>反詐欺阻斷：當系統偵測到持卡人 5 分鐘前在台北實體店消費，現在卻有一筆來自東歐電商網站的 10 萬元刷卡請求（診斷：極可能為盜刷，預測：高風險交易）。指示性分析系統會在 0.1 秒內自動拒絕該筆交易，並同步發送驗證簡訊給持卡人。</li>
+			<li>智能投顧：自動偵測全球市場波動，當某資產跌破避險點，演算法會自動幫投資人執行資產再平衡（Rebalancing），調整股債配比。</li>
+		</ul></li>
+		<li><b>商業價值：</b>實現毫秒級的風險控管，並提供規模化、自動化的個人化金融服務。</li>
+	</ul></div>
+</section>
 
 </body>
 </html>
