@@ -88,7 +88,7 @@ class KeyFilter
 }	// }}}
 
 class Content
-{	// 顯示頁面管理界面 {{{
+{	// 顯示頁面s
 	constructor (e)
 	{	// e: 顯示區塊 {{{
 		this.E=e;
@@ -123,7 +123,7 @@ class Content
 		Apps.E('<link rel="stylesheet" href="/App/page.css"></link>').join(document.head);
 	}	// }}}
 
-	async __prepare__ (e, mn, args) // prepare x-module < data-xl >, < data-x > or <> module_name, args
+	async __prepare__ (e, mn, args) // prepare x-module < data-xl >,< data-x > or <> module_name,args
 	{	// 準備 頁面延伸模組 {{{
 		if (!mn) {
 			args = (e.dataset.xl || e.dataset.x).split(':');
@@ -141,9 +141,7 @@ class Content
 	{	return this.E.querySelector(`section:not(.disabled)#${id}`); }
 
 	indexOf (id) // rv: PageNumber-1
-	{
-		return this.PageIndex.indexOf(id instanceof Element ? id.id : id);
-	}
+	{ return this.PageIndex.indexOf(id instanceof Element ? id.id : id); }
 
 	get Sections () // rv: [enabled sections]
 	{	return Array.from(this.E.querySelectorAll('section:not(.disabled)')); }
@@ -269,10 +267,10 @@ class Content
 		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_')) || "PlayMode_";
 		return rv.substring(9);
 	}	// }}}
-}	// class Content }}}
+}	// class Content
 
 class Player
-{	// Content + ...輔助工具列 {{{
+{	// Content + ...輔助工具列
 	constructor ()
 	{ 	// ## 初始化設定變數 {{{
 		this.Settings = {
@@ -364,7 +362,7 @@ class Player
 	}	// }}}
 
 	async init (args)
-	{	// init
+	{	// init {{{
 		// 蒐集待安裝的頁面
 		const pages=await (async function _cp_ (from, docs=document.createElement("div")) {
 			Array.from(from.querySelectorAll('[data-def]')).forEach((e)=>{
@@ -486,46 +484,52 @@ class Player
 
 		// 安裝頁面內容
 		this.sync(pages);
-	}	// init
+	}	// init }}}
 
 	// Settings Utility
-	setS (n, v) {
+	setS (n, v)
+	{	// {{{
 		console.assert(n in this.Settings, 'No Such Setting');
 		this.Settings[n].forEach((e)=>(e.value=v));
-	}
-	bindS (n, c) {
+	}	// }}}
+	bindS (n, c)
+	{	// {{{
 		console.assert(n in this.Settings, 'No Such Setting');
 		if (c) {
 			c.value = this.Settings[n][0].value;
 			this.Settings[n].push(c);
 		}
-	}
-	unbindS (n, c) {
+	}	// }}}
+	unbindS (n, c)
+	{	// {{{
 		console.assert(n in this.Settings, 'No Such Setting');
 		if (c) this.Settings[n]=this.Settings[n].filter((e)=>c!==e);
-	}
+	}	// }}}
 
 	// this.PlayMode=this.V.PlayMode[0].value;
-	set PlayMode (v) {
+	set PlayMode (v)
+	{	// {{{
 		this.Content.PlayMode = v;
 		this.Content.PageNumber = 'refresh';
-	}
+	}	// }}}
 	get PlayMode () { return this.Content.PlayMode; }
 	set PageCount (v) { this.setS('PageCount',v); }
 	get PageCount () { return this.Settings.PageCount[0].value; }
-	set PageNumber (v) {
+	set PageNumber (v)
+	{	// {{{
 		this.Content.PageNumber=v;
 		this.setS('PageNumber', this.Content.PageNumber);
-	}
+	}	// }}}
 	get PageNumber ()	{ return this.Content.PageNumber; }
-	set FontScale (v)	{
+	set FontScale (v)
+	{	// {{{
 		const DFS = ((w,h) => w*26>h*30 ? Math.floor(h/26) : Math.floor(w/30))(
 			window.innerWidth,
 			window.innerHeight
 		);
 		document.documentElement.style.setProperty('--base-font-size', `${DFS * v}px`);
 		this.setS('FontScale', v);
-	}
+	}	// }}}
 	get FontScale ()	{ return this.Settings.FontScale[0].value; }
 	set Keywords (v)	{ this.setS('Keywords', this.Content.Keywords=v); }
 	get Keywords ()		{ return this.Settings.Keywords[0].value; }
@@ -534,16 +538,16 @@ class Player
 	set Controls (v)	{ this.setS('Controls', v); }
 	get Controls ()		{ return this.Settings.Controls[0].value; }
 	set Overlay (v)
-	{
+	{	// {{{
 		const CL=this.GC.querySelector('#overlay').classList;
 		CL.remove('menu','dialog');
 		for (let key of ['menu','dialog']) if (key===v) CL.add(key);
-	}
+	}	// }}}
 	get Overlay ()
-	{
+	{	// {{{
 		const CL=this.GC.querySelector('#overlay').classList;
 		return CL.contains('menu') ? 'menu' : CL.contains('dialog') ? 'dialog' : undefined;
-	}
+	}	// }}}
 
 	nop () { }
 
@@ -551,21 +555,21 @@ class Player
 	{	return this[name]=value; }
 
 	call (fn, ...args)
-	{
+	{	// {{{
 		try {
 			Apps[fn](...args);
 		} catch(x) { console.log(x); }
-	}
+	}	// }}}
 
 	go (target, dft_url)
-	{
+	{	// {{{
 		if (document.querySelector(target))
 			return this.PageNumber=target;
 		else if (dft_url) location.replace(dft_url);
-	}
+	}	// }}}
 
 	sw (TK)
-	{	// <class='switch' <data-case='A'> <data-case='B'>>
+	{	// <class='switch' <data-case='A'> <data-case='B'>> {{{
 		(	Apps.E(Apps.E(event.target).trace('.switch'))
 		).forEach(
 			'[data-h^="sw:"]',
@@ -574,17 +578,17 @@ class Player
 			'[data-case]',
 			(e) => e.classList[e.dataset.case === TK ? 'remove' : 'add']('hide')
 		);
-	}
+	}	// }}}
 
 	install (mn, ...args)
-	{
+	{	// {{{
 		const elem=Apps.E(event.target).trace('[data-h]');
 		ASSERT_THROW(elem, "container not exist");
 		this.Content.__prepare__(elem, mn, args);
-	}
+	}	// }}}
 
 	play (caption, mn, ...args)
-	{	// play:Caption:Module:(args)*:&this
+	{	// play:Caption:Module:(args)*:&this {{{
 		// play('dom',document.getElementById(...),'Caption');
 		const VE = document.createElement("div");
 		let e = undefined;
@@ -602,17 +606,12 @@ class Player
 			// rv._EH_=EH;
 			rv.appendChild(VE);
 		})(this.GC.querySelector('#dialog'));
-	}
-
-	prepare (elem, mn, ...args)
-	{	// prepare:&this:template:...
-		return this.Content.__prepare__(elem, mn, args).then(()=>0,()=>0);
-	}
+	}	// }}}
 
 	// speak('bonjour','fr');
 	// <span data-h='speak:&text:fr'>bonjour</span>
 	async speak (text, lang='en')
-	{
+	{	// {{{
 		text=text.replaceAll(/[🔈]/g,'').split(/\s+/).filter((v)=>v).join(' ');
 		if ('speechSynthesis' in window) {
 			const utterance = new SpeechSynthesisUtterance(text);
@@ -620,19 +619,19 @@ class Player
 			utterance.rate = (lang.startsWith('ko')||lang.startsWith('ja')) ? 1.0 : 0.8;
 			speechSynthesis.speak (utterance);
 		} else alert('Speech Synthesis API not supported.');
-	}
+	}	// }}}
 
 	media (task, ...args)
-	{
+	{	// {{{
 		const
 			p = Apps.E(event.target).trace('section'),
 			m = p.querySelector('audio')||cpage.querySelector('video');
 		if (m[task]) m[task](...args);
 		console.log(task,m[task]);
-	}
+	}	// }}}
 
 	filter (cmd)
-	{
+	{	// {{{
 		if (cmd === 'add') {
 			//<div data-uid='Settings:Keywords'><span data-h='filter:add'>➕</span></div>
 			let flts=this.Filters;
@@ -643,17 +642,17 @@ class Player
 			location.replace(`?s=${(new KeyFilter(this.Filters)).toString()}`);
 			location.replace(`?s=${encodeFilter(this.Filters)}`);
 		}
-	}
+	}	// }}}
 
 	search (key)
-	{
+	{	// {{{
 		let ts = this.Content.E.querySelector(`section[data-ks~="${key}"]`);
 		if (ts) ts.click();
 		this.set('Overlay','none');
-	}
+	}	// }}}
 
 	fullscreen (e)
-	{
+	{	// {{{
 		e = ({
 			"body": ()=>document.body,
 			"main": ()=>this.GC,
@@ -667,10 +666,10 @@ class Player
 		}
 		if ((!e) && document.fullscreenElement)
 			document.exitFullscreen(); // exit fullscreen mode
-	}
+	}	// }}}
 
 	_EH_ (evt)
-	{
+	{	// {{{
 		for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
 			if (e && e.dataset && e.dataset.h) {
 				let args = Apps.splitArgs(e.dataset.h,':'), cmd = args.shift();
@@ -697,10 +696,9 @@ class Player
 				break;
 			}
 		}
-	}
-
+	}	// }}}
 	_KH_ (evt)
-	{
+	{	// {{{
 		try {
 			if (evt.key === 'ArrowLeft')
 				this.PageNumber = 'prev';
@@ -711,8 +709,8 @@ class Player
 			else return;
 			evt.preventDefault();
 		} catch(x) { }
-	}
-}	// }}}
+	}	// }}}
+}	// Player
 
 (async (Ps)=>{
 	Object.assign(Apps, await Ps);
