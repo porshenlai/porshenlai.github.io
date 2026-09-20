@@ -36,37 +36,6 @@
 	</div>
 </section> <!--}}}-->
 
-<section> <h2>後序式 Postfix Expression</h2> <!--{{{-->
-<div class='zcs'><div class='swd' style='text-align:center;'>
-
-<div>
-	<span class='blue'>5</span> <span class='red'>*</span> <span class='red'>(</span>
-	<span class='blue'>1</span> <span class='red'>+</span> <span class='blue'>2</span> <span class='red'>)</span>
-	<span class='red'>**</span> <span class='blue'>2</span> <span class='red'>-</span> <span class='blue'>3</span>
-	<span class='red'>+</span> <span class='blue'>4</span> <span class='red'>/</span> <span class='blue'>2</span>
-</div><hr/>
-<div><span class='blue'>5</span>|<span style='background:silver'><span class='blue'>1</span>|<span class='blue'>2</span>|<span class='red'>+</span></span>|<span class='blue'>2</span>|<span class='red'>**</span>|<span class='red'>*</span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
-<div><span class='blue'>5</span>|<span style='background:silver'><span class='blue'>3</span>|<span class='blue'>2</span>|<span class='red'>**</span></span>|<span class='red'>*</span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
-<div><span style='background:silver'><span class='blue'>5</span>|<span class='blue'>9</span>|<span class='red'>*</span></span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
-<div><span style='background:silver'><span class='blue'>45</span>|<span class='blue'>3</span>|<span class='red'>-</span></span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
-<div><span class='blue'>42</span>|<span style='background:silver'><span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span></span>|<span class='red'>+</span></div>
-<div><span style='background:silver'><span class='blue'>42</span>|<span class='blue'>2</span>|<span class='red'>+</span></span></div>
-<div><span class='blue' style='font-size:200%'>44</span></div>
-
-</div><div class='swd'>
-	<div data-xl='mermaid'><textarea data-v='value:raw'>graph TD
- NA("5") --> M("*")
- NB("1") --> A("+")
- NC("2") --> A --> E("**")
- ND("2") --> E --> M --> S("-")
- NE("3") --> S --> AB("+")
- NF("4") --> D("/") --> AB
- NG("2") --> D
-</textarea></div>
-
-</div></div>
-</section> <!-- }}}-->
-
 <section data-xl='import:Music_NounAndVerb.html'><h2>♫ 名詞與動詞</h2></section>
 
 <section class='page col'> <h2>名詞與動詞</h2> <!--{{{-->
@@ -101,6 +70,56 @@
 		</tr></tbody></table>
 	</div>
 </section> <!-- }}} -->
+
+<section>
+	<h2>公式</h2>
+	<table data-xl='math' border='1' cellpadding='8' align='center' width='95%'><tr>
+		<th>$F = mg$ , where $g=9.8$</th>
+		<td>g = 9.8<br/>m = float(input('質量'))<br/># 力量<br/>F = m * g</td>
+	</tr><tr>
+		<th>$v = gt$ , where $g=9.8$</th>
+		<td>g = 9.8<br/>t = float(input('時間'))<br/># 速度<br/>v = g * t</td>
+	</tr></tr>
+		<th>$h = \frac{1}{2}gt^2$ , where $g=9.8$</th>
+		<td>g = 9.8<br/>t = float(input('時間'))<br/># 高度<br/>h = g * t**2 / 2</td>
+	</tr></tr>
+		<th>$v = \sqrt{2gh}$ , where $g=9.8$</th>
+		<td>g = 9.8<br/>t = float(input('高度'))<br/># 速度<br/>v = sqrt(2*g*h)</td>
+	</tr></table>
+</section>
+
+<section> <h2>後序式 Postfix Expression</h2> <!--{{{-->
+<div class='zcs'><div class='swd' style='text-align:center;'>
+
+<div>
+	<span class='blue'>5</span> <span class='red'>*</span> <span class='red'>(</span>
+	<span class='blue'>1</span> <span class='red'>+</span> <span class='blue'>2</span> <span class='red'>)</span>
+	<span class='red'>**</span> <span class='blue'>2</span> <span class='red'>-</span> <span class='blue'>3</span>
+	<span class='red'>+</span> <span class='blue'>4</span> <span class='red'>/</span> <span class='blue'>2</span>
+</div><hr/>
+<div><span class='blue'>5</span>|<span style='background:silver'><span class='blue'>1</span>|<span class='blue'>2</span>|<span class='red'>+</span></span>|<span class='blue'>2</span>|<span class='red'>**</span>|<span class='red'>*</span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
+<div><span class='blue'>5</span>|<span style='background:silver'><span class='blue'>3</span>|<span class='blue'>2</span>|<span class='red'>**</span></span>|<span class='red'>*</span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
+<div><span style='background:silver'><span class='blue'>5</span>|<span class='blue'>9</span>|<span class='red'>*</span></span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
+<div><span style='background:silver'><span class='blue'>45</span>|<span class='blue'>3</span>|<span class='red'>-</span></span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
+<div><span class='blue'>42</span>|<span style='background:silver'><span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span></span>|<span class='red'>+</span></div>
+<div><span style='background:silver'><span class='blue'>42</span>|<span class='blue'>2</span>|<span class='red'>+</span></span></div>
+<div><span class='blue' style='font-size:200%'>44</span></div>
+
+</div><div class='swd'>
+	<div data-xl='mermaid'><textarea data-v='value:raw'>graph TD
+ NA("5") --> M("*")
+ NB("1") --> A("+")
+ NC("2") --> A --> E("**")
+ ND("2") --> E --> M --> S("-")
+ NE("3") --> S --> AB("+")
+ NF("4") --> D("/") --> AB
+ NG("2") --> D
+</textarea></div>
+
+</div></div>
+</section> <!-- }}}-->
+
+<section data-xl='import:Music_Types.html'><h2>♫ 基本資料型態</h2></section>
 
 <section data-ks='P_EX'><h2>運算元: 資料型態</h2><!--{{{ Data Type -->
 	<div class='C3Tbl'>
@@ -159,8 +178,6 @@
 		</div></div>
 	</div>
 </section><!--}}}-->
-
-<section data-xl='import:Music_Types.html'><h2>♫ 基本資料型態</h2></section>
 
 <section> <h2>運算子</h2> <!--{{{-->
 <div class='zcs'>
