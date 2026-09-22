@@ -14,6 +14,41 @@ function dfs (e,h,x=false)
 	return r;
 } // }}}
 
+async function get_data_url (blob)
+{	// {{{
+	return await new Promise((or,oe)=>{
+		let r=new FileReader();
+		r.addEventListener("load",(e)=>or(e.target.result));
+		r.addEventListener("error",oe);
+		r.readAsDataURL(blob);
+	});
+}	// get_data_url }}}
+
+async function decode_blob (blob, type='image/*')
+{	// {{{
+	async function r (blob, parser, binary=false){
+		let r=new FileReader();
+		return new Promise((or,oe)=>{
+			r.addEventListener("error", oe);
+			r.addEventListener("load", (evt)=>or(parser(evt.target.result)));
+			r[binary ? "readAsBinaryString" : "readAsText"](blob);
+		});
+	}
+	switch(type){
+	case "application/json":
+		return await r(this.BB, (d)=>JSON.parse(d));
+	case "text/html": case "image/svg+xml":
+		return await r(this.BB, (d)=>(new DOMParser()).parseFromString(d, type));
+	case "image/jpeg": case "image/png": case "image/gif":
+	case "application/pdf":
+		return await get_data_url(blob);
+	default:
+		if (type.startsWith('image/'))
+			return await get_data_url(blob);
+		return await r(bb, (d)=>d, !(""+type).startsWith("text/"));
+	}
+}	// decode_blob }}}
+
 async function upload (type, mul)
 { // {{{
 	return await new Promise(function (or, oe) {
@@ -36,7 +71,19 @@ async function upload (type, mul)
 				e.E.parentNode.removeChild(e);
 		}, 3000);
 	});
-}	// }}}
+}	// upload }}}
+
+async function download (blob, name)
+{	// {{{
+	const e=document.createElement("A");
+	e.setAttribute("href",await get_data_url(blob));
+	e.setAttribute("target","_blank");
+	e.setAttribute("download",name||"download");
+	e.style.left="-100%";
+	document.body.appendChild(e);
+	e.click();
+	setTimeout(function(){ document.body.removeChild(e); },500);
+}	// download }}}
 
 class E { 
 	// new E(<>); new E("<html>", "CSS_Selector"); {{{
@@ -248,7 +295,11 @@ class R {
 		// {} | <> | "" = await 網址R.fetch(籌載)
 		// {{{
 		if (this.A.raw||this.A.doc) return this.A.raw||this.A.doc;
-		if (this.A.upload) return await upload(this.A.upload, this.A.multiple);
+		if (this.A.upload) {
+			let f, fs = await upload(this.A.upload, this.A.multiple), rs=[];
+			for (f of fs) rs.push(decode(blob(f)));
+			return rs;
+		}
 		let res = payload ? await fetch(this.A.url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
