@@ -1,6 +1,7 @@
 ((SCRIPT) => {
 
-function dfs (e,h,x=false) {
+function dfs (e,h,x=false)
+{ // {{{
 	let r=[],m;
 	if (x) {
 		m=h(e); if (m) r.push(e);
@@ -11,7 +12,31 @@ function dfs (e,h,x=false) {
 		if ('boolean'===typeof(m)) r.push(...dfs(i,h));
 	}
 	return r;
-}
+} // }}}
+
+async function upload (type, mul)
+{ // {{{
+	return await new Promise(function (or, oe) {
+		const e=document.createElement("input");
+		e.multiple=mul;
+		e.setAttribute("type","file");
+		e.setAttribute("accept",type||"*/*");
+		e.style.position="absolute";
+		e.style.top="100%";
+		e.addEventListener("error",oe);
+		e.addEventListener("change",function (evt) {
+			or([... this.files]);
+			if (this.parentNode)
+				this.parentNode.removeChild(this);
+		});
+		document.body.appendChild(e);
+		e.click();
+		setTimeout(function () {
+			if (e.E.parentNode)
+				e.E.parentNode.removeChild(e);
+		}, 3000);
+	});
+}	// }}}
 
 class E { 
 	// new E(<>); new E("<html>", "CSS_Selector"); {{{
@@ -168,12 +193,12 @@ class D {
 	}	// }}}
 	// await (new D({"url":"網址","payload":{負載}})).request(R) {{{
 	async request (base) {
-		if (this.D.url)
+		if (this.D.url) {
 			return await (base ?
 				base.resolve(this.D.url) :
 				(new R()).resolve(this.D.url)
 			).fetch(this.D.payload);
-		else return (
+		} else return (
 			this.D.doc ? JSON.parse(this.D.doc) :
 			this.D.raw ? this.D.raw : {}
 		);
@@ -181,9 +206,13 @@ class D {
 }	// class D
 
 class R {
-	//	new R(); new R(URL.parse(網址)); new R(<... <data-v='url:網址'>...>);
-	//	new R("文字資料"); new R({物件}) {{{
 	constructor (a) {
+		//	目前頁面 = new R();
+		//  特定網址 = new R(URL.parse(網址));
+		//	<定義> = new R(<... <data-v='url:網址'>...>);
+		//	"內容" = new R("文字資料")
+		//  使用者上傳 = new R({"type":"MIME-TYPE"});
+		//  {{{
 		if (!a) a=URL.parse(location.href);
 		if (a instanceof URL)
 			a = { "url": a };
@@ -195,33 +224,36 @@ class R {
 			},new D({})).D;
 		if ('string' === typeof(a))
 			a = { "raw": a };
-		if ('object' === typeof(a) && !("url" in a || "text" in a || "doc" in a) )
-			try {
-				a = { "doc": JSON.parse(a) };
-			} catch (x) { a = {"doc": a}; }
 		this.A = a;
-	}	// }}}
-	//	R = 基底R.resolve(位置) {{{
+		//  }}}
+	}
 	resolve (src) {
+		//	R = 基底R.resolve(位置)
+		//  {{{
 		let u = URL.parse(this.A.url);
 		u.pathname = src.startsWith('/') ? src : (u.pathname.replace(/[^\/]*$/,'')+src);
 		return new R(u);
-	}	// }}}
-	// url base string = getUB() {{{
+		//  }}}
+	}
 	getUB () {
+		//  URL基底 = getUB()
+		//  {{{
 		let u = this.A.url,p;
 		if ('string'===typeof(u)) u = URL.parse(u);
 		p = u.pathname.split('/'); p.pop(); p = p.join('/');
 		return u.origin+p+'/';
-	}	// }}}
-	// {} | <> | "" = await 網址R.fetch(籌載) {{{
+		//  }}}
+	}
 	async fetch (payload) {
+		// {} | <> | "" = await 網址R.fetch(籌載)
+		// {{{
 		if (this.A.raw||this.A.doc) return this.A.raw||this.A.doc;
+		if (this.A.upload) return await upload(this.A.upload, this.A.multiple);
 		let res = payload ? await fetch(this.A.url, {
-      			method: 'POST',
-      			headers: { 'Content-Type': 'application/json' },
-      			body: 'string'===typeof(payload) ? payload : JSON.stringify(payload)
-			}) : await fetch(this.A.url);
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: 'string'===typeof(payload) ? payload : JSON.stringify(payload)
+		}) : await fetch(this.A.url);
 		if (res.ok) {
 			if (res.headers.has('content-type'))
 			switch (res.headers.get('content-type').replaceAll(/;.*$/g,'')) {
@@ -236,7 +268,8 @@ class R {
 			return await res.text();
 		}
 		return {'E':res.statusText};
-	}	// }}}
+		// }}}
+	}
 }
 
 (new E('<link rel="stylesheet" href="/App/piers.css"/>')).join(document.head);
@@ -246,5 +279,6 @@ SCRIPT.value={
 	R: (...a)=>new R(...a),
 };
 SCRIPT.value.E.Class = E;
+
 
 })(document.currentScript);
