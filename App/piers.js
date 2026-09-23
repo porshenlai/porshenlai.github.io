@@ -14,110 +14,131 @@ function dfs (e,h,x=false)
 	return r;
 } // }}}
 
-async function get_data_url (blob)
-{	// {{{
-	return await new Promise((or,oe)=>{
-		let r=new FileReader();
-		r.addEventListener("load",(e)=>or(e.target.result));
-		r.addEventListener("error",oe);
-		r.readAsDataURL(blob);
-	});
-}	// get_data_url }}}
-
-async function decode_blob (blob, type='image/*')
-{	// {{{
-	async function r (blob, parser, binary=false){
-		let r=new FileReader();
-		return new Promise((or,oe)=>{
-			r.addEventListener("error", oe);
-			r.addEventListener("load", (evt)=>or(parser(evt.target.result)));
-			r[binary ? "readAsBinaryString" : "readAsText"](blob);
+class B {
+	static upload (type,mul)
+	{ // {{{
+		return await new Promise(function (or, oe) {
+			const e=document.createElement("input");
+			e.multiple=mul;
+			e.setAttribute("type","file");
+			e.setAttribute("accept",type||"*/*");
+			e.style.position="absolute";
+			e.style.top="100%";
+			e.addEventListener("error",oe);
+			e.addEventListener("change",function (evt) {
+				or([... this.files].map((b)=>new Blob(b,b.type)));
+				if (this.parentNode)
+					this.parentNode.removeChild(this);
+			});
+			document.body.appendChild(e);
+			e.click();
+			setTimeout(function () {
+				if (e.E.parentNode)
+					e.E.parentNode.removeChild(e);
+			}, 3000);
 		});
-	}
-	switch(type){
-	case "application/json":
-		return await r(this.BB, (d)=>JSON.parse(d));
-	case "text/html": case "image/svg+xml":
-		return await r(this.BB, (d)=>(new DOMParser()).parseFromString(d, type));
-	case "image/jpeg": case "image/png": case "image/gif":
-	case "application/pdf":
-		return await get_data_url(blob);
-	default:
-		if (type.startsWith('image/'))
-			return await get_data_url(blob);
-		return await r(bb, (d)=>d, !(""+type).startsWith("text/"));
-	}
-}	// decode_blob }}}
+	}	// }}}
 
-async function upload (type, mul)
-{ // {{{
-	return await new Promise(function (or, oe) {
-		const e=document.createElement("input");
-		e.multiple=mul;
-		e.setAttribute("type","file");
-		e.setAttribute("accept",type||"*/*");
-		e.style.position="absolute";
-		e.style.top="100%";
-		e.addEventListener("error",oe);
-		e.addEventListener("change",function (evt) {
-			or([... this.files]);
-			if (this.parentNode)
-				this.parentNode.removeChild(this);
+	constructor (d, t='plain/text')
+	{ this.B = d instanceof Blob ? d : new Blob([d], {"type":t}); }
+
+	async get ()
+	{	// {{{
+		if (this.B instanceof Promise)
+			this.B = await this.B;
+		return this.B;
+	}	// get }}}
+
+	async getDataURL ()
+	{	// {{{
+		return await new Promise((or,oe) => {
+			let r=new FileReader();
+			r.addEventListener("load",(e)=>or(e.target.result));
+			r.addEventListener("error",oe);
+			r.readAsDataURL(this.get());
 		});
+	}	// getDataURL }}}
+
+	async decode ()
+	{	// {{{
+		async function r (blob, parser, binary=false){
+			let r = new FileReader();
+			return new Promise((or,oe) => {
+				r.addEventListener("error", oe);
+				r.addEventListener("load", (evt) => or(parser(evt.target.result)));
+				r[binary ? "readAsBinaryString" : "readAsText"](blob);
+			});
+		}
+		let blob=await this.get();
+		switch (blob.type) {
+		case "application/json":
+			return await r(blob, (d) => JSON.parse(d));
+		case "text/html": case "image/svg+xml":
+			return await r(
+				blob,
+				(d) => (new DOMParser()).parseFromString(d, blob.type)
+			);
+		case "application/pdf":
+			return await this.getDataURL();
+		default:
+			if (blob.type.startsWith('image/'))
+				return await this.getDataURL();
+			return await r(blobb, (d)=>d, !(""+blob.type).startsWith("text/"));
+		}
+	}	// decode }}}
+
+	async download (name)
+	{	// {{{
+		const e = [
+			["href", await this.getDataURL()],
+			["target", "_blank"],
+			["download", name||"download"]
+		].reduce(
+			(e,v,i) => { e.setAttribute(v[0], v[1]); },
+			document.createElement("A")
+		);
+		e.style.left="-100%";
 		document.body.appendChild(e);
 		e.click();
-		setTimeout(function () {
-			if (e.E.parentNode)
-				e.E.parentNode.removeChild(e);
-		}, 3000);
-	});
-}	// upload }}}
-
-async function download (blob, name)
-{	// {{{
-	const e=document.createElement("A");
-	e.setAttribute("href",await get_data_url(blob));
-	e.setAttribute("target","_blank");
-	e.setAttribute("download",name||"download");
-	e.style.left="-100%";
-	document.body.appendChild(e);
-	e.click();
-	setTimeout(function(){ document.body.removeChild(e); },500);
-}	// download }}}
+		setTimeout(()=>document.body.removeChild(e), 500);
+	}	// download }}}
+}
 
 class E { 
-	// new E(<>); new E("<html>", "CSS_Selector"); {{{
-	constructor (e) {
+	// new E(<>); new E("<html>", "CSS_Selector");
+	constructor (e) { // {{{
 		if ('string' === typeof(e)) {
 			e = (new DOMParser()).parseFromString('<html><body>'+e+'</body></html>','text/html');
 			e = e.body.firstChild;
 		}
 		this.E = e;
 	}	// }}}
-	// <祖先> = E.trace(..."CSS 選擇") {{{
-	trace (...cs) {
+	// <祖先> = E.trace(..."CSS 選擇")
+	trace (...cs) { // {{{
 		for (let e=this.E; e instanceof Element; e=e.parentNode)
 			for (let c of cs) if (e.matches(c)) return e;
 	}	// }}}
-	// <子孫> = E.query("CSS 選擇") {{{
-	query (cs) {
+	// <子孫> = E.query("CSS 選擇")
+	query (cs) { // {{{
 		if (this.E.matches(cs)) return this.E;
 		return this.E.querySelector(cs);
 	}	// }}}
-	// [<子孫>] = E.list("CSS 選擇") {{{
-	list (cs) {
+	// [<子孫>] = E.list("CSS 選擇")
+	list (cs) { // {{{
 		let r=Array.from(this.E.querySelectorAll(cs));
 		if (this.E.matches(cs)) r.unshift(this.E);
 		return r;
 	}	// }}}
-	// E.forEach("CSS 選擇", (<>)=>處理) {{{
-	forEach (cs, h) {
+	// E.forEach("CSS 選擇", (<>)=>處理)
+	forEach (cs, h) { // {{{
 		this.E.matches(cs) && h(this.E);
 		Array.from(this.E.querySelectorAll(cs)).forEach(h);
 		return this;
 	}	// }}}
+	// E.dfs()
 	dfs (h,x=false) { return dfs(this.E,h,x); }
-	replace (ce) { // E.replace(<用來取代目前元件的新元件>) {{{
+	// E.replace(<用來取代目前元件的新元件>) 
+	replace (ce) { // {{{
 		const pe = this.E.parentNode;
 		if (pe) {
 			pe.insertBefore(ce, this.E);
@@ -126,7 +147,8 @@ class E {
 		this.E=ce;
 		return this;
 	}	// }}}
-	get (cn) { // "內容" = E.get("text | value | data:名稱 | style:名稱") {{{
+	// "內容" = E.get("text | value | data:名稱 | style:名稱") 
+	get (cn) { // {{{
 		const read = (e, n) => {
 			return {
 				text: ()=>e.textContent.trim(),
@@ -157,7 +179,8 @@ class E {
 			read(this.E, Array.isArray(cn) ? cn : cn.split(':')) :
 			readAll(this.E, new D({})) ;
 	}	// }}}
-	put (val, cn) { // E.put("text | value | data:名稱 | style:名稱", "內容") {{{
+	// E.put("text | value | data:名稱 | style:名稱", "內容") 
+	put (val, cn) { // {{{
 		const write = (e, v, n) => {
 			return {
 				text: (v)=>(e.textContent=v),
@@ -202,22 +225,23 @@ class E {
 		if (cn) return write(this.E, val, Array.isArray(cn) ? cn : cn.split(':'));
 		writeAll(this.E, new D(val));
 	}	// }}}
-	join (pe, ne) { // E.join(父元件, 弟元件=undefined)  {{{
+	// E.join(父元件, 弟元件=undefined)
+	join (pe, ne) { // {{{
 		pe.insertBefore(this.E, ne);
 	}	// }}}
 }	// class E
 
 class D {
-	// new D({"A":{"a":123},"B":456}); {{{
-	constructor (d) {
+	// new D({"A":{"a":123},"B":456});
+	constructor (d) { // {{{
 		if (d instanceof Element) d = (new E(d)).get();
 		try {
 			if ('string'===typeof(d)) d=JSON.parse(d||'{}');
 		} catch(x) {};
 		this.D = d;
 	}	// }}}
-	// d.get("A.a") => 123 {{{
-	get (p) {
+	// d.get("A.a") => 123
+	get (p) { // {{{
 		if (!p) return this.D;
 		let nv = {},
 			rv = (Array.isArray(p) ? p : p.split('.'))
@@ -225,8 +249,8 @@ class D {
 				.reduce((d,n)=>n in d ? d[n] : nv,this.D);
 		return rv!==nv ? rv : undefined;
 	}	// }}}
-	// d.put("A.a",999) {{{
-	put (p,v) {
+	// d.put("A.a",999)
+	put (p,v) { // {{{
 		if (p) {
 			p = (Array.isArray(p) ? p : p.split('.')).filter((n)=>n);
 			let n = p.pop(),
@@ -234,12 +258,12 @@ class D {
 			d[n] = v;
 		} else this.D = v;
 	}	// }}}
-	// toString() => JSON string {{{
-	toString () {
+	// toString() => JSON string
+	toString () { // {{{
 		return JSON.stringify(this.D);
 	}	// }}}
-	// await (new D({"url":"網址","payload":{負載}})).request(R) {{{
-	async request (base) {
+	// await (new D({"url":"網址","payload":{負載}})).request(R)
+	async request (base) { // {{{
 		if (this.D.url) {
 			return await (base ?
 				base.resolve(this.D.url) :
@@ -253,13 +277,12 @@ class D {
 }	// class D
 
 class R {
-	constructor (a) {
-		//	目前頁面 = new R();
-		//  特定網址 = new R(URL.parse(網址));
-		//	<定義> = new R(<... <data-v='url:網址'>...>);
-		//	"內容" = new R("文字資料")
-		//  使用者上傳 = new R({"type":"MIME-TYPE"});
-		//  {{{
+	//	目前頁面 = new R();
+	//  特定網址 = new R(URL.parse(網址));
+	//	<定義> = new R(<... <data-v='url:網址'>...>);
+	//	"內容" = new R("文字資料")
+	//  使用者上傳 = new R({"type":"MIME-TYPE"});
+	constructor (a) { //  {{{
 		if (!a) a=URL.parse(location.href);
 		if (a instanceof URL)
 			a = { "url": a };
@@ -272,28 +295,22 @@ class R {
 		if ('string' === typeof(a))
 			a = { "raw": a };
 		this.A = a;
-		//  }}}
-	}
-	resolve (src) {
-		//	R = 基底R.resolve(位置)
-		//  {{{
+	} //  }}}
+	//	R = 基底R.resolve(位置)
+	resolve (src) { //  {{{
 		let u = URL.parse(this.A.url);
 		u.pathname = src.startsWith('/') ? src : (u.pathname.replace(/[^\/]*$/,'')+src);
 		return new R(u);
-		//  }}}
-	}
-	getUB () {
-		//  URL基底 = getUB()
-		//  {{{
+	} //  }}}
+	//  URL基底 = getUB()
+	getUB () { //  {{{
 		let u = this.A.url,p;
 		if ('string'===typeof(u)) u = URL.parse(u);
 		p = u.pathname.split('/'); p.pop(); p = p.join('/');
 		return u.origin+p+'/';
-		//  }}}
-	}
-	async fetch (payload) {
-		// {} | <> | "" = await 網址R.fetch(籌載)
-		// {{{
+	} //  }}}
+	// {} | <> | "" = await 網址R.fetch(籌載)
+	async fetch (payload) { // {{{
 		if (this.A.raw||this.A.doc) return this.A.raw||this.A.doc;
 		if (this.A.upload) {
 			let f, fs = await upload(this.A.upload, this.A.multiple), rs=[];
