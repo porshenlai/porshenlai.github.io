@@ -1,15 +1,22 @@
-let v = '10:"[A:123,B:789]"'.split(':');
+(function(SCRIPT){
 
-console.log(v);
-v=v.reduce((r,v)=>{
-	if (r.X.length>0) {
-		if (v.endsWith('"')) {
-			r.X.push(v.substring(0,v.length-1));
-			r.R.push(r.X.join(":"));
-			r.X=[];
-		} else r.X.push(v);
-	} else if(v.startsWith('"')) r.X=[v.substring(1)]; else r.R.push(v);
-	return r;
-},{R:[],X:[]}).R;
+SCRIPT.value=async function (slide, elem, temp, doc) {
+	if (elem.classList.contains('resolved')) return;
+	elem.classList.add('fill','resolved');
 
-console.log(v);
+	if (!doc || doc==='&this') doc=elem;
+	doc = Apps.Ns.resolve(...(doc instanceof Element ? ['data',doc] : [doc]))
+
+	if (!temp || temp==='&this') temp=elem;
+	temp = Apps.Ns.resolve(...(temp instanceof Element ? ['template',temp] : [temp]))
+
+	try { doc = await doc.get(); } catch(x) { console.log("ERROR",x); }
+
+	if (doc && temp) {
+		while(elem.firstChild) elem.removeChild(elem.firstChild);
+		elem.appendChild(temp.cloneNode(true));
+		//elem.put(doc);
+	}
+};
+
+})(document.currentScript);

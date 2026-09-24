@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="page.js"></script>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<div data-def='template:列舉模板'>
+	<div data-v='text:表格名稱' style='text-align:center'></div>
+	<table border="1" cellspacing='1' cellpadding='1' width='90%' align='center'>
+		<tbody data-c='forEach:'><tr data-c='forEach:'><td data-v="text:" align='center'></td></tr></tbody>
+	</table>
+</div>
+
+<section>
+<div data-xl='csv:列舉模板'>
+	<textarea data-v='value:doc'>[
+	[1,2,3],
+	["A","B","C"],
+	["X","Y","Z"],
+	[7,8,9]
+]</textarea>
+</div>
+</section>
+
+</div></main></body>
+</html>
