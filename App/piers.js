@@ -15,7 +15,7 @@ function dfs (e,h,x=false)
 } // }}}
 
 class B {
-	static upload (type,mul)
+	static async upload (type,mul)
 	{ // {{{
 		return await new Promise(function (or, oe) {
 			const e=document.createElement("input");
