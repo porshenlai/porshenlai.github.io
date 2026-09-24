@@ -26,15 +26,15 @@ class B {
 			e.style.top="100%";
 			e.addEventListener("error",oe);
 			e.addEventListener("change",function (evt) {
-				or([... this.files].map((b)=>new Blob(b,b.type)));
+				or([... this.files].map((b)=>new B(b,b.type)));
 				if (this.parentNode)
 					this.parentNode.removeChild(this);
 			});
 			document.body.appendChild(e);
 			e.click();
 			setTimeout(function () {
-				if (e.E.parentNode)
-					e.E.parentNode.removeChild(e);
+				if (e.parentNode)
+					e.parentNode.removeChild(e);
 			}, 3000);
 		});
 	}	// }}}
@@ -51,11 +51,12 @@ class B {
 
 	async getDataURL ()
 	{	// {{{
+		let blob=await this.get();
 		return await new Promise((or,oe) => {
 			let r=new FileReader();
 			r.addEventListener("load",(e)=>or(e.target.result));
 			r.addEventListener("error",oe);
-			r.readAsDataURL(this.get());
+			r.readAsDataURL(blob);
 		});
 	}	// getDataURL }}}
 
@@ -83,7 +84,7 @@ class B {
 		default:
 			if (blob.type.startsWith('image/'))
 				return await this.getDataURL();
-			return await r(blobb, (d)=>d, !(""+blob.type).startsWith("text/"));
+			return await r(blob, (d)=>d, !(""+blob.type).startsWith("text/"));
 		}
 	}	// decode }}}
 
@@ -93,10 +94,10 @@ class B {
 			["href", await this.getDataURL()],
 			["target", "_blank"],
 			["download", name||"download"]
-		].reduce(
-			(e,v,i) => { e.setAttribute(v[0], v[1]); },
-			document.createElement("A")
-		);
+		].reduce((e,v,i) => {
+			e.setAttribute(v[0], v[1]);
+			return e;
+		}, document.createElement("A"));
 		e.style.left="-100%";
 		document.body.appendChild(e);
 		e.click();
@@ -342,11 +343,12 @@ class R {
 
 (new E('<link rel="stylesheet" href="/App/piers.css"/>')).join(document.head);
 SCRIPT.value={
-	E: (...a)=>new E(...a),
+	B: (...a)=>new B(...a),
 	D: (...a)=>new D(...a),
+	E: (...a)=>new E(...a),
 	R: (...a)=>new R(...a),
+	upload: async(type,mul=false)=>await B.upload()
 };
 SCRIPT.value.E.Class = E;
-
 
 })(document.currentScript);
