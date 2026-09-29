@@ -15,7 +15,7 @@
 				
 <section class='page col'>
 	<div style='text-align:center'>
-		<div class='h1'>銀行業務 Banking</div>
+		<div class='h1'>Financial Services</div>
 	</div>
 	<br/>
 	<div class='frame'>
@@ -93,6 +93,98 @@
 			<li><b>實務痛點：</b> 新創科技公司（如 AI 軟體公司）沒有土地抵押（商業銀行不愛），但它很有價值（投資銀行知道）。</li>
 			<li><b>科技解決方案：</b> 發想「智慧財產權 / 數據資產的 AI 鑑價系統」。利用大數據分析軟體公司的代碼品質、專利關聯度、海外市場 SaaS 訂閱增速，把投資銀行的「估值模型」自動化，轉化為商業銀行可以接受的「新型態還款能力評估」，這就是近年國際上非常火熱的 「無形資產融資（Intellectual Property Financing）」！</li>
 	</ul></li>
+</section>
+
+<section>
+	<h2>股權 vs. 債權</h2>
+	<div><ul>
+		<li>投資銀行（Investment Banking）的進攻哲學：<ul>
+   			<li>身分：企業價值的發掘者、資本市場的中介。</li>
+      		<li>核心問題：「這家企業未來能擴張到多大？它的內在價值（Intrinsic Value）是多少？」</li>
+			<li>火箭（追求升空高度）</li>
+		</ul></li>
+		<li>商業銀行（Commercial Banking）的防守哲學：<ul>
+			<li>身分：大眾存款的守護者、企業的債權人。</li>
+			<li>核心問題：「不論你未來多偉大，下個月的本金跟利息，你還不還得起？」</li>
+			<li>飛機（防範意外事故）</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section>
+	<h2>現金流量折現法(經典DCF)</h2>
+	<div data-xl='math'><ul>
+		<li>DCF 不僅是財務公式，更是對企業未來經營場景的「數位化預測」。</li>
+		<li>DCF 的核心公式拆解：<div>
+	$$PV = \sum_{t=1}^{n} \frac{FCFF_t}{(1+WACC)^t} + \frac{TV}{(1+WACC)^n}$$ 
+	$$TV = \frac{FCFF_n\times(1+g)}{WACC-g}$$
+		</div></li>
+		<li>三大核心鑑價變數：<ol>
+			<li>自由現金流（FCFF/FCFE）：企業營運真正賺到、可自由支配的淨現金（非會計淨利）。</li>
+			<li>加權平均資本成本（WACC）：市場要求的最低回報率（折現率），代表這筆投資的系統性風險。</li>
+			<li>永續成長率（g）：預期企業步入成熟期後，無限期延續的微幅成長率。</li>
+		</ol></li>
+		<li>投行鑑價的藝術與科技：<ul>
+			<li>預測期通常為 5-10 年，高度仰賴產業大數據、競爭對手研究、技術護城河評估。</li>
+		</ul></li>
+		<li>致命傷：<ul>
+			<li>失之毫釐，差之千里（Garbage in, Garbage out），對參數（如 $g$ 或 $WACC$）極度敏感。</li>
+		</ul></li>
+	</ul></div>
+</section>
+   
+<section>
+	<h2>信用授信 5C 原則</h2>
+	<div><ul>
+		<li>風險控管、抓出企業財務漏洞的「偵探思維」。</li>
+		<li>5C 核心架構完全拆解：<ol>
+   			<li>Character（借款人品德）：經營團隊的誠信、過去在[聯徵中心](https://www.jcic.org.tw/)的還款紀錄（拒絕道德風險）。</li>
+			<li>Capacity（還款能力）：企業的營運現況與現金流，主要審查DSCR（債務服務覆蓋率）與銷貨收入波動。</li>
+			<li>Capital（資本實力）：股東自己投入了多少錢？資產負債率（Debt/Equity）是否過高？（確認股東沒有把風險全轉嫁給銀行）。</li>
+			<li>Collateral（擔保品）：萬一企業倒閉，土地、廠房、存貨的次級市場流動性與清算價值。</li>
+			<li>Conditions（產業環境）：當前的宏觀經濟、利率循環、產業政策、法規變動對企業的衝擊。</li>
+		</ol></li>
+		<li>商銀鑑價的特點：強調過去與現在的扎實數據，極度重視下檔風險（Downside Protection）。</li>
+	</ul></div>
+</section>
+
+<section data-xl='math'>
+	<h2>投資銀行 vs. 商業銀行</h2>
+	<div><ul>
+		<li>時間軸焦點<ul>
+			<li><b>DCF模型:</b> 極度看重未來（Future-oriented）</li>
+			<li><b>5C原則:</b> 高度立足過去與現在（Historical-oriented）
+		</ul></li>
+		<li>財務核心<ul>
+			<li><b>DCF模型:</b> 企業未來的「自由現金流預測」</li>
+			<li><b>5C原則:</b> 企業當前的「資產負債與償債指標」</li>
+		</ul></li>
+		<li>對成長性的態度<ul>
+			<li><b>DCF模型:</b> 高成長 $=$ 超額回報 $\rightarrow$ 非常歡迎</li>
+			<li><b>5C原則:</b> 高成長 $=$ 盲目擴張、現金流斷裂風險 $\rightarrow$ 審慎評估</li>
+		</ul></li>
+		<li>對抵押品的態度<ul>
+			<li><b>DCF模型:</b> 幾乎不看抵押品（看重無形資產與隱含價值）</li>
+			<li><b>5C原則:</b> 非常看重（作為最後一道防線）</li>
+		</ul></li>
+		<li>最終產出<ul>
+ 			<li><b>DCF模型:</b> 每股合理價值（如 $150/share）</li>
+			<li><b>5C原則:</b> 授信額度與風險定價利率（如 5,000萬，利率 2.5%）</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section>
+	<div class='h2'>想一想</div>
+	<div><ul>
+		<li>新創科技公司（無抵押品，5C 的 Collateral 歸零）雖然很有未來價值（DCF 很高），但在商業銀行卻貸不到錢。<ul>
+   			<li>FinTech 的解決方案 —— 數據資產與動態鑑價：</li>
+			<li>替代性數據（Alternative Data）的引入：利用 API 串接 SaaS 軟體公司的後台、電商平台的營業流水。</li>
+			<li>自動化 DCF 引擎轉化：利用大數據與 AI，自動將企業前端的「流量、續訂率、好評率」轉化為精準的「未來 12 個月現金流預測（動態 DCF）」。</li>
+			<li>新形態 5C 的誕生：科技讓商業銀行能跳脫實體土地抵押，改以「未來應收帳款自動扣押（Lockbox 帳戶）」作為新型態的 Capacity 與 Collateral。</li>
+		</ul></li>
+		<li>「請試著幫一家完全沒有實體店面、沒有房產抵押的百萬訂閱 YouTuber 頻道，設計一套結合 DCF 生財能力與 5C 還款控管的銀行放款系統企劃案。」</li>
+	</ul></div>
 </section>
 
 <section class='page col'>
