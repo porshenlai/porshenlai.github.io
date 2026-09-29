@@ -104,7 +104,7 @@
 			<li>問問看大語言模型，除了他以外，有什麼工具可以使用的。</li>
 			<li>問問看這些工具使用上有沒有限制，是不是免費的...</li>
 		</ul></td>
-		<td valign='top' style='border:3px solid green;border-radius:8px;'><ul>on
+		<td valign='top' style='border:3px solid green;border-radius:8px;'><ul>
 			<li>我有一張簽到單的掃描影像，簽到單上只有出席者的簽名。我可以提供預定出席者的名單，可以幫我文字辨識簽名單並找出沒簽名與沒報名的人員嗎  ?</li>
 			<li>除了你之外，有其他免費的文字辨識工具，可以比對手寫字並從候選字中找到可能對應嗎 ?</li>
 			<li>...</li>
@@ -116,19 +116,57 @@
 
 <section><h2>學習的類型</h2>
 <ul>
-<li>監督式學習 Supervised Learning</li>
-<li>非監督式學習 Unsupervised Learning</li>
-<li>自監督式學習 Self supervised Learning</li>
-<li>半監督式學習 Semi supervised Learning</li>
-<li>弱監督式學習 Week supervised Learning</li>
+<li>監督式學習<ul>
+	<li>Supervised Learning</li>
+	<li>特徵與標籤</li>
+</ul></li>
+<li>非監督式學習<ul>
+	<li>Unsupervised Learning</li>
+	<li>不需要標籤，特徵決定一切</li>
+</ul></li>
+<li>自監督式學習<ul>
+	<li>Self supervised Learning</li>
+	<li>標籤由特徵中自動產生</li>
+</ul></li>
+<li>半監督式學習<ul>
+	<li>Semi supervised Learning</li>
+	<li>沒有標籤的訓練資料的標籤參考有標籤的訓練資料自動產生</li>
+</ul></li>
+<li>弱監督式學習<ul>
+	<li>Week supervised Learning</li>
+	<li>標籤反應局部的答案，訓練明確特徵與標籤資料</li>
+</ul></li>
 </ul>
 </section>
 
 <section data-xl='import:Music_CVAndNLP.html'><h2>&#1D11E; 電腦視覺與自然語言處理</h2></section>
 
-<section class='page col'>
+<section>
+	<h2>智慧之源的資料從哪裡來？</h2>
+	<div><ul>
+		<li>耳朵 &rarr; 聽覺<ul>
+			<li>1D Values</li>
+			<li>RNN: Recurrent Neural Network</li>
+			<li>LSTM: Long-Short Term Memory Neural Network</li>
+		</ul></li>
+		<li>眼睛 &rarr; 視覺<ul>
+			<li>2D Pixels</li>
+ 			<li>CNN: Convolutional Neural Network</li>
+		</ul></li>
+		<li>想像力 &rarr; 拓樸<ul>
+			<li>Graph</li>
+			<li>GNN: Graph Neural Network</li>
+		</ul></li>
+		<li>想像力 &rarr; 成對輸出入<ul>
+			<li>Tuples Pairs</li>
+			<li>Transformer</li>
+		</ul></li>
+	</ul></div>
+</section>
+
+<section>
 	<h2>工作類型: 哪些動詞需要智慧？</h2>
-	<div class='fill'><ul>
+	<div><ul>
 		<li>(根據樣本來產生智慧)</li>
 		<li>決策 &rarr; YES/NO &rarr; 認知 &rarr; 分類</li>
 		<li>評估 &rarr; 數值 &rarr; 預測</li>
@@ -146,6 +184,8 @@
 		</li>
 	</ul>
 </section>
+
+<section data-xl='import:Music_Functions.html'><h2>&#1D11E; 分類預測分群與生成</h2></section>
 
 </div></main></body>
 </html>
