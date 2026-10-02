@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target='_blank'/>
+<script src="/App/page.js"></script>
+</head>
+
+<section>
+	<h2>Ollama</h2>
+	<div><ul>
+		<li>Run open models.</li>
+		<li>Get more usage.</li>
+		<li><a href='https://ollama.com/'>Ollama</a> lets you use open models with your coding agents so you can spend less while keeping your data private.</li>
+	</ul></div>
+	<div class='frame'><ol>
+		<li>Download from [<a href='https://ollama.com/download'>ollama.com</a>]</li>
+		<li>Double click to install</li>
+		<li>[Ctrl+R] <em>powershell</em> to run terminal</li>
+		<li><em>ollama list</em> to check installed model</li>
+		<li><em>ollama run tinyllama</em> to run tinyllama chat</li>
+	</ol></div>
+</section>
+<body style='opacity:0'>
+
+<section>
+	<h2>Google Edge Gallery</h2>
+	<div><ul>
+		<li><a href='https://developers.google.com/edge/gallery'><b>Google AI Edge Gallery</b></a> is the premier destination for<ul>
+			<li>running <b>powerful open-source LLMs</b> on your devices.</li>
+			<li>Experience high-performance Generative AI directly on your hardware -<ul>
+				<li>fully offline,</li>
+				<li>private, and</li>
+				<li>lightning-fast.</li>
+			</ul></li>
+		</ul></li>
+	</ul></div>
+	<div class='frame'><ol>
+		<li>Install Google Edge Gallery from app store</li>
+		<li><button>≡</button> &gt; 模型 &gt; <button>下載</button> 或 <button>+</button></li>
+	</ol></div>
+</section>
+
+<section>
+<h2>Model Files</h2>
+<div data-h='install:mermaid'>
+	<button style='margin:8px 32px'>Render</button>
+	<textarea data-v='value:raw' style='display:none'>flowchart LR
+	HF["Hugging Face<br/>.safetensors"]
+	P(PyTorch) -->|建模| PT[".pt<br/>.bin"] -->|轉換| HF
+	T(TensorFlow) -->|建模| TF[".keras"] -->|轉換| HF
+	HF -->|轉換| OL["Ollama<br/>.gguf"] -->|目標| PC("Desktop PC")
+	HF -->|轉換| EG["Edge Gallery<br/>.litert"] -->|目標| MD("Mobile Device")
+</textarea>
+</div>
+</section>
+
+</div></main></body>
+</html>
+</section>
+
+</body>
+</html>
