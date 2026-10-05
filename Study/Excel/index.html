@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base target='_blank'></base>
 <script src="../../App/page.js"></script>
 <style>
 body { font-size:2.5vmin; }
@@ -33,8 +34,14 @@ figure b:hover { border-color:red; }
 
 <section class='page'>
 	<div class='fill col'>
-		<h1 class="title">Microsoft Excel</h1>
-		<p class="subtitle">MOS-MO201: Excel 2019</p>
+		<div class='h1 ac'>試算表<br/>Spread Sheet</div>
+		<br/>
+		<div class='frame'>
+			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+			<div style="text-align:right">2026, Summer</div>
+		</div>
 	</div>
 </section>
 
@@ -327,79 +334,77 @@ figure b:hover { border-color:red; }
 </section><!--}}}-->
 
 <section>
-	<h2>樞紐分析</h2><!--{{{-->
-	<ul>
-		<li>樞紐分析 : 7</li>
-		<li>樞紐分析:群組 : 2</li>
-		<li>樞紐分析:計算欄位 : 1</li>
-	</ul>
-	<div data-x='quiz:s'>
-		樞紐分析表工具只有在選取之儲存格何種格式時才會出現 ?
-		<div data-o='O'>樞紐分析表格</div>
-		<div data-o='X'>表格</div>
-		<div data-o='X'>範圍</div>
-		<div data-o='X'>圖表</div>
-	</div>
-	<br/>
-	<div data-x='quiz:s'>
-		關於樞紐分析表的使用，下列何者為非。
-		<div data-o='O'>樞紐分析篩選器可刪除來源資料範圍的項目</div>
-		<div data-o='X'>樞紐分析不會變動原始資料表格的數據</div>
-		<div data-o='X'>新增樞紐分析時將另行建立統計分析表格</div>
-		<div data-o='X'>樞紐分析篩選器篩選的是進行樞紐分析表格統計計算的項目</div>
-	</div>
-	<br/>
-	<div data-x='quiz:s'>
-		要在樞紐分析表建立新的資料欄位，應如何進行
-		<div data-o='O'>樞紐分析表工具/計算/欄位項目和集/插入計算欄位</div>
-		<div data-o='X'>資料/資料工具/欄位項目和集/插入計算欄位</div>
-		<div data-o='X'>直接在樞紐分析標格編輯公式</div>
-	</div>
-</section><!--}}}-->
+<h2>樞紐分析表的建立</h2>
+<div><ul>
+<li><a href='https://docs.google.com/spreadsheets/d/1ciMag40_TcLd7EJZwyUoCS189IgstBJadYStvEcjXtg/edit?usp=sharing'>Google Sheets</a></li>
+<li>準備資料來源<ul>
+	<li>確保資料表第一行為標題列（如：日期、部門、產品、銷售額）。
+	<li>資料列中避免出現完全空白的行或列，且每個欄位都有明確的名稱。
+</ul></li>
+<li>選取資料與插入樞紐分析表<ul>
+	<li>點選資料範圍內的任一儲存格，或選取整個資料區域。</li>
+	<li>點擊上方功能表列的 「插入」 $rarr; 「樞紐分析表」。</li>
+</ul></li>
+<li>選擇放置位置<ul>
+	<li>在彈出的視窗中選擇要將樞紐分析表建立於 「新工作表」 或 「現有工作表」。</li>
+	<li>點擊 「建立」，系統將開啟樞紐分析表介面，並在右側顯示 「樞紐分析表編輯器」。</li>
+</ul></li>
+<li>配置維度欄位<ul>
+	<li>在右側的編輯器中，點擊 「列」、「欄」、「值」 或 「篩選器」 旁邊的 「新增」 按鈕（或直接將右側欄位清單拖曳至對應區域）。</li>
+</ul></li>
+</ul></div>
+</section>
 
 <section>
-	<h2>選項</h2><!--{{{-->
+<h2>樞紐分析:四大配置維度</h2>
+<div><ul>
+	<li>免寫函數與程式碼,藉由四象限拖曳快速整合海量資料。</li>
+	<li>列標籤 (Rows)<ul>
+		<li><b>垂直維度作用</b>：決定表格縱向分類，將所選欄位的重複值合併，由上至下展開呈現。</li>
+		<li><b>範例：</b><ul>
+			<li>將「業務姓名」或「產品分類」拖入 列，表格左側就會垂直列出每一位業務員或每個產品類別。</li>
+		</ul></li>
+	</ul></li>
+	<li>欄標籤 (Columns)<ul>
+		<li><b>水平維度作用</b>：決定表格橫向分類，將所選欄位的重複值合併，由左至右展開呈現。</li>
+		<li><b>範例：</b><ul>
+			<li>將「銷售季度（Q1~Q4）」或「付款方式」拖入 欄，表格上方就會水平展開各個季度或付款類別。</li>
+		</ul></li>
+	</ul></li>
+	<li>數值區(Values)<ul>
+		<li><b>數據計算區作用</b>：決定交叉點要計算的數值資料與計算方式（如：加總、平均值、計數、最大值等）。</li>
+		<li><b>範例：</b><ul>
+			<li>將「銷售金額」拖入 值，並選擇「加總（SUM）」，交叉點就會顯示對應業務在各季度的總銷售額；若選擇「計數（COUNT）」，則顯示交易筆數。</li>
+		</ul></li>
+	</ul></li>
+	<li>篩選器 (Filters)<ul>
+		<li><b>資料過濾作用</b>：對整張樞紐分析表設定全域條件，僅計算並顯示符合條件的資料，不會增加表格的欄列結構。</li>
+		<li><b>範例：</b><ul>
+			<li>將「年份」或「門市地區」拖入 篩選器，設定為「2025 年」或「台北店」，整張樞紐分析表就只會統計 2025 年或台北店的數據。</li>
+		</ul></li>
+	</ul></li>
+</ul></div>
+</section>
 
-	<div data-x='quiz:s'>
-		巨集功能的開關功能要在哪個頁面設定 ?
-		<div data-o='O'>信任中心對話框 的 巨集設定 頁籤</div>
-		<div data-o='X'>檢視/巨集/錄製巨集 功能選單</div>
-		<div data-o='X'>檔案/選項/Excel 選項 對話框</div>
-		<div data-o='X'>開發人員選單</div>
-	</div>
-	<br/>
-	<div data-x='quiz:s'>
-		要在哪邊設定保護活頁簿的密碼 ?
-		<div data-o='O'>校閱/保護活頁簿</div>
-		<div data-o='X'>校閱/保護工作表</div>
-		<div data-o='X'>檔案/保護活頁簿</div>
-		<div data-o='X'>檔案/保護工作表</div>
-	</div>
-	<br/>
-	<div data-x='quiz:s'>
-		要在哪邊變更 Excel 預測使用的語言 ?
-		<div data-o='O'>Excel 選項/語言書籤</div>
-		<div data-o='X'>Excel 選項/一般書籤</div>
-		<div data-o='X'>Excel 選項/資料書籤</div>
-		<div data-o='X'>Excel 選項/儲存書籤</div>
-	</div>
-	<br/>
-	<div data-x='quiz:s'>
-		自動重算功能要從哪邊設定 ?
-		<div data-o='O'>Excel 選項對話框裡的公式頁。</div>
-		<div data-o='X'>Excel 選項對話框裡的巨集頁。</div>
-		<div data-o='X'>公式選單的設定頁。</div>
-		<div data-o='X'>常用選單的格式頁。</div>
-	</div>
-	<br/>
-	<div data-x='quiz:s'>
-		Excel 使用的預設字形格式要再哪裡設定 ?
-		<div data-o='O'>Excel 選項對話框裡的一般頁。</div>
-		<div data-o='X'>Excel 選項對話框裡的特別頁。</div>
-		<div data-o='X'>常用選單的樣式。</div>
-		<div data-o='X'>常用選單的格式。</div>
-	</div>
-</section><!--}}}-->
+<section>
+<h2>樞紐分析:三大核心應用效益</h2>
+<div><ul>
+	<li>提升商業決策效率,將繁瑣的流水帳轉換為結構化商業洞察。</li>
+	<li>動態切換視角<ul>
+		<li>數秒內即刻重構報表維度</li>
+	</ul></li>
+	<li>多樣指標運算<ul>
+		<li>快速切換佔比與累計統計</li>
+	</ul></li>
+	<li>一鍵穿透明細<ul>
+		<li>點擊數值直達原始資料來源</li>
+	</ul></li>
+</ul></div>
+</section>
+
+<section>
+<h2>巨集</h2>
+</section>
 
 <section>
 	<h2>其他</h2><!--{{{-->
@@ -419,6 +424,19 @@ figure b:hover { border-color:red; }
 		<div data-o='X'>設定/版面 對話框的 頁首頁尾 頁簽</div>
 	</div>
 </section><!--}}}-->
+
+<section data-ks='Q_MOS' class='page'>
+	<div class='fill col'>
+		<div class="h2 ac">MOS-MO201: Excel 2019</div>
+		<br/>
+		<div class='frame'>
+			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+			<div style="text-align:right">2026, Summer</div>
+		</div>
+	</div>
+</section>
 
 <section data-ks='Q_MOS'>
 	<h2><a href="attach/F1P1_樂活瑜珈.xlsx">📥 例題 A/1</a> 樂活瑜珈</h2>
