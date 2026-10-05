@@ -336,14 +336,17 @@ class MediaList {
 	static loadConfig (cfg)
 	{	// [ ...MediaItem ] 
 		let r=document.createElement("div");
-		for (let i of Array.isArray(cfg) ? cfg : cfg.split(';').filter((v)=>v))
-			r.appendChild(MediaItem.loadConfig(i))
+		for (let i of Array.isArray(cfg) ? cfg : decodeURIComponent(cfg).split(';').filter((v)=>v))
+		{
+			let ne=MediaItem.loadConfig(i);
+			r.appendChild(ne);
+		}
+		console.log(r.outerHTML);
 		return r;
 	}
 	constructor (e, rb)
 	{ // {{{
 		this.E = e;
-
 		// 建立播放清單
 		let list = Array.from(e.querySelectorAll('[data-media]')).map((m) => MediaItem.create(m));
 		list.forEach((e)=>e.rbase=rb);
@@ -435,6 +438,7 @@ SCRIPT.value=async function (slide, elem, data) {
 	if (data) {
 		while(elem.firstChild) elem.removeChild(elem.firstChild);
 		elem.appendChild(MediaList.loadConfig(data));
+		console.log("XXXXXXXXXXXXXXX",elem.outerHTML,elem);
 	}
 	const ML = new MediaList(elem, rbase);
 	window.Apps.E(elem).trace('section').tick = (v) => ML.tick(v);
