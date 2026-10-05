@@ -680,8 +680,13 @@ class Player
 					case '&value': return e.value;
 					case '&target': return evt.target;
 					case '&event': return evt;
-					default: return a; }
+					default:
+						if (evt.target && a.startsWith('&data-')) 
+							return encodeURIComponent(evt.target.dataset[a.substring(6)]);
+						return a;
+					}
 				});
+				console.log(args);
 				if (cmd in this && 'function' === typeof(this[cmd])) {
 					this[cmd](...args);
 				} else continue;
