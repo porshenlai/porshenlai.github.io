@@ -686,7 +686,6 @@ class Player
 						return a;
 					}
 				});
-				console.log(args);
 				if (cmd in this && 'function' === typeof(this[cmd])) {
 					this[cmd](...args);
 				} else continue;

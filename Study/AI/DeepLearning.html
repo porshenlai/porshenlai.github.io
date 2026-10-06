@@ -4,12 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ML Models</title>
+<base target='_blank'/>
 <script src='/App/page.js'></script>
 <style>
 	.quiz { border:2px solid red; padding:8px; border-radius:8px; }
 	.answer { background:lightgrey; border:2px solid silver; border-radius:8px; padding:8px; display:none; }
 	.correct>.answer { display:block; }
 	.note { border:2px solid blue; }
+	.ref { text-align:center; font-size:50%; color:blue; }
 	th[colspan] { background:lightgrey; color:darkblue; font-weight:bold; }
 	img { max-width:90vw; max-height:90vh; }
 </style>
@@ -27,24 +29,31 @@
 	</div>
 </section>
 
-<section><h2>回歸 Regression</h2>
-	<div>
-		<button data-h='play:Sample:media:&data-v' data-v='https://upload.wikimedia.org/wikipedia/commons/b/be/Normdist_regression.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail_unscaled'>Sample</button>
-	</div>
-</section>
-
-<section><h2>羅吉斯回歸 Logistic Regression</h2>
+<section><h2>Regression</h2>
+	<div><ul>
+		<li>Variables &rarr; Features</li>
+		<li>Geometry &rarr; Feature Space</li>
+		<li>Partition on Feature Space</li>
+		<li><a href='https://www.desmos.com/3d?lang=zh-TW'>https://www.desmos.com/3d</a></li>
+		<li>Linear Regression</li>
+		<li>Logistic Regression</li>
+	</ul></div>
 </section>
 
 <section><h2>MLP: Multi-Layer Perceptron</h2>
-<ul>
+<div><ul>
+	<li>Perceptron:<div class='frame'>
+		<img src='https://assets.insightmediagroup.io/media/wp-content/uploads/2021/12/1hkYlTODpjJgo32DoCOWN5w.png' style='width:100%'></img>
+		<div class='ref'><a href='https://towardsdatascience.com/the-concept-of-artificial-neurons-perceptrons-in-neural-networks-fab22249cbfc/'>https://towardsdatascience.com/</a></div>
+	</div></li>
+	<li>Multi-layer Perceptron<div class='frame'>
+		<img src='https://media.geeksforgeeks.org/wp-content/uploads/20250929154234052438/backpropagation_in_neural_network_8.webp' style='width:70%;margin:0 15%;'>
+		<div class='ref'><a href='https://www.geeksforgeeks.org/deep-learning/multi-layer-perceptron-learning-in-tensorflow/'>https://www.geeksforgeeks.org/</a></div>
+	</div></li>
 	<li>推論 Feed Forward</li>
 	<li>學習 Back Propagation</li>
 	<li>梯度消失</li>
-</ul>
-</section>
-
-<section><h2>深度網路</h2>
+</ul></div>
 </section>
 
 <section data-xl='import:Music_DeepLearning.html'><h2>&#1D11E; 深度網路</h2></section>

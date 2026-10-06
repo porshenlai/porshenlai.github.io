@@ -341,7 +341,6 @@ class MediaList {
 			let ne=MediaItem.loadConfig(i);
 			r.appendChild(ne);
 		}
-		console.log(r.outerHTML);
 		return r;
 	}
 	constructor (e, rb)
@@ -438,7 +437,6 @@ SCRIPT.value=async function (slide, elem, data) {
 	if (data) {
 		while(elem.firstChild) elem.removeChild(elem.firstChild);
 		elem.appendChild(MediaList.loadConfig(data));
-		console.log("XXXXXXXXXXXXXXX",elem.outerHTML,elem);
 	}
 	const ML = new MediaList(elem, rbase);
 	window.Apps.E(elem).trace('section').tick = (v) => ML.tick(v);
