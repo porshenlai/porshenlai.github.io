@@ -115,13 +115,17 @@ table small { color:#666; }
 	<!--}}}-->
 </section>
 
-<section data-ks='P_FC'>
-	<h2>條件分支流程圖</h2><!--{{{-->
+<section data-ks='P_FC'> <h2>條件分支流程圖</h2><!--{{{-->
+<div>
+	<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+S["前一列程式"] --> C{"條件式"} -->|"True"| B["程式區塊"] --> T["後一列程式"]
+C -->|"False"| T
+</textarea></div>
+</div>
 	<div class='frame'>
 		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
 			<tr><th colspan='4' align='right' valign='middle'>
 				<span style='float:left'>IF</span>
-				<span data-h='play:IF ELSE:media:3_IF.svg'>&lt;流程圖&gt;</span>
 			</th></tr>
 			<tr>
 				<th><span class='red'>如果</span></th>
@@ -197,8 +201,7 @@ table small { color:#666; }
 			</tr>
 		</table>
 	</div>
-	<!--}}}-->
-</section>
+</section> <!--}}}-->
 
 <section data-ks='P_FC'>
 	<h2>反覆 Repeat</h2><!--{{{-->
