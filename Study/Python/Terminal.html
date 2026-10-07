@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base target='_blank'></base>
 <script src="/App/page.js"></script>
+<style>
+	.def { color:darkblue;font-weight:bolder; }
+	.desc { color:blue; }
+	code { color:darkgreen; }
+</style>
 </head>
 <body style='opacity:0'>
 
@@ -129,11 +134,6 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 </section> <!--}}}-->
 
 <section data-ks='P_IO'> <h2>裝置: 終端機</h2><!--{{{-->
-<style>
-	.def { color:darkblue;font-weight:bolder; }
-	.desc { color:blue; }
-	code { color:darkgreen; }
-</style>
 <div>
 	<hr/>
 	<div class='desc'>⚙️ 讀取一行字串（含結尾換行去除）</div>
@@ -212,6 +212,18 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 </section> <!--}}}-->
 
 <section data-ks='P_IO'> <h2>⚙️ 型別轉換</h2> <!--{{{-->
+<div>
+	<hr/>
+	<div class='desc'>⚙️  取得輸入參數的型態</div>
+	<div class='def'>型態物件 = type(資料)</div>
+	<div><code>type(256) == int<br/>type(2.72) == float<br/>type("3.14") == str<br/>type(True) == bool</code></div>
+
+	<hr/>
+	<div class='desc'>⚙️  轉換數入資料至指定型態</div>
+	<div class='def'>指定型態變數 = <span style='color:red'>int|float|str|bool</span>(資料)</div>
+	<div><code>int('256') == 256<br/>float(256) == 256.0<br/>bool(256.0) == True<br/>int(True) == 1</code></div>
+
+	<hr/>
 	<div class='frame'>
 		<div># 讀取三種資料，並做適當轉型</div>
 		<div>from datetime import datetime</div>
@@ -221,10 +233,22 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 		<div>print(price, shares, trade_date)</div>
 	</div>
 	<ul>
-		<li><code>int(s)</code>、<code>float(s)</code>：轉數值；<code>bool(s)</code> 以「是否為空字串」判斷 <small>（<code>bool('0')</code> 仍為 <code>True</code>）</small></li>
+		<li><code>int(s)</code>、<code>float(s)</code>：轉數值；</li>
+		<li><code>bool(s)</code> 以「是否為空字串」判斷 <small>（<code>bool('0')</code> 仍為 <code>True</code>）</small></li>
 		<li><code>datetime.strptime(text, fmt)</code>：字串→日期時間</li>
 		<li>建議先 <code>.strip()</code> 去除空白，再轉型；必要時 <code>try/except</code> 防呆</li>
 	</ul>
+
+	<hr/>
+	<div class='desc'>⚙️  自動判別輸入字串轉換成對應的型態</div>
+	<div class='def'>對應型態的變數 = eval("資料字串")</div>
+	<div><code>eval('256') == 256<br/>eval('2.72') == 2.72<br/>eval('"3.14"') == '3.14'<br/>eval('True') == True</code></div>
+
+	<hr/>
+	<div class='desc'>⚙️  傳回給程式/除錯看的「精確」表示字串，常含引號、跳脫</div>
+	<div class='def'>表示字串 = repr(資料)</div>
+	<div><code>repr('256') == '256'<br/>repr('2.72') == '2.72'<br/>repr("3.14") == "'3.14'"<br/>repr(True) == 'True'</code></div>
+</div>
 </section> <!--}}}-->
 
 <section data-ks='P_EX'> <h2>⚙️ 內建函數: 字串</h2> <!--{{{-->
@@ -376,16 +400,6 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 	<div>'市價：{0:,.2f} 股數：{1:d}'.format(1234.5, 3000)</div>
 	<h3>舊式 <code>%</code></h3>
 	<div>'市價：%,.2f 股數：%d' % (1234.5, 3000)</div>
-
-	<h3><code>str()</code> vs <code>repr()</code></h3>
-	<ul>
-		<li><code>str(obj)</code>：給人看的「友善」字串</li>
-		<li><code>repr(obj)</code>：給程式/除錯看的「精確」表示，常含引號、跳脫</li>
-	</ul>
-	<div class='frame'>
-		<div>print(str(`Hello<br/>World`))<span class="hl-cm"># 兩行</span></div>
-		<div>print(repr(`Hello<br/>World`))<span class="hl-cm"># 'Hello\nWorld'</span></div>
-	</div>
 
 	<h3>格式規格字（Spec）常用表</h3>
 	<table>
