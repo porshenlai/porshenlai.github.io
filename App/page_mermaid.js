@@ -20,12 +20,11 @@ SCRIPT.value=async function (slide, elem, code) {
 
 try{
 	elem.innerHTML='<span>Rendering ...</span>';
-	elem.innerHTML=(await (await Init).render('graphDiv', code)).svg;
+	elem.innerHTML=(await (await Init).render('graphDiv_'+(new Date()).getTime().toString(36), code)).svg;
 }catch(x){ console.log(x); }
 
 	const svg = elem.querySelector('svg');
-	console.log(svg.style.maxWidth);
-	if (svg.style.maxWidth) svg.style.maxWidth='';
+	if (svg && svg.style.maxWidth) svg.style.maxWidth='';
 };
 
 })(document.currentScript);

@@ -24,7 +24,7 @@
 <section data-xl='import:Music_CodeAndData.html'><h2>♫ 資料與程序</h2></section>
 
 <section> <h2>輸入 程序 資料 輸出</H2> <!--{{{-->
-	<div data-xl='mermaid'><textarea data-v='value:raw'>flowchart LR
+<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
 	P[程序<br/>Procedure] --> O[輸出<br/>Output]
 	I[輸入<br/>Input] --> P
 	D[資料<br/>Data] <--> P
@@ -32,7 +32,7 @@
 </section> <!--}}}-->
 
 <section> <h2>流程</h2> <!--{{{-->
-	<div data-xl='mermaid'><textarea data-v='value:raw'>flowchart LR
+<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
 	I[進口<br/>碼頭] --> PA[進口<br/>報關行] --> P[工廠] --> PZ[出口<br/>報關行] --> O[出口<br/>碼頭]
 	PA -->|DMA| S[倉庫]
 	P <-->|變數<br/>存取| S
@@ -47,8 +47,24 @@
 </section> <!--}}}-->
 
 <section> <h2>終端機: 標準輸入 / 標準輸出</h2> <!--{{{-->
+<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+	subgraph "程序"
+		direction TB
+		PI["Python 解譯器"] 
+		PS("Python 程式")
+	end
+	subgraph "介面"
+		direction TB
+		U("使用者")
+		C["終端機"]
+	end
+	C <-->|輸出入| U
+	PI <-->|執行| PS
+	C -->|stdin| PI
+	PI -->|stdout| C
+	PI -->|stderr| C
+</textarea></div>
 	<div><ul>
-		<li><b>終端機 (console):</b><ul><li>終端機</li></ul></li>
 		<li><b>標準輸入 (stdin):</b><ul>
 			<li>終端機的預設輸入 (檔案ID:0)</li>
 			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#input'>input()</a></li>
@@ -62,50 +78,78 @@
 	</ul></div>
 </section> <!--}}}-->
 
-<section>
-<h2>終端機 / 殼層 / 解譯器 / 作業系統</h2>
-<div data-h='install:mermaid'>
-	<button>Render</button>
-	<textarea data-v='value:raw' style='display:none'>flowchart LR
-	U["使用者"] -->|"輸入"| K["鍵盤"] -->|stdin| T["終端機<br/>Terminal"] -->|"input()"| I["Python<br/>解翻器"]
-	I -->|"print()"| T -->|stdout| W["視窗"] -->|"顯示"| U
+<section> <h2>終端機 / 殼層 / 解譯器 / 作業系統</h2> <!--{{{-->
+<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+	U("使用者") -->|"輸入"| K("鍵盤") -->|stdin| T["終端機<br/>Terminal"] -->|"input()"| I["Python<br/>解翻器"]
+	I -->|"print()"| T -->|stdout| W("視窗") -->|"顯示"| U
 	T -->|read| S["殼層<br/>Shell"] -->|執行| I
 	I -->|返回| S -->|echo| T
-</textarea>
-</div>
+</textarea></div>
 <h3>命令列 Command Line</h3>
-<div><ul>
-	<li>[環境變數設定] [前置命令] 主命令 [命令參數...]</li>
-	<li>python.exe test.py 1 2 3</li>
-	<li><div class='frame'>
-import sys<br/>
-print(sys.argv)
-</div></li>
-</ul></div>
-</section>
+<div><table border='1' cellspacing='8' cellpadding='4' align='center' width='95%'><tbody>
+	<tr><th>[環境變數設定]</th>
+		<th>[前置命令]</th>
+		<th>主命令</th>
+		<th colspan='3'>[命令參數...]</th>
+	</tr>
+	<tr><td>PYTHONPATH=./</td>
+		<td>sudo</td>
+		<td>python3</td>
+		<td>sample232.py</td>
+		<td>/dev/ttyS0</td>
+		<td>115200</td>
+	</tr>
+	<tr><th colspan='6'>sample232.py 程式碼<div class='frame al'><pre>import sys
+print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py', '/dev/ttyS0', '115200']</pre></div></th></tr>
+</tbody></table>
+</div>
+</section> <!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'> <h2>程式執行引數 與 回傳值</h2> <!--{{{-->
+	<div data-x='quiz:s'>
+		<div>Script.py 檔案包含下列程式碼：</div>
+		<div class='frame'><div class='cb'>
+			<div>import sys</div>
+			<div>print(sys.argv[2])</div>
+		</div></div>
+		<br/>
+		<div>您執行下列命令：</div>
+		<div class='frame'>
+			<div>python Script.py Cheese Bacon Bread</div>
+		</div>
+		<br/>
+		<div>請問此命令的輸出為何？</div>
+		<div class='cols'>
+			<div data-o='X'>Bread</div>
+			<div data-o='X'>Cheese</div>
+			<div data-o='X'>Script.py</div>
+			<div data-o='O'>Bacon</div>
+		</div>
+	</div>
+</section> <!--}}}-->
 
 <section data-ks='P_IO'> <h2>裝置: 終端機</h2><!--{{{-->
-	<ul>
-		<li>輸入：<code>input(prompt)</code> 讀取一行字串（含結尾換行去除）</li>
-		<li>輸出：<code>print(*values, sep=' ', end='\n')</code> 將物件轉成字串後印出</li>
-		<li>注意：<code>input()</code> 回傳一律是 <code>str</code>，需要自行轉型</li>
-	</ul>
-	<div class='frame'>
-		<div>name = input('請輸入姓名：')</div>
-		<div>age = int(input('年齡：'))	# 以 int 轉型</div>
-		<div>print(f'{name} 您好，今年 {age} 歲。')</div>
-	</div>
-	<h3><code>input()</code> 基本參數</h3>
-	<div class='frame'>
-		<div>input()</div>
-		<div>input('請問如何稱呼: ')</div>
-	</div>
-	<h3><code>print()</code> 基本參數</h3>
-	<div class='frame'>
-		<div>print(10, 20, 30) <span class="hl-cm"># 預設 sep=' ', end='\n'</span></div>
-		<div>print(10, 20, 30, sep=<span class="hl-str">' | '</span>)</div>
-		<div>print(<span class="hl-str">"沒有換行"</span>, end=<span class="hl-str">""</span>); print(<span class="hl-str">"接在後面"</span>)</div>
-	</div>
+<style>
+	.def { color:darkblue;font-weight:bolder; }
+	.desc { color:blue; }
+	code { color:darkgreen; }
+</style>
+<div>
+	<hr/>
+	<div class='desc'>⚙️ 讀取一行字串（含結尾換行去除）</div>
+<div data-id='0' data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+	U("使用者") -->|"輸入"| F["input(提示字串)"] -->|"返回"| R("輸入的字串")
+</textarea></div>
+	<div class='def'>字串變數 = input(提示字串)</div>
+	<div><code>name = input("Your Name: ")<br/>age = int(input("Your Age: "))</code></div>
+	<hr/>
+	<div class='desc'>⚙️  將物件轉成字串後輸出</div>
+<div data-id='1' data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+	F["print(要顯示的內容)"] -->|輸出| T("顯示在終端機上的文字")
+</textarea></div>
+	<div class='def'>print(要輸出的資料..., sep="分隔符號", end="換行符號")</div>
+	<div><code>print("姓名是: ", name, "\n年齡是: ", age)</code></div>
+</div>
 </section> <!--}}}-->
 
 <section data-ks='P_IO,Q_ITS'>
@@ -165,29 +209,6 @@ print(sys.argv)
 # 將 message 字串變數的內容傳給 stdout
 <span class='blue'>print(message)</span>
 </pre>
-</section> <!--}}}-->
-
-<section data-ks='P_IO,Q_ITS'> <h2>程式執行引數 與 回傳值</h2> <!--{{{-->
-	<div data-x='quiz:s'>
-		<div>Script.py 檔案包含下列程式碼：</div>
-		<div class='frame'><div class='cb'>
-			<div>import sys</div>
-			<div>print(sys.argv[2])</div>
-		</div></div>
-		<br/>
-		<div>您執行下列命令：</div>
-		<div class='frame'>
-			<div>python Script.py Cheese Bacon Bread</div>
-		</div>
-		<br/>
-		<div>請問此命令的輸出為何？</div>
-		<div class='cols'>
-			<div data-o='X'>Bread</div>
-			<div data-o='X'>Cheese</div>
-			<div data-o='X'>Script.py</div>
-			<div data-o='O'>Bacon</div>
-		</div>
-	</div>
 </section> <!--}}}-->
 
 <section data-ks='P_IO'> <h2>⚙️ 型別轉換</h2> <!--{{{-->
