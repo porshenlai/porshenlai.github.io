@@ -212,8 +212,6 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 </section> <!--}}}-->
 
 <section data-ks='P_IO'> <h2>⚙️ 型別轉換</h2> <!--{{{-->
-	<div><code>input(...)</code> 回傳的資料型態為<span class='red'>字串</span>，必須進行必要的型別轉換後才能進行運算。</div>
-	<div><code>print(...)</code> 引數的資料型態為<span class='red'>字串</span>，必須先轉換成字串才能輸出。</div>
 	<div class='frame'>
 		<div># 讀取三種資料，並做適當轉型</div>
 		<div>from datetime import datetime</div>
@@ -344,7 +342,7 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 </section> <!--}}}-->
 
 <section data-ks='P_IO'> <h2>三種格式化方式：總覽</h2> <!--{{{-->
-	<table>
+	<table border='1' cellspacing='0' cellpadding='4' align='center' width='95%'>
 		<thead>
 			<tr><th>方法</th><th>語法</th><th>特色</th></tr>
 		</thead>
@@ -352,7 +350,7 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 			<tr>
 				<td><code>f'...{expr:spec}...'</code></td>
 				<td>Python 3.6+，最直覺；可內嵌運算 <small>(如 <code>{x*1.05:.2f}</code>)</small></td>
-				<td>可讀性佳、效能佳；推薦</td>
+				<td>可讀性佳、效能佳</td>
 			</tr>
 			<tr>
 				<td><code>'...{0:spec}...'.format(x)</code></td>
@@ -362,7 +360,7 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 			<tr>
 				<td><code>'...%f' % x</code></td>
 				<td>C 風格；符號如 <code>%d</code>、<code>%f</code></td>
-				<td>相容舊碼；不建議新碼首選</td>
+				<td>相容舊碼</td>
 			</tr>
 		</tbody>
 	</table>
