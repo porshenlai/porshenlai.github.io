@@ -115,92 +115,111 @@ table small { color:#666; }
 	<!--}}}-->
 </section>
 
-<section data-ks='P_FC'> <h2>條件分支流程圖</h2><!--{{{-->
-<div>
-	<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
-S["前一列程式"] --> C{"條件式"} -->|"True"| B["程式區塊"] --> T["後一列程式"]
-C -->|"False"| T
+<section data-ks='P_FC'> <h2>IF 條件分支</h2><!--{{{-->
+<div class='frame'>
+	<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+		<tr><th colspan='4'>IF</th></tr>
+		<tr>
+			<th><span class='red'>如果</span></th>
+			<th><span class='green'>下雨</span></th>
+			<th><span class='red'>就</span></th>
+			<th><span class='green'>待在家裡睡覺</th>
+		</tr>
+		<tr>
+			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+		</tr>
+	</table>
+	<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+S["前一列程式"]
+C{"條件式<br/>下雨 ?"}
+B["程式區塊<br/>睡覺"]
+T["後一列程式"]
+S --> C -->|"成立"| B --> T
+C -->|"不成立"| T
 </textarea></div>
 </div>
-	<div class='frame'>
-		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
-			<tr><th colspan='4' align='right' valign='middle'>
-				<span style='float:left'>IF</span>
-			</th></tr>
-			<tr>
-				<th><span class='red'>如果</span></th>
-				<th><span class='green'>下雨</span></th>
-				<th><span class='red'>就</span></th>
-				<th><span class='green'>待在家裡睡覺</th>
-			</tr>
-			<tr>
-				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
-			</tr>
-		</table>
-	</div>
+</section><!--}}}-->
 
-	<div class='frame'>
-		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
-			<tr><th colspan='4' align='right'>
-				<span style='float:left'>IF ... ELSE ...</span>
-				<span data-h='play:IF.ELSE.:media:3_IFELSE.svg'>&lt;流程圖&gt;</span>
-			</th></tr>
-			<tr>
-				<th><span class='red'>如果</span></th>
-				<th><span class='green'>下雨</span></th>
-				<th><span class='red'>就</span></th>
-				<th><span class='green'>待在家裡睡覺</span></th>
-			</tr>
-			<tr>
-				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
-			</tr>
-			<tr>
-				<th><span class='red'>否則</span></th>
-				<th></th>
-				<th><span class='red'>就</span></th>
-				<th><span class='green'>去逛街</span></th>
-			</tr>
-			<tr>
-				<th>else</th><th></th><th>:</th><th>shop()</th>
-			</tr>
-		</table>
-	</div>
+<section data-ks='P_FC'> <h2>IF...ELSE... 條件分支</h2><!--{{{-->
+<div class='frame'>
+	<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+		<tr><th colspan='4'>IF ... ELSE ...</th></tr>
+		<tr>
+			<th><span class='red'>如果</span></th>
+			<th><span class='green'>下雨</span></th>
+			<th><span class='red'>就</span></th>
+			<th><span class='green'>待在家裡睡覺</span></th>
+		</tr>
+		<tr>
+			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+		</tr>
+		<tr>
+			<th><span class='red'>否則</span></th>
+			<th></th>
+			<th><span class='red'>就</span></th>
+			<th><span class='green'>去逛街</span></th>
+		</tr>
+		<tr>
+			<th>else</th><th></th><th>:</th><th>shop()</th>
+		</tr>
+	</table>
+	<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+S["前一列程式"]
+C{"條件式<br/>下雨 ?"}
+BY["程式區塊 Y<br/>睡覺"]
+BN["程式區塊 N<br/>逛街"]
+T["後一列程式"]
+S --> C -->|"成立"| BY --> T
+C -->|"不成立"| BN --> T
+</textarea></div>
+</div>
+</section><!--}}}-->
 
-	<div class='frame'>
-		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
-			<tr><th colspan='4' align='right'>
-				<span style='float:left'>IF ... ELIF ... ELSE ...</span>
-				<span data-h='play:IF.ELIF.ELSE.:media:3_IFELIFELSE.svg'>&lt;流程圖&gt;</span>
-			</th></tr>
-			<tr>
-				<th><span class='red'>如果</span></th>
-				<th><span class='green'>下雨</span></th>
-				<th><span class='red'>就</span></th>
-				<th><span class='green'>待在家裡睡覺</span></th>
-			</tr>
-			<tr>
-				<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
-			</tr>
-			<tr>
-				<th><span class='red'>沒有的話如果</span></th>
-				<th><span class='green'>淹大水</span></th>
-				<th><span class='red'>就</span></th>
-				<th><span class='green'>去划船</span></th>
-			</tr>
-			<tr>
-				<th>elif</th><th>(FLOODED)</th><th>:</th><th>boating()</th>
-			</tr>
-			<tr>
-				<th><span class='red'>否則</span></th>
-				<th></th>
-				<th><span class='red'>就</span></th>
-				<th><span class='green'>去逛街</span></th>
-			</tr>
-			<tr>
-				<th>else</th><th></th><th>:</th><th>shop()</th>
-			</tr>
-		</table>
-	</div>
+<section data-ks='P_FC'> <h2>IF...ELIF...ELSE... 條件分支</h2><!--{{{-->
+<div class='frame'>
+	<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'>
+		<tr><th colspan='4'>IF ... ELIF ... ELSE ...</th></tr>
+		<tr>
+			<th><span class='red'>如果</span></th>
+			<th><span class='green'>下雨</span></th>
+			<th><span class='red'>就</span></th>
+			<th><span class='green'>待在家裡睡覺</span></th>
+		</tr>
+		<tr>
+			<th>if</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+		</tr>
+		<tr>
+			<th><span class='red'>沒有的話如果</span></th>
+			<th><span class='green'>淹大水</span></th>
+			<th><span class='red'>就</span></th>
+			<th><span class='green'>去划船</span></th>
+		</tr>
+		<tr>
+			<th>elif</th><th>(FLOODED)</th><th>:</th><th>boating()</th>
+		</tr>
+		<tr>
+			<th><span class='red'>否則</span></th>
+			<th></th>
+			<th><span class='red'>就</span></th>
+			<th><span class='green'>去逛街</span></th>
+		</tr>
+		<tr>
+			<th>else</th><th></th><th>:</th><th>shop()</th>
+		</tr>
+	</table>
+	<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+S["前一列程式"]
+CA{"條件式<br/>下雨 ?"}
+CB{"條件式<br/>淹水 ?"}
+BYA["程式區塊 YA<br/>睡覺"]
+BYB["程式區塊 YB<br/>划船"]
+BN["程式區塊 N<br/>逛街"]
+T["後一列程式"]
+S --> CA -->|"成立"| BYA --> T
+CA -->|"不成立"| CB -->|"成立"| BYB --> T
+CB -->|"不成立"| BN --> T
+</textarea></div>
+</div>
 </section> <!--}}}-->
 
 <section data-ks='P_FC'>
@@ -231,52 +250,90 @@ C -->|"False"| T
 	<!--}}}-->
 </section>
 
-<section data-ks='P_FC'>
-	<h2>迴圈流程圖</h2><!--{{{-->
-	<div class='frame'>
-		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
-			<th colspan='4' align='right'>
-				<span style='float:left'>WHILE</span>
-				<span data-h='play:WHILE:media:3_WHILE.svg'>&lt;流程圖&gt;</span>
-			</th>
-		</tr><tr>
-			<th><span class='red'>當持續</span></th>
-			<th><span class='green'>下雨</span></th>
-			<th><span class='red'>就</span></th>
-			<th><span class='green'>待在家裡睡覺</span></th>
-		</tr><tr>
-			<th>while</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
-		</tr></table>
-	</div>
-	<div class='frame'>
-		<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
-			<th colspan='4' align='right'>
-				<span style='float:left'>FOR</span>
-				<span data-h='play:FOR:media:3_FOR.svg'>&lt;流程圖&gt;</span>
-			</th>
-		</tr><tr>
-			<th><span class='red'>對</span></th>
-			<th><span class='green'>班上</span>的每個<span class='V'>同學</span></th>
-			<th><span class='red'>進行</th>
-			<th><span class='green'>調分</th>
-		</tr><tr>
-			<th>for</th><th>(STUDENT in CLASS)</th><th>:</th><th>add_score()</th>
-		</tr></table>
-	</div>
-	<ul>
-	<!--}}}-->
-</section>
+<section data-ks='P_FC'><h2>WHILE 迴圈</h2><!--{{{-->
+<div class='frame'>
+	<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
+		<th colspan='4'>WHILE</th>
+	</tr><tr>
+		<th><span class='red'>當持續</span></th>
+		<th><span class='green'>下雨</span></th>
+		<th><span class='red'>就</span></th>
+		<th><span class='green'>待在家裡睡覺</span></th>
+	</tr><tr>
+		<th>while</th><th>(RAINING)</th><th>:</th><th>sleep()</th>
+	</tr></table>
+	<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+S["前一列程式"]
+C{"條件式<br/>下雨 ?"}
+B["處理更新區塊<br/>睡覺"]
+T["後一列程式"]
+S --> C -->|"成立"| B --> C
+C -->|"不成立"| T
+</textarea></div>
+</div>
+</section><!--}}}-->
 
-<section data-ks='P_FC'>
-	<h2>基於條件式的迴圈控制</h2><!--{{{-->
-	<div class='frame'>
-		<table border='1' cellspacing='8' cellpadding='8' class='syntax' width='100%'><tr>
-		<td valign='top' uid='View' style='height:50vh;'><img src='3_BREAK.svg'/></td>
-		<td valign='top' uid='View' style='height:50vh;'><img src='3_CONTINUE.svg'/></td>
-		</tr></table>
-	</div>
-	<!--}}}-->
-</section>
+<section data-ks='P_FC'><h2>FOR 迴圈</h2><!--{{{-->
+<div class='frame'>
+	<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
+		<th colspan='4'>FOR</th>
+	</tr><tr>
+		<th><span class='red'>對</span></th>
+		<th><span class='green'>班上</span>的每個<span class='V'>同學</span></th>
+		<th><span class='red'>進行</th>
+		<th><span class='green'>調分</th>
+	</tr><tr>
+		<th>for</th><th>(STUDENT in CLASS)</th><th>:</th><th>add_score()</th>
+	</tr></table>
+	<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+S["前一列程式"]
+C{"列舉<br/>同學名單"}
+B["處理區塊<br/>調分"]
+T["後一列程式"]
+S --> C -->|"下一位"| B --> C
+C -->|"沒人了"| T
+</textarea></div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_FC'><h2>基於條件式的迴圈控制</h2><!--{{{-->
+<div><ul>
+	<li>中斷 Break<ul>
+		<li>放棄資料處理，不再處理後續資料。</li>
+		<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+S["前一列程式"]
+C{"條件式"}
+subgraph 處理更新區塊
+	SS("前部")
+	B{"break<br/>中斷"}
+	ES("後部")
+end
+T["後一列程式"]
+S --> C -->|"成立"| SS
+C -->|"不成立"| T
+SS --> B -->|"不執行"| ES --> C
+B -->|"執行"| T
+</textarea></div>
+	</ul></li>
+	<li>繼續 Continue<ul>
+		<li>放棄當前資料，繼續處理後續資料。</li>
+		<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+S["前一列程式"]
+C{"條件式"}
+subgraph 處理更新區塊
+	SS("前部")
+	B{"continue<br/>繼續"}
+	ES("後部")
+end
+T["後一列程式"]
+S --> C -->|"成立"| SS
+C -->|"不成立"| T
+SS --> B -->|"不執行"| ES --> C
+B -->|"執行"| C
+</textarea></div>
+	</ul></li>
+</ul></div>
+</section><!--}}}-->
 
 <section data-ks='P_FC,Q_ITS'>
 	<!--{{{-->
