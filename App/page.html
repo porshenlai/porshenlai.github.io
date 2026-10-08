@@ -111,20 +111,26 @@
 	<div>這裡是頁尾</div>
 </section><!--}}}-->
 
-<section class='page col switch'><h2>互動 - 頁籤</h2><!--{{{-->
-<div data-xl='template:原始碼'></div>
-<div class='sample fill'>
+<section class='switch'><h2>互動 - 頁籤</h2><!--{{{-->
 <div class='tabBar'>
-	<!-- data-o 定義切換 TAB 的按鈕，.current 表示目前選取 -->
 	<button data-h='sw:選項A' class='current'>選項 A</button>
 	<button data-h='sw:選項B'>選項 B</button>
 </div>
 <div>
-	<!-- data-uid 定義按鈕對應的資料區塊 -->
 	<div data-case='選項A'>點擊 <b>[data-h="sw:選項A"]</b> 的元件<br/>來顯示 <b>[data-case="選項A"]</b> 的區塊</div>
-	<div data-case='選項B'>點擊 <b>[data-h="sw:選項B"]</b> 的元件<br/>來顯示 <b>[data-case="選項B"]</b> 的區塊</div>
+	<div data-case='選項B' class='hide'>點擊 <b>[data-h="sw:選項B"]</b> 的元件<br/>來顯示 <b>[data-case="選項B"]</b> 的區塊</div>
 </div>
-</div></section><!--}}}-->
+</section><!--}}}-->
+
+<section><h2>Folding</h2>
+<div><ul>
+<li><span data-h='fold'>Label</span><ul>
+	<li>Data Comes Here 1</li>
+	<li>Data Comes Here 2</li>
+</ul></li>
+<li>TEST</li>
+</ul></div>
+</section>
 
 <section>
 	<h2>Import Calculator</h2>

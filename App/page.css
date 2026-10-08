@@ -102,6 +102,10 @@ h2,.h2 { font-size:172%;font-weight:bold;color:#1E88E5;margin:var(--base-margin)
 h3,.h3 { font-size:128%;font-weight:bold;color:#0d5ea8;margin:var(--base-margin);width:100%; }
 ul li, ol li { line-height:1.8 }
 
+[data-h="fold"]::after { content:" △ "; }
+.fold>*:not([data-h="fold"]) { overflow:hidden;height:0; }
+.fold>[data-h="fold"]::after { content:" ▽ "; }
+
 table.std { margin:auto; border:1px solid silver; }
 table.std th, table.std td { padding:2px 16px; border:1px solid black; }
 table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; }

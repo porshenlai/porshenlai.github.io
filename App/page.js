@@ -569,7 +569,7 @@ class Player
 	}	// }}}
 
 	sw (TK)
-	{	// <class='switch' <data-case='A'> <data-case='B'>> {{{
+	{	// <.switch <data-h='sw:標籤'.current>... <data-case='標籤'.hide>...> {{{
 		(	Apps.E(Apps.E(event.target).trace('.switch'))
 		).forEach(
 			'[data-h^="sw:"]',
@@ -668,6 +668,11 @@ class Player
 			document.exitFullscreen(); // exit fullscreen mode
 	}	// }}}
 
+	fold (e) {
+		const cl = e.parentNode.classList;
+		cl[cl.contains('fold')?'remove':'add']('fold');
+	}
+
 	_EH_ (evt)
 	{	// {{{
 		for (let e=evt.target; e && e!==this.GC; e=e.parentNode){
@@ -686,6 +691,7 @@ class Player
 						return a;
 					}
 				});
+				if (args.length===0) args.push(evt.target);
 				if (cmd in this && 'function' === typeof(this[cmd])) {
 					this[cmd](...args);
 				} else continue;
