@@ -1,5 +1,23 @@
 ((SCRIPT) => {
 
+function enableDOMConsole () {
+  const originalLog = console.log;
+  console.log = function(...args) {
+    originalLog.apply(console, args);
+    // 可以在這裡把 args 寫入畫面上的 DOM 元素或 UI 視窗
+  };
+  // 1. 捕捉一般同步錯誤
+  window.onerror = function(message, source, lineno, colno, error) {
+    console.log(`[捕獲錯誤] ${message} at ${source}:${lineno}`);
+    // 可以在這裡將錯誤寫入畫面的日誌檢視器
+    return true; // 阻止預設的錯誤提示
+  };
+  // 2. 捕捉未處理的 Promise 非同步錯誤 (Async/Await 或 Fetch 失敗)
+  window.addEventListener('unhandledrejection', function(event) {
+    console.log(`[非同步未處理拒絕] ${event.reason}`);
+  });
+}
+
 function dfs (e,h,x=false)
 { // {{{
 	let r=[],m;
