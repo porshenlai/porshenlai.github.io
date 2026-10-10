@@ -14,10 +14,9 @@
 </head>
 <body>
 
-<section class='page'>
-	<div class='fill col'>
-		<div class='h1 ac'>💻 資料預處理<br/>Data Preprocessing</div>
-		<br/>
+<section class='page col'>
+	<div class='h1 ac'>💻 資料預處理<br/>Data Preprocessing</div>
+	<div class='fill'>
 		<div class='frame'>
 			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
 			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
@@ -30,58 +29,55 @@
 <section>
 	<h2>涵蓋以下四大階段：</h2>
 	<ol>
-		<li><strong>數據獲取與整合 (Data Acquisition &amp; Integration)</strong></li>
-		<li><strong>數據清洗 (Data Cleaning)</strong></li>
-		<li><strong>數據轉換 (Data Transformation)</strong></li>
-		<li><strong>數據降維與簡化 (Data Reduction &amp; Simplification)</strong></li>
+		<li>數據獲取與整合<ul>
+      <li>Data Acquisition &amp; Integration</li>
+    </ul></li>
+		<li>數據清洗<ul>
+      <li>Data Cleaning</li>
+    </ul></li>
+		<li>數據轉換<ul>
+      <li>Data Transformation</li>
+    </ul></li>
+		<li>數據降維與簡化<ul>
+      <li>Data Reduction &amp; Simplification</li>
+    </ul></li>
 	</ol>
 </section>
 
-<section>
-	<h2>第一階段 數據獲取與整合</h2>
-	<p><strong>將資料從多個異構的來源（EX:不同資料庫、Excel 文件、API 輸出）收集並合併到單一的視圖</strong>。</p>
-	<ol>
-		<li>結構不一致性 (Structural Inconsistency)</li>
-		<li>粒度不一致性 (Granularity Inconsistency)</li>
-	</ol>
-</section>
-
-<section>
-	<h2>(1-1) 結構不一致性 (Structural Inconsistency)</h2>
-	<ul>
+<section><h2>第一階段 數據獲取與整合</h2>
+<div><ul>
+  <li>將資料從多個異構的來源（EX:不同資料庫、Excel 文件、API 輸出）收集並合併到單一的視圖。</li>
+	<li class='fold'><b data-h='fold'>結構不一致性</b><ul>
+    <li>Structural Inconsistency</li>
 		<li><strong>定義：</strong> 當您從不同來源取得資料表時，它們可能使用不同的欄位名稱、資料類型，甚至有不同的主鍵來描述<strong>同一個實體</strong>。</li>
 		<li><strong>範例：</strong> 一個系統可能使用 Customer_ID，而另一個系統則使用 ClientID，但它們指的都是同一個客戶。</li>
-	</ul>
-	<p><strong>主要方法：</strong> <strong>資料模式匹配 (Schema Matching) 和實體識別 (Entity Identification)</strong></p>
-	<p>在這個整合階段，我們需要一個方法來判斷不同數據集中的欄位是否應該合併，以及如何合併。</p>
-	<div id'"Quiz-1-1' data-x='quiz:s'>
-		<p>為了將這些結構不一致的資料集成功合併成一個乾淨的表格，我們必須先做哪項基礎工作？ </p>
-		<div data-o='X'><strong>修改所有資料表的欄位名稱</strong>，讓它們完全一致。</div>
-		<div data-o='O'><strong>確定並統一「關鍵識別碼」（Key Identifier）</strong>，以確保我們能正確地將不同表格中的同一實體 (entity) 連結起來。</div>
-		<div class="answer">
-			<p>在資料科學中，這個過程稱為<strong>連接 (Joining)</strong> 或<strong>合併 (Merging)</strong> 兩個資料表。如果沒有統一的識別碼（例如，將 Customer_ID 和 ClientID 都轉換成一個共同的 Unified_Customer_Key），您將無法準確地將同一個客戶的紀錄從不同表格中拼湊起來，會導致資料混亂。</p>
-		</div>
-	</div>
-</section>
-
-<section>
-	<h2>(1-2) 粒度不一致性 (Granularity Inconsistency)</h2>
-	<ul>
+	  <li><strong>主要方法：</strong><ul>
+      <li><strong>資料模式匹配 (Schema Matching) 和實體識別 (Entity Identification)</strong><ul>
+      <li>在這個整合階段，我們需要一個方法來判斷不同數據集中的欄位是否應該合併，以及如何合併。</li> 
+    </ul></li>
+	  <li><div data-x='quiz:s'>
+		  為了將這些結構不一致的資料集成功合併成一個乾淨的表格，我們必須先做哪項基礎工作？
+		  <div data-o='X'><strong>修改所有資料表的欄位名稱</strong>，讓它們完全一致。</div>
+		  <div data-o='O'><strong>確定並統一「關鍵識別碼」（Key Identifier）</strong>，以確保我們能正確地將不同表格中的同一實體 (entity) 連結起來。</div>
+		  <div class="answer">在資料科學中，這個過程稱為<strong>連接 (Joining)</strong> 或 <strong>合併 (Merging)</strong> 兩個資料表。如果沒有統一的識別碼（例如，將 Customer_ID 和 ClientID 都轉換成一個共同的 Unified_Customer_Key），您將無法準確地將同一個客戶的紀錄從不同表格中拼湊起來，會導致資料混亂。</div>
+		</div></li>
+  </ul></li>
+	<li class='fold'><b data-h='fold'>粒度不一致性</b><ul>
+    <li>Granularity Inconsistency</li>
 		<li><strong>定義：</strong> 不同的資料表可能以不同的「細節層次」記錄資訊。</li>
 		<li><strong>範例：</strong><ul>
 			<li><strong>表格 A</strong>：以<strong>天</strong>為單位，記錄每日的總銷售額 ($)。</li>
 			<li><strong>表格 B</strong>：以<strong>每筆交易</strong>為單位，記錄詳細的交易細節（商品、時間、數量）。</li>
 		</ul></li>
-	</ul>
-	<div id='Quiz-1-2' data-x='quiz:s'>
-		<p><strong>目標問題</strong>：要將「每日總銷售額」的資料表（表格 A）和「每筆交易細節」的資料表（表格 B）整合起來，使它們能用<strong>天</strong>作為共同的識別鍵 (Key)，我們應該對哪個資料表進行處理，將其調整到「天」這個層級？</p>
-		<div data-o='X'>對<strong>表格 A</strong>（每日總銷售額）進行聚合（Aggregation）。</div>
-		<div data-o='O'>對<strong>表格 B</strong>（每筆交易細節）進行聚合。</div>
-		<div data-o='X'>兩個表格都需要進行處理。</div>
-		<div class="answer">
-			我們需要對 <strong>表格 B</strong>（每筆交易細節）進行<strong>聚合 (Aggregation)</strong>。只有將更細粒度的數據（每筆交易）加總或計算到更粗粒度的層次（每天的總銷售額），才能確保兩個表格的<strong>粒度 (Granularity)</strong> 保持一致，才能準確地用「日期」這個鍵進行連接。
-		</div>
-	</div>
+    <li><div id='Quiz-1-2' data-x='quiz:s'>
+		  <strong>目標問題</strong>：要將「每日總銷售額」的資料表（表格 A）和「每筆交易細節」的資料表（表格 B）整合起來，使它們能用<strong>天</strong>作為共同的識別鍵 (Key)，我們應該對哪個資料表進行處理，將其調整到「天」這個層級？
+		  <div data-o='X'>對<strong>表格 A</strong>（每日總銷售額）進行聚合（Aggregation）。</div>
+		  <div data-o='O'>對<strong>表格 B</strong>（每筆交易細節）進行聚合。</div>
+		  <div data-o='X'>兩個表格都需要進行處理。</div>
+		  <div class="answer">我們需要對 <strong>表格 B</strong>（每筆交易細節）進行<strong>聚合 (Aggregation)</strong>。只有將更細粒度的數據（每筆交易）加總或計算到更粗粒度的層次（每天的總銷售額），才能確保兩個表格的<strong>粒度 (Granularity)</strong> 保持一致，才能準確地用「日期」這個鍵進行連接。</div>
+	  </div></li>
+  </ul></li>
+</ul></div>
 </section>
 
 <section>
