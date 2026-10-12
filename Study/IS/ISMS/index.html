@@ -8,241 +8,214 @@
 </head>
 <body style='opacity:0'>
 
-<section class='page'>
-	<div class='fill col'>
-		<div class='h1 ac'>ISMS 資訊安全管理系統</div>
-		<br/>
-		<div class='frame'>
-			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
-			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
-			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
-			<div style="text-align:right">2026, Summer</div>
-		</div>
+<section class='page'><!--{{{-->
+<div class='fill col'>
+	<div class='h1 ac'>ISMS 資訊安全管理系統</div>
+	<br/>
+	<div class='frame'>
+		<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+		<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+		<div style="text-align:right">2026, Summer</div>
 	</div>
-</section>
+</div>
+</section><!--}}}-->
 
-<section>
-	<h2>資訊安全三原則</h2>
-	<div><ul>
-		<li>機密性 (Confidentially)<ul>
-			<li>保護資訊以免資訊和資源暴露於無權限的人員或程式，而危害到資訊安全</li>
-			<li>機密性為了維持資訊在傳輸，儲存，與處理狀態時，不被非授權人員存取，使用，或竄改</li>
-		</ul></li>
-		<li>完整性 (Integrity)<ul>
-			<li>只有具備權限的人才可以修改資料內容，以確保資料能維持它原來的面貌，資料經過不同的時空變化，其內容應該要能維持一至</li>
-			<li>例如：資料透過網路傳輸，傳輸前，傳輸中與接收到的資料需要保持一致而且要是可以確認的</li>
-		</ul></li>
-		<li>可用性 (Availability)<ul>
-			<li>當合法使用者要求使用資訊系統時，確保資訊系統能夠持續正常的提供服務。</li>
-			<li>例如：電子郵件，應用系統等，均可以在適當的時間內獲得回應，並完成所需求的服務</li>
-			<li>可用性必須要與前述兩項安全需求配合並整體考量，以符合資訊安全的目標</li>
-		</ul></li>
-	</ul></div>
-</section>
+<section><h2>資訊安全三原則</h2><!--{{{-->
+<ul>
+	<li class='fold'><span class='h3' data-h='fold'>機密性 (Confidentially)</span><ul>
+		<li>保護資訊以免資訊和資源暴露於無權限的人員或程式，而危害到資訊安全</li>
+		<li>機密性為了維持資訊在傳輸，儲存，與處理狀態時，不被非授權人員存取，使用，或竄改</li>
+	</ul></li>
+	<li class='fold'><span class='h3' data-h='fold'>完整性 (Integrity)</span><ul>
+		<li>只有具備權限的人才可以修改資料內容，以確保資料能維持它原來的面貌，資料經過不同的時空變化，其內容應該要能維持一至</li>
+		<li>例如：資料透過網路傳輸，傳輸前，傳輸中與接收到的資料需要保持一致而且要是可以確認的</li>
+	</ul></li>
+	<li class='fold'><span class='h3' data-h='fold'>可用性 (Availability)</span><ul>
+		<li>當合法使用者要求使用資訊系統時，確保資訊系統能夠持續正常的提供服務。</li>
+		<li>例如：電子郵件，應用系統等，均可以在適當的時間內獲得回應，並完成所需求的服務</li>
+		<li>可用性必須要與前述兩項安全需求配合並整體考量，以符合資訊安全的目標</li>
+	</ul></li>
+</ul>
+</section><!--}}}-->
 
-<section>
-	<h2>OECD 之個人資料保護原則</h2>
-	<div><ul>
-		<li>經濟合作暨發展組織(OECD)於1980年針對網路使用之隱私權與個人資料保護制訂了八大原則：<ul>
-			<li>限制蒐集原則</li>
-			<li>品質確保原則</li>
-			<li>目的明確原則</li>
-			<li>限制目的外使用原則</li>
-			<li>安全確保原則</li>
-			<li>公開原則</li>
-			<li>個人參與原則</li>
-			<li>責任明確原則</li>
-		</ul></li>
-	</ul></div>
-</section>
+<section><h2>OECD 之個人資料保護原則</h2><!--{{{-->
+<p>經濟合作暨發展組織(OECD)於1980年針對網路使用之隱私權與個人資料保護制訂了八大原則</p>
+<ol class='zcs' style='margin:4px 5%'>
+	<li>限制蒐集原則</li>
+	<li>品質確保原則</li>
+	<li>目的明確原則</li>
+	<li>限制目的外使用原則</li>
+	<li>安全確保原則</li>
+	<li>公開原則</li>
+	<li>個人參與原則</li>
+	<li>責任明確原則</li>
+</ol>
+</section><!--}}}-->
 
-<section>
-	<h2>PDCA 戴明循環</h2>
-	<div data-h='install:mermaid'>
-		<button>Render</button>
-		<textarea data-v='value:raw' style='display:none'>flowchart LR
-	P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>監督與審查"] --> A["Adjust<br/>維護與改進"] --> P
-</textarea>
-	</div>
-	<div><ul>
-		<li>資訊安全是全面性與持續性的工作，需要掌握 PDCA(戴明循環) 原則，持續地經由計畫 (Plan)，執行 (Do) ，檢查 (Check) ，行動 (Act) ，以循環改善資訊安全管理各項缺失</li>
-	</div>
-</section>
+<section><h2>PDCA 戴明循環</h2><!--{{{-->
+<ul>
+	<li>資訊安全是全面性與持續性的工作，需要掌握 PDCA(戴明循環) 原則，持續地經由計畫 (Plan)，執行 (Do) ，檢查 (Check) ，行動 (Act) ，以循環改善資訊安全管理各項缺失</li>
+</ul>
+<div class='ac' data-h='install:mermaid'><button>Render</button>
+	<textarea data-v='value:raw' style='display:none'>flowchart LR
+P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>監督與審查"] --> A["Adjust<br/>維護與改進"] --> P</textarea>
+</div>
+</section><!--}}}-->
 
-<section>
-	<h2>稽核</h2>
-	<div><ul>
-		<li>內部稽核有時被稱為第一方稽核 (First-Party Audit)，為由組織本身或代表者為內部目的所執行，並可作為組織的自我符合聲明之基礎，因此稽核者是組織成員，被稽核者亦為組織成員。</li>
-		<li>外部稽核包含第二方稽核 (Second-Party Audit) 以及第三方稽核 (Third-Party Audit)<ul>
-			<li>第二方稽核指與組織有相關利益的單位 (如：供應商，客戶，上級單位) 所執行的稽核活動</li>
-			<li>第三方稽核是由一個獨立於客戶與使用者之外的稽核機構進行的稽核，以驗證客戶的管理系統為目的</li>
-		</ul></li>
-	</ul></div>
-</section>
+<section><h2>稽核</h2><!--{{{-->
+<ul>
+	<h3>內部稽核</h3>
+	<li><b class='green'>第一方稽核 (First-Party Audit)</b><ul>
+		<li>由組織本身或代表者為內部目的所執行，並可作為組織的自我符合聲明之基礎。</li>
+		<li>稽核者是組織成員，被稽核者亦為組織成員。</li>
+	</ul></li>
+	<h3>外部稽核</h3>
+	<li><b class='green'>第二方稽核 (Second-Party Audit)</b><ul>
+		<li>與組織有相關利益的單位 (如：供應商，客戶，上級單位) 所執行的稽核活動。</li>
+	</ul></li>
+	<li><b class='green'>第三方稽核 (Third-Party Audit)</b><ul>
+		<li>由一個獨立於客戶與使用者之外的稽核機構進行的稽核，以驗證客戶的管理系統為目的。</li>
+	</ul></li>
+</ul>
+</section><!--}}}-->
 
-<section class='page col'>
-	<div class='h1 ac'>相關法規概論與遵循</div>
-</section>
+<section><h2>資訊倫理四大議題 (Mason)</h2><!--{{{-->
+<ul>
+	<li><span class='h3'>隱私權 (Privacy)</span><ul>
+		<li>蒐集，處理與散布個人隱私資訊時，必須尊重隱私權問題</li>
+	</ul></li>
+	<li><span class='h3'>正確性 (Accuracy)</span><ul>
+		<li>資料提供者供應準確資訊給使用者，以做成重大決策的義務與權利</li>
+	</ul></li>
+	<li><span class='h3'>所有權 (Property)</span><ul>
+		<li>利用，傳播與重製資訊產品的權利與義務</li>
+	</ul></li>
+	<li><span class='h3'>使用權 (Accessibility)</span><ul>
+		<li>對於資訊的讀寫權利與資訊資源的掌控權等問題</li>
+	</ul></li>
+</ul>
+</section><!--}}}-->
 
-<section>
-	<h2>Mason 的資訊倫理</h2>
-	<div><ul>
-		<li>隱私權 (Privacy)<ul>
-			<li>蒐集，處理與散布個人隱私資訊時，必須尊重隱私權問題</li>
+<section><h2>電子簽章法</h2><!--{{{-->
+<ul>
+	<li class='fold'><span class='h3' data-h='fold'>電子簽章與數位簽章的差異</span><ul>
+		<li>兩者的關係是「數位簽章屬於電子簽章的一種」，但安全層級與法律效力不同。</li>
+		<li><b class='green'>電子簽章（Electronic Signature）</b><ul>
+			<li>定義：<ul><li>依附於電子文件並相關連，用以辨識及確認簽署人身分、資格及文件真偽的統稱。</li></ul></li>
+			<li>形式：<ul><li>包含email檔尾簽名、同意勾選、一般線上簽署平台（如圖片簽名或密碼驗證）。</li></ul></li>
+			<li>法律效力：<ul><li>符合法規時等同實體簽章，任何人不得僅因其為電子形式而否認效力，但若遇爭議須依一般程序舉證。</li></ul></li>
 		</ul></li>
-		<li>正確性 (Accuracy)<ul>
-			<li>資料提供者供應準確資訊給使用者，以做成重大決策的義務與權利</li>
+		<li><b class='green'>數位簽章（Digital Signature）</b><ul>
+			<li>定義：<ul><li>進階版的電子簽章，必須使用數學演算法、非對稱加密（公私鑰），並搭配政府許可之憑證機構（CA）所簽發的憑證。</li></ul></li>
+			<li>比喻：<ul><li>電子簽章像傳統紙本的「印章」，數位簽章則像「印章＋印鑑證明」。</li></ul></li>
+			<li>法律效力：<ul><li>效力最強。依據電子簽章法規定，使用合法憑證機構核發憑證的數位簽章，推定為本人親自簽名或蓋章，舉證責任倒轉（由否認方負擔舉證）。</li></ul></li>
 		</ul></li>
-		<li>所有權 (Property)<ul>
-			<li>利用，傳播與重製資訊產品的權利與義務</li>
+	</ul></li>
+	<li class='fold'><span class='h3' data-h='fold'>數位簽章的運作機制</span><ul>
+		<li>利用公開金鑰基礎設施（PKI）與雜湊演算法來確保安全與防竄改</li>
+		<li><b class='green'>雜湊運算（產生文件指紋）</b>：<ul>
+			<li>將原始電子文件透過雜湊演算法（如SHA-256）計算出固定長度的「訊息摘要」（如同文件的數位指紋）。</li>
 		</ul></li>
-		<li>使用權 (Accessibility)<ul>
-			<li>對於資訊的讀寫權利與資訊資源的掌控權等問題</li>
+		<li><b class='green'>私密金鑰加密（簽署）</b>：<ul>
+			<li>簽署人使用自己的私密金鑰對這個數位指紋進行加密，產生獨一無二的「數位簽章」，並與數位憑證一同附加在電子文件上。</li>
 		</ul></li>
-	</ul></div>
-</section>
+		<li><b class='green'>公開金鑰解密與驗證</b>：<ul>
+			<li>接收者收到文件後，使用簽署人的公開金鑰來解密數位簽章，還原出原始的數位指紋。</li>
+			<li>系統同時會對當前文件重新進行雜湊運算得出新的指紋。若兩者完全相符，代表文件在傳輸過程中絕對沒有被竄改。</li>
+		</ul></li>
+		<li><b class='green'>憑證確認身分</b>：<ul>
+			<li>藉由檢驗憑證機構（如內政部憑證管理中心、中華電信等）核發的數位憑證，確認該公私鑰確實屬於簽署人本人，完成身分鑑別。</li>
+		</ul></li>
+	</ul></li>
+</ul>
+</section><!--}}}-->
 
-<section>
-	<h2>資訊倫理四大議題</h2>
-	<div><ul>
-		<li><b>隱私權 Privacy</b> 蒐集，處理與散布個人隱私資訊時，所必須尊重的隱私權問題</li>
-		<li><b>正確性 Accuracy</b> 資料提供者供應準確資訊給使用者，以做成重大決策的義務與權利</li>
-		<li><b>所有權 Property</b> 利用，傳播與重製資訊產品的權利與義務</li>
-		<li><b>使用權 Accessibility</b> 對於資訊的讀寫權力與資訊資源的掌控權等問題</li>
-	</ul></div>
-</section>
+<section><h2>刑法 - 妨礙電腦使用罪</h2><!--{{{-->
+<ul>
+	<li><b>(第 358 條)</b> 無故輸入他人帳號密碼、破解使用電腦之保護措施或利用電腦系統之漏洞，而入侵他人之電腦或其相關設備者，處三年以下有期徒刑、拘役或科或併科三十萬元以下罰金。</li>
+	<li><b>(第 359 條)</b> 無故取得、刪除或變更他人電腦或其相關設備之電磁紀錄，致生損害於公眾或他人者，處五年以下有期徒刑、拘役或科或併科六十萬元以下罰金。</li>
+	<li><b>(第 360 條)</b> 無故以電腦程式或其他電磁方式干擾他人電腦或其相關設備，致生損害於公眾或他人者，處三年以下有期徒刑、拘役或科或併科三十萬元以下罰金。</li>
+	<li><b>(第 361 條)</b> 對於公務機關之電腦或其相關設備犯前三條之罪者，加重其刑至二分之一。</li>
+	<li><b>(第 362 條)</b> 製作專供犯本章之罪之電腦程式，而供自己或他人犯本章之罪，致生損害於公眾或他人者，處五年以下有期徒刑、拘役或科或併科六十萬元以下罰金。</li>
+	<li><b>(第 363 條)</b> 第三百五十八條至第三百六十條之罪，須告訴乃論。</li>
+</ul>
+</section><!--}}}-->
 
-<section>
-	<h2>電子簽章法</h2>
-	<div><ul>
-		<li>電子簽章與數位簽章的差異<ul>
-			<li>兩者的關係是「數位簽章屬於電子簽章的一種」，但安全層級與法律效力不同。</li>
-			<li>電子簽章（Electronic Signature）<ul>
-				<li>定義：依附於電子文件並相關連，用以辨識及確認簽署人身分、資格及文件真偽的統稱。</li>
-				<li>形式：包含email檔尾簽名、同意勾選、一般線上簽署平台（如圖片簽名或密碼驗證）。</li>
-				<li>法律效力：符合法規時等同實體簽章，任何人不得僅因其為電子形式而否認效力，但若遇爭議須依一般程序舉證。</li>
-			</ul></li>
-			<li>數位簽章（Digital Signature）<ul>
-				<li>定義：進階版的電子簽章，必須使用數學演算法、非對稱加密（公私鑰），並搭配政府許可之憑證機構（CA）所簽發的憑證。</li>
-				<li>比喻：電子簽章像傳統紙本的「印章」，數位簽章則像「印章＋印鑑證明」。</li>
-				<li>法律效力：效力最強。依據電子簽章法規定，使用合法憑證機構核發憑證的數位簽章，推定為本人親自簽名或蓋章，舉證責任倒轉（由否認方負擔舉證）。</li>
-			</ul></li>
-		</ul></li>
-		<li>數位簽章的運作機制：利用公開金鑰基礎設施（PKI）與雜湊演算法來確保安全與防竄改<ol>
-			<li>雜湊運算（產生文件指紋）：<ul>
-				<li>將原始電子文件透過雜湊演算法（如SHA-256）計算出固定長度的「訊息摘要」（如同文件的數位指紋）。</li>
-			</ul></li>
-			<li>私密金鑰加密（簽署）：<ul>
-				<li>簽署人使用自己的私密金鑰對這個數位指紋進行加密，產生獨一無二的「數位簽章」，並與數位憑證一同附加在電子文件上。</li>
-			</ul></li>
-			<li>公開金鑰解密與驗證：<ul>
-				<li>接收者收到文件後，使用簽署人的公開金鑰來解密數位簽章，還原出原始的數位指紋。</li>
-				<li>系統同時會對當前文件重新進行雜湊運算得出新的指紋。若兩者完全相符，代表文件在傳輸過程中絕對沒有被竄改。</li>
-			</ul></li>
-			<li>憑證確認身分：<ul>
-				<li>藉由檢驗憑證機構（如內政部憑證管理中心、中華電信等）核發的數位憑證，確認該公私鑰確實屬於簽署人本人，完成身分鑑別。</li>
-			</ul></li>
+<section><h2> 數位證據與數位鑑識</h2><!--{{{-->
+<ul>
+	<li>數位證據是以數位形式儲存或傳輸、可用於法庭裁判證明的電子資訊；</li>
+	<li>數位鑑識是系統性地識別、擷取、保存及分析這些數位證據的科學方法。</li>
+	<li>數位證據與數位鑑識的核心要點<ul>
+		<li><b>原件不可變動原則：</b><ul><li>採證與處理過程中，必須確保不改變數位證據的原始狀態，維持資料的完整性。</li></ul></li>
+		<li><b>監管鍊（Chain of Custody）：</b><ul><li>從蒐集、運送、分析到保管，必須嚴格記錄所有流程與經手人員，防止證據遭到污染或篡改。</li></ul></li>
+		<li><b>三大法定要求：</b><ul><li>數位證據要具備「證據能力」（能被法庭採納），必須在訴訟實務中證明其真實性、同一性與可再現性。</li></ul></li>
+		<li><b>標準作業程序：</b><ul><li>實務操作通常依循國際標準（如 ISO/IEC 27037 數位證據處理程序）來確保採證合法有效。</li></ul></li>
+	</ul></li>
+</ul>
+</section><!--}}}-->
+
+<section><h2>資訊安全相關法規</h2><!--{{{-->
+<ul>
+	<li>資訊安全相關</li>
+	<li>資通安全管理法</li>
+	<li>資通安全管理法施行細則</li>
+	<li>資通安全責任等級分級辦法</li>
+	<li>資通安全事件通報及應變辦法</li>
+	<li>資通安全情資分享辦法</li>
+	<li>特定非公務機關資通安全維護計畫實施情形稽核辦法</li>
+	<li>資通安全管理作業辦法 (依主管機關)</li>
+</ul>
+</section><!--}}}-->
+
+<section><h2>個資保護常見法規</h2><!--{{{-->
+<ul>
+	<li class='fold'><span class='h3' data-h='fold'>個人資料保護法</span><ul>
+		<li><span class='h3'>&lt;第8條&gt;</span><ol>
+			<li>公務機關或非公務機關依第十五條或第十九條規定向當事人蒐集個人資料時，應明確告知當事人下列事項：<ol>
+				<li>公務機關或非公務機關名稱。</li>
+				<li>蒐集之目的。</li>
+				<li>個人資料之類別。</li>
+				<li>個人資料利用之期間、地區、對象及方式。</li>
+				<li>當事人依第三條規定得行使之權利及方式。</li>
+				<li>當事人得自由選擇提供個人資料時，不提供將對其權益之影響。</li>
+			</ol></li>
+			<li>有下列情形之一者，得免為前項之告知：<ol>
+				<li>依法律規定得免告知。</li>
+				<li>個人資料之蒐集係公務機關執行法定職務或非公務機關履行法定義務所必要。</li>
+				<li>告知將妨害公務機關執行法定職務。</li>
+					<li>告知將妨害公共利益。</li>
+				<li>當事人明知應告知之內容。</li>
+				<li>個人資料之蒐集非基於營利之目的，且對當事人顯無不利之影響。</li>
+			</ol></li>
 		</ol></li>
-	</ul></div>
-</section>
-
-<section>
-	<h2>刑法 - 妨礙電腦使用罪</h2>
-	<div><ul>
-		<li><b>(第 358 條)</b> 無故輸入他人帳號密碼、破解使用電腦之保護措施或利用電腦系統之漏洞，而入侵他人之電腦或其相關設備者，處三年以下有期徒刑、拘役或科或併科三十萬元以下罰金。</li>
-		<li><b>(第 359 條)</b> 無故取得、刪除或變更他人電腦或其相關設備之電磁紀錄，致生損害於公眾或他人者，處五年以下有期徒刑、拘役或科或併科六十萬元以下罰金。</li>
-		<li><b>(第 360 條)</b> 無故以電腦程式或其他電磁方式干擾他人電腦或其相關設備，致生損害於公眾或他人者，處三年以下有期徒刑、拘役或科或併科三十萬元以下罰金。</li>
-		<li><b>(第 361 條)</b> 對於公務機關之電腦或其相關設備犯前三條之罪者，加重其刑至二分之一。</li>
-		<li><b>(第 362 條)</b> 製作專供犯本章之罪之電腦程式，而供自己或他人犯本章之罪，致生損害於公眾或他人者，處五年以下有期徒刑、拘役或科或併科六十萬元以下罰金。</li>
-		<li><b>(第 363 條)</b> 第三百五十八條至第三百六十條之罪，須告訴乃論。</li>
-	</ul></div>
-</section>
-
-<section>
-	<h2> 數位證據與數位鑑識</h2>
-	<div><ul>
-		<li>數位證據是以數位形式儲存或傳輸、可用於法庭裁判證明的電子資訊；</li>
-		<li>數位鑑識是系統性地識別、擷取、保存及分析這些數位證據的科學方法。</li>
-		<li>數位證據與數位鑑識的核心要點<ul>
-			<li><b>原件不可變動原則：</b> 採證與處理過程中，必須確保不改變數位證據的原始狀態，維持資料的完整性。</li>
-			<li><b>監管鍊（Chain of Custody）：</b> 從蒐集、運送、分析到保管，必須嚴格記錄所有流程與經手人員，防止證據遭到污染或篡改。</li>
-			<li><b>三大法定要求：</b> 數位證據要具備「證據能力」（能被法庭採納），必須在訴訟實務中證明其真實性、同一性與可再現性。</li>
-			<li><b>標準作業程序：</b> 實務操作通常依循國際標準（如 ISO/IEC 27037 數位證據處理程序）來確保採證合法有效。</li>
-		</ul></li>
-	</ul></div>
-</section>
-
-<section>
-	<h2>資訊安全相關法規</h2>
-	<div><ul>
-		<li>資訊安全相關</li>
-		<li>資通安全管理法</li>
-		<li>資通安全管理法施行細則</li>
-		<li>資通安全責任等級分級辦法</li>
-		<li>資通安全事件通報及應變辦法</li>
-		<li>資通安全情資分享辦法</li>
-		<li>特定非公務機關資通安全維護計畫實施情形稽核辦法</li>
-		<li>資通安全管理作業辦法 (依主管機關)</li>
-	</ul></div>
-</section>
-
-<section>
-	<h2>個資保護常見法規</h2>
-	<div><ul>
-		<li>個人資料保護法</li>
-		<li>個人資料保護法施行細則</li>
-		<li>GDPR 歐盟的個人資料保護法</li>
-		<li>通訊保障及監察法</li>
-		<li>個人資料檔案維護辦法 (依主管機關)</li>
-	</ul></div>
-</section>
-
-<section>
-	<h2>個人資料保護法 / 第8條</h2>
-	<div><ul>
-		<li>公務機關或非公務機關依第十五條或第十九條規定向當事人蒐集個人資料時，應明確告知當事人下列事項：<ol>
-			<li>公務機關或非公務機關名稱。</li>
-			<li>蒐集之目的。</li>
-			<li>個人資料之類別。</li>
-			<li>個人資料利用之期間、地區、對象及方式。</li>
-			<li>當事人依第三條規定得行使之權利及方式。</li>
-			<li>當事人得自由選擇提供個人資料時，不提供將對其權益之影響。</li>
+		<li><span class='h3'>&lt;第28條&gt;</span><ol>
+			<li>公務機關違反本法規定，致個人資料遭不法蒐集、處理、利用或其他侵害當事人權利者，負損害賠償責任。但損害因天災、事變或其他不可抗力所致者，不在此限。</li>
+			<li>被害人雖非財產上之損害，亦得請求賠償相當之金額；其名譽被侵害者，並得請求為回復名譽之適當處分。</li>
+			<li>依前二項情形，如被害人不易或不能證明其實際損害額時，得請求法院依侵害情節，以每人每一事件新臺幣五百元以上二萬元以下計算。</li>
+			<li>對於同一原因事實造成多數當事人權利受侵害之事件，經當事人請求損害賠償者，其合計最高總額以新臺幣二億元為限。但因該原因事實所涉利益超過新臺幣二億元者，以該所涉利益為限。</li>
+			<li>同一原因事實造成之損害總額逾前項金額時，被害人所受賠償金額，不受第三項所定每人每一事件最低賠償金額新臺幣五百元之限制。</li>
+			<li>第二項請求權，不得讓與或繼承。但以金額賠償之請求權已依契約承諾或已起訴者，不在此限。</li>
 		</ol></li>
-		<li>有下列情形之一者，得免為前項之告知：<ol>
-			<li>依法律規定得免告知。</li>
-			<li>個人資料之蒐集係公務機關執行法定職務或非公務機關履行法定義務所必要。</li>
-			<li>告知將妨害公務機關執行法定職務。</li>
-			<li>告知將妨害公共利益。</li>
-			<li>當事人明知應告知之內容。</li>
-			<li>個人資料之蒐集非基於營利之目的，且對當事人顯無不利之影響。</li>
-		</ol</li>
-	</ul></div>
-</section>
+	</ul></li>
+	<li>個人資料保護法施行細則</li>
+	<li>GDPR 歐盟的個人資料保護法</li>
+	<li>通訊保障及監察法</li>
+	<li>個人資料檔案維護辦法 (依主管機關)</li>
+</ul>
+</section><!--}}}-->
 
-<section>
-	<h2>個人資料保護法 / 第28條</h2>
-	<div><ol>
-		<li>公務機關違反本法規定，致個人資料遭不法蒐集、處理、利用或其他侵害當事人權利者，負損害賠償責任。但損害因天災、事變或其他不可抗力所致者，不在此限。</li>
-		<li>被害人雖非財產上之損害，亦得請求賠償相當之金額；其名譽被侵害者，並得請求為回復名譽之適當處分。</li>
-		<li>依前二項情形，如被害人不易或不能證明其實際損害額時，得請求法院依侵害情節，以每人每一事件新臺幣五百元以上二萬元以下計算。</li>
-		<li>對於同一原因事實造成多數當事人權利受侵害之事件，經當事人請求損害賠償者，其合計最高總額以新臺幣二億元為限。但因該原因事實所涉利益超過新臺幣二億元者，以該所涉利益為限。</li>
-		<li>同一原因事實造成之損害總額逾前項金額時，被害人所受賠償金額，不受第三項所定每人每一事件最低賠償金額新臺幣五百元之限制。</li>
-		<li>第二項請求權，不得讓與或繼承。但以金額賠償之請求權已依契約承諾或已起訴者，不在此限。</li>
-	</ol></div>
-</section>
+<section><h2>智慧財產權相關法規</h2><!--{{{-->
+<ul>
+	<li>著作權法</li>
+	<li>商標法</li>
+	<li>營業秘密法</li>
+	<li>勞動基準法第 9-1 條 競業禁止條款</li>
+</ul>
+</section><!--}}}-->
 
-<section>
-	<h2>智慧財產權相關法規</h2>
-	<div><ul>
-		<li>著作權法</li>
-		<li>商標法</li>
-		<li>營業秘密法</li>
-		<li>勞動基準法第 9-1 條 競業禁止條款</li>
-	</ul></div>
-</section>
-
-<section>
-	<h2>練習題</h2>
+<section><h2>練習題</h2><!--{{{-->
+<div class='QuizGroup'>
 	<div data-x='quiz:s'>
 	下列何者為「公司網路系統必須24小時運作」的主要原因 ?
 	<div data-o='O'>可用性</div>
@@ -350,7 +323,191 @@
 	<div data-o='X'>個人資料的類別</div>
 	<div data-o='X'>個人資料利用的期間與地區</div>
 	</div>
-</section>
+</div>
+</section><!--}}}-->
+
+<section class='page col'><div class='h1 ac'>資產與風險管理</div></section>
+
+<section><h2>1-2-1 資產分級分類與盤點</h2><!--{{{-->
+<ul>
+	<li class='fold'><span class='h3' data-h='fold'>資訊資產盤點與異動檢核</span><ul>
+		<li>建立資產清冊有助於確保採行有效之資產保護</li>
+		<li>資訊資產指對組織有價值的項目，包含有形的實體資產，無形的虛擬資產<ul>
+			<li>例：建築物，電腦主機，周邊設備等皆是實體化的資產</li>
+			<li>例：軟體系統，商標或商譽等事屬於虛擬化的資產</li>
+		</ul></li>
+		<li>彙整資產清冊之程序係風險管理之重要先備事項</li>
+		<li>資產清冊宜精確，保持更新，一致並與其他清冊相符</li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>資訊資產分級評估</span><ul>
+		<li>對各已識別之資產，宣指派擁有者並識別其安全等級</li>
+		<li>所識別之擁有者未必須對該資產具任何財產權</li>
+		<li>定期審查重要資產之存取限制及分級，將存取控制政策納入考量</li>
+		<li>資訊財產管理原則與程序</li>
+	</ul></li>
+
+	<li><span class='h3'>那些資產需要被盤點出來</span></li>
+</ul>
+</section><!--}}}-->
+
+<section><h2>風險管理</h2><!--{{{-->
+<ul>
+	<li><span class='h3'>風險定義</span></li>
+	<li class='fold'><span class='h3' data-h='fold'>風險評鑑</span><ul>
+		<li>風險評鑑透過<ul>
+			<li>風險識別 (Risk Identification)，</li>
+			<li>風險分析 (Risk Analysis)，</li>
+			<li>風險評量 (Risk Evaluation) </li>
+		</ul>等程序計算風險，再根據風險評估準則評鑑出險項目優先順序的清單</li>
+	</ul></li>
+
+	<li><span class='h3'>風險處理</span></li>
+	<li class='fold'><span class='h3' data-h='fold'>風險識別 (Risk Identification)</span><ul>
+		<li>風險識別的目的是要決定有可能發生的潛在損失</li>
+		<li>包含不論是否在組織下的風險<ul>
+			<li>資產識別 (Identification of Assets)</li>
+			<li>威脅識別 (Identification of Threats)</li>
+			<li>識別現存控制 (Identification of Existing Controls)</li>
+			<li>脆弱性識別 (Identification of Vulnerabilities)</li>
+			<li>後果識別 (Identification of Consequences)</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>風險分析 (Risk Analysis)</span><ul>
+		<li>依據資產的關鍵性，已知弱點嚴重程度和先前涉及的組織的事件不同細節程度進行</li>
+		<li>風險分析的方法論：<ul>
+			<li>定性 (Qualitative)</li>
+			<li>定量 (Quantitative)</li>
+			<li>定性與定量混和</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>風險處理</span><ul>
+		<li>風險處理的選擇：<ul>
+			<li>風險修改 (Risk Modification)</li>
+			<li>風險緩解 (Risk Mitigation)<ul>實行，移除或改變控制措施以管理風險等級，使殘餘風險被重新評定為可接受</ul></li>
+			<li>風險保留 (Risk Retention)</li>
+			<li>風險接受 (Risk Acceptance)<ul>依據風險評估，沒有進一步行動而保留風險的決策</ul></li>
+			<li>風險避免 (Risk Avoidance)<ul>
+				<li>風險識別太高時，實作其他風險處理的成本超過利益時做出決定以避免風險</li>
+				<li>可能在避免的過程中產生另外的風險</li>
+			</ul></li>
+			<li>風險分攤 (Risk Share)</li>
+			<li>風險轉移 (Risk Transfer)<ul>依據風險評估，將風險分攤至最有效管理特定風險的一方</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+</section><!--}}}-->
+
+<section class='page col'><div class='h1 ac'>存取控制 加解密與金鑰管理</div></section>
+
+<section><h2>存取控制與身分認證</h2><!--{{{-->
+<ul>
+	<li class='fold'><span class='h3' data-h='fold'>身份管理 (IdM: Identity Management)</span><ul>
+		<li>身份與存取管理 (IAM: Identity and access management)</li>
+		<li>包括使用不同的產品透過自動化方式識別，驗證與授權用戶</li>
+		<li>包括用戶帳戶管理，存取控制，憑證管理，單點登錄功能，管理用戶帳戶的權利和權限，以及審核和監控這些項目<ul>
+			<li>例: 網路系統存取管理，組織內部存取控制政策</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>存取控制</span><ul>
+		<li>身份識別 (Identification)</li>
+		<li>身份認證 (Authentification)</li>
+		<li>授權 主體 受體</li>
+		<li>系統確認主題是否有權存取受體</li>
+		<li>提出私人的證明資訊 Authentication step</li>
+		<li>提出公開的證明憑據 Identification step</li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>職權/權限管理原則</span><ul>
+		<li>存取權限設定需遵守最小權限原則</li>
+		<li>Principle of Least Privilege (POLP)</li>
+		<li>開放給用戶帳號的權限，宜核發給足以完成該項工作所需即可，不必給予多餘的權限</li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>職務區隔</span><ul>
+		<li>Segregation of Duties (SoD)<ul>
+			<li>將管理工作分成多人分層負責之管理體系，以避免擁有不同權限的個人進行非授權工作</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>控制的類型</span><ul>
+		<li>管理型 (Administrative)<ul>從管理層面執行存取控制，使各項作業遵循組織的安全政策，安全流程等相關程序</ul></li>
+		<li>技術型 (Technical)<ul>使用邏輯性技術管理系統資源，防止非法存取資源</ul></li>
+		<li>實體型 (Physical)<ul>
+			<li>採用實體的障礙，以防止直接接觸系統或設施</li>
+			<li>例 依組織安全政策與安全流程，訂定機關臨時人員僱用及管理要點</li>
+			<li>例 密碼登入系統，IC卡登入系統，防火牆，入侵偵測系統等</li>
+			<li>例 警衛，圍牆，籬笆，門鎖，安全窗戶等設施。以厚重的機房安全門，有效防止入侵，達到實體存取控制之目標</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>功能控制類型</span><ul>
+		<li>預防型 (Preventive)<ul>抑制沒有授權的行為發生</ul></li>
+		<li>威嚇型 (Deterrent)<ul>使用威嚇手段嚇止違反資安原則之行為</ul></li>
+		<li>偵查型 (Detective)<ul>發現非授權者入侵的證據</ul></li>
+		<li>矯正型 (Corrective)<ul>使用於系統損害時，修復系統使其恢復正常運作的狀況</ul></li>
+		<li>回復型 (Recovery)<ul>於系統無法運作時，回復系統之正常功能</ul></li>
+		<li>補償型 (Compensating)<ul>
+			<li>提供另一個存取選擇，協助現有存取控制，以提高系統安全性。</li>
+    		<li>例如: 安全政策，人員監督，工作流程等。</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>控制的技術</span><ul>
+		<li>任意型存取控制 (DAC: Discretionary Access Control)<ul>依照擁有者的設定控制存取權限</ul></li>
+		<li>強制型存取控制 (MAC: Mandatory Access Control)<ul>
+			<li>依照主體與客體之分類標籤給予權限。</li>
+			<li>每一分類標籤代表一個安全領域。</li>
+		</ul></li>
+		<li>角色為基礎的存取控制 (RBAC: Role-Based Access Control)<ul>
+			<li>使用角色來管理權限</li>
+			<li>群組方法的管理即為 RBAC 的形式</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>身份認證技術</span><ul>
+		<li>所知道的事物 (Something you know)<ul>例：密碼，通行語，喜歡的顏色等</ul></li>
+		<li>所擁有的事物 (Something you have)<ul>
+			<li>事先發放給使用者的實體設備或裝置</li>
+			<li>設備不易偽造，但有遺失的風險</li>
+		</ul></li>
+		<li>所具有的特徵 (Something you are)<ul>
+			<li>個人的生理或物理特徵</li>
+			<li>例：指紋，聲音，虹膜，視網膜，臉型，手型等</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>加解密與金鑰</span><ul>
+		<li>對稱金鑰演算法<ul>加解密使用相同金鑰</ul></li>
+		<li>單一金鑰演算法 (Single-key algorithm)<ul>例：DES，AES</ul></li>
+		<li>公開金鑰演算法<ul>加解密使用不同的金鑰</ul></li>
+		<li>非對稱金鑰演算法 或 雙金鑰演算法 (Two-key algorithm)<ul>
+			<li>產生兩組特殊自串作為公開金鑰 (Public Key) 語私密金鑰 (Private Key)</li>
+			<li>用公開金鑰加密祕文，用私密金鑰解密祕文</li>
+			<li>例：RSA，ElGamal 或橢圓曲線密碼 (ECC) 等</li>
+		</ul></li>
+	</ul></li>
+
+	<li class='fold'><span class='h3' data-h='fold'>單向雜湊函數與訊息摘要</span><ul>
+		<li>密碼雜湊函數 (Cryptographic hash function)</li>
+		<li>單向雜湊函數 (One-way hash function)<ul>
+			<li>根據任意長度資料，計算出一固定長度的特徵值 (訊息摘要: Message digest)</li>
+			<li>可做為原資料的標籤，用來驗證資料的完整性。</li>
+		</ul></li>
+		<li>美國國家標準安全局認證之雜湊函數包括:<ul>
+			<li>SHA-1，SHA-2 (SHA-224, SHA-256, SHA-384, SHA-512, …)</li>
+		</ul></li>
+		<li>安全的理由:<ul>
+			<li>由訊息摘要反推原訊息非常困難</li>
+			<li>要找到兩組不同訊息對應到相同摘要非常困難</li>
+		</ul></li>
+		<li>加鹽雜湊演算法 (Salted hash method)</li>
+	</ul></li>
+</ul>
+</section><!--}}}-->
 
 </body>
 </html>
