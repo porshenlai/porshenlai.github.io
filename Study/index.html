@@ -9,7 +9,7 @@
 <base target='_blank'></base>
 <style>
 	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
-	.M { background-color:rgba(255,255,255,0.5); color:black; }
+	.M { background-color:rgba(255,255,255,0.5); color:black; max-height:0.8vh; overflow-y:auto; }
 	.W { background-color:rgba(0,0,0,0.5); color:yellow; }
 	.fwd { width:95%; }
 </style>
@@ -20,20 +20,32 @@
 	<div class='bar'>
 		<div class='button W _w_' data-h='go:#pStyle:/index.html'>🏠</div>
 		<h2 class='f W'>學習 Study</h2>
-		<div class='W' data-h='set:Overlay:menu' style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
+		<div class='W' data-h='set:Overlay:menu'
+			style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
 	</div>
 	<div class='fill'><div class='zcs' style='padding:3%'>
-		<div class='M swd'><ul>
-			<li><a href='Python/index.html'>PL: Python</a></li>
+    	<div class='M fill'><ul>
+			<li><span class='link' data-h='go:#我的課程'>我的課程</span></li>
 			<li><a href='AI/index.html'>AI: 人工智慧</a></li>
+			<li><a href='Python/index.html'>PL: Python</a></li>
+		</ul></div>
+		<div class='M fill'><ul>
+			<div class='h3'>Fintech: 智慧金融</div>
+			<li><a href='Finance/Banking.html'>金融業務</a></li>
+		</ul></div>
+		<div class='M fill'><ul>
+			<div class='h3'>AI: 人工智慧</div>
+			<li><a href='AI/Preprocessing.html'>資料預處理</a></li>
 			<li><a href='AI/LLM_Local.html'>地端 AI 系統整合實作</a></li>
-			<li><a href='Finance/Banking.html'>金融 AI 應用實作</a></li>
 			<li><a href='AI/BDAE_expert.html'>BDAE 專家級樣題</a></li>
-			<li><a href='CareerCounselor.html'>職涯諮詢師</a></li>
+		</ul></div>
+		<div class='M fill'><ul>
+			<div class='h3'>PL: 程式語言</div>
 			<li><a href='IS/index.html'>資訊系統 Information System</a></li>
 		</ul></div>
-    	<div class='M swd'><ul>
-			<li><span class='link' data-h='go:#我的課程'>我的課程</span></li>
+		<div class='M fill'><ul>
+			<div class='h3'>其他</div>
+			<li><a href='CareerCounselor.html'>職涯諮詢師</a></li>
 		</ul></div>
 	</div></div>
 </section>

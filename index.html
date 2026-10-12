@@ -11,8 +11,7 @@
 	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
 	.M { background-color:rgba(255,255,255,0.5); color:black; width:40%; height:auto; }
 	.W { background-color:rgba(0,0,32,0.5); color:yellow; }
-	.fwd { width:95%; }
-	.icon { height:45%; }
+	.icon { width:100%; height:100%; }
 </style>
 </head>
 <body style='opacity:0'><main data-controls='aside'><div id='content'>
@@ -20,23 +19,24 @@
 <section id='pStyle' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
 	<div class='bar'>
 		<h2 class='W'>Piers</h2>
-		<div class='W' data-h='set:Overlay:menu' style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
+		<div class='W' data-h='set:Overlay:menu'
+			style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
 	</div>
 	<div class='fill'>
-		<div class='zcs' style='padding:3%;align-items:flex-start;'>
-			<div class='M swd icon' data-h='go:#Cyberpiers'>
+		<div class='zcs'>
+			<div class='M icon' data-h='go:#Cyberpiers'>
 				<table><tr><th rowspan='2' style='font-size:240%;padding-right:16px;'>⛵</th><td class='h3'>雲際碼頭</td></tr>
 				<tr><td class='h3 darkgreen'>Cyberpiers</td></tr></table>
 			</div>
-			<div class='M swd icon' data-h='go:#工具索引'>
+			<div class='M icon' data-h='go:#工具索引'>
 				<table><tr><th rowspan='2' style='font-size:240%;padding-right:16px;'>🛠️</th><td class='h3'>常用工具</td></tr>
 				<tr><td class='h3 darkgreen'>Tools</td></tr></table>
 			</div>
-			<div class='M swd icon' data-h='go:#學習索引'>
+			<div class='M icon' data-h='go:#學習索引'>
 				<table><tr><th rowspan='2' style='font-size:240%;padding-right:16px;'>📚</th><td class='h3'>學習成長</td></tr>
 				<tr><td class='h3 darkgreen'>Study</td></tr></table>
 			</div>
-			<div class='M swd icon' data-h='go:#生活索引'>
+			<div class='M icon' data-h='go:#生活索引'>
 				<table><tr><th rowspan='2' style='font-size:240%;padding-right:16px;'>🧳</th><td class='h3'>生活體驗</td></tr>
 				<tr><td class='h3 darkgreen'>Life</td></tr></table>
 			</div>
@@ -48,11 +48,11 @@
 	<div class='bar'>
 		<div class='button W _w_' data-h='go:pStyle:/index.html'>🏠</div>
 		<h2 class='f W'>Cyberpiers 雲際碼頭</h2>
-		<div class='button W' data-h='set:Overlay:menu' style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
+		<div class='W' data-h='set:Overlay:menu' style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
 	</div>
 	<div class='fill'>
-		<div class='zcs' style='padding:3%;align-items:flex-start;'>
-			<div class='M swd'><ul>
+		<div class='zcs'>
+			<div class='M fill'><ul>
 				<li><a href='App/prompt.html'>Prompts</a></li>
 				<li><a href='App/piers.html'>Piers</a></li>
 				<li><a href='App/page.html'>Page</a></li>
@@ -61,7 +61,7 @@
 				<li><a href='App/TXViewer.html'>[TODO] TXViewer: 文件檢視器</a></li>
 				<li><a href='App/epub.html'>[TODO] EPub: EPub 模組</a></li>
 			</ul></div>
-			<div class='M swd'><ul>
+			<div class='M fill'><ul>
 				<li><a href='App/page_card.html'>Flash Card: 互動介面</a></li>
 				<li><a href='App/page_embed.html'>Embedded: 頁面整合</a></li>
 				<li><a href='App/page_math.html'>Math: 數學符號</a></li>
