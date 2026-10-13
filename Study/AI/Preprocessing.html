@@ -8,92 +8,82 @@
 <style>
 	th[colspan] { background:lightgrey; color:darkblue; font-weight:bold; }
 	img { max-width:90vw; max-height:90vh; }
+	ul.topics>li,ol.topics>li { margin-bottom:2vmin; }
 </style>
 </head>
 <body>
 
-<section class='page'>
-	<div class='fill col'>
-		<div class='h1 ac'>💻 資料預處理<br/>Data Preprocessing</div>
-		<br/>
-		<div class='frame'>
-			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
-			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
-			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
-			<div style="text-align:right">2026, Summer</div>
-		</div>
+<section class='page col'>
+	<div class='h2 ac'>
+		<h1 class='ac'>💻 資料預處理</h1>
+		Data Preprocessing
+	</div>
+	<hr style='width:80%'/>
+	<div class='frame'>
+		<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+		<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+		<div style="text-align:right">2026, Summer</div>
 	</div>
 </section>
 
-<section><h2>涵蓋以下四大階段：</h2><!--{{{-->
-<ol>
-	<li><b class='h3'>數據獲取與整合</b><ul>
-		<li>Data Acquisition &amp; Integration</li>
-		<li>將資料從多個異構的來源（EX:不同資料庫、Excel 文件、API 輸出）<b>收集</b>並合併到單一的視圖。</li>
+<section><h2>涵蓋以下四大階段：</h2><ol class='topics'><!--{{{-->
+	<li><span class='h3'>數據獲取 (Acquisition) 與整合 (Integration) </span><ul>
+		<li>從多個異構的來源（EX:不同資料庫、Excel 文件、API 輸出）<b>收集</b>資料</li>
+		<li>合併到單一的視圖。</li>
 	</ul></li>
-	<li><b class='h3'>數據清洗</b><ul>
-		<li>Data Cleaning</li>
-		<li>這個階段的目標是解決資料中的「<b>品質問題</b>」。</li>
+	<li><span class='h3'>數據清洗 (Cleaning)</span><ul>
+		改善「<em>資料品質</em>」。
 	</ul></li>
-	<li><b class='h3'>數據轉換</b><ul>
-		<li>Data Transformation</li>
-		<li>數據還需要「<b>塑形</b>」，使其符合模型訓練的需求。</li>
+	<li><span class='h3'>數據轉換 (Transformation)</span><ul>
+		「<b>塑形</b>」以符合模型訓練的需求。
 	</ul></li>
-	<li><b class='h3'>數據降維與簡化</b><ul>
-		<li>Data Reduction &amp; Simplification</li>
-		<li>最後一步是「<b>優化</b>」，讓表格更精簡，提高模型效率。</li>
+	<li><span class='h3'>數據降維 (Reduction) 與簡化 (Simplification)</span><ul>
+		「<b>優化</b>」讓表格更精簡，提高模型效率。
 	</ul></li>
-</ol>
-</section><!--}}}-->
+</ol></section><!--}}}-->
 
-<section><h2>第一階段 數據獲取與整合</h2><!--{{{-->
-<div><ul>
+<section><h2>壹. 數據獲取 (Acquisition) 與整合 (Integration)</h2><ul class='topics'><!--{{{-->
 	<li>將資料從多個異構的來源收集並合併到單一的視圖。</li>
 	<li>異構來源：不同資料庫、Excel 文件、API 輸出。</li>
-	<li class='fold'><b class='h3' data-h='fold'>結構不一致性</b><ul>
-    	<li>Structural Inconsistency</li>
-		<li>定義：<ul>不同來源的資料表可能使用不同的欄位名稱、資料類型，甚至有不同的主鍵來描述<b>同一個實體</b>。</ul></li>
-		<li>範例：<ul>系統A使用 Customer_ID，系統B使用 ClientID，但指的都是同一客戶。</ul></li>
-		<li>主要方法：<ul>
-			<li>資料模式匹配 (Schema Matching)</li>
-			<li>實體識別 (Entity Identification)</li>
-		</ul></li>
+	<li class='fold'><b class='h3' data-h='fold'>結構不一致性 (Structural Inconsistency)</b><ul>
+		<li><span class='red'>[🎯定義]</span> 來源資料表可能使用不同欄位名稱、資料類型，甚至不同主鍵來描述<b>同一個實體</b>。</li>
+		<li>資料模式匹配 (Schema Matching)<ul>在不同的資料來源之間，找出具有相同語義之欄位（屬性）對應關係的過程。</ul></li>
+		<li>實體識別 (Entity Identification)<ul>常被稱為實體解析 (Entity Resolution)、記錄連結 (Record Linkage) 或重複資料刪除 (De-duplication)。</ul></li>
 		<li data-x='quiz:s'>為了將這些結構不一致的資料集成功合併成一個乾淨的表格，我們必須先做哪項基礎工作？<ul>
 			<li data-o='X'><b>修改所有資料表的欄位名稱</b>，讓它們完全一致。</li>
 			<li data-o='O'><b>確定並統一「關鍵識別碼」（Key Identifier）</b>，以確保我們能正確地將不同表格中的同一實體 (entity) 連結起來。</li>
 		</ul><div class='frame'>在資料科學中，這個過程稱為<b>連接 (Joining)</b> 或 <b>合併 (Merging)</b> 兩個資料表。如果沒有統一的識別碼（例如，將 Customer_ID 和 ClientID 都轉換成一個共同的 Unified_Customer_Key），您將無法準確地將同一個客戶的紀錄從不同表格中拼湊起來，會導致資料混亂。</div></li>
     </ul></li>
-	<li class='fold'><b class='h3' data-h='fold'>粒度不一致性</b><ul>
-    	<li>Granularity Inconsistency</li>
-		<li><b>定義：</b><ul>不同的資料表可能以不同的「細節層次」記錄資訊。</ul></li>
-		<li><b>範例：</b><ul>
+	<li class='fold'><b class='h3' data-h='fold'>粒度不一致性 (Granularity Inconsistency)</b><ul>
+		<li><span class='red'>[🎯定義]</span> <ul>不同的資料表可能以不同的「細節層次」記錄資訊。</ul></li>
+		<li><span class='red'>[👉範例]</span><ul>
 			<li><b>表格 A</b>：以<b>天</b>為單位，記錄每日的總銷售額 ($)。</li>
 			<li><b>表格 B</b>：以<b>每筆交易</b>為單位，記錄詳細的交易細節（商品、時間、數量）。</li>
 		</ul></li>
-		<li data-x='quiz:s'><b>目標問題</b>：要將「每日總銷售額」的資料表（表格 A）和「每筆交易細節」的資料表（表格 B）整合起來，使它們能用<b>天</b>作為共同的識別鍵 (Key)，我們應該對哪個資料表進行處理，將其調整到「天」這個層級？<ul>
+		<li data-x='quiz:s'>要將「每日總銷售額」的資料表（表格 A）和「每筆交易細節」的資料表（表格 B）整合起來，使它們能用<b>天</b>作為共同的識別鍵 (Key)，我們應該對哪個資料表進行處理，將其調整到「天」這個層級？<ul>
 			<li data-o='X'>對<b>表格 A</b>（每日總銷售額）進行聚合（Aggregation）。</li>
 			<li data-o='O'>對<b>表格 B</b>（每筆交易細節）進行聚合。</li>
 			<li data-o='X'>兩個表格都需要進行處理。</li>
 		</ul><div class='frame'>我們需要對 <b>表格 B</b>（每筆交易細節）進行<b>聚合 (Aggregation)</b>。只有將更細粒度的數據（每筆交易）加總或計算到更粗粒度的層次（每天的總銷售額），才能確保兩個表格的<b>粒度 (Granularity)</b> 保持一致，才能準確地用「日期」這個鍵進行連接。</div></li>
   </div></li>
 	</ul></li>
-</ul></div>
-</section><!--}}}-->
+</ul></section><!--}}}-->
 
-<section><h2>第二階段 數據清洗 (Data Cleaning)🧼</h2><!--{{{-->
-<p>數據整合完畢後，我們進入整個預處理流程中最重要、最耗時的階段：<b>數據清洗</b>。這個階段的目標是解決資料中的「品質問題」。</p>
-<ul data-xl='math'>
+<section><h2>貳. 數據清洗 (Cleaning)🧼</h2><ul class='topics' data-xl='math'><!--{{{-->
+	<li>階段目標是解決資料中的「<b>品質問題</b>」。</li>
+	<li>是預處理流程中最重要、最耗時的階段。</li>
 	<li class='fold'><span class='h3' data-h='fold'>遺失值 (Missing Values) 處理</span><ul>
-		<li>數據清洗的第一大挑戰是處理<b>遺失值 (Missing Values)</b>，也就是資料表格中的空白、NA 或 Null。</li>
+		<li><b>遺失值 (Missing Values)</b>：資料表格中的空白、NA 或 Null。</li>
 		<li><b>策略：</b> 平均數填補 (Mean Imputation)<ul>
-			<li><b>描述：</b> 用該欄位的平均值來替代所有遺失值。</li>
-			<li><b>優點：</b> 快速、簡單，能保持原數據集的平均值不變。</li>
-			<li><b>缺點：</b> 容易受<b>異常值 (Outliers)</b> 影響，並會低估數據的變異性。</li>
+			<li>📝 用該欄位的平均值來替代所有遺失值。</li>
+			<li>👍 快速、簡單，能保持原數據集的平均值不變。</li>
+			<li>👎 容易受<b>異常值 (Outliers)</b> 影響，並會低估數據的變異性。</li>
 		</ul></li>
 		<li><b>策略：</b> 中位數填補 (Median Imputation)<ul>
-			<li><b>描述：</b> 用該欄位排序後的中央值來替代所有遺失值。</li>
-			<li><b>優點：</b> 對異常值不敏感</b>，是處理有偏態數據或異常值的數值型欄位的首選。</li>
-			<li><b>缺點：</b> 略微複雜於平均數，仍會低估變異性。</li>
+			<li>📝 用該欄位排序後的中央值來替代所有遺失值。</li>
+			<li>👍 對異常值不敏感，是處理有偏態數據或異常值的數值型欄位的首選。</li>
+			<li>👎 略微複雜於平均數，仍會低估變異性。</li>
 		</ul></li>
 		<li data-x='quiz:s'>假設您在一個重要的數值欄位（例如「產品成本」）發現了一些遺失值。如果我們決定<b>不刪除</b>任何記錄，而是要<b>填補 (Imputation)</b> 這些遺失值，請問最簡單且常用的<b>填補方法</b>是利用什麼值來替代空白？<ul>
 			<li data-o='X'>使用一個<b>固定值</b>，例如 0 或 -1。</li>
@@ -103,8 +93,8 @@
 	</ul></li>
 
 	<li class='fold'><span class='h3' data-h='fold'>異常值 (Outliers) 處理</span><ul>
-		<li>平均數填補容易受到 <b>異常值 (Outliers)</b> 的影響。這些異常值要如何識別和處理呢？</li>
-		<li><b>定義：</b><ul>異常值是數據集中與其他觀測值有顯著差異的數值，可能代表測量錯誤、數據輸入錯誤，或真實但極端的事件。</ul></li>
+		<li>平均數填補易受 <b>異常值 (Outliers)</b> 影響。異常值要如何識別與處理呢？</li>
+		<li><b class='red'>[🎯定義]</b> 異常值是數據集中與其他觀測值有顯著差異的數值，可能代表測量錯誤、數據輸入錯誤，或真實但極端的事件。</li>
 		<li data-x='quiz:s'>假設您使用 箱形圖 (Box Plot) <div class='ac'><img src="https://freesvg.org/img/Boxplot.png" style='max-width:80vw;max-height:80vh;'/></div> 來視覺化「產品成本」欄位的分佈。您觀察到有幾個點遠遠超出了上方的「鬍鬚」（Whisker）。<br/>在不直接刪除這些異常值的前提下，如果您想對這些極端值進行<b>處理</b>，使其對模型的影響降低，您可能會採用以下哪種方法？<ul>
 			<li data-o='X'><b>直接將這些異常值刪除</b>，因為它們會影響模型訓練。</li>
 			<li data-o='O'><b>將異常值的值替換成</b>靠近「鬍鬚」邊界的<b>最大值或最小值</b>（這個方法被稱為<b>Winsorization</b> 或<b>截尾</b>）。</li>
@@ -136,7 +126,7 @@
 	</ul></li>
 
 	<li class='fold'><span class='h3' data-h='fold'>處理雜訊與錯誤資料 (Noise &amp; Error Data)</span><ul>
-		<li><b>定義：</b><ul>
+		<li><span class='red'>[🎯定義]</span><ul>
 			<li>雜訊通常指的是隨機誤差或測量誤差；</li>
 			<li>錯誤資料則是指明顯不符合實際情況的數值（例如 Age = 200）。
 		</ul></li>
@@ -149,12 +139,10 @@
 			<li><b>複雜演算法 (KNN/Isolation Forest)</b>：雖然它們能找出統計上的異常值，但對於像 200 歲這種<b>明顯違反現實世界規則</b>的錯誤，設定簡單的規則更有效率。</li>
 		</ul></div></li>
 	</ul></li>
-</ul>
-</section><!--}}}-->
+</ul></section><!--}}}-->
 
-<section><h2>第三階段：數據轉換 (Data Transformation) 🔄</h2><!--{{{-->
-<p>擁有了結構統一、經過清洗的數據後，還需要「塑形」，使其符合模型訓練的需求。</p>
-<ol data-xl='math'>
+<section><h2>參. 數據轉換 (Transformation) 🔄</h2><ul data-xl='math' class='topics'><!--{{{-->
+	<li>「塑形」使其符合模型訓練的需求。</li>
 	<li class='fold'><span class='h3' data-h='fold'>數值尺度調整 (Scaling Numerical Features)</span><ul>
 		<li>處理<b>數值型數據 (Numerical Data)</b> 的<b>尺度</b>問題。</li>
 		<li data-x='quiz:s'>假設您的資料中有兩個數值欄位：<ol>
@@ -231,37 +219,35 @@
 		</ul></li>
 		<li>從 $\text{10}$ 到 $\text{100,000}$ 增長了 $\text{10,000}$ 倍，但它們的 $\log$ 值只從 $\text{2.3}$ 增長到 $\text{11.5}$ 左右。這就是「壓縮」的作用，它將極端值拉近，使分佈更集中、更對稱。</li>
 	</ul></li>
-</ol>
-</section><!--}}}-->
+</ul></section><!--}}}-->
 
-<section><h2>第四階段：數據降維與簡化 (Data Reduction &amp; Simplification) 📉</h2><!--{{{-->
-<p>最後一步是<b>優化</b>，讓表格更精簡，提高模型效率。</p>
-<ol data-xl='math'>
-<li class='fold'><span class='h3' data-h='fold'>處理高維度 (High Dimensionality)</span><ul>
-	<li><b>降維的目標問題：維度災難 (Curse of Dimensionality)</b><ul>
-		<li><b>問題：</b> 這種維度爆炸會導致訓練時間顯著拉長，更嚴重的是，過多的特徵（尤其許多是稀疏的 $\text{0}$ 值）會讓模型學習到<b>數據中的雜訊</b>，而非真實的底層模式，進而造成<b>過度擬合 (Overfitting)</b>。</li>
-		<li><b>方法：</b> <b>主成分分析 (PCA)</b> 就像一個資訊壓縮機，它找到新的、數量更少的<b>主成分</b>（Principal Components），這些成分是原始特徵的線性組合，可以保留絕大部分的數據變異性。</li>
+<section><h2>肆. 數據降維 (Reduction) 與簡化 (Simplification) 📉</h2><ul class='topics' data-xl='math'><!--{{{-->
+	<li><b>優化</b>讓表格更精簡，提高模型效率。</li>
+
+	<li class='fold'><span class='h3' data-h='fold'>處理高維度 (High Dimensionality)</span><ul>
+		<li><b>降維的目標問題：維度災難 (Curse of Dimensionality)</b><ul>
+			<li><b>問題：</b> 這種維度爆炸會導致訓練時間顯著拉長，更嚴重的是，過多的特徵（尤其許多是稀疏的 $\text{0}$ 值）會讓模型學習到<b>數據中的雜訊</b>，而非真實的底層模式，進而造成<b>過度擬合 (Overfitting)</b>。</li>
+			<li><b>方法：</b> <b>主成分分析 (PCA)</b> 就像一個資訊壓縮機，它找到新的、數量更少的<b>主成分</b>（Principal Components），這些成分是原始特徵的線性組合，可以保留絕大部分的數據變異性。</li>
+		</ul></li>
+		<li data-x='quiz:s'>假設在您完成獨熱編碼後，您的數據表格從原本的 $\text{50}$ 個欄位暴增到 $\text{500}$ 個欄位。這種<b>維度災難 (Curse of Dimensionality)</b> 會導致什麼問題？以及我們應該用哪種方法來解決？<ul>
+			<li data-o='X'><b>問題：</b> 維度增加會使模型訓練速度變快，但會讓預測結果過於簡單（欠擬合）。<br/><b>方法：</b> 刪除所有獨熱編碼的欄位。</li>
+			<li data-o='O'><b>問題：</b> 增加的欄位會讓模型訓練<b>變慢</b>，並可能導致<b>過度擬合 (Overfitting)</b>。<br/><b>方法：</b> 使用<b>主成分分析 (Principal Component Analysis, PCA)</b> 等降維技術。</li>
+			<li data-o='X'><b>問題：</b> 許多新欄位是<b>稀疏 (Sparse)</b> 的（大部分值為 $\text{0}$），模型無法處理 $\text{0}$ 值。<br/><b>方法：</b> 將所有 $\text{0}$ 值替換為平均數。</li>
+		</ul></li>
 	</ul></li>
-	<li data-x='quiz:s'>假設在您完成獨熱編碼後，您的數據表格從原本的 $\text{50}$ 個欄位暴增到 $\text{500}$ 個欄位。這種<b>維度災難 (Curse of Dimensionality)</b> 會導致什麼問題？以及我們應該用哪種方法來解決？<ul>
-		<li data-o='X'><b>問題：</b> 維度增加會使模型訓練速度變快，但會讓預測結果過於簡單（欠擬合）。<br/><b>方法：</b> 刪除所有獨熱編碼的欄位。</li>
-		<li data-o='O'><b>問題：</b> 增加的欄位會讓模型訓練<b>變慢</b>，並可能導致<b>過度擬合 (Overfitting)</b>。<br/><b>方法：</b> 使用<b>主成分分析 (Principal Component Analysis, PCA)</b> 等降維技術。</li>
-		<li data-o='X'><b>問題：</b> 許多新欄位是<b>稀疏 (Sparse)</b> 的（大部分值為 $\text{0}$），模型無法處理 $\text{0}$ 值。<br/><b>方法：</b> 將所有 $\text{0}$ 值替換為平均數。</li>
+
+	<li class='fold'><span class='h3' data-h='fold'>特徵選擇與冗餘處理 (Feature Selection)</span><ul>
+		<li>PCA 是一種<b>轉換 (Transformation)</b> 的降維方法，它會改變原始特徵的意義。</li>
+		<li>另一種更直接、更常規的簡化方法是<b>特徵選擇</b>，其目標是識別並移除<b>冗餘 (Redundant)</b> 或<b>不重要 (Irrelevant)</b> 的特徵。</li>
+		<li data-x='quiz:s'>假設您的資料中有兩個數值欄位：$\text{A}$（房屋總價）和 $\text{B}$（房屋每平方公尺的單價）。如果 $\text{總價} = \text{單價} \times \text{面積}$，這兩個欄位在邏輯上是<b>重複或高度相關</b>的。<br/>請問，當兩個欄位高度相關時，為了簡化模型並減少<b>多重共線性 (Multicollinearity)</b>（這會使模型難以確定單個特徵的真實影響），我們最簡單的處理方法是什麼？<ul>
+			<li data-o='X'>將 $\text{總價}$ 和 $\text{單價}$ 這兩個欄位<b>直接相加</b>，生成一個新的特徵。</li>
+			<li data-o='O'><b>只保留其中一個欄位</b>，並移除另一個（例如只保留 $\text{總價}$，移除 $\text{單價}$）。</li>
+		</ul><div class='frame'>只保留其中一個欄位</b> (例如只保留 $\text{總價}$，移除 $\text{單價}$)。這就是最簡單有效的解決方案。</div></li>
 	</ul></li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>特徵選擇與冗餘處理 (Feature Selection)</span><ul>
-	<li>PCA 是一種<b>轉換 (Transformation)</b> 的降維方法，它會改變原始特徵的意義。</li>
-	<li>另一種更直接、更常規的簡化方法是<b>特徵選擇</b>，其目標是識別並移除<b>冗餘 (Redundant)</b> 或<b>不重要 (Irrelevant)</b> 的特徵。</li>
-	<li data-x='quiz:s'>假設您的資料中有兩個數值欄位：$\text{A}$（房屋總價）和 $\text{B}$（房屋每平方公尺的單價）。如果 $\text{總價} = \text{單價} \times \text{面積}$，這兩個欄位在邏輯上是<b>重複或高度相關</b>的。<br/>請問，當兩個欄位高度相關時，為了簡化模型並減少<b>多重共線性 (Multicollinearity)</b>（這會使模型難以確定單個特徵的真實影響），我們最簡單的處理方法是什麼？<ul>
-		<li data-o='X'>將 $\text{總價}$ 和 $\text{單價}$ 這兩個欄位<b>直接相加</b>，生成一個新的特徵。</li>
-		<li data-o='O'><b>只保留其中一個欄位</b>，並移除另一個（例如只保留 $\text{總價}$，移除 $\text{單價}$）。</li>
-	</ul><div class='frame'>只保留其中一個欄位</b> (例如只保留 $\text{總價}$，移除 $\text{單價}$)。這就是最簡單有效的解決方案。</div></li>
-</ul></li>
-</section><!--}}}-->
+</ul></section><!--}}}-->
 
 <section><!--{{{-->
 	<h2>總結 📝</h2>
-	<p>恭喜！您已經完整走過資料科學中<b>從原始資料到模型訓練的結構化表格</b>的四大關鍵流程。</p>
-	<p>以下是我們回顧的步驟、每個階段的<b>目標問題</b>和您的<b>主要方法</b>，以確保我們對整個流程有深入的理解：</p>
 	<table border='1' cellpadding='8' cellspacing='0' align="center"><tbody>
 		<tr><th>問題</th><th>方法</th></tr>
 		<tr><th colspan="2">數據獲取與整合</th></tr>

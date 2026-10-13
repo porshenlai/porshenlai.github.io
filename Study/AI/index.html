@@ -164,28 +164,50 @@
 	</ul></div>
 </section>
 
-<section>
-	<h2>工作類型: 哪些動詞需要智慧？</h2>
-	<div><ul>
-		<li>(根據樣本來產生智慧)</li>
-		<li>決策 &rarr; YES/NO &rarr; 認知 &rarr; 分類</li>
+<section><h2>工作類型: 需要完成的工作目標為何 ?</h2><ul class='topics'><!--{{{-->
+	<li class='fold'><b class='h3' data-h='fold'>預測</b><ul>
+		<li>計算題</li>
 		<li>評估 &rarr; 數值 &rarr; 預測</li>
-		<li>歸納 &rarr; 整齊的資料 &rarr; 分群</li>
-	</ul><ul>
+	</ul></li>
+	<li class='fold'><b class='h3' data-h='fold'>分類</b><ul>
+		<li>是非題</li>
+		<li>單選題</li>
+		<li>決策 &rarr; YES/NO &rarr; 認知 &rarr; 分類</li>
+	</ul></li>
+	<li class='fold'><b class='h3' data-h='fold'>分群</b><ul>
+		<li>連連看</li>
+		<li>歸納 &rarr; 整齊的資料 &rarr; 群s</li>
+	</ul></li>
+	<li class='fold'><b class='h3' data-h='fold'>生成</b><ul>
+		<li>問答題</li>
 		<li>改寫 &rarr; 中文&gt;英文 &rarr; 翻譯</li>
 		<li>簡而言之 &rarr; 摘要</li>
-		<li>詳細來說 &rarr; 生成 (根據智慧來產生樣本)</li>
-	</ul><ul>
-		<li>
-			<span class='button'>分類</span>
-			<span class='button'>預測</span>
-			<span class='button'>分群</span>
-			<span class='button'>生成</span>
-		</li>
-	</ul>
-</section>
+		<li>詳細來說 &rarr; 生成 (產生樣本)</li>
+	</ul></li>
+</ul></section><!--}}}-->
+
+<section><h2>目標分析</h2><!--{{{-->
+	<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+	S(S) --> TT{"學習的類型"} -->|"有解答"| AT{"答案的型態"} -->|"數值"| P["預測"]
+	AT -->|"標籤"| CF["分類"]
+	AT -->|"序列"| G["生成"]
+	TT -->|"沒解答"| CL["分群"]
+</textarea></div>
+</section><!--}}}-->
 
 <section data-xl='import:Music_Functions.html'><h2>&#1D11E; 分類預測分群與生成</h2></section>
+
+<section><h2>機器學習</h2><!--{{{-->
+	<div data-h='install:mermaid' class='button'>流程圖<textarea data-v='value:raw'>flowchart LR
+DA('資料庫') --> DP["資料預處理"]
+MS["模型選擇"] --> MT["模型訓練"]
+DP --> DS["資料切割"] -->|"訓練資料"| MT --> MV["模型驗證"] -->|通過| AR["參數調整"] --> SD["系統部署"] --> DP
+DB('感測器') --> DP
+DC('API') --> DP
+DS -->|"驗證資料"| MV
+MV -->|"不通過"| DP
+</textarea></div>
+</section><!--}}}-->
 
 </div></main></body>
 </html>
