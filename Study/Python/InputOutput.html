@@ -59,9 +59,15 @@ table small { color:#666; }
 	<div style='text-align:center;'><img src='IOArch.gif' style='width:80%'></div>
 </section>
 
-<section data-ks='P_IO'>
-	<h2>存取流程</h2>
-	<div style='text-align:center;'><img src='IOFlow.gif' style='width:45%'></div>
+<section data-ks='P_IO'><h2>存取流程</h2>
+<div class='button' data-h='install:mermaid'>Flow Chart<textarea data-v='value:raw'>
+flowchart LR
+O["open<br/>配置資源"] --> RWX{繼續} -->|N| C["close<br/>flush<br/>釋放資源"]
+RWX -->|Y| R["read"] --> RWX
+RWX -->|Y| W["write"] --> RWX
+RWX -->|Y| X["......"] --> RWX
+</textarea></div>
+	<!--div style='text-align:center;'><img src='IOFlow.gif' style='width:45%'></div-->
 	<ul>
 		<li>open close 必須成對出現，否則會產生占用系統資源的垃圾。</li>
 	</ul>

@@ -89,7 +89,7 @@
 
 <section> <h2>運算子</h2> <!--{{{-->
 <div class='zcs'>
-<table border='1' cellpadding='8' class='swd'><tr>
+<table border='1' cellpadding='8' class='fill'><tr>
 	<th rowspan='6' width='2%'>數<br/>值<br/>計<br/>算</th>
 	<td width='49%' valign='top'>5 ** 2</td>
 	<td width='49%' valign='top'>25</td>
@@ -106,7 +106,7 @@
 	<td>7 &amp; 4<br/>4 | 1</td><td>4<br/>5</td>
 </tr></table>
 
-<table border='1' cellpadding='8' class='swd'><tr>
+<table border='1' cellpadding='8' class='fill'><tr>
 	<th width='2%'>數<br/>值<br/>比<br/>較</th>
 	<td width='49%' valign='top'>1 == 2<br/>1 != 2<br/>1 &gt; 2<br/>1 &gt;= 2<br/>1 &lt; 2</br/>1 &lt;= 2<br/>1 in [1,2]<br/>a is b</td>
 	<td width='49%' valign='top'>False<br/>True<br/>False<br/>False<br/>True<br/>True<br/>True<br/>False</td>
@@ -115,7 +115,7 @@
 	<td width='49%' valign='top'>True and False<br/>True or False<br/>not True</td>
 	<td width='49%' valign='top'>False<br/>True<br/>False</td>
 </tr></table>
-<table border='1' cellpadding='8' class='swd'><tr>
+<table border='1' cellpadding='8' class='fill'><tr>
 	<th rowspan='4' width='2%'>指<br/>定<br/>計<br/>算</th>
 	<td width='49%' valign='top'>v **= 2</td>
 	<td width='49%' valign='top'>v:5 &rarr; 25</td>
@@ -128,10 +128,29 @@
 	<td>v += 2<br/>v -= 1</td>
 	<td>v:1 &rarr; 3<br/>v:3 &rarr; 2</td>
 </tr></table>
-<table border='1' cellpadding='8' class='swd'><tr>
-</tr></table>
-
 </section> <!--}}}-->
+
+<section><h2>優先順序</h2>
+<ul>
+	<li><b class='h3'>(): 強制優先</b></li>
+	<li class='fold'><b class='h3' data-h='fold'>算數運算子</b><ul>
+		<li><b>^</b>: 指數</li>
+		<li><b>-</b>: 一元正負符號</li>
+		<li><b>* / % //<b>: 乘除</li>
+		<li><b>+ -</b>: 加減</li>
+	</ul></li>
+	<li class='fold'><b class='h3' data-h='fold'>比較運算子</b><ul>
+		<li><b>== != &gt; &lt; &gt;= &lt;=</b></li>
+	</ul></li>
+	<li class='fold'><b class='h3' data-h='fold'>邏輯運算子</b><ul>
+		<li><b>NOT</b>: 一元</li>
+		<li><b>AND OR</b></li>
+	</ul></li>
+	<li class='fold'><b class='h3' data-h='fold'>指定運算子</b><ul>
+		<li><b>= += -= *= /= //= %= **=</b></li>
+	</ul></li>
+</ul>
+</section>
 
 <section data-ks='P_EX,Q_ITS'>
 	<div>您正在將現有的應用程式轉換成Python。</div>
@@ -148,7 +167,7 @@
 </section>
 
 <section> <h2>後序式 Postfix Expression</h2> <!--{{{-->
-<div class='zcs'><div class='swd' style='text-align:center;'>
+<div class='zcs'><div class='fill' style='text-align:center;'>
 
 <div>
 	<span class='blue'>5</span> <span class='red'>*</span> <span class='red'>(</span>
@@ -164,8 +183,8 @@
 <div><span style='background:silver'><span class='blue'>42</span>|<span class='blue'>2</span>|<span class='red'>+</span></span></div>
 <div><span class='blue' style='font-size:200%'>44</span></div>
 
-</div><div class='swd'>
-	<div data-xl='mermaid'><textarea data-v='value:raw'>graph TD
+</div><div class='fill'>
+	<div data-xl='mermaid'><textarea data-v='value:raw'>graph LR
  NA("5") --> M("*")
  NB("1") --> A("+")
  NC("2") --> A --> E("**")
