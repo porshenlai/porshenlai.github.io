@@ -56,18 +56,26 @@ table small { color:#666; }
 <!-- PART-5: IO: FileSystem -->
 <section data-ks='P_IO'>
 	<h2>周邊裝置架構</h2>
-	<div style='text-align:center;'><img src='IOArch.gif' style='width:80%'></div>
+	<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart TB
+	subgraph CPU ["CPU/中央處理器"]
+		LU <--> MC["記憶體<br/>控制器"]
+		LU <--> PCIE["PCIe<br/>控制器"]
+		LU["Logic Units<br/>運算邏輯"] <--> REG["Register<br/>暫存器"]
+	end
+	G["顯示卡"] <--> PCIE <-->|DMA| MC
+	M["Memory<br/>記憶體"] <--> MC
+	S["Storage<br/>儲存裝置"] <--> PCH["PCH"] <--> PCIE
+	USB["USB<br>裝置"] <--> PCH
+</textarea></div>
 </section>
 
 <section data-ks='P_IO'><h2>存取流程</h2>
-<div class='button' data-h='install:mermaid'>Flow Chart<textarea data-v='value:raw'>
+<div class='button' data-h='install:mermaid'>點擊繪製<textarea data-v='value:raw'>
 flowchart LR
-O["open<br/>配置資源"] --> RWX{繼續} -->|N| C["close<br/>flush<br/>釋放資源"]
+O["open<br/>配置資源"] --> RWX{繼續} -->|N| F["flush"] --> C["close<br/>釋放資源"]
+RWX -->|Y| W["write"] --> F --> RWX
 RWX -->|Y| R["read"] --> RWX
-RWX -->|Y| W["write"] --> RWX
-RWX -->|Y| X["......"] --> RWX
 </textarea></div>
-	<!--div style='text-align:center;'><img src='IOFlow.gif' style='width:45%'></div-->
 	<ul>
 		<li>open close 必須成對出現，否則會產生占用系統資源的垃圾。</li>
 	</ul>
@@ -75,11 +83,35 @@ RWX -->|Y| X["......"] --> RWX
 
 <section data-ks='P_IO'>
 	<h2>例外處理</h2>
-	<div style='text-align:center;'><img src='TryExceptSample.gif' style='width:60%'></div>
+	<pre>try :
+	print("來試試看")
+	raise Exception("TEST")
+except FileNotFoundError as 例外:
+	print(f"發生了檔案不存在例外 {例外}")
+except Exception as 例外:
+	print(f"發生了例外 {例外}")
+else :
+	print("都沒有發生例外喔")
+finally :
+	print("結束了")
+</pre>
 </section>
 
 <section data-ks='P_IO'>
 	<h2>With</h2>
+	<pre>try :
+  with open("/tmp/test.txt","w") as 檔案 :
+    檔案.write("你好，世界!")
+exception as 例外 :
+  print(例外)
+</pre>
+	<pre>try :
+  with open("/tmp/test.txt","r") as 檔案 :
+    內容 = 檔案.read()
+    print(f"內容 為 {內容}")
+except Exception as 例外 :
+    print(f"例外發生了: {例外}")
+</pre>
 	<div style='text-align:center;'><img src='WithFile.gif' style='width:45%'></div>
 	<table border='1' cellspacing='1' cellpadding='8' align='center'><tbody><tr>
 		<th>r</th>
@@ -104,7 +136,16 @@ RWX -->|Y| X["......"] --> RWX
 
 <section data-ks='P_IO'>
 	<h2>讀檔</h2>
-	<div style='text-align:center;'><img src='ReadFile.gif' style='width:40%'></div>
+	<pre>try :
+  檔案 = open("/tmp/test.txt","r")
+  內容 = 檔案.read()
+  print(f"內容為 {內容}")
+except Exception as 例外 :
+  print(f"例外為 {例外}")
+finally :
+  檔案.close()
+  print("檔案有記得關")
+</pre>
 	<table border='1' cellspacing='1' cellpadding='8' align='center'><tbody><tr>
 		<th>EOF(End of File)<br/>檔案結尾</th>
 		<td>讀到空字串 “”</td>
@@ -118,12 +159,38 @@ RWX -->|Y| X["......"] --> RWX
 
 <section data-ks='P_IO'>
 	<h2>寫檔</h2>
+	<pre>try:
+  檔案 = open("/tmp/test.txt","w")
+  檔案.write("妳好，世界!")
+except Exception as 例外 :
+  print(f"例外發生了: {例外}")
+finally :
+  檔案.close()
+  print("檔案有記得關")
+</pre>
 	<div style='text-align:center;'><img src='WriteFile.gif' style='width:40%'></div>
 </section>
 
 <section data-ks='P_IO'>
 	<h2>完整的檔案處理</h2>
-	<div style='text-align:center;'><img src='FileIO.gif' style='width:90%'></div>
+	<pre>
+import os
+if not os.path.isdir("/tmp/testdir") :
+	os.mkdir("/tmp/testdir")
+
+if not os.path.exists("/tmp/testdir/test.txt") :
+	with open("/tmp/testdir/test.txt","w") as fo :
+		fo.write("你好世界")
+
+!ls /tmp/testdir
+!cat /tmp/testdir/test.txt
+
+if os.path.exists("/tmp/testdir/test.txt") and os.path.isfile("/tmp/testdir/test.txt") :
+	os.remove("/tmp/testdir/test.txt")
+
+if os.path.exists("/tmp/testdir") :
+	os.rmdir("/tmp/testdir")
+</pre>
 </section>
 
 <section data-ks='P_IO'>
@@ -263,7 +330,15 @@ RWX -->|Y| X["......"] --> RWX
 
 <section data-ks='P_IO'>
 	<h2>單元測試 Unit Test</h2><!--{{{-->
-	<div style='text-align:center;'><img src='UnitTest.gif' width='80%'></img></div>
+	<pre>import unittest
+
+class 我的測試(unittest.TestCase) :
+  def test_測試項目名稱(self) :
+    """ 測試有沒有相等 """
+    self.assertEqual("A","A")
+
+unittest.main()
+</pre>
 	<!--}}}-->
 </section>
 
