@@ -29,12 +29,12 @@ class ICode
 			})(document.createElement('div')));
 		}
 		elem.addEventListener('ModCMD', (event)=>{
-			console.log(`Hello, ${event.detail.username}! Role: ${event.detail.role}`);
+			if (event.detail.task in this)
+				this[event.detail.task](...(event.detail.args || []));
 		});
 	}
 	command (cmd) {
 		const cmdEvt = new CustomEvent('ModCMD',{detail:cmd});
-		console.log('====>',cmdEvt);
 		this.E.dispatchEvent(cmdEvt);
 	}
 	syntax (on=true) {
@@ -65,6 +65,8 @@ class ICode
 		const tarea = document.createElement("textarea");
 		for (let e=this.E.firstChild; e; e=e.nextSibling) if (e.nodeType===1)
 			tarea.value+='\t'.repeat(e.dataset.level)+e.textContent+'\n';
+
+		console.log(tarea.value);
 		try {
 			document.body.appendChild(tarea);
 			const selection = window.getSelection();
@@ -75,7 +77,7 @@ class ICode
 
 			let success = document.execCommand('copy');
 			selection.removeAllRanges();
-			console.log(success ? "HTML copied via execCommand" : "Copy failed");
+			console.log(success ? "Copied" : "Copy failed");
 		} catch (err) {
 			console.error("Copy operation failed: ", err);
 		} finally {
@@ -85,17 +87,15 @@ class ICode
 }
 
 SCRIPT.value=async function (slide, elem, args) {
-	console.log("=======================>",elem,args);
-	const IC = new ICode(elem);
-	if (args) {
-		IC.command({ username: args, role: 'Admin' });
-	} else {
-		IC.syntax();
+	if (elem.dataset.se) {
+		let se=elem.dataset.se;
+		while (se.startsWith('<')){ elem=elem.parentNode; se=se.substr(1); }
+		elem = elem.querySelector(se);
 	}
-	elem.addEventListener('click',(evt)=>{
-		//IC.copy();
-		IC.command({ username: 'Alice', role: 'Admin' });
-	});
+	const IC = new ICode(elem);
+	if (args)
+		IC.command({ task: args });
+	else IC.syntax();
 };
 
 

@@ -557,7 +557,8 @@ class Player
 	call (fn, ...args)
 	{	// {{{
 		try {
-			Apps[fn](...args);
+			if (fn in Apps) return Apps[fn](...args);
+			if (fn in this.Content.Xs) this.Content.Xs[fn].then((f)=>f(this.Content, event.target, ...args));
 		} catch(x) { console.log(x); }
 	}	// }}}
 
