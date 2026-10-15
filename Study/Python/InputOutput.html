@@ -54,36 +54,32 @@ table small { color:#666; }
 </style>
 
 <!-- PART-5: IO: FileSystem -->
-<section data-ks='P_IO'>
-	<h2>周邊裝置架構</h2>
-	<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart TB
-	subgraph CPU ["CPU/中央處理器"]
-		LU <--> MC["記憶體<br/>控制器"]
-		LU <--> PCIE["PCIe<br/>控制器"]
-		LU["Logic Units<br/>運算邏輯"] <--> REG["Register<br/>暫存器"]
-	end
-	G["顯示卡"] <--> PCIE <-->|DMA| MC
-	M["Memory<br/>記憶體"] <--> MC
-	S["Storage<br/>儲存裝置"] <--> PCH["PCH"] <--> PCIE
-	USB["USB<br>裝置"] <--> PCH
+<section data-ks='P_IO'><h2>周邊裝置架構</h2><!--{{{-->
+<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart TB
+subgraph CPU ["CPU/中央處理器"]
+	LU <--> MC["記憶體<br/>控制器"]
+	LU <--> PCIE["PCIe<br/>控制器"]
+	LU["Logic Units<br/>運算邏輯"] <--> REG["Register<br/>暫存器"]
+end
+G["顯示卡"] <--> PCIE <-->|DMA| MC
+M["Memory<br/>記憶體"] <--> MC
+S["Storage<br/>儲存裝置"] <--> PCH["PCH"] <--> PCIE
+USB["USB<br>裝置"] <--> PCH
 </textarea></div>
-</section>
+</section><!--}}}-->
 
-<section data-ks='P_IO'><h2>存取流程</h2>
+<section data-ks='P_IO'><h2>存取流程</h2><!--{{{-->
 <div class='button' data-h='install:mermaid'>點擊繪製<textarea data-v='value:raw'>
 flowchart LR
 O["open<br/>配置資源"] --> RWX{繼續} -->|N| F["flush"] --> C["close<br/>釋放資源"]
 RWX -->|Y| W["write"] --> F --> RWX
 RWX -->|Y| R["read"] --> RWX
 </textarea></div>
-	<ul>
-		<li>open close 必須成對出現，否則會產生占用系統資源的垃圾。</li>
-	</ul>
-</section>
+<ul><li>open close 必須成對出現，否則會產生占用系統資源的垃圾。</li></ul>
+</section><!--}}}-->
 
-<section data-ks='P_IO'>
-	<h2>例外處理</h2>
-	<pre>try :
+<section data-ks='P_IO'><h2>例外處理</h2><div data-xl='code'><!--{{{-->
+try :
 	print("來試試看")
 	raise Exception("TEST")
 except FileNotFoundError as 例外:
@@ -94,86 +90,85 @@ else :
 	print("都沒有發生例外喔")
 finally :
 	print("結束了")
-</pre>
-</section>
+</div></section><!--}}}-->
 
-<section data-ks='P_IO'>
-	<h2>With</h2>
-	<pre>try :
-  with open("/tmp/test.txt","w") as 檔案 :
-    檔案.write("你好，世界!")
+<section data-ks='P_IO'><h2>With</h2><!--{{{-->
+<div data-xl='code'>
+try :
+	with open("/tmp/test.txt","w") as 檔案 :
+		檔案.write("你好，世界!")
 exception as 例外 :
-  print(例外)
-</pre>
-	<pre>try :
-  with open("/tmp/test.txt","r") as 檔案 :
-    內容 = 檔案.read()
-    print(f"內容 為 {內容}")
+	print(例外)
+</div>
+<div data-xl='code'>
+try :
+	with open("/tmp/test.txt","r") as 檔案 :
+		內容 = 檔案.read()
+		print(f"內容 為 {內容}")
 except Exception as 例外 :
-    print(f"例外發生了: {例外}")
-</pre>
-	<div style='text-align:center;'><img src='WithFile.gif' style='width:45%'></div>
-	<table border='1' cellspacing='1' cellpadding='8' align='center'><tbody><tr>
-		<th>r</th>
-		<td>讀取模式，指標會置於開頭。(預設)</td>
-	</tr><tr>
-		<th>w</th>
-		<td>寫入模式，不存在時建立，存在時會被覆寫。</td>
-	</tr><tr>
-		<th>a</th>
-		<td>附加模式，不存在時建立，存在時會加入到尾端。</td>
-	</tr><tr>
-		<th>r+</th>
-		<td>讀寫模式，指標會置於開頭。</td>
-	</tr><tr>
-		<th>w+</th>
-		<td>讀寫模式，不存在時建立，存在時會被覆寫。</td>
-	</tr><tr>
-		<th>a+</th>
-		<td>讀寫模式，不存在時建立，存在時會加入到尾端。</td>
-	</tr></tbody></table>
-</section>
+	print(f"例外發生了: {例外}")
+</div>
+<div style='text-align:center;'><img src='WithFile.gif' style='width:45%'></div>
+<table border='1' cellspacing='1' cellpadding='8' align='center'><tbody><tr>
+	<th>r</th>
+	<td>讀取模式，指標會置於開頭。(預設)</td>
+</tr><tr>
+	<th>w</th>
+	<td>寫入模式，不存在時建立，存在時會被覆寫。</td>
+</tr><tr>
+	<th>a</th>
+	<td>附加模式，不存在時建立，存在時會加入到尾端。</td>
+</tr><tr>
+	<th>r+</th>
+	<td>讀寫模式，指標會置於開頭。</td>
+</tr><tr>
+	<th>w+</th>
+	<td>讀寫模式，不存在時建立，存在時會被覆寫。</td>
+</tr><tr>
+	<th>a+</th>
+	<td>讀寫模式，不存在時建立，存在時會加入到尾端。</td>
+</tr></tbody></table>
+</section><!--}}}-->
 
-<section data-ks='P_IO'>
-	<h2>讀檔</h2>
-	<pre>try :
-  檔案 = open("/tmp/test.txt","r")
-  內容 = 檔案.read()
-  print(f"內容為 {內容}")
+<section data-ks='P_IO'><h2>讀檔</h2><!--{{{-->
+<div data-xl='code'>
+try :
+	檔案 = open("/tmp/test.txt","r")
+	內容 = 檔案.read()
+	print(f"內容為 {內容}")
 except Exception as 例外 :
-  print(f"例外為 {例外}")
+	print(f"例外為 {例外}")
 finally :
-  檔案.close()
-  print("檔案有記得關")
-</pre>
-	<table border='1' cellspacing='1' cellpadding='8' align='center'><tbody><tr>
-		<th>EOF(End of File)<br/>檔案結尾</th>
-		<td>讀到空字串 “”</td>
-		<td>readline() == “”</td>
-	</tr><tr>
-		<th>New Line<br/>空白行</th>
-		<td>只讀到一個換行符號 “\n”</td>
-		<td>readline() == “\n”</td>
-	</tr></tbody></table>
-</section>
+	檔案.close()
+	print("檔案有記得關")
+</div>
+<table border='1' cellspacing='1' cellpadding='8' align='center'><tbody><tr>
+	<th>EOF(End of File)<br/>檔案結尾</th>
+	<td>讀到空字串 “”</td>
+	<td>readline() == “”</td>
+</tr><tr>
+	<th>New Line<br/>空白行</th>
+	<td>只讀到一個換行符號 “\n”</td>
+	<td>readline() == “\n”</td>
+</tr></tbody></table>
+</section><!--}}}-->
 
-<section data-ks='P_IO'>
-	<h2>寫檔</h2>
-	<pre>try:
-  檔案 = open("/tmp/test.txt","w")
-  檔案.write("妳好，世界!")
+<section data-ks='P_IO'><h2>寫檔</h2><!--{{{-->
+<div data-xl='code'>
+try:
+	檔案 = open("/tmp/test.txt","w")
+	檔案.write("妳好，世界!")
 except Exception as 例外 :
-  print(f"例外發生了: {例外}")
+	print(f"例外發生了: {例外}")
 finally :
-  檔案.close()
-  print("檔案有記得關")
-</pre>
-	<div style='text-align:center;'><img src='WriteFile.gif' style='width:40%'></div>
-</section>
+	檔案.close()
+	print("檔案有記得關")
+</div>
+<div style='text-align:center;'><img src='WriteFile.gif' style='width:40%'></div>
+</section><!--}}}-->
 
-<section data-ks='P_IO'>
-	<h2>完整的檔案處理</h2>
-	<pre>
+<section data-ks='P_IO'><h2>完整的檔案處理</h2><!--{{{-->
+<div data-xl='code'>
 import os
 if not os.path.isdir("/tmp/testdir") :
 	os.mkdir("/tmp/testdir")
@@ -190,319 +185,295 @@ if os.path.exists("/tmp/testdir/test.txt") and os.path.isfile("/tmp/testdir/test
 
 if os.path.exists("/tmp/testdir") :
 	os.rmdir("/tmp/testdir")
-</pre>
-</section>
+</div>
+</section><!--}}}-->
 
-<section data-ks='P_IO'>
-	<!--{{{-->
-	<h2>例外處理</h2>
-	<div class='frame'>
-		<div><span class="hl-kw">try</span>:</div>
+<section data-ks='P_IO'><h2>例外處理</h2><!--{{{-->
+<div data-xl='code'>
+try :
+	txt = input("請輸入價格：").strip().replace(",", "")
+	price = float(txt)
+	print(f'價格為 {price:.2f}')
+except ValueError:
+	print('格式錯誤，請輸入數字。如：1234.56')
+</div>
+<h3>常見錯誤與除錯</h3>
+<ul>
+	<li><code>ValueError</code>：輸入無法轉成指定型別 → 提示格式、加入 <code>try/except</code></li>
+	<li><code>TypeError</code>：<code>None</code> 或型別不符 → 在格式化前先 <code>is None</code> 檢查</li>
+	<li>字串格式錯誤 → 善用 <code>repr()</code> 看見跳脫字元</li>
+	<li>輸出對齊混亂 → 使用寬度與對齊規格（如 <code>{:&gt;10}</code>）</li>
+</ul>
+</section><!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>對於下列每一項有關 try 陳述式的敘述，請選取 [正確] 或 [錯誤]。</div>
+	<div data-x='quiz:s'>
+		try 陳述式可以包含一個或多個 except 子句。
+		<div class='cols'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
+	</div>
+	<div data-x='quiz:s'>
+		try 陳述式可以包含 finally 子句，但不含 except 子句。
+		<div class='cols'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
+	</div>
+	<div data-x='quiz:s'>
+		try 陳述式可以包含 finally 子句以及 except 子句。
+		<div class='cols'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
+	</div>
+	<div data-x='quiz:s'>
+		try 陳述式可以包含一個或多個 finally 子句。
+		<div class='cols'><div data-o="X">正確</div><div data-o="O">錯誤</div></div>
+	</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>您需要撰寫執行下列工作的程式碼:<ul>
+		<li>呼叫process()函式。</li>
+		<li>如果process()函式擲回錯誤,則呼叫logError()函式。</li>
+		<li>呼叫process()函式之後一律呼叫displayResult()函式。</li>
+	</ul></div>
+	<div class='cb frame'>
+		<div class='QMix'>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">assert</div>
+				<div data-o="X">except</div>
+				<div data-o="X">finally</div>
+				<div data-o="X">raise</div>
+				<div data-o="O">try</div>
+			</div> :
+		</div>
+		<div class='cb'>process()</div>
+		<div class='QMix'>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">assert</div>
+				<div data-o="O">except</div>
+				<div data-o="X">finally</div>
+				<div data-o="X">raise</div>
+				<div data-o="X">try</div>
+			</div> :
+		</div>
+		<div class='cb'>logError()</div>
+		<div class='QMix'>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">assert</div>
+				<div data-o="X">except</div>
+				<div data-o="O">finally</div>
+				<div data-o="X">raise</div>
+				<div data-o="X">try</div>
+			</div> :
+		</div>
+  		<div class='cb'>displayResult()</div>
+	</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>您正在建立一個接受使用者輸入的程式。此程式必須將輸入轉型為整數，並且在無法轉型時正確處理錯誤。</div>
+	<div class="frame">
+		<div>while True:</div>
 		<div class='cb'>
-			<div>txt = <span class="hl-fn">input</span>(<span class="hl-str">"請輸入價格："</span>).strip().replace(<span class="hl-str">","</span>, <span class="hl-str">""</span>)</div>
-			<div>price = <span class="hl-fn">float</span>(txt)</div>
-			<div>print(<span class="hl-str">f'價格為 {price:.2f}'</span>)</div>
-		</div>
-		<div><span class="hl-kw">except</span> ValueError:</div>
-		<div class='cb'>print(<span class="hl-str">'格式錯誤，請輸入數字。如：1234.56'</span>)</div>
-	</div>
-
-	<h3>常見錯誤與除錯</h3>
-	<ul>
-		<li><code>ValueError</code>：輸入無法轉成指定型別 → 提示格式、加入 <code>try/except</code></li>
-		<li><code>TypeError</code>：<code>None</code> 或型別不符 → 在格式化前先 <code>is None</code> 檢查</li>
-		<li>字串格式錯誤 → 善用 <code>repr()</code> 看見跳脫字元</li>
-		<li>輸出對齊混亂 → 使用寬度與對齊規格（如 <code>{:&gt;10}</code>）</li>
-	</ul>
-	<!--}}}-->
-</section>
-
-<section data-ks='P_IO,Q_ITS'>
-	<!--{{{-->
-	<div data-x='quiz:c'>
-		<div>對於下列每一項有關 try 陳述式的敘述，請選取 [正確] 或 [錯誤]。</div>
-		<div data-x='quiz:s'>
-			try 陳述式可以包含一個或多個 except 子句。
-			<div class='cols'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
-		</div>
-		<div data-x='quiz:s'>
-			try 陳述式可以包含 finally 子句，但不含 except 子句。
-			<div class='cols'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
-		</div>
-		<div data-x='quiz:s'>
-			try 陳述式可以包含 finally 子句以及 except 子句。
-			<div class='cols'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
-		</div>
-		<div data-x='quiz:s'>
-			try 陳述式可以包含一個或多個 finally 子句。
-			<div class='cols'><div data-o="X">正確</div><div data-o="O">錯誤</div></div>
-		</div>
-	</div>
-	<!--}}}-->
-</section>
-
-<section data-ks='P_IO,Q_ITS'>
-	<!--{{{-->
-	<div data-x='quiz:c'>
-		<div>您需要撰寫執行下列工作的程式碼:<ul>
-			<li>呼叫process()函式。</li>
-			<li>如果process()函式擲回錯誤,則呼叫logError()函式。</li>
-			<li>呼叫process()函式之後一律呼叫displayResult()函式。</li>
-		</ul></div>
-		<div class='cb frame'>
 			<div class='QMix'>
 				<div data-x='quiz:s' class='QR_'>
 					<span class='HT'>點擊展開</span>
-					<div data-o="X">assert</div>
-					<div data-o="X">except</div>
-					<div data-o="X">finally</div>
-					<div data-o="X">raise</div>
 					<div data-o="O">try</div>
-				</div> :
-			</div>
-			<div class='cb'>process()</div>
-			<div class='QMix'>
-				<div data-x='quiz:s' class='QR_'>
-					<span class='HT'>點擊展開</span>
-					<div data-o="X">assert</div>
-					<div data-o="O">except</div>
-					<div data-o="X">finally</div>
-					<div data-o="X">raise</div>
-					<div data-o="X">try</div>
-				</div> :
-			</div>
-			<div class='cb'>logError()</div>
-			<div class='QMix'>
-				<div data-x='quiz:s' class='QR_'>
-					<span class='HT'>點擊展開</span>
-					<div data-o="X">assert</div>
+					<div data-o="X">else</div>
 					<div data-o="X">except</div>
-					<div data-o="O">finally</div>
 					<div data-o="X">raise</div>
-					<div data-o="X">try</div>
-				</div> :
+					<div data-o="X">finally</div>
+				</div>
+				:
 			</div>
-  			<div class='cb'>displayResult()</div>
-		</div>
-	</div>
-	<!--}}}-->
-</section>
-
-<section data-ks='P_IO,Q_ITS'>
-	<!--{{{-->
-	<div data-x='quiz:c'>
-		<div>您正在建立一個接受使用者輸入的程式。此程式必須將輸入轉型為整數，並且在無法轉型時正確處理錯誤。</div>
-		<div class="frame">
-			<div>while True:</div>
 			<div class='cb'>
-				<div class='QMix'>
-					<div data-x='quiz:s' class='QR_'>
-						<span class='HT'>點擊展開</span>
-						<div data-o="O">try</div>
-						<div data-o="X">else</div>
-						<div data-o="X">except</div>
-						<div data-o="X">raise</div>
-						<div data-o="X">finally</div>
-					</div>
-					:
-				</div>
-				<div class='cb'>
-					<div>x = int(input(“Please enter a number: “))</div>
-					<div>break</div>
-				</div>
-				<div class='QMix'>
-					<div data-x='quiz:s' class='QR_'>
-						<span class='HT'>點擊展開</span>
-						<div data-o="X">try</div>
-						<div data-o="X">else</div>
-						<div data-o="O">except</div>
-						<div data-o="X">raise</div>
-						<div data-o="X">finally</div>
-					</div>
-					ValueError :
-				</div>
-				<div class='cb'>print("Not a valid number. Try again...")</div>
+				<div>x = int(input(“Please enter a number: “))</div>
+				<div>break</div>
 			</div>
+			<div class='QMix'>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="X">try</div>
+					<div data-o="X">else</div>
+					<div data-o="O">except</div>
+					<div data-o="X">raise</div>
+					<div data-o="X">finally</div>
+				</div>
+				ValueError :
+			</div>
+			<div class='cb'>print("Not a valid number. Try again...")</div>
 		</div>
 	</div>
-	<!--}}}-->
-</section>
+</div>
+</section><!--}}}-->
 
-<section data-ks='P_IO'>
-	<h2>單元測試 Unit Test</h2><!--{{{-->
-	<pre>import unittest
+<section data-ks='P_IO'><h2>單元測試 Unit Test</h2><!--{{{-->
+<div data-xl='code'>
+import unittest
 
 class 我的測試(unittest.TestCase) :
-  def test_測試項目名稱(self) :
-    """ 測試有沒有相等 """
-    self.assertEqual("A","A")
+	def test_測試項目名稱(self) :
+		""" 測試有沒有相等 """
+		self.assertEqual("A","A")
 
 unittest.main()
-</pre>
-	<!--}}}-->
-</section>
+</div>
+</section><!--}}}-->
 
-<section data-ks='P_IO,Q_ITS'>
-	<!--{{{-->
-	<div data-x='quiz:c'>
-		<div>您為了要測試某個物件是否為特定類別的執行個體。撰寫了下列程式</div>
-		<div class="cb frame">
-			<div class='QMix'>
-				<div data-x='quiz:s' class='QR_'>
-					<span class='HT'>點擊展開</span>
-					<div data-o="X">define</div>
-					<div data-o="O">import</div>
-					<div data-o="X">include</div>
-					<div data-o="X">using</div>
-				</div>
-				unittest
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>您為了要測試某個物件是否為特定類別的執行個體。撰寫了下列程式</div>
+	<div class="cb frame">
+		<div class='QMix'>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="X">define</div>
+				<div data-o="O">import</div>
+				<div data-o="X">include</div>
+				<div data-o="X">using</div>
 			</div>
+			unittest
+		</div>
+		<div class='QMix'>
+			class TestIsInstance(
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="O">unittest.TestCase</div>
+				<div data-o="X">test.TestCase</div>
+				<div data-o="X">TestCase.unittest</div>
+				<div data-o="X">TestCase.test</div>
+			</div>
+			) :
+		</div>
+		<div class='cb'>
 			<div class='QMix'>
-				class TestIsInstance(
+				def 
 				<div data-x='quiz:s' class='QR_'>
 					<span class='HT'>點擊展開</span>
-					<div data-o="O">unittest.TestCase</div>
-					<div data-o="X">test.TestCase</div>
-					<div data-o="X">TestCase.unittest</div>
-					<div data-o="X">TestCase.test</div>
+					<div data-o="X">assert_isInstance(self)</div>
+					<div data-o="X">eval_isInstance(self)</div>
+					<div data-o="O">test_isInstance(self)</div>
+					<div data-o="X">try_isInstance(self)</div>
 				</div>
-				) :
+			 	:
 			</div>
 			<div class='cb'>
-				<div class='QMix'>
-					def 
-					<div data-x='quiz:s' class='QR_'>
-						<span class='HT'>點擊展開</span>
-						<div data-o="X">assert_isInstance(self)</div>
-						<div data-o="X">eval_isInstance(self)</div>
-						<div data-o="O">test_isInstance(self)</div>
-						<div data-o="X">try_isInstance(self)</div>
-					</div>
-				 	:
-				</div>
-				<div class='cb'>
-					<div data-x='quiz:s' class='QR_'>
-						<span class='HT'>點擊展開</span>
-						<div data-o="O">self.assertIsInstance(obj, cls, msg=None)</div>
-						<div data-o="X">test.assertIsInstance(obj, cls, msg=None)</div>
-						<div data-o="X">this.assertIsInstance(obj, cls, msg=None)</div>
-					</div>
+				<div data-x='quiz:s' class='QR_'>
+					<span class='HT'>點擊展開</span>
+					<div data-o="O">self.assertIsInstance(obj, cls, msg=None)</div>
+					<div data-o="X">test.assertIsInstance(obj, cls, msg=None)</div>
+					<div data-o="X">this.assertIsInstance(obj, cls, msg=None)</div>
 				</div>
 			</div>
-			<br/>
-			<div>if __name__ == '__main__':</div>
-			<div class="cb">unittest.main()</div>
-		</div>
-	</div>
-	<!--}}}-->
-</section>
-
-<section data-ks='P_IO,Q_ITS'>
-	<!--{{{-->
-	<div data-x='quiz:c'>
-		請從每個下拉式清單中選取正確的選項以完成有關assert方法的敘述。
-		<div data-x='quiz:s'>
-			若要測試變數a與b的值是否相同,請使用:
-			<div data-o="O">assertEqual(a,b)</div>
-			<div data-o="X">assertTrue(x)</div>
-			<div data-o="X">assertIs(a,b)</div>
-			<div data-o="X">assertIn(a,b)</div>
 		</div>
 		<br/>
-		<div data-x='quiz:s'>
-			若要測試物件a與b是否相同,請使用:
-			<div data-o="X">assertEqual(a,b)</div>
-			<div data-o="X">assertTrue(x)</div>
-			<div data-o="O">assertIs(a,b)</div>
-			<div data-o="X">assertIn(a,b)</div>
-		</div>
-		<br/>
-		<div data-x='quiz:s'>
-			若要測試清單中是否存在某個值,請使用:
-			<div data-o="X">assertEqual(a,b)</div>
-			<div data-o="X">assertTrue(x)</div>
-			<div data-o="X">assertIs(a,b)</div>
-			<div data-o="O">assertIn(a,b)</div>
-		</div>
+		<div>if __name__ == '__main__':</div>
+		<div class="cb">unittest.main()</div>
 	</div>
-	<!--}}}-->
-</section>
+</div>
+</section><!--}}}-->
 
-<section data-ks='P_IO'>
-	<h2>裝置: 檔案系統</h2><!--{{{-->
-	<!--}}}-->
-</section>
-
-<section data-ks='P_IO,Q_ITS'>
-	<!--{{{-->
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	請從每個下拉式清單中選取正確的選項以完成有關assert方法的敘述。
 	<div data-x='quiz:s'>
-		執行下列程式，卻收到第03行的錯誤。請問造成此錯誤的原因是什麼?
-		<div class='frame'>
-			<div class='cb' style="position:relative">
-				<div>def read_file(file) :</div>
+		若要測試變數a與b的值是否相同,請使用:
+		<div data-o="O">assertEqual(a,b)</div>
+		<div data-o="X">assertTrue(x)</div>
+		<div data-o="X">assertIs(a,b)</div>
+		<div data-o="X">assertIn(a,b)</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		若要測試物件a與b是否相同,請使用:
+		<div data-o="X">assertEqual(a,b)</div>
+		<div data-o="X">assertTrue(x)</div>
+		<div data-o="O">assertIs(a,b)</div>
+		<div data-o="X">assertIn(a,b)</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		若要測試清單中是否存在某個值,請使用:
+		<div data-o="X">assertEqual(a,b)</div>
+		<div data-o="X">assertTrue(x)</div>
+		<div data-o="X">assertIs(a,b)</div>
+		<div data-o="O">assertIn(a,b)</div>
+	</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:s'>
+	執行下列程式，卻收到第03行的錯誤。請問造成此錯誤的原因是什麼?
+	<div class='frame'>
+		<div class='cb' style="position:relative">
+			<div>def read_file(file) :</div>
+			<div class="cb">
+				<div>line = None</div>
+				<div>if os.path.isfile(file) :</div>
 				<div class="cb">
-					<div>line = None</div>
-					<div>if os.path.isfile(file) :</div>
-					<div class="cb">
-						<div>data = open(file,  r)</div>
-						<div>for line in data :</div>
-						<div class="cb">print(line)</div>
-					</div>
-				</div>
-				<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06<br/>06</div>
-			</div>
-		</div>
-		<div data-o="X">path 方法不存在 os 物件中。</div>
-		<div data-o="X">isfile 方法不接受單一參數。</div>
-		<div data-o="X">isfile 方法不存在 path 物件中。</div>
-		<div data-o="O">您需要匯入 os 程式庫。</div>
-	</div>
-	<!--}}}-->
-</section>
-
-<section data-ks='P_IO,Q_ITS'>
-	<div data-x='quiz:s'>
-		<div>您正在為學校開發一個 Python 應用程式。</div>
-		<div>此應用程式必須讀取並寫入資料至文字檔案。</div>
-		<div>如果檔案不存在,此應用程式就必須建立檔案。</div>
-		<div>如果檔案含有內容,此應用程式就必須刪除內容。</div>
-		<div>請問您應該使用哪個程式碼片段?</div>
-		<div data-o="O">open('local_data', 'w+')</div>
-		<div data-o="X">open('local_data', 'r')</div>
-		<div data-o="X">open('local_data', 'r+')</div>
-		<div data-o="X">open('local_data', 'w')</div>
-	</div>
-</section>
-
-<section data-ks='P_IO,Q_ITS'>
-	<div data-x='quiz:c'>
-		<div>某間公司需要有人協助更新他們的檔案系統。</div>
-		<div>您必須建立一個執行下列動作的簡易檔案操作程式：<ul>
-			<li>使用指定的名稱建立檔案。</li>
-			<li>將'End of listing'這段片語附加至檔案。</li>
-		</ul></div>
-		<div class="frame cb">
-			<div>import os</div>
-			<div class='QMix'>
-				file =
-				<div data-x='quiz:s' class='QR_'>
-					<span class='HT'>點擊展開</span>
-					<div data-o='X'>open('myFile.txt','w')</div>
-					<div data-o='O'>open('myFile.txt','a')</div>
+					<div>data = open(file,  r)</div>
+					<div>for line in data :</div>
+					<div class="cb">print(line)</div>
 				</div>
 			</div>
-			<div class='QMix'>
-				<div data-x='quiz:s' class='QR_'>
-					<span class='HT'>點擊展開</span>
-					<div data-o="O">file.write</div>
-					<div data-o="X">file.add</div>
-				</div>
-				("End of listing")
-			</div>
-			<div>file.close()</div>
+			<div style="position:absolute;left:0;top:0;color:red;">01<br/>02<br/>03<br/>04<br/>05<br/>06<br/>06</div>
 		</div>
 	</div>
-</section>
+	<div data-o="X">path 方法不存在 os 物件中。</div>
+	<div data-o="X">isfile 方法不接受單一參數。</div>
+	<div data-o="X">isfile 方法不存在 path 物件中。</div>
+	<div data-o="O">您需要匯入 os 程式庫。</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:s'>
+	<div>您正在為學校開發一個 Python 應用程式。</div>
+	<div>此應用程式必須讀取並寫入資料至文字檔案。</div>
+	<div>如果檔案不存在,此應用程式就必須建立檔案。</div>
+	<div>如果檔案含有內容,此應用程式就必須刪除內容。</div>
+	<div>請問您應該使用哪個程式碼片段?</div>
+	<div data-o="O">open('local_data', 'w+')</div>
+	<div data-o="X">open('local_data', 'r')</div>
+	<div data-o="X">open('local_data', 'r+')</div>
+	<div data-o="X">open('local_data', 'w')</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>某間公司需要有人協助更新他們的檔案系統。</div>
+	<div>您必須建立一個執行下列動作的簡易檔案操作程式：<ul>
+		<li>使用指定的名稱建立檔案。</li>
+		<li>將'End of listing'這段片語附加至檔案。</li>
+	</ul></div>
+	<div class="frame cb">
+		<div>import os</div>
+		<div class='QMix'>
+			file =
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o='X'>open('myFile.txt','w')</div>
+				<div data-o='O'>open('myFile.txt','a')</div>
+			</div>
+		</div>
+		<div class='QMix'>
+			<div data-x='quiz:s' class='QR_'>
+				<span class='HT'>點擊展開</span>
+				<div data-o="O">file.write</div>
+				<div data-o="X">file.add</div>
+			</div>
+			("End of listing")
+		</div>
+		<div>file.close()</div>
+	</div>
+</div>
+</section><!--}}}-->
 
 <section data-ks='P_IO,Q_ITS'>
 	<div data-x='quiz:sort'>

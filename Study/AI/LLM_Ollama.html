@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<base target='_blank'/>
+<script src="/App/page.js"></script>
+<title>LLM: Ollama</title>
+</head>
+<body style='opacity:0'>
+
+<section><h2>(COLAB) 準備工作</h2><ol><!--{{{-->
+	<li>安裝 LangChain、ChromaDB 相關套件<ul>
+		<li>!pip install -U -q langchain langchain-community langchain-chroma langchain-ollama chromadb</li>
+	</ul></li>
+	<li>下載並在背景啟動 Ollama 服務<ol>
+		<li>安裝必要的解壓縮工具 zstd</li>
+		<li>!sudo apt-get update && sudo apt-get install -y zstd</li>
+	</ol></li>
+	<li>下載並安裝 Ollama<ol>
+	</ol></li>
+		<li>!curl -fsSL https://ollama.com/install.sh | sh</li>
+	</ul></li>
+</ol></section><!--}}}-->
+
+<section><h2>(COLAB) 撰寫程式</h2><div data-xl='code' style='white-space:nowrap;overflow:auto;'><!--{{{-->
+import subprocess
+import time
+import urllib.request
+
+print("正在啟動 Ollama 服務...")
+ollama_path = "/usr/local/bin/ollama"
+
+# 啟動背景服務並輸出至日誌
+with open("ollama.log", "w") as log_file:
+	process = subprocess.Popen(
+		[ollama_path, "serve"],
+		stdout=log_file,
+		stderr=log_file,
+		shell=False
+	)
+
+# 持續偵測 Ollama 服務是否已經完全就緒
+for i in range(30):
+	try:
+		# 嘗試連線 Ollama 本地埠
+		urllib.request.urlopen(<span class='red'>"http://127.0.0.1:11434"</span>, timeout=1)
+		print("\nOllama 服務已成功啟動並就緒！")
+		break
+	except Exception:
+		print(".", end="", flush=True)
+		time.sleep(1.5)
+else:
+	print("\n警告: 無法確認 Ollama 是否成功啟動，將嘗試繼續執行模型下載。")
+
+# 下載範例使用的 LLM 與 Embedding 模型
+print("正在下載 llama3 模型 (這可能需要幾分鐘)...")
+!/usr/local/bin/ollama pull llama3
+
+print("正在下載 nomic-embed-text 向量模型...")
+!/usr/local/bin/ollama pull nomic-embed-text
+</div></section><!--}}}-->
+<!--
+"""### 2. 互動式問答測試 (使用 `input()`)
+
+以下區塊允許您手動輸入問題，並直接透過 LangChain 呼叫本地的 `llama3` 模型來獲得解答。
+"""
+
+from langchain_ollama import OllamaLLM
+from langchain_core.prompts import PromptTemplate
+
+# 1. 初始化 Ollama LLM (llama3)
+llm = OllamaLLM(model="llama3", temperature=0)
+
+# 2. 提示使用者輸入問題
+user_question = input("請輸入您的問題: ")
+
+if user_question.strip():
+	print(f"正在為您向 llama3 諮詢: {user_question}\n")
+	# 使用先前已初始化的 llm 進行呼叫
+	res = llm.invoke(user_question)
+	print("--- llama3 回答結果 ---")
+	print(res)
+else:
+	print("請輸入有效的內容！")
+
+"""### 3. 建立 LangChain 向量資料庫（ChromaDB）
+
+接下來，我們準備一些文檔資料，並使用 Ollama 的 `nomic-embed-text` 將資料轉成向量後存入 ChromaDB。
+"""
+
+from langchain_ollama import OllamaEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_core.documents import Document
+
+# 1. 準備一些範例知識庫文檔
+docs = [
+	Document(page_content="Taiwan Semi-conductor Manufacturing Company (TSMC) 是全球最大的晶圓代工半導體製造廠，總部位於台灣新竹。", metadata={"source": "tsmc_info"}),
+	Document(page_content="Ollama 是一個可以在本地端輕鬆執行開源大型語言模型（如 Llama 3、Mistral）的工具。", metadata={"source": "ollama_info"}),
+	Document(page_content="LangChain 是一個用於構建大語言模型應用的開源框架，提供了記憶、鏈、代理以及檢索等功能。", metadata={"source": "langchain_info"})
+]
+
+# 2. 將文檔切分成較小的區塊 (Chunk)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=20)
+splits = text_splitter.split_documents(docs)
+
+# 3. 初始化 Ollama Embedding 模型 (使用最新 langchain-ollama 寫法)
+embeddings = OllamaEmbeddings(model="nomic-embed-text")
+
+# 4. 建立 Chroma 向量資料庫並儲存文檔向量
+vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
+print("ChromaDB 向量資料庫建立成功！")
+
+"""### 4. 實作 RAG 檢索與問答
+
+我們將 ChromaDB 作為檢索器 (Retriever)，並搭配 `llama3` 進行問答。
+"""
+
+from langchain_ollama import OllamaLLM
+from langchain_core.prompts import PromptTemplate
+
+# 1. 初始化 Ollama LLM (llama3)
+<div># llm = OllamaLLM(<span class='red'>model</span>="llama3", <span class='red'>temperature</a>=0)</div>
+
+# 2. 定義問題與執行手動檢索 (避免使用容易出現 ModuleNotFoundError 的 langchain.chains)
+query = "什麼是 Ollama？"
+print(f"問題: {query}\n")
+
+# 3. 從建立好的 Chroma 向量資料庫中搜尋最相似的文檔
+retrieved_docs = vectorstore.similarity_search(query, k=1)
+context_text = "\n".join([doc.page_content for doc in retrieved_docs])
+print(f"[檢索到的文檔內容]:\n{context_text}\n")
+
+# 4. 設計乾淨的 PromptTemplate
+template = """請僅根據以下提供的檢索內容來回答問題。如果你不知道答案，就說你不知道。
+
+檢索內容：
+{context}
+
+問題：
+{question}
+
+回答："""
+
+prompt = PromptTemplate(template=template, input_variables=["context", "question"])
+
+# 5. 結合上下文，生成最終答覆
+formatted_prompt = prompt.format(context=context_text, question=query)
+response = llm.invoke(formatted_prompt)
+
+print("--- 最終生成結果 ---")
+print(response)
+-->
+</body>
+</html>
