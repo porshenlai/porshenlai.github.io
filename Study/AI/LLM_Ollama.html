@@ -24,7 +24,10 @@
 	</ul></li>
 </ol></section><!--}}}-->
 
-<section><h2>(COLAB) 撰寫程式</h2><div data-xl='code' style='white-space:nowrap;overflow:auto;'><!--{{{-->
+<section><h2>(COLAB) 撰寫程式</h2>
+<button data-h='play:code:Hello'>TEST
+ABC</button>
+<div data-xl='code' style='white-space:nowrap;overflow:auto;'><!--{{{-->
 import subprocess
 import time
 import urllib.request
@@ -61,12 +64,10 @@ print("正在下載 llama3 模型 (這可能需要幾分鐘)...")
 print("正在下載 nomic-embed-text 向量模型...")
 !/usr/local/bin/ollama pull nomic-embed-text
 </div></section><!--}}}-->
-<!--
-"""### 2. 互動式問答測試 (使用 `input()`)
 
-以下區塊允許您手動輸入問題，並直接透過 LangChain 呼叫本地的 `llama3` 模型來獲得解答。
-"""
-
+<section><h2>(COLAB) 互動式問答測試</h2><ul><!--{{{-->
+<li>手動輸入問題，並直接透過 LangChain 呼叫本地的 `llama3` 模型來獲得解答。</li>
+<li><div data-xl='code'>
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import PromptTemplate
 
@@ -84,12 +85,12 @@ if user_question.strip():
 	print(res)
 else:
 	print("請輸入有效的內容！")
+</div></li>
+</ul></section><!--}}}-->
 
-"""### 3. 建立 LangChain 向量資料庫（ChromaDB）
-
-接下來，我們準備一些文檔資料，並使用 Ollama 的 `nomic-embed-text` 將資料轉成向量後存入 ChromaDB。
-"""
-
+<section><h2>(COLAB) ChromaDB: RAGs</h2><ul><!--{{{-->
+<li>準備文檔資料，並使用 Ollama 的 `nomic-embed-text` 將資料轉成向量後存入 ChromaDB。</li>
+<li><div data-xl='code'>
 from langchain_ollama import OllamaEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
@@ -112,12 +113,12 @@ embeddings = OllamaEmbeddings(model="nomic-embed-text")
 # 4. 建立 Chroma 向量資料庫並儲存文檔向量
 vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
 print("ChromaDB 向量資料庫建立成功！")
+</div></li>
+</ul></section><!--}}}-->
 
-"""### 4. 實作 RAG 檢索與問答
-
-我們將 ChromaDB 作為檢索器 (Retriever)，並搭配 `llama3` 進行問答。
-"""
-
+<section><h2>(COLAB) RAG 檢索與問答</h2><ul><!--{{{-->
+<li>使用 ChromaDB 作為檢索器 (Retriever)，並搭配 `llama3` 進行問答。</li>
+<li><div data-xl='code'>
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import PromptTemplate
 
@@ -152,6 +153,8 @@ response = llm.invoke(formatted_prompt)
 
 print("--- 最終生成結果 ---")
 print(response)
--->
+</div></li>
+</ul></section><!--}}}-->
+
 </body>
 </html>
