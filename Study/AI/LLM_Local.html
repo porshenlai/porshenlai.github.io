@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
-<title></title>
+<title>LLM 系統整合實作</title>
 </head>
-<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+<body style='opacity:0'>
 
 <section class='page col'>
 	<div style='text-align:center'>
-		<div class='h1'>地端 AI 系統整合實作</div>
+		<div class='h1'>LLM 系統整合實作</div>
 	</div>
 	<br/>
 	<div class='frame'>
@@ -21,129 +21,163 @@
 	</div>
 </section>
 
-<section class='page col'>
-	<h2>導覽地圖</h2>
-	<div class='fill'>
-		<table width='95%' align='center' border='1' cellspacing='8' cellpadding='8'><tr>
-			<td valign='top' width='50%'><b>1. 地端 LLM 安裝部署</b><ul>
-				<li>Ollama + Gemma</li>
-				<li>私有雲 vs. 公有雲資安架構</li>
-				<li>Ollama 安裝部署、Gemma 模型量化（Q4/Q8）與 VRAM 硬體調優。</li>
-				<li>Python REST API / LangChain 串接。</li>
-			</ul></td>
-			<td valign='top' width='50%'><b>2. 地端模型 PEFT / QLoRA 微調 (Fine-Tuning)</b><ul>
-				<li>何時用 RAG、何時用 Fine-tuning（開卷考試 vs 習慣養成）。
-				<li>使用 Unsloth 在 8GB VRAM 顯卡上微調 Gemma 輸出標準金融 JSON。</li>
-				<li>導出 GGUF 檔並打包寫入 Ollama Modelfile。</li>
-			</ul></td>
-		</tr><tr>
-			<td valign='top'><b>3. RAG 檢索實作</b><ul>
-				<li>Chunking 策略、Embedding 高維空間與地端向量庫（ChromaDB）。</li>
-				<li>金融/股票 PDF 解析與 Metadata 標籤設計。</li>
-				<li>帶有引用頁碼（Citation）的檢索與生成。</li>
-			</ul></td>
-			<td valign='top'><b>4. 安全系統 (Safety Guardrails)</b><ul>
-				<li><b>輸入防線：</b> PII 去敏（身分證遮蔽）與 Prompt Injection 阻絕。</li>
-				<li><b>檢索防線：</b> RAG Metadata 權限隔離（RBAC）。</li>
-				<li><b>模型與輸出防線：</b> System Prompt 約束與金融違規詞彙（保證獲利）自動攔截與修飾。</li>
-			</ul></td>
-		</tr><tr>
-			<td valign='top'><b>5. UI/UX &amp; Integration</b><ul>
-				<li>透過 Vibe-Coding 打造可互動的「AI 投研/授信助理」介面。</li>
-			</ul></td>
-			<td valign='top'><b>6. 效能評估</b><ul>
-				<li>RAG 準確度與微調前後效果的量化評估方法。</li>
-			</ul></td>
-		</tr></table>
-	</div>
-</section>
+<section data-ks='zh'><h2>導覽地圖</h2><ol><!--{{{-->
+<li class='fold'><span class='h3' data-h='fold'>地端 LLM 安裝部署</span><ul>
+	<li>本地端系統 (Ollama) + 語言模型 (Gemma)</li>
+	<li>私有雲 vs. 公有雲資安架構</li>
+	<li>Ollama 安裝部署</li>
+	<li>模型選擇</li>
+	<li>Restful API + LangChain 串接</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>RAG 檢索實作</span><ul>
+	<li>Chunking 策略、Embedding 高維空間與地端向量庫（ChromaDB）。</li>
+	<li>金融/股票 PDF 解析與 Metadata 標籤設計。</li>
+	<li>帶有引用頁碼（Citation）的檢索與生成。</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>地端模型 PEFT / QLoRA 微調 (Fine-Tuning)</span><ul>
+	<li>何時用 RAG、何時用 Fine-tuning（開卷考試 vs 習慣養成）。
+	<li>使用 Unsloth 在 8GB VRAM 顯卡上微調 Gemma 輸出標準金融 JSON。</li>
+	<li>導出 GGUF 檔並打包寫入 Ollama Modelfile。</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>安全系統 (Safety Guardrails)</span><ul>
+	<li><b>輸入防線：</b> PII 去敏（身分證遮蔽）與 Prompt Injection 阻絕。</li>
+	<li><b>檢索防線：</b> RAG Metadata 權限隔離（RBAC）。</li>
+	<li><b>模型與輸出防線：</b> System Prompt 約束與金融違規詞彙（保證獲利）自動攔截與修飾。</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>UI/UX &amp; 系統整合</span><ul>
+	<li>透過 Vibe-Coding 打造可互動的「AI 投研/授信助理」介面。</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>效能評估</span><ul>
+	<li>RAG 準確度與微調前後效果的量化評估方法。</li>
+</ul></li>
+</ol></section><!--}}}-->
 
-<section class='page col'>
-  <h2>Ollama vs. Hugging Face</h2>
-  <div class='fill'><ul>
-    <li>Hugging Face<ul>
-      <li>The Cloud Platform & Ecosystem</li>
-      <li>Central Hub / Repository</li>
-      <li>Cloud Inference APIs & Hosted Endpoints</li>
-      <li>Think of Hugging Face as <b>the GitHub + AWS for AI</b>:<ul>
-        <li><b>Cloud Storage (Hub):</b> It hosts millions of model files, datasets, and code repositories contributed by Google, Meta, Microsoft, and community researchers.</li>
-        <li><b>Cloud Services (Inference APIs):</b> If you don't want to run a model on your local computer, Hugging Face lets you run models on *their* cloud GPUs via HTTP API requests (paying per token or per server hour).</li>
-      </ul></li>
-     </ul></li>
-    <li>Ollama<ul>
-      <li>The Local Desktop Application</li>
-      <li>Think of Ollama as <b>the local engine / local runner</b>:<ul>
-        <li><b>Desktop Application:</b> It installs directly on a local PC/Mac and manages local GPU/CPU hardware.</li>
-        <li><b>Offline Execution:</b> It downloads model files (which originated on Hugging Face) onto the computer's hard drive and runs them 100% offline.</li>
-        <li><b>Local API:</b> It provides a local web server (http://localhost:11434) so local Python scripts or LangChain applications can talk to the model without touching the internet.</li>
-      </ul></li>
-      <li>Pulls Model Files (.gguf) from HuggingFace</li>
-    </ul></li>
-    <li>How They Work Hand-in-Hand in Development</li>
-    <li>When developers build AI applications, they often move between both platforms:<ol>
-      <li><b>Discovery (Hugging Face):</b> A developer goes to Hugging Face to read model benchmarks, test a live web demo, and find a quantized version of a model (like gemma2:2b).</li>
-      <li><b>Local Deployment (Ollama):</b> The developer uses Ollama on their desktop to pull that model file down from the cloud and run it locally.</li>
-      <li><b>App Integration (LangChain):</> The developer writes a Python program (like a RAG system) that sends requests to Ollama running locally on their PC.</li>
-      <li><b>Cloud Scaling (Hugging Face - Optional):</b> If the application grows and needs to be deployed to thousands of online web users, the developer might upload the fine-tuned model back to Hugging Face and host it using Hugging Face's Cloud Inference Endpoints.</li>   
-    </ol></li>
-  </ul>
-</section>
+<section data-ks='en'><h2>Ollama vs. Hugging Face</h2><ul><!--{{{-->
+<li class='fold'><span class='h3' data-h='fold'>Hugging Face</span><ul>
+	<li>The Cloud Platform &amp; Ecosystem</li>
+	<li>Central Hub / Repository</li>
+	<li>Cloud Inference APIs &amp; Hosted Endpoints</li>
+	<li>Think of Hugging Face as <b>the GitHub + AWS for AI</b>:<ul>
+		<li><b>Cloud Storage (Hub):</b> It hosts millions of model files, datasets, and code repositories contributed by Google, Meta, Microsoft, and community researchers.</li>
+		<li><b>Cloud Services (Inference APIs):</b> If you don't want to run a model on your local computer, Hugging Face lets you run models on *their* cloud GPUs via HTTP API requests (paying per token or per server hour).</li>
+	</ul></li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>Ollama</span><ul>
+	<li>The Local Desktop Application</li>
+	<li>Think of Ollama as <b>the local engine / local runner</b>:<ul>
+		<li><b>Desktop Application:</b> It installs directly on a local PC/Mac and manages local GPU/CPU hardware.</li>
+		<li><b>Offline Execution:</b> It downloads model files (which originated on Hugging Face) onto the computer's hard drive and runs them 100% offline.</li>
+		<li><b>Local API:</b> It provides a local web server (http://localhost:11434) so local Python scripts or LangChain applications can talk to the model without touching the internet.</li>
+	</ul></li>
+	<li>Pulls Model Files (.gguf) from HuggingFace</li>
+</ul></li>
+<li class='fold'><span data-h='fold'>When developers build AI applications, they often move between both platforms:</span><ol>
+	<li><b>Discovery (Hugging Face):</b> A developer goes to Hugging Face to read model benchmarks, test a live web demo, and find a quantized version of a model (like gemma2:2b).</li>
+	<li><b>Local Deployment (Ollama):</b> The developer uses Ollama on their desktop to pull that model file down from the cloud and run it locally.</li>
+	<li><b>App Integration (LangChain):</> The developer writes a Python program (like a RAG system) that sends requests to Ollama running locally on their PC.</li>
+	<li><b>Cloud Scaling (Hugging Face - Optional):</b> If the application grows and needs to be deployed to thousands of online web users, the developer might upload the fine-tuned model back to Hugging Face and host it using Hugging Face's Cloud Inference Endpoints.</li>   
+</ol></li>
+</ul></section><!--}}}-->
+
+<section data-ks='zh'><h2>Ollama 與 Hugging Face</h2><ul><!--{{{-->
+<li class='fold'><span class='h3' data-h='fold'>Hugging Face</span><ul>
+	<li>雲端平台 &amp; 生態系統</li>
+	<li>Central Hub / Repository</li>
+	<li>雲端推論應用程式界面 &amp; 服務端點</li>
+	<li>可以將 Hugging Face 想成是  <b>the GitHub + AWS for AI</b>:<ul>
+		<li><b>雲端空間 (Hub):</b> 它存放了 Google，Meta，Microsoft，以及社群研究者提供的數百萬個模型檔案，資料集，以及程式庫.</li>
+		<li><b>雲端服務 (推論 APIs):</b> 如果不想要在本地主機執行模型，Hugging Face 讓你可以透過 HTTP API 請求來使用在他們的雲端 CPU (依據 token 使用量或時間計費).</li>
+	</ul></li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>Ollama</span><ul>
+	<li>本地桌機應用程式</li>
+	<li>可以將 Ollama 想成是本地的引擎或執行裝置</b>:<ul>
+		<li><b>桌面應用:</b> 安裝於本地電腦並管理本機 GPU/CPU 的硬體.</li>
+		<li><b>離線運行:</b> 下載源自 Hugging Face 的模型檔案到電腦的硬碟，所以可以 100% 離線運行.</li>
+		<li><b>本地應用程式界面:</b> Ollama 提供本機的網頁伺服器 (http://localhost:11434). 因此本地的 Python 腳本或 LangChain 的應用程式可以不必透過網際網路與模型溝通.</li>
+	</ul></li>
+	<li>自 HuggingFace 下載模型檔案 (.gguf)</li>
+</ul></li>
+<li class='fold'><span data-h='fold'>當開發者建構 AI 應用時，常會在雙平台間頻繁轉移:</span><ol>
+	<li><b>發現 (Hugging Face):</b> 開發者在 Hugging Face 閱讀模型的評量數據(benchmark)，測試即時的網頁示範，以及尋找不同規模的模型.</li>
+	<li><b>本地開發 (Ollama):</b> 開發者使用 Ollama 將雲端上的模型下載到本地主機並本地運行.</li>
+	<li><b>應用程式整合 (LangChain):</> 開發者撰寫發送請求至本地運行 Ollama 的 Python 程式 (例如 RAG 系統 ).</li>
+	<li><b>雲端機動調整 (Hugging Face):</b> 當應用成長到需要服務數千網頁使用者時，開發者可以上傳它門微調好的模型回 Hugging Face，並使用 Hugging Face 的推論節點提供服務。</li>   
+</ol></li>
+</ul></section><!--}}}-->
   
-<section>
-  <h2>Ollama vs Gemma</h2>
-  <div class='fill'>
-    <div>The Video Game Analogy</div>
-    <table border='1' cellspacing='0' cellpadding='8' width='95%' align='center'>
-      <tr><th>Component</th><th>Analogy</th><th>Real World</th></tr>
-      <tr><td>Gemma</td><td>The Game Disc / ROM Data</td><td>Trained Data (Weights)</td></tr>
-			<tr><td colspan='3'>It contains billions of numbers (mathematical parameters) learned during training. It is passive data and **cannot execute itself**.</td></tr>
-			<tr><td>Ollama</td><td>The Game Console</td><td>The Software Program / Engine</td></tr>
-			<tr><td colspan='3'>It is the actual executable program (.exe) written in Go/C++. It loads Gemma's data into RAM/VRAM, does the math, and handles network APIs.</td></tr>
-    </table>
-	</div>
-</section>
+<section data-ks='en'><h2>Ollama vs Gemma</h2><ul><!--{{{-->
+<li>The Video Game Analogy</li>
+<li class='fold'><span class='h3' data-h='fold'>Ollama</span><ul>
+	<li><b>Analogy:</b> The Game Console</li>
+	<li><b>Real World:</b> The Software Program / Engine</li>
+	<li>It is the actual executable program (.exe) written in Go/C++. It loads Gemma's data into RAM/VRAM, does the math, and handles network APIs.</li>
+	<li>What is Ollama ?<ul>
+		<li>Ollama is an <b>execution engine and web server</b>. When you type ollama run gemma2:2b, Ollama performs the following steps:<ol>
+ 			<li><b>Loads the File:</b> Reads the gemma2:2b weight file from your hard drive into your computer's RAM or GPU VRAM.</li>
+			<li><b>Runs the Math:</b> Uses C++ / CUDA code (via llama.cpp under the hood) to calculate matrix multiplications using those weights.</li>
+			<li><b>Exposes the Interface:</b> Provides a CLI (terminal interface) and a local REST API (http://localhost:11434) so external programs like LangChain or web browsers can talk to it.</li>
+		</ol</li>
+	</ul></li>
+	<li>The core "program logic" (algorithm) across almost all Large Language Models is virtually identical. What makes GPT-4, Llama 3, Gemma, and Mistral different from one another is almost 100% the trained parameters (weights) and datasets.</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>Gemma</span><ul>
+	<li><b>Analogy:</b> The Game Disc / ROM Data</li>
+	<li><b>Real World:</b> Trained Data (Weights)</li>
+	<li>It contains billions of numbers (mathematical parameters) learned during training. It is passive data and <em>cannot execute itself</em>.</li>
+	<li>What is Gemma ?<ul>
+		<li>Gemma is essentially a large binary file (usually in .gguf format) containing <b>matrices of floating-point numbers</b> (called "weights" or "parameters").</li>
+ 		<li>A 2-billion parameter model (gemma2:2b) contains roughly 2 billion numbers that represent the model's "knowledge" and language patterns.</li>
+ 		<li>It has no code, no logic, and no running processes. It is pure static data.</li>
+	</ul></li>
+	<li>Gemma is the "brain/knowledge" (data), while Ollama is the "body/engine" (program) that makes the brain think and speak.</li>
+</ul></li>
+</ul></section><!--}}}-->
 
-<section>
-  <h2>Ollama vs Gemma</h2>
-	<div class='fill'><ul>
-		<li>What is Gemma ?<ul>
-			<li>Gemma is essentially a large binary file (usually in .gguf format) containing <b>matrices of floating-point numbers</b> (called "weights" or "parameters").</li>
- 			<li>A 2-billion parameter model (gemma2:2b) contains roughly 2 billion numbers that represent the model's "knowledge" and language patterns.</li>
- 			<li>It has no code, no logic, and no running processes. It is pure static data.</li>
-		</ul></li>
-		<li>What is Ollama ?<ul>
-			<li>Ollama is an <b>execution engine and web server</b>. When you type ollama run gemma2:2b, Ollama performs the following steps:<ol>
- 				<li><b>Loads the File:</b> Reads the gemma2:2b weight file from your hard drive into your computer's RAM or GPU VRAM.</li>
-				<li><b>Runs the Math:</b> Uses C++ / CUDA code (via llama.cpp under the hood) to calculate matrix multiplications using those weights.</li>
-				<li><b>Exposes the Interface:</b> Provides a CLI (terminal interface) and a local REST API (http://localhost:11434) so external programs like LangChain or web browsers can talk to it.</li>
-			</ol</li>
-		</ul></li>
-		<li>The core "program logic" (algorithm) across almost all Large Language Models is virtually identical. What makes GPT-4, Llama 3, Gemma, and Mistral different from one another is almost 100% the trained parameters (weights) and datasets.</li>
-		<li><b>Gemma is the "brain/knowledge" (data), while Ollama is the "body/engine" (program) that makes the brain think and speak.</b></li>
-  </div>
-</section>
+<section data-ks='zh'><h2>Ollama 與 Gemma</h2><ul><!--{{{-->
+<li class='fold'><span class='h3' data-h='fold'>Ollama</span><ul>
+	<li><b>遊戲機比喻:</b> 遊戲主機</li>
+	<li><b>真實世界角色:</b> 軟體程式/引擎</li>
+	<li>它是實際以 Go 或 C++ 語言開發的真實應用程式(.exe)。它將 Gemma 的資料載入至 RAM/VRAM 中，進行數學計算並管理網路應用程式界面</li>
+	<li>Ollama 是一個<b>執行引擎與網頁伺服器</b>。當你輸入 ollama run gemma2:2b 時，Ollama 執行下列步驟:<ol>
+ 		<li><b>載入模型檔案:</b> 自硬碟讀取 gemma2:2b 權重檔案並將其載入至電腦記憶體或 GPU 的顯卡記憶體。</li>
+		<li><b>進行數學計算:</b> 運行 C++/CUDA 程式碼來與這些權重進行矩陣乘法。</li>
+		<li><b>提供使用界面:</b> 提供終端機界面 (CLI) 與 本地 RESTful API (http://localhost:11434) 供外部程式(例如 LangChain) 或網頁與模型交談。</li>
+	</ol</li>
+	<li>各大語言模型的程式邏輯（演算法）幾乎是一樣的。因此 GPT-4, Llama 3, and Mistral 相互的差異幾乎 100% 都在學習參書(權重) 與資料集。</li>
+	<li>Ollama 是讓腦可以思考與講話的 身體/引擎(程式)</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>Gemma</span><ul>
+	<li><b>遊戲機比喻:</b> 遊戲碟片/ROM 資料</li>
+	<li><b>真實世界角色:</b> 訓練學得的資料(權重)</li>
+	<li>包含了億萬個透過學習產生數值(數值參數)。屬於被動資料，不能自己執行。</li>
+	<li>Gemma 實質上是一個大型的二位元檔案（常以 .gguf 格式封裝）。檔案包含<b>浮點數值的矩陣</b>（稱為權重或參數）。</li>
+ 	<li>一個兩億參數模型 (gemma2:2b) 包含大約兩億個代表模型知識與語言樣板的數值。</li>
+ 	<li>沒有程式，沒有邏輯，沒有運行的程序。純粹的靜態資料。</li>
+	<li>Gemma 是 腦/知識(資料)</li>
+</ul></li>
+</ul></section><!--}}}-->
   
-<section>
-  <h2>LangChain: How it works ?</h2>
-  <div class='fill'>
-    <table width='95%' align='center'>
-      <tr><th class='frame'>Your Python Code / LangChain</th></tr>
-      <tr><th>▼ Sends HTTP API Request (JSON) ▼</th></tr>
-      <tr><th class='frame'>Ollama Local Server<div style='font-size:50%;'>(Provides REST API at http://localhost:11434)</div></th></tr>
-      <tr><th>▼ Loads weights into VRAM/RAM &amp; runs inference ▼</th></tr>
-      <tr><th class='frame'>Gemma 2 Model File<div style='font-size:50%;'>(The raw neural network weights, e.g., GGUF)</div></th></tr>
-    </table>
-    <ol>
-      <li><b>Gemma</b> is just a "passive" file of neural network weights (like a .gguf file). It cannot run by itself or serve web requests.</li>
-      <li><b>Ollama</b> acts as the "engine and web server". When Ollama runs in the background, it hosts a local REST API endpoint on your machine at http://localhost:11434.</li>
-      <li><b>LangChain</b> communicates with Ollama's local REST API endpoint using Python.</li>
-    </ol>
-    <h3>Simple Python Example:</h3>
-    <div>Connecting LangChain to Ollama + Gemma</div>
-    <pre># Install required modules:
-pip install langchain-ollama langchain-core
+<section><h2>LangChain: How it works ?</h2><!--{{{-->
+<div data-h='install:mermaid' class='button'>繪製示意圖<textarea data-v='value:raw'>
+flowchart TB
+C["Python Program<br/>LangChain"]
+O["Ollama Local Server<br/>RESTful API(:11434)"]
+C -->|"Sends HTTP API Request (JSON)"| O
+M["LLM Model File (ex:GGUF)<br/>(The raw neural network weights)"]
+O -->|"loads weights into VRAM/RAM<br/>runs inference"| M
+</textarea></div>
+<ul>
+	<li><b>Gemma</b> is just a "passive" file of neural network weights (like a .gguf file). It cannot run by itself or serve web requests.</li>
+	<li><b>Ollama</b> acts as the "engine and web server". When Ollama runs in the background, it hosts a local REST API endpoint on your machine at http://localhost:11434.</li>
+	<li><b>LangChain</b> communicates with Ollama's local REST API endpoint using Python.</li>
+</ul>
+</section><!--}}}-->
 
-# the Python Program
+<section><h2>LangChain Example</h2><div data-xl='code'><!--{{{-->
+# Install required modules:
+# !pip install langchain-ollama langchain-core
+
 from langchain_ollama import OllamaLLM
 
 # 1. Connect LangChain to your local Ollama instance running Gemma
@@ -154,8 +188,8 @@ llm = OllamaLLM(model="gemma2:2b")
 prompt = "Please explain what an LLM is in 2 simple sentences in Traditional Chinese."
 response = llm.invoke(prompt)
 
-print(response)</pre>
-</section>
+print(response)
+</div></section><!--}}}-->
   
 <section class='page col'>
 	<h2>💻 Ollama + Gemma 快速安裝與體驗</h2>
@@ -992,7 +1026,7 @@ if __name__ == "__main__":
 擴充結構化輸出： 修改 Prompt 讓 Gemma 輸出 JSON 格式（例如：{"risk_level": "High", "reasons": [...]}），體會自動化串接銀行後台系統的實務流程。
 }}} -->
 
-</div></main></body>
+</body>
 </html>
 
 
