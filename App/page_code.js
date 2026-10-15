@@ -69,7 +69,7 @@ class ICode
 
 			let success = document.execCommand('copy');
 			selection.removeAllRanges();
-			console.log(success ? "Copied" : "Copy failed");
+			alert(success ? "Copied" : "Copy failed");
 		} catch (err) {
 			console.error("Copy operation failed: ", err);
 		} finally {

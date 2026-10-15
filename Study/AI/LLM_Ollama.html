@@ -24,9 +24,11 @@
 	</ul></li>
 </ol></section><!--}}}-->
 
-<section><h2>(COLAB) 撰寫程式</h2>
-<button data-h='call:code:copy' data-se='<[data-xl="code"]'>TEST</button>
-<div data-xl='code' style='white-space:nowrap;overflow:auto;'><!--{{{-->
+<section><h2>(COLAB) 撰寫程式</h2><!--{{{-->
+<div class='ar'>
+	<button data-h='call:code:copy' data-se='<<[data-xl="code"]'>複製</button>
+</div>
+<div data-xl='code' style='white-space:nowrap;overflow:auto;'>
 import subprocess
 import time
 import urllib.request
@@ -66,7 +68,9 @@ print("正在下載 nomic-embed-text 向量模型...")
 
 <section><h2>(COLAB) 互動式問答測試</h2><ul><!--{{{-->
 <li>手動輸入問題，並直接透過 LangChain 呼叫本地的 `llama3` 模型來獲得解答。</li>
-<li><div data-xl='code'>
+<li><div class='ar'>
+	<button data-h='call:code:copy' data-se='<<[data-xl="code"]'>複製</button>
+</div><div data-xl='code'>
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import PromptTemplate
 
@@ -89,7 +93,9 @@ else:
 
 <section><h2>(COLAB) ChromaDB: RAGs</h2><ul><!--{{{-->
 <li>準備文檔資料，並使用 Ollama 的 `nomic-embed-text` 將資料轉成向量後存入 ChromaDB。</li>
-<li><div data-xl='code'>
+<li><div class='ar'>
+	<button data-h='call:code:copy' data-se='<<[data-xl="code"]'>複製</button>
+</div><div data-xl='code'>
 from langchain_ollama import OllamaEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
@@ -117,7 +123,9 @@ print("ChromaDB 向量資料庫建立成功！")
 
 <section><h2>(COLAB) RAG 檢索與問答</h2><ul><!--{{{-->
 <li>使用 ChromaDB 作為檢索器 (Retriever)，並搭配 `llama3` 進行問答。</li>
-<li><div data-xl='code'>
+<li><div class='ar'>
+	<button data-h='call:code:copy' data-se='<<[data-xl="code"]'>複製</button>
+</div><div data-xl='code'>
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import PromptTemplate
 

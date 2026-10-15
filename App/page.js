@@ -67,7 +67,7 @@ changeRoot: function (doc, url)
 	);
 },// change root }}}
 
-switchElement: function ()
+switchElement: function (elem)
 {
 	elem = elem || event.target;
 	if (elem.dataset.se) {
