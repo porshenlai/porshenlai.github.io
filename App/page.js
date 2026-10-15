@@ -65,8 +65,18 @@ changeRoot: function (doc, url)
 	Array.from(doc.querySelectorAll('section')).forEach(
 		(e)=>(e.dataset.rbase=url.href)
 	);
-}	// change root }}}
+},// change root }}}
 
+switchElement: function ()
+{
+	elem = elem || event.target;
+	if (elem.dataset.se) {
+		let se=elem.dataset.se;
+		while (se.startsWith('<')){ elem=elem.parentNode; se=se.substr(1); }
+		elem = elem.querySelector(se) || elem;
+	}
+	return elem;
+}
 };
 
 Apps.Ready = (() => {
@@ -558,7 +568,10 @@ class Player
 	{	// {{{
 		try {
 			if (fn in Apps) return Apps[fn](...args);
-			if (fn in this.Content.Xs) this.Content.Xs[fn].then((f)=>f(this.Content, event.target, ...args));
+			if (fn in this.Content.Xs)
+				this.Content.Xs[fn].then(
+					(f)=>f(this.Content, Apps.switchElement(), ...args)
+				);
 		} catch(x) { console.log(x); }
 	}	// }}}
 

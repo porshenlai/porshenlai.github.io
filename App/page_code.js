@@ -28,14 +28,6 @@ class ICode
 				return e;
 			})(document.createElement('div')));
 		}
-		elem.addEventListener('ModCMD', (event)=>{
-			if (event.detail.task in this)
-				this[event.detail.task](...(event.detail.args || []));
-		});
-	}
-	command (cmd) {
-		const cmdEvt = new CustomEvent('ModCMD',{detail:cmd});
-		this.E.dispatchEvent(cmdEvt);
 	}
 	syntax (on=true) {
 		Array.from(this.E.childNodes).forEach((e)=>{
@@ -62,11 +54,11 @@ class ICode
 		:	undefined;
 	}
 	copy () {
-		const tarea = document.createElement("textarea");
+		let buf = '';
 		for (let e=this.E.firstChild; e; e=e.nextSibling) if (e.nodeType===1)
-			tarea.value+='\t'.repeat(e.dataset.level)+e.textContent+'\n';
-
-		console.log(tarea.value);
+			buf+='\t'.repeat(e.dataset.level)+e.textContent+'\n';
+		const tarea = document.createElement("pre");
+		tarea.textContent=buf;
 		try {
 			document.body.appendChild(tarea);
 			const selection = window.getSelection();
@@ -87,15 +79,11 @@ class ICode
 }
 
 SCRIPT.value=async function (slide, elem, args) {
-	if (elem.dataset.se) {
-		let se=elem.dataset.se;
-		while (se.startsWith('<')){ elem=elem.parentNode; se=se.substr(1); }
-		elem = elem.querySelector(se);
-	}
 	const IC = new ICode(elem);
-	if (args)
-		IC.command({ task: args });
-	else IC.syntax();
+	if (args) {
+		if (args in IC)
+			IC[args].call(IC);
+	} else IC.syntax();
 };
 
 
