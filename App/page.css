@@ -57,7 +57,7 @@ section.fs { height:100%; border:0; border-radius:0; margin:0; padding:0; }
 
 [data-def] { display:none; }
 
-.zcs {
+.zcs,.zcs2 {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(240px,2fr));
 	justify-content: space-around;
@@ -67,7 +67,7 @@ section.fs { height:100%; border:0; border-radius:0; margin:0; padding:0; }
 
 @media (max-aspect-ratio: 1/1) {
 	main { flex-flow: column nowrap; }
-	.zcs { grid-template-columns: repeat(1, minmax(240px,1fr)); }
+	.zcs,.zcs2 { grid-template-columns: repeat(1, minmax(240px,1fr)); }
 }
 
 @media (min-aspect-ratio: 1.8/1) {
