@@ -29,7 +29,7 @@
 <section data-xl='import:Music_CodeAndData.html'><h2>♫ 資料與程序</h2></section>
 
 <section> <h2>輸入 程序 資料 輸出</H2> <!--{{{-->
-<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
 	P[程序<br/>Procedure] --> O[輸出<br/>Output]
 	I[輸入<br/>Input] --> P
 	D[資料<br/>Data] <--> P
@@ -37,7 +37,7 @@
 </section> <!--}}}-->
 
 <section> <h2>流程</h2> <!--{{{-->
-<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
 	I[進口<br/>碼頭] --> PA[進口<br/>報關行] --> P[工廠] --> PZ[出口<br/>報關行] --> O[出口<br/>碼頭]
 	PA -->|DMA| S[倉庫]
 	P <-->|變數<br/>存取| S
@@ -52,7 +52,7 @@
 </section> <!--}}}-->
 
 <section> <h2>終端機: 標準輸入 / 標準輸出</h2> <!--{{{-->
-<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
 	subgraph "程序"
 		direction TB
 		PI["Python 解譯器"] 
@@ -84,7 +84,7 @@
 </section> <!--}}}-->
 
 <section> <h2>終端機 / 殼層 / 解譯器 / 作業系統</h2> <!--{{{-->
-<div data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
 	U("使用者") -->|"輸入"| K("鍵盤") -->|stdin| T["終端機<br/>Terminal"] -->|"input()"| I["Python<br/>解翻器"]
 	I -->|"print()"| T -->|stdout| W("視窗") -->|"顯示"| U
 	T -->|read| S["殼層<br/>Shell"] -->|執行| I
@@ -137,14 +137,14 @@ print(sys.argv)</pre></div>程式輸出<div class='frame al'><pre>['sample232.py
 <div>
 	<hr/>
 	<div class='desc'>⚙️ 讀取一行字串（含結尾換行去除）</div>
-<div data-id='0' data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+<div data-id='0' data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
 	U("使用者") -->|"輸入"| F["input(提示字串)"] -->|"返回"| R("輸入的字串")
 </textarea></div>
 	<div class='def'>字串變數 = input(提示字串)</div>
 	<div><code>name = input("Your Name: ")<br/>age = int(input("Your Age: "))</code></div>
 	<hr/>
 	<div class='desc'>⚙️  將物件轉成字串後輸出</div>
-<div data-id='1' data-h='install:mermaid'><textarea data-v='value:raw'>flowchart LR
+<div data-id='1' data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
 	F["print(要顯示的內容)"] -->|輸出| T("顯示在終端機上的文字")
 </textarea></div>
 	<div class='def'>print(要輸出的資料..., sep="分隔符號", end="換行符號")</div>
