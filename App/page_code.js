@@ -22,7 +22,7 @@ class ICode
 			elem.appendChild(((e)=>{
 				e.innerHTML = le[1];
 				if (!e.firstChild) return document.createElement("br");
-				if (e.firstChild==e.lastChild && e.firstChild.nodeType!==3) return e.firstChild;
+				if (le[0]<=0 && e.firstChild==e.lastChild && e.firstChild.nodeType!==3) return e.firstChild;
 				e.dataset.level=le[0];
 				if (le[0]>0) e.style.paddingLeft=(le[0]*48)+'px';
 				return e;
