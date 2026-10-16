@@ -167,7 +167,7 @@ class Quiz
 	{
 		// locate the quiz block
 		e=findParent(e,'[data-o]');
-		if (!p) return;
+		if (!p) p=findParent(e,'[data-x^="quiz"]');
 		switch (p.dataset.x.substring(5)) {
 		case 's':
 			if (e.classList.contains('QS')) {
@@ -221,7 +221,14 @@ class Quiz
 let H=undefined;
 SCRIPT.value=async function (slide, elem, args) {
 	if (!H) H=new Quiz(slide);
-	H.install(elem);
+	if (args === 'answer') {
+		console.log(elem);
+		if (elem.matches('[data-o]')) {
+			if (elem.getAttribute('data-o')!=='value') {
+				H.answer(elem);
+			}
+		}
+	} else H.install(elem);
 };
 
 
