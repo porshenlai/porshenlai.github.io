@@ -222,33 +222,36 @@ CB -->|"不成立"| BN --> T
 </div>
 </section> <!--}}}-->
 
-<section data-ks='P_FC'>
-	<h2>反覆 Repeat</h2><!--{{{-->
-	<div><ul>
-		<li>迴圈(Loop) 可被控制程式反覆執行一段程式碼</li>
-		<li>每次的執行，變數的內容會有改變</li>
-		<li>迴圈應設置停止反覆的終止條件</li>
-		<li>Python 支援常用的 for 迴圈與 white 迴圈<div>
-			<table border='1' cellspacing='1' align='center' width='90%'>
-			<tbody style='font-size:70%'><tr>
-				<th>for</th>
-				<th>while</th>
-			</tr><tr>
-				<td>證照通過<b class='blue'>名單</b><b class='green'>中</b>的<b class='brown'>同學</b>，<br/>請<b class='brown del'>同學</b><b class='red'>盡快提出申請</b>。</td>
-				<td><b class='green'>通過</b><b class='blue'>證照考試</b>的<b class='brown'>同學</b>，<br/>請<b class='brown del'>同學</b><b class='red'>儘快提出申請</b>。</td>
-			</tr><tr>
-				<td valign='top'>For each <b class='brown'>student</b> in the qualified <b class='blue'>list</b>,<br/>
-					please <b class='red'>apply as soon as possible</b>.</td>
-				<td valign='top'><b class='brown'>Students</b> who <b class='green'>pass</b> the <b class='blue'>certificate test</b>,<br/>
-					please <b class='red'>apply as soon as possible</b>.</td>
-			</tr><tr>
-				<td valign='top'>for <b class='brown'>student</b> <b class='green'>in</b> <b class='blue'>list</b> :<div style='padding-left:32px;'><b class='red'><b class='brown'>student</b>.apply()</b></div></td>
-				<td valign='top'>while <b class='brown'>student</b>.score <b class='green'>&gt; <b class='blue'>700</b></b> :<div style='padding-left:32px;'><b class='red'><b class='brown'>student</b>.apply()</b></div></td>
-			</tr></tbody></table>
-		</div></li>
-	</ul></div>
-	<!--}}}-->
-</section>
+<section data-ks='P_FC'><h2>反覆 Repeat</h2><ul><!--{{{-->
+<li>迴圈(Loop) 控制程式<em>反覆執行一段程式碼</em></li>
+<li>每次的執行，內容要有所改變</li>
+<li>迴圈應設置停止反覆的終止條件</li>
+<li class='fold'><span class='h3' data-h='fold'>White 迴圈</span><ul>
+	<li>請同學<b>參加證照考試</b> 直到 <b>考試通過</b>為止</li>
+	<li>Please <b>take the certification test</b> until <b>passing it</b>.</td>
+	<li><div data-xl='code'>
+while <span data-h='sw:while'>student.score &lt;= 700 :</span>
+	student.<span data-h='sw:action'>exam()</span>
+	</div><ul data-case='while' class='hide'>
+		<li>成積不到 700 分就要反覆執行迴圈。</li>
+		<li>student.score 的初始值要如何設定呢 ?</li>
+	</ul><ul data-case='action' class='hide'>
+		<li>student.exam() 會更新 student.score 的數值。</li>
+	</ul></li>
+</ul>
+<li class='fold'><span class='h3' data-h='fold'>For 迴圈</span><ul>
+	<li><b>名單</b>中的<b>同學</b> 請 <b>參加證照考試</b>。</li>
+	<li><b>Student</b> in <b>the list</b>, please <b>take the certification test</b>.</li>
+	<li><div data-xl='code'>
+for student <span data-h='sw:for'>in list</span> :
+	student.<span data-h='sw:action'>exam()</span>
+	</div><ul data-case='for' class='hide'>
+		<li>student 被依序替換成每個名單中的同學。</li>
+	</ul><ul data-case='action' class='hide'>
+		<li>student.exam() 參加考試，通不通過都無所謂。</li>
+	</ul></li>
+</ul>
+</ul></section><!--}}}-->
 
 <section data-ks='P_FC'><h2>WHILE 迴圈</h2><!--{{{-->
 <div class='frame'>
@@ -273,6 +276,24 @@ C -->|"不成立"| T
 </div>
 </section><!--}}}-->
 
+<section><h2>Fibonanci 序列</h2><div data-xl='code'><!--{{{-->
+def fib (Bound) :
+	a,b = 0,1
+	print(f"{a} ",end='')
+	<span data-h='sw:while'>while b &lt; Bound :</span><!-- sw:while -->
+		<span data-h='sw:update'>a,b = b,a+b</span><!-- sw:update -->
+		print(f"{a} ",end='')
+	print('')
+<button data-h='sw:result'>fib(100)</button>
+</div><ul class='hide' data-case='while'>
+	<li>檢查新產生的數據是否超過目標邊界</li>
+</ul><ul class='hide' data-case='update'>
+	<li>將 b 給到 a，b 更新為 a+b</li>
+	<li>指定的動作都是發生在計算完成之後 (等式右側都計算完才會執行等號的指定)</li>
+</ul><div class='hide' data-case='result'><pre>
+0 1 1 2 3 5 8 13 21 34 55 89
+</pre></div></section><!--}}}-->
+
 <section data-ks='P_FC'><h2>FOR 迴圈</h2><!--{{{-->
 <div class='frame'>
 	<table border='0' cellspacing='8' cellpadding='8' class='syntax' align='center'><tr>
@@ -295,6 +316,31 @@ C -->|"沒人了"| T
 </textarea></div>
 </div>
 </section><!--}}}-->
+
+<section><h2>九九乘法表</h2><div data-xl='code'><!--{{{-->
+def mtable (MaxA,MaxB)
+	for 乘數 in <span data-h='sw:range'>range(1,MaxA)</span> :
+		for 被乘數 in <span data-h='sw:range'>range(1,MaxB)</span> :
+			print(f"{乘數:1d}x{被乘數:1d}={乘數*被乘數:2d}, ",end='');
+		print('')
+<button data-h='sw:result'>mtable(9,9)</button>
+</div><ul class='hide' data-case='range'>
+	<li><b>range</b> (<em>起始條件</em>, <em>終止條件</em>, <em>步伐大小</em>)</li>
+	<li>從<em>起始條件</em>開始，每次改變<em>步伐大小</em>，直到抵達或超過<em>終止條件</em>為止。</li>
+	<li>例如: range(1,10,1) 會依序產生 1,2,3,4,5,6,7,8,9</li>
+	<li>例如: range(1,10,2) 會依序產生 1,3,5,7,9</li>
+	<li>例如: range(10,1,-2) 會依序產生 10,8,6,4,2</li>
+</ul><div class='hide' data-case='result'><pre>
+1x1= 1, 1x2= 2, 1x3= 3, 1x4= 4, 1x5= 5, 1x6= 6, 1x7= 7, 1x8= 8, 1x9= 9,
+2x1= 2, 2x2= 4, 2x3= 6, 2x4= 8, 2x5=10, 2x6=12, 2x7=14, 2x8=16, 2x9=18,
+3x1= 3, 3x2= 6, 3x3= 9, 3x4=12, 3x5=15, 3x6=18, 3x7=21, 3x8=24, 3x9=27,
+4x1= 4, 4x2= 8, 4x3=12, 4x4=16, 4x5=20, 4x6=24, 4x7=28, 4x8=32, 4x9=36,
+5x1= 5, 5x2=10, 5x3=15, 5x4=20, 5x5=25, 5x6=30, 5x7=35, 5x8=40, 5x9=45,
+6x1= 6, 6x2=12, 6x3=18, 6x4=24, 6x5=30, 6x6=36, 6x7=42, 6x8=48, 6x9=54,
+7x1= 7, 7x2=14, 7x3=21, 7x4=28, 7x5=35, 7x6=42, 7x7=49, 7x8=56, 7x9=63,
+8x1= 8, 8x2=16, 8x3=24, 8x4=32, 8x5=40, 8x6=48, 8x7=56, 8x8=64, 8x9=72,
+9x1= 9, 9x2=18, 9x3=27, 9x4=36, 9x5=45, 9x6=54, 9x7=63, 9x8=72, 9x9=81,
+</pre></div></section><!--}}}-->
 
 <section data-ks='P_FC'><h2>基於條件式的迴圈控制</h2><!--{{{-->
 <div><ul>
@@ -335,21 +381,20 @@ B -->|"執行"| C
 </ul></div>
 </section><!--}}}-->
 
-<section data-ks='P_FC,Q_ITS'>
-	<!--{{{-->
+<section data-ks='P_FC,Q_ITS'><!--{{{-->
 	<div data-x='quiz:s'>
 		<div>您撰寫了下列程式碼來根據學生目前的成績 (grade) 和排名 (rank) 判斷學生的最終成績。</div>
 		<div>請問下列程式將會列印何值?</div>
-		<div class='cb frame'>
-			<div>grade = 76</di>
-			<div>rank = 3</div>
-			<div>if grade &gt; 80 and rank &gt;= 3 :</div>
-			<div class='cb'>grade += 10</div>
-			<div>elif grade &gt; 70 and rank &gt; 3 :</div>
-			<div class='cb'>grade += 5</div>
-			<div>else :</div>
-			<div class='cb'>grade -= 5</div>
-			<div>print(grade)</div>
+		<div data-xl='code'>
+grade = 76
+rank = 3
+if grade &gt; 80 and rank &gt;= 3 :
+	grade += 10
+elif grade &gt; 70 and rank &gt; 3 :
+	grade += 5
+else :
+	grade -= 5
+print(grade)
 		</div>
 		<div class='cols'>
 			<div data-o='O'>71</div>
@@ -358,8 +403,7 @@ B -->|"執行"| C
 			<div data-o='X'>86</div>
 		</div>
 	</diV>
-	<!--}}}-->
-</section>
+</section><!--}}}-->
 
 <section data-ks='P_FC,Q_ITS'>
 	<!--{{{-->
@@ -370,48 +414,18 @@ B -->|"執行"| C
 			<li>如果 a 為負偶數, 則傳回 'Result is an imaginary number'</li>
 			<li>如果 a 為負奇數, 則傳回 -(-a) ** (1 / b) 請從每個下拉式清單中選取正確的程式碼片段以完成程式碼。</li>
 		</ul></div>
-		<div class='frame'><div class='cb'>
-			<div>def safe_root (a, b):</div>
-			<div class='cb'>
-				<div data-x='quiz:s' class='QR_'>
-					<span class='HT'>點擊展開</span>
-					<div data-o="O">if a &gt;= 0 :</div>
-					<div data-o="X">if a%2 == 0 :</div>
-					<div data-o="X">else :</div>
-					<div data-o="X">elif :</div>
-				</div>
-				<div class='cb'>answer = a ** (1 / b)</div>
-				<div data-x='quiz:s' class='QR_'>
-					<span class='HT'>點擊展開</span>
-					<div data-o="X">if a &gt;= 0 :</div>
-					<div data-o="X">if a%2 == 0 :</div>
-					<div data-o="O">else :</div>
-					<div data-o="X">elif :</div>
-				</div>
-				<div class='cb'>
-					<div data-x='quiz:s' class='QR_'>
-						<span class='HT'>點擊展開</span>
-						<div data-o="X">if a &gt;= 0 :</div>
-						<div data-o="O">if a%2 == 0 :</div>
-						<div data-o="X">else :</div>
-						<div data-o="X">elif :</div>
-					</div>
-					<div class='cb'>answer = "Result is an imaginary number"</div>
-					<div data-x='quiz:s' class='QR_'>
-						<span class='HT'>點擊展開</span>
-						<div data-o="X">if a &gt;= 0 :</div>
-						<div data-o="X">if a%2 == 0 :</div>
-						<div data-o="O">else :</div>
-						<div data-o="X">elif :</div>
-					</div>
-					<div class='cb'>answer = -(-a) ** (1 / b)</div>
-				</div>
-				<div>return answer</div>
-			</div>
-		</div></div>
-	</div>
-	<!--}}}-->
-</section>
+		<div data-xl='code'>
+def safe_root (a, b):
+	<div data-x='quiz:s'><div data-o="O">if a &gt;= 0 :</div><div data-o="X">if a%2 == 0 :</div><div data-o="X">else :</div><div data-o="X">elif :</div></div><!---->
+		answer = a ** (1 / b)
+	<div data-x='quiz:s'><div data-o="X">if a &gt;= 0 :</div><div data-o="X">if a%2 == 0 :</div><div data-o="O">else :</div><div data-o="X">elif :</div></div><!---->
+		<div data-x='quiz:s'><div data-o="X">if a &gt;= 0 :</div><div data-o="O">if a%2 == 0 :</div><div data-o="X">else :</div><div data-o="X">elif :</div></div><!---->
+			answer = "Result is an imaginary number"
+		<div data-x='quiz:s'><div data-o="X">if a &gt;= 0 :</div><div data-o="X">if a%2 == 0 :</div><div data-o="O">else :</div><div data-o="X">elif :</div></div><!---->
+			answer = -(-a) ** (1 / b)
+	<div>return answer</div>
+</div>
+</section><!--}}}-->
 
 <section data-ks='P_FC,Q_ITS'>
 	<!--{{{-->

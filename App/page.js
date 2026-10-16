@@ -74,7 +74,7 @@ switchElement: function (elem)
 		let se=elem.dataset.se;
 		while (se.startsWith('<')){ elem=elem.parentNode; se=se.substr(1); }
 		elem = elem.querySelector(se) || elem;
-	}
+	} else elem = undefined;
 	return elem;
 }
 };
@@ -584,8 +584,11 @@ class Player
 
 	sw (TK)
 	{	// <.switch <data-h='sw:標籤'.current>... <data-case='標籤'.hide>...> {{{
-		(	Apps.E(Apps.E(event.target).trace('.switch'))
-		).forEach(
+		let te=Apps.switchElement();
+		if (!te) for (let i=event.target;i;i=i.parentNode)
+			if (i.querySelector(`[data-case="${TK}"]`)){ te=i; break; }
+		if (!te) return;
+		Apps.E(te).forEach(
 			'[data-h^="sw:"]',
 			(e) => e.classList[e.dataset.h === `sw:${TK}` ? 'add' : 'remove']('current')
 		).forEach(

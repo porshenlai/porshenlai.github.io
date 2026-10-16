@@ -5,7 +5,7 @@ const Init = (async () => {
 	await Apps.loadScript(Apps.JSPrefix+'js/mermaid.min.js');
 	mermaid.initialize({
 		startOnLoad: false,
-//		themeCSS: '.nodeLabel { white-space: nowrap !important; }'
+		themeCSS: '.nodeLabel { white-space: nowrap !important; }',
 	 	theme: 'default'
 	});
 	return mermaid;
@@ -18,10 +18,10 @@ SCRIPT.value=async function (slide, elem, code) {
 	if (!code)
 		code = await Apps.Ns.resolve('data', elem).get();
 
-try{
-	elem.innerHTML='<span>Rendering ...</span>';
-	elem.innerHTML=(await (await Init).render('graphDiv_'+(new Date()).getTime().toString(36), code)).svg;
-}catch(x){ console.log(x); }
+	try{
+		elem.innerHTML='<span>Rendering ...</span>';
+		elem.innerHTML=(await (await Init).render('graphDiv_'+(new Date()).getTime().toString(36), code)).svg;
+	}catch(x){ console.log(x); }
 
 	const svg = elem.querySelector('svg');
 	if (svg && svg.style.maxWidth) svg.style.maxWidth='';

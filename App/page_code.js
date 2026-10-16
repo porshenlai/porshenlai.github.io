@@ -48,6 +48,8 @@ class ICode
 		:	t.startsWith("try") ? 'blue'
 		:	t.startsWith("except") ? 'blue'
 		:	t.startsWith("finally") ? 'blue'
+		:	t.startsWith("def") ? 'red'
+		:	t.startsWith("class") ? 'red'
 		:	t.startsWith("!") ? 'red'
 		:	t.startsWith("print") ? 'darkblue'
 		:	t.startsWith("input") ? 'darkblue'

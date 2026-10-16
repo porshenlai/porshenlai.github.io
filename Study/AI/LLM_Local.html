@@ -116,25 +116,29 @@
 </ul></section><!--}}}-->
   
 <section><h2>LangChain: 工作原理</h2><!--{{{-->
-<div data-h='install:mermaid' class='button'>繪製示意圖<textarea data-v='value:raw'>
-flowchart TB
-C["Python 程式<br/>LangChain"]
-O["Ollama 本地伺服器<br/>RESTful API(:11434)"]
+<div data-h='install:mermaid' class='button' style='font-weight:normal !important'>繪製示意圖<textarea data-v='value:raw'>
+flowchart LR
+C["<div data-h='sw:LangChain'>Python 程式<br/>LangChain</div>"]
+O["<div data-h='sw:Ollama'>Ollama 本地伺服器<br/>RESTful API(:11434)</div>"]
 C -->|"HTTP 請求"| O
 O -->|"HTTP 回應"| C
-M["LLM 模型檔案<br/>神經網路原始權重"]
+M["<div data-h='sw:Model'>LLM 模型檔案<br/>神經網路原始權重</div>"]
 M -->|"權重載入記憶體<br/>執行推論"| O
 </textarea></div>
-<ul>
+<ul data-case='Model' class='hide'>
 	<li><b>模型檔案(.gguf)</b> 是一個包含神經網路權重的被動檔案。</li>
 	<li><b>模型</b> 不具有自我執行或回應網路請求的能力。</li>
+</ul>
+<ul data-case='Ollama' class='hide'>
 	<li><b>Ollama</b> 扮演<em>引擎以及網頁伺服器</em>的腳色。</li>
 	<li><b>Ollama</b> 於背景運行一個監聽 <em>11434</em> 連接埠的 Restful API 服務。</li>
+</ul>
+<ul data-case='LangChain' class='hide'>
 	<li><b>LangChain</b> 使用 Python 與 Ollama 的 Restful API 服務通訊。</li>
 </ul>
 </section><!--}}}-->
 
-<section><h2>LangChain Example</h2><div data-xl='code'><!--{{{-->
+<section><h2>LangChain 程式範例</h2><div data-xl='code'><!--{{{-->
 # Install required modules:
 # !pip install langchain-ollama langchain-core
 
