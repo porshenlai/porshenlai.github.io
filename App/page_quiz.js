@@ -120,53 +120,19 @@ class Quiz
 		// shuffle opotions
 		let te=[],pe=[];
 		Apps.E(xe).forEach('[data-o]',(oe)=>{
+      oe.dataset.h=`call:quiz:answer:${oe.dataset.o}`;
+      oe.classList.add('mod_quiz_answer');
+      delete oe.dataset.d;
 			te.push([Math.random(),oe.outerHTML]);
 			pe.push(oe);
 		});
 		te=te.sort((a,b)=>a[0]-b[0]);
 		pe.forEach((oe,ix)=>(oe.outerHTML=te[ix][1]));
-
-		if (!xe._Q_on_click_) {
-			xe._Q_on_click_=(evt)=>{
-				try {
-					let e=evt.target;
-					while (e) {
-						if (e.matches('[data-o]')) {
-							if (e.getAttribute('data-o')!=='value') {
-								evt.preventDefault();
-								evt.stopPropagation();
-								this.answer(e, undefined, xe);
-							}
-							break;
-						}else
-						if (e.matches('.HT')) {
-							this.__setStatus__(xe, '-');
-							break;
-						}
-						e=e.parentNode;
-					}
-				} catch (x) {}
-			}
-			xe.addEventListener('click',xe._Q_on_click_);
-		}
-		if (!xe._Q_on_change_) {
-			xe._Q_on_change_=(evt)=>{
-				let v=evt.target.dateset.o
-				if(v==='value') {
-					evt.preventDefault();
-					evt.stopPropagation();
-					evt.target.classList.remove('QS');
-					this.answer(evt.target, evt.target.value, xe);
-				}
-			}
-			xe.addEventListener('change',xe._Q_on_change_);
-		}
 		return this;
 	}
 	answer (e, v, p)
 	{
 		// locate the quiz block
-		e=findParent(e,'[data-o]');
 		if (!p) p=findParent(e,'[data-x^="quiz"]');
 		switch (p.dataset.x.substring(5)) {
 		case 's':
@@ -194,7 +160,7 @@ class Quiz
 			})();
 			break;
 		case 'sort':
-			(()=>{
+		  (()=>{
 				let c=e.parentNode;
 				e.classList.toggle('QS'); // toggle the flag of this answer
 				if (e.classList.contains('QS'))
@@ -219,16 +185,15 @@ class Quiz
 }
 
 let H=undefined;
-SCRIPT.value=async function (slide, elem, args) {
+SCRIPT.value=async function (slide, elem, func, arg) {
 	if (!H) H=new Quiz(slide);
-	if (args === 'answer') {
-		console.log(elem);
-		if (elem.matches('[data-o]')) {
-			if (elem.getAttribute('data-o')!=='value') {
-				H.answer(elem);
-			}
-		}
-	} else H.install(elem);
+	if (func === 'answer') {
+		if (arg && arg !== 'value')
+			H.answer(elem, arg);
+	} else if (!elem.classList.contains('mod_quiz')) {
+    elem.classList.add('mod_quiz');
+    H.install(elem);
+  }
 };
 
 
