@@ -37,7 +37,8 @@ table small { color:#666; }
 .ltable th { border:2px outset silver; padding:2px 8px; }
 .ltable td>div, .ltable th>div, .rtable td>div, .rtable th>div { font-size:80%; color:green;font-weight:bold; }
 
-.QMix { display:flex;overflow:auto;align-items:center; }
+.XL { display:flex; align-items:center; white-space:nowrap; }
+.XL [data-x^='quiz'] { margin:1px 8px; } 
 </style>
 
 <section class='page'>
@@ -439,9 +440,9 @@ digits = "0"
 <div data-x='quiz:s'><div data-o='X'>if num &gt; -100 and num &lt; 100 :</div><div data-o='O'>elif num &gt; -100 and num &lt; 100 :</div><div data-o='X'>if num &gt; -10 and num &lt; 10 :</div><div data-o='X'>elif num &gt; -10 and num &lt; 10 :</div></div>
 	digits= "2"
 <div data-x='quiz:s'><div data-o="O">else:</div><div data-o="X">elif:</div></div>
-  digits = "&gt;2"
+	digits = "&gt;2"
 print(digits + " digits.")
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -459,10 +460,10 @@ print(digits + " digits.")
 def admission_fee (age, school):
 	rate = 0
 	<div data-x='quiz:s'><div data-o="O">if age &gt;=5 and school == True :</div><div data-o="X">if age &gt;=5 and age&lt;=17 :</div><div data-o="X">if age &gt;=5 and school == False :</div></div>
-	  rate = 10
+		rate = 10
 	<div data-x='quiz:s'><div data-o="O">elif age &gt;=5 and school == False :</div><div data-o="X">else age &gt;=5 and school == False :</div><div data-o="X">elif age &gt;=5 and school == True :</div></div>
 		<div data-x='quiz:s'><div data-o="X">if age &gt;=5 and school == True :</div><div data-o="X">if age &gt;=5 and school == Fasle :</div><div data-o="O">if age &lt;=17 :</div></div>
-      rate = 20
+			rate = 20
 		else:
 			rate = 50
 	return rate
@@ -477,10 +478,10 @@ def admission_fee (age, school):
 from random import randint
 	num = randint(1, 100)
 	<div data-x='quiz:s'><div data-o="X">if num / 2 == 0 :</div><div data-o="O">if num % 2 == 0 :</div><div data-o="X">if num / 2 = 0 :</div><div data-o="X">if num % 2 = 0 :</div></div>
-	  print("%d 是偶數" % num)
+		print("%d 是偶數" % num)
 	<div data-x='quiz:s'><div data-o="X">if num / 2 != 0 :</div><div data-o="O">else :</div><div data-o="X">if num / 2 &lt;&gt; 0 :</div><div data-o="X">elif num / 2 == 0 :</div></div>
 		print("%d 是奇數" % num)
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -497,13 +498,13 @@ from random import randint
 		<li>讀取所有行之後關閉檔案。</li>
 	</ol></div>
 	<div>您撰寫了以下這段程式碼。</div>
-  <div data-x='code'>
+	<div data-x='code'>
 inventory = open("inventory.txt", 'r')
 eof = False
 while eof == False:
 	line = inventory.readline()
 	<div data-x='quiz:s'><div data-o="X">if line != '\n' :</div><div data-o="O">if line != '' :</div><div data-o="X">if line != None :</div></div>
-    <div data-x='quiz:s'><div data-o="X">if line != "" :</div><div data-o="X">if line != None :</div><div data-o="O">if line != "\n" :</div></div>
+		<div data-x='quiz:s'><div data-o="X">if line != "" :</div><div data-o="X">if line != None :</div><div data-o="O">if line != "\n" :</div></div>
 			print(line)
 		else :
 			print ("End of file")
@@ -537,7 +538,7 @@ grade = int(input("Enter a numeric grade"))
 <div data-x='quiz:s'><div data-o="X">if grade &gt; 70:</div><div data-o="X">if grade &gt;= 70:</div><div data-o="X">elif grade &gt; 70:</div><div data-o="O">elif grade &gt;= 70:</div></div>
 	letter_grade='C'
 <div data-x='quiz:s'><div data-o="X">if grade &gt; 65:</div><div data-o="X">if grade &gt;= 65:</div><div data-o="X">elif grade &gt; 65:</div><div data-o="O">elif grade &gt;= 65:</div></div>
-  letter_grade='D'
+	letter_grade='D'
 else:
 	letter_grade='F'
 print("Your letter grade is ", letter_grade)
@@ -563,14 +564,14 @@ days_rented = int(input("How many days was the video rented?"))
 weekday = input("What day was the video rented?").capitalize()
 cost_per_day = 1.59
 
-if ontime <div data-x='quiz:s'><div data-o="X">!= "n" :</div><div data-o="O">== "n" :</div><div data-o="X">== "y" :</div></div>
+<div class='XL'>if ontime <div data-x='quiz:s'><div data-o="X">!= "n" :</div><div data-o="O">== "n" :</div><div data-o="X">== "y" :</div></div></div>
 	days_rented +=1
-if weekday <div data-x='quiz:s'><div data-o="O">== "Sunday" :</div><div data-o="X">&gt;= "Sunday" :</div><div data-o="X">is "Sunday" :</div></div>
+<div class='XL'>if weekday <div data-x='quiz:s'><div data-o="O">== "Sunday" :</div><div data-o="X">&gt;= "Sunday" :</div><div data-o="X">is "Sunday" :</div></div></div>
 	total = (days_rented * cost_per_day) * 0.7
-elif weekday <div data-x='quiz:s'><div data-o="O">== "Thursday" :</div><div data-o="X">&lt;="Thursday" :</div><div data-o="X">is "Thursday" :</div></div>
+<div class='XL'>elif weekday <div data-x='quiz:s'><div data-o="O">== "Thursday" :</div><div data-o="X">&lt;="Thursday" :</div><div data-o="X">is "Thursday" :</div></div></div>
 	total = (days_rented * cost_per_day) * 0.5
 else:
-  total = days_rented * cost_per_day
+	total = days_rented * cost_per_day
 print("Cost of the DVD rental is: $", total)
 	</div>
 </div>
@@ -586,18 +587,18 @@ print("Cost of the DVD rental is: $", total)
 		<li>其他所有成績都不及格。</li>
 	</ul></div>
 	<div data-x='code'>
-		<div data-x='quiz:s'><div data-o="X">elif</div><div data-o="O">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &lt;= 100 :
-			<div data-x='quiz:s'><div data-o="X">elif</div><div data-o="O">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &gt;= 90 :
-				print "Your grade is A."
-			<div data-x='quiz:s'><div data-o="O">elif</div><div data-o="X">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &gt;= 80 :
-				print "Your grade is B."
-			<div data-x='quiz:s'><div data-o="O">elif</div><div data-o="X">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &lt; 80 <div data-x='quiz:s'><div data-o="X">or</div><div data-o="O">and</div><div data-o="X">not</div></div> grade &gt; 69 :
-				print "Your grade is C."
-			<div data-x='quiz:s'><div data-o="X">elif :</div><div data-o="X">if :</div><div data-o="X">for :</div><div data-o="O">else :</div></div> 
-				print "Your grade is failing."
-		<div data-x='quiz:s'><div data-o="X">elif :</div><div data-o="X">if :</div><div data-o="X">for :</div><div data-o="O">else :</div></div> 
-			print "Invalid grade entered."
-  </div>
+<div class='XL'><div data-x='quiz:s'><div data-o="X">elif</div><div data-o="O">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &lt;= 100 :</div>
+	<div class='XL'><div data-x='quiz:s'><div data-o="X">elif</div><div data-o="O">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &gt;= 90 :</div>
+		print "Your grade is A."
+	<div class='XL'><div data-x='quiz:s'><div data-o="O">elif</div><div data-o="X">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &gt;= 80 :</div>
+		print "Your grade is B."
+	<div class='XL'><div data-x='quiz:s'><div data-o="O">elif</div><div data-o="X">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &lt; 80 <div data-x='quiz:s'><div data-o="X">or</div><div data-o="O">and</div><div data-o="X">not</div></div> grade &gt; 69 :</div>
+		print "Your grade is C."
+	<div data-x='quiz:s'><div data-o="X">elif :</div><div data-o="X">if :</div><div data-o="X">for :</div><div data-o="O">else :</div></div> 
+		print "Your grade is failing."
+<div data-x='quiz:s'><div data-o="X">elif :</div><div data-o="X">if :</div><div data-o="X">for :</div><div data-o="O">else :</div></div> 
+	print "Invalid grade entered."
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -613,7 +614,7 @@ def safe_divide (numerator, denominator) :
 		print("The denominator is zero.")
 	else :
 		return numerator / denominator
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -629,7 +630,7 @@ alphaList = ["a", "b", "c", "d", "e"]
 	print("The value in numList are equal to alphaList")
 <div data-x='quiz:s'><div data-o="O">else :</div><div data-o="X">elif :</div><div data-o="X">elseif :</div></div>
 	print("The value in numList are not equal to alphaList")
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -677,7 +678,7 @@ while (n != 0) :
 	print(product, n)
 	n -= 1
 	if n == 3 : break
-  </div>
+	</div>
 	<div class='bar'>
 		<div data-o='X'>1</div>
 		<div data-o='O'>2</div>
@@ -694,14 +695,14 @@ while (n != 0) :
 	<div data-x='code'>
 # Displays times tables 2 - 12
 def times_tables():
-	for col in <div data-x='quiz:s'><div data-o="X">range(13)</div><div data-o="O">range(2,13)</div><div data-o="X">range(2,12,1)</div><div data-o="X">range(12)</div></div> :
-		for row in <div data-x='quiz:s'><div data-o="X">range(13)</div><div data-o="O">range(2,13)</div><div data-o="X">range(2,12,1)</div><div data-o="X">range(12)</div></div> :
+	<div class='XL'>for col in <div data-x='quiz:s'><div data-o="X">range(13)</div><div data-o="O">range(2,13)</div><div data-o="X">range(2,12,1)</div><div data-o="X">range(12)</div></div> :</div>
+		<div class='XL'>for row in <div data-x='quiz:s'><div data-o="X">range(13)</div><div data-o="O">range(2,13)</div><div data-o="X">range(2,12,1)</div><div data-o="X">range(12)</div></div> :</div>
 			print(row * col, end = " ")
 		print()
 
 # main
 times_tables()
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -713,7 +714,7 @@ times_tables()
 		<li>如果格式正確,此程式必須列印 True</li>
 		<li>如果格式不正確,則列印 False</li>
 	</ul>
-  <div data-x='code'>
+	<div data-x='code'>
 <div data-x='quiz:s'><div data-o="O">employee_number =""</div><div data-o="X">employee_number ="123"</div></div>
 parts=""
 <div data-x='quiz:s'><div data-o="X">while employee_number !=""</div><div data-o="O">while employee_number !="123"</div></div>
@@ -723,7 +724,7 @@ parts=""
 	if len(parts) == 3:
 		if len(parts[0]) == 3 and len(parts[1]) == 2 and len(parts[2]) == 4 :
 			if parts[0].isdigit() and parts[1].isdigit() and parts[2].isdigit() :
-				<div data-x='quiz:s'>< data-o="X">vaild = False</div><div data-o="O">vaild = True</div></div>
+				<div data-x='quiz:s'><div data-o="X">vaild = False</div><div data-o="O">vaild = True</div></div>
 	print(valid)
 </div>
 </section><!--}}}-->
@@ -733,17 +734,17 @@ parts=""
 	<div>您正在撰寫程式碼以使用星號建立E字形。</div>
 	<div>您需要列印五行程式碼,其中第一行、第三行和第五行各有四個星號,而第二行和第四行各有一個星號。如下所示。</div>
 	<div>****</div><div>*</div><div>****</div><div>*</div><div>****</div>
-	<div] data-x='code'>
+	<div data-x='code'>
 result_str=""
-for row in range(1,<div data-x='quiz:s'><div data-o="X">3</div><div data-o="X">4</div><div data-o="X">5</div><div data-o="O">6</div></div>) :
-	for column in range(1,<div data-x='quiz:s'><div data-o="X">3</div><div data-o="X">4</div><div data-o="O">5</div><div data-o="X">6</div></div>) :
+<div class='XL'>for row in range(1,<div data-x='quiz:s'><div data-o="X">3</div><div data-o="X">4</div><div data-o="X">5</div><div data-o="O">6</div></div>) :</div>
+	<div class='XL'>for column in range(1,<div data-x='quiz:s'><div data-o="X">3</div><div data-o="X">4</div><div data-o="O">5</div><div data-o="X">6</div></div>) :</div>
 		if (row==1 or row==3 or row==5) :
 			result_str=result_str+"*"
 		elif column==1 :
 			result_str=result_str+"*"
 	result_str=result_str+"\n"
 print(result_str)
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -752,15 +753,15 @@ print(result_str)
 		<div>您正在為某間線上產品配銷公司開發一個Python程式。</div>
 		<div>此程式必須逐一查看產品清單(productIdList),然後在找到特定產品識別碼時逸出。</div>
 		<div data-x='code'>
-			productIdList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-			index = 0
-			<div data-x='quiz:s'><div data-o="O">while</div><div data-o="X">for</div><div data-o="X">if</div><div data-o="X">break</div></div> (index &lt; 10) 
-				print(productIdList[index])
-				if productIdList[index] == 6 :
-					<div data-x='quiz:s'><div data-o="X">while</div><div data-o="X">for</div><div data-o="X">if</div><div data-o="O">break</div></div>
-				else :
-					<div data-x='quiz:s'><div data-o="X">continue</div><div data-o="X">break</div><div data-o="O">index += 1</div><div data-o="X">index = 1</div></div>
-  </div>
+productIdList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+index = 0
+<div class='XL'><div data-x='quiz:s'><div data-o="O">while</div><div data-o="X">for</div><div data-o="X">if</div><div data-o="X">break</div></div> (index &lt; 10) :</div>
+	print(productIdList[index])
+	if productIdList[index] == 6 :
+		<div data-x='quiz:s'><div data-o="X">while</div><div data-o="X">for</div><div data-o="X">if</div><div data-o="O">break</div></div>
+	else :
+		<div data-x='quiz:s'><div data-o="X">continue</div><div data-o="X">break</div><div data-o="O">index += 1</div><div data-o="X">index = 1</div></div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -781,8 +782,8 @@ print("Guess an integer from 1 to 10. You will have 3 chances. ")
 	else :
 		print("Guess is just right!")
 		<div data-x='quiz:s'><div data-o="O">break</div><div data-o="X">chance += 1</div><div data-o="X">chance = 2</div><div data-o="X">pass</div><div data-o="X">while chance &lt; 3</div><div data-o="X">while chance &lt; 3 :</div><div data-o="X">while chance &lt;= 3 :</div></div>
-  <div data-x='quiz:s'><div data-o="X">break</div><div data-o="O">chance += 1</div><div data-o="X">chance = 2</div><div data-o="X">pass</div><div data-o="X">while chance &lt; 3</div><div data-o="X">while chance &lt; 3 :</div><div data-o="X">while chance &lt;= 3 :</div></div>
-  </div>
+	<div data-x='quiz:s'><div data-o="X">break</div><div data-o="O">chance += 1</div><div data-o="X">chance = 2</div><div data-o="X">pass</div><div data-o="X">while chance &lt; 3</div><div data-o="X">while chance &lt; 3 :</div><div data-o="X">while chance &lt;= 3 :</div></div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -792,15 +793,15 @@ print("Guess an integer from 1 to 10. You will have 3 chances. ")
 		<li>允許使用者不斷輸入字詞。</li>
 		<li>輸出每個字詞的字元數。</li>
 	</ul></div>
-  <div data-x='code'>
+	<div data-x='code'>
 x = "Hello World"
-<div data-x='quiz:s'><div data-o="X">for</div><div data-o="X">if</div><div data-o="O">while</div></div> x != "QUIT" :
+<div class='XL'><div data-x='quiz:s'><div data-o="X">for</div><div data-o="X">if</div><div data-o="O">while</div></div> x != "QUIT" :</div>
 	num = 0
-  <div data-x='quiz:s'><div data-o="O">for</div><div data-o="X">if</div><div data-o="X">while</div></div> char <div data-x='quiz:s'><div data-o="X">and</div><div data-o="X">or</div><div data-o="O">in</div><div data-o="X">not</div></div> x :
+	<div class='XL'><div data-x='quiz:s'><div data-o="O">for</div><div data-o="X">if</div><div data-o="X">while</div></div> char <div data-x='quiz:s'><div data-o="X">and</div><div data-o="X">or</div><div data-o="O">in</div><div data-o="X">not</div></div> x :</div>
 		num += 1
 	print(num)
 	x = input("Enter a new word or QUIT to exit: ")
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -819,7 +820,7 @@ x = "Hello World"
 	if salary_list[index] &gt;= 150000 :
 		<div data-x='quiz:s'><div data-o="X">exit()</div><div data-o="O">continue</div><div data-o="X">break</div><div data-o="X">end</div></div>
 			salary_list[index] = (salary_list[index] *1.03) + 500
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -833,8 +834,8 @@ x = "Hello World"
 # Returns count of a particular letter in that list.</>
 def count_letter(letter, word_list):
 	count = 0
-	for <div data-x='quiz:s'><div data-o="X">word_list in word</div><div data-o="O">word in word_list</div><div data-o="X">word == word_list</div><div data-o="X">word is word_list</div></div> :
-		if <div data-x='quiz:s'><div data-o="X">word is letter</div><div data-o="X">letter is word</div><div data-o="X">word in letter</div><div data-o="O">letter in word</div></div> :
+	<div class='XL'>for <div data-x='quiz:s'><div data-o="X">word_list in word</div><div data-o="O">word in word_list</div><div data-o="X">word == word_list</div><div data-o="X">word is word_list</div></div> :</div>
+		<div class='XL'>if <div data-x='quiz:s'><div data-o="X">word is letter</div><div data-o="X">letter is word</div><div data-o="X">word in letter</div><div data-o="O">letter in word</div></div> :</div>
 			count += 1
 	return count
 			
@@ -843,7 +844,7 @@ word_list = []
 letter = input("which letter would you like to count")
 letter_count = count_letter(letter, word_list)
 print("There are: ", letter_count, "instances of " + letter)
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -857,15 +858,15 @@ print("There are: ", letter_count, "instances of " + letter)
 # return new string in reversed order.
 def reverse_name(backward_name):
 	forward_name = ""
-	length = <div data-x='quiz:s'><div data-o="X">backward_name:</div><div data-o="O">len(backward_name)-1</div><div data-o="X">range(0,len(backward_name),-1)</div><div data-o="X">range(len(backward_name)-1,-1,-1)</div></div>
+	<div class='XL'>length = <div data-x='quiz:s'><div data-o="X">backward_name:</div><div data-o="O">len(backward_name)-1</div><div data-o="X">range(0,len(backward_name),-1)</div><div data-o="X">range(len(backward_name)-1,-1,-1)</div></div></div>
 				
 	while length &gt;= 0 :
-		forward_name += <div data-x='quiz:s'><div data-o="X">backward_name[index]</div><div data-o="O">backward_name[length]</div><div data-o="X">backward_name[length+1]</div><div data-o="X">backward_name[len(backward_name)-len(forward_name)]</div></div>
+		<div class='XL'>forward_name += <div data-x='quiz:s'><div data-o="X">backward_name[index]</div><div data-o="O">backward_name[length]</div><div data-o="X">backward_name[length+1]</div><div data-o="X">backward_name[len(backward_name)-len(forward_name)]</div></div></div>
 		length = length-1
 	return forward_name
 
 print(reverse_name("nohtyp"))	
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -883,7 +884,7 @@ index = 0
 		break
 	else :
 		index += 1
-  </div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -897,10 +898,10 @@ count = 0
 sum = 0
 
 # 下列程式碼有兩個錯誤需要修正 :
-for index in range<div data-x='quiz:s'><div><s>(0, len(employee_pay)-1):</s></div><div data-o="X">(size(employee_pay)):</div><div data-o="X">(size(employee_pay)-1):</div><div data-o="X">(len(employee_pay)+1):</div><div data-o="O">(len(employee_pay)):</div></div>
+<div class='XL'>for index in range<div data-x='quiz:s'><div><s>(0, len(employee_pay)-1):</s></div><div data-o="X">(size(employee_pay)):</div><div data-o="X">(size(employee_pay)-1):</div><div data-o="X">(len(employee_pay)+1):</div><div data-o="O">(len(employee_pay)):</div></div></div>
 	count += 1
 	sum += employee_pay[index]
-	average = <div data-x='quiz:s'><div><s>sum//count</s></div><div data-o="O">sum/count</div><div data-o="X">sum**count</div><div data-o="X">sum*count</div></div>
+	<div class='XL'>average = <div data-x='quiz:s'><div><s>sum//count</s></div><div data-o="O">sum/count</div><div data-o="X">sum**count</div><div data-o="X">sum*count</div></div></div>
 
 print("The total payroll is:", sum)
 print("The average salary is:", average)
@@ -914,13 +915,13 @@ print("The average salary is:", average)
 	<div>請依序點擊適當的程式碼片段選擇與排序程式碼。</div>
 
 	<div data-x='code'>
-		<div data-o='2'><div class='cb'><div class='cb'><div class='cb'>break</div></div></div></div>
-		<div data-o='0'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
-		<div data-o='-'><div class='cb'><div class='cb'><div class='cb'>continue</div></div></div></div>
-		<div data-o='1'><div class='cb'>for i in range(2, p):<div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div></div>
-		<div data-o='4'><div class='cb'>p = p + 1</div></div>
-		<div data-o='-'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
-		<div data-o='3'><div class='cb'>if is_prime == True:<div class='cb'>print(p)</div></div></div>
+<div data-o='2'><div class='cb'><div class='cb'><div class='cb'>break</div></div></div></div>
+<div data-o='0'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
+<div data-o='-'><div class='cb'><div class='cb'><div class='cb'>continue</div></div></div></div>
+<div data-o='1'><div class='cb'>for i in range(2, p):<div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div></div>
+<div data-o='4'><div class='cb'>p = p + 1</div></div>
+<div data-o='-'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
+<div data-o='3'><div class='cb'>if is_prime == True:<div class='cb'>print(p)</div></div></div>
 	</div>
 </div>
 </section><!--}}}-->
@@ -936,9 +937,9 @@ print("The average salary is:", average)
 
 	<div data-x='code'>
 x = 'Hello World'
-<div data-x='quiz:s'><div data-o='X'>for</div><div data-o='X'>if</div><div data-o='O'>while</div></div> x != 'QUIT' :
+<div class='XL'><div data-x='quiz:s'><div data-o='X'>for</div><div data-o='X'>if</div><div data-o='O'>while</div></div> x != 'QUIT' :</div>
 	num = 0
-	<div data-x='quiz:s'><div data-o='O'>for</div><div data-o='X'>if</div><div data-o='X'>while</div></div> char <div data-x='quiz:s'><div data-o='X'>and</div><div data-o='X'>or</div><div data-o='O'>in</div><div data-o='X'>not</div></div> x :
+	<div class='XL'><div data-x='quiz:s'><div data-o='O'>for</div><div data-o='X'>if</div><div data-o='X'>while</div></div> char <div data-x='quiz:s'><div data-o='X'>and</div><div data-o='X'>or</div><div data-o='O'>in</div><div data-o='X'>not</div></div> x :</div>
 		num += 1
 		print(num)
 		x = input('Enter a new word or QUIT to exit: ')
@@ -950,9 +951,9 @@ x = 'Hello World'
 <div data-x='quiz:c'>
 	您正在撰寫一個必須執行下列工作的 Python 函式：
 	<ol>
-	  <li>接受清單和字串做為參數。</li>
-	  <li>在清單中搜尋字串。</li>
-	  <li>如果字串存在清單中，則列印一則訊息，指出找到字串，然後停止逐一查看清單。</li>
+		<li>接受清單和字串做為參數。</li>
+		<li>在清單中搜尋字串。</li>
+		<li>如果字串存在清單中，則列印一則訊息，指出找到字串，然後停止逐一查看清單。</li>
 		<li>如果字串不在清單中，則列印一則訊息，指出找不到字串。</li>
 	</ol>
 	請問您應該按什麼順序排列程式碼片段以完成此函式 ?
