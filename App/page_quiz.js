@@ -152,9 +152,9 @@ class Quiz
 		case 'm':
 			(()=>{
 				e.classList.toggle('QS'); // toggle the flag of this answer
-				const re1 = Array.from(e.parentNode.querySelectorAll('[data-o].QS'))
+				const re1 = Array.from(e.parentNode.querySelectorAll('.mod_quiz_answer.QS'))
 					.reduce((r,e) => r&&e.dataset.o==='O',true);
-				const re2 = Array.from(e.parentNode.querySelectorAll('[data-o]:not(.QS)'))
+				const re2 = Array.from(e.parentNode.querySelectorAll('.mod_quiz_answer:not(.QS)'))
 					.reduce((r,e) => r&&e.dataset.o==='X',true);
 				this.__setStatus__(p, re1 && re2 ? 'O' : 'X');
 			})();
@@ -165,11 +165,11 @@ class Quiz
 				let c=e.parentNode;
 				e.classList.toggle('QS'); // toggle the flag of this answer
 				if (e.classList.contains('QS'))
-					c.insertBefore(e,c.querySelector('[data-o]:not(.QS)'));
+					c.insertBefore(e,c.querySelector('[data-h]:not(.QS)'));
 				else c.appendChild(e);
-				const re1 = 0 == Array.from(p.querySelectorAll('[data-o].QS'))
+				const re1 = 0 == Array.from(p.querySelectorAll('.mod_quiz_answer.QS'))
 					.reduce((r,e,i) => r+Math.abs(parseInt(e.dataset.o)-i)-1, 0);
-				const re2 = Array.from(c.querySelectorAll('[data-o]:not(.QS)'))
+				const re2 = Array.from(c.querySelectorAll('.mod_quiz_answer:not(.QS)'))
 					.reduce((r,e) => r&&e.dataset.o==='-',true);
 				this.__setStatus__(p, re1 ? re2 ? 'O' : '-' : 'X');
 			})();
