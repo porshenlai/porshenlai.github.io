@@ -140,4 +140,11 @@ table.nvtable td { border:0;padding:0 4px; border-bottom:1px solid silver; text-
 	visibility:visible; opacity:1;
 }
 
+[data-level="0"] { padding-left:4px; }
+[data-level="1"] { padding-left:36px; }
+[data-level="2"] { padding-left:66px; }
+[data-level="3"] { padding-left:94px; font-size:95%; }
+[data-level="4"] { padding-left:120px; font-size:90%; }
+[data-level="5"] { padding-left:144px; font-size:85%; }
+
 [data-h^="install"] textarea[data-v="value:raw"], [data-h^="play"] textarea[data-v="value:raw"] { display:none; }

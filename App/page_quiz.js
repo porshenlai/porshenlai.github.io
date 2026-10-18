@@ -160,6 +160,7 @@ class Quiz
 			})();
 			break;
 		case 'sort':
+			console.log("ANSWER",e,v,p);
 		  (()=>{
 				let c=e.parentNode;
 				e.classList.toggle('QS'); // toggle the flag of this answer

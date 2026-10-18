@@ -635,35 +635,33 @@ alphaList = ["a", "b", "c", "d", "e"]
 </section><!--}}}-->
 
 <section data-ks='P_FC,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
+<div data-x='quiz:sort'>
 	<div>您正在建立一個Python指令碼以評估文字輸入並檢查是否有大寫和小寫。</div>
 	<div>請問您應該依序使用哪四個程式碼片段來開發解決方案?</div>
 	<div>請將四個程式碼片段按照正確順序排列。</div>
-	<div data-x='quiz:sort'>
-			<div data-o='0'>
-				<div>name = input('Enter your name: ')</div>
-			</div>
-			<div data-o='2'>
-				<div>elif name.upper() == name:</div>
-				<div class='cb'>print(name, 'is all upper case.')</div>
-			</div>
-			<div data-o='3'>
-				<div>else:</div>
-				<div class='cb'>print(name, 'is mixed case.')</div>
-			</div>
-			<div data-o='-'>
-				<div>else:</div>
-				<div class='cb'>print(name, 'is upper case.')</div>
-			</div>
-			<div data-o='1'>
-				<div>if name.lower() == name:</div>
-				<div class='cb'>print(name, 'is all lower case.')</div>
-			</div>
-			<div data-o='-'>
-				<div>else:</div>
-				<div class='cb'>print(name, 'is lower case.')</div>
-			</div>
-		</div>
+	<div data-o='0'>
+		<div data-level='0'>name = input('Enter your name: ')</div>
+	</div>
+	<div data-o='2'>
+		<div data-level='0'>elif name.upper() == name:</div>
+		<div data-level='1'>print(name, 'is all upper case.')</div>
+	</div>
+	<div data-o='3'>
+		<div data-level='0'>else:</div>
+		<div data-level='1'>print(name, 'is mixed case.')</div>
+	</div>
+	<div data-o='-'>
+		<div data-level='0'>else:</div>
+		<div data-level='1'>print(name, 'is upper case.')</div>
+	</div>
+	<div data-o='1'>
+		<div data-level='0'>if name.lower() == name:</div>
+		<div data-level='1'>print(name, 'is all lower case.')</div>
+	</div>
+	<div data-o='-'>
+		<div data-level='0'>else:</div>
+		<div data-level='1'>print(name, 'is lower case.')</div>
+	</div>
 </div>
 </section><!--}}}-->
 
@@ -913,15 +911,33 @@ print("The average salary is:", average)
 <div data-x='quiz:sort'>
 	<div>您正在建置一個Python程式來顯示2到100之間的所有質數(質數是指只有該數字本身和1能整除的任何數字)。</div>
 	<div>請依序點擊適當的程式碼片段選擇與排序程式碼。</div>
-
-	<div data-x='code'>
-<div data-o='2'><div class='cb'><div class='cb'><div class='cb'>break</div></div></div></div>
-<div data-o='0'><div>p=2</div><div>while p &lt;=100 :</div><div class='cb'>is_prime = True</div></div>
-<div data-o='-'><div class='cb'><div class='cb'><div class='cb'>continue</div></div></div></div>
-<div data-o='1'><div class='cb'>for i in range(2, p):<div class='cb'><div>if p% i ==0:</div><div class='cb'>is_prime = False</div></div></div></div>
-<div data-o='4'><div class='cb'>p = p + 1</div></div>
-<div data-o='-'><div>p = 2</div><div>is_prime = True</div><div>while p &lt;= 100:</div></div>
-<div data-o='3'><div class='cb'>if is_prime == True:<div class='cb'>print(p)</div></div></div>
+	<div data-o='2'>
+		<div data-level='3'>break</div>
+	</div>
+	<div data-o='0'>
+		<div data-level='0'>p=2</div>
+		<div data-level='0'>while p &lt;=100 :</div>
+		<div data-level='1'>is_prime = True</div>
+	</div>
+	<div data-o='-'>
+		<div data-level='3'>continue</div>
+	</div>
+	<div data-o='1'>
+		<div data-level='1'>for i in range(2, p):</div>
+		<div data-level='2'>if p % i == 0:</div>
+		<div data-level='3'>is_prime = False</div>
+	</div>
+	<div data-o='4'>
+		<div data-level='1'>p = p + 1</div>
+	</div>
+	<div data-o='-'>
+		<div data-level='0'>p = 2</div>
+		<div data-level='0'>is_prime = True</div>
+		<div data-level='0'>while p &lt;= 100:</div>
+	</div>
+	<div data-o='3'>
+		<div data-level='1'>if is_prime == True:</div>
+		<div data-level='2'>print(p)</div>
 	</div>
 </div>
 </section><!--}}}-->
@@ -948,7 +964,7 @@ x = 'Hello World'
 </section><!--}}}-->
 
 <section data-ks='P_FC,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
+<div data-x='quiz:sort'>
 	您正在撰寫一個必須執行下列工作的 Python 函式：
 	<ol>
 		<li>接受清單和字串做為參數。</li>
@@ -957,15 +973,13 @@ x = 'Hello World'
 		<li>如果字串不在清單中，則列印一則訊息，指出找不到字串。</li>
 	</ol>
 	請問您應該按什麼順序排列程式碼片段以完成此函式 ?
-	<div data-x='quiz:sort'>
-		<div data-o='0'>def search(items, term) :</div>
-		<div data-o='1'><div class='cb'>for i in range(len(items)) :</div></div>
-		<div data-o='2'><div class='cb'><div class='cb'>if items[i] == term :</div></div></div>
-		<div data-o='5'><div class='cb'><div class='cb'>else :</div></div></div>
-		<div data-o='3'><div class='cb'><div class='cb'><div class='cb'>print("{0} was found in the list.".format(term))</div></div></div></div>
-		<div data-o='6'><div class='cb'><div class='cb'><div class='cb'>print("{0} was not found in the list.".format(term))</div></div></div></div>
-		<div data-o='4'><div class='cb'><div class='cb'><div class='cb'>break</div></div></div></div>
-	</div>
+	<div data-o='0' data-level='0'>def search(items, term) :</div>
+	<div data-o='1' data-level='1'>for i in range(len(items)) :</div>
+	<div data-o='2' data-level='2'>if items[i] == term :</div>
+	<div data-o='5' data-level='2'>else :</div>
+	<div data-o='3' data-level='3'>print("{0} was found in the list.".format(term))</div>
+	<div data-o='6' data-level='3'>print("{0} was not found in the list.".format(term))</div>
+	<div data-o='4' data-level='3'>break</div>
 </div>
 </section><!--}}}-->
 
