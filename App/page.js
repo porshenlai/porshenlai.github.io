@@ -124,9 +124,11 @@ class Content
 				await temp.put(elem, data);
 
 				// 擴充模組驅動
-				Promise.all(
-					Array.from(elem.querySelectorAll('[data-xl]')).map((xe) => slide.__prepare__(xe))
-				).then(()=>0, ()=>0);
+				while (true) {
+					const xe = elem.querySelector('[data-xl]');
+					await slide.__prepare__(xe);
+					delete xe.dataset.xl;
+				}
 			}
 		};
 
@@ -341,13 +343,17 @@ class Player
 			this.PageIndex=PageIndex;
 
 			// 套用應用載入階段擴充
-			Promise.all(
-				Array.from(this.E.querySelectorAll('[data-x]')).map((xe) => this.__prepare__(xe))
-			).then(() => {
-				// 使用者介面安裝後處理
+			(async ()=>{
+				while (true) {
+					const xe=this.E.querySelector('[data-x]:not(.resolved)');
+					if (xe) {
+						await this.__prepare__(xe);
+						delete xe.dataset.x;
+					} else break;
+				}
 				if (Apps.after_load) // after_load for Page override
 					Apps.after_load(this);
-			}, console.log);
+			})();
 			// }}}
 		}).call(this.Content, pages, this.Content.CurPage);
 
@@ -568,9 +574,10 @@ class Player
 	{	// {{{
 		try {
 			if (fn in Apps) return Apps[fn](...args);
+			let caller = Apps.E(event.target).trace('[data-h^="call"]');
 			if (fn in this.Content.Xs)
 				this.Content.Xs[fn].then(
-					(f)=>f(this.Content, Apps.switchElement(), ...args)
+					(f)=>f(this.Content, Apps.switchElement(caller), ...args)
 				);
 		} catch(x) { console.log(x); }
 	}	// }}}
@@ -597,11 +604,11 @@ class Player
 		);
 	}	// }}}
 
-	install (mn, ...args)
+	async install (mn, ...args)
 	{	// {{{
 		const elem=Apps.E(event.target).trace('[data-h]');
 		ASSERT_THROW(elem, "container not exist");
-		this.Content.__prepare__(elem, mn, args);
+		await this.Content.__prepare__(elem, mn, args);
 	}	// }}}
 
 	play (caption, mn, ...args)

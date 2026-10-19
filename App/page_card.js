@@ -22,7 +22,7 @@ class Cards
 				const SE=document.createElement("style");
 				SE.setAttribute('STYID','Card');
 				SE.innerHTML=`
-[data-x="card"] {
+.mod_card {
 	background-color:transparent;
 	width:30%;
 	height:0;
@@ -30,24 +30,24 @@ class Cards
 	border:1px solid #f1f1f1;
 	perspective:1000px;
 }
-[data-x="card"] .front,
-[data-x="card"] .back {
+.mod_card .front,
+.mod_card .back {
 	position:absolute;
 	width:100%;
 	height:100%;
 	overflow:hidden auto;
 	backface-visibility:hidden;
 }
-[data-x="card"] .front {
+.mod_card .front {
 	background-color:#bbb;
 	color:black;
 }
-[data-x="card"] .back {
+.mod_card .back {
 	background-color:#2980b9;
 	color:white;
 	transform:rotateX(180deg);
 }
-[data-x="card"]>div {
+.mod_card>div {
 	position:absolute;
 	left:0; top:0; width:100%; height:100%;
 	text-align:center;
@@ -55,7 +55,7 @@ class Cards
 	transform-style:preserve-3d;
 	box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
 }
-[data-x="card"]>div.flipped {
+.mod_card>div.flipped {
 	transform: rotateX(180deg);
 }
 `;
@@ -63,6 +63,7 @@ class Cards
 			})(); // }}}
 	}
 	install (E) {
+		E.classList.add('mod_card');
 		const bc=E.querySelector('.back');
 		const inner=((e)=>{ // add flip layer
 			if (e===E){
@@ -75,7 +76,7 @@ class Cards
 
 		if (!E._card_on_click_) { // install event handler
 			E._card_on_click_= (evt) => {
-				let e=findParent(evt.target,'[data-x="card"]>div');
+				let e=findParent(evt.target,'.mod_card>div');
 				if (e) e.classList.toggle('flipped');
 				evt.stopPropagation();
 			};
@@ -87,7 +88,8 @@ class Cards
 
 let H=undefined;
 
-SCRIPT.value=async function (page, elem) {
+SCRIPT.value=async function (page, elem)
+{
 	if (!H) H=new Cards(page);
 	H.install(elem);
 	return H;

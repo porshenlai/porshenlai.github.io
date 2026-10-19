@@ -157,12 +157,12 @@
 	<div>您需要正確編寫所有算數運算式的程式碼。</div>
 	<div>請依運算元優先順序由高到低依序選取 ?</div>
 	<div data-x='quiz:sort'>
-		<div data-o='5'>加法和減法</div>
-		<div data-o='4'>乘法和除法</div>
-		<div data-o='1'>括弧</div>
-		<div data-o='6'>及</div>
-		<div data-o='2'>指數</div>
-		<div data-o='3'>一元正、負、非</div>
+		<div data-o='4'>加法和減法</div>
+		<div data-o='3'>乘法和除法</div>
+		<div data-o='0'>括弧</div>
+		<div data-o='5'>及</div>
+		<div data-o='1'>指數</div>
+		<div data-o='2'>一元正、負、非</div>
 	</div>
 </section>
 
@@ -197,155 +197,123 @@
 </div></div>
 </section> <!-- }}}-->
 
-<section data-ks='P_EX,Q_ITS'>
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:s'>
+	<div>計算下列 Python 數學運算式</div>
+	<div data-x='code'>
+5 * (1+2) ** 2 - 3 + 4 / 2
+	</div>
+	<div class='bar'>
+		<div data-o='X'>5</div>
+		<div data-o='X'>8</div>
+		<div data-o='O'>44</div>
+		<div data-o='X'>22</div>
+	</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>你設計了一個數學運算的 Python 程式，程式碼如下：</div>
+	<div data-x='code'>
+a = 21
+b = 5
+	</div>
 	<div data-x='quiz:s'>
-		<div>計算下列 Python 數學運算式</div>
-		<div class='cb frame'>
-			5 * (1+2) ** 2 - 3 + 4 / 2
-		</div>
-		<div class='row'>
-			<div data-o='X'>5</div>
-			<div data-o='X'>8</div>
-			<div data-o='O'>44</div>
-			<div data-o='X'>22</div>
+		<div>請問 <b>print(a / b)</b> 將輸出什麼 ?</div>
+		<div class='bar'>
+			<div data-o='O'>4.2</div>
+			<div data-o='X'>4</div>
+			<div data-o='X'>1</div>
 		</div>
 	</div>
-</section>
-
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:c'>
-		<div>你設計了一個數學運算的 Python 程式，程式碼如下：</div>
-		<div class='cb frame'>
-			<div>a = 21</div>
-			<div>b = 5</div>
-		</div>
-		<div data-x='quiz:s'>
-			<div>請問 <b>print(a / b)</b> 將輸出什麼 ?</div>
-			<div class='row'>
-				<div data-o='O'>4.2</div>
-				<div data-o='X'>4</div>
-				<div data-o='X'>1</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			<div>請問 <b>print(a // b)</b> 將輸出什麼 ?</div>
-			<div class='row'>
-				<div data-o='X'>4.2</div>
-				<div data-o='O'>4</div>
-				<div data-o='X'>1</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			<div>請問 <b>print(a % b)</b> 將輸出什麼 ?</div>
-			<div class='row'>
-				<div data-o='X'>4.2</div>
-				<div data-o='X'>4</div>
-				<div data-o='O'>1</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section data-ks='P_EX,Q_ITS'>
 	<div data-x='quiz:s'>
-		<div>您執行下列程式碼。請問結果為何?</div>
-		<div class='cb frame'>
-			<div>value1 = 9</div>
-			<div>value2 = 4</div>
-			<div>answer = (value1 % value2 * 10) // 2.0 ** 3.0 + value2</div>
-		</div>
-		<div data-o='X'>輸出 129</div>
-		<div data-o='X'>發生語法錯誤</div>
-		<div data-o='X'>輸出 5.667</div>
-		<div data-o='O'>輸出 5.0</div>
-	</div>
-</section>
-
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:m'>
-		<div>某間銀行必須產生一份報表來顯示所有客戶每天的平均。</div>
-		<div>這份報表必須截斷餘額的小數部分。</div>
-		<div>請問哪兩段程式可以使用 ?</div>
-		<div data-o='O'>average_blance = int(total_deposits/number_of_customers)</div>
-		<div data-o='O'>average_blance = total_deposits//number_of_customers</div>
-		<div data-o='X'>average_blance = total_deposits**number_of_customers</div>
-		<div data-o='X'>average_blance = float(total_deposits//number_of_customers)</div>
-	</div>
-</section>
-
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:c'>
-		<div>您正在撰寫一個Python程式來評估算數公式。</div>
-		<div>此公式描述為b等於a乘以負一之後再平方。其中a是即將輸入的成績,而b是結果。</div>
-		<div>您所建立的程式碼片段如下。加上行號僅為參考之用。</div>
-		<div class='cb frame'>
-			<div>a= eval(input("Enter a number for the question:"))</div>
-			<div data-x='quiz:sort'>b= 
-				<span data-o="2">-</span>
-				<span data-o="1">(</span>
-				<span data-o="4">)</span>
-				<span data-o="-">*</span>
-				<span data-o="5">**2</span>
-				<span data-o="-">2</span>
-				<span data-o="3">a</span>
-			</div>
+		<div>請問 <b>print(a // b)</b> 將輸出什麼 ?</div>
+		<div class='bar'>
+			<div data-o='X'>4.2</div>
+			<div data-o='O'>4</div>
+			<div data-o='X'>1</div>
 		</div>
 	</div>
-</section>
-
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:c'>
-		<div>您正在建立一個比較數字的Python程式</div>
-		<div class='cb frame' style='position:relative'>
-			<div>num1 = eval(input ('Please enter the first number: '))</div>
-			<div>num2 = eval(input ('Please enter the second number: '))</div>
-			<div>if num1 == num2:</div>
-			<div class='cb'>
-				<div>print('The two numbers are equal. ')</div>
-				<div data-x='quiz:s'>
-					<div># 上述 print 陳述式只有在這兩個數字的值相等時才會列印。</div>
-					<table width='100%'><tr>
-						<th width='50%' data-o='O'>正確</th>
-						<th width='50%' data-o='X'>錯誤</th>
-					</tr></table>
-				</div>
-			</div>
-			<div>if num1 &lt;= num2:</div>
-			<div class='cb'>
-				<div>print('Number 1 is less than number 2. ')</div>
-				<div data-x='quiz:s'>
-					<div># 上述 print 陳述式只有在num1小於num2時才會列印。</div>
-					<table width='100%'><tr>
-						<th width='50%' data-o='X'>正確</th>
-						<th width='50%' data-o='O'>錯誤</th>
-					</tr></table>
-				</div>
-			</div>
-			<div>if num1 &gt; num2:</div>
-			<div class='cb'>
-				<div>print('Number 1 is greater than number 2. ')</div>
-				<div data-x='quiz:s'>
-					<div># 上述 print 陳述式只有在num1大於num2時才會列印。</div>
-					<table width='100%'><tr>
-						<th width='50%' data-o='O'>正確</th>
-						<th width='50%' data-o='X'>錯誤</th>
-					</tr></table>
-				</div>
-			</div>
-			<div>if num2 = num1:</div>
-			<div class='cb'>
-				<div data-x='quiz:s'>
-					<div># 上述 if 陳述式是無效的比較。</div>
-					<table width='100%'><tr>
-						<th width='50%' data-o='O'>正確</th>
-						<th width='50%' data-o='X'>錯誤</th>
-					</tr></table>
-				</div>
-				<div>print('The two numbers are the same. ')</div>
-			</div>
+	<div data-x='quiz:s'>
+		<div>請問 <b>print(a % b)</b> 將輸出什麼 ?</div>
+		<div class='bar'>
+			<div data-o='X'>4.2</div>
+			<div data-o='X'>4</div>
+			<div data-o='O'>1</div>
 		</div>
 	</div>
-</section>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:s'>
+	<div>您執行下列程式碼。請問結果為何?</div>
+	<div data-x='code'>
+value1 = 9
+value2 = 4
+answer = (value1 % value2 * 10) // 2.0 ** 3.0 + value2
+	</div>
+	<div data-o='X'>輸出 129</div>
+	<div data-o='X'>發生語法錯誤</div>
+	<div data-o='X'>輸出 5.667</div>
+	<div data-o='O'>輸出 5.0</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:m'>
+	<div>某間銀行必須產生一份報表來顯示所有客戶每天的平均。</div>
+	<div>這份報表必須截斷餘額的小數部分。</div>
+	<div>請問哪兩段程式可以使用 ?</div>
+	<div data-o='O'>average_blance = int(total_deposits/number_of_customers)</div>
+	<div data-o='O'>average_blance = total_deposits//number_of_customers</div>
+	<div data-o='X'>average_blance = total_deposits**number_of_customers</div>
+	<div data-o='X'>average_blance = float(total_deposits//number_of_customers)</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>您正在撰寫一個Python程式來評估算數公式。</div>
+	<div>此公式描述為b等於a乘以負一之後再平方。其中a是即將輸入的成績,而b是結果。</div>
+	<div>您所建立的程式碼片段如下。加上行號僅為參考之用。</div>
+	<div data-x='code'>
+a = eval(input("Enter a number for the question:"))
+<div data-x='quiz:sort'>b = <span data-o="1">-</span><span data-o="0">(</span><span data-o="3">)</span><span data-o="-">*</span><span data-o="4">**2</span><span data-o="-">2</span><span data-o="2">a</span></div>
+	</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>您正在建立一個比較數字的Python程式</div>
+	<div data-x='code'>
+num1 = eval(input ('Please enter the first number: '))
+num2 = eval(input ('Please enter the second number: '))
+
+if num1 == num2 :
+	print('The two numbers are equal. ')
+	# 上述 print 陳述式只有在這兩個數字的值相等時才會列印。
+	<div data-x='quiz:s' class='bar'># <div data-o='O'>正確</div><div data-o='X'>錯誤</div></div>
+
+if num1 &lt;= num2 :
+	print('Number 1 is less than number 2. ')
+	# 上述 print 陳述式只有在num1小於num2時才會列印。
+	<div data-x='quiz:s' class='bar'># <div data-o='X'>正確</div><div data-o='O'>錯誤</div></div>
+
+if num1 &gt; num2 :
+	print('Number 1 is greater than number 2. ')
+	# 上述 print 陳述式只有在num1大於num2時才會列印。
+	<div data-x='quiz:s' class='bar'># <div data-o='O'>正確</div><div data-o='X'>錯誤</div></div>
+
+if num2 = num1 :
+	# 上述 if 陳述式是無效的比較。
+	<div data-x='quiz:s' class='bar'># <div data-o='O'>正確</div><div data-o='X'>錯誤</div></div>
+	print('The two numbers are the same. ')
+	</div>
+</div>
+</section><!--}}}-->
 
 <section data-xl='import:Music_Types.html'><h2>♫ 基本資料型態</h2></section>
 
@@ -407,98 +375,39 @@
 	</div>
 </section><!--}}}-->
 
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:c'>
-		<div>請問變數宣告後它們的資料類別依序是？</div>
-		<div data-x='quiz:s'>
-			age = 12
-			<div class='row'>
-				<div data-o='O'>int</div>
-				<div data-o='X'>float</div>
-				<div data-o='X'>str</div>
-				<div data-o='X'>boolean</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			minor = False
-			<div class='row'>
-				<div data-o='X'>int</div>
-				<div data-o='X'>float</div>
-				<div data-o='X'>str</div>
-				<div data-o='O'>boolean</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			name = 'David'
-			<div class='row'>
-				<div data-o='X'>int</div>
-				<div data-o='X'>float</div>
-				<div data-o='O'>str</div>
-				<div data-o='X'>boolean</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			weight = 64.5
-			<div class='row'>
-				<div data-o='X'>int</div>
-				<div data-o='O'>float</div>
-				<div data-o='X'>str</div>
-				<div data-o='X'>boolean</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			zip = '545'
-			<div class='row'>
-				<div data-o='X'>int</div>
-				<div data-o='X'>float</div>
-				<div data-o='O'>str</div>
-				<div data-o='X'>boolean</div>
-			</div>
-		</div>
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>請問變數宣告後它們的資料類別依序是？</div>
+	<div data-x='code'>
+age = 12
+<div data-x='quiz:s' class='bar'># <div data-o='O'>int</div><div data-o='X'>float</div><div data-o='X'>str</div><div data-o='X'>boolean</div></div>
+minor = False
+<div data-x='quiz:s' class='bar'># <div data-o='X'>int</div><div data-o='X'>float</div><div data-o='X'>str</div><div data-o='O'>boolean</div></div>
+name = 'David'
+<div data-x='quiz:s' class='bar'># <div data-o='X'>int</div><div data-o='X'>float</div><div data-o='O'>str</div><div data-o='X'>boolean</div></div>
+weight = 64.5
+<div data-x='quiz:s' class='bar'># <div data-o='X'>int</div><div data-o='O'>float</div><div data-o='X'>str</div><div data-o='X'>boolean</div></div>
+zip = '545'
+<div data-x='quiz:s' class='bar'># <div data-o='X'>int</div><div data-o='X'>float</div><div data-o='O'>str</div><div data-o='X'>boolean</div></div>
 	</div>
-</section>
+</div>
+</section><!--}}}-->
 
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:c'>
-		<div>您必須識別各種類型作業的資料類型。</div>
-		<div data-x='quiz:s'>
-			type(5.0)
-			<div class='row'>
-				<div data-o='X'>int</div>
-				<div data-o='O'>float</div>
-				<div data-o='X'>str</div>
-				<div data-o='X'>boolean</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			type('True')
-			<div class='row'>
-				<div data-o='X'>int</div>
-				<div data-o='X'>float</div>
-				<div data-o='O'>str</div>
-				<div data-o='X'>boolean</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			type(False)
-			<div class='row'>
-				<div data-o='X'>int</div>
-				<div data-o='X'>float</div>
-				<div data-o='X'>str</div>
-				<div data-o='O'>boolean</div>
-			</div>
-		</div>
-		<div data-x='quiz:s'>
-			type(+1E10)
-			<div class='row'>
-				<div data-o='X'>int</div>
-				<div data-o='O'>float</div>
-				<div data-o='X'>str</div>
-				<div data-o='X'>boolean</div>
-			</div>
-		</div>
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>您必須識別各種類型作業的資料類型。</div>
+	<div data-x='code'>
+type(5.0) 
+<div data-x='quiz:s' class='bar'>#<div data-o='X'>int</div><div data-o='O'>float</div><div data-o='X'>str</div><div data-o='X'>boolean</div></div>
+type('True') 
+<div data-x='quiz:s' class='bar'>#<div data-o='X'>int</div><div data-o='X'>float</div><div data-o='O'>str</div><div data-o='X'>boolean</div></div>
+type(False) 
+<div data-x='quiz:s' class='bar'>#<div data-o='X'>int</div><div data-o='X'>float</div><div data-o='X'>str</div><div data-o='O'>boolean</div></div>
+type(+1E10) 
+<div data-x='quiz:s' class='bar'>#<div data-o='X'>int</div><div data-o='O'>float</div><div data-o='X'>str</div><div data-o='X'>boolean</div></div>
 	</div>
-</section>
+</div>
+</section><!--}}}-->
 
 <section data-ks='P_EX'><h2>🔢 內建函數: 型別轉換</h2><!--{{{ Built-in Functions: Type Conversion --> 
 	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
@@ -583,49 +492,41 @@
 	</tr></table>
 </section><!--}}}-->
 
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:s'>
-		<div>您執行下列程式碼，請問輸出值為何 ?</div>
-		<div class='cb frame'>
-			<div>list_1 = [1,2]</div>
-			<div>list_2 = [3,4]</div>
-			<div>list_3 = list_1 + list_2</div>
-			<div>list_4 = list_3 * 3</div>
-			<div>print(list_4)</div>
-		</div>
-		<div data-o='O'>[1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]</div>
-		<div data-o='X'>[[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]</div>
-		<div data-o='X'>[3, 6, 9, 12]</div>
-		<div data-o='X'>[[1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]]</div>
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:s'>
+	<div>您執行下列程式碼，請問輸出值為何 ?</div>
+	<div data-x='code'>
+list_1 = [1,2]
+list_2 = [3,4]
+list_3 = list_1 + list_2
+list_4 = list_3 * 3
+print(list_4)
 	</div>
-</section>
+	<div data-o='O'>[1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]</div>
+	<div data-o='X'>[[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]</div>
+	<div data-o='X'>[3, 6, 9, 12]</div>
+	<div data-o='X'>[[1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]]</div>
+</div>
+</section><!--}}}-->
 
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:c'>
-		<div>您撰寫了以下這段程式碼:</div>
-		<div>請評估這段程式碼,然後從每個下拉式清單中選取正確的選項以回答問題。</div>
-		<div class='cb frame'>
-			<div>a = 'Config1'</div>
-			<div>print(a)</div>
-			<div>b = a</div>
-			<div>a += 'Config2'</div>
-			<div>print(a)</div>
-			<div data-x='quiz:s'># 請問顯示的內容為何 ?
-				<div data-o="X">Config1</div>
-				<div data-o="O">Config1Config2</div>
-				<div data-o="X">Config2</div>
-				<div data-o="X">Config2Config1</div>
-			</div>
-			<div>print(b)</div>
-			<div data-x='quiz:s'># 請問顯示的內容為何 ?
-				<div data-o="O">Config1</div>
-				<div data-o="X">Config1Config2</div>
-				<div data-o="X">Config2</div>
-				<div data-o="X">Config2Config1</div>
-			</div>
-		</div>
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>您撰寫了以下這段程式碼:</div>
+	<div>請評估這段程式碼,然後從每個下拉式清單中選取正確的選項以回答問題。</div>
+	<div data-x='code'>
+a = 'Config1'
+print(a)
+b = a
+a += 'Config2'
+print(a)
+# 請問顯示的內容為何 ?
+<div data-x='quiz:s'><div data-o="X">Config1</div><div data-o="O">Config1Config2</div><div data-o="X">Config2</div><div data-o="X">Config2Config1</div></div>
+print(b)
+# 請問顯示的內容為何 ?
+<div data-x='quiz:s'><div data-o="O">Config1</div><div data-o="X">Config1Config2</div><div data-o="X">Config2</div><div data-o="X">Config2Config1</div></div>
 	</div>
-</section>
+</div>
+</section><!--}}}-->
 
 <section data-ks='P_EX'> <h2>🔢 內建函數: 數學</h2><!--{{{ Built-in Functions: Mathematics -->
 	<table class='ltable'><thead><tr>
@@ -665,7 +566,7 @@
 	</tr><tbody></table>
 </section> <!--}}}-->
 
-<section data-ks='P_EX,Q_ITS'>
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
 	<div>函式必須執行下列工作:<ul>
 		<li>提取浮點數(float)的絕對值</li>
 		<li>移除整數後面的任何小數點。</li>
@@ -677,77 +578,41 @@
 		<div data-o='X'>math.frexp(x)</div>
 		<div data-o='X'>math.fmod(x)</div>
 	</div>
-</section>
+</section><!--}}}-->
 
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:c'>
-		根據下列程式，請回答註解中的問題。
-		<div class='cb frame'>
-			<div>age = input("Enter your age: ")<div>
-			<div data-x='quiz:s'>
-				<div># age 的資料型態為</div>
-				<div class='row'>
-					<div data-o='X'>int</div>
-					<div data-o='O'>str</div>
-					<div data-o='X'>boolean</div>
-				</div>
-			</div>
-			<div>year = input("Enter the four-digit year: ")</div>
-			<div>born = eval(year) - eval(age)</div>
-			<div data-x='quiz:s'>
-				<div># born 的資料型態為</div>
-				<div class='row'>
-					<div data-o='O'>int</div>
-					<div data-o='X'>str</div>
-					<div data-o='X'>boolean</div>
-				</div>
-			</div>
-			<div>message = "You were born in " + str(born)</div>
-			<div data-x='quiz:s'>
-				<div># message 的資料型態為</div>
-				<div class='row'>
-					<div data-o='X'>int</div>
-					<div data-o='O'>str</div>
-					<div data-o='X'>boolean</div>
-				</div>
-			</div>
-			<div>print(message)</div>
-		</div>
-	</div>
-</section>
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	根據下列程式，請回答註解中的問題。
+	<div data-x='code'>
+age = input("Enter your age: ")
+<div data-x='quiz:s' class='bar'># age 的資料型態為<div data-o='X'>int</div><div data-o='O'>str</div><div data-o='X'>boolean</div></div>
+year = input("Enter the four-digit year: ")
+born = eval(year) - eval(age)
+<div data-x='quiz:s' class='bar'># born 的資料型態為<div data-o='O'>int</div><div data-o='X'>str</div><div data-o='X'>boolean</div></div>
 
-<section data-ks='P_EX,Q_ITS'>
-	<div data-x='quiz:c'>
-		<div>您建立了下列程式來找出會議室並顯示房間名稱。</div>
-		<div class='cb frame' style='padding-left:4px'>
-			<div>rooms = {1: 'Foyer', 2: 'Conference Room'}</div>
-			<div data-x='quiz:s'># 請問哪兩種資料類型儲存在 rooms 清單中？
-				<div data-o="X">布林值和字串</div>
-				<div data-o="X">浮點數和布林值</div>
-				<div data-o="O">整數和字串</div>
-				<div data-o="X">浮點數和整數</div>
-			</div>
-			<div>room = input('Enter the room number: ')</div>
-			<div data-x='quiz:s'># 請問 room 是哪種資料類型？
-				<div data-o="X">bool</div>
-				<div data-o="X">float</div>
-				<div data-o="X">int</div>
-				<div data-o="O">string</div>
-			</div>
-			<div>if not room in rooms:</div>
-			<div class='cb'>
-				<div data-x='quiz:s'># 為什麼上方判斷式無法尋找房間？
-					<div data-o="X">無效的語法</div>
-					<div data-o="O">不符合的資料類型</div>
-					<div data-o="X">命名錯誤的變數</div>
-				</div>
-				<div>print('Room does not exist.')</div>
-			</div>
-			<div>else:</div>
-			<div class='cb'>print("The room name is " + rooms[room])</div>
-		</div>
+message = "You were born in " + str(born)
+<div data-x='quiz:s' class='bar'># message 的資料型態為<div data-o='X'>int</div><div data-o='O'>str</div><div data-o='X'>boolean</div></div>
+print(message)
 	</div>
-</section>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>您建立了下列程式來找出會議室並顯示房間名稱。</div>
+	<div data-x='code'>
+rooms = {1: 'Foyer', 2: 'Conference Room'}
+<div data-x='quiz:s'># 請問哪兩種資料類型儲存在 rooms 清單中？<div data-o="X">布林值和字串</div><div data-o="X">浮點數和布林值</div><div data-o="O">整數和字串</div><div data-o="X">浮點數和整數</div></div>
+room = input('Enter the room number: ')
+<div data-x='quiz:s' class='bar'># 請問 room 是哪種資料類型？<div data-o="X">bool</div><div data-o="X">float</div><div data-o="X">int</div><div data-o="O">string</div></div>
+if not room in rooms:
+	<div data-x='quiz:s'># 為什麼上方判斷式無法尋找房間？<div data-o="X">無效的語法</div><div data-o="O">不符合的資料類型</div><div data-o="X">命名錯誤的變數</div></div>
+	print('Room does not exist.')
+else:
+	print("The room name is " + rooms[room])
+	</div>
+</div>
+</section><!--}}}-->
 
 </body>
 </html>

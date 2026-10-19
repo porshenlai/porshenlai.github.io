@@ -1,45 +1,13 @@
 (function(SCRIPT){
 
-function findParent (e,cs) {
-	try {
-		while (!e.matches(cs))
-			e=e.parentNode;
-	} catch(x) { return undefined; }
-	return e;
-}
-
 class Quiz
 {	// Quiz Plugin
 	constructor (app)
 	{
 		this.QEs={};
-		Apps.E('<link rel="stylesheet" href="/App/page_quiz.css"/>').join(document.head);
-		// install utilities services of Quiz.
-/*
-		if (app) app.Aside.installSetting((()=>{
-			const E=document.createElement("div");
-			E.innerHTML=`<div data-uid="aside:Settings:Quiz">
-	<label>QUIZ</label>
-	<div class='Options'>
-		<button data-h='downloadDLC'>下載數位學院CSV</button>
-	</div>
-</div>`;
-			E.addEventListener('click',(evt)=>{
-				for (let e=evt.target; e!==E; e=e.parentNode) {
-					switch (e.dataset.h) {
-					case 'downloadDLC':
-						this.downloadDLC();
-						break;
-					}
-					evt.stopPropagation();
-					evt.preventDefault();
-				}
-			});
-			return E;
-		})());
-*/
 	}
-	saveCSV (aa) {
+	saveCSV (aa)
+	{
 		const rst=aa.map((row)=>('"'+row.map((v)=>v.replaceAll('"','""')).join('","')+'"')).join('\n');
 		((ae)=>{
 			const url=URL.createObjectURL(new Blob([rst],{"type":"text/csv;charset:utf8"}));
@@ -51,7 +19,8 @@ class Quiz
 			window.URL.revokeObjectURL(url);
 		})(document.createElement('a'));
 	}
-	downloadDLC (tag='2025-0-1-0-0') {
+	downloadDLC (tag='2025-0-1-0-0')
+	{
 		let table=[];
 		for (let k in this.QEs) {
 			let q=this.QEs[k];
@@ -88,7 +57,8 @@ class Quiz
 		this.saveCSV(table);
 	}
 
-	async __sha256__ (str) {
+	async __sha256__ (str)
+	{
     	const hashBuffer = await crypto.subtle.digest(
 			'SHA-256',
 			(new TextEncoder()).encode(str)
@@ -96,11 +66,13 @@ class Quiz
     	return Array.from(new Uint8Array(hashBuffer));
 	}
 
-	__toHex__ (arr) {
+	__toHex__ (arr)
+	{
     	return arr.map(b => b.toString(16).padStart(2, '0')).join('')
 	}
 
-	__setStatus__ (qe, v) {
+	__setStatus__ (qe, v)
+	{
 		const p=/QR?/;
 		Array.from(qe.classList)
 			.filter((s)=>p.exec(s))
@@ -108,7 +80,8 @@ class Quiz
 		qe.classList.add(`QR${v}`);
 	}
 
-	install (xe) {
+	install (xe)
+	{
 		if (undefined===xe._K_) xe._K_=`${new Date().getTime().toString(36)}${Object.keys(this.QEs).length}`;
 		if (xe._K_ in this.QEs) return this;
 
@@ -120,9 +93,9 @@ class Quiz
 		// shuffle opotions
 		let te=[],pe=[];
 		Apps.E(xe).forEach('[data-o]',(oe)=>{
-      oe.dataset.h=`call:quiz:answer:${oe.dataset.o}`;
-      oe.classList.add('mod_quiz_answer');
-      delete oe.dataset.d;
+			oe.dataset.h=`call:quiz:answer:${oe.dataset.o}`;
+			oe.classList.add('mod_quiz_answer');
+			delete oe.dataset.d;
 			te.push([Math.random(),oe.outerHTML]);
 			pe.push(oe);
 		});
@@ -133,8 +106,8 @@ class Quiz
 	answer (e, v, p)
 	{
 		// locate the quiz block
-		if (!p) p=findParent(e,'[data-x^="quiz"]');
-		switch (p.dataset.x.substring(5)) {
+		if (!p) p=Apps.E(e).trace('.mod_quiz');
+		switch (p.dataset.qtype) {
 		case 's':
 			if (e.classList.contains('QS')) {
 				// click selected one, clear all
@@ -153,30 +126,30 @@ class Quiz
 			(()=>{
 				e.classList.toggle('QS'); // toggle the flag of this answer
 				const re1 = Array.from(e.parentNode.querySelectorAll('.mod_quiz_answer.QS'))
-					.reduce((r,e) => r&&e.dataset.o==='O',true);
+					.reduce((r,e) => r&&/:answer:O/.test(e.dataset.h),true);
 				const re2 = Array.from(e.parentNode.querySelectorAll('.mod_quiz_answer:not(.QS)'))
-					.reduce((r,e) => r&&e.dataset.o==='X',true);
+					.reduce((r,e) => r&&/:answer:X/.test(e.dataset.h),true);
 				this.__setStatus__(p, re1 && re2 ? 'O' : 'X');
 			})();
 			break;
 		case 'sort':
-			console.log("ANSWER",e,v,p);
 		  (()=>{
 				let c=e.parentNode;
 				e.classList.toggle('QS'); // toggle the flag of this answer
 				if (e.classList.contains('QS'))
 					c.insertBefore(e,c.querySelector('[data-h]:not(.QS)'));
 				else c.appendChild(e);
-				const re1 = 0 == Array.from(p.querySelectorAll('.mod_quiz_answer.QS'))
-					.reduce((r,e,i) => r+Math.abs(parseInt(e.dataset.o)-i)-1, 0);
+				const re1 = Array.from(p.querySelectorAll('.mod_quiz_answer.QS'))
+					.reduce((r,e,i) => r&&(new RegExp(`:answer:${i}`)).test(e.dataset.h), true)
 				const re2 = Array.from(c.querySelectorAll('.mod_quiz_answer:not(.QS)'))
-					.reduce((r,e) => r&&e.dataset.o==='-',true);
+					.reduce((r,e) => r&&/:answer:-/.test(e.dataset.h), true);
 				this.__setStatus__(p, re1 ? re2 ? 'O' : '-' : 'X');
 			})();
 			break;
 		}
 	}
-	mark () {
+	mark ()
+	{
 		// submit all the replied answers
 		return [... this.E.querySelectorAll('[_K_]')].reduce((r,e)=>{
 			r[e.getAttribute('_K_')]=e.getAttribute('qa');
@@ -186,15 +159,18 @@ class Quiz
 }
 
 let H=undefined;
-SCRIPT.value=async function (slide, elem, func, arg) {
+SCRIPT.value=async function (slide, elem, ...args)
+{
 	if (!H) H=new Quiz(slide);
-	if (func === 'answer') {
-		if (arg && arg !== 'value')
-			H.answer(elem, arg);
+	if (!args) return;
+	const func = args.shift();
+	if (func  === 'answer') {
+		H.answer(elem, args[0]);
 	} else if (!elem.classList.contains('mod_quiz')) {
-    elem.classList.add('mod_quiz');
-    H.install(elem);
-  }
+		elem.classList.add('mod_quiz');
+		elem.dataset.qtype=func;
+		H.install(elem);
+	}
 };
 
 

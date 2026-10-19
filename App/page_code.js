@@ -2,16 +2,18 @@
 
 class ICode
 {
-	constructor (elem) {
-		if (!elem.classList.contains('resolved')) {
-			elem.classList.add('resolved');
+	constructor (elem)
+	{
+		if (!elem.classList.contains('mod_code')) {
+			elem.classList.add('mod_code');
 			this.prepare(elem);
 		}
 		elem.classList.add('frame');
 		elem.style.padding='4px 32px';
 		this.E = elem;
 	}
-	prepare (elem) {
+	prepare (elem)
+	{
 		let s = elem.innerHTML.trim();
 		elem.innerHTML = '';
 		for (let le of s.split('\n').map((l)=>[(()=>{
@@ -29,7 +31,8 @@ class ICode
 			})(document.createElement('div')));
 		}
 	}
-	syntax (on=true) {
+	syntax (on=true)
+	{
 		Array.from(this.E.childNodes).forEach((e)=>{
 			let v = this.syntax_LC(e.textContent.trim());
 			if (v) e.style.color = v;
@@ -80,7 +83,8 @@ class ICode
 	}
 }
 
-SCRIPT.value=async function (slide, elem, args) {
+SCRIPT.value=async function (slide, elem, args)
+{
 	const IC = new ICode(elem);
 	if (args) {
 		if (args in IC)
