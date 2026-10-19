@@ -53,15 +53,37 @@
 </ol>
 </section><!--}}}-->
 
-<section><h2>PDCA 戴明循環</h2><!--{{{-->
-<ul>
-	<li>資訊安全是全面性與持續性的工作，需要掌握 PDCA(戴明循環) 原則，持續地經由計畫 (Plan)，執行 (Do) ，檢查 (Check) ，行動 (Act) ，以循環改善資訊安全管理各項缺失</li>
-</ul>
-<div class='ac' data-h='install:mermaid'><button>Render</button>
-	<textarea data-v='value:raw' style='display:none'>flowchart LR
-P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>監督與審查"] --> A["Adjust<br/>維護與改進"] --> P</textarea>
-</div>
-</section><!--}}}-->
+<section><h2>PDCA 戴明循環</h2><ul><!--{{{-->
+<li data-h='install:mermaid'><button>Render</button><textarea data-v='value:raw'>flowchart LR
+P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>監督與審查"] --> A["Adjust<br/>維護與改進"] --> P
+</textarea></li>
+<li>資訊安全是全面性與持續性的工作，需要掌握 PDCA(戴明循環) 原則，持續地經由計畫 (Plan)，執行 (Do) ，檢查 (Check) ，行動 (Act) ，以循環改善資訊安全管理各項缺失<ul>
+	<li><em>Plan:</em><ul>識別問題，分析根本原因，建立目標，建立達到目標的綱要步驟或改變需求</ul></li>
+	<li><em>Do:</em><ul></li>
+		Implement the planned change or solution on a small, controlled scale to test its effectiveness.
+	</ul></li>
+	<li><em>Check:</em><ul>
+		Measure and evaluate the results of the test against the expected outcomes and performance metrics.
+	</ul></li>
+	<li><em>Act:</em><ul>
+		If the test works, roll out the change on a larger scale and make it a permanent standard; if it fails, revise the plan and start the cycle again.
+	</ul></li>
+</ul></li>
+<li>VUCA:<ul>
+	<li><em>Volatility (V):</em><ul>
+		Rapid and unpredictable changes happen at a large scale.
+	</ul></li>
+	<li><em>Uncertainty (U):</em><ul>
+		Future events are hard to predict due to a lack of clear information.
+	</ul></li>
+	<li><em>Complexity (C):</em><ul>
+		Many interconnected factors, variables, and forces obscure direct cause-and-effect relationships.
+	</ul></li>
+	<li><em>Ambiguity (A):</em><ul>
+		Realities, mixed messages, and conditional relationships remain unclear and open to multiple interpretations.
+	</ul></li>
+</ul></li>
+</ul></section><!--}}}-->
 
 <section><h2>稽核</h2><!--{{{-->
 <ul>
@@ -142,7 +164,7 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 </ul>
 </section><!--}}}-->
 
-<section><h2> 數位證據與數位鑑識</h2><!--{{{-->
+<section><h2>數位證據與數位鑑識</h2><!--{{{-->
 <ul>
 	<li>數位證據是以數位形式儲存或傳輸、可用於法庭裁判證明的電子資訊；</li>
 	<li>數位鑑識是系統性地識別、擷取、保存及分析這些數位證據的科學方法。</li>
@@ -508,6 +530,93 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 	</ul></li>
 </ul>
 </section><!--}}}-->
+
+<section><h2>事件與事故管理分級</h2><ul><!--{{{-->
+<li class='fold'><span class='h3' data-h='fold'>第一級資通安全事件</span><ul>
+  <li>非核心業務資訊遭輕微洩漏/竄改</li>
+  <li>非核心資通系統遭輕微竄改</li>
+  <li>非核心業務之運作受影響或停頓，於可容忍中斷時間內回復正常運作，造成機關日常作業影響</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>第二級資通安全事件</span><ul>
+  <li>非核心業務資訊遭嚴重洩漏/竄改，或未涉及關鍵基礎設施維運之核心業務資訊遭輕微洩漏/竄改</li>
+  <li>非核心資通系統遭嚴重竄改，或未涉及關鍵基礎設施維運之核心資通系統遭輕微修改</li>
+  <li>非核心業務之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
+  <li>未涉及關鍵基礎設施維運之核心業務或核心資通系統之運作受影響或停頓，於可容忍中斷時間內回復正常運作</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>第三級資通安全事件</span><ul>
+<li>未涉及關鍵基礎設施維運之核心業務資訊遭嚴重洩漏/竄改</li>
+<li>一般公務機密，敏感資訊或涉及關鍵基礎設施維運之核心業務資訊遭輕微洩漏/竄改</li>
+<li>核心資通系統遭輕微修改</li>
+<li>未涉及關鍵基礎設施維運之核心資通系統之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
+<li>涉及關鍵基礎設施維運之核心業務或非核心資通系統之運作受影響或停頓，於可容忍中斷時間內回復正常運作</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>第四級資通安全事件</span><ul>
+  <li>一般公務機密，敏感資訊或涉及關鍵基礎設施維運之核心業務資訊遭嚴重洩漏/竄改，或國家機密遭洩漏/竄改</li>
+  <li>核心資通系統遭嚴重竄改</li>
+  <li>涉及關鍵基礎設施維運之核心業務或核心資通系統之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
+</ul></li>
+</ul></section><!--}}}-->
+
+<section><h2>事件與事故通報時間</h2><ul><!--{{{-->
+<li>公務機關/特定非公務機關在時間規定部分相同</li>
+<li>知悉資通安全事件後，應於1小時內依主管機關指定之方式或對象進行資通安全事件之通報</li>
+<li>依下列規定時間完成該資通安全事件等級之審核，得依審核結果變更其等級：<ul>
+	<li>通報為第一級或第二級資通安全事件者，於接獲後8小時內</li>
+	<li>通報為第三級或第四級資通安全事件者，於接獲後2小時內</li>
+</ul></li>
+<li>應依下列規定時間完成損害控制或復原作業，並依主管機關指定之方式及對象辦理通知事宜：<ul>
+	<li>第一級或第二級資通安全事件，於知悉該事件後72小時內</li>
+	<li>第三級或第四級資通安全事件，於知悉該事件後36小時內</li>
+</ul></li>
+</ul></section><!--}}}-->
+
+<section><h2>備援與營運持續</h2><ul><!--{{{-->
+<li class='fold'><span class='h3' data-h='fold'>營運持續管理 (Business Continuity Management)</span><ul>
+	<li>一個全面的管理過程</li>
+	<li>識別對組織產生威脅的可能衝擊</li>
+	<li>建立彈性的框架</li>
+	<li>保護關鍵的利害關係人，聲望，品牌與價值創造流程</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>策略與作業框架</span><ul>
+	<li>以營運為出發點，與目的相契合</li>
+	<li>災害復原 (Disaster Recovery)</li>
+	<li>確保業務流程所需要的資源能夠得以回復的程序</li>
+	<li>系統，人員與業務程序能夠在時間恢復</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>營運持續 (Business Continuity)</span><ul>
+	<li>著重搶時效，強調掌握度！</li>
+	<li>規劃因應事故或營運中斷的策略</li>
+	<li>使業務能在預先規劃的服務等級上持續運行</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>完整的營運持續管理流程: PDCA</span><ul>
+	<li>瞭解組織：評估關鍵產品服務與活動</li>
+	<li>營運衝擊評鑑 (BIA)</li>
+	<li>最低營運持續目標 (MBCD)，最大可容忍中斷時間 (MTPD)，復原目標時間 (TDO)，復原目標點 (RPO)</li>
+	<li>風險評鑑 (RA)</li>
+	<li>決定營運持續策略</li>
+	<li>決定適當的控制措施面對營運持續的風險</li>
+	<li>降低事故發生的可能性</li>
+	<li>降低事故發生的衝擊</li>
+	<li>包含：場地，技術，資訊，供應，人員，利害關係人</li>
+	<li>發展與實施營運持續回應</li>
+	<li>事故處理計畫 (IMP) 或 緊急應變計畫 (IRP)</li>
+	<li>營運持續計畫 (BCP)</li>
+	<li>演練，維護與審查</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>最低營運持續目標</span><ul>
+	<li>最低營運持續目標 (MBCO) / 最小可接受服務水準</li>
+	<li>找出讓服務得以持續提供並考量滿足利害關係者，法規及合約的營運目標之最小要求</li>
+</ul></li>
+<li class='fold'><span class='h3' data-h='fold'>三大時間量測指標</span><ul>
+	<li>最大可容忍中斷時間 (MTPD: Maximum Tolerable Period of Disruption)</li>
+	<li>會造成負面影響達到無法接受的時間，不論是財務或組織聲譽，也有可能是組織最大的中斷時間要求</li>
+	<li>復原目標時間 (RTO: Recovery Time Objective)</li>
+	<li>遭遇事故後恢復運轉到MBCO以上的時間目標</li>
+	<li>RTO絕對不會比 MTPD 長</li>
+	<li>復原時間點 (RPO: Recovery Point Objective)</li>
+	<li>恢復活動使用的資訊/資料，以使活動能夠在恢復時運作的點</li>
+</ul></li>
+</ul></section><!--}}}-->
 
 </body>
 </html>
