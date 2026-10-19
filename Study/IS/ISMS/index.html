@@ -379,49 +379,90 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 </ul></section><!--}}}-->
 
 <section><h2>風險管理</h2><!--{{{-->
-<ul>
-	<li><span class='h3'>定義風險</span></li>
-	<li class='fold'><span class='h3' data-h='fold'>評鑑風險</span><ul>
-		<li>風險評鑑透過<ul>
-			<li>風險識別 (Risk Identification)，</li>
-			<li>風險分析 (Risk Analysis)，</li>
-			<li>風險評量 (Risk Evaluation) </li>
-		</ul>等程序計算風險，再根據風險評估準則評鑑出險項目優先順序的清單</li>
-	</ul></li>
-	<li class='fold'><span class='h3' data-h='fold'>識別風險 (Identify Risk)</span><ul>
-		<li>風險識別的目的是要決定有可能發生的潛在損失</li>
-		<li>包含不論是否在組織下的風險<ul>
-			<li>資產識別 (Identification of Assets)</li>
-			<li>威脅識別 (Identification of Threats)</li>
-			<li>識別現存控制 (Identification of Existing Controls)</li>
-			<li>脆弱性識別 (Identification of Vulnerabilities)</li>
-			<li>後果識別 (Identification of Consequences)</li>
-		</ul></li>
-	</ul></li>
-	<li class='fold'><span class='h3' data-h='fold'>分析風險 (Analyze Risk)</span><ul>
-		<li>依據資產的關鍵性，已知弱點嚴重程度和先前涉及的組織的事件不同細節程度進行</li>
-		<li>風險分析的方法論：<ul>
-			<li>定性 (Qualitative)</li>
-			<li>定量 (Quantitative)</li>
-			<li>定性與定量混和</li>
-		</ul></li>
-	</ul></li>
-	<li class='fold'><span class='h3' data-h='fold'>處理風險</span><ul>
-		<li>風險處理的選擇：<ul>
-			<li>風險修改 (Risk Modification)</li>
-			<li>風險緩解 (Risk Mitigation)<ul>實行，移除或改變控制措施以管理風險等級，使殘餘風險被重新評定為可接受</ul></li>
-			<li>風險保留 (Risk Retention)</li>
-			<li>風險接受 (Risk Acceptance)<ul>依據風險評估，沒有進一步行動而保留風險的決策</ul></li>
-			<li>風險避免 (Risk Avoidance)<ul>
-				<li>風險識別太高時，實作其他風險處理的成本超過利益時做出決定以避免風險</li>
-				<li>可能在避免的過程中產生另外的風險</li>
-			</ul></li>
-			<li>風險分攤 (Risk Share)</li>
-			<li>風險轉移 (Risk Transfer)<ul>依據風險評估，將風險分攤至最有效管理特定風險的一方</ul></li>
-		</ul></li>
-	</ul></li>
-</ul>
+<div data-h='install:mermaid' class='button'>流程圖繪製<textarea data-v='value:raw'>flowchart LR
+A["風險溝通及諮詢"]
+C["風險監視與審查"] --> B["全景建立"] <--> A
+subgraph D ["風險評鑑"]
+	E["風險識別"] --> F["風險分析"] --> G["風險評估"]
+end
+G --> H{"評鑑是否合意"} -->|"是"| I["風險處理"] --> J{"處理是否合意"} -->|"是"| K["風險接受"] --> A
+H -->|"否"| B --> E
+J -->|"否"| B
+J -->|"否"| I
+C --> A <--> H --> C
+A <--> D
+</textarea></div>
 </section><!--}}}-->
+
+<section><h2>風險評鑑</h2><ul><!--{{{-->
+<li>風險評鑑透過<ul>
+	<li>風險識別 (Risk Identification)，</li>
+	<li>風險分析 (Risk Analysis)，</li>
+	<li>風險評量 (Risk Evaluation) </li>
+</ul>等程序計算風險，再根據風險評估準則評鑑出險項目優先順序的清單</li>
+</ul></section><!--}}}-->
+
+<section><h2>風險識別 (Identify Risk)</h2><ul><!--{{{-->
+<li>風險識別的目的是要決定有可能發生的潛在損失</li>
+<li>包含不論是否在組織下的風險<ul>
+	<li>資產識別 (Identification of Assets)</li>
+	<li>威脅識別 (Identification of Threats)</li>
+	<li>識別現存控制 (Identification of Existing Controls)</li>
+	<li>脆弱性識別 (Identification of Vulnerabilities)</li>
+	<li>後果識別 (Identification of Consequences)</li>
+</ul></li>
+</ul></section><!--}}}-->
+
+<section><h2>風險分析 (Risk Analysis)</h2><ul><!--{{{-->
+<li>依據資產的關鍵性，已知弱點嚴重程度和先前涉及的組織的事件不同細節程度進行</li>
+<li>風險分析的方法論：<ul>
+	<li>定性 (Qualitative)</li>
+	<li>定量 (Quantitative)</li>
+	<li>定性與定量混和</li>
+</ul></li>
+</ul></section><!--}}}-->
+
+<section><h2>風險處理</h2><ul><!--{{{-->
+<li>風險處理的選擇：<ul>
+	<li>風險修改 (Risk Modification)<ul>
+		<li>風險緩解 (Risk Mitigation)</li>
+		<li>實行，移除或改變控制措施以管理風險等級，使殘餘風險被重新評定為可接受</li>
+	</ul></li>
+	<li>風險保留 (Risk Retention)<ul>
+		<li>風險接受 (Risk Acceptance)</li>
+		<li>依據風險評估，沒有進一步行動而保留風險的決策</li>
+	</ul></li>
+	<li>風險避免 (Risk Avoidance)<ul>
+		<li>風險識別太高時，實作其他風險處理的成本超過利益時做出決定以避免風險</li>
+		<li>可能在避免的過程中產生另外的風險</li>
+	</ul></li>
+	<li>風險分攤 (Risk Share)<ul>
+		<li>風險轉移 (Risk Transfer)</li>
+		<li>依據風險評估，將風險分攤至最有效管理特定風險的一方</li>
+	</ul></li>
+</ul></li>
+</ul></section><!--}}}-->
+
+<section><h2>存取控制與身分認證</h2><!--{{{-->
+<div data-h='install:mermaid' class='button'>繪製示意圖<textarea data-v='value:raw'>flowchart TB
+U["主體"]
+subgraph C["存取控制"]
+	I["身分識別<br/>Identification"] --> A["身分認證<br/>Authentication"] --> L["授權"]
+end
+U --> C
+</textarea></div><ul>
+<li>身分識別:<ul>
+	<li>提出公開的證明憑據</li>
+	<li>Identification step</li>
+</ul></li>
+<li>身分認證:<ul>
+	<li>提出私人的證明資訊</li>
+	<li>Authentication step</li>
+</ul></li>
+<li>授權:<ul>
+	<li>系統確認主題是否有權存取受體</li>
+</ul></li>
+</ul></section><!--}}}-->
 
 <section><h2>存取控制與身分認證</h2><!--{{{-->
 <ul>
