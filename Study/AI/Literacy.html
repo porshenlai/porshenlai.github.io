@@ -9,64 +9,208 @@
 <style>
 	.switch [data-h^="sw:"]:not(.current) { background:lightblue; font-weight:border; }
 </style>
-<title>Microsoft 負責任的 AI</title>
+<title>Literacy 人工智慧素養</title>
 </head>
 <body style='opacity:0'>
 
 <section class='page col'>
-	<div class="h1 ac">人工智慧素養</div>
+	<div class="h1 ac">人工智慧素養<br/>Artificial Intelligence Literacy</div>
 	<br/>
 	<div class="frame">
-		<div>Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
-		<div>Department of Finance,</div>
-		<div>Chihlee University of Technology</div>
-		<div>2026, Winter</div>
+		<div>😊<em><a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></em></div>
+		<div><em>Department of Finance,</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+		<div>🕑<em>2026, Winter</em></div>
 	</div>
 </section>
 
-<section>
-<pre>
-1956 達特茅斯會議，約翰 (John) 麥卡錫 (McCarthy)﹔「人工智慧就是要讓機器的行為看起來像是人所表現出的智慧行為一樣」
+<section><h2>何謂人工智慧</h2><ul><!--{{{-->
+<li>1956 達特茅斯會議<ul>
+	<li>John McCarthy (約翰麥卡錫)﹔「人工智慧就是要讓機器的行為看起來像是人所表現出的智慧行為一樣」</li>
+</ul></li>
+<li class='fold'><span data-h='fold'><b>弱人工智慧</b> vs <b>強人工智慧</b></span><ul class='zcs2'>
+	<li><span class='h4'>弱人工智慧</span><ul>
+		<li>專用人工智慧</li>
+		<li>(artificial narrow intelligence, ANI)</li>
+		<li>不會有自主意識</li>
+		<li>應用: 語音助理(Siri)，人臉辨識系統，車牌辨識系統...</li>
+	</ul></li>
+	<li><span class='h4'>強人工智慧</span><ul>
+		<li>通用人工智慧</li>
+		<li>(artificial general intelligence, AGI)</li>
+		<li>多元智慧，結合全技能並超越人類的能力</li>
+		<li>應用: 家庭照護用的機器人，新一代自動駕駛車等...</li>
+	</ul></li>
+</ul></li>
+<li><span><b>類人的人工智慧</b> vs <b>非類人的人工智慧</b></span></li>
+<li class='fold'><b data-h='fold'>百度大腦基本框架</b><ul>
+	<li><b class='h4'>應用層:</b> 應用</li>
+	<li><b class='h4'>認知層:</b> 自然語言處理，知識圖譜，用戶圖像</li>
+	<li><b class='h4'>感知層:</b> 視訊追蹤，AR/VR，圖像識別，語音辨識</li>
+	<li><b class='h4'>演算法層:</b> 深度學習，機器學習</li>
+	<li><b class='h4'>大數據層:</b> 大數據分析/資料探勘，數據標註，數據擷取</li>
+	<li><b class='h4'>雲計算層:</b> 雲儲存，雲計算</li>
+</ul></li>
+<li class='fold'><b data-h='fold'>人工智慧應用領域</b><ul>
+	<li>智慧製造 Intelligent Manufacturing</li>
+	<li>智慧醫療 Smart Health</li>
+	<li>智慧交通 Intelligent Transportation</li>
+	<li>智慧家居 Smart Home / Intelligent Home</li>
+	<li>智慧安防 Intelligent Security System</li>
+	<li>智慧網路安全 Intelligent Network Security</li>
+	<li>車牌辨識</li>
+	<li>圖像識別 Pattern Recognition</li>
+	<li>智能學習 Intelligent Learning</li>
+</ul></li>
+</ul></section><!--}}}-->
 
-[弱人工智慧]
--	專用人工智慧 (artificial narrow intelligence, ANI)
--	不會有自主意識
--	應用實例 : 語音助理(Siri)，人臉辨識系統，車牌辨識系統...
+<section><h2>智慧城市 Smart City</h2><ul><!--{{{-->
+<li class='fold'><b data-h='fold'>國際市場產業研究機構 (Information Handling Services, IHS) : 智慧城市須具備的功能包括:</b><ul>
+	<li>移動 (Mobility) 和運輸 (Transport)</li>
+	<li>能源 (Energy) 與永續 (Sustainability)</li>
+	<li>基礎設施 (Physical Infrastructure)</li>
+	<li>安防 (Safe and Security)</li>
+	<li>治理 (Governance)</li>
+</ul></li>
+<li class='fold'><b data-h='fold'>智慧城市的概念</b><ul>
+	<li>利用資訊和通訊技術，分析整合城市運行核心各關鍵資訊，實現城市智慧管理和運行</li>
+	<li>優化城市可用資源</li>
+	<li>保障可持續性發展</li>
+	<li data-h='install:mermaid' class='button'>繪製<textarea data-v='value:raw'>flowchart LR
+C["雲端服務<br/>協同運作"]
+subgraph HB [ ]
+	direction TB
+	E["環境"]
+	I["物物相連<br/>全面感測"]
+end
+subgraph HC [ ]
+	direction TB
+	D["海量數據<br/>充分整合"]
+ 	G["商業"]
+end
+subgraph HA [ ]
+	direction TB
+	S["社會"]
+	O["開放數據<br/>激勵創新"]
+end
+S --> E --> G --> S
+C <--> I <--> D <--> O <--> C
+style HA fill:transparent,stroke:none,stroke-width:0px;
+style HB fill:transparent,stroke:none,stroke-width:0px;
+style HC fill:transparent,stroke:none,stroke-width:0px;
+</textarea></li>
+</ul></li>
+<li>數位城市</li>
+</ul></section><!--}}}-->
 
-[強人工智慧]
--	通用人工智慧 (artificial general intelligence, AGI)
--	多元智慧
--	具有多元智慧，結合所有技能並且超越大部分人類的能力
--	應用範例 : 家庭照護用的機器人，新一代自動駕駛車等...
--	類人的人工智慧 vs 非類人的人工智慧
--	百度大腦基本框架
-	*	應用層 : 應用
-	*	認知層 : 自然語言處理，知識圖譜，用戶圖像
-	*	感知層 : 視訊追蹤，AR/VR，圖像識別，語音辨識
-	*	演算法層 : 深度學習，機器學習
-	*	大數據層 : 大數據分析/資料探勘，數據標註，數據擷取
-	*	雲計算層 : 雲儲存，雲計算
+<section><h2>智慧城市應用體系</h2><ul><!--{{{-->
+<li class='fold'><span data-h='fold'>智慧公共服務:</span><ul>
+	<li>建設智慧公共服務和城市管理系統</li>
+</ul></li>
+<li class='fold'><span data-h='fold'>智慧城市綜合體:</span><ul>
+	<li>構建智慧視覺物聯網</li>
+</ul></li>
+<li class='fold'><span data-h='fold'>智慧政務城市綜合管理營運平台:</span><ul>
+	<li>治安緊急系統</li>
+	<li>公共服務系統</li>
+	<li>社會管理系統</li>
+	<li>城市管理系統</li>
+	<li>經濟分析系統</li>
+	<li>輿論分析系統</li>
+</ul></li>
+<li class='fold'><span data-h='fold'>智慧交通:</span><ul>
+	<li>建設智慧化城市交通綜合管理和服務系統，確保交通運輸安全順暢</li>
+	<li>智慧交通系統 (Intelligent transportation systems, ITS)</li>
+	<li>智慧化，資料化，資訊化</li>
+	<li>交通資訊精確供給，移動互聯網，物聯網，車聯網，雲端計算，人工智慧與大數據處理與交通行業深度滲透與融合</li>
+	<li>開放資料</li>
+	<li>運用互聯網交互體驗，開展公眾需求調查</li>
+	<li>軌道交通系統<ul>
+		<li>人工駕駛模式: 列車設駕駛員</li>
+		<li>人工駕駛的自動化運行模式</li>
+		<li>全自動無人駕駛模式</li>
+	</ul></li>
+</ul></li>
+<li class='fold'><span data-h='fold'>智慧安居服務:</span><ul>
+	<li>使居民生活「智慧化發展」</li>
+	<li>物聯網 Internet of Things (IoT)</li>
+	<li>可程式化設計定時控制</li>
+	<li>資訊交換服務</li>
+	<li>家庭自動化 (HA, Home Automation)</li>
+	<li>家用網路 (Home Networking)<ul>
+		<li>不同於家庭區域網路，家用網路是在家庭範圍內(可擴展至鄰居，社區)，將 PC，家電，安全系統，照明系統和廣域網路相連接的一種新技術</li>
+		<li>網路家電: 具智慧控制與網路技術的新型家電產品<ul>
+			<li>利用數位技術，網路技術及智慧控制技術設計，改進的新型家電產品。網路家電互聯組成一個家庭內部網路</li>
+			<li>家電之間的互聯: 互相識別，協同工作</li>
+			<li>家電網路與外部網路的通信</li>
+		</ul></li>
+	</ul></li>
+	<li>設計理念: 最少的投入，最簡便的實現途徑，獲得最大功效，實現高品質的生活<ul>
+		<li>實用便利</li> <li>可靠性</li> <li>標準性</li> <li>方便性</li> <li>輕巧性</li>
+	</ul></li>
+</ul></li>
+<li class='fold'><span data-h='fold'>智慧教育文化服務:</span><ul>
+	<li>積極推進智慧教育文化體系建設</li>
+</ul></li>
+<li class='fold'><span data-h='fold'>智慧產業:</span><ul>
+	<li>加快向智慧服務產業轉型</li>
+	<li>智慧物流: 資訊化，標準化，智慧化的物流</li>
+	<li>智慧貿易: 開展網路電子商務活動</li>
+	<li>建立智慧服務業示範推廣基地</li>
+</ul></li>
+<li class='fold'><span data-h='fold'>智慧醫療:</span><ul>
+	<li>健康保障體系建設</li>
+	<li>重點推進「數位衛生」系統建設</li>
+	<li>醫院管理之電子病歷</li>
+	<li>智慧醫療: 醫療照護，疾病管理，公共衛生監測，教育與研究</li>
+	<li>智慧醫療資訊平台: 病案資訊與診療報告</li>
+	<li class='fold'><span data-h='fold'>智慧醫療的特點:</span><ul>
+		<li>互聯的</li> <li>協作的</li> <li>預防的</li> <li>普及的</li> <li>創新的</li> <li>可靠的</li>
+	</ul></li>
+	<li class='fold'><span data-h='fold'>智慧醫療可達成:</span><ul>
+		<li>居民可獲得優質的衛生服務，連續的健康資訊和全程健康管理</li>
+		<li>衛生服務機關保證服務品質，提高服務效率</li>
+		<li>公共衛生專業機構有效開展疾病管理，衛生管理，應急管理，健康教育等工作</li>
+		<li>衛生行政部門提高衛生服務品質，強化績效考核以及加強監管能力</li>
+		<li>醫療保障，藥品監督，計畫生育保健，治安，民政等部門協同開展工作</li>
+	</ul></li>
+	<li data-h='install:mermaid' class='button'>智慧醫療的組成<textarea data-v='value:raw'>flowchart LR
+I("智慧醫院系統") --- H["智慧醫療"]
+L("區域衛生系統") --- H --- M("家庭健康系統")
+</textarea></li>
+	<li class='fold'><span data-h='fold'>數位醫院至少包含下列四個部分，以實現病人診療資訊和行政管理資訊的收集，儲存，處理，提取及資料交換</span><ol>
+		<li>醫院資訊系統 (Hospital Information System, HIS)</li>
+		<li>醫學影像資訊的儲存和傳輸系統 (Picture Archiving and Communication Systems, PACs)</li>
+		<li>實驗室資訊管理系統 (Laboratory Information Management System, LLM/LIS)</li>
+		<li>醫生工作站 (Workstaion)</li>
+	</ol></li>
+	<li class='fold'><span data-h='fold'>智慧醫院可實現:</span><ul>
+		<li>遠程探視</li>
+		<li>遠端會診</li>
+		<li>自動報警</li>
+		<li>臨床決策系統</li>
+		<li>智慧處方</li>
+	</ul></li>
+	<li class='fold'><span data-h='fold'>區域衛生系統發展案例</span><div><div data-h='install:mermaid' class='button'>繪製<textarea data-v='value:raw'>flowchart LR
+L["區域衛生系統"] --> LP("區域衛生平台") --> IA("所有資訊的區域<br/>衛生資訊平台")
+L --> PP("公共衛生系統") --> IB("衛生監督管利系統")
+PP --> IC("疾病發佈控管系統組成")
+</textarea></div></div></li>
+	<li class='fold'><span data-h='fold'>家庭健康系統</span><ul>
+		<li>基礎環境</li>
+		<li>基礎資料庫<ul><li>PACS影像資料庫</li><li>LIS檢驗資料庫</li><li>醫療人員資料庫</li><li>醫療設備</li></ul>
+		<li>軟體基礎平台及資料交換平台<ul><li>基礎架構服務</li><li>平臺服務</li><li>軟體服務</li></ul></li>
+		<li>綜合應用及其服務體系<ul><li>智慧醫院系統</li><li>區域衛生系統</li><li>家庭健康系統</li></ul></li>
+		<li>保障體系<ul><li>安全保障體系</li><li>標準規範體系</li><li>管理保障體系</li></ul></li>
+	</ul></li>
+</ul></li>
+</ul></section><!--}}}-->
 
-[人工智慧應用領域]
--	智慧製造 Intelligent Manufacturing
--	智慧醫療 Smart Health
--	智慧交通 Intelligent Transportation
--	智慧家居 Smart Home / Intelligent Home
--	智慧安防 Intelligent Security System
--	智慧網路安全 Intelligent Network Security
--	車牌辨識
--	圖像識別 Pattern Recognition
--	智能學習 Intelligent Learning
+<section><h2>智慧工業與智慧製造</h2><ul>
+</ul></section>
 
-[智慧城市 Smart City]
--	City Functions:
-	*	移動 (Mobility) 和運輸 (Transport)
-
-[智慧家居 Smart Home]
-
-</pre>
-</section>
-
+<section><h2>智慧零售與客戶服務</h2><ul>
+</ul></section>
 
 <section data-ks='literacy'><h2>工作負載</h2><!--{{{-->
 <div><ul>
