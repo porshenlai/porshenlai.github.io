@@ -57,13 +57,11 @@ section.fs { height:100%; border:0; border-radius:0; margin:0; padding:0; }
 
 [data-def] { display:none; }
 
-.zcs,.zcs2 {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(240px,2fr));
-	justify-content: space-around;
-	gap:24px;
-	padding:6px 24px;
-}
+.zcs,.zcs2
+{	display:grid; grid-template-columns:repeat(2, minmax(240px,2fr)); gap:24px;
+	justify-content:space-around; padding:6px 24px; }
+.fxl
+{	display:flex;flex-flow:row nowrap;align-items:center;justify-content:flex-start; }
 
 @media (max-aspect-ratio: 1/1) {
 	main { flex-flow: column nowrap; }
