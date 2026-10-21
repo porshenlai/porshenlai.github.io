@@ -7,49 +7,15 @@
 </head>
 <body style='opacity:0'>
 
-<style>
-.sub { font-weight:bold; background:silver; }
-.explain { font-size:70%; }
-
-.hl-kw { color:#c792ea; }
-.hl-fn { color:#82aaff; }
-.hl-str { color:#ecc48d; }
-.hl-nb	{ color:#f78c6c; }
-.hl-cm	{ color:#5c6773; font-style:italic;} 
-table small { color:#666; }
-
-.C3Tbl { display:flex;flex-flow:row wrap;gap:1vw 2%; }
-.C3Tbl [data-x^="card"] { width:32%;padding-top:32%; }
-.origin { display:flex;flex-flow:column nowrap;justify-content:center;align-items:center; }
-
-.syntax th { background:#eee; }
-.syntax .K { color:red; }
-.syntax .V { color:green; }
-
-.frame { font-size:2vw; padding-left:4px; }
-
-.rtable { border-collapse: separate; border-spacing: 8px 2px; margin:auto; }
-.rtable td { text-align:right; border-bottom:2px outset silver; padding:2px 8px; }
-.rtable th { border:2px outset silver; padding:2px 8px; }
-
-.ltable { border-collapse: separate; border-spacing: 8px 2px; margin:auto; }
-.ltable td { border-bottom:2px outset silver; padding:2px 8px; }
-.ltable th { border:2px outset silver; padding:2px 8px; }
-.ltable td>div, .ltable th>div, .rtable td>div, .rtable th>div { font-size:80%; color:green;font-weight:bold; }
-
-.XL { display:flex; align-items:center; white-space:nowrap; }
-.XL [data-x^='quiz'] { margin:1px 8px; } 
-</style>
-
 <section class='page'>
 	<div class='fill col'>
-		<div class='h1 ac'>Python - Flow Control<br/>程式流程控制</div>
+		<div class='h1 ac'>Python 流程控制</div>
 		<br/>
 		<div class='frame'>
 			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
 			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
 			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
-			<div style="text-align:right">2026, Summer</div>
+			<div style="text-align:right">2026, Autumn</div>
 		</div>
 	</div>
 </section>
@@ -506,10 +472,10 @@ while eof == False:
 	<div data-x='quiz:s'><div data-o="X">if line != '\n' :</div><div data-o="O">if line != '' :</div><div data-o="X">if line != None :</div></div>
 		<div data-x='quiz:s'><div data-o="X">if line != "" :</div><div data-o="X">if line != None :</div><div data-o="O">if line != "\n" :</div></div>
 			print(line)
-		else :
-			print ("End of file")
-			eof = True
-			inventory.close()
+	else :
+		print ("End of file")
+		eof = True
+		inventory.close()
 	</div>
 </div>
 </section><!--}}}-->
@@ -564,11 +530,11 @@ days_rented = int(input("How many days was the video rented?"))
 weekday = input("What day was the video rented?").capitalize()
 cost_per_day = 1.59
 
-<div class='XL'>if ontime <div data-x='quiz:s'><div data-o="X">!= "n" :</div><div data-o="O">== "n" :</div><div data-o="X">== "y" :</div></div></div>
+<div class='fxl'>if ontime <div data-x='quiz:s'><div data-o="X">!= "n" :</div><div data-o="O">== "n" :</div><div data-o="X">== "y" :</div></div></div>
 	days_rented +=1
-<div class='XL'>if weekday <div data-x='quiz:s'><div data-o="O">== "Sunday" :</div><div data-o="X">&gt;= "Sunday" :</div><div data-o="X">is "Sunday" :</div></div></div>
+<div class='fxl'>if weekday <div data-x='quiz:s'><div data-o="O">== "Sunday" :</div><div data-o="X">&gt;= "Sunday" :</div><div data-o="X">is "Sunday" :</div></div></div>
 	total = (days_rented * cost_per_day) * 0.7
-<div class='XL'>elif weekday <div data-x='quiz:s'><div data-o="O">== "Thursday" :</div><div data-o="X">&lt;="Thursday" :</div><div data-o="X">is "Thursday" :</div></div></div>
+<div class='fxl'>elif weekday <div data-x='quiz:s'><div data-o="O">== "Thursday" :</div><div data-o="X">&lt;="Thursday" :</div><div data-o="X">is "Thursday" :</div></div></div>
 	total = (days_rented * cost_per_day) * 0.5
 else:
 	total = days_rented * cost_per_day
@@ -587,12 +553,12 @@ print("Cost of the DVD rental is: $", total)
 		<li>其他所有成績都不及格。</li>
 	</ul></div>
 	<div data-x='code'>
-<div class='XL'><div data-x='quiz:s'><div data-o="X">elif</div><div data-o="O">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &lt;= 100 :</div>
-	<div class='XL'><div data-x='quiz:s'><div data-o="X">elif</div><div data-o="O">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &gt;= 90 :</div>
+<div class='fxl'><div data-x='quiz:s'><div data-o="X">elif</div><div data-o="O">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &lt;= 100 :</div>
+	<div class='fxl'><div data-x='quiz:s'><div data-o="X">elif</div><div data-o="O">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &gt;= 90 :</div>
 		print "Your grade is A."
-	<div class='XL'><div data-x='quiz:s'><div data-o="O">elif</div><div data-o="X">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &gt;= 80 :</div>
+	<div class='fxl'><div data-x='quiz:s'><div data-o="O">elif</div><div data-o="X">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &gt;= 80 :</div>
 		print "Your grade is B."
-	<div class='XL'><div data-x='quiz:s'><div data-o="O">elif</div><div data-o="X">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &lt; 80 <div data-x='quiz:s'><div data-o="X">or</div><div data-o="O">and</div><div data-o="X">not</div></div> grade &gt; 69 :</div>
+	<div class='fxl'><div data-x='quiz:s'><div data-o="O">elif</div><div data-o="X">if</div><div data-o="X">for</div><div data-o="X">else</div></div> grade &lt; 80 <div data-x='quiz:s'><div data-o="X">or</div><div data-o="O">and</div><div data-o="X">not</div></div> grade &gt; 69 :</div>
 		print "Your grade is C."
 	<div data-x='quiz:s'><div data-o="X">elif :</div><div data-o="X">if :</div><div data-o="X">for :</div><div data-o="O">else :</div></div> 
 		print "Your grade is failing."
@@ -693,8 +659,8 @@ while (n != 0) :
 	<div data-x='code'>
 # Displays times tables 2 - 12
 def times_tables():
-	<div class='XL'>for col in <div data-x='quiz:s'><div data-o="X">range(13)</div><div data-o="O">range(2,13)</div><div data-o="X">range(2,12,1)</div><div data-o="X">range(12)</div></div> :</div>
-		<div class='XL'>for row in <div data-x='quiz:s'><div data-o="X">range(13)</div><div data-o="O">range(2,13)</div><div data-o="X">range(2,12,1)</div><div data-o="X">range(12)</div></div> :</div>
+	<div class='fxl'>for col in <div data-x='quiz:s'><div data-o="X">range(13)</div><div data-o="O">range(2,13)</div><div data-o="X">range(2,12,1)</div><div data-o="X">range(12)</div></div> :</div>
+		<div class='fxl'>for row in <div data-x='quiz:s'><div data-o="X">range(13)</div><div data-o="O">range(2,13)</div><div data-o="X">range(2,12,1)</div><div data-o="X">range(12)</div></div> :</div>
 			print(row * col, end = " ")
 		print()
 
@@ -734,8 +700,8 @@ parts=""
 	<div>****</div><div>*</div><div>****</div><div>*</div><div>****</div>
 	<div data-x='code'>
 result_str=""
-<div class='XL'>for row in range(1,<div data-x='quiz:s'><div data-o="X">3</div><div data-o="X">4</div><div data-o="X">5</div><div data-o="O">6</div></div>) :</div>
-	<div class='XL'>for column in range(1,<div data-x='quiz:s'><div data-o="X">3</div><div data-o="X">4</div><div data-o="O">5</div><div data-o="X">6</div></div>) :</div>
+<div class='fxl'>for row in range(1,<div data-x='quiz:s'><div data-o="X">3</div><div data-o="X">4</div><div data-o="X">5</div><div data-o="O">6</div></div>) :</div>
+	<div class='fxl'>for column in range(1,<div data-x='quiz:s'><div data-o="X">3</div><div data-o="X">4</div><div data-o="O">5</div><div data-o="X">6</div></div>) :</div>
 		if (row==1 or row==3 or row==5) :
 			result_str=result_str+"*"
 		elif column==1 :
@@ -753,7 +719,7 @@ print(result_str)
 		<div data-x='code'>
 productIdList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 index = 0
-<div class='XL'><div data-x='quiz:s'><div data-o="O">while</div><div data-o="X">for</div><div data-o="X">if</div><div data-o="X">break</div></div> (index &lt; 10) :</div>
+<div class='fxl'><div data-x='quiz:s'><div data-o="O">while</div><div data-o="X">for</div><div data-o="X">if</div><div data-o="X">break</div></div> (index &lt; 10) :</div>
 	print(productIdList[index])
 	if productIdList[index] == 6 :
 		<div data-x='quiz:s'><div data-o="X">while</div><div data-o="X">for</div><div data-o="X">if</div><div data-o="O">break</div></div>
@@ -793,9 +759,9 @@ print("Guess an integer from 1 to 10. You will have 3 chances. ")
 	</ul></div>
 	<div data-x='code'>
 x = "Hello World"
-<div class='XL'><div data-x='quiz:s'><div data-o="X">for</div><div data-o="X">if</div><div data-o="O">while</div></div> x != "QUIT" :</div>
+<div class='fxl'><div data-x='quiz:s'><div data-o="X">for</div><div data-o="X">if</div><div data-o="O">while</div></div> x != "QUIT" :</div>
 	num = 0
-	<div class='XL'><div data-x='quiz:s'><div data-o="O">for</div><div data-o="X">if</div><div data-o="X">while</div></div> char <div data-x='quiz:s'><div data-o="X">and</div><div data-o="X">or</div><div data-o="O">in</div><div data-o="X">not</div></div> x :</div>
+	<div class='fxl'><div data-x='quiz:s'><div data-o="O">for</div><div data-o="X">if</div><div data-o="X">while</div></div> char <div data-x='quiz:s'><div data-o="X">and</div><div data-o="X">or</div><div data-o="O">in</div><div data-o="X">not</div></div> x :</div>
 		num += 1
 	print(num)
 	x = input("Enter a new word or QUIT to exit: ")
@@ -817,7 +783,7 @@ x = "Hello World"
 <div data-x='quiz:s'><div data-o="X">for index in range(len(salary_list)+1):</div><div data-o="X">for index in range(len(salary_list)-1):</div><div data-o="O">for index in range(len(salary_list)):</div><div data-o="X">for index in salary_list:</div></div>
 	if salary_list[index] &gt;= 150000 :
 		<div data-x='quiz:s'><div data-o="X">exit()</div><div data-o="O">continue</div><div data-o="X">break</div><div data-o="X">end</div></div>
-			salary_list[index] = (salary_list[index] *1.03) + 500
+	salary_list[index] = (salary_list[index] *1.03) + 500
 	</div>
 </div>
 </section><!--}}}-->
@@ -832,8 +798,8 @@ x = "Hello World"
 # Returns count of a particular letter in that list.</>
 def count_letter(letter, word_list):
 	count = 0
-	<div class='XL'>for <div data-x='quiz:s'><div data-o="X">word_list in word</div><div data-o="O">word in word_list</div><div data-o="X">word == word_list</div><div data-o="X">word is word_list</div></div> :</div>
-		<div class='XL'>if <div data-x='quiz:s'><div data-o="X">word is letter</div><div data-o="X">letter is word</div><div data-o="X">word in letter</div><div data-o="O">letter in word</div></div> :</div>
+	<div class='fxl'>for <div data-x='quiz:s'><div data-o="X">word_list in word</div><div data-o="O">word in word_list</div><div data-o="X">word == word_list</div><div data-o="X">word is word_list</div></div> :</div>
+		<div class='fxl'>if <div data-x='quiz:s'><div data-o="X">word is letter</div><div data-o="X">letter is word</div><div data-o="X">word in letter</div><div data-o="O">letter in word</div></div> :</div>
 			count += 1
 	return count
 			
@@ -856,10 +822,10 @@ print("There are: ", letter_count, "instances of " + letter)
 # return new string in reversed order.
 def reverse_name(backward_name):
 	forward_name = ""
-	<div class='XL'>length = <div data-x='quiz:s'><div data-o="X">backward_name:</div><div data-o="O">len(backward_name)-1</div><div data-o="X">range(0,len(backward_name),-1)</div><div data-o="X">range(len(backward_name)-1,-1,-1)</div></div></div>
+	<div class='fxl'>length = <div data-x='quiz:s'><div data-o="X">backward_name:</div><div data-o="O">len(backward_name)-1</div><div data-o="X">range(0,len(backward_name),-1)</div><div data-o="X">range(len(backward_name)-1,-1,-1)</div></div></div>
 				
 	while length &gt;= 0 :
-		<div class='XL'>forward_name += <div data-x='quiz:s'><div data-o="X">backward_name[index]</div><div data-o="O">backward_name[length]</div><div data-o="X">backward_name[length+1]</div><div data-o="X">backward_name[len(backward_name)-len(forward_name)]</div></div></div>
+		<div class='fxl'>forward_name += <div data-x='quiz:s'><div data-o="X">backward_name[index]</div><div data-o="O">backward_name[length]</div><div data-o="X">backward_name[length+1]</div><div data-o="X">backward_name[len(backward_name)-len(forward_name)]</div></div></div>
 		length = length-1
 	return forward_name
 
@@ -896,10 +862,10 @@ count = 0
 sum = 0
 
 # 下列程式碼有兩個錯誤需要修正 :
-<div class='XL'>for index in range<div data-x='quiz:s'><div><s>(0, len(employee_pay)-1):</s></div><div data-o="X">(size(employee_pay)):</div><div data-o="X">(size(employee_pay)-1):</div><div data-o="X">(len(employee_pay)+1):</div><div data-o="O">(len(employee_pay)):</div></div></div>
+<div class='fxl'>for index in range<div data-x='quiz:s'><div><s>(0, len(employee_pay)-1):</s></div><div data-o="X">(size(employee_pay)):</div><div data-o="X">(size(employee_pay)-1):</div><div data-o="X">(len(employee_pay)+1):</div><div data-o="O">(len(employee_pay)):</div></div></div>
 	count += 1
 	sum += employee_pay[index]
-	<div class='XL'>average = <div data-x='quiz:s'><div><s>sum//count</s></div><div data-o="O">sum/count</div><div data-o="X">sum**count</div><div data-o="X">sum*count</div></div></div>
+	<div class='fxl'>average = <div data-x='quiz:s'><div><s>sum//count</s></div><div data-o="O">sum/count</div><div data-o="X">sum**count</div><div data-o="X">sum*count</div></div></div>
 
 print("The total payroll is:", sum)
 print("The average salary is:", average)
@@ -953,9 +919,9 @@ print("The average salary is:", average)
 
 	<div data-x='code'>
 x = 'Hello World'
-<div class='XL'><div data-x='quiz:s'><div data-o='X'>for</div><div data-o='X'>if</div><div data-o='O'>while</div></div> x != 'QUIT' :</div>
+<div class='fxl'><div data-x='quiz:s'><div data-o='X'>for</div><div data-o='X'>if</div><div data-o='O'>while</div></div> x != 'QUIT' :</div>
 	num = 0
-	<div class='XL'><div data-x='quiz:s'><div data-o='O'>for</div><div data-o='X'>if</div><div data-o='X'>while</div></div> char <div data-x='quiz:s'><div data-o='X'>and</div><div data-o='X'>or</div><div data-o='O'>in</div><div data-o='X'>not</div></div> x :</div>
+	<div class='fxl'><div data-x='quiz:s'><div data-o='O'>for</div><div data-o='X'>if</div><div data-o='X'>while</div></div> char <div data-x='quiz:s'><div data-o='X'>and</div><div data-o='X'>or</div><div data-o='O'>in</div><div data-o='X'>not</div></div> x :</div>
 		num += 1
 		print(num)
 		x = input('Enter a new word or QUIT to exit: ')
