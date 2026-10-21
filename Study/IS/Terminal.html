@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target='_blank'></base>
+<script src="/App/page.js"></script>
+<style>
+	.def { color:darkblue;font-weight:bolder; }
+	.desc { color:blue; }
+	.XL { display:flex; align-items:center; white-space:nowrap; }
+	.XL [data-x^='quiz'] { margin:1px 8px; } 
+
+	table.chart th { border:2px solid black; padding:4px 20px; }
+	table.chart th.R { border-radius:12px; }
+	table.chart td { border:0; padding:0; text-align:center; vertical-align:middle; }
+</style>
+</head>
+<body style='opacity:0'>
+
+<section class='page'>
+	<div class='fill col'>
+		<div class='h1 ac'>Terminal<br/>終端機</div>
+		<br/>
+		<div class='frame'>
+			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+			<div style="text-align:right">2026, Summer</div>
+		</div>
+	</div>
+</section>
+
+<section> <h2>輸入 程序 資料 輸出</h2> <!--{{{-->
+<table class='chart' align='center'>
+<tr><th class='R'>輸入<br/>Input</th><td>&rarr;</td><th>程序<br/>Procedure</th><td>&larr;</td><th class='R'>輸出<br/>Output</th></tr>
+<tr><td colspan='2'></td><td>↕</td><td colspan='2'></tr>
+<tr><td colspan='2'></td><th class='R'>資料<br/>Data</th><td colspan='2'></td></tr>
+</table>
+</section> <!--}}}-->
+
+<section> <h2>流程</h2> <!--{{{-->
+<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
+	I[進口<br/>碼頭] --> PA[進口<br/>報關行] --> P[工廠] --> PZ[出口<br/>報關行] --> O[出口<br/>碼頭]
+	PA -->|DMA| S[倉庫]
+	P <-->|變數<br/>存取| S
+	S -->|DMA| PZ
+</textarea></div>
+	<ul>
+		<li><b>碼頭:</b> 輸出入裝置, 例如: 檔案, 網路, 鍵盤, 螢幕</li>
+		<li><b>報關行:</b> 驅動程式</li>
+		<li><b>工廠:</b> 程序(處理器)</li>
+		<li><b>倉庫:</b> 資料(記憶體)</li>
+	</ul>
+</section> <!--}}}-->
+
+<section> <h2>終端機: 標準輸入 / 標準輸出</h2> <!--{{{-->
+<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
+	subgraph "程序"
+		direction TB
+		PI["Python 解譯器"] 
+		PS("Python 程式")
+	end
+	subgraph "介面"
+		direction TB
+		U("使用者")
+		C["終端機"]
+	end
+	C <-->|輸出入| U
+	PI <-->|執行| PS
+	C -->|stdin| PI
+	PI -->|stdout| C
+	PI -->|stderr| C
+</textarea></div>
+	<div><ul>
+		<li><b>標準輸入 (stdin):</b><ul>
+			<li>終端機的預設輸入 (檔案ID:0)</li>
+			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#input'>input()</a></li>
+		</ul></li>
+		<li><b>標準輸出 (stdout):</b><ul>
+			<li>終端機資料的預設輸出 (檔案ID:1)</li>
+			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#print'>print()</a></li>
+		</ul></li>
+		<li><b>標準錯誤 (stderr):</b><ul><li>終端機錯誤訊息的預設輸出 (檔案ID:2)</li></ul></li>
+		<li><b>程序 (process):</b><ul><li>程式運行的實體</li></ul></li>
+	</ul></div>
+</section> <!--}}}-->
+
+<section> <h2>終端機 / 殼層 / 解譯器 / 作業系統</h2> <!--{{{-->
+<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
+	U("使用者") -->|"輸入"| K("鍵盤") -->|stdin| T["終端機<br/>Terminal"] -->|"input()"| I["Python<br/>解翻器"]
+	I -->|"print()"| T -->|stdout| W("視窗") -->|"顯示"| U
+	T -->|read| S["殼層<br/>Shell"] -->|執行| I
+	I -->|返回| S -->|echo| T
+</textarea></div>
+<h3>命令列 Command Line</h3>
+<div><table border='1' cellspacing='8' cellpadding='4' align='center' width='95%'><tbody>
+	<tr><th>[環境變數設定]</th>
+		<th>[前置命令]</th>
+		<th>主命令</th>
+		<th colspan='3'>[命令參數...]</th>
+	</tr>
+	<tr><td>PYTHONPATH=./</td>
+		<td>sudo</td>
+		<td>python3</td>
+		<td>sample232.py</td>
+		<td>/dev/ttyS0</td>
+		<td>115200</td>
+	</tr>
+	<tr><th colspan='6'>sample232.py 程式碼<div class='al'>
+		<div data-x='code'>
+import sys
+print(sys.argv)
+		</div>&rarr;<div data-x='code'>
+['sample232.py', '/dev/ttyS0', '115200']
+		</div>
+	</div></th></tr>
+</tbody></table>
+</div>
+</section> <!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'> <h2>程式執行引數 與 回傳值</h2> <!--{{{-->
+	<div data-x='quiz:s'>
+		<div>Script.py 檔案包含下列程式碼：</div>
+		<div data-x='code'>
+import sys
+print(sys.argv[2])
+		</div>
+		<br/>
+		<div>您執行下列命令：</div>
+		<div class='frame'>
+			<div>python Script.py Cheese Bacon Bread</div>
+		</div>
+		<br/>
+		<div>請問此命令的輸出為何？</div>
+		<div class='bar'>
+			<div data-o='X'>Bread</div>
+			<div data-o='X'>Cheese</div>
+			<div data-o='X'>Script.py</div>
+			<div data-o='O'>Bacon</div>
+		</div>
+	</div>
+</section> <!--}}}-->
+
+<section data-ks='P_IO'> <h2>裝置: 終端機</h2><!--{{{-->
+<div>
+	<hr/>
+	<div class='desc'>⚙️ 讀取一行字串（含結尾換行去除）</div>
+<div data-id='0' data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
+	U("使用者") -->|"輸入"| F["input(提示字串)"] -->|"返回"| R("輸入的字串")
+</textarea></div>
+	<div class='def'>字串變數 = input(提示字串)</div>
+	<div data-x='code'>
+name = input("Your Name: ")
+age = int(input("Your Age: "))
+	</div>
+	<hr/>
+	<div class='desc'>⚙️  將物件轉成字串後輸出</div>
+<div data-id='1' data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
+	F["print(要顯示的內容)"] -->|輸出| T("顯示在終端機上的文字")
+</textarea></div>
+	<div class='def'>print(要輸出的資料..., sep="分隔符號", end="換行符號")</div>
+	<div data-x='code'>
+print("姓名是: ", name, "\n年齡是: ", age)
+	</div>
+</div>
+</section> <!--}}}-->
+
+<section data-ks='P_IO,Q_ITS'><!--{{{-->
+<div data-x='quiz:s'>
+	<div>請問下列陳述式有何功能？</div>
+	<div data-x='code'>
+data = input()
+	</div>
+	<div data-o='X'>顯示電腦上的所有輸入周邊裝置</div>
+	<div data-o='X'>顯示允許使用者輸入的訊息方塊</div>
+	<div data-o='O'>允許使用者在主控台中輸入文字</div>
+	<div data-o='X'>建立HTML輸入元素</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:s'>
+	<div>您正在為公司開發一個Python應用程式。</div>
+	<div>您需要接受使用者的輸入並將該項資訊輸出至使用者的畫面。</div>
+	<div>您從下列程式碼開始著手。</div>
+	<div data-x='code'>
+print("What is your name?")
+<div data-o="X">input("name")</div>
+<div data-o="O">name = input()</div>
+<div data-o="X">input(name)</div>
+<div data-o="X">name = input</div>
+print(name)
+	</div>
+</div>
+</section><!--}}}-->
+
+<section> <h2>Interpreter 直譯器/解釋器</h2> <!--{{{-->
+	<div><ul>
+		<li>Interpreter 口譯員</li>
+		<li>Python Interpreter<ul>
+			<li><a href='https://www.python.org/'>Python</a></li>
+			<li><a href='https://micropython.org/'>Micro-Python</a></li>
+		</ul></li>
+		<li>Interpreter Python Project: <a href='https://ipython.org/'>IPython</a></li>
+		<li>Web IDE: <a href='https://colab.research.google.com/'>Google Colab</a></li>
+		<li>IDE: <a href='https://thonny.org/'>Thonny</a></li>
+	</ul></div>
+</section> <!--}}}-->
+
+<section><h2>測試程式</h2><!--{{{-->
+<div data-x='code'>
+## 註解是給人看得，機器迴避
+
+# name 是一個儲存字串的變數
+# input() 顯示提示字串後傳回使用者經 stdin 輸入的字串
+<span class='blue'>name = input('請問大名')</span>
+
+# 字串變數 name 前端加上 '你好!' 後存到 message 字串變數
+<span class='blue'>message = '你好! '+name</span>
+# 將 message 字串變數的內容傳給 stdout
+<span class='blue'>print(message)</span>
+</div>
+</section> <!--}}}-->
+
+<section data-ks='P_IO'> <h2>⚙️ 型別轉換</h2> <!--{{{-->
+<div>
+	<hr/>
+	<div class='desc'>⚙️  取得輸入參數的型態</div>
+	<div class='def'>型態物件 = type(資料)</div>
+	<div data-x='code'>
+type(256) == int
+type(2.72) == float
+type("3.14") == str
+type(True) == bool
+	</div>
+
+	<hr/>
+	<div class='desc'>⚙️  轉換數入資料至指定型態</div>
+	<div class='def'>指定型態變數 = <span style='color:red'>int|float|str|bool</span>(資料)</div>
+	<div data-x='code'>
+int('256') == 256
+float(256) == 256.0
+bool(256.0) == True
+int(True) == 1
+	</div>
+
+	<hr/>
+	<div data-x='code'>
+# 讀取三種資料，並做適當轉型
+from datetime import datetime
+price = float(input('收盤價：'))
+shares = int(input('股數：'))
+trade_date = datetime.strptime(input('交易日(YYYY-MM-DD)：'), '%Y-%m-%d')
+print(price, shares, trade_date)
+	</div>
+	<ul>
+		<li><em>int(s)</em>、<em>float(s)</em>：轉數值；</li>
+		<li><em>bool(s)</em> 以「是否為空字串」判斷 <small>（<em>bool('0')</em> 仍為 <em>True</em>）</small></li>
+		<li><em>datetime.strptime(text, fmt)</em>：字串→日期時間</li>
+		<li>建議先 <em>.strip()</em> 去除空白，再轉型；必要時 <em>try/except</em> 防呆</li>
+	</ul>
+
+	<hr/>
+	<div class='desc'>⚙️  自動判別輸入字串轉換成對應的型態</div>
+	<div class='def'>對應型態的變數 = eval("資料字串")</div>
+	<div data-x='code'>
+eval('256') == 256
+eval('2.72') == 2.72
+eval('"3.14"') == '3.14'
+eval('True') == True
+	</div>
+
+	<hr/>
+	<div class='desc'>⚙️  傳回給程式/除錯看的「精確」表示字串，常含引號、跳脫</div>
+	<div class='def'>表示字串 = repr(資料)</div>
+	<div data-x='code'>
+repr('256') == '256'
+repr('2.72') == '2.72'
+repr("3.14") == "'3.14'"
+repr(True) == 'True'
+	</div>
+</div>
+</section> <!--}}}-->
+
+<section data-ks='P_EX'> <h2>⚙️ 內建函數: 字串</h2> <!--{{{-->
+	<table style='font-size:80%;'><thead><tr>
+		<th>函式</th><th>參數</th><th>功能</th><th>範例</th><th>結果</th>
+	</tr></thead><tbody><tr>
+		<th class='ar'>len</th><th class='al'>( 字串 )</th>
+		<td>取得字串長度</td>
+		<td>len("book")</td>
+		<td class='ac'>4</td>
+	</tr><tr>
+		<th class='ar'>format</th><th class='al'>( 數值, 格式 )</th>
+		<td>根據格式將數值轉換為字串</td>
+		<td>format(4,".2f")</td>
+		<td class='ac'>4.00</td>
+	</tr><tr>
+		<th class='ar'>chr</th><th class='al'>( 數值 )</th>
+		<td>取得整數 <strong>x</strong> 的字元</td>
+		<td>chr(65)</td>
+		<td class='ac'>A</td>
+	</tr><tr>
+		<th class='ar'>ord</th><th class='al'>( 字元 )</th>
+		<td>回傳字元 <strong>x</strong> 的 Unicode 編碼值</td>
+		<td>ord(" 我 ")</td>
+		<td class='ac'>25105</td>
+	</tr><tr>
+		<th class='ar'>find</th><th class='al'>(s)</th>
+		<td>搜尋 <strong>s</strong> 字串在字串中的位置</td>
+		<td>"book".find("k")</td>
+		<td class='ac'>3</td>
+	</tr><tr>
+		<th colspan='5'></th>
+	</tr><tr>
+		<th class='ar'>center</th><th class='al'>(n)</th>
+		<td>將字串擴充為 <strong>n</strong> 個字元且置中</td>
+		<td>"book".center(8)</td>
+		<td class='ac'>" book "</td>
+	</tr><tr>
+		<th class='ar'>ljust</th><th class='al'>(n)</th>
+		<td>將字串擴充為 <strong>n</strong> 個字元且靠左</td>
+		<td>"book".ljust(8)</td>
+		<td class='ac'>"book "</td>
+	</tr><tr>
+		<th class='ar'>rjust</th><th class='al'>(n)</th>
+		<td>將字串擴充為 <strong>n</strong> 個字元且靠右</td>
+		<td>"book".rjust(8)</td>
+		<td class='ac'>" book"</td>
+	</tr><tr>
+		<th colspan='5'></th>
+	</tr><tr>
+		<th class='ar'>strip</th><th class='al'>()</th>
+		<td>移除字串左方及右方的空白字元</td>
+		<td>" book ".strip()</td>
+		<td class='ac'>"book"</td>
+	</tr><tr>
+		<th class='ar'>lstrip</th><th class='al'>()</th>
+		<td>移除字串左方的空白字元</td>
+		<td>" book ".lstrip()</td>
+		<td class='ac'>"book "</td>
+	</tr><tr>
+		<th class='ar'>rstrip</th><th class='al'>()</th>
+		<td>移除字串右方的空白字元</td>
+		<td>" book ".rstrip()</td>
+		<td class='ac'>" book"</td>
+	</tr><tr>
+		<th colspan='5'></th>
+	</tr><tr>
+		<th class='ar'>startswith</th><th class='al'>(s)</th>
+		<td>字串是否以 <strong>s</strong> 字串開頭</td>
+		<td>"abc".startswith("a")</td>
+		<td class='ac'>True</td>
+	</tr><tr>
+		<th class='ar'>endswith</th><th class='al'>(s)</th>
+		<td>字串是否以 <strong>s</strong> 字串結尾</td>
+		<td>"abc".endswith("c")</td>
+		<td class='ac'>True</td>
+	</tr><tr>
+		<th class='ar'>islower</th><th class='al'>()</th>
+		<td>字串是否都是小寫字母</td>
+		<td>"Yes".islower()</td>
+		<td class='ac'>False</td>
+	</tr><tr>
+		<th class='ar'>isupper</th><th class='al'>()</th>
+		<td>字串是否都是大寫字母</td>
+		<td>"YES".isupper()</td>
+		<td class='ac'>True</td>
+	</tr><tr>
+		<th colspan='5'></th>
+	</tr><tr>
+		<th class='ar'>lower</th><th class='al'>()</th>
+		<td>將字串元都轉為小寫字母</td>
+		<td>"Yes".lower()</td>
+		<td class='ac'>yes</td>
+	</tr><tr>
+		<th class='ar'>upper</th><th class='al'>()</th>
+		<td>將字串元都轉為大寫字母</td>
+		<td>"Yes".upper()</td>
+		<td class='ac'>YES</td>
+	</tr><tr>
+		<th class='ar'>s.join</th><th class='al'>(list)</th>
+		<td>將串列中元素以 <strong>s</strong> 字串做為連接字元組成一個字串</td>
+		<td>"#".join(["ab", "cd", "ef"])</td>
+		<td class='ac'>ab#cd#ef</td>
+	</tr><tr>
+		<th class='ar'>split</th><th class='al'>(s)</th>
+		<td>將字串以 <strong>s</strong> 字串為分隔字元分割為串列</td>
+		<td>"ab#cd#ef".split("#")</td>
+		<td class='ac'>["ab", "cd", "ef"]</td>
+	</tr><tr>
+		<th class='ar'>replace</th><th class='al'>(s1, s2)</th>
+		<td>將字串中的 <strong>s1</strong> 字串以 <strong>s2</strong> 字串取代</td>
+		<td>"book".replace("o","a")</td>
+		<td class='ac'>baak</td>
+	</tr></tbody></table>
+</section> <!--}}}-->
+
+<section data-ks='P_IO'> <h2>三種格式化方式：總覽</h2> <!--{{{-->
+	<table border='1' cellspacing='0' cellpadding='4' align='center' width='95%'>
+		<thead>
+			<tr><th>方法</th><th>語法</th><th>特色</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><em>f'...{expr:spec}...'</em></td>
+				<td>Python 3.6+，最直覺；可內嵌運算 <small>(如 <em>{x*1.05:.2f}</em>)</small></td>
+				<td>可讀性佳、效能佳</td>
+			</tr>
+			<tr>
+				<td><em>'...{0:spec}...'.format(x)</em></td>
+				<td>較通用；可重複/具名參數</td>
+				<td>舊專案常見</td>
+			</tr>
+			<tr>
+				<td><em>'...%f' % x</em></td>
+				<td>C 風格；符號如 <em>%d</em>、<em>%f</em></td>
+				<td>相容舊碼</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3>f-strings</h3>
+	<div class='frame'>
+		<div>x = 1234.5</div>
+		<div>print(<span class="hl-str">f'市價：{x:,.2f}'</span>)</div>
+		<div>dt = datetime(2025, 10, 15, 9, 30)</div>
+		<div>print(<span class="hl-str">f'時間：{dt:%Y-%m-%d %H:%M}'</span>)</div>
+	</div>
+	<h3><em>str.format()</em></h3>
+	<div data-x='code'>
+'市價：{0:,.2f} 股數：{1:d}'.format(1234.5, 3000)
+	</div>
+	<h3>舊式 <em>%</em></h3>
+	<div data-x='code'>
+'市價：%,.2f 股數：%d' % (1234.5, 3000)
+	</div>
+
+	<h3>格式規格字（Spec）常用表</h3>
+	<table>
+		<thead>
+			<tr><th>類別</th><th>Spec/格式</th><th>說明</th><th>範例</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>整數</td>
+				<td><em>d</em>、<em>b</em>、<em>o</em>、<em>x/X</em></td>
+				<td>十進位/二/八/十六進位</td>
+				<td><em>f'{255:d} {255:x}'</em> → <em>255 ff</em></td>
+			</tr>
+			<tr>
+				<td>浮點</td>
+				<td><em>f</em>、<em>e/E</em>、<em>g/G</em></td>
+				<td>小數/科學記號/自動</td>
+				<td><em>f'{3.14159:.2f}'</em> → <em>3.14</em></td>
+			</tr>
+			<tr>
+				<td>千分位</td>
+				<td><em>,</em></td>
+				<td>加千分位分隔</td>
+				<td><em>f'{1234567:,}'</em> → <em>1,234,567</em></td>
+			</tr>
+			<tr>
+				<td>寬度/對齊</td>
+				<td><em>{:&lt;10}</em>、<em>{:^10}</em>、<em>{:&gt;10}</em></td>
+				<td>左/置中/右對齊；可搭配填充字元如 <em>{:_&gt;10}</em></td>
+				<td><em>f'|{42:&lt;5}|{42:^5}|{42:&gt;5}|'</em></td>
+			</tr>
+			<tr>
+				<td>符號</td>
+				<td><em>+</em>、<em>-</em>、<em> </em></td>
+				<td>顯示正負號/只有負號/正留空白</td>
+				<td><em>f'{3:+d} {3:-d} {3: d}'</em> → <em>+3 3␠3</em></td>
+			</tr>
+			<tr>
+				<td>百分比</td>
+				<td><em>%</em></td>
+				<td>乘以 100 並加 % 號</td>
+				<td><em>f'{0.0765:.2%}'</em> → <em>7.65%</em></td>
+			</tr>
+			<tr>
+				<td>repr</td>
+				<td><em>!r</em></td>
+				<td>使用 <em>repr(obj)</em> 的顯示（含轉義）</td>
+				<td><em>f'{'A\nB'!r}'</em> → <em>'A\nB'</em></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3>日期時間格式化常用表</h3>
+	<table>
+		<thead>
+			<tr><th>符號</th><th>意義</th><th>範例</th></tr>
+		</thead>
+		<tbody>
+			<tr><td><em>%Y</em></td><td>四位數年份</td><td>2025</td></tr>
+			<tr><td><em>%m</em> / <em>%d</em></td><td>月 / 日（零填充）</td><td>10 / 05</td></tr>
+			<tr><td><em>%H</em> <em>%M</em> <em>%S</em></td><td>時 分 秒（24h）</td><td>09 30 00</td></tr>
+			<tr><td><em>%b</em> / <em>%B</em></td><td>英文月縮寫 / 全名</td><td>Oct / October</td></tr>
+			<tr><td><em>%a</em> / <em>%A</em></td><td>星期縮寫 / 全名</td><td>Wed / Wednesday</td></tr>
+			<tr><td><em>%z</em> / <em>%Z</em></td><td>時區數值 / 名稱</td><td>+0800 / CST</td></tr>
+			<tr><td><em>ISO</em></td><td><em>dt.isoformat()</em></td><td>2025-10-15T09:30:00+08:00</td></tr>
+		</tbody>
+	</table>
+	<div class='frame'>
+		<div><span class="hl-kw">from</span> datetime <span class="hl-kw">import</span> datetime, timezone, timedelta</div>
+		<div>dt = datetime.<span class="hl-fn">now</span>()</div>
+		<div>print(dt.strftime(<span class="hl-str">'%Y/%m/%d %H:%M'</span>))</div>
+		<div>print(<span class="hl-str">f'ISO: {dt.isoformat()}'</span>)</div>
+	</div>
+</section> <!--}}}-->
+
+<!-- FORMAT -->
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:s'>
+	<div>請問下列程式，print陳述式的輸出為何?</div>
+	<div data-x='code'>
+x = 'oranges'
+y = 'apples'
+z = 'bananas'
+data = '{1} and {0} and {2}'
+print( data.format(z,y,x) )
+	</div>
+	<div data-o='X'>bananas and oranges and apples</div>
+	<div data-o='O'>apples and bananas and oranges</div>
+	<div data-o='X'>apples and oranges and bananas</div>
+	<div data-o='X'>oranges and apples and bananas</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:sort'>
+	<div>您需要列印資料,以便呈現出類似下面的範例:</div>
+	<div data-x='code'>
+Oranges  5.6  1.33
+Apples   2.0  0.54
+Grapes  10.2 10.96
+	</div>
+	<div>具體而言,列印成品必須符合下列需求:<ul>
+		<li>水果名稱必須在10個空格寬的資料行中靠左對齊列印。</li>
+		<li>重量必須在5個空格寬的資料行中靠右對齊列印,而且小數點後面最多一位數。</li>
+		<li>價格必須在7個空格寬的資料行中靠右對齊列印,而且小數點後面最多兩位數。</li>
+	</ul></div>
+	<div>請完成下列程式</div>
+	<div data-x='code'>
+def print_table(file) :
+	data = open(file, "r")
+	for record in data :
+		fields = record.split(",")
+		<span data-o='0'>print("</span><span data-o="-">{10:0}</span><span data-o="-">{5:1f}</span><span data-o="-">{7:2f}</span><span data-o="3">{2:7.2f}</span><span data-o="2">{1:5.1f}</span><span data-o="1">{0:10}</span>".format(fields[0], eval(fields[1]), eval(fields[2])))
+	</div>
+</div>
+</section><!--}}}-->
+
+<section data-ks='P_EX,Q_ITS'><!--{{{-->
+<div data-x='quiz:c'>
+	<div>某食品公司需要一套程式，讓他們的客服中心能夠用來輸入新咖啡種類的問卷調查資料。</div>
+	<div>此程式必須執行下列工作 :<ul>
+		<li>接受輸入(rating)。</li>
+		<li>傳回五星評比標準的平均評分(average)。</li>
+		<li>將輸出四捨五入到兩位小數。</li>
+	</ul></div>
+	<div data-x='code'>
+sum = count = done = 0
+average = 0.0
+while done != -1 :
+	<div class='XL'>rating = <div data-x='quiz:s'><div data-o="O">float( input("Enter next rating (1-5, -1 for done)") )</div><div data-o="X">input "Enter next rating (1-5, -1 for done)"</div><div data-o="X">input( "Enter next rating (1-5, -1 for done)" )</div><div data-o="X">print( "Enter next rating (1-5, -1 for done)" ) input "Enter next rating (1-5, -1 for done)"</div></div></div>
+	if rating == -1 :
+		break
+	sum += rating
+	count += 1
+average = float( sum / count )
+<div class='XL'><div data-x='quiz:s'><div data-o="X">console.input("The average star rating for the new coffee is:"</div><div data-o="X">output("The average star rating for the new coffee is:"</div><div data-o="O">print("The average star rating for the new coffee is:"</div><div data-o="X">printline("The average star rating for the new coffee is:"</div></div> + <div data-x='quiz:s'><div data-o="X">{average, '.2f'}</div><div data-o="X">format.average.{2d}</div><div data-o="X">format(average,'.2d')</div><div data-o="O">format(average,'.2f')</div></div>)</div>
+	</div>
+</div>
+</section>
+
+<section data-ks='P_EX,Q_ITS'>
+	<div data-x='quiz:m'>
+		<div>您正在建立一個電子商務指令碼來接受使用者輸入並以逗點分隔格式輸出資料。</div>
+		<div>您撰寫了下列程式碼以接受輸入：</div>
+		<div class='cb frame'>
+			<div>item = input('Enter the item name: ')</div>
+			<div>sales = int(input('Enter the quantity: '))</div>
+		</div>
+		<div>輸出必須符合下列需求:<ul>
+			<li>以雙引號括住字串。</li>
+			<li>不以引號或其他字元括住數字。</li>
+			<li>以逗點分隔項目。</li>
+		</ul></div>
+		<div>請問哪兩個可以符合要求?</div>
+		<div data-o='X'>print('{0},{1}'.format(item, sales))</div>
+		<div data-o='X'>print(item + ',' + sales)</div>
+		<div data-o='O'>print('"{0}",{1}'.format(item, sales))</div>
+		<div data-o='O'>print('"' + item + '",' + sales)</div>
+	</div>
+</section>
+
+<section data-ks='P_IO,Q_ITS'>
+	<div data-x='quiz:s'>
+		<div>在 Python 程式中，如果希望使用者輸入時，即使用輸入了小數，程式也能自動轉為整數來進行運算。</div>
+		<div>你應該使用以下哪個程式碼片段 ？</div>
+		<div data-o='X'>total = input('請輸入總數？')</div>
+		<div data-o='O'>total = int(eval(input('請輸入總數？')))</div>
+		<div data-o='X'>total = str(input('請輸入總數？'))</div>
+		<div data-o='X'>total = float(input('請輸入總數？'))</div>
+	</div>
+</section>
+
+</body>
+</html>
