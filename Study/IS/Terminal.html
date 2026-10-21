@@ -7,13 +7,6 @@
 <script src="/App/page.js"></script>
 <style>
 	.def { color:darkblue;font-weight:bolder; }
-	.desc { color:blue; }
-	.XL { display:flex; align-items:center; white-space:nowrap; }
-	.XL [data-x^='quiz'] { margin:1px 8px; } 
-
-	table.chart th { border:2px solid black; padding:4px 20px; }
-	table.chart th.R { border-radius:12px; }
-	table.chart td { border:0; padding:0; text-align:center; vertical-align:middle; }
 </style>
 </head>
 <body style='opacity:0'>
@@ -145,7 +138,7 @@ print(sys.argv[2])
 <section data-ks='P_IO'> <h2>裝置: 終端機</h2><!--{{{-->
 <div>
 	<hr/>
-	<div class='desc'>⚙️ 讀取一行字串（含結尾換行去除）</div>
+	<div class='blue'>⚙️ 讀取一行字串（含結尾換行去除）</div>
 <div data-id='0' data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
 	U("使用者") -->|"輸入"| F["input(提示字串)"] -->|"返回"| R("輸入的字串")
 </textarea></div>
@@ -155,7 +148,7 @@ name = input("Your Name: ")
 age = int(input("Your Age: "))
 	</div>
 	<hr/>
-	<div class='desc'>⚙️  將物件轉成字串後輸出</div>
+	<div class='blue'>⚙️  將物件轉成字串後輸出</div>
 <div data-id='1' data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
 	F["print(要顯示的內容)"] -->|輸出| T("顯示在終端機上的文字")
 </textarea></div>
@@ -226,7 +219,7 @@ print(name)
 <section data-ks='P_IO'> <h2>⚙️ 型別轉換</h2> <!--{{{-->
 <div>
 	<hr/>
-	<div class='desc'>⚙️  取得輸入參數的型態</div>
+	<div class='blue'>⚙️  取得輸入參數的型態</div>
 	<div class='def'>型態物件 = type(資料)</div>
 	<div data-x='code'>
 type(256) == int
@@ -236,7 +229,7 @@ type(True) == bool
 	</div>
 
 	<hr/>
-	<div class='desc'>⚙️  轉換數入資料至指定型態</div>
+	<div class='blue'>⚙️  轉換數入資料至指定型態</div>
 	<div class='def'>指定型態變數 = <span style='color:red'>int|float|str|bool</span>(資料)</div>
 	<div data-x='code'>
 int('256') == 256
@@ -262,7 +255,7 @@ print(price, shares, trade_date)
 	</ul>
 
 	<hr/>
-	<div class='desc'>⚙️  自動判別輸入字串轉換成對應的型態</div>
+	<div class='blue'>⚙️  自動判別輸入字串轉換成對應的型態</div>
 	<div class='def'>對應型態的變數 = eval("資料字串")</div>
 	<div data-x='code'>
 eval('256') == 256
@@ -272,7 +265,7 @@ eval('True') == True
 	</div>
 
 	<hr/>
-	<div class='desc'>⚙️  傳回給程式/除錯看的「精確」表示字串，常含引號、跳脫</div>
+	<div class='blue'>⚙️  傳回給程式/除錯看的「精確」表示字串，常含引號、跳脫</div>
 	<div class='def'>表示字串 = repr(資料)</div>
 	<div data-x='code'>
 repr('256') == '256'
@@ -565,13 +558,13 @@ def print_table(file) :
 sum = count = done = 0
 average = 0.0
 while done != -1 :
-	<div class='XL'>rating = <div data-x='quiz:s'><div data-o="O">float( input("Enter next rating (1-5, -1 for done)") )</div><div data-o="X">input "Enter next rating (1-5, -1 for done)"</div><div data-o="X">input( "Enter next rating (1-5, -1 for done)" )</div><div data-o="X">print( "Enter next rating (1-5, -1 for done)" ) input "Enter next rating (1-5, -1 for done)"</div></div></div>
+	<div class='fxl'>rating = <div data-x='quiz:s'><div data-o="O">float( input("Enter next rating (1-5, -1 for done)") )</div><div data-o="X">input "Enter next rating (1-5, -1 for done)"</div><div data-o="X">input( "Enter next rating (1-5, -1 for done)" )</div><div data-o="X">print( "Enter next rating (1-5, -1 for done)" ) input "Enter next rating (1-5, -1 for done)"</div></div></div>
 	if rating == -1 :
 		break
 	sum += rating
 	count += 1
 average = float( sum / count )
-<div class='XL'><div data-x='quiz:s'><div data-o="X">console.input("The average star rating for the new coffee is:"</div><div data-o="X">output("The average star rating for the new coffee is:"</div><div data-o="O">print("The average star rating for the new coffee is:"</div><div data-o="X">printline("The average star rating for the new coffee is:"</div></div> + <div data-x='quiz:s'><div data-o="X">{average, '.2f'}</div><div data-o="X">format.average.{2d}</div><div data-o="X">format(average,'.2d')</div><div data-o="O">format(average,'.2f')</div></div>)</div>
+<div class='fxl'><div data-x='quiz:s'><div data-o="X">console.input("The average star rating for the new coffee is:"</div><div data-o="X">output("The average star rating for the new coffee is:"</div><div data-o="O">print("The average star rating for the new coffee is:"</div><div data-o="X">printline("The average star rating for the new coffee is:"</div></div> + <div data-x='quiz:s'><div data-o="X">{average, '.2f'}</div><div data-o="X">format.average.{2d}</div><div data-o="X">format(average,'.2d')</div><div data-o="O">format(average,'.2f')</div></div>)</div>
 	</div>
 </div>
 </section>
