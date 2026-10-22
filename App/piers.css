@@ -18,6 +18,11 @@ body {
 .ac { text-align:center; vertical-align:middle; }
 .ar { text-align:right; vertical-align:bottom; }
 
+.fs144 { font-size:144%; font-weight:bolder; }
+.fs120 { font-size:120%; font-weight:bold; }
+.fs72 { font-size:72%; font-weight:normal; }
+.fs60 { font-size:60%; font-weight:normal; }
+
 .black { color:black; }
 .grey { color:grey; }
 .red { color:red; }

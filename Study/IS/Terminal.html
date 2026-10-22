@@ -31,27 +31,46 @@
 	</div>
 </section>
 
-<section> <h2>輸入 程序 資料 輸出</h2> <!--{{{-->
-<table class='chart' align='center'>
-<tr><th class='R'>輸入<br/>Input</th><td>&rarr;</td><th>程序<br/>Procedure</th><td>&larr;</td><th class='R'>輸出<br/>Output</th></tr>
-<tr><td colspan='2'></td><td>↕</td><td colspan='2'></tr>
-<tr><td colspan='2'></td><th class='R'>資料<br/>Data</th><td colspan='2'></td></tr>
-</table>
+<section><h2>程式觀點看輸出入</h2><!--{{{-->
+<div><hr/><table class='chart' align='center'><tr>
+	<th class='R'>輸入<br/>Input</th>
+	<td>&rarr;</td>
+	<th>程序<br/>Procedure</th>
+	<td>&larr;</td>
+	<th class='R'>輸出<br/>Output</th>
+</tr><tr>
+	<td colspan='2'></td>
+	<td>↕</td>
+	<td colspan='2'></td>
+</tr><tr>
+	<td colspan='2'></td>
+	<th class='R'>資料<br/>Data</th>
+	<td colspan='2'></td>
+</tr></table></div>
 </section> <!--}}}-->
 
-<section> <h2>流程</h2> <!--{{{-->
-<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
-	I[進口<br/>碼頭] --> PA[進口<br/>報關行] --> P[工廠] --> PZ[出口<br/>報關行] --> O[出口<br/>碼頭]
-	PA -->|DMA| S[倉庫]
-	P <-->|變數<br/>存取| S
-	S -->|DMA| PZ
-</textarea></div>
-	<ul>
-		<li><b>碼頭:</b> 輸出入裝置, 例如: 檔案, 網路, 鍵盤, 螢幕</li>
-		<li><b>報關行:</b> 驅動程式</li>
-		<li><b>工廠:</b> 程序(處理器)</li>
-		<li><b>倉庫:</b> 資料(記憶體)</li>
-	</ul>
+<section><h2>輸出入的流程</h2><!--{{{-->
+<div><hr/><table class='chart'><tr>
+	<th rowspan='3' width='30%'>碼頭
+		<div class='blue'>(輸出入裝置)</div>
+		<div class='fs60' style='text-align:justify;'>網路，儲存裝置，RS232，鍵盤，滑鼠，螢幕，印表機，掃描器，讀卡機，攝影機，...</div>
+	</th><td rowspan='3'>↔</td>
+	<th rowspan='3' width='30%'>報關行
+		<div class='blue'>(驅動程式)</div>
+		<div class='fs60' style='text-align:justify;'>WDM, WDDM, KMDF, UMDF, Linux Kernel Module</div>
+	<td>↔</td>
+	<th>工廠
+		<div class='blue'>(程序@處理器)</div>
+	</th>
+</tr><tr>
+	<td></td><td>↕ <span class='fs60'>變數存取</span></td>
+</tr><tr>
+	<td>↔<div class='fs60'>DMA</div></td>
+	<th>倉庫
+		<div class='blue'>(資料@記憶體)</div>
+	</th>
+</tr><tr>
+</tr></table></div>
 </section> <!--}}}-->
 
 <section> <h2>終端機: 標準輸入 / 標準輸出</h2> <!--{{{-->
