@@ -117,18 +117,19 @@ ul li, ol li { line-height:1.8 }
 .fold>*:not([data-h="fold"]) { overflow:hidden;height:0; }
 .fold>[data-h="fold"]::after { content:" ▽ "; }
 
-table.std { margin:auto; border:1px solid silver; }
+table.std { margin:auto; border:1px solid silver; padding:4px; }
 table.std th, table.std td { padding:2px 16px; border:1px solid black; }
 table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; }
 table.std>tbody th, table.std>tbody td { background:white; }
 
 table.nvtable, table.nv
-{ border:1px solid black; padding:8px; }
+{ margin:auto;border:1px solid silver; padding:4px; }
 table.nvtable th, table.nv th
 { border:0;padding:0 2px; text-align:right; vertical-align:middle; }
 table.nvtable td, table.nv td
 { border:0;padding:0 4px; border-bottom:1px solid silver; text-align:left; vertical-align:top; }
 
+table.chart { margin:auto;border:1px solid silver; padding:4px; }
 table.chart th { border:2px solid black; padding:4px 20px; }
 table.chart th.R { border-radius:12px; }
 table.chart td { border:0; padding:0; text-align:center; vertical-align:middle; }
