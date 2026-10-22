@@ -24,7 +24,7 @@
 	</div>
 </section>
 
-<section><h2>程式觀點看輸出入</h2><!--{{{-->
+<section><h2>程序觀點看輸出入</h2><!--{{{-->
 <div><hr/><table class='chart' align='center'><tr>
 	<th class='R'>輸入<br/>Input</th>
 	<td>&rarr;</td>
@@ -67,53 +67,71 @@
 </section> <!--}}}-->
 
 <section> <h2>終端機: 標準輸入 / 標準輸出</h2> <!--{{{-->
-<div><table class='chart'><tr>
-<th>作業系統核心</th>
-<th>使用層 API</th>
-<th>終端機</th>
-<th>虛擬機</th>
-<th>程式</th>
-<th>功能模組</th>
+<hr/>
+<div><table class='chart' align='center'><tr>
+	<th rowspan='5' style='border-color:silver;color:silver;'>程序 Process</th>
+	<th rowspan='3' style='border-color:silver;color:silver;'>程序 Process</th>
+	<th colspan='2' class='blue' data-h='sw:PROCESS'>程序 Process</th>
+	<td rowspan='3'></td>
+	<th rowspan='5' style='border-color:silver;color:silver;'>系統程序</th>
+</tr><tr>
+	<td colspan='2'>↕</td>
+</tr><tr>
+	<th colspan='2' class='green' data-h='sw:VM'>虛擬機 Virtual Machine</th>
+</tr><tr>
+	<td style='color:silver'>↕</td><td colspan='2'>&uarr;<span class='fs72 blue' data-h='sw:STDIN'>標準輸入</span> &darr;<span class='fs72 blue' data-h='sw:STDOUT'>標準輸出</span>/<span class='fs72 blue' data-h='sw:STDERR'>錯誤</span></td>
+</tr><tr>
+	<th colspan='3' class='red' data-h='sw:TERMINAL'>終端機 Terminal</th>
+	<td>...</td>
+</tr><tr>
+	<td style='color:silver'>↕</td><td colspan='3'>↕</td><td></td><td colspan='2' style='color:silver'>↕</td>
+</tr><tr>
+	<th colspan='5'>User Space API</th>
+	<th style='border-color:silver;color:silver;'>Kernel Space API</th>
+</tr><tr>
+	<td colspan='5'>↕</td><td style='color:silver'>↕</td>
+</tr><tr>
+	<th colspan='6'>作業系統核心 OS Kernel</th>
 </tr></table></div>
-
-<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
-	subgraph "程序"
-		direction TB
-		PI["Python 解譯器"] 
-		PS("Python 程式")
-	end
-	subgraph "介面"
-		direction TB
-		U("使用者")
-		C["終端機"]
-	end
-	C <-->|輸出入| U
-	PI <-->|執行| PS
-	C -->|stdin| PI
-	PI -->|stdout| C
-	PI -->|stderr| C
-</textarea></div>
-	<div><ul>
-		<li><b>標準輸入 (stdin):</b><ul>
+<div class='frame'>
+	<div data-case='STDIN' class='hide'>
+		<h3>標準輸入</h3><ul>
 			<li>終端機的預設輸入 (檔案ID:0)</li>
 			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#input'>input()</a></li>
-		</ul></li>
-		<li><b>標準輸出 (stdout):</b><ul>
+		</ul>
+	</div>
+	<div data-case='STDOUT' class='hide'>
+		<h3>標準輸出</h3><ul>
 			<li>終端機資料的預設輸出 (檔案ID:1)</li>
 			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#print'>print()</a></li>
-		</ul></li>
-		<li><b>標準錯誤 (stderr):</b><ul><li>終端機錯誤訊息的預設輸出 (檔案ID:2)</li></ul></li>
-		<li><b>程序 (process):</b><ul><li>程式運行的實體</li></ul></li>
-	</ul></div>
+		</ul>
+	</div>
+	<div data-case='STDERR' class='hide'>
+		<h3>標準錯誤</h3><ul>
+			<li><b>標準錯誤 (stderr):</b><ul><li>終端機錯誤訊息的預設輸出 (檔案ID:2)</li></ul></li>
+			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#print'>print(file=sys.stderr)</a></li>
+		</ul>
+	</div>
+	<div data-case='PROCESS' class='hide'>
+		<h3>程序 Process</h3><ul>
+			<li><b>程序 (process):</b><ul><li>程式運行的實體</li></ul></li>
+			<li><b>例如︰</b> my_program.py</li>
+		</ul>
+	</div>
+	<div data-case='VM' class='hide'>
+		<h3>虛擬機 Virtual Machine</h3><ul>
+			<li><b>例如︰</b> python3, thonny, spider, ...</li>
+		</ul>
+	</div>
+	<div data-case='TERMINAL' class='hide'>
+		<h3>終端機 Terminal</h3><ul>
+			<li><b>例如︰</b> bash, cmd.exe, powershell.exe, ...</li>
+		</ul>
+	</div>
+</div>
 </section> <!--}}}-->
 
-<section> <h2>終端機 / 殼層 / 解譯器 / 作業系統</h2> <!--{{{-->
-<div data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
-	U("使用者") -->|"輸入"| K("鍵盤") -->|stdin| T["終端機<br/>Terminal"] -->|"input()"| I["Python<br/>解翻器"]
-	I -->|"print()"| T -->|stdout| W("視窗") -->|"顯示"| U
-	T -->|read| S["殼層<br/>Shell"] -->|執行| I
-	I -->|返回| S -->|echo| T
-</textarea></div>
+<section> <h2>執行程式</h2> <!--{{{-->
 <h3>命令列 Command Line</h3>
 <div><table border='1' cellspacing='8' cellpadding='4' align='center' width='95%'><tbody>
 	<tr><th>[環境變數設定]</th>
@@ -121,21 +139,34 @@
 		<th>主命令</th>
 		<th colspan='3'>[命令參數...]</th>
 	</tr>
-	<tr><td>PYTHONPATH=./</td>
-		<td>sudo</td>
-		<td>python3</td>
-		<td>sample232.py</td>
+	<tr><td><span class='link' data-h='sw:SE'>PYTHONPATH=./</span></td>
+		<td><span class='link' data-h='sw:PP'>sudo</span></td>
+		<td><span class='link' data-h='sw:VM'>python3</span></td>
+		<td><span class='link' data-h='sw:PY'>test.py</span></td>
 		<td>/dev/ttyS0</td>
 		<td>115200</td>
 	</tr>
-	<tr><th colspan='6'>sample232.py 程式碼<div class='al'>
-		<div data-x='code'>
+</tbody></table></div>
+<div class='frame'>
+<div data-case='SE' class='hide'><h4>PYTHONPATH=./</h4><ul>
+	<li>設定 python 執行時的搜尋路徑</li>
+</ul></div>
+<div data-case='PP' class='hide'><h4>sudo</h4><ul>
+	<li>切換執行身分</li>
+</ul></div>
+<div data-case='VM' class='hide'><h4>python3</h4><ul>
+	<li>Python Interpreter</li>
+	<li>執行 Python 程式的平台</li>
+</ul></div>
+<div data-case='PY' class='hide'><h4>test.py 程式碼</h4><div data-x='code'>
 import sys
 print(sys.argv)
-		</div>&rarr;<div data-x='code'>
+</div>
+&darr;
+<div data-x='code'>
 ['sample232.py', '/dev/ttyS0', '115200']
-		</div>
-	</div></th></tr>
+</div></div>
+</div>
 </tbody></table>
 </div>
 </section> <!--}}}-->
