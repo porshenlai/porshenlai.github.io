@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="page.js"></script>
+</head>
+<body style='opacity:0'>
+<script>
+const 房地合一稅=(t)=>[
+    [0,0.45],[24,0.35],
+    [60,0.20],[1200,0.15]
+].reduce((r,v)=>(t>v[0]&&r>v[1]?v[1]:r),1);
+const 房仲手續費=0.04;
+  
+class RealEstate {
+  constructor (pf) {
+    this.時間 = parseInt(pf.時間||60);
+    this.XR = parseFloat(pf.房地合一稅率||房地合一稅(this.時間));
+    this.FR = parseFloat(pf.房仲手續費||0.04);
+    this.成本 = parseInt(pf.成本||320);
+    this.貸款 = parseInt(pf.貸款||500);
+    this.利潤 = parseInt(pf.利潤||100);
+    this.開價 = parseInt(pf.開價);
+    //this.計算開價();
+  }
+  計算開價 () {
+    let 實得 = this.利潤+this.成本+this.貸款;
+    let 開價 = (實得-this.成本*this.XR-this.貸款*this.XR)/(1-this.XR-this.FR);
+    this.開價 = parseInt(開價+0.5);      
+  }
+  計算利潤 () {
+    let 實得 = this.利潤+this.成本+this.貸款;
+    let 利潤 = 實得 - this.成本 - this.貸款;
+    this.利潤 = parseInt(利潤+0.5);
+  }
+  flush () {
+    this.TAX = this.利潤*this.XR;
+    this.FEE = this.開價*this.FR;
+  }
+}
+function test(E,f){
+  E = Apps.E(E);
+  const R = new RealEstate(E.get());
+  R["計算"+f]();
+  R.flush();
+  E.put(R);
+}
+</script>
+  
+<section>
+  <div>時間：<input data-v="value:時間" value="30"></input></div>
+  <div>成本：<input data-v="value:成本" value="320"></input></div>
+  <div>貸款：<input data-v="value:貸款" value="500"></input></div>
+  <div>利潤：<input data-v="value:利潤" value="100"></input><button onclick='test(this.parentNode.parentNode,"利潤")'>計算</button></div>
+  <div>開價：<input data-v="value:開價"></input><button onclick='test(this.parentNode.parentNode,"開價")'>計算</button></div>
+  <hr/>
+  <div>房地合一稅：<span data-v="text:TAX"></span></span></div>  
+  <div>房仲服務費：<span data-v="text:FEE"></span></span></div>
+</section>
+</body>
+</html>
