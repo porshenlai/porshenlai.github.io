@@ -29,29 +29,40 @@
 </div>
 </section>
 
-<section><h2>變數</h2><ul class='zcs2'><!--{{{-->
-<li><span class='h4'>記憶體</span><ul><table class='MemoryMap' cellspacing='5'><tbody>
-<tr><th>址</th><th>值</th><td style='border:0' colspan='2'></td></tr>
-<tr><th>0</th><th>15</th><td>&larr;15*256</td><td rowspan='2' valign='top'>&larr;id=3938</td></tr>
-<tr><th>1</th><th>98</th><td>&larr;98</td></tr>
-<tr><th>2</th><th>76</th><td>&larr;ord("L")</td><td rowspan='4' valign='top'>&larr;name="Lai"</td></tr>
-<tr><th>3</th><th>97</th><td>&larr;ord("a")</td></tr>
-<tr><th>4</th><th>105</th><td>&larr;ord("i")</td></tr>
-<tr><th>5</th><th>0</th><td>&larr; 0</td</tr>
-<tr><th><div class='r90'>...</div></th><th><div class='r90'>...</div></th><td style='border:0' colspan='3'></td></tr>
-</tbody></table></ul></li>
-<li><span class='h4'>編譯表格</span><ul><table class='MemoryMap'><tr>
-	<th>變數名</th><th>資料型態</th><th>地址</th>
-</tr><tr>
-	<th>id</th><th>int</th><th>0</th>
-</tr><tr>
-	<th>name</th><th>str</th><th>2</th>
-</tr></table></ul></li>
-</ul></section><!--}}}-->
+<section data-ks='P_DS'><h2>變數</h2><ul class='zcs2'>
+	<li><span class='h4'>記憶體</span><ul>
+		<table class='MemoryMap' cellspacing='5'><tbody><tr>
+			<th>址</th><th>值</th><td style='border:0' colspan='2'></td>
+		</tr><tr>
+			<th>0</th><th>15</th><td>&larr;15*256</td><td rowspan='2' valign='top'>&larr;id=3938</td>
+		</tr><tr>
+			<th>1</th><th>98</th><td>&larr;98</td>
+		</tr><tr>
+			<th>2</th><th>76</th><td>&larr;ord("L")</td><td rowspan='4' valign='top'>&larr;name="Lai"</td>
+		</tr><tr>
+			<th>3</th><th>97</th><td>&larr;ord("a")</td>
+		</tr><tr>
+			<th>4</th><th>105</th><td>&larr;ord("i")</td>
+		</tr><tr>
+			<th>5</th><th>0</th><td>&larr; 0</td>
+		</tr><tr>
+			<th><div class='r90'>...</div></th><th><div class='r90'>...</div></th><td style='border:0' colspan='3'></td>
+		</tr></tbody></table>
+	</ul></li>
+	<li><span class='h4'>編譯表格</span><ul>
+		<table class='MemoryMap'><tr>
+			<th>變數名</th><th>資料型態</th><th>地址</th>
+		</tr><tr>
+			<th>id</th><th>int</th><th>0</th>
+		</tr><tr>
+			<th>name</th><th>str</th><th>2</th>
+		</tr></table>
+	</ul></li>
+</ul></section>
 
-<section><h2>不可變 vs 可變</h2><ul class='zcs2'><!--{{{-->
-<li><b class='h4'>不可變: </b><ul>
-	<li><div data-x='code'>
+<section data-ks='P_DS'><h2>不可變 vs 可變</h2><ul class='zcs2'>
+	<li><b class='h4'>不可變: </b><ul>
+		<li><div data-x='code'>
 a='Lai'
 # 記憶體 'L', 'a', 'i
 # 索引表 "a":0
@@ -62,11 +73,11 @@ a='賴柏伸'
 # 記憶體 '賴', '柏', '伸', 'L', 'a', 'i'
 # 索引表 "a":0, "b":3
 print(f"&rarr; a:{a},b:{b}")
-	</div></li>
-	<li>&rarr; a:賴柏伸,b:Lai</li>
-</ul></li>
-<li><b class='h4'>可變: </b><ul>
-	<li><div data-x='code'>
+		</div></li>
+		<li>&rarr; a:賴柏伸,b:Lai</li>
+	</ul></li>
+	<li><b class='h4'>可變: </b><ul>
+		<li><div data-x='code'>
 a=['L','a','i']
 # 記憶體 'L','a','i
 # 索引表 "a":0
@@ -77,49 +88,56 @@ a[1]='賴'
 # 記憶體 'L', '賴', 'i'
 # 索引表 {"a":0,"b":0}
 print(f"&rarr; a:{a},b:{b}")
-	</div></li>
-	<li>&rarr; a:['L', '賴', 'i'],b:['L', '賴', 'i']</li>
-</ul></li>
-</ul></section><!--}}}-->
+		</div></li>
+		<li>&rarr; a:['L', '賴', 'i'],b:['L', '賴', 'i']</li>
+	</ul></li>
+</ul></section>
 
-<section><h2>結構 Structure</h2><ul><!--{{{-->
-<li class='fold'><span class='h4' data-h='fold'>元祖 Tuple</span><ul>
-	<li>不可變</li>
-	<li>成員: (值:任意型態資料)</li>
-	<li>取值: (1,2,3)[0] &rarr; 1</li>
-	<li><table class='MemoryMap' cellspacing='6'><tbody>
-<tr><th>地址</th><th>資料</th><td style='border:0' colspan='3'></td></tr>
-<tr><th>0</th><th>15</th><td>&larr; 15*256</td><td rowspan='2'>&larr; 3938</td><td rowspan='6'>(3938,"Lai")</td></tr>
-<tr><th>1</th><th>98</th><td>&larr; 98</td></tr>
-<tr><th>2</th><th>76</th><td>&larr; ord("L") &larr; "L" </td><td rowspan='4'>&larr; "Lai"</td></tr>
-<tr><th>3</th><th>97</th><td>&larr; ord("a") &larr; "a" </td></tr>
-<tr><th>4</th><th>105</th><td>&larr; ord("i") &larr; "i" </td></tr>
-<tr><th>5</th><th>0</th><td>&larr; 0</td</tr>
-<tr><th><div class='r90'>...</div></th><th><div class='r90'>...</div></th><td style='border:0' colspan='3'></td></tr>
-</tbody></table></li>
-</ul></li>
-<li class='fold'><span class='h4' data-h='fold'>串列 List</span><ul>
-	<li>可變</li>
-	<li>成員: (值:任意型態資料)</li>
-	<li>取值: [1,2,3][0] &rarr; 1</li>
-	<li>更新: [1,2,3][0] = 4 &rarr; [4,2,3]</li>
-</ul></li>
-<li class='fold'><span class='h4' data-h='fold'>字典 Dictionary</span><ul>
-	<li>可變</li>
-	<li>成員: (鍵:任意型態資料, 值:任意型態資料)</li>
-	<li>取值: {"a":1,"b":2}["a"] &rarr; 1</li>
-	<li>更新: {"a":1,"b":2}["a"] = 3 &rarr; {"a":3,"b":2}</li>
-</ul></li>
-<li class='fold'><span class='h4' data-h='fold'>集合 Set</span><ul>
-	<li>可變</li>
-	<li>成員: (唯一存在值:任意型態資料)</li>
-	<li>檢查: "a" in {"a","b","c"} &rarr; True</li>
-	<li>增加: {"a","b","c"}.add("d") &rarr; {"a","b","c","d"}</li>
-	<li>刪除: {"a","b","c"}.remove("a") &rarr; {"b","c"}</li>
-</ul></li>
-</ul></section><!--}}}-->
+<section data-ks='P_DS'><h2>結構 Structure</h2><ul>
+	<li class='fold'><span class='h4' data-h='fold'>元祖 Tuple</span><ul>
+		<li>不可變</li>
+		<li>成員: (值:任意型態資料)</li>
+		<li>取值: (1,2,3)[0] &rarr; 1</li>
+		<li><table class='MemoryMap' cellspacing='6'><tbody><tr>
+			<th>地址</th><th>資料</th><td style='border:0' colspan='3'></td>
+		</tr><tr>
+			<th>0</th><th>15</th><td>&larr; 15*256</td><td rowspan='2'>&larr; 3938</td><td rowspan='6'>(3938,"Lai")</td>
+		</tr><tr>
+			<th>1</th><th>98</th><td>&larr; 98</td>
+		</tr><tr>
+			<th>2</th><th>76</th><td>&larr; ord("L") &larr; "L" </td><td rowspan='4'>&larr; "Lai"</td>
+		</tr><tr>
+			<th>3</th><th>97</th><td>&larr; ord("a") &larr; "a" </td>
+		</tr><tr>
+			<th>4</th><th>105</th><td>&larr; ord("i") &larr; "i" </td>
+		</tr><tr>
+			<th>5</th><th>0</th><td>&larr; 0</td>
+		</tr><tr>
+			<th><div class='r90'>...</div></th><th><div class='r90'>...</div></th><td style='border:0' colspan='3'></td>
+		</tr></tbody></table></li>
+	</ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>串列 List</span><ul>
+		<li>可變</li>
+		<li>成員: (值:任意型態資料)</li>
+		<li>取值: [1,2,3][0] &rarr; 1</li>
+		<li>更新: [1,2,3][0] = 4 &rarr; [4,2,3]</li>
+	</ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>字典 Dictionary</span><ul>
+		<li>可變</li>
+		<li>成員: (鍵:任意型態資料, 值:任意型態資料)</li>
+		<li>取值: {"a":1,"b":2}["a"] &rarr; 1</li>
+		<li>更新: {"a":1,"b":2}["a"] = 3 &rarr; {"a":3,"b":2}</li>
+	</ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>集合 Set</span><ul>
+		<li>可變</li>
+		<li>成員: (唯一存在值:任意型態資料)</li>
+		<li>檢查: "a" in {"a","b","c"} &rarr; True</li>
+		<li>增加: {"a","b","c"}.add("d") &rarr; {"a","b","c","d"}</li>
+		<li>刪除: {"a","b","c"}.remove("a") &rarr; {"b","c"}</li>
+	</ul></li>
+</ul></section>
 
-<section data-ks='P_DS'><h2>Operator []</h2><!--{{{-->
+<section data-ks='P_DS'><h2>Operator []</h2><div>
 	<table class='syntax' style='margin:auto;'><tr>
 		<th><span class='green'>集合資料</span></th>
 		<th><span class='red'>[</span></th>
@@ -161,13 +179,72 @@ print(f"&rarr; a:{a},b:{b}")
 		<th colspan='8' class='blue'>倒數第幾個</th>
 	</tr><tr>
 		<th>修課名單</th><th></th><th>-20</th><th></th><th>-5</th><th></th><th>1</th><th></th>
-	</tr><tr><td colspan='8'>
-		從修課名單<span class='red'>倒數第二十位</span>同學開始，至<span class='red'>倒數第五位</span>同學前的<span class='red'>所有同學</span>。
-	</td></tr></table>
-</section><!--}}}-->
+	</tr><tr>
+		<td colspan='8'>從修課名單<span class='red'>倒數第二十位</span>同學開始，至<span class='red'>倒數第五位</span>同學前的<span class='red'>所有同學</span>。</td>
+	</tr></table>
+</div></section>
 
-<section data-ks='P_DS,Q_ITS'><!--{{{ [] -->
-<div data-x='quiz:m'>
+<section data-ks='P_DS'><h2>Operator in is and ==</h2><ul>
+	<li class='fold'><span class='h4' data-h='fold'>operator is</span><ul>
+		<div data-x='code'>
+def AisB (a, b) :
+	return id(a) == id(b)
+		</div>
+	</ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>operator in</span><ul>
+		<div data-x='code'>
+def AinB (a, b) :
+	for i in b :
+		if (a == b[i]) return True
+	return False
+		</div>
+	</ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>operator ==</span><ul>
+		<div data-x='code'>
+def AeqalB (a,b) :
+	if (len(a) != len(b))
+		return False
+	for i in range(0,len(a)) :
+		if a[i] != b[i]
+			return False
+	return True
+		</div>
+	</ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>operator &lt;</span><ul>
+		<div data-x='code'>
+def AltB (a,b) :
+	i=0
+	while True
+		if i&gt;=len(a) : return True
+		if i&gt;=len(b) : return False
+		if a[i] != b[i] : return a &lt; b
+		i+=1
+		</div>
+	</ul></li>
+</ul></section>
+
+<section data-ks='P_DS'><h2>🔢 內建函數: 串列</h2><div>
+	<table class='ltable'><thead><tr>
+		<th>函式</th><th>參數</th><th>功能</th><th>範例</th><th>結果</th>
+	</tr></thead><tbody><tr>
+		<th class='ar'>len</th><th class='al'>(x)</th>
+		<td>取得元素個數</td>
+		<td>len([1,3,5,7])</td>
+		<td class='ac'>4</td>
+	</tr><tr>
+		<th class='ar'>sorted</th><th class='al'>( 串列 )</th>
+		<td>由小到大排序</td>
+		<td>sorted([3,1,7,5])</td>
+		<td class='ac'>[1,3,5,7]</td>
+	</tr><tr>
+		<th class='ar'>sum</th><th class='al'>( 串列 )</th>
+		<td>計算串列元素的總和</td>
+		<td>sum([1,3,5,7])</td>
+		<td class='ac'>16</td>
+	</tr></tbody></table>
+</div></section>
+
+<section data-ks='P_DS,Q_ITS'><div data-x='quiz:m'>
 	你為公司設計了一個 Python 應用程式，<br/>
 	在 members 的清單中包含了 50 位會員的姓名，最後 5 名是 VIP 會員。<br/>
 	你需要分割清單內容顯示除了 VIP 會員以外的一般會員，<hr/>
@@ -177,11 +254,9 @@ print(f"&rarr; a:{a},b:{b}")
 	<div data-o='X'>members [1 : -5]</div>
 	<div data-o='O'>members [ : -5]</div>
 	<div data-o='X'>members [1 : 5]</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_DS,Q_ITS'><!--{{{ [] -->
-<div data-x='quiz:c'>
+<section data-ks='P_DS,Q_ITS'><div data-x='quiz:c'>
 	您需要識別針對下列順序結構執行各種配量作業的結果:
 	<div data-x='code'>
 alph = 'abcdefghijklmnopqrstuvwxyz'
@@ -190,59 +265,18 @@ alph = 'abcdefghijklmnopqrstuvwxyz'
 <div class='fxl'><span>alph[15:3:-3] #→ </span><div data-x='quiz:s'><div data-o='X'>defghijklmno</div><div data-o='O'>pmjg</div><div data-o='X'>defghijklmnop</div><div data-o='X'>ponmlkjihgfe</div><div data-o='X'>dgjm</div><div data-o='X'>zwtqnkheb</div></div></div>
 <div class='fxl'><span>alph[::-3] #→ </span><div data-x='quiz:s'><div data-o='X'>defghijklmno</div><div data-o='X'>pmjg</div><div data-o='X'>defghijklmnop</div><div data-o='X'>ponmlkjihgfe</div><div data-o='X'>dgjm</div><div data-o='O'>zwtqnkheb</div></div></div>
 	</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_DS,Q_ITS'><!--{{{ [] -->
-<div data-x='quiz:c'>
+<section data-ks='P_DS,Q_ITS'><div data-x='quiz:c'>
 	您需要識別針對下列順序結構執行各種配量作業的結果：
 	<div data-x='code'>
 alph = 'abcdefghijklmnopqrstuvwxyz'
 <div class='fxl'><span>alph[3:6] #→ </span><div data-x='quiz:s'><div data-o='O'>def</div><div data-o='X'>abcdef</div><div data-o='X'>cde</div><div data-o='X'>defg</div><div data-o='X'>cdef</div><div data-o='X'>abcde</div></div></div>
 <div class='fxl'><span>alph[:6] #→ </span><div data-x='quiz:s'><div data-o='X'>def</div><div data-o='O'>abcdef</div><div data-o='X'>cde</div><div data-o='X'>defg</div><div data-o='X'>cdef</div><div data-o='X'>abcde</div></div></div>
 	</div>
-</section><!--}}}-->
+</div></section>
 
-<section><h2>運算子</h2><ul><!--{{{-->
-<li class='fold'><span class='h4' data-h='fold'>operator is</span><ul>
-	<div data-x='code'>
-def AisB (a, b) :
-	return id(a) == id(b)
-	</div>
-</ul></li>
-<li class='fold'><span class='h4' data-h='fold'>operator in</span><ul>
-	<div data-x='code'>
-def AinB (a, b) :
-	for i in b :
-		if (a == b[i]) return True
-	return False
-	</div>
-</ul></li>
-<li class='fold'><span class='h4' data-h='fold'>operator ==</span><ul>
-	<div data-x='code'>
-def AeqalB (a,b) :
-	if (len(a) != len(b))
-		return False
-	for i in range(0,len(a)) :
-		if a[i] != b[i]
-			return False
-	return True
-	</div>
-</ul></li>
-<li class='fold'><span class='h4' data-h='fold'>operator &lt;</span><ul>
-	<div data-x='code'>
-def AltB (a,b) :
-	i=0
-	while True
-		if i&gt;=len(a) : return True
-		if i&gt;=len(b) : return False
-		if a[i] != b[i] : return a &lt; b
-		i+=1
-	</div>
-</ul></li>
-</ul></section><!--}}}-->
-
-<section data-ks='P_DS,Q_ITS'><!--{{{ in -->
-<div data-x='quiz:s'>
+<section data-ks='P_DS,Q_ITS'><div data-x='quiz:s'>
 	在下列的程式碼中：
 	<div data-x='code'>
 slist = ["a", "b", "c", "d", "e", "f"]
@@ -255,11 +289,9 @@ print("f" in slist)
 		<div data-o='O'>True</div>
 		<div data-o='X'>False</div>
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_DS,Q_ITS'><!--{{{ is -->
-<div data-x='quiz:c'>
+<section data-ks='P_DS,Q_ITS'><div data-x='quiz:c'>
 	您正在為公司開發一個Python應用程式。<br/>
 	您撰寫了以下這段程式碼:
 	<div data-x='code'>
@@ -279,40 +311,74 @@ print(numList == alphaList)
 # 請問第四個print後面顯示的內容為何?
 <div data-x='quiz:s' class='bar'><div data-o='O'>True</div><div data-o='X'>False</div></div>
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_DS'><h2>🔢 內建函數: 串列</h2><!--{{{-->
-	<table class='ltable'><thead><tr>
-		<th>函式</th><th>參數</th><th>功能</th><th>範例</th><th>結果</th>
-	</tr><tr>
-		<th class='ar'>len</th><th class='al'>(x)</th>
-		<td>取得元素個數</td>
-		<td>len([1,3,5,7])</td>
-		<td class='ac'>4</td>
-	</tr><tr>
-		<th class='ar'>sorted</th><th class='al'>( 串列 )</th>
-		<td>由小到大排序</td>
-		<td>sorted([3,1,7,5])</td>
-		<td class='ac'>[1,3,5,7]</td>
-	</tr><tr>
-		<th class='ar'>sum</th><th class='al'>( 串列 )</th>
-		<td>計算串列元素的總和</td>
-		<td>sum([1,3,5,7])</td>
-		<td class='ac'>16</td>
-	</tr></tbody></table>
-</section><!--}}}-->
-
-<section><h2>演算法: 搜尋</h2><ul>
-	<li class='fold'><span class='h4' data-h='fold'>循序搜尋 (Sequential Search)</span></li>
-	<li class='fold'><span class='h4' data-h='fold'>二元搜尋 (Bineary Search)</span></li>
-	<li class='fold'><span class='h4' data-h='fold'>雜湊搜尋 (Hash Search)</span></li>
+<section data-ks='P_DS'><h2>演算法: 搜尋</h2><ul>
+	<li class='fold'><span class='h4' data-h='fold'>循序搜尋 (Sequential Search)</span><ul>
+		<li>從資料結構的第一個元素開始，由前往後逐一比對目標值，直到找到或看完所有資料為止。</li>
+		<li><b>前置條件</b>：無（資料不需排序，任意結構皆可）。</li>
+		<li><b>時間複雜度</b>：<ul>
+			<li><b>最好情況</b>：<em>O(1)</em>（第 1 個就是目標）</li>
+			<li><b>最壞情況</b>：<em>O(n)</em>（看到最後一個或找不到，n 為資料量）</li>
+			<li><b>平均情況</b>：<em>O(n)</em></li>
+		</ul></li>
+		<li><b>優點</b>：邏輯簡單、程式極好寫、不需要預先排序。</li>
+		<li><b>缺點</b>：資料量大時效率很差。</li>
+	</ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>二元搜尋 (Bineary Search)</span><ul>
+		<li>利用「分治法」，每次將搜尋範圍對半切（折半）。先看中間的元素：若目標比中間大，就丟掉左半邊，往右半邊找；若目標比中間小，就往左半邊找。</li>
+		<li><b>前置條件</b>：資料必須已經事先排序（由小到大或由大到小）。</li>
+		<li><b>時間複雜度</b>：<ul>
+			<li><b>最好情況</b>：<em>O(1)</em></li>
+			<li><b>最壞情況</b>：<em>O(log n)</em>（每次砍一半）</li>
+			<li><b>平均情況</b>：<em>O(log n)</em></li>
+		</ul></li>
+		<li><b>優點</b>：速度快（資料量從 100 萬筆縮小到大約 20 次就能找到）。</li>
+		<li><b>缺點</b>：強烈依賴已排序的陣列，若資料常有新增、刪除等動態異動，維護排序成本高。</li>
+	</ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>雜湊搜尋 (Hash Search)</span><ul>
+		<li>利用雜湊函數（Hash Function）將鍵值（Key）直接對應轉換成記憶體中的儲存位置（Index），直接「一步到位」抓出資料。</li>
+		<li><b>前置條件</b>：需要建立額外的 Hash Table（雜湊表），且需設計良好的雜湊函數來減少碰撞（Collision）。</li>
+		<li><b>時間複雜度</b>：<ul>
+			<li><b>理想／平均情況</b>：<em>O(1)</em>（常數時間，極快）</li>
+			<li><b>最壞情況</b>：<em>O(n)</em>（當發生嚴重碰撞、全部擠在同一個位置時）</li>
+		</ul></li>
+		<li><b>優點</b>：搜尋速度極快，幾乎是常數時間 <em>O(1)</em>。</li>
+		<li><b>缺點</b>：需要額外的記憶體空間來存放 Hash Table，且處理碰撞（Collision）問題較為複雜。</li>
+	</ul></li>
 </ul></section>
 
-<section><h2>演算法: 排序</h2><ul>
-	<li class='fold'><span class='h4' data-h='fold'>氣泡排序 (Bubble Sort)</span></li>
-	<li class='fold'><span class='h4' data-h='fold'>快速排序 (Quick Sort)</span></li>
-	<li class='fold'><span class='h4' data-h='fold'>合併排序 (Merge Sort)</span></li>
+<section data-ks='P_DS'><h2>演算法: 排序</h2><ul>
+	<li class='fold'><span class='h4' data-h='fold'>氣泡排序 (Bubble Sort)</span><ul>
+		<li>兩兩比較，大數往後交換。從頭到尾檢查相鄰的兩個元素，如果順序錯了就交換。每一輪結束後，最大的那個數就會像氣泡一樣「浮」到最右邊。</li>
+		<li><b>核心策略</b>：暴力窮舉（Brute Force）</li>
+		<li><b>時間複雜度</b>：<ul>
+			<li><b>最好</b>：<em>O(n)</em>（資料原本就已排序好，且程式有加入優化旗標）</li>
+			<li><b>最壞</b>：<em>O(n²)</em>（資料完全反向排序）</li>
+			<li><b>平均</b>：<em>O(n²)</em></li>
+		</ul></li>
+		<li><b>空間複雜度</b>：<em>O(1)</em>（原地排序，不需要額外記憶體）</li>
+		<li><b>穩定性</b>：穩定排序（相同數值的相對順序不會改變）</li>
+	 </ul></li>
+	<li class='fold'><span class='h4' data-h='fold'>快速排序 (Quick Sort)</span><ul>
+		<li>選一個基準點，大放右、小放左。隨機選定一個元素作為「基準值（Pivot）」，將小於基準的通通移到左邊，大於基準的移到右邊，接著將左右兩邊各自重複這個過程。</li>
+		<li><b>核心策略</b>：分治法 (Divide and Conquer)</li>
+		<li><b>時間複雜度</b>：<ul>
+			<li><b>最好</b>：<em>O(n log n)</em></li>
+			<li><b>最壞</b>：<em>O(n²)</em>（當每次選的基準點都是最大或最小值時，例如資料已排序好）</li>
+			<li><b>平均</b>：<em>O(n log n)</em>（實際執行速度通常是所有常規排序中最快的）</li>
+		</ul></li>
+		<li><b>空間複雜度</b>：<em>O(log n)</em>（遞迴呼叫堆疊的深度）</li>
+		<li><b>穩定性</b>：不穩定排序</li>
+	</ul></li>
+
+	<li class='fold'><span class='h4' data-h='fold'>合併排序 (Merge Sort)</span><ul>
+		<li>切到最小再合併，邊合併邊排序。將陣列不斷對半切開，直到每個子陣列都只剩一個元素（此時自然視為已排序）。接著兩兩「依序合併」並重新排序，像蓋房子一樣由下而上組回完整的排序陣列。</li>
+		<li><b>核心策略</b>：分治法 (Divide and Conquer)</li>
+		<li><b>時間複雜度</b>：<em>O(n \log n)</em>（不論資料長怎樣，分割與合併的步驟都是固定的）</li>
+		<li><b>空間複雜度</b>：<em>O(n)</em>（合併過程中需要額外的臨時陣列來存放資料）</li>
+		<li><b>穩定性</b>：穩定排序</li>
+	</ul></li>
 </ul></section>
 
 </body>
