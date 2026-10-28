@@ -23,55 +23,17 @@
 .QMix { display:flex;overflow:auto;align-items:center; }
 </style>
 
-<section class='page'> <!--{{{-->
-	<div class='fill col'>
-		<div class='h1 ac'>Python - Expression<br/>運算式</div>
-		<br/>
-		<div class='frame'>
-			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
-			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
-			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
-			<div style="text-align:right">2026, Summer</div>
-		</div>
-	</div>
-</section> <!--}}}-->
+<section class='page col'>
+	<div class='h1 ac' style='margin-bottom:1em'>Expression<br/>運算式</div>
+	<em class='frame'>
+		<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+		<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+		<div style="text-align:right">2026, Summer</div>
+	</em>
+</section>
 
-<section data-xl='import:Music_NounAndVerb.html'><h2>♫ 名詞與動詞</h2></section>
-
-<!-- {{{ section class='page col'> <h2>名詞與動詞</h2>
-	<div class='fill'>
-		<style>
-			.NVCompare td {
-				border:1px solid black; padding:2px 8px;
-				vertical-align:top; }
-		</style>
-		<table class='NVCompare' style='width:100%;height:100%;'><tbody><tr>
-			<td width='33%'><b>☀ API 應用程式介面</b>
-			<div>Restful API</div></td>
-			<td width='33%'><b>☀ 程序</b>
-			<div>Process</div>
-			<div>Thread</div></td>
-			<td width='33%'><b>☀ 運算子</b>
-			<div>算術，位元</div>
-			<div>比較，邏輯</div>
-			<div>指定</div></td>
-		</tr><tr>
-			<td><b>☀ DB</b>
-			<div>SQL Server, SQLite</div>
-			<div>MongoDB</div>
-			<div>檔案</div>
-			</td>
-			<td><b>☀ 記憶體</b>
-			<div>Stack</div>
-			<div>Hash</div></td>
-			<td><b>☀ 運算元</b>
-			<div>⚑ 變數</div>
-			<div>⚑ 常數</div></td>
-		</tr></tbody></table>
-	</div>
-</section }}} -->
-
-<section><h2>公式</h2><!--{{{-->
+<section data-ks='P_EX'><h2>公式</h2></div>
 	<table data-xl='math' border='1' cellpadding='8' align='center' width='95%'><tr>
 		<th>$F = mg$ , where $g=9.8$</th>
 		<td>g = 9.8<br/>m = float(input('質量'))<br/># 力量<br/>F = m * g</td>
@@ -85,53 +47,52 @@
 		<th>$v = \sqrt{2gh}$ , where $g=9.8$</th>
 		<td>g = 9.8<br/>t = float(input('高度'))<br/># 速度<br/>v = sqrt(2*g*h)</td>
 	</tr></table>
-</section><!--}}}-->
+</div></section>
 
-<section> <h2>運算子</h2> <!--{{{-->
-<div class='zcs'>
-<table border='1' cellpadding='8' class='fill'><tr>
-	<th rowspan='6' width='2%'>數<br/>值<br/>計<br/>算</th>
-	<td width='49%' valign='top'>5 ** 2</td>
-	<td width='49%' valign='top'>25</td>
-</tr><tr>
-	<td>- 7</td><td>-7</td>
-</tr><tr>
-	<td>9 * 4<br/>9 / 4<br/>9 // 4<br/>9 % 4</td>
-	<td>36<br/>2.25<br/>2<br/>1</td>
-</tr><tr>
-	<td>1 + 2<br/>3 - 1</td><td>3<br/>2</td>
-</tr><tr>
-	<td>1024 &gt;&gt; 2<br/>1 &lt;&lt; 2</td><td>256<br/>4</td>
-</tr><tr>
-	<td>7 &amp; 4<br/>4 | 1</td><td>4<br/>5</td>
-</tr></table>
+<section data-ks='P_EX' data-xl='import:Music_NounAndVerb.html'><h2>♫ 名詞與動詞</h2></section>
 
-<table border='1' cellpadding='8' class='fill'><tr>
-	<th width='2%'>數<br/>值<br/>比<br/>較</th>
-	<td width='49%' valign='top'>1 == 2<br/>1 != 2<br/>1 &gt; 2<br/>1 &gt;= 2<br/>1 &lt; 2</br/>1 &lt;= 2<br/>1 in [1,2]<br/>a is b</td>
-	<td width='49%' valign='top'>False<br/>True<br/>False<br/>False<br/>True<br/>True<br/>True<br/>False</td>
-</tr><tr>
-	<th width='2%'>邏<br/>輯<br/>計<br/>算</th>
-	<td width='49%' valign='top'>True and False<br/>True or False<br/>not True</td>
-	<td width='49%' valign='top'>False<br/>True<br/>False</td>
-</tr></table>
-<table border='1' cellpadding='8' class='fill'><tr>
-	<th rowspan='4' width='2%'>指<br/>定<br/>計<br/>算</th>
-	<td width='49%' valign='top'>v **= 2</td>
-	<td width='49%' valign='top'>v:5 &rarr; 25</td>
-</tr><tr>
-	<td>.</td><td>.</td>
-</tr><tr>
-	<td>v *= 4<br/>v /= 4<br/>v //= 4<br/>v %= 4</td>
-	<td>v:9 &rarr; 36<br/>v:9 &rarr; 2.25<br/>v:9 &rarr; 2<br/>v:9 &rarr; 1</td>
-</tr><tr>
-	<td>v += 2<br/>v -= 1</td>
-	<td>v:1 &rarr; 3<br/>v:3 &rarr; 2</td>
-</tr></table>
-</section> <!--}}}-->
+<section data-ks='P_EX'><h2>運算子</h2><div class='zcs'>
+	<table border='1' cellpadding='8' class='fill'><tr>
+		<th rowspan='6' width='2%'>數<br/>值<br/>計<br/>算</th>
+		<td width='49%' valign='top'>5 ** 2</td>
+		<td width='49%' valign='top'>25</td>
+	</tr><tr>
+		<td>- 7</td><td>-7</td>
+	</tr><tr>
+		<td>9 * 4<br/>9 / 4<br/>9 // 4<br/>9 % 4</td>
+		<td>36<br/>2.25<br/>2<br/>1</td>
+	</tr><tr>
+		<td>1 + 2<br/>3 - 1</td><td>3<br/>2</td>
+	</tr><tr>
+		<td>1024 &gt;&gt; 2<br/>1 &lt;&lt; 2</td><td>256<br/>4</td>
+	</tr><tr>
+		<td>7 &amp; 4<br/>4 | 1</td><td>4<br/>5</td>
+	</tr></table>
+	<table border='1' cellpadding='8' class='fill'><tr>
+		<th width='2%'>數<br/>值<br/>比<br/>較</th>
+		<td width='49%' valign='top'>1 == 2<br/>1 != 2<br/>1 &gt; 2<br/>1 &gt;= 2<br/>1 &lt; 2</br/>1 &lt;= 2<br/>1 in [1,2]<br/>a is b</td>
+		<td width='49%' valign='top'>False<br/>True<br/>False<br/>False<br/>True<br/>True<br/>True<br/>False</td>
+	</tr><tr>
+		<th width='2%'>邏<br/>輯<br/>計<br/>算</th>
+		<td width='49%' valign='top'>True and False<br/>True or False<br/>not True</td>
+		<td width='49%' valign='top'>False<br/>True<br/>False</td>
+	</tr></table>
+	<table border='1' cellpadding='8' class='fill'><tr>
+		<th rowspan='4' width='2%'>指<br/>定<br/>計<br/>算</th>
+		<td width='49%' valign='top'>v **= 2</td>
+		<td width='49%' valign='top'>v:5 &rarr; 25</td>
+	</tr><tr>
+		<td>.</td><td>.</td>
+	</tr><tr>
+		<td>v *= 4<br/>v /= 4<br/>v //= 4<br/>v %= 4</td>
+		<td>v:9 &rarr; 36<br/>v:9 &rarr; 2.25<br/>v:9 &rarr; 2<br/>v:9 &rarr; 1</td>
+	</tr><tr>
+		<td>v += 2<br/>v -= 1</td>
+		<td>v:1 &rarr; 3<br/>v:3 &rarr; 2</td>
+	</tr></table>
+</div></section>
 
-<section><h2>優先順序</h2>
-<ul>
+<section data-ks='P_EX'><h2>優先順序</h2><ul>
 	<li><b class='h3'>(): 強制優先</b></li>
 	<li class='fold'><b class='h3' data-h='fold'>算數運算子</b><ul>
 		<li><b>^</b>: 指數</li>
@@ -149,42 +110,58 @@
 	<li class='fold'><b class='h3' data-h='fold'>指定運算子</b><ul>
 		<li><b>= += -= *= /= //= %= **=</b></li>
 	</ul></li>
-</ul>
-</section>
+</ul></section>
 
-<section data-ks='P_EX,Q_ITS'>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:sort'>
 	<div>您正在將現有的應用程式轉換成Python。</div>
 	<div>您需要正確編寫所有算數運算式的程式碼。</div>
 	<div>請依運算元優先順序由高到低依序選取 ?</div>
-	<div data-x='quiz:sort'>
-		<div data-o='4'>加法和減法</div>
-		<div data-o='3'>乘法和除法</div>
-		<div data-o='0'>括弧</div>
-		<div data-o='5'>及</div>
-		<div data-o='1'>指數</div>
-		<div data-o='2'>一元正、負、非</div>
-	</div>
-</section>
+	<div data-o='4'>加法和減法</div>
+	<div data-o='3'>乘法和除法</div>
+	<div data-o='0'>括弧</div>
+	<div data-o='5'>及</div>
+	<div data-o='1'>指數</div>
+	<div data-o='2'>一元正、負、非</div>
+</div></section>
 
-<section> <h2>後序式 Postfix Expression</h2> <!--{{{-->
-<div class='zcs'><div class='fill' style='text-align:center;'>
-
-<div>
-	<span class='blue'>5</span> <span class='red'>*</span> <span class='red'>(</span>
-	<span class='blue'>1</span> <span class='red'>+</span> <span class='blue'>2</span> <span class='red'>)</span>
-	<span class='red'>**</span> <span class='blue'>2</span> <span class='red'>-</span> <span class='blue'>3</span>
-	<span class='red'>+</span> <span class='blue'>4</span> <span class='red'>/</span> <span class='blue'>2</span>
-</div><hr/>
-<div><span class='blue'>5</span>|<span style='background:silver'><span class='blue'>1</span>|<span class='blue'>2</span>|<span class='red'>+</span></span>|<span class='blue'>2</span>|<span class='red'>**</span>|<span class='red'>*</span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
-<div><span class='blue'>5</span>|<span style='background:silver'><span class='blue'>3</span>|<span class='blue'>2</span>|<span class='red'>**</span></span>|<span class='red'>*</span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
-<div><span style='background:silver'><span class='blue'>5</span>|<span class='blue'>9</span>|<span class='red'>*</span></span>|<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
-<div><span style='background:silver'><span class='blue'>45</span>|<span class='blue'>3</span>|<span class='red'>-</span></span>|<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span></div>
-<div><span class='blue'>42</span>|<span style='background:silver'><span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span></span>|<span class='red'>+</span></div>
-<div><span style='background:silver'><span class='blue'>42</span>|<span class='blue'>2</span>|<span class='red'>+</span></span></div>
-<div><span class='blue' style='font-size:200%'>44</span></div>
-
-</div><div class='fill'>
-	<div data-xl='mermaid'><textarea data-v='value:raw'>graph LR
+<section data-ks='P_EX'><h2>後序式 Postfix Expression</h2><div class='zcs'>
+	<div class='fill' style='text-align:center;'><div>
+		<span class='blue'>5</span><span class='red'>*</span><span class='red'>(</span>
+		<span class='blue'>1</span><span class='red'>+</span><span class='blue'>2</span>
+		<span class='red'>)</span><span class='red'>**</span><span class='blue'>2</span>
+		<span class='red'>-</span><span class='blue'>3</span><span class='red'>+</span>
+		<span class='blue'>4</span><span class='red'>/</span><span class='blue'>2</span>
+	</div><hr/><div>
+		<span class='blue'>5</span>|<span style='background:silver'><span class='blue'>1</span>|
+		<span class='blue'>2</span>|<span class='red'>+</span></span>|<span class='blue'>2</span>|
+		<span class='red'>**</span>|<span class='red'>*</span>|<span class='blue'>3</span>|
+		<span class='red'>-</span>|<span class='blue'>4</span>|<span class='blue'>2</span>|
+		<span class='red'>/</span>|<span class='red'>+</span>
+	</div><div>
+		<span class='blue'>5</span>|<span style='background:silver'><span class='blue'>3</span>|
+		<span class='blue'>2</span>|<span class='red'>**</span></span>|<span class='red'>*</span>|
+		<span class='blue'>3</span>|<span class='red'>-</span>|<span class='blue'>4</span>|
+		<span class='blue'>2</span>|<span class='red'>/</span>|<span class='red'>+</span>
+	</div><div>
+		<span style='background:silver'><span class='blue'>5</span>|<span class='blue'>9</span>|
+		<span class='red'>*</span></span>|<span class='blue'>3</span>|<span class='red'>-</span>|
+		<span class='blue'>4</span>|<span class='blue'>2</span>|<span class='red'>/</span>|
+		<span class='red'>+</span>
+	</div><div>
+		<span style='background:silver'><span class='blue'>45</span>|<span class='blue'>3</span>|
+		<span class='red'>-</span></span>|<span class='blue'>4</span>|<span class='blue'>2</span>|
+		<span class='red'>/</span>|<span class='red'>+</span>
+	</div><div>
+		<span class='blue'>42</span>|<span style='background:silver'><span class='blue'>4</span>|
+		<span class='blue'>2</span>|<span class='red'>/</span></span>|<span class='red'>+</span>
+	</div><div>
+		<span style='background:silver'><span class='blue'>42</span>|<span class='blue'>2</span>|
+		<span class='red'>+</span></span>
+	</div><div>
+		<span class='blue' style='font-size:200%'>44</span>
+	</div></div>
+	<div class='fill'>
+		<div data-xl='mermaid'><textarea data-v='value:raw'>graph LR
  NA("5") --> M("*")
  NB("1") --> A("+")
  NC("2") --> A --> E("**")
@@ -193,12 +170,10 @@
  NF("4") --> D("/") --> AB
  NG("2") --> D
 </textarea></div>
+	</div>
+</div></section>
 
-</div></div>
-</section> <!-- }}}-->
-
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:s'>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:s'>
 	<div>計算下列 Python 數學運算式</div>
 	<div data-x='code'>
 5 * (1+2) ** 2 - 3 + 4 / 2
@@ -209,11 +184,9 @@
 		<div data-o='O'>44</div>
 		<div data-o='X'>22</div>
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:c'>
 	<div>你設計了一個數學運算的 Python 程式，程式碼如下：</div>
 	<div data-x='code'>
 a = 21
@@ -243,12 +216,10 @@ b = 5
 			<div data-o='O'>1</div>
 		</div>
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:s'>
-	<div>您執行下列程式碼。請問結果為何?</div>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:s'>
+	您執行下列程式碼。請問結果為何?
 	<div data-x='code'>
 value1 = 9
 value2 = 4
@@ -258,11 +229,9 @@ answer = (value1 % value2 * 10) // 2.0 ** 3.0 + value2
 	<div data-o='X'>發生語法錯誤</div>
 	<div data-o='X'>輸出 5.667</div>
 	<div data-o='O'>輸出 5.0</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:m'>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:m'>
 	<div>某間銀行必須產生一份報表來顯示所有客戶每天的平均。</div>
 	<div>這份報表必須截斷餘額的小數部分。</div>
 	<div>請問哪兩段程式可以使用 ?</div>
@@ -270,11 +239,9 @@ answer = (value1 % value2 * 10) // 2.0 ** 3.0 + value2
 	<div data-o='O'>average_blance = total_deposits//number_of_customers</div>
 	<div data-o='X'>average_blance = total_deposits**number_of_customers</div>
 	<div data-o='X'>average_blance = float(total_deposits//number_of_customers)</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:c'>
 	<div>您正在撰寫一個Python程式來評估算數公式。</div>
 	<div>此公式描述為b等於a乘以負一之後再平方。其中a是即將輸入的成績,而b是結果。</div>
 	<div>您所建立的程式碼片段如下。加上行號僅為參考之用。</div>
@@ -282,11 +249,9 @@ answer = (value1 % value2 * 10) // 2.0 ** 3.0 + value2
 a = eval(input("Enter a number for the question:"))
 <div data-x='quiz:sort'>b = <span data-o="1">-</span><span data-o="0">(</span><span data-o="3">)</span><span data-o="-">*</span><span data-o="4">**2</span><span data-o="-">2</span><span data-o="2">a</span></div>
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:c'>
 	<div>您正在建立一個比較數字的Python程式</div>
 	<div data-x='code'>
 num1 = eval(input ('Please enter the first number: '))
@@ -312,72 +277,68 @@ if num2 = num1 :
 	<div data-x='quiz:s' class='bar'># <div data-o='O'>正確</div><div data-o='X'>錯誤</div></div>
 	print('The two numbers are the same. ')
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-xl='import:Music_Types.html'><h2>♫ 基本資料型態</h2></section>
+<section data-ks='P_EX' data-xl='import:Music_Types.html'><h2>♫ 基本資料型態</h2></section>
 
-<section data-ks='P_EX'><h2>運算元: 資料型態</h2><!--{{{ Data Type -->
-	<div class='C3Tbl'>
-		<div data-x="card"><div class='front col'>
-			<div>123</div>
-			<div>-123</div>
-			<div>0</div>
-		</div><div class='back col'>
-			<div>整數</div>
-			<div>Integer</div>
-			<div>int</div>
-		</div></div>
-		<div data-x="card"><div class='front col'>
-			<div>1.23</div>
-			<div>-1.23</div>
-			<div>0.0</div>
-		</div><div class='back col'>
-			<div>浮點數</div>
-			<div>Float</div>
-			<div>float</div>
-		</div></div>
-		<div data-x="card"><div class='front col'>
-			<div>"1.23"</div>
-			<div>'1.23'</div>
-			<div>"""1.<br/>23"""</div>
-		</div><div class='back col'>
-			<div>字串</div>
-			<div>String</div>
-			<div>str</div>
-		</div></div>
-		<div data-x="card"><div class='front col'>
-			<div>True</div>
-			<div>False</div>
-		</div><div class='back col'>
-			<div>布林值</div>
-			<div>Boolean</div>
-			<div>bool</div>
-		</div></div>
-		<div data-x="card"><div class='front col'>
-			<div>1.23+4.56j</div>
-			<div>-1.23-4.56j</div>
-			<div>0+0j</div>
-		</div><div class='back col'>
-			<div>複數</div>
-			<div>Complex</div>
-			<div>complex</div>
-		</div></div>
-		<div data-x="card"><div class='front col'>
-			<div>b"1.23"</div>
-			<div>b'1.23'</div>
-			<div>b"""1.<br/>23"""</div>
-		</div><div class='back col'>
-			<div>位元</div>
-			<div>Bytes</div>
-			<div>bytes</div>
-		</div></div>
-	</div>
-</section><!--}}}-->
+<section data-ks='P_EX'><h2>運算元: 資料型態</h2><div class='C3Tbl'>
+	<div data-x="card"><div class='front col'>
+		<div>123</div>
+		<div>-123</div>
+		<div>0</div>
+	</div><div class='back col'>
+		<div>整數</div>
+		<div>Integer</div>
+		<div>int</div>
+	</div></div>
+	<div data-x="card"><div class='front col'>
+		<div>1.23</div>
+		<div>-1.23</div>
+		<div>0.0</div>
+	</div><div class='back col'>
+		<div>浮點數</div>
+		<div>Float</div>
+		<div>float</div>
+	</div></div>
+	<div data-x="card"><div class='front col'>
+		<div>"1.23"</div>
+		<div>'1.23'</div>
+		<div>"""1.<br/>23"""</div>
+	</div><div class='back col'>
+		<div>字串</div>
+		<div>String</div>
+		<div>str</div>
+	</div></div>
+	<div data-x="card"><div class='front col'>
+		<div>True</div>
+		<div>False</div>
+	</div><div class='back col'>
+		<div>布林值</div>
+		<div>Boolean</div>
+		<div>bool</div>
+	</div></div>
+	<div data-x="card"><div class='front col'>
+		<div>1.23+4.56j</div>
+		<div>-1.23-4.56j</div>
+		<div>0+0j</div>
+	</div><div class='back col'>
+		<div>複數</div>
+		<div>Complex</div>
+		<div>complex</div>
+	</div></div>
+	<div data-x="card"><div class='front col'>
+		<div>b"1.23"</div>
+		<div>b'1.23'</div>
+		<div>b"""1.<br/>23"""</div>
+	</div><div class='back col'>
+		<div>位元</div>
+		<div>Bytes</div>
+		<div>bytes</div>
+	</div></div>
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
-	<div>請問變數宣告後它們的資料類別依序是？</div>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:c'>
+	請問變數宣告後它們的資料類別依序是？
 	<div data-x='code'>
 age = 12
 <div data-x='quiz:s' class='bar'># <div data-o='O'>int</div><div data-o='X'>float</div><div data-o='X'>str</div><div data-o='X'>boolean</div></div>
@@ -390,12 +351,10 @@ weight = 64.5
 zip = '545'
 <div data-x='quiz:s' class='bar'># <div data-o='X'>int</div><div data-o='X'>float</div><div data-o='O'>str</div><div data-o='X'>boolean</div></div>
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
-	<div>您必須識別各種類型作業的資料類型。</div>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:c'>
+	您必須識別各種類型作業的資料類型。
 	<div data-x='code'>
 type(5.0) 
 <div data-x='quiz:s' class='bar'>#<div data-o='X'>int</div><div data-o='O'>float</div><div data-o='X'>str</div><div data-o='X'>boolean</div></div>
@@ -406,42 +365,44 @@ type(False)
 type(+1E10) 
 <div data-x='quiz:s' class='bar'>#<div data-o='X'>int</div><div data-o='O'>float</div><div data-o='X'>str</div><div data-o='X'>boolean</div></div>
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX'><h2>🔢 內建函數: 型別轉換</h2><!--{{{ Built-in Functions: Type Conversion --> 
-	<table border='1' cellspacing='0' cellpadding='8' align='center' width='100%' style='font-size:70%'><thead><tr>
-		<th><strong>函式</strong></th><th><strong>功能</strong></th><th><strong>範例</strong></th><th><strong>結果</strong></th>
+<section data-ks='P_EX'><h2>🔢 內建函數: 型別轉換</h2><div>
+	<table class='nv' cellspacing='8'><thead><tr>
+		<th>函式</th>
+		<th>功能</th>
+		<th>範例</th>
+		<th>結果</th>
 	</tr></thead><tbody><tr>
-		<td>int(x)</td>
+		<th>int(x)</th>
 		<td>將 <strong>x</strong> 轉換成整數</td>
 		<td>int(34.21)</td>
 		<td>34</td>
 	</tr><tr>
-		<td>float(x)</td>
+		<th>float(x)</th>
 		<td>將 <strong>x</strong> 轉換成浮點數</td>
 		<td>float("56")</td>
 		<td>56.0</td>
 	</tr><tr>
-		<td>hex(x)</td>
+		<th>hex(x)</th>
 		<td>將 <strong>x</strong> 轉換成十六進位數字</td>
 		<td>hex(34)</td>
 		<td>0x22</td>
 	</tr><tr>
-		<td>oct(x)</td>
+		<th>oct(x)</th>
 		<td>將 <strong>x</strong> 轉換成八進位數字</td>
 		<td>oct(34)</td>
 		<td>0o42</td>
 	</tr><tr>
-		<td>str(x)</td>
+		<th>str(x)</th>
 		<td>將 <strong>x</strong> 轉換成字串</td>
 		<td>str(56)</td>
 		<td>56 ( 字串 )</td>
-	<tr></tbody></table>
-</section><!--}}}-->
+	</tr></tbody></table>
+</div></section>
 
-<section data-ks='P_EX' data-x='math'><h2>運算子</h2> <!--{{{ Operator -->
-	<table class='rtable'><thead><tr>
+<section data-ks='P_EX' data-x='math'><h2>運算子</h2><div>
+	<table class='nv' cellspacing='8'><thead><tr>
 		<th>運算子</th>
 		<th>數值(Int|Float)</th>
 		<th>字串(String)</th>
@@ -489,12 +450,11 @@ type(+1E10)
 		<td>未定義</td>
 		<td>未定義</td>
 		<td>未定義</td>
-	</tr></table>
-</section><!--}}}-->
+	</tr></tbody></table>
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:s'>
-	<div>您執行下列程式碼，請問輸出值為何 ?</div>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:s'>
+	您執行下列程式碼，請問輸出值為何 ?
 	<div data-x='code'>
 list_1 = [1,2]
 list_2 = [3,4]
@@ -506,13 +466,11 @@ print(list_4)
 	<div data-o='X'>[[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]</div>
 	<div data-o='X'>[3, 6, 9, 12]</div>
 	<div data-o='X'>[[1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]]</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
-	<div>您撰寫了以下這段程式碼:</div>
-	<div>請評估這段程式碼,然後從每個下拉式清單中選取正確的選項以回答問題。</div>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:c'>
+	您撰寫了以下這段程式碼:<br/>
+	請評估這段程式碼,然後從每個下拉式清單中選取正確的選項以回答問題。
 	<div data-x='code'>
 a = 'Config1'
 print(a)
@@ -525,63 +483,53 @@ print(b)
 # 請問顯示的內容為何 ?
 <div data-x='quiz:s'><div data-o="O">Config1</div><div data-o="X">Config1Config2</div><div data-o="X">Config2</div><div data-o="X">Config2Config1</div></div>
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX'> <h2>🔢 內建函數: 數學</h2><!--{{{ Built-in Functions: Mathematics -->
-	<table class='ltable'><thead><tr>
-		<th>函式<div>參數</div></th><th>功能<div>範例</div></th>
+<section data-ks='P_EX'> <h2>🔢 內建函數: 數學</h2><div>
+	<table class='nv' cellspacing='8'><thead><tr>
+		<th>函式 (參數)</th><th>功能 <span class='blue'>範例</span></th>
 	</tr></thead><tbody><tr>
-		<th>round<div>(x)</div></th>
-		<td>以四捨六入法取得 <strong>x</strong> 的近似值
-			<div>46 ← round(45.8)</div></td>
+		<th>round (x)</th>
+		<td>以四捨六入法取得 <strong>x</strong> 的近似值<div class='blue'>46 ← round(45.8)</div></td>
 	</tr><tr>
-		<th>floor<div>(x)</div></th>
-		<td>無條件捨去
-			<div>45 ← floor(45.9)</div></td>
+		<th>floor (x)</th>
+		<td>無條件捨去<div class='blue'>45 ← floor(45.9)</div></td>
 	</tr><tr>
-		<th>ceil<div>(x)</div></th>
-		<td>無條件進位
-			<div>46 ← ceil(45.1)</div></td>
+		<th>ceil (x)</th>
+		<td>無條件進位<div class='blue'>46 ← ceil(45.1)</div></td>
 	</tr><tr>
-		<th>abs<div>(x)</div></th>
-		<td>取得 <strong>x</strong> 的絕對值
-			<div>5 ← abs(-5)</div></td>
+		<th>abs (x)</th>
+		<td>取得 <strong>x</strong> 的絕對值<div class='blue'>5 ← abs(-5)</div></td>
 	</tr><tr>
-		<th>pow<div>(x, y)</div></th>
-		<td>取得 <strong>x</strong> 的 <strong>y</strong> 次方
-			<div>8 ← pow(2, 3)</div></td>
+		<th>pow (x, y)</th>
+		<td>取得 <strong>x</strong> 的 <strong>y</strong> 次方<div class='blue'>8 ← pow(2, 3)</div></td>
 	</tr><tr>
-		<th>divmod<div>(x, y)</div></th>
+		<th>divmod (x, y)</th>
 		<td>取得 <strong>x</strong> 除以 <strong>y</strong> 的商及餘數的元組
 			<div>(7, 2) ← divmod(44, 6)</div></td>
 	</tr><tr>
-		<th>max<div>(參數串列)</div></th>
-		<td>取得參數串列中的最大值
-			<div>7 ← max(1,3,5,7)</div></td>
+		<th>max (參數串列)</th>
+		<td>取得參數串列中的最大值<div class='blue'>7 ← max(1,3,5,7)</div></td>
 	</tr><tr>
-		<th>min<div>(參數串列)</div></th>
-		<td>取得參數串列中的最小值
-			<div>1 ← min(1,3,5,7)</div></td>
-	</tr><tbody></table>
-</section> <!--}}}-->
+		<th>min (參數串列)</th>
+		<td>取得參數串列中的最小值 <div class='blue'>1 ← min(1,3,5,7)</div></td>
+	</tr></tbody></table>
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-	<div>函式必須執行下列工作:<ul>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:m'>
+	函式必須執行下列工作:
+	<ul>
 		<li>提取浮點數(float)的絕對值</li>
 		<li>移除整數後面的任何小數點。</li>
-	</ul></div>
-	<div data-x='quiz:m'>
-		<div>請問您應該使用哪兩個數學函式?。</div>
-		<div data-o='O'>math.floor(x)</div>
-		<div data-o='O'>math.fabs(x)</div>
-		<div data-o='X'>math.frexp(x)</div>
-		<div data-o='X'>math.fmod(x)</div>
-	</div>
-</section><!--}}}-->
+	</ul>
+	請問您應該使用哪兩個數學函式?。
+	<div data-o='O'>math.floor(x)</div>
+	<div data-o='O'>math.fabs(x)</div>
+	<div data-o='X'>math.frexp(x)</div>
+	<div data-o='X'>math.fmod(x)</div>
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:c'>
 	根據下列程式，請回答註解中的問題。
 	<div data-x='code'>
 age = input("Enter your age: ")
@@ -594,12 +542,10 @@ message = "You were born in " + str(born)
 <div data-x='quiz:s' class='bar'># message 的資料型態為<div data-o='X'>int</div><div data-o='O'>str</div><div data-o='X'>boolean</div></div>
 print(message)
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
-<section data-ks='P_EX,Q_ITS'><!--{{{-->
-<div data-x='quiz:c'>
-	<div>您建立了下列程式來找出會議室並顯示房間名稱。</div>
+<section data-ks='P_EX,Q_ITS'><div data-x='quiz:c'>
+	您建立了下列程式來找出會議室並顯示房間名稱。
 	<div data-x='code'>
 rooms = {1: 'Foyer', 2: 'Conference Room'}
 <div data-x='quiz:s'># 請問哪兩種資料類型儲存在 rooms 清單中？<div data-o="X">布林值和字串</div><div data-o="X">浮點數和布林值</div><div data-o="O">整數和字串</div><div data-o="X">浮點數和整數</div></div>
@@ -611,8 +557,7 @@ if not room in rooms:
 else:
 	print("The room name is " + rooms[room])
 	</div>
-</div>
-</section><!--}}}-->
+</div></section>
 
 </body>
 </html>

@@ -123,11 +123,13 @@ table.std>thead th, table.std>thead td { font-weight:900; background:lightgrey; 
 table.std>tbody th, table.std>tbody td { background:white; }
 
 table.nvtable, table.nv
-{ margin:auto;border:1px solid silver; padding:4px; }
-table.nvtable th, table.nv th
-{ border:0;padding:0 2px; text-align:right; vertical-align:middle; }
-table.nvtable td, table.nv td
-{ border:0;padding:0 4px; border-bottom:1px solid silver; text-align:left; vertical-align:top; }
+{ margin:auto; border:1px solid silver; padding:4px; }
+table.nv thead th, table.nv thead td
+{ border-bottom:4px solid black; padding:0 2px; text-align:center; vertical-align:middle; }
+table.nvtable tbody th, table.nv tbody th
+{ border:0; padding:0 2px; text-align:right; vertical-align:middle; }
+table.nvtable tbody td, table.nv tbody td
+{ border:0; padding:0 4px; border-bottom:1px solid silver; text-align:left; vertical-align:top; }
 
 table.chart { margin:auto;border:1px solid silver; padding:4px; }
 table.chart th { border:2px solid black; padding:4px 20px; }
