@@ -11,30 +11,35 @@
 	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
 	.M { background-color:rgba(255,255,255,0.5); color:black; }
 	.W { background-color:rgba(0,0,0,0.5); color:yellow; }
+	.MIcon { background:#ffc; color:black; border-radius:50%; white-space:nowrap; }
+	.MIcon:hover { background:#ff0; }
+	.MIcon::before { content:"💻"; }
 </style>
 </head>
 <body style='opacity:0'>
 
 <section id='工具索引' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
 	<div class='bar'>
-		<div class='button W _w_' data-h='go:pStyle:/index.html'>🏠</div>
-		<h2 class='f W'>工具 Tools</h2>
-		<div class='W' data-h='set:Overlay:menu'
-			style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
+		<h2 class='W'>🛠️ 工具 Tools</h2>
+		<div class='W MIcon' data-h='set:Overlay:menu'></div>
 	</div>
 	<div class='fill'><div class='zcs'>
-		<div class='M fill'><ul>
-			<li><a href='Private.html'>加解密工具</a></li>
-			<li><a href='Calc.html'>計算機</a></li>
-			<li><a href='TRAPP.html'>臺鐵 PP 座位查詢</a></li>
-			<li><a href='TRAPP2.html'>臺鐵 PP 座位查詢 II</a></li>
-		</ul></div>
-		<div class='M fill'><h3>財務工具</h3><ul>
-			<li><a href="http://g3c.cyberpiers.com:4780/FTSA/index.html">
+		<div class='M fill'>
+			<h3 data-h='go:#pStyle:/index.html'>🏠 Home</h3>
+			<h3 data-h='set:Overlay:menu'>🛠️ Menu</h3>
+		</div>
+		<div class='M fill'>
+			<h4><a href='Private.html'>加解密工具</a></h4>
+			<h4><a href='Calc.html'>計算機</a></h4>
+			<h4><a href='TRAPP.html'>臺鐵 PP 座位查詢</a></h4>
+			<h4><a href='TRAPP2.html'>臺鐵 PP 座位查詢 II</a></h4>
+		</div>
+		<div class='M fill'><h3>財務工具</h3>
+			<h4><a href="http://g3c.cyberpiers.com:4780/FTSA/index.html">
 				2026, FTSA Financial Time Series Analyzer
-			</a></li>
-			<li><a href="RealEstateCalc.html">房屋開價試算</a></li>
-		</ul></div>
+			</a></h4>
+			<h4><a href="RealEstateCalc.html">房屋開價試算</a></h4>
+		</div>
 	</div></div>
 </section>
 

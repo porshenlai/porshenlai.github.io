@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target='_blank'></base>
+<script src="/App/page.js"></script>
+</head>
+<body style='opacity:0'>
+
+<section class='page col'>
+	<div class='h1 ac' style='margin-bottom:1em'>虛擬化<br/>Virtualization</div>
+	<em class='frame'>
+		<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+		<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+		<div style="text-align:right">2026, Summer</div>
+	</em>
+</section>
+
+<section><h2>什麼是虛擬化層級？</h2><ul>
+	<li><h4>硬體與軟體解耦</h4><ul>
+		<li>透過中間抽象層,將底層真實硬體資源與上層執行環境徹底分離,提供彈性與安全獨立性。</li>
+	</ul></li>
+	<li><h4>動態轉譯與解釋</h4><ul>
+		<li>高階指令透過虛擬引擎進行逐層轉譯,將抽象操作映射為硬體可直接執行的 Machine Code。</li>
+	</ul></li>
+	<li><h4>保護與相容性</h4><ul>
+		<li>防止原始碼外洩與逆向工程,同時達成跨平台「一次撰寫,隨處執行」的相容目標。</li>
+	</ul></li>
+</ul></section>
+
+<section><h2>層層轉譯：從抽象到物理實現</h2><ul>
+	<li><b>Bytecode 虛擬化技術（Bytecode Virtualization）</b>是一種將原始程式碼編譯成中間碼（Bytecode），並透過自訂的虛擬CPU指令集與解釋器（Interpreter）來執行的進階程式碼保護技術。</li>
+
+	<table class='chart' width='100%'><tbody><tr><td valign='top'>
+		高度抽象<br/>
+		標準化與邏輯化<br/>
+		&uarr;
+	</td><th rowspan='2' valign='middle' align='left'><ul>
+		<li><h4>應用程式設計 (No Code/Low Code)</h4><ul>
+			<li>範例: 應用系統設定，業務藍圖</li>
+		</ul></li>
+		<li><h4>高階語言 (High-Level Language)</h4><ul>
+			<li>例如: Python，Java，C#</li>
+		</ul></li>
+		<li><h4>位元碼 (Bytecode)</h4><ul>
+			<li>虛擬化範例: Python Byte Code / JVM</li>
+		</ul></li>
+		<li><h4>作業系統 API (OS Level)</h4><ul>
+			<li>虛擬化範例: Docker Container</li>
+		</ul></li>
+		<li><h4>組合語言 (Assembly Language)</h4><ul>
+			<li>中間底層指令映射</li>
+		</ul></li>
+		<li><h4>X86/ARM 指令集</h4><ul>
+			<li>虛擬化範例: VMWare / KVM / ESXi</li>
+		</ul></li>
+		<li><h4>Machine Code</h4><ul>
+			<li>硬體物理晶片執行</li>
+		</ul></li>
+	</ul></th></tr><tr><td valign='bottom'>
+		&darr;<br/>
+		特製化<br/>
+		物理實現與硬體
+	</td></tr></tbody></table>
+</ul></section>
+
+<section><h2>Bytecode 虛擬化與程式碼保護</h2><ul class='zcs2'>
+	<li>將原始碼編譯為中間碼(Bytecode)，並透過自訂虛擬 CPU 指令集與解釋器執行的保護技術。<ul>
+		<li>抗逆向工程：抹除高階語言特徵，使傳統反編譯工具無法還原 logic。</li>
+		<li>自訂虛擬 CPU：隨機化映射指令集，每次編譯產生獨特的解釋器。</li>
+		<li>動態解密執行：代碼僅在記憶體中的虛擬環境內解密與轉譯。</li>
+	</ul></li>
+	<li>Work flow<div><table class='chart' align='left'>
+		<tr><th>Source Code (原始碼)</th></tr>
+		<tr><td>&darr; [Compiler]</td></tr>
+		<tr><th>Intermediate Bytecode (中間碼)</th></tr>
+		<tr><td>&darr; [Custom Interpreter/VM]</td></tr>
+		<tr><th>Virtual CPU Execution (虛擬指令執行)</th></tr>
+		<tr><td>&darr; [Real OS/CPU]</td></tr>
+		<tr><th>Native Hardware Output</th></tr>
+	</table></div></li>
+</ul></section>
+
+<section><h2>硬體虛擬化 vs. 作業系統層虛擬化</h2><ul class='zcs2'>
+	<li><h4>Hardware Virtualization</h4><ul>
+		<li>VMware, KVM, ESXi (Hypervisor)</li>
+		<li><b>位置:</b> X86 / ARM 指令集上方</li>
+		<li><b>特點:</b> 完整模擬硬體設備,執行獨立 Guest OS</li>
+		<li><b>優勢:</b> 極高強度的隔離性與安全性</li>
+		<li><b>代價:</b> 開銷較大、啟動時間較長(分鐘級)</li>
+	</ul></li>
+	<li><h4>OS-Level Virtualization</h4><ul>
+		<li>Docker Container, LXC</li>
+		<li><b>位置:</b> 作業系統 System Call API 上方</li>
+		<li><b>特點:</b> 共用 Host OS 核心,僅隔離應用空間</li>
+		<li><b>優勢:</b> 極輕量化、部署快速(秒級啟動)</li>
+		<li><b>代價:</b> 隔離層級低於硬體虛擬化</li>
+	</ul></li>
+</ul></section>
+
+<section><h2>現代雲端架構的基石</h2><ul>
+	<li>從傳統單體實體機到高密度的微服務容器,虛擬化層集讓資源分配達到前所未有的彈性與自動化。<ul>
+		<li>資源利用率極大化</li>
+		<li>動態配置 CPU 與記憶體,消除硬體閒置</li>
+		<li>快速災難復原與搬遷</li>
+		<li>將系統快照化,實現無縫跨雲遷移</li>
+	</ul></li>
+</ul></section>
+
+<section><h2>虛擬化層集的實際應用場景</h2><ul>
+	<li>軟體智慧財產保護<ul>
+		<li>利用 Bytecode 虛擬化防護高價值演算法。</li>
+	</ul></li>
+	<li>微服務與 Docker 部署<ul>
+		<li>OS API 級別封裝,達成一致的CI/CD 流程。</li>
+	</ul></li>
+	<li>金融混合雲基礎架構<ul>
+		<li>Hypervisor 硬體隔離,符合高安全合規要求。</li>
+	</ul></li>
+	<div class='frame' style='text-align:center;'>
+<h3>理解層集,掌握現代系統架構</h3>
+層層轉譯不僅是程式碼保護的手段,更是現代雲端運算、金融科技與軟體工程的核心思維。
+	</div>
+</ul></section>
+
+<section><div data-x='quiz:s'>
+	在計算機系統架構中，「虛擬化技術（Virtualization）」最核心的主要目的與價值是什麼？
+	<div data-o='O'>將硬體或軟體資源抽象化，達成資源解耦與靈活配置</div>
+	<div data-o='X'>直接提升物理 CPU 內核的時脈速度與運算極限</div>
+	<div data-o='X'>完全取代高階程式語言，讓開發者直接寫機器碼</div>
+	<div data-o='X'>減少伺服器的電源消耗，但無法同時執行多個系統</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	關於「層層轉譯（Layered Translation）」架構，下列哪一個層級最接近真實的物理晶片硬體執行？
+	<div data-o='O'>機器碼 (Machine Code)</div>
+	<div data-o='X'>位元碼 (Bytecode)</div>
+	<div data-o='X'>高階程式語言 (High-Level Language)</div>
+	<div data-o='X'>作業系統 API (OS API)</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	「Bytecode 虛擬化技術」常被應用於進階的軟體保護（如防逆向工程），其核心保護機制為何？
+	<div data-o='O'>將程式碼轉為自訂 Bytecode，並透過特製虛擬 CPU 解釋執行</div>
+	<div data-o='X'>透過防火牆阻擋外部網路對程式碼的存取</div>
+	<div data-o='X'>將程式碼直接寫入唯讀記憶體（ROM）晶片中</div>
+	<div data-o='X'>限制程式只能在特定的硬體作業系統上安裝</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	Python 程式語言在執行 `.py` 檔案時，預設會將原始碼編譯成何種中間檔案格式以提升後續載入速度？
+	<div data-o='O'>`.pyc` 位元碼檔案 (Bytecode)</div>
+	<div data-o='X'>`.exe` 二進制執行檔</div>
+	<div data-o='X'>`.dll` 動態連結函式庫</div>
+	<div data-o='X'>`.sh` Shell 腳本檔案</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	負責解釋與執行 Python Bytecode（位元碼）的核心執行環境通常稱為什麼？
+	<div data-o='O'>Python Virtual Machine (PVM)</div>
+	<div data-o='X'>VMware Workstation</div>
+	<div data-o='X'>Docker Engine</div>
+	<div data-o='X'>Central Processing Unit (CPU)</div>
+</div></section>
+
+[第 6 題]
+<section><div data-x='quiz:s'>
+	容器技術（如 Docker Container）運作於系統層集中的哪一個層級之上？
+	<div data-o='O'>作業系統 API / 系統呼叫層 (OS System Call Level)</div>
+	<div data-o='X'>物理硬體晶片與 X86 指令集層</div>
+	<div data-o='X'>應用程式 Low-Code / No-Code 介面層</div>
+	<div data-o='X'>組合語言層 (Assembly Level)</div>
+</div></section>
+
+[第 7 題]
+<section><div data-x='quiz:s'>
+	相較於傳統硬體虛擬化（Hypervisor/VM），容器技術（Container）最大的優勢是什麼？
+	<div data-o='O'>啟動速度極快（秒級）且系統資源佔用極輕量</div>
+	<div data-o='X'>能夠提供獨立的 Guest OS 核心與絕對的安全隔離</div>
+	<div data-o='X'>可以直接更改硬體 BIOS 設定</div>
+	<div data-o='X'>不需要依賴任何 Host OS 即可獨立運行</div>
+</div></section>
+
+[第 8 題]
+<section><div data-x='quiz:s'>
+	VMware Workstation 或 ESXi 是屬於哪一種層級的虛擬化技術？
+	<div data-o='O'>硬體與指令集層級虛擬化 (Hardware / Instruction Set Virtualization)</div>
+	<div data-o='X'>應用軟體層級虛擬化</div>
+	<div data-o='X'>網頁瀏覽器層級虛擬化</div>
+	<div data-o='X'>位元碼層級虛擬化</div>
+</div></section>
+
+[第 9 題]
+<section><div data-x='quiz:s'>
+	在硬體虛擬化中，負責直接管理硬體資源並為上層虛擬機（VM）分配 CPU、記憶體的關鍵軟體層稱為什麼？
+	<div data-o='O'>Hypervisor (虛擬機器監視器)</div>
+	<div data-o='X'>Compiler (編譯器)</div>
+	<div data-o='X'>Interpreter (解釋器)</div>
+	<div data-o='X'>Assembler (組譯器)</div>
+</div></section>
+
+[第 10 題]
+<section><div data-x='quiz:s'>
+	X86 架構中的 CPU 指令集屬於哪一種電腦指令集架構設計？
+	<div data-o='O'>CISC (複雜指令集計算機)</div>
+	<div data-o='X'>RISC (精簡指令集計算機)</div>
+	<div data-o='X'>VLIW (超長指令字)</div>
+	<div data-o='X'>Quantum Computing (量子運算架構)</div>
+</div></section>
+
+[第 11 題]
+<section><div data-x='quiz:s'>
+	為什麼高階語言（如 Python、Java）通常無法像組合語言或機器碼一樣獲得極致的硬體執行速度？
+	<div data-o='O'>因為高階語言需要經過多層抽象轉譯與運行時環境（Runtime）開銷</div>
+	<div data-o='X'>因為高階語言不支援任何數學運算</div>
+	<div data-o='X'>因為高階語言無法在 x86 架構的 CPU 上執行</div>
+	<div data-o='X'>因為高階語言不需要通過作業系統即可存取硬體</div>
+</div></section>
+
+[第 12 題]
+<section><div data-x='quiz:s'>
+	在「層層轉譯」的觀念中，由上而下（從高階應用至底層硬體）的變化趨勢為何？
+	<div data-o='O'>抽象程度越來越低，與特定硬體晶片的特製化程度越來越高</div>
+	<div data-o='X'>抽象程度越來越高，與特定硬體晶片的特製化程度越來越低</div>
+	<div data-o='X'>跨平台能力越來越強，彈性越來越大</div>
+	<div data-o='X'>與底層硬體的物理實現完全沒有關係</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	下列哪一種技術最適合用於開發「一次撰寫，跨平台隨處執行（Write Once, Run Anywhere）」的應用軟體？
+	<div data-o='O'>基於 Bytecode 與中間虛擬機 (VM) 的語言（如 Java / Python）</div>
+	<div data-o='X'>針對特定 CPU 寫的組合語言 (Assembly)</div>
+	<div data-o='X'>直接為特定作業系統編譯的機器碼 (Machine Code)</div>
+	<div data-o='X'>寫在主機板 BIOS 中的韌體 (Firmware)</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	Docker 容器技術中的「鏡像檔 (Container Image)」與作業系統層級虛擬化有何關係？
+	<div data-o='O'>鏡像檔封裝了應用程式及其所有依賴函式庫（Libraries），確保執行環境一致</div>
+	<div data-o='X'>鏡像檔包含完整獨立的 Linux 核心 (Kernel) 與硬體驅動程式</div>
+	<div data-o='X'>鏡像檔是用來替換實體硬體硬碟的韌體</div>
+	<div data-o='X'>鏡像檔只能在特定的硬體廠牌伺服器上執行</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	綜合整體層次觀念，下列關於「虛擬化與轉譯」的敘述何者錯誤？
+	<div data-o='O'>容器（Container）因為包含完整的獨立作業系統核心，所以體積比虛擬機大</div>
+	<div data-o='X'>Bytecode 提供了程式碼安全性與跨平台抽象層</div>
+	<div data-o='X'>Hypervisor 可以讓一台實體伺服器同時運行 Windows 與 Linux 虛擬機</div>
+	<div data-o='X'>層層轉譯的核心理念是用空間與效能換取開發彈性、安全性與靈活性</div>
+</div></section>
+
+</body>
+</html>

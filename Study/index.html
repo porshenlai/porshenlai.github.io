@@ -11,7 +11,9 @@
 	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
 	.M { background-color:rgba(255,255,255,0.5); color:black; max-height:auto; overflow:hidden; }
 	.W { background-color:rgba(0,0,0,0.5); color:yellow; }
-	.fwd { width:95%; }
+	.MIcon { background:#ffc; color:black; border-radius:50%; white-space:nowrap; }
+	.MIcon:hover { background:#ff0; }
+	.MIcon::before { content:"💻"; }
 </style>
 </head>
 <body style='opacity:0'>
@@ -25,6 +27,7 @@
 
 		<div class='M fill'>
 			<h3 data-h='go:#pStyle:/index.html'>🏠 Home</h3>
+			<h3 data-h='set:Overlay:menu'>🛠️ Menu</h3>
 			<h3 data-h='go:#人工智慧'>📚 人工智慧</h3>
 			<h3 data-h='go:#系統開發'>📚 系統開發</h3>
 			<h3 data-h='go:#財務金融'>📚 財務金融</h3>
