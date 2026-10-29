@@ -95,10 +95,45 @@
 	</div>
 </section>
 
+<section><h2>先修課程</h2><ul>
+	<li><a href='https://www.youtube.com/watch?v=mxT233EdY5c'>What is Cloud Computing ?</a></li>
+	<li><a href='https://www.youtube.com/watch?v=a9__D53WsUs'>What is ASW ?</a></li>
+</ul></section>
+
+<section data-ks='zh'><h2>課程導覽</h2><ol>
+	<li class='fold'><h3 data-h='fold'>地端 LLM 安裝部署</h3><ul>
+		<li>本地端系統 (Ollama) + 語言模型 (Gemma)</li>
+		<li>私有雲 vs. 公有雲資安架構</li>
+		<li>Ollama 安裝部署</li>
+		<li>模型選擇</li>
+		<li>Restful API + LangChain 串接</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>RAG 檢索實作</h3><ul>
+		<li>Chunking 策略、Embedding 高維空間與地端向量庫（ChromaDB）。</li>
+		<li>金融/股票 PDF 解析與 Metadata 標籤設計。</li>
+		<li>帶有引用頁碼（Citation）的檢索與生成。</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>地端模型 PEFT / QLoRA 微調 (Fine-Tuning)</h3><ul>
+		<li>何時用 RAG、何時用 Fine-tuning（開卷考試 vs 習慣養成）。
+		<li>使用 Unsloth 在 8GB VRAM 顯卡上微調 Gemma 輸出標準金融 JSON。</li>
+		<li>導出 GGUF 檔並打包寫入 Ollama Modelfile。</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>安全系統 (Safety Guardrails)</h3><ul>
+		<li><b>輸入防線：</b> PII 去敏（身分證遮蔽）與 Prompt Injection 阻絕。</li>
+		<li><b>檢索防線：</b> RAG Metadata 權限隔離（RBAC）。</li>
+		<li><b>模型與輸出防線：</b> System Prompt 約束與金融違規詞彙（保證獲利）自動攔截與修飾。</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>UI/UX &amp; 系統整合</h3><ul>
+		<li>透過 Vibe-Coding 打造可互動的「AI 投研/授信助理」介面。</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>效能評估</h3><ul>
+		<li>RAG 準確度與微調前後效果的量化評估方法。</li>
+	</ul></li>
+</ol></section>
+
 <section data-xl='template:&this:Info'>
 	<h2>課程內容</h2>
 	<div><b>📖 參考書:</b><span data-v='text:教材課本'></span></div>
-	<div><b>📖 簡報:</b><a href='../AI/LLM_Local.html'>地端 AI</a></div>
 	<div><b>📆 行事曆:</b></div>
 	<style>
 		.schedule td { border-width:0 0 1px 0; }
@@ -111,17 +146,19 @@
 			<li class='green'>扣除假日剩六周</li>
 			<li class='red'>9/25 中秋節</li>
 			<li><a href='https://www.youtube.com/watch?v=3XFODda6YXo&list=PLEiEAq2VkUULlNtIFhEQHo8gacvme35rz'>What's cloud computing</a></li>
-			<li><a href='../AI/Music_SkyAndLand.html'>雲端霧端與地端</a></li>
 			<li><a href='https://gemini.google.com/app'>Gemini</a></li>
 			<li><a href='https://huggingface.co/'>Hugging Face</a></li>
 			<li><a href='https://ai.meta.com/blog/large-language-model-llama-meta-ai/'>LLaMA</a></li>
+
 			<li><a href='https://ollama.com/'>Ollama</a></li>
-			<li>Chat GPT/Gemini vs. Hugging Face</li>
-			<li>Hugging Face vs. Ollama</li>
+			<li><a href='../AI/Music_SkyAndLand.html'>雲端霧端與地端</a></li>
 			<li class='red'>10/9 國慶日</li>
-			<li>Ollama, Gemma, 與 LangChain</li>
+			<li><a href='../SI/Terminal.html'>終端機</a></li>
+			<li><a href='../SI/Visualization.html'>虛擬化</a></li>
+			<li><a href='../AI/LLM_G2H2O.html'>ChatGPT &rarr; Huggin Face &rarr; Ollama</a></li>
 			<li>Deep Learning</li>
 			<li>LLM Hidden States 與 Embedding 空間</li>
+			<li>LangChain</li>
 			<li>Fine Tuning vs. RAG</li>
 			<li>Fine Tuning, LoRA 與 Unsloth</li>
 			<li>RAG, Chunking 與 ChromaDB</li>
