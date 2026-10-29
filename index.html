@@ -8,37 +8,97 @@
 <title>pStyle in Cyberpies</title>
 <base target='_blank'></base>
 <style>
-	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
+	.M,.W { border-radius:8px; margin:4px; padding:4px; }
 	.M { background-color:rgba(255,255,255,0.5); color:black; width:40%; height:auto; }
 	.W { background-color:rgba(0,0,32,0.5); color:yellow; }
 	.icon { width:100%; height:100%; }
+	.MIcon { background:#ffc; color:black; border-radius:50%; white-space:nowrap; }
+	.MIcon:hover { background:#ff0; }
+	.MIcon::before { content:"💻"; }
 </style>
 </head>
-<body style='opacity:0'><main data-controls='aside'><div id='content'>
+<body style='opacity:0'>
 
 <section id='pStyle' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
 	<div class='bar'>
-		<h2 class='W'>Piers</h2>
-		<div class='W' data-h='set:Overlay:menu'
-			style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
+		<h2 class='W'>⛵ Piers</h2>
+		<div class='W MIcon' data-h='set:Overlay:menu'></div>
+	</div>
+	<div class='fill'><div class='zcs'>
+		<div class='M icon' data-h='go:#Cyberpiers'>
+			<table><tr>
+				<th rowspan='2' style='font-size:240%;padding-right:16px;'>⛵</th>
+				<td class='h3'>雲際碼頭</td>
+			</tr><tr>
+				<td class='h3 darkgreen'>Cyberpiers</td>
+			</tr></table>
+		</div>
+		<div class='M icon' data-h='go:#工具索引'>
+			<table><tr>
+				<th rowspan='2' style='font-size:240%;padding-right:16px;'>🛠️</th>
+				<td class='h3'>常用工具</td>
+			</tr><tr>
+				<td class='h3 darkgreen'>Tools</td>
+			</tr></table>
+		</div>
+		<div class='M icon' data-h='go:#學習索引'>
+			<table><tr>
+				<th rowspan='2' style='font-size:240%;padding-right:16px;'>📚</th>
+				<td class='h3'>學習成長</td>
+			</tr><tr>
+				<td class='h3 darkgreen'>Study</td>
+			</tr></table>
+		</div>
+		<div class='M icon' data-h='go:#生活索引'>
+			<table><tr>
+				<th rowspan='2' style='font-size:240%;padding-right:16px;'>🧳</th>
+				<td class='h3'>生活體驗</td>
+			</tr><tr>
+				<td class='h3 darkgreen'>Life</td>
+			</tr></table>
+		</div>
+		<div class='M icon' data-h='go:#XLinks'>
+			<table><tr>
+				<th rowspan='2' style='font-size:240%;padding-right:16px;'>🌍</th>
+				<td class='h3'>外部連結</td>
+			</tr><tr>
+				<td class='h3 darkgreen'>External Links</td>
+			</tr></table>
+		</div>
+	</div></div>
+</section>
+
+<section id='XLinks' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
+	<div class='bar'>
+		<h2 class='f W'>外部連結 External Links</h2>
+		<div class='W MIcon' data-h='set:Overlay:menu'></div>
 	</div>
 	<div class='fill'>
 		<div class='zcs'>
-			<div class='M icon' data-h='go:#Cyberpiers'>
-				<table><tr><th rowspan='2' style='font-size:240%;padding-right:16px;'>⛵</th><td class='h3'>雲際碼頭</td></tr>
-				<tr><td class='h3 darkgreen'>Cyberpiers</td></tr></table>
+			<div class='M fill'>
+				<h3 data-h='go:#pStyle:/index.html'>🏠 Home</h3>
 			</div>
-			<div class='M icon' data-h='go:#工具索引'>
-				<table><tr><th rowspan='2' style='font-size:240%;padding-right:16px;'>🛠️</th><td class='h3'>常用工具</td></tr>
-				<tr><td class='h3 darkgreen'>Tools</td></tr></table>
+			<div class='M fill'>
+				<h3>致理科技大學</h3>
+				<ul>
+					<li><a href='https://www.chihlee.edu.tw'>官方網站</a></li>
+					<li><a href='https://cip1.chihlee.edu.tw'>CIP 入口網站</a></li>
+					<li><a href='https://stimetable.chihlee.edu.tw'>課程資訊網</a></li>
+					<li><a href='https://dlc.chihlee.edu.tw'>致理數位學院</a></li>
+					<li><a href='https://ilife.chihlee.edu.tw'>致理 i 生活</a></li>
+					<li><a href='https://e-portfolio.chihlee.edu.tw'>E-Portfolio</a></li>
+				</ul>
 			</div>
-			<div class='M icon' data-h='go:#學習索引'>
-				<table><tr><th rowspan='2' style='font-size:240%;padding-right:16px;'>📚</th><td class='h3'>學習成長</td></tr>
-				<tr><td class='h3 darkgreen'>Study</td></tr></table>
-			</div>
-			<div class='M icon' data-h='go:#生活索引'>
-				<table><tr><th rowspan='2' style='font-size:240%;padding-right:16px;'>🧳</th><td class='h3'>生活體驗</td></tr>
-				<tr><td class='h3 darkgreen'>Life</td></tr></table>
+			<div class='M fill'>
+				<h3>Google</h3>
+				<ul>
+					<li><a href='https://calendar.google.com'>月曆 (Calendar)</a></li>
+					<li><a href='https://drive.google.com'>空間 (Google Drive)</a></li>
+					<li><a href='https://mail.google.com'>郵件 (GMail)</a></li>
+					<li><a href='https://classroom.google.com'>教室 (Google Classroom)</a></li>
+					<li><a href='https://maps.google.com'>地圖 (Google Map)</a></li>
+					<li><a href='https://gemini.google.com'>助理 (Gemini)</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -46,15 +106,19 @@
 
 <section id='Cyberpiers' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
 	<div class='bar'>
-		<div class='button W _w_' data-h='go:pStyle:/index.html'>🏠</div>
 		<h2 class='f W'>Cyberpiers 雲際碼頭</h2>
-		<div class='W' data-h='set:Overlay:menu' style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
+		<div class='W MIcon' data-h='set:Overlay:menu'></div>
 	</div>
 	<div class='fill'>
 		<div class='zcs'>
+			<div class='M fill'>
+				<h3 data-h='go:#pStyle:/index.html'>🏠 Home</h3>
+				<ul>
+					<li><a href='App/utf8symbols.html'>常用 UTF8 文字符號</a></li>
+					<li><a href='App/prompt.html'>LLM 提示詞 (Prompts)</a></li>
+				</ul>
+			</div>
 			<div class='M fill'><ul>
-				<li><a href='App/prompt.html'>Prompts</a></li>
-				<li><a href='App/utf8symbols.html'>UTF8 Symbols</a></li>
 				<li><a href='App/piers.html'>Piers</a></li>
 				<li><a href='App/page.html'>Page</a></li>
 				<li><a href='App/MDEditor.html'>[TODO] MDEditor: Markdown 編輯器</a></li>
@@ -76,8 +140,12 @@
 		</div>
 	</div>
 </section>
+
 <section id="工具索引" data-xl='import:Tools/index.html'></section>
+
 <section id="學習索引" data-xl='import:Study/index.html'></section>
+
 <section id="生活索引" data-xl='import:Life/index.html'></section>
-</div></main></body>
+
+</body>
 </html>

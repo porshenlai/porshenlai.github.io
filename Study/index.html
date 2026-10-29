@@ -9,52 +9,108 @@
 <base target='_blank'></base>
 <style>
 	.M,.W {  border-radius:8px; margin:4px; padding:4px; }
-	.M { background-color:rgba(255,255,255,0.5); color:black; max-height:0.8vh; overflow-y:auto; }
+	.M { background-color:rgba(255,255,255,0.5); color:black; max-height:auto; overflow:hidden; }
 	.W { background-color:rgba(0,0,0,0.5); color:yellow; }
 	.fwd { width:95%; }
 </style>
 </head>
-<body style='opacity:0'><main data-controls='aside'><div id='content'>
+<body style='opacity:0'>
 
 <section id='學習索引' class='fs col' data-style='bg::/res/cyberpiers.jpg'>
 	<div class='bar'>
-		<div class='button W _w_' data-h='go:#pStyle:/index.html'>🏠</div>
-		<h2 class='f W'>學習 Study</h2>
-		<div class='W' data-h='set:Overlay:menu'
-			style='background:url(/res/Pstyle.png) 50% 50%/contain no-repeat'>　　</div>
+		<h2 class='W'>📚 學習 Study</h2>
+		<div class='W MIcon' data-h='set:Overlay:menu'></div>
 	</div>
-	<div class='fill'><div class='zcs' style='padding:3%'>
-    	<div class='M fill'><ul>
-			<li><span class='link' data-h='go:#我的課程'>我的課程</span></li>
-			<li><a href='AI/index.html'>AI: 人工智慧</a></li>
-			<li><a href='Python/index.html'>PL: Python</a></li>
-		</ul></div>
-		<div class='M fill'><ul>
-			<div class='h3'>Fintech: 智慧金融</div>
-			<li><a href='Finance/Banking.html'>金融業務</a></li>
-			<li><a href='Finance/Loan.html'>授信與貸款</a></li>
-			<li><a href='Finance/Management.html'>資產風險與財富管理</a></li>
-			<li><a href='Finance/Service.html'>存款支付與整合</a></li>
-			<li><a href='Finance/ESG.html'>永續金融</a></li>
-		</ul></div>
-		<div class='M fill'><ul>
-			<div class='h3'>AI: 人工智慧</div>
-			<li><a href='AI/Preprocessing.html'>資料預處理</a></li>
-			<li><a href='AI/LLM_Local.html'>地端 AI 系統整合實作</a></li>
-			<li><a href='AI/BDAE_expert.html'>BDAE 專家級樣題</a></li>
-		</ul></div>
-		<div class='M fill'><ul>
-			<div class='h3'>PL: 程式語言</div>
-			<li><a href='IS/index.html'>資訊系統 Information System</a></li>
-		</ul></div>
-		<div class='M fill'><ul>
-			<div class='h3'>其他</div>
-			<li><a href='CareerCounselor.html'>職涯諮詢師</a></li>
-		</ul></div>
+	<div class='fill'><div class='zcs'>
+
+		<div class='M fill'>
+			<h3 data-h='go:#pStyle:/index.html'>🏠 Home</h3>
+			<h3 data-h='go:#人工智慧'>📚 人工智慧</h3>
+			<h3 data-h='go:#系統開發'>📚 系統開發</h3>
+			<h3 data-h='go:#財務金融'>📚 財務金融</h3>
+			<h3 data-h='go:#其他'>📚 其他</h3>
+			<h3 data-h='link:Course/index.html'>📦 課程歷史</h3>
+		</div>
+
+		<div class='M fill'>
+			<table border='1' cellpadding='6' style='border:0'><tbody><tr>
+				<th colspan='2'>星期一 Monday</th>
+			</tr></tr>
+				<th valign='top' width='10%'><div class='blue'>15:20</div><div>17:10</div></th>
+				<td><b style='color:green;float:right;font-size:300%;'>E74</b>
+					<div><a href='Course/115-1-金融應用程式.html'>金融應用程式</a></div><div>金二A-選</div>
+					<div><a href='https://classroom.google.com/c/ODU0ODk0MTA3MzQ1?cjc=rej4mj6p'>Google 教室</a></div></td>
+			</tr><tr>
+				<th valign='top'><div class='blue'>18:20</div><div>19:55</div></th>
+				<td><b style='color:green;float:right;font-size:300%;'>E62</b>
+					<div><a href='Course/115-1-計算邏輯X.html'>計算邏輯</a></div><div>夜金一A-必</div>
+					<div><a href='https://classroom.google.com/c/ODY2NjIyMTU3MDY0?cjc=4bfrkj7y'>Google 教室</a></div></td>
+			</tr></tbody></table>
+		</div>
+
+		<div class='M fill'>
+			<table border='1' cellpadding='6' style='border:0'><tbody><tr>
+				<th colspan='2'>星期二 Tuesday</th>
+			</tr></tr>
+				<th valign='top' width='10%'><div class='blue'>10:20</div><div>12:10</div></th>
+				<td><b style='color:green;float:right;font-size:300%;'>E72</b>
+					<div><a href='Course/115-1-金融AI應用.html'>金融 AI 應用</a></div><div>金二A-選</div>
+					<div><a href='https://classroom.google.com/c/ODU0ODk0MzE3OTI0?cjc=n4tve4ye'>Google 教室</a></div></td>
+			</tr><tr>
+				<th valign='top'><div class='blue'>15:20</div><div>17:10</div></th>
+				<td><b style='color:green;float:right;font-size:300%;'>E64</b>
+					<div><a href='Course/115-1-人工智慧概論.html'>人工智慧概論</a></div><div>金二A-選</div>
+					<div><a href='https://classroom.google.com/c/ODY2NjE5NzE1NDc5?cjc=ccjfpyb3'>Google 教室</a></div></td>
+			</tr></tbody></table>
+		</div>
+
+		<div class='M fill'>
+			<table border='1' cellpadding='6' style='border:0'><tbody><tr>
+				<th colspan='2'>星期三 Wednesday</th>
+			</tr></tr>
+				<th valign='top' width='10%'><div class='blue'>13:20</div><div>15:10</div></th>
+				<td><b style='color:green;float:right;font-size:300%;'>E41</b>
+					<div><a href='Course/115-1-計算邏輯.html'>計算邏輯</a></div><div>金一B-必</div>
+					<div><a href='https://classroom.google.com/c/ODY2NjIxNTI3NTQ4?cjc=bvn4wt42'>Google 教室</a></div></td>
+			</tr></tbody></table>
+		</div>
+
+		<div class='M fill'>
+			<table border='1' cellpadding='6' style='border:0'><tbody><tr>
+				<th colspan='2'>星期五 Friday</th>
+			</tr></tr>
+				<th valign='top' width='10%'><div class='blue'>10:20</div><div>12:10</div></th>
+				<td><b style='color:green;float:right;font-size:300%;'>E41</b>
+					<div><a href='Course/115-1-地端AI系統.html'>地端 AI 系統</a></div><div>金三A-選</div>
+					<div><a href='https://classroom.google.com/c/ODU0ODk0Mjk3NzUy?cjc=2zgo647j'>Google 教室</a></div></td>
+			</tr></tbody></table>
+		</div>
 	</div></div>
 </section>
 
-<section id='我的課程' data-xl='import:Course/index.html'><h2>我的課程</h2></section>
+<section id='人工智慧'><h2>人工智慧</h2><ul>
+	<li><a href='AI/index.html'>AI: 人工智慧</a></li>
+	<li><a href='AI/Preprocessing.html'>資料預處理</a></li>
+	<li><a href='AI/LLM_Local.html'>地端 AI 系統整合實作</a></li>
+	<li><a href='AI/BDAE_expert.html'>BDAE 專家級樣題</a></li>
+</ul></section>
 
-</div></main></body>
+<section id='財務金融'><h2>財務金融</h2><ul>
+	<li><a href='Finance/Banking.html'>金融業務</a></li>
+	<li><a href='Finance/Loan.html'>授信與貸款</a></li>
+	<li><a href='Finance/Management.html'>資產風險與財富管理</a></li>
+	<li><a href='Finance/Service.html'>存款支付與整合</a></li>
+	<li><a href='Finance/ESG.html'>永續金融</a></li>
+</ul></section>
+
+<section id='系統開發'><h2>系統開發</h2><ul>
+	<li><a href='Python/index.html'>PL: Python</a></li>
+	<li><a href='IS/index.html'>資訊系統 Information System</a></li>
+</ul></section>
+
+<section id='其他'><h2>其他</h2><ul>
+	<li><a href='CareerCounselor.html'>職涯諮詢師</a></li>
+</ul></section>
+
+</body>
 </html>

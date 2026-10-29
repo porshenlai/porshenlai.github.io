@@ -9,72 +9,110 @@
 <body style='opacity:0'>
 
 <section class='page col'>
-		<div class='h1 ac' style='margin-bottom:1em'>Terminal<br/>終端機</div>
-		<em class='frame'>
-			<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
-			<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
-			<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
-			<div style="text-align:right">2026, Summer</div>
-		</em>
-	</div>
+	<div class='h1 ac' style='margin-bottom:1em'>Terminal<br/>終端機</div>
+	<em class='frame'>
+		<div style="font-weight:bold">Lecturer: <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div><a href="https://fd100.chihlee.edu.tw/">Department of Finance</a>,</div>
+		<div><a href="https://www.chihlee.edu.tw/">Chihlee University of Technology</a></div>
+		<div style="text-align:right">2026, Summer</div>
+	</em>
 </section>
 
-<section><h2>程序觀點看輸出入</h2><div class='frame'>
-	<table class='chart' align='center'><tr>
-		<th class='R'>輸入<br/>Input</th>
-		<td>&rarr;</td>
-		<th>程序<br/>Procedure</th>
-		<td>&larr;</td>
-		<th class='R'>輸出<br/>Output</th>
-	</tr><tr>
-		<td colspan='2'></td>
-		<td>↕</td>
-		<td colspan='2'></td>
-	</tr><tr>
-		<td colspan='2'></td>
-		<th class='R'>資料<br/>Data</th>
-		<td colspan='2'></td>
-	</tr></table>
-</div></section>
+<section><h2>學習目標 Targets</h2><ul>
+	<li>終端機 (terminal) ?</li>
+	<li>終端機 任務為何 ?</li>
+	<li>終端機 如何使用 ?</li>
+	<li>殼層 (shell) ?</li>
+	<li>虛擬化 (virtualization) ?</li>
+	<li>虛擬主機 (virtual machine) ?</li>
+</ul></section>
 
-<section><h2>輸出入的流程</h2><div class='frame'>
-	<table class='chart'><tr>
-		<th rowspan='3' width='30%'>碼頭
-			<div class='blue'>(輸出入裝置)</div>
-			<div class='fs60' style='text-align:justify;'>網路，儲存裝置，RS232，鍵盤，滑鼠，螢幕，印表機，掃描器，讀卡機，攝影機，...</div>
-		</th>
-		<td rowspan='3'>↔</td>
-		<th rowspan='3' width='30%'>報關行
-			<div class='blue'>(驅動程式)</div>
-			<div class='fs60' style='text-align:justify;'>WDM, WDDM, KMDF, UMDF, Linux Kernel Module</div>		</th>
-		<td>↔</td>
-		<th>工廠
-			<div class='blue'>(程序@處理器)</div>
-		</th>
-	</tr><tr>
-		<td></td>
-		<td>↕ <span class='fs60'>變數存取</span></td>
-	</tr><tr>
-		<td>↔<div class='fs60'>DMA</div></td>
-		<th>倉庫
-			<div class='blue'>(資料@記憶體)</div>
-		</th>
-	</tr></table>
-</div></section>
+<section><h2>終端機的角色</h2><ul>
+	<li>接收使用者的命令與資料輸入</li>
+	<li>顯示程式運行的結果與訊息</li>
+	<li>作為使用者與殼層（Shell）或應用程序之間的橋樑介面</li>
+	<li>提供標準化的文字輸入輸出介面（stdin / stdout / stderr）</li>
+	<div class='frame'>
+		<table class='chart' align='center'><tr>
+			<th class='R' rowspan='5'>輸入<br/>Input</th>
+			<td>&larr;</td>
+			<th>使用者<br/>User</th>
+			<td>&larr;</td>
+			<th class='R' rowspan='5'>輸出<br/>Output</th>
+		</tr><tr>
+			<td></td><td>　</td><td></td>
+		</tr><tr>
+			<td></td><th class='R'>資料<br/>Data</th><td></td>
+		</tr><tr>
+			<td></td><td>↕</td><td></td>
+		</tr><tr>
+			<td>&rarr;</td>
+			<th>程序<br/>Procedure</th>
+			<td>&rarr;</td>
+		</tr></table>
+	</div>
+</ul></section>
 
-<section><h2>終端機: 標準輸入 / 標準輸出</h2><div class='frame'>
+<section><h2>輸出入 / 進出口</h2><ul>
+	<li>輸入 / 進口</li>
+	<div class='frame'>
+		<table class='chart'><tr>
+			<th rowspan='3' width='30%'>碼頭
+				<div class='blue'>(輸出入裝置)</div>
+				<div class='fs60' style='text-align:justify;'>網路，儲存裝置，RS232，鍵盤，滑鼠，掃描器，讀卡機，攝影機，...</div>
+			</th>
+			<td rowspan='3'>&rarr;</td>
+			<th rowspan='3' width='30%'>報關行
+				<div class='blue'>(驅動程式)</div>
+				<div class='fs60' style='text-align:justify;'>WDM, WDDM, KMDF, UMDF, Linux Kernel Module</div>		</th>
+			<td>&rarr;</td>
+			<th>工廠 <div class='blue'>(程序@處理器)</div></th>
+		</tr><tr>
+			<td></td>
+			<td>↕ <span class='fs60'>變數存取</span></td>
+		</tr><tr>
+			<td>&rarr;<div class='fs60'>DMA</div></td>
+			<th>倉庫 <div class='blue'>(資料@記憶體)</div></th>
+		</tr></table>
+	</div>
+	<li>輸出 / 出口</li>
+	<div class='frame'>
+		<table class='chart'><tr>
+			<th rowspan='3' width='30%'>碼頭
+				<div class='blue'>(輸出入裝置)</div>
+				<div class='fs60' style='text-align:justify;'>網路，儲存裝置，RS232，螢幕，印表機，讀卡機，...</div>
+			</th>
+			<td rowspan='3'>&larr;</td>
+			<th rowspan='3' width='30%'>報關行
+				<div class='blue'>(驅動程式)</div>
+				<div class='fs60' style='text-align:justify;'>WDM, WDDM, KMDF, UMDF, Linux Kernel Module</div></th>
+			<td>&larr;</td>
+			<th>工廠 <div class='blue'>(程序@處理器)</div></th>
+		</tr><tr>
+			<td></td>
+			<td>↕ <span class='fs60'>變數存取</span></td>
+		</tr><tr>
+			<td>&larr;<div class='fs60'>DMA</div></td>
+			<th>倉庫 <div class='blue'>(資料@記憶體)</div></th>
+		</tr></table>
+	</div>
+</ul></section>
+
+<section><h2>終端機的角色</h2><div class='frame'>
 	<table class='chart' align='center'><tr>
 		<th rowspan='5' style='border-color:silver;color:silver;'>程序 Process</th>
-		<th rowspan='3' style='border-color:silver;color:silver;'>程序 Process</th>
+		<th rowspan='1' style='border-color:silver;color:silver;'>程序 Process</th>
 		<th colspan='2' class='blue' data-h='sw:PROCESS'>程序 Process</th>
 		<td rowspan='3'></td>
 		<th rowspan='5' style='border-color:silver;color:silver;'>系統程序</th>
 	</tr><tr>
+		<td style='color:silver'>↕</td>
 		<td colspan='2'>↕</td>
 	</tr><tr>
+		<th class='brown' data-h='sw:SHELL'>殼層 Shell</th>
 		<th colspan='2' class='green' data-h='sw:VM'>虛擬機 Virtual Machine</th>
 	</tr><tr>
-		<td style='color:silver'>↕</td><td colspan='2'>&uarr;<span class='fs72 blue' data-h='sw:STDIN'>標準輸入</span> &darr;<span class='fs72 blue' data-h='sw:STDOUT'>標準輸出</span>/<span class='fs72 blue' data-h='sw:STDERR'>錯誤</span></td>
+		<td>↕</td><td colspan='2'>&uarr;<span class='fs72 blue' data-h='sw:STDIN'>標準輸入</span> &darr;<span class='fs72 blue' data-h='sw:STDOUT'>標準輸出</span>/<span class='fs72 blue' data-h='sw:STDERR'>錯誤</span></td>
 	</tr><tr>
 		<th colspan='3' class='red' data-h='sw:TERMINAL'>終端機 Terminal</th>
 		<td>...</td>
@@ -89,151 +127,235 @@
 		<th colspan='6'>作業系統核心 OS Kernel</th>
 	</tr></table>
 </div><div>
+	<div data-case='SHELL' class='hide'>
+		<h3>殼層 SHELL</h3><ul>
+			<li>供使用者操作系統的文字或圖形介面程式，負責解析指令並呼叫 OS API</li>
+			<li><a href='https://zh.wikipedia.org/zh-tw/COMMAND.COM'>command.com</a> (MS-DOS)</li>
+			<li><a href='https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.6'>powershell.exe</a> (Windows)</li>
+			<li>explorer.exe (Windows 圖形化 Shell)</li>
+			<li><a href='https://www.msys2.org/'>msys/mingw</a> (Windows UNIX 模擬環境)</li>
+			<li><a href='https://www.gnu.org/software/bash/'>bash</a> / zsh (Linux / macOS)</li>
+			<li><a href='https://zh.wikipedia.org/wiki/GNOME_Shell'>gnome-shell</a> (Linux 圖形化 Shell)</li>
+		</ul>
+	</div>
 	<div data-case='STDIN' class='hide'>
-		<h3>標準輸入</h3><ul>
-			<li>終端機的預設輸入 (檔案ID:0)</li>
+		<h3>標準輸入 (stdin)</h3><ul>
+			<li>終端機接收資料的預設管道 (File Descriptor 檔案識別碼: 0)</li>
+			<li>預設綁定設備：鍵盤</li>
 			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#input'>input()</a></li>
 		</ul>
 	</div>
 	<div data-case='STDOUT' class='hide'>
-		<h3>標準輸出</h3><ul>
-			<li>終端機資料的預設輸出 (檔案ID:1)</li>
+		<h3>標準輸出 (stdout)</h3><ul>
+			<li>程式輸出正常結果的預設管道 (File Descriptor 檔案識別碼: 1)</li>
+			<li>預設綁定設備：終端機螢幕</li>
 			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#print'>print()</a></li>
 		</ul>
 	</div>
 	<div data-case='STDERR' class='hide'>
-		<h3>標準錯誤</h3><ul>
-			<li><b>標準錯誤 (stderr):</b><ul><li>終端機錯誤訊息的預設輸出 (檔案ID:2)</li></ul></li>
+		<h3>標準錯誤 (stderr)</h3><ul>
+			<li>程式輸出錯誤訊息或警告的專用管道 (File Descriptor 檔案識別碼: 2)</li>
+			<li>獨立於 stdout，可將錯誤訊息與一般結果重導向至不同目標</li>
 			<li><a href='https://docs.python.org/zh-tw/3.14/library/functions.html#print'>print(file=sys.stderr)</a></li>
 		</ul>
 	</div>
 	<div data-case='PROCESS' class='hide'>
 		<h3>程序 Process</h3><ul>
-			<li><b>程序 (process):</b><ul><li>程式運行的實體</li></ul></li>
-			<li><b>例如︰</b> my_program.py</li>
+			<li><b>程序 (process):</b> 正在記憶體中執行中的程式實體（包含指令碼、變數狀態、分配到的系統資源）</li>
+			<li><b>例如︰</b> my_program.py (於 Python PVM 內執行的程序)</li>
 		</ul>
 	</div>
 	<div data-case='VM' class='hide'>
-		<h3>虛擬機 Virtual Machine</h3><ul>
-			<li><b>例如︰</b> python3, thonny, spider, ...</li>
+		<h3>虛擬機 / 執行環境 Virtual Machine</h3><ul>
+			<li>提供程式語言執行時（Runtime）的中介虛擬環境或 IDE</li>
+			<li><b>例如︰</b> python3 (PVM), thonny, spyder, ...</li>
 		</ul>
 	</div>
 	<div data-case='TERMINAL' class='hide'>
-		<h3>終端機 Terminal</h3><ul>
-			<li><b>例如︰</b> bash, cmd.exe, powershell.exe, ...</li>
+		<h3>終端機 Terminal (模擬器)</h3><ul>
+			<li>負責提供字元輸入輸出視窗的軟體介面（將鍵盤輸入傳給 Shell，並把 Shell 輸出的字元繪製在螢幕上）</li>
+			<li>Command Prompt (cmd.exe)</li>
+			<li><a href="https://apps.microsoft.com/detail/9n0dx20hk701?hl=zh-TW&gl=TW">Windows Terminal</a></li>
+			<li><a href="https://doc.qt.io/qtcreator/creator-reference-terminal-view.html">LXQt QTerminal</a></li>
+			<li><a href="https://putty.org/index.html">PuTTY</a> (SSH / 序列埠終端模擬器)</li>
 		</ul>
 	</div>
 </div></section>
 
-<section><h2>執行程式</h2><div>
-	<h3>命令列 Command Line</h3>
-	<table border='1' cellspacing='8' cellpadding='4' align='center' width='95%'><tbody><tr>
-		<th>[環境變數設定]</th>
-		<th>[前置命令]</th>
-		<th>主命令</th>
-		<th colspan='3'>[命令參數...]</th>
-	</tr><tr>
-		<td><span class='link' data-h='sw:SE'>PYTHONPATH=./</span></td>
-		<td><span class='link' data-h='sw:PP'>sudo</span></td>
-		<td><span class='link' data-h='sw:VM'>python3</span></td>
-		<td><span class='link' data-h='sw:PY'>test.py</span></td>
-		<td>/dev/ttyS0</td>
-		<td>115200</td>
-	</tr></tbody></table>
-</div><div class='frame'>
-	<div data-case='SE' class='hide'><h4>PYTHONPATH=./</h4><ul>
-		<li>設定 python 執行時的搜尋路徑</li>
-	</ul></div>
-	<div data-case='PP' class='hide'><h4>sudo</h4><ul>
-		<li>切換執行身分</li>
-	</ul></div>
-	<div data-case='VM' class='hide'><h4>python3</h4><ul>
-		<li>Python Interpreter</li>
-		<li>執行 Python 程式的平台</li>
-	</ul></div>
-	<div data-case='PY' class='hide'><h4>test.py 程式碼</h4><div data-x='code'>
+<section><h2>殼層 Shell</h2><ul>
+	<li><h3>命令列 Command Line 結構分解</h3><ul>
+		<table border='1' cellspacing='8' cellpadding='4' align='center' width='95%'><tbody><tr>
+			<th>[環境變數設定]</th>
+			<th>[前置命令]</th>
+			<th>主命令</th>
+			<th colspan='3'>[命令參數...]</th>
+		</tr><tr>
+			<td><span class='link' data-h='sw:SE'>PYTHONPATH=./</span></td>
+			<td><span class='link' data-h='sw:PP'>sudo</span></td>
+			<td><span class='link' data-h='sw:VM'>python3</span></td>
+			<td><span class='link' data-h='sw:PY'>test.py</span></td>
+			<td>/dev/ttyS0</td>
+			<td>115200</td>
+		</tr></tbody></table>
+		<li data-case='SE' class='hide'><h4>PYTHONPATH=./</h4><ul>
+			<li>臨時設定 Python 執行時模組 (Module) 的搜尋路徑（搜尋當前目錄）</li>
+		</ul></li>
+		<li data-case='PP' class='hide'><h4>sudo</h4><ul>
+			<li>Superuser Do：以超級使用者（系統管理員 root）權限執行後續命令</li>
+		</ul></li>
+		<li data-case='VM' class='hide'><h4>python3</h4><ul>
+			<li>Python Interpreter / Virtual Machine</li>
+			<li>解析與執行 Python 位元碼 (Bytecode) 的平台</li>
+		</ul></li>
+		<li data-case='PY' class='hide'><h4>test.py 程式碼與參數傳遞</h4><div data-x='code'>
 import sys
 print(sys.argv)
-	</div>&darr;<div data-x='code'>
-['sample232.py', '/dev/ttyS0', '115200']
-	</div>
-</div></section>
-
-<section data-ks='Q_ITS'><h2>程式執行引數 與 回傳值</h2><div data-x='quiz:s'>
-	Script.py 檔案包含下列程式碼：
-	<div data-x='code'>
-import sys
-print(sys.argv[2])
-	</div>
-	您執行下列命令：
-	<div class='frame'>
-		python Script.py Cheese Bacon Bread
-	</div>
-	請問此命令的輸出為何？
-	<div class='bar'>
-		<div data-o='X'>Bread</div>
-		<div data-o='X'>Cheese</div>
-		<div data-o='X'>Script.py</div>
-		<div data-o='O'>Bacon</div>
-	</div>
-</div></section>
-
-<section data-ks='P_IO'><h2>裝置: 終端機</h2><div>
-	<h3>⚙️ 讀取一行字串（含結尾換行去除）</h3>
-	<div data-id='0' data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
-	U("使用者") -->|"輸入"| F["input(提示字串)"] -->|"返回"| R("輸入的字串")
-</textarea></div>
-	<div data-x='code'>
-# 字串變數 = input(提示字串)
-name = input("Your Name: ")
-age = int(input("Your Age: "))
-	</div>
-</div><div>
-	<h3>⚙️  將物件轉成字串後輸出</h3>
-	<div data-id='1' data-h='install:mermaid' class='button'>點擊繪製<textarea data-v='value:raw'>flowchart LR
-	F["print(要顯示的內容)"] -->|輸出| T("顯示在終端機上的文字")
-</textarea></div>
-	<div data-x='code'>
-# print(要輸出的資料..., sep="分隔符號", end="換行符號")
-print("姓名是: ", name, "\n年齡是: ", age)
-	</div>
-</div></section>
-
-<section data-ks='Q_ITS'><div data-x='quiz:s'>
-	請問下列陳述式有何功能？
-	<div data-x='code'>
-data = input()
-	</div>
-	<div data-o='X'>顯示電腦上的所有輸入周邊裝置</div>
-	<div data-o='X'>顯示允許使用者輸入的訊息方塊</div>
-	<div data-o='O'>允許使用者在主控台中輸入文字</div>
-	<div data-o='X'>建立HTML輸入元素</div>
-</div></section>
-
-<section data-ks='Q_ITS'><div data-x='quiz:s'>
-	您正在為公司開發一個Python應用程式。<br/>
-	您需要接受使用者的輸入並將該項資訊輸出至使用者的畫面。<br/>
-	您從下列程式碼開始著手。
-	<div data-x='code'>
-print("What is your name?")
-<div data-o="X">input("name")</div>
-<div data-o="O">name = input()</div>
-<div data-o="X">input(name)</div>
-<div data-o="X">name = input</div>
-print(name)
-	</div>
-</div></section>
-
-<section><h2>Interpreter 直譯器/解釋器</h2><ul>
-	<li>Interpreter 口譯員</li>
-	<li>Python Interpreter<ul>
-		<li><a href='https://www.python.org/'>Python</a></li>
-		<li><a href='https://micropython.org/'>Micro-Python</a></li>
+		</div>&darr;<div data-x='code'>
+['test.py', '/dev/ttyS0', '115200']
+		</div></li>
 	</ul></li>
-	<li>Interpreter Python Project: <a href='https://ipython.org/'>IPython</a></li>
-	<li>Web IDE: <a href='https://colab.research.google.com/'>Google Colab</a></li>
-	<li>IDE: <a href='https://thonny.org/'>Thonny</a></li>
 </ul></section>
+
+<section><h2>UNIX / Linux 目錄樹架構</h2><ul>
+	<li><b>單一目錄樹 (Single Directory Tree) 與 掛載 (Mount)</b>：UNIX 所有裝置與磁碟皆掛載於根目錄 <code>/</code> 之下，包含裝置檔 <code>/dev/</code>。</li>
+	<li>mount 命令範例（顯示各磁碟區與目錄的掛載關係）<div data-x='code'>
+$ mount
+D:/apps/Git on / type ntfs (binary,noacl,auto)
+D:/apps/Git/usr/bin on /bin type ntfs (binary,noacl,auto)
+C:/Users/PORSHE~1/AppData/Local/Temp on /tmp type ntfs (binary,noacl,posix=0,usertemp)
+C: on /c type ntfs (binary,noacl,posix=0,user,noumount,auto)
+D: on /d type ntfs (binary,noacl,posix=0,user,noumount,auto)
+
+$ cat /proc/mounts
+D:/apps/Git / ntfs binary,noacl,auto 1 1
+D:/apps/Git/usr/bin /bin ntfs binary,noacl,auto 1 1
+C:/Users/PORSHE~1/AppData/Local/Temp /tmp ntfs binary,noacl,posix=0,usertemp 1 1
+C: /c ntfs binary,noacl,posix=0,user,noumount,auto 1 1
+D: /d ntfs binary,noacl,posix=0,user,noumount,auto 1 1
+	</div></li>
+	<li>cd (Change Directory) &amp; ls (List) 檢視裝置檔案目錄 <code>/dev</code><div data-x='code'>
+$ cd /dev
+
+$ ls
+clipboard  cons0    dsp   mixer    ptmx    sda   sda3  sdb1  stderr@  tty    ttyS3    zero
+conin      console  fd@   mqueue/  random  sda1  sda4  shm/  stdin@   ttyS0  urandom
+conout     disk/    full  null     scd0    sda2  sdb   sr0   stdout@  ttyS1  windows
+	</div></li>
+</ul></section>
+
+<section><h2>Windows 目錄樹架構</h2><ul>
+	<li><b>磁碟機代號 (Drive Letters) 架構</b>：以 <code>C:</code>, <code>D:</code> 等獨立磁碟邏輯區分割檔案系統。</li>
+	<li>切換磁碟區與目錄命令 (CD, DIR)<div data-x='code'>
+C:\Users\porshenlai&gt;d:
+
+d:\&gt;cd projects
+
+d:\projects&gt;dir
+ 磁碟區 D 中的磁碟是 新增磁碟區
+ 磁碟區序號:  783C-988F
+
+ d:\projects 的目錄
+
+2026/10/29  上午 09:29    &lt;DIR&gt;          .
+2026/09/14  上午 11:56    &lt;DIR&gt;          bin
+...
+               2 個檔案     409,456,215 位元組
+              13 個目錄  992,965,599,232 位元組可用
+	</div></li>
+</ul></section>
+
+<section><h2>虛擬化 Virtualization 與 Interpreter</h2><ul>
+	<li><a href='Virtualization.html'>虛擬化 Virtualization</a></li>
+	<li><b>Bytecode 虛擬化技術（Bytecode Virtualization）</b>：將原始程式碼編譯成中間碼（Bytecode），並透過虛擬機器（如 PVM）中的解釋器（Interpreter）逐條解釋執行的跨平台技術。</li>
+	<li>Interpreter（直譯器 / 口譯員）：邊翻譯邊執行的程式碼轉譯器。</li>
+	<li>Python Interpreter 實作與應用領域：<ul>
+		<li><a href='https://www.python.org/'>CPython</a>：最標準的 Python 官方直譯器。</li>
+		<li><a href='https://micropython.org/'>MicroPython</a>：針對微控制器與嵌入式系統優化的精簡版 Python 直譯器。</li>
+	</ul></li>
+	<li>Interactive Python Project: <a href='https://ipython.org/'>IPython</a> (互動式命令列與 JRE 環境)</li>
+	<li>Web IDE: <a href='https://colab.research.google.com/'>Google Colab</a> (基於雲端 Jupyter Notebook 環境)</li>
+	<li>IDE: <a href='https://thonny.org/'>Thonny</a> (專為初學者設計的 Python 開發環境)</li>
+</ul></section>
+
+<section><div data-x='quiz:s'>
+	關於「終端機 (Terminal)」與「殼層 (Shell)」的職責分工，下列敘述何者正確？
+	<div data-o='O'>終端機負責處理文字的顯示與鍵盤輸入介面，殼層負責解析指令並傳遞給作業系統執行</div>
+	<div data-o='X'>終端機可以直接執行硬體指令，殼層只負責改變顯示顏色</div>
+	<div data-o='X'>終端機與殼層是完全相同的程式，只是名稱不同</div>
+	<div data-o='X'>殼層負責繪製圖形視窗，終端機負責管理硬體驅動程式</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	在 Linux/UNIX 作業系統中，負責處理程式預設正常結果輸出的「標準輸出 (stdout)」其檔案識別碼 (File Descriptor ID) 為何？
+	<div data-o='O'>1</div>
+	<div data-o='X'>0</div>
+	<div data-o='X'>2</div>
+	<div data-o='X'>-1</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	當我們希望將程式執行的錯誤訊息獨立輸出（不與一般執行結果混合）時，應該使用哪一個標準資料流？
+	<div data-o='O'>標準錯誤 (stderr, File Descriptor 2)</div>
+	<div data-o='X'>標準輸入 (stdin, File Descriptor 0)</div>
+	<div data-o='X'>標準輸出 (stdout, File Descriptor 1)</div>
+	<div data-o='X'>DMA (Direct Memory Access)</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	在命令列中執行 `sudo python3 test.py` 時，`sudo` 這個前置命令的主要作用是什麼？
+	<div data-o='O'>切換為超級使用者（系統管理員 root）權限來執行後續指令</div>
+	<div data-o='X'>將程式碼加速編譯為 C 語言</div>
+	<div data-o='X'>在虛擬機中開啟一個背景執行程序</div>
+	<div data-o='X'>自動修復 Python 程式裡面的語法錯誤</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	若在命令列輸入 `python3 test.py /dev/ttyS0 115200`，在 Python 腳本內透過 `sys.argv[2]` 取得的參數值會是什麼？
+	<div data-o='O'>'115200'</div>
+	<div data-o='X'>'/dev/ttyS0'</div>
+	<div data-o='X'>'test.py'</div>
+	<div data-o='X'>'python3'</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	關於 UNIX/Linux 與 Windows 在檔案目錄系統架構上的主要差異，下列何者描述正確？
+	<div data-o='O'>UNIX 將所有硬體裝置與儲存區統一掛載於單一根目錄 `/` 下；Windows 則使用磁碟區代號（如 C:, D:）管理</div>
+	<div data-o='X'>Windows 將所有裝置視為檔案，UNIX 則使用代號（如 Drive A, B, C）管理</div>
+	<div data-o='X'>UNIX 系統中無法存取硬體設備，必須透過 Windows 模擬器</div>
+	<div data-o='X'>兩者皆無法建立虛擬或暫存的掛載點（Mount Points）</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	UNIX 系統中 `/dev/` 目錄的主要用途是什麼？
+	<div data-o='O'>存放系統硬體裝置對應的虛擬檔案（如 Serial Port, 磁碟機等）</div>
+	<div data-o='X'>存放開發者編寫的 Python 原始碼</div>
+	<div data-o='X'>存放作業系統的核心編譯器 (Compiler)</div>
+	<div data-o='X'>存放使用者下載的桌面軟體安裝檔</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	下列哪一個 Python 直譯器版本是專門針對微控制器（如 ESP32、Raspberry Pi Pico 等嵌入式系統）進行優化與設計的？
+	<div data-o='O'>MicroPython</div>
+	<div data-o='X'>CPython</div>
+	<div data-o='X'>IPython</div>
+	<div data-o='X'>Jupyter Notebook</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	關於 Python 的執行機制（Python Interpreter / PVM），下列何者說明正確？
+	<div data-o='O'>Python 先將原始碼轉為 Bytecode（中間碼），再由直譯器（Interpreter）逐條轉譯執行</div>
+	<div data-o='X'>Python 是純編譯型語言，直接將原始碼轉為硬體機器碼 (.exe)</div>
+	<div data-o='X'>Python 不需要透過任何虛擬機環境，可以直接在 CPU 上執行</div>
+	<div data-o='X'>Python 只能在 Windows PowerShell 內執行，無法在 Linux 運行</div>
+</div></section>
+
+<section><div data-x='quiz:s'>
+	當我們在 Linux 命令列執行 `PYTHONPATH=./ python3 main.py` 時，設定 `PYTHONPATH=./` 的目的為何？
+	<div data-o='O'>告訴 Python 執行環境優先在當前目錄搜尋自訂的模組與封包</div>
+	<div data-o='X'>永久修改作業系統的系統全域環境變數</div>
+	<div data-o='X'>限制 Python 程式只能使用 1MB 的記憶體</div>
+	<div data-o='X'>將 `main.py` 自動備份到雲端資料庫</div>
+</div></section>
 
 </body>
 </html>

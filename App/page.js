@@ -62,6 +62,9 @@ changeRoot: function (doc, url)
 	Array.from(doc.querySelectorAll('[href]')).forEach(
 		(e)=>e.setAttribute("href",rn(e.getAttribute("href")))
 	);
+	Array.from(doc.querySelectorAll('[data-h^="link:"]')).forEach(
+		(e)=>e.dataset.h='link:'+rn(e.dataset.h.substr(5))
+	);
 	Array.from(doc.querySelectorAll('section')).forEach(
 		(e)=>(e.dataset.rbase=url.href)
 	);
@@ -581,6 +584,12 @@ class Player
 				);
 		} catch(x) { console.log(x); }
 	}	// }}}
+
+	link (target, ...args)
+	{
+		args.unshift(target)
+		window.open(args.join(':'));
+	}
 
 	go (target, dft_url)
 	{	// {{{
