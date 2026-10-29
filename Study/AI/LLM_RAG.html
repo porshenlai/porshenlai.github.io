@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<base target='_blank'/>
+<title>GPT to Hugging Face to Ollama</title>
+</head>
+<body style='opacity:0'>
+
+<section class='page col'>
+	<div class='h1 ac' style='margin-bottom:1em'>LLM 檢索增強學習</div>
+	<em class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</em>
+</section>
+
+<section><h2>RAG vs. LLM</h2><ul>
+	<li><table border='1' cellspacing='0' cellpadding='8' width='95%' align='center'>
+		<thead><tr>
+			<th width='10%'></th>
+			<th width='45%'>RAG Embedding 空間</th>
+			<th width='45%'>LLM Hidden States 向量空間</th>
+		</tr></thead>
+		<tbody><tr>
+			<th>主要<br/>功能</th>
+			<td valign='top'>檢索（Retrieval）</td>
+			<td valign='top'>推理與生成（Reasoning &amp; Generation）</td>
+		</tr><tr>
+			<th>幾何<br/>特性</th>
+			<td>依賴靜態語意相似度（距離近 = 意思像）。</td>
+			<td>依賴動態上下文與文法流向（座標會隨上文隨時跳轉）。</td>
+		</tr><tr>
+			<th>優化<br/>目標</th>
+			<td>把同義詞的距離拉近，異義詞推遠（Contrastive Loss）。</td>
+			<td>讓下一個正確 Token 的機率最大化（Cross-Entropy Loss）。</td>
+		</tr><tr>
+			<th>直觀<br/>比喻</th>
+			<td>靜態的百科全書分類索引（相同的放在一起）。</td>
+			<td>思考中的大腦神經元聯想網（從主詞推導到動詞，再推導到賓詞）。</td>
+		</tr></tbody>
+	</table></li>
+	<div class='frame'>「RAG 用的 Embedding 模型，像是在高維空間裡幫資料打卡劃分區域，目的是為了快速搜尋；而 LLM 模型學習後的權重與高維空間，像是在高維空間裡畫出出一條條流暢的思考路線圖。LLM 輸出向量的目的是為了指引下一個字該走向字典裡的哪一個 Token，因此它包含的不只是『意思相近』，更包含『邏輯與文法的必然性』。」</div>
+</ul></section>
+
+<section><h2>資料空間</h2><ul>
+	<li>LLM 內部（如 Transformer 隱藏層）與輸出層的確都在高維度空間中運作，但它們的高維空間<em>「幾何特性」與純 Embedding 模型截然不同</em>：它不僅僅代表「靜態語意相近」，更包含了<em>「動態語意轉譯」、「上下文邏輯推理」與「語法流暢度（下一個字出現的機率）」</em>。</li>
+	<li><b>靜態語意空間 vs. 動態上下文空間</b><ul>
+		<li><b>純 Embedding 模型（靜態語意空間）：</b><ul>
+			<li>無上下文（或僅有局部上下文）的靜態語意距離。</li>
+			<li>在這個空間裡，蘋果（水果）和 香蕉 的距離永遠很近；蘋果 和 台積電 距離很遠。</li>
+		</ul></li>
+		<li><b>LLM 隱藏層（動態上下文空間）：</b><ul>
+			<li>LLM 每經過一層 Transformer 區塊（Self-Attention），這個 Token 在高維空間的座標就會被重新修正與轉移。</li>
+			<li><b>例如：</b> 輸入「蘋果發表了全新的 M4 晶片」，經過 Self-Attention 後，蘋果 這個 Token 的向量座標會被拉離「水果空間」，瞬間移動到「科技/半導體/上市公司」的高維空間，並且與 台積電、晶圓代工 的距離大幅縮短。</li>
+			<li><b>結論：</b> LLM 的高維空間不是不具備語意相近性，而是它的語意是<em>動態且高度依賴上下文（Context-aware）</em>的。</li>
+		</ul></li>
+	</ul></li>
+	<li><b>LLM 的輸出層（Unembedding / LM Head）：</b>從高維座標轉為機率<ul>
+		<li>當資料經過 LLM 所有隱藏層後，最後會來到輸出層（LM Head）。</li>
+		<li><b>最後的高維向量：</b><ul>
+			<li>模型的最後一層會產出一個代表「目前為止所有上下文總結」的高維向量（例如 4096 維）。</li>
+		</ul></li>
+		<li><b>與字典求內積（Dot Product）：</b><ul>
+			<li>輸出層有一個巨大的矩陣（稱為 Unembedding Matrix），裡面記錄了字典裡每一個 Token（例如 32,000 個 Token）的高維特徵向量。</li>
+		</ul></li>
+		<li><b>計算夾角與相似度：</b><ul>
+			<li>系統計算最後高維向量與字典中每個 Token 向量的相似度（Logits）。</li>
+		</ul></li>
+		<li><b>Softmax 轉換：</b><ul>
+			<li>把這些相似度數值轉化為 0~1 之間的<em>「下一個字出現機率」</em>。</li>
+		</ul></li>
+	</ul></li>
+	<li><b>為什麼「語意不相近」的字機率可能更高？</b><ul>
+		<li>因為 LLM 學習權重的目標是<em>「預測合理的下一個 Token（Next Token Prediction）」，這包含了語法規則與對話邏輯</em></li>
+	</ul></li>
+	<li><b>例如：「這家銀行的放款審查非常_____」</b><ul>
+		<li>在高維空間中，嚴格（形容詞）和 放款（動詞/名詞）在靜態語意上完全不相近。</li>
+		<li>但因為文法結構（主詞+副詞+形容詞）以及金融語意邏輯，LLM 內部高維向量在最後預測時，會將幾何位置推向「描述審查品質的形容詞」區域，使得 嚴格 或 謹慎 的出現機率最高，而不是語意最相關但文法不對的 貸款。</li>
+	</ul></li>
+</ul></section>
+
+<section><h2>地端 RAG 檢索增強生成</h2><ul>
+	<li>建置期（建立知識庫）<ul>
+		<li>[原始文件 (PDF/Doc)]</li>
+		<li>1. 文件讀取與文本切分 (Text Chunking)</li>
+		<li>2. 向量化 (Embedding) 與 向量庫儲存 (Vector DB)</li>
+	</ul></li>
+	<li>推論期（回答問題）<ul>
+		<li>[使用者提問 (Query)]</li>
+	</ul></li>
+	<li>回答問題<ul>
+		<li>3. 語意檢索 (Similarity Search / Top-K)</li>
+    <li>4. 組合提示詞 (Prompt Engineering)</li>
+    <li>5. 地端 LLM 生成回答 (Ollama Gemma)</li>
+	</ul></li>
+</ul></section>
+
+<section><h2>建立地端知識庫（離線/初始化作業）</h2><ul>
+	<li>1. 文件讀取與文本切分（Document Loading &amp; Chunking）<ul>
+		<li><b>目的：</b> 消除 LLM 上下文長度限制，並提升搜尋精準度。</li>
+		<li><b>做法：</b> 使用 PyPDFLoader 讀取金融文件/條款，並用 RecursiveCharacterTextSplitter 切分成小塊（Chunks）。
+		<li><b>實作關鍵設定：</b><ul>
+			<li>chunk_size（塊大小）：建議設為 500 ~ 800 字（避免把財務表格切斷）。</li>
+			<li>chunk_overlap（重疊字數）：建議設為 100 字（保證上下文語意連貫不中斷）。</li>
+			<li>保留 Metadata： 必須保留頁碼（page）、檔名等資訊，作為後續 RAG 引文註腳的依據。</li>
+		</ul></li>
+	</ul></li>
+	<li>2. 向量化與向量資料庫儲存（Embedding &amp; Vector Store）<ul>
+		<li><b>目的：</b> 將切分好的文字區塊轉換為「高維語意座標」，並建立快速索引。</li>
+		<li><b>做法：</b> 使用地端 Embedding 模型（如 BAAI/bge-small-zh-v1.5），將每一個 Chunk 轉為向量後存入地端向量資料庫（如 ChromaDB 或 FAISS）。</li>
+		<li><b>優點：</b> 完全在地端 CPU/GPU 運作，敏感的金融文件不會外流到公有雲。</li>
+	</ul></li>
+</ul></section>
+
+<section><h2>檢索與生成（線上/即時對話）</h2><ul>
+	<li>3. 語意檢索（Similarity Search）<ul>
+		<li><b>目的：</b> 從資料庫中快速精準地撈出與問題最相關的資料。</li>
+		<li><b>做法：</b> 當審查員輸入問題（例如：「本案的負債比率是多少？」）時：<ul>
+			<li>將問題同樣經過 Embedding 模型轉換為向量。</li>
+			<li>向量資料庫計算餘弦相似度（Cosine Similarity），撈出前 K 個最相關的文本區塊。</li>
+		</ul></li>
+	</ul></li>
+	<li>4. 組合提示詞（Prompt Assembly）<ul>
+		<li><b>目的：</b> 設定模型的角色，並將「撈出來的參考資料」與「使用者問題」拼裝在一起。</li>
+		<li><b>Prompt 結構範例：</b><div data-x='code'>
+你是一位嚴謹的金融授信審查員。請「嚴格根據」以下參考資料回答問題。
+如果資料中沒有提及，請直接回答「文件中未提供」，切勿憑空捏造。
+回答時必須在句末標註引用頁碼，格式為：(參照第 X 頁)。
+
+【參考資料】：
+[片段 1 - 第 12 頁]: 本年度公司負債總額為 1.2 億元...
+[片段 2 - 第 25 頁]: 流動負債包含短期借款...
+
+【提問】：本案的負債比率與流動負債狀況為何？
+		</div></li>
+	</ul></li>
+	<li>5. 地端 LLM 生成回答（Inference with Ollama Gemma）<ul>
+		<li><b>目的：</b> 讓 LLM 看著資料寫出結構化、閱讀體驗良好的分析回答。</li>
+		<li><b>做法：</b> 將組裝好的 Prompt 送入地端 Ollama 的 Gemma 2 (2B 或 9B)。</li>
+		<li><b>參數設定建議：</b><ul>
+			<li>temperature 設為 0.1（極低溫，防止模型自由發揮，降低幻覺）。</li>
+			<li>top_p 設為 0.9。</li>
+		</ul></li>
+	</ul></li>
+</ul></section>
+
+<!--{{{
+5 步驟落地實作架構
+1. 文件讀取與切分 (Chunking)
+避免長度過長與表格斷裂
+使用 PyPDFLoader 載入 PDF，透過 RecursiveCharacterTextSplitter 切成 500~800 字的區塊，並保留頁碼 Metadata。
+2. 向量化與向量庫儲存 (Embedding)
+建置地端高維語意空間
+呼叫地端 Embedding 模型（如 BGE-small-zh）將文字轉換為向量，並存入 ChromaDB/FAISS 資料庫。
+3. 語意檢索 (Retrieval)
+幾何距離相似度比對
+將使用者的提問向量化，透過向量庫進行餘弦相似度搜尋，撈出 Top-K（如 3~5 個）最相關的文字片段。
+4. 提示詞組合 (Prompt Assembly)
+注入地端條款與約束
+將「角色設定 + 要求標註頁碼 + 撈出的上下文片段 + 使用者問題」組合成完整 Prompt。
+5. 地端模型推論 (Generation)
+極低 Temperature 降低幻覺
+送入 Ollama Gemma 生成答案，強制模型只根據參考片段回答並附帶引用頁碼。
+課堂教學實作建議（極簡 Python 代碼結構）
+在課堂上可以用 LangChain 的 LCEL 語法將這 5 步驟寫成不到 10 行的關鍵調用：
+# 步驟 1 & 2：建立檢索器 (Retriever)
+retriever = vector_store.as_retriever(search_kwargs={"k": 3})
+
+# 步驟 4：定義 Prompt 樣板
+prompt = PromptTemplate.from_template(system_prompt_template)
+
+# 步驟 5：宣告 Ollama 地端模型
+llm = Ollama(model="gemma2:2b", temperature=0.1)
+
+# 使用 LCEL 串接完整 5 步驟 RAG 鏈結 (Chain)
+rag_chain = (
+    {"context": retriever | format_docs, "question": RunnablePassthrough()}
+    | prompt
+    | llm
+    | StrOutputParser()
+)
+
+# 執行 RAG
+result = rag_chain.invoke("這家公司的核心財務風險是什麼？")
+}}} -->
+
+<!--RAG2 {{{
+這是一個非常標準且實用的金融地端 RAG（檢索增強生成）實作範例。
+在這個範例中，我們會使用 LangChain 搭配 PyPDFLoader（提取內文與頁碼）、ChromaDB（地端向量資料庫）以及 Ollama Gemma。為了確保金融審查的嚴謹性，系統會透過精心設計的 Prompt 要求 Gemma 必須：
+結構化輸出（條列風險項目與財務數據）。
+標註引用頁碼（Citation），讓授信審查人員可以回到 PDF 逐筆核對。
+系統架構與運作流程
+[財報 PDF 檔] 
+   │ 
+   ▼ (PyPDFLoader 讀取，自動保留 metadata page 頁碼)
+[帶有頁碼的文本區塊 (Chunks)]
+   │
+   ▼ (地端 Embedding 模型向量化，儲存至 ChromaDB)
+[ChromaDB 向量資料庫]
+   │
+   ▼ (審查員提問："分析近兩年營運與財務風險，並標註頁碼")
+[檢索出 Top-K 最相關頁碼段落] ──► [組合 Prompt] ──► [Ollama Gemma 地端模型]
+                                                         │
+                                                         ▼
+                                          [產出帶有引用頁碼的授信評估報告]
+
+
+準備工作：環境安裝
+在執行 Python 程式碼前，請先確保環境已安裝相關套件，且 Ollama 已在背景執行並下載好 Gemma：
+# 1. 下載並運行 Ollama Gemma 2 (建議 2B 或 9B)
+ollama run gemma2:2b
+
+# 2. 安裝 Python 必備套件
+pip install langchain langchain-community langchain-chroma pypdf sentence-transformers
+
+
+完整 Python 實作程式碼
+您可以直接建立一個 credit_underwriting_rag.py 檔案並執行：
+import os
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_chroma import Chroma
+from langchain_community.llms import Ollama
+from langchain_core.prompts import PromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+
+# ---------------------------------------------------------------------------
+# 1. 載入財報 PDF 並切分文本 (保留頁碼資訊 Metadata)
+# ---------------------------------------------------------------------------
+def load_and_split_pdf(pdf_path):
+    print(f"正在讀取財報文件：{pdf_path} ...")
+    loader = PyPDFLoader(pdf_path)
+    documents = loader.load()
+    
+    # 針對金融文件的切分設定：建議區塊不要太小，避免財務表格被切碎
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=600,
+        chunk_overlap=100,
+        add_start_index=True
+    )
+    chunks = text_splitter.split_documents(documents)
+    print(f"文件讀取完成！共切分為 {len(chunks)} 個文本區塊 (Chunks)。")
+    return chunks
+
+
+# ---------------------------------------------------------------------------
+# 2. 建立地端向量資料庫 (ChromaDB + HuggingFace Embedding)
+# ---------------------------------------------------------------------------
+def build_vector_store(chunks):
+    print("正在建立地端 Embedding 向量庫...")
+    # 使用多語言適用的繁體中文/英文輕量 Embeddings 模型（完全在地端執行，零雲端開銷）
+    embeddings = HuggingFaceEmbeddings(
+        model_name="BAAI/bge-small-zh-v1.5"
+    )
+    
+    # 建立記憶體型的 ChromaDB (若需持久化儲存，可填入 persist_directory)
+    vector_store = Chroma.from_documents(
+        documents=chunks,
+        embedding=embeddings,
+        collection_name="credit_financial_reports"
+    )
+    print("向量資料庫建置完成！")
+    return vector_store
+
+
+# ---------------------------------------------------------------------------
+# 3. 格式化檢索結果：將內文與頁碼組合給 Prompt
+# ---------------------------------------------------------------------------
+def format_docs_with_pages(docs):
+    formatted_chunks = []
+    for doc in docs:
+        # PyPDFLoader 會自動在 metadata 中填入 page 號碼 (預設從 0 開始，因此 +1 轉為實際頁碼)
+        page_num = doc.metadata.get("page", 0) + 1
+        content = doc.page_content.replace("\n", " ")
+        formatted_chunks.append(f"[參考頁碼：第 {page_num} 頁]\n內容：{content}")
+    
+    return "\n\n-------------------------\n\n".join(formatted_chunks)
+
+
+# ---------------------------------------------------------------------------
+# 4. 主程式：構建 LangChain RAG 鏈與 Ollama Gemma
+# ---------------------------------------------------------------------------
+def main():
+    # 替換為您欲測試的財報 PDF 路徑 (例如：上市公司的年報或財務說明書)
+    pdf_file_path = "sample_financial_report.pdf"
+    
+    if not os.path.exists(pdf_file_path):
+        print(f"提示：請將範例財報檔案放至當前目錄並命名為 '{pdf_file_path}' 後再執行。")
+        return
+
+    # 執行文檔載入與向量化
+    chunks = load_and_split_pdf(pdf_file_path)
+    vector_store = build_vector_store(chunks)
+    
+    # 建立 Retriever (檢索前 Top-4 最相關的頁碼區塊)
+    retriever = vector_store.as_retriever(search_kwargs={"k": 4})
+
+    # 初始化地端 Ollama Gemma 模型
+    print("初始化地端 Ollama Gemma 模型...")
+    llm = Ollama(model="gemma2:2b", temperature=0.1) # 低 Temperature 可降低模型幻覺
+
+    # 專門為金融授信審查設計的 Prompt 樣板
+    system_prompt_template = """你是一位專業的銀行金融授信審查專員（Credit Risk Officer）。
+請嚴格根據底下提供的【參考文件內容】進行分析，回答審查提問。
+
+【審查與回答原則】：
+1. 你的任務是找出企業潛在的「財務風險、負債狀況、流動性危機或營運異常」。
+2. 每一條分析與提出的風險點，都【必須】在句末明確註明出處頁碼，格式為：(參照第 X 頁)。
+3. 如果參考文件中沒有提到相關數據，請直接回答：「文件中未提供相關資訊，無法評估。」，切勿憑空捏造。
+
+【參考文件內容】：
+{context}
+
+【授信審查提問】：
+{question}
+
+【授信審查初步評估報告】：
+"""
+
+    prompt = PromptTemplate.from_template(system_prompt_template)
+
+    # 建立 LangChain LCEL 鏈結 (Chain)
+    rag_chain = (
+        {
+            "context": retriever | format_docs_with_pages,
+            "question": RunnablePassthrough()
+        }
+        | prompt
+        | llm
+        | StrOutputParser()
+    )
+
+    # 模擬授信審查人員的提問
+    query = "請摘要這家公司的主要財務風險（例如負債率、現金流或短期償債能力），並逐條標註引用頁碼。"
+    
+    print("\n" + "="*50)
+    print(f"審查人員提問：{query}")
+    print("="*50 + "\n")
+    print("Gemma 地端模型分析中...\n")
+
+    # 執行 RAG 生成報告
+    response = rag_chain.invoke(query)
+    
+    print(response)
+
+if __name__ == "__main__":
+    main()
+
+
+模型輸出預期效果範例
+當您執行上述程式碼後，Gemma 模型會產出如下結構化且附帶頁碼的報告：
+【授信審查初步評估報告】：
+
+經過對該公司財報的檢索，整理出以下幾點潛在的財務與營運風險：
+
+1. **短期償債壓力增加**：
+   該公司流動比率由上一年度的 150% 下降至本年度的 105%，顯示流動資產對流動負債的覆蓋能力減弱，短期償債風險提高 (參照第 12 頁)。
+
+2. **營業活動現金流轉負**：
+   本年度營業活動產生的淨現金流為 -2,500 萬元，主要原因為應收帳款回收天數由 60 天延長至 95 天，需注意客戶是否有逾期延滯付款情事 (參照第 28 頁)。
+
+3. **長期負債大幅增加**：
+   為擴建新廠，公司新增長期銀行借款新台幣 1.2 億元，導致負債比率由 42% 上升至 68%，利息保障倍數顯著下滑 (參照第 35 頁)。
+
+**審查小組建議**：
+鑑於流動性指標惡化與現金流轉負，建議本案授信額度應採取保守態度，並要求提供同等價值的固定資產作為擔保品，同時加設「流動比率不得低於 110%」之財務承諾條款 (Financial Covenants)。
+
+
+課堂教學/實作引導建議
+這套範例非常適合讓學生在電腦教室動手練習，您可以帶領學生嘗試以下擴展：
+比較不同 Gemma 模型的表現： 試著將模型更換為 gemma2:9b，觀察其對複雜財務數據分析的邏輯嚴謹度與 2b 有何差異。
+極限測試（Prompt Injection / 幻覺測試）： 讓學生故意問「這家公司的創辦人是誰？」，觀察 Gemma 是否能遵守 Prompt 規範回答「資料未提及」，而不是開始胡言亂語。
+擴充結構化輸出： 修改 Prompt 讓 Gemma 輸出 JSON 格式（例如：{"risk_level": "High", "reasons": [...]}），體會自動化串接銀行後台系統的實務流程。
+}}} -->
+
+</body>
+</html>
+
+
