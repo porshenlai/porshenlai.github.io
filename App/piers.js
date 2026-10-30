@@ -32,6 +32,31 @@ function dfs (e,h,x=false)
 	return r;
 } // }}}
 
+function copy (ta) {
+	if ('string' === typeof(ta))
+		ta = ((e)=>{
+			e.textContent=ta;
+			return e;
+		})(document.createElement("pre"));
+	let result=true;
+	try {
+		document.body.appendChild(ta);
+		const selection = window.getSelection();
+		selection.removeAllRanges();
+		const range = document.createRange();
+		range.selectNodeContents(ta);
+		selection.addRange(range);
+
+		result = document.execCommand('copy');
+		selection.removeAllRanges();
+	} catch (err) {
+		result = false;
+	} finally {
+		document.body.removeChild(ta);
+	}
+	return result;
+}
+
 class B {
 	static async upload (type,mul)
 	{ // {{{
