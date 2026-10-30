@@ -103,7 +103,7 @@
 <section><h2>建立地端知識庫（離線/初始化作業）</h2><ul>
 	<li>1. 文件讀取與文本切分（Document Loading &amp; Chunking）<ul>
 		<li><b>目的：</b> 消除 LLM 上下文長度限制，並提升搜尋精準度。</li>
-		<li><b>做法：</b> 使用 PyPDFLoader 讀取金融文件/條款，並用 RecursiveCharacterTextSplitter 切分成小塊（Chunks）。
+		<li><b>做法：</b> 使用 PyPDFLoader 讀取金融文件/條款，並用 RecursiveCharacterTextSplitter 切分成小塊（Chunks）。</li>
 		<li><b>實作關鍵設定：</b><ul>
 			<li>chunk_size（塊大小）：建議設為 500 ~ 800 字（避免把財務表格切斷）。</li>
 			<li>chunk_overlap（重疊字數）：建議設為 100 字（保證上下文語意連貫不中斷）。</li>
