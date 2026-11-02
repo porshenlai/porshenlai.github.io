@@ -131,7 +131,7 @@ table.nvtable tbody th, table.nv tbody th
 table.nvtable tbody td, table.nv tbody td
 { border:0; padding:0 4px; border-bottom:1px solid silver; text-align:left; vertical-align:top; }
 
-table.chart { margin:auto;border:1px solid silver; padding:4px; }
+table.chart { border:1px solid silver; padding:4px; }
 table.chart th { border:2px solid black; padding:4px 20px; }
 table.chart th.R { border-radius:12px; }
 table.chart td { border:0; padding:0; text-align:center; vertical-align:middle; }
@@ -165,7 +165,7 @@ table.chart td { border:0; padding:0; text-align:center; vertical-align:middle; 
 { color:blue; font-weight:bolder; }
 .mod_quiz .bar>.mod_quiz_answer
 { flex:1 1 auto; text-align:center; }
-.QuizGroup .mod_quiz, [data-qtype="c"] .mod_quiz { margin:1vmin 0; }
+.QuizGroup .mod_quiz, [data-qtype="c"] .mod_quiz { margin:2vmin 0; }
 /* mod_code */
 [data-level] { white-space:nowrap; line-height:1.6; }
 [data-level="0"] { padding-left:4px !important; }

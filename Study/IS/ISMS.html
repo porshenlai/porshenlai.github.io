@@ -21,7 +21,7 @@
 </div>
 </section><!--}}}-->
 
-<section><h2>資訊安全三原則</h2><!--{{{-->
+<section><h2>資訊安全三原則</h2>
 <ul>
 	<li class='fold'><span class='h3' data-h='fold'>機密性 (Confidentially)</span><ul>
 		<li>保護資訊以免資訊和資源暴露於無權限的人員或程式，而危害到資訊安全</li>
@@ -37,55 +37,60 @@
 		<li>可用性必須要與前述兩項安全需求配合並整體考量，以符合資訊安全的目標</li>
 	</ul></li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>OECD 之個人資料保護原則</h2><!--{{{-->
-<p>經濟合作暨發展組織(OECD)於1980年針對網路使用之隱私權與個人資料保護制訂了八大原則</p>
-<ol class='zcs' style='margin:4px 5%'>
-	<li>限制蒐集原則</li>
-	<li>品質確保原則</li>
-	<li>目的明確原則</li>
-	<li>限制目的外使用原則</li>
-	<li>安全確保原則</li>
-	<li>公開原則</li>
-	<li>個人參與原則</li>
-	<li>責任明確原則</li>
-</ol>
-</section><!--}}}-->
+<section><h2>OECD 之個人資料保護原則</h2>
+<ul>
+	<li>經濟合作暨發展組織(OECD)於1980年針對網路使用之隱私權與個人資料保護制訂了八大原則
+		<ol class='zcs' style='margin:4px 5%'>
+			<li>限制蒐集原則</li>
+			<li>品質確保原則</li>
+			<li>目的明確原則</li>
+			<li>限制目的外使用原則</li>
+			<li>安全確保原則</li>
+			<li>公開原則</li>
+			<li>個人參與原則</li>
+			<li>責任明確原則</li>
+		</ol>
+	</li>
+</ul>
+</section>
 
-<section><h2>PDCA 戴明循環</h2><ul><!--{{{-->
-<li data-h='install:mermaid'><button>Render</button><textarea data-v='value:raw'>flowchart LR
-P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>監督與審查"] --> A["Adjust<br/>維護與改進"] --> P
-</textarea></li>
-<li>資訊安全是全面性與持續性的工作，需要掌握 PDCA(戴明循環) 原則，持續地經由計畫 (Plan)，執行 (Do) ，檢查 (Check) ，行動 (Act) ，以循環改善資訊安全管理各項缺失<ul>
-	<li><em>Plan:</em><ul>識別問題，分析根本原因，建立目標，建立達到目標的綱要步驟或改變需求</ul></li>
-	<li><em>Do:</em><ul></li>
-		Implement the planned change or solution on a small, controlled scale to test its effectiveness.
-	</ul></li>
-	<li><em>Check:</em><ul>
-		Measure and evaluate the results of the test against the expected outcomes and performance metrics.
-	</ul></li>
-	<li><em>Act:</em><ul>
-		If the test works, roll out the change on a larger scale and make it a permanent standard; if it fails, revise the plan and start the cycle again.
-	</ul></li>
-</ul></li>
-<li>VUCA:<ul>
-	<li><em>Volatility (V):</em><ul>
-		Rapid and unpredictable changes happen at a large scale.
-	</ul></li>
-	<li><em>Uncertainty (U):</em><ul>
-		Future events are hard to predict due to a lack of clear information.
-	</ul></li>
-	<li><em>Complexity (C):</em><ul>
-		Many interconnected factors, variables, and forces obscure direct cause-and-effect relationships.
-	</ul></li>
-	<li><em>Ambiguity (A):</em><ul>
-		Realities, mixed messages, and conditional relationships remain unclear and open to multiple interpretations.
-	</ul></li>
-</ul></li>
-</ul></section><!--}}}-->
+<section><h2>PDCA 戴明循環</h2>
+<ul>
+	<li>資訊安全是全面性與持續性的工作，需要掌握 PDCA(戴明循環) 原則，持續地經由計畫 (Plan)，執行 (Do) ，檢查 (Check) ，行動 (Act) ，以循環改善資訊安全管理各項缺失<div class='zcs2'>
+	<table class='nv'><tr>
+		<th>規劃<br/>Plan</th><td>識別問題，分析根本原因，建立目標，建立達到目標的綱要步驟或改變需求。</td>
+	</tr><tr>
+		<th>實作<br/>Do</th><td>基於小量，可控的小維度資料來實踐解決方案或規劃變更來測試其功效。</td>
+	</tr><tr>
+		<th>驗證<br/>Check</th><td>基於期望輸出與效能指標，量測並衡量試驗的結果。</td>
+	</tr><tr>
+		<th>行動<br/>Act</th><td>若測試成功 將規劃或改變套用到大規模的環境，並將其建立為固定的標準。若失敗，將計畫回復至循環開始的狀態。</td>
+	</tr></table>
+	<table class='chart'><tr>
+		<th>Plan<br/>規劃與建立</th><td>&rarr;</td><th>Do<br/>維護與改進</th>
+	</tr><tr>
+		<td>&uarr;</td><td>PDCA</td><td>&darr;</td>
+	</tr><tr>
+		<th>Adjust<br/>維護與改進</th><td>&larr;</td><th>Check<br/>監督與審查</th>
+	</tr></table>
+	</div></li>
+	<li>VUCA:<div>
+		<table class='nv'><tr>
+			<th>猛烈 Volatility (V)</th><td>快速，不可預測的改變大量湧現。</td>
+		</tr><tr>
+			<th>不確定 Uncertainty (U)</th><td>缺乏明確的情報，未來事件難以預測。</td>
+		</tr><tr>
+			<th>複雜 Complexity (C)</th><td>許多相互關聯的因素、變數和力量，使得直接的因果關係變得模糊不清。</td>
+		</tr><tr>
+			<th>矛盾 Ambiguity (A)</th><td>現實狀況、矛盾訊息以及附帶條件的關係，依然模糊不清，且可有多種解讀。</td>
+		</tr></table>
+	</div></li>
+</ul>
+</section>
 
-<section><h2>稽核</h2><!--{{{-->
+<section><h2>稽核</h2>
 <ul>
 	<h3>內部稽核</h3>
 	<li><b class='green'>第一方稽核 (First-Party Audit)</b><ul>
@@ -100,28 +105,28 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 		<li>由一個獨立於客戶與使用者之外的稽核機構進行的稽核，以驗證客戶的管理系統為目的。</li>
 	</ul></li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>資訊倫理四大議題 (Mason)</h2><!--{{{-->
+<section><h2>資訊倫理四大議題 (Mason)</h2>
 <ul>
-	<li><span class='h3'>隱私權 (Privacy)</span><ul>
+	<li><h3>隱私權 (Privacy)</h3><ul>
 		<li>蒐集，處理與散布個人隱私資訊時，必須尊重隱私權問題</li>
 	</ul></li>
-	<li><span class='h3'>正確性 (Accuracy)</span><ul>
+	<li><h3>正確性 (Accuracy)</h3><ul>
 		<li>資料提供者供應準確資訊給使用者，以做成重大決策的義務與權利</li>
 	</ul></li>
-	<li><span class='h3'>所有權 (Property)</span><ul>
+	<li><h3>所有權 (Property)</h3><ul>
 		<li>利用，傳播與重製資訊產品的權利與義務</li>
 	</ul></li>
-	<li><span class='h3'>使用權 (Accessibility)</span><ul>
+	<li><h3>使用權 (Accessibility)</h3><ul>
 		<li>對於資訊的讀寫權利與資訊資源的掌控權等問題</li>
 	</ul></li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>電子簽章法</h2><!--{{{-->
+<section><h2>電子簽章法</h2>
 <ul>
-	<li class='fold'><span class='h3' data-h='fold'>電子簽章與數位簽章的差異</span><ul>
+	<li class='fold'><h3 data-h='fold'>電子簽章與數位簽章的差異</h3><ul>
 		<li>兩者的關係是「數位簽章屬於電子簽章的一種」，但安全層級與法律效力不同。</li>
 		<li><b class='green'>電子簽章（Electronic Signature）</b><ul>
 			<li>定義：<ul><li>依附於電子文件並相關連，用以辨識及確認簽署人身分、資格及文件真偽的統稱。</li></ul></li>
@@ -134,7 +139,7 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 			<li>法律效力：<ul><li>效力最強。依據電子簽章法規定，使用合法憑證機構核發憑證的數位簽章，推定為本人親自簽名或蓋章，舉證責任倒轉（由否認方負擔舉證）。</li></ul></li>
 		</ul></li>
 	</ul></li>
-	<li class='fold'><span class='h3' data-h='fold'>數位簽章的運作機制</span><ul>
+	<li class='fold'><h3 data-h='fold'>數位簽章的運作機制</h3><ul>
 		<li>利用公開金鑰基礎設施（PKI）與雜湊演算法來確保安全與防竄改</li>
 		<li><b class='green'>雜湊運算（產生文件指紋）</b>：<ul>
 			<li>將原始電子文件透過雜湊演算法（如SHA-256）計算出固定長度的「訊息摘要」（如同文件的數位指紋）。</li>
@@ -151,9 +156,9 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 		</ul></li>
 	</ul></li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>刑法 - 妨礙電腦使用罪</h2><!--{{{-->
+<section><h2>刑法 - 妨礙電腦使用罪</h2>
 <ul>
 	<li><b>(第 358 條)</b> 無故輸入他人帳號密碼、破解使用電腦之保護措施或利用電腦系統之漏洞，而入侵他人之電腦或其相關設備者，處三年以下有期徒刑、拘役或科或併科三十萬元以下罰金。</li>
 	<li><b>(第 359 條)</b> 無故取得、刪除或變更他人電腦或其相關設備之電磁紀錄，致生損害於公眾或他人者，處五年以下有期徒刑、拘役或科或併科六十萬元以下罰金。</li>
@@ -162,9 +167,9 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 	<li><b>(第 362 條)</b> 製作專供犯本章之罪之電腦程式，而供自己或他人犯本章之罪，致生損害於公眾或他人者，處五年以下有期徒刑、拘役或科或併科六十萬元以下罰金。</li>
 	<li><b>(第 363 條)</b> 第三百五十八條至第三百六十條之罪，須告訴乃論。</li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>數位證據與數位鑑識</h2><!--{{{-->
+<section><h2>數位證據與數位鑑識</h2>
 <ul>
 	<li>數位證據是以數位形式儲存或傳輸、可用於法庭裁判證明的電子資訊；</li>
 	<li>數位鑑識是系統性地識別、擷取、保存及分析這些數位證據的科學方法。</li>
@@ -175,9 +180,9 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 		<li><b>標準作業程序：</b><ul><li>實務操作通常依循國際標準（如 ISO/IEC 27037 數位證據處理程序）來確保採證合法有效。</li></ul></li>
 	</ul></li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>資訊安全相關法規</h2><!--{{{-->
+<section><h2>資訊安全相關法規</h2>
 <ul>
 	<li>資訊安全相關</li>
 	<li>資通安全管理法</li>
@@ -188,12 +193,12 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 	<li>特定非公務機關資通安全維護計畫實施情形稽核辦法</li>
 	<li>資通安全管理作業辦法 (依主管機關)</li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>個資保護常見法規</h2><!--{{{-->
+<section><h2>個資保護常見法規</h2>
 <ul>
-	<li class='fold'><span class='h3' data-h='fold'>個人資料保護法</span><ul>
-		<li><span class='h3'>&lt;第8條&gt;</span><ol>
+	<li class='fold'><h3 data-h='fold'>個人資料保護法</h3><ul>
+		<li><h4>第8條</h4><ol>
 			<li>公務機關或非公務機關依第十五條或第十九條規定向當事人蒐集個人資料時，應明確告知當事人下列事項：<ol>
 				<li>公務機關或非公務機關名稱。</li>
 				<li>蒐集之目的。</li>
@@ -211,7 +216,7 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 				<li>個人資料之蒐集非基於營利之目的，且對當事人顯無不利之影響。</li>
 			</ol></li>
 		</ol></li>
-		<li><span class='h3'>&lt;第28條&gt;</span><ol>
+		<li><h4>第28條</h4><ol>
 			<li>公務機關違反本法規定，致個人資料遭不法蒐集、處理、利用或其他侵害當事人權利者，負損害賠償責任。但損害因天災、事變或其他不可抗力所致者，不在此限。</li>
 			<li>被害人雖非財產上之損害，亦得請求賠償相當之金額；其名譽被侵害者，並得請求為回復名譽之適當處分。</li>
 			<li>依前二項情形，如被害人不易或不能證明其實際損害額時，得請求法院依侵害情節，以每人每一事件新臺幣五百元以上二萬元以下計算。</li>
@@ -225,19 +230,19 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 	<li>通訊保障及監察法</li>
 	<li>個人資料檔案維護辦法 (依主管機關)</li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>智慧財產權相關法規</h2><!--{{{-->
+<section><h2>智慧財產權相關法規</h2>
 <ul>
 	<li>著作權法</li>
 	<li>商標法</li>
 	<li>營業秘密法</li>
 	<li>勞動基準法第 9-1 條 競業禁止條款</li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>練習題</h2><!--{{{-->
-<div class='QuizGroup'>
+<section><h2>練習題</h2>
+<div data-x='quiz:c'>
 	<div data-x='quiz:s'>
 	下列何者為「公司網路系統必須24小時運作」的主要原因 ?
 	<div data-o='O'>可用性</div>
@@ -346,11 +351,11 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 	<div data-o='X'>個人資料利用的期間與地區</div>
 	</div>
 </div>
-</section><!--}}}-->
+</section>
 
-<section><h2>資產分級分類與盤點</h2><!--{{{-->
+<section><h2>資產分級分類與盤點</h2>
 <ul>
-	<li class='fold'><span class='h3' data-h='fold'>資訊資產盤點與異動檢核</span><ul>
+	<li class='fold'><h3 data-h='fold'>資訊資產盤點與異動檢核</h3><ul>
 		<li>建立資產清冊有助於確保採行有效之資產保護</li>
 		<li>資訊資產指對組織有價值的項目，包含有形的實體資產，無形的虛擬資產<ul>
 			<li>例：建築物，電腦主機，周邊設備等皆是實體化的資產</li>
@@ -359,114 +364,123 @@ P["Plan<br/>規劃與建立"] --> D["Do<br/>維護與改進"] --> C["Check<br/>�
 		<li>彙整資產清冊之程序係風險管理之重要先備事項</li>
 		<li>資產清冊宜精確，保持更新，一致並與其他清冊相符</li>
 	</ul></li>
-	<li class='fold'><span class='h3' data-h='fold'>資訊資產分級評估</span><ul>
+	<li class='fold'><h3 data-h='fold'>資訊資產分級評估</h3><ul>
 		<li>對各已識別之資產，宣指派擁有者並識別其安全等級<ul>
 			<li>所識別之擁有者未必須對該資產具任何財產權</li>
-		<ul></li>
+		</ul></li>
 		<li>定期審查重要資產之存取限制及分級，將存取控制政策納入考量</li>
 	</ul></li>
-</ul>
-</section><!--}}}-->
-
-<section><h2>資訊財產管理原則與程序</h2><ul><!--{{{-->
-	<li><span class='h3'>那些資產需要被盤點出來</span><ul>
+	<li class='fold'><h3 data-h='fold'>那些資產需要被盤點出來</h3><ul>
 		<li>硬體類</li>
 		<li>軟體類</li>
 		<li>資訊/資料類</li>
 		<li>人員類</li>
 		<li>服務類</li>
 	</ul></li>
-</ul></section><!--}}}-->
+</ul>
+</section>
 
-<section><h2>風險管理</h2><!--{{{-->
-<div data-h='install:mermaid' class='button'>流程圖繪製<textarea data-v='value:raw'>flowchart LR
-A["風險溝通及諮詢"]
-C["風險監視與審查"] --> B["全景建立"] <--> A
-subgraph D ["風險評鑑"]
-	E["風險識別"] --> F["風險分析"] --> G["風險評估"]
-end
-G --> H{"評鑑是否合意"} -->|"是"| I["風險處理"] --> J{"處理是否合意"} -->|"是"| K["風險接受"] --> A
-H -->|"否"| B --> E
-J -->|"否"| B
-J -->|"否"| I
-C --> A <--> H --> C
-A <--> D
-</textarea></div>
-</section><!--}}}-->
-
-<section><h2>風險評鑑</h2><ul><!--{{{-->
-<li>風險評鑑透過<ul>
-	<li>風險識別 (Risk Identification)，</li>
-	<li>風險分析 (Risk Analysis)，</li>
-	<li>風險評量 (Risk Evaluation) </li>
-</ul>等程序計算風險，再根據風險評估準則評鑑出險項目優先順序的清單</li>
-</ul></section><!--}}}-->
-
-<section><h2>風險識別 (Identify Risk)</h2><ul><!--{{{-->
-<li>風險識別的目的是要決定有可能發生的潛在損失</li>
-<li>包含不論是否在組織下的風險<ul>
-	<li>資產識別 (Identification of Assets)</li>
-	<li>威脅識別 (Identification of Threats)</li>
-	<li>識別現存控制 (Identification of Existing Controls)</li>
-	<li>脆弱性識別 (Identification of Vulnerabilities)</li>
-	<li>後果識別 (Identification of Consequences)</li>
-</ul></li>
-</ul></section><!--}}}-->
-
-<section><h2>風險分析 (Risk Analysis)</h2><ul><!--{{{-->
-<li>依據資產的關鍵性，已知弱點嚴重程度和先前涉及的組織的事件不同細節程度進行</li>
-<li>風險分析的方法論：<ul>
-	<li>定性 (Qualitative)</li>
-	<li>定量 (Quantitative)</li>
-	<li>定性與定量混和</li>
-</ul></li>
-</ul></section><!--}}}-->
-
-<section><h2>風險處理</h2><ul><!--{{{-->
-<li>風險處理的選擇：<ul>
-	<li>風險修改 (Risk Modification)<ul>
-		<li>風險緩解 (Risk Mitigation)</li>
-		<li>實行，移除或改變控制措施以管理風險等級，使殘餘風險被重新評定為可接受</li>
-	</ul></li>
-	<li>風險保留 (Risk Retention)<ul>
-		<li>風險接受 (Risk Acceptance)</li>
-		<li>依據風險評估，沒有進一步行動而保留風險的決策</li>
-	</ul></li>
-	<li>風險避免 (Risk Avoidance)<ul>
-		<li>風險識別太高時，實作其他風險處理的成本超過利益時做出決定以避免風險</li>
-		<li>可能在避免的過程中產生另外的風險</li>
-	</ul></li>
-	<li>風險分攤 (Risk Share)<ul>
-		<li>風險轉移 (Risk Transfer)</li>
-		<li>依據風險評估，將風險分攤至最有效管理特定風險的一方</li>
-	</ul></li>
-</ul></li>
-</ul></section><!--}}}-->
-
-<section><h2>存取控制與身分認證</h2><!--{{{-->
-<div data-h='install:mermaid' class='button'>繪製示意圖<textarea data-v='value:raw'>flowchart TB
-U["主體"]
-subgraph C["存取控制"]
-	I["身分識別<br/>Identification"] --> A["身分認證<br/>Authentication"] --> L["授權"]
-end
-U --> C
-</textarea></div><ul>
-<li>身分識別:<ul>
-	<li>提出公開的證明憑據</li>
-	<li>Identification step</li>
-</ul></li>
-<li>身分認證:<ul>
-	<li>提出私人的證明資訊</li>
-	<li>Authentication step</li>
-</ul></li>
-<li>授權:<ul>
-	<li>系統確認主題是否有權存取受體</li>
-</ul></li>
-</ul></section><!--}}}-->
-
-<section><h2>存取控制與身分認證</h2><!--{{{-->
+<section><h2>風險管理</h2>
 <ul>
-	<li class='fold'><span class='h3' data-h='fold'>身份管理 (IdM: Identity Management)</span><ul>
+	<li data-h='install:mermaid'>
+		<h3>流程圖</h3>
+		<textarea data-v='value:raw'>flowchart LR
+A["風險溝通及諮詢"]
+C["風險監視與審查"] --&gt; B["全景建立"] &lt;--&gt; A
+subgraph D ["風險評鑑"]
+	E["風險識別"] --&gt; F["風險分析"] --&gt; G["風險評估"]
+end
+G --&gt; H{"評鑑是否合意"} --&gt;|"是"| I["風險處理"] --&gt; J{"處理是否合意"} --&gt;|"是"| K["風險接受"] --&gt; A
+H --&gt;|"否"| B --&gt; E
+J --&gt;|"否"| B
+J --&gt;|"否"| I
+C --&gt; A &lt;--&gt; H --&gt; C
+A &lt;--&gt; D
+		</textarea>
+	</li>
+	<li class='fold'><h3 data-h='fold'>風險評鑑</h3><ul>
+		<li>風險評鑑透過<ul>
+			<li>風險識別 (Risk Identification)，</li>
+			<li>風險分析 (Risk Analysis)，</li>
+			<li>風險評量 (Risk Evaluation) </li>
+		</ul>等程序計算風險，再根據風險評估準則評鑑出險項目優先順序的清單</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>風險識別 (Identify Risk)</h3><ul>
+		<li>風險識別的目的是要決定有可能發生的潛在損失</li>
+		<li>包含不論是否在組織下的風險<ul>
+			<li>資產識別 (Identification of Assets)</li>
+			<li>威脅識別 (Identification of Threats)</li>
+			<li>識別現存控制 (Identification of Existing Controls)</li>
+			<li>脆弱性識別 (Identification of Vulnerabilities)</li>
+			<li>後果識別 (Identification of Consequences)</li>
+		</ul></li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>風險分析 (Risk Analysis)</h3><ul>
+		<li>依據資產的關鍵性，已知弱點嚴重程度和先前涉及的組織的事件不同細節程度進行</li>
+		<li>風險分析的方法論：<ul>
+			<li>定性 (Qualitative)</li>
+			<li>定量 (Quantitative)</li>
+			<li>定性與定量混和</li>
+		</ul></li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>風險處理</h3><ul>
+		<li>風險處理的選擇：<ul>
+			<li>風險修改 (Risk Modification)<ul>
+				<li>風險緩解 (Risk Mitigation)</li>
+				<li>實行，移除或改變控制措施以管理風險等級，使殘餘風險被重新評定為可接受</li>
+			</ul></li>
+			<li>風險保留 (Risk Retention)<ul>
+				<li>風險接受 (Risk Acceptance)</li>
+				<li>依據風險評估，沒有進一步行動而保留風險的決策</li>
+			</ul></li>
+			<li>風險避免 (Risk Avoidance)<ul>
+				<li>風險識別太高時，實作其他風險處理的成本超過利益時做出決定以避免風險</li>
+				<li>可能在避免的過程中產生另外的風險</li>
+			</ul></li>
+			<li>風險分攤 (Risk Share)<ul>
+				<li>風險轉移 (Risk Transfer)</li>
+				<li>依據風險評估，將風險分攤至最有效管理特定風險的一方</li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+</section>
+
+<section><h2>存取控制與身分認證</h2>
+<ul>
+	<li class='fold'><h4 data-h='fold'>存取控制</h4><div>
+		<table class='chart'><tr>
+			<th>主體</th>
+		</tr><tr>
+			<td>&darr;&uarr;</td>
+		</tr><tr>
+			<th>
+				<table class='chart'><tr>
+					<td colspan='5'>存取控制</td>
+				</tr><tr>
+					<th>身分識別<br/>Identification</th><td>&rarr;</td>
+					<th>身分認證<br/>Authentication</th><td>&rarr;</td><th>授權</th>
+				</tr></table>
+			</th>
+		</tr></table>
+	</div></li>
+	<li class='fold'><h4 data-h='fold'>身分識別：</h4><ul>
+		<li>提出公開的證明憑據</li>
+		<li>Identification step</li>
+	</ul></li>
+	<li class='fold'><h4 data-h='fold'>身分認證：</h4><ul>
+		<li>提出私人的證明資訊</li>
+		<li>Authentication step</li>
+	</ul></li>
+	<li class='fold'><h4 data-h='fold'>授權：</h4><ul>
+		<li>系統確認主題是否有權存取受體</li>
+	</ul></li>
+</ul>
+</section>
+
+<section><h2>存取控制與身分認證</h2>
+<ul>
+	<li class='fold'><h3 data-h='fold'>身份管理 (IdM: Identity Management)</h3><ul>
 		<li>身份與存取管理 (IAM: Identity and access management)</li>
 		<li>包括使用不同的產品透過自動化方式識別，驗證與授權用戶</li>
 		<li>包括用戶帳戶管理，存取控制，憑證管理，單點登錄功能，管理用戶帳戶的權利和權限，以及審核和監控這些項目<ul>
@@ -474,7 +488,7 @@ U --> C
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>存取控制</span><ul>
+	<li class='fold'><h3 data-h='fold'>存取控制</h3><ul>
 		<li>身份識別 (Identification)</li>
 		<li>身份認證 (Authentification)</li>
 		<li>授權 主體 受體</li>
@@ -483,19 +497,19 @@ U --> C
 		<li>提出公開的證明憑據 Identification step</li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>職權/權限管理原則</span><ul>
+	<li class='fold'><h3 data-h='fold'>職權/權限管理原則</h3><ul>
 		<li>存取權限設定需遵守最小權限原則</li>
 		<li>Principle of Least Privilege (POLP)</li>
 		<li>開放給用戶帳號的權限，宜核發給足以完成該項工作所需即可，不必給予多餘的權限</li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>職務區隔</span><ul>
+	<li class='fold'><h3 data-h='fold'>職務區隔</h3><ul>
 		<li>Segregation of Duties (SoD)<ul>
 			<li>將管理工作分成多人分層負責之管理體系，以避免擁有不同權限的個人進行非授權工作</li>
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>控制的類型</span><ul>
+	<li class='fold'><h3 data-h='fold'>控制的類型</h3><ul>
 		<li>管理型 (Administrative)<ul>從管理層面執行存取控制，使各項作業遵循組織的安全政策，安全流程等相關程序</ul></li>
 		<li>技術型 (Technical)<ul>使用邏輯性技術管理系統資源，防止非法存取資源</ul></li>
 		<li>實體型 (Physical)<ul>
@@ -506,7 +520,7 @@ U --> C
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>功能控制類型</span><ul>
+	<li class='fold'><h3 data-h='fold'>功能控制類型</h3><ul>
 		<li>預防型 (Preventive)<ul>抑制沒有授權的行為發生</ul></li>
 		<li>威嚇型 (Deterrent)<ul>使用威嚇手段嚇止違反資安原則之行為</ul></li>
 		<li>偵查型 (Detective)<ul>發現非授權者入侵的證據</ul></li>
@@ -518,7 +532,7 @@ U --> C
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>控制的技術</span><ul>
+	<li class='fold'><h3 data-h='fold'>控制的技術</h3><ul>
 		<li>任意型存取控制 (DAC: Discretionary Access Control)<ul>依照擁有者的設定控制存取權限</ul></li>
 		<li>強制型存取控制 (MAC: Mandatory Access Control)<ul>
 			<li>依照主體與客體之分類標籤給予權限。</li>
@@ -530,7 +544,7 @@ U --> C
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>身份認證技術</span><ul>
+	<li class='fold'><h3 data-h='fold'>身份認證技術</h3><ul>
 		<li>所知道的事物 (Something you know)<ul>例：密碼，通行語，喜歡的顏色等</ul></li>
 		<li>所擁有的事物 (Something you have)<ul>
 			<li>事先發放給使用者的實體設備或裝置</li>
@@ -542,7 +556,7 @@ U --> C
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>加解密與金鑰</span><ul>
+	<li class='fold'><h3 data-h='fold'>加解密與金鑰</h3><ul>
 		<li>對稱金鑰演算法<ul>加解密使用相同金鑰</ul></li>
 		<li>單一金鑰演算法 (Single-key algorithm)<ul>例：DES，AES</ul></li>
 		<li>公開金鑰演算法<ul>加解密使用不同的金鑰</ul></li>
@@ -553,7 +567,7 @@ U --> C
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><span class='h3' data-h='fold'>單向雜湊函數與訊息摘要</span><ul>
+	<li class='fold'><h3 data-h='fold'>單向雜湊函數與訊息摘要</h3><ul>
 		<li>密碼雜湊函數 (Cryptographic hash function)</li>
 		<li>單向雜湊函數 (One-way hash function)<ul>
 			<li>根據任意長度資料，計算出一固定長度的特徵值 (訊息摘要: Message digest)</li>
@@ -569,94 +583,99 @@ U --> C
 		<li>加鹽雜湊演算法 (Salted hash method)</li>
 	</ul></li>
 </ul>
-</section><!--}}}-->
+</section>
 
-<section><h2>事件與事故管理分級</h2><ul><!--{{{-->
-<li class='fold'><span class='h3' data-h='fold'>第一級資通安全事件</span><ul>
-  <li>非核心業務資訊遭輕微洩漏/竄改</li>
-  <li>非核心資通系統遭輕微竄改</li>
-  <li>非核心業務之運作受影響或停頓，於可容忍中斷時間內回復正常運作，造成機關日常作業影響</li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>第二級資通安全事件</span><ul>
-  <li>非核心業務資訊遭嚴重洩漏/竄改，或未涉及關鍵基礎設施維運之核心業務資訊遭輕微洩漏/竄改</li>
-  <li>非核心資通系統遭嚴重竄改，或未涉及關鍵基礎設施維運之核心資通系統遭輕微修改</li>
-  <li>非核心業務之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
-  <li>未涉及關鍵基礎設施維運之核心業務或核心資通系統之運作受影響或停頓，於可容忍中斷時間內回復正常運作</li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>第三級資通安全事件</span><ul>
-<li>未涉及關鍵基礎設施維運之核心業務資訊遭嚴重洩漏/竄改</li>
-<li>一般公務機密，敏感資訊或涉及關鍵基礎設施維運之核心業務資訊遭輕微洩漏/竄改</li>
-<li>核心資通系統遭輕微修改</li>
-<li>未涉及關鍵基礎設施維運之核心資通系統之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
-<li>涉及關鍵基礎設施維運之核心業務或非核心資通系統之運作受影響或停頓，於可容忍中斷時間內回復正常運作</li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>第四級資通安全事件</span><ul>
-  <li>一般公務機密，敏感資訊或涉及關鍵基礎設施維運之核心業務資訊遭嚴重洩漏/竄改，或國家機密遭洩漏/竄改</li>
-  <li>核心資通系統遭嚴重竄改</li>
-  <li>涉及關鍵基礎設施維運之核心業務或核心資通系統之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
-</ul></li>
-</ul></section><!--}}}-->
+<section><h2>事件與事故管理分級</h2>
+<ul>
+	<li class='fold'><h3 data-h='fold'>第一級資通安全事件</h3><ul>
+	  <li>非核心業務資訊遭輕微洩漏/竄改</li>
+	  <li>非核心資通系統遭輕微竄改</li>
+	  <li>非核心業務之運作受影響或停頓，於可容忍中斷時間內回復正常運作，造成機關日常作業影響</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>第二級資通安全事件</h3><ul>
+	  <li>非核心業務資訊遭嚴重洩漏/竄改，或未涉及關鍵基礎設施維運之核心業務資訊遭輕微洩漏/竄改</li>
+	  <li>非核心資通系統遭嚴重竄改，或未涉及關鍵基礎設施維運之核心資通系統遭輕微修改</li>
+	  <li>非核心業務之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
+	  <li>未涉及關鍵基礎設施維運之核心業務或核心資通系統之運作受影響或停頓，於可容忍中斷時間內回復正常運作</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>第三級資通安全事件</h3><ul>
+	<li>未涉及關鍵基礎設施維運之核心業務資訊遭嚴重洩漏/竄改</li>
+	<li>一般公務機密，敏感資訊或涉及關鍵基礎設施維運之核心業務資訊遭輕微洩漏/竄改</li>
+	<li>核心資通系統遭輕微修改</li>
+	<li>未涉及關鍵基礎設施維運之核心資通系統之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
+	<li>涉及關鍵基礎設施維運之核心業務或非核心資通系統之運作受影響或停頓，於可容忍中斷時間內回復正常運作</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>第四級資通安全事件</h3><ul>
+	  <li>一般公務機密，敏感資訊或涉及關鍵基礎設施維運之核心業務資訊遭嚴重洩漏/竄改，或國家機密遭洩漏/竄改</li>
+	  <li>核心資通系統遭嚴重竄改</li>
+	  <li>涉及關鍵基礎設施維運之核心業務或核心資通系統之運作受影響或停頓，無法於可容忍中斷時間內回復正常運作</li>
+	</ul></li>
+</ul></section>
 
-<section><h2>事件與事故通報時間</h2><ul><!--{{{-->
-<li>公務機關/特定非公務機關在時間規定部分相同</li>
-<li>知悉資通安全事件後，應於1小時內依主管機關指定之方式或對象進行資通安全事件之通報</li>
-<li>依下列規定時間完成該資通安全事件等級之審核，得依審核結果變更其等級：<ul>
-	<li>通報為第一級或第二級資通安全事件者，於接獲後8小時內</li>
-	<li>通報為第三級或第四級資通安全事件者，於接獲後2小時內</li>
-</ul></li>
-<li>應依下列規定時間完成損害控制或復原作業，並依主管機關指定之方式及對象辦理通知事宜：<ul>
-	<li>第一級或第二級資通安全事件，於知悉該事件後72小時內</li>
-	<li>第三級或第四級資通安全事件，於知悉該事件後36小時內</li>
-</ul></li>
-</ul></section><!--}}}-->
+<section><h2>事件與事故通報時間</h2>
+<ul>
+	<li>公務機關/特定非公務機關在時間規定部分相同</li>
+	<li>知悉資通安全事件後，應於1小時內依主管機關指定之方式或對象進行資通安全事件之通報</li>
+	<li>依下列規定時間完成該資通安全事件等級之審核，得依審核結果變更其等級：<ul>
+		<li>通報為第一級或第二級資通安全事件者，於接獲後8小時內</li>
+		<li>通報為第三級或第四級資通安全事件者，於接獲後2小時內</li>
+	</ul></li>
+	<li>應依下列規定時間完成損害控制或復原作業，並依主管機關指定之方式及對象辦理通知事宜：<ul>
+		<li>第一級或第二級資通安全事件，於知悉該事件後72小時內</li>
+		<li>第三級或第四級資通安全事件，於知悉該事件後36小時內</li>
+	</ul></li>
+</ul>
+</section>
 
-<section><h2>備援與營運持續</h2><ul><!--{{{-->
-<li class='fold'><span class='h3' data-h='fold'>營運持續管理 (Business Continuity Management)</span><ul>
-	<li>一個全面的管理過程</li>
-	<li>識別對組織產生威脅的可能衝擊</li>
-	<li>建立彈性的框架</li>
-	<li>保護關鍵的利害關係人，聲望，品牌與價值創造流程</li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>策略與作業框架</span><ul>
-	<li>以營運為出發點，與目的相契合</li>
-	<li>災害復原 (Disaster Recovery)</li>
-	<li>確保業務流程所需要的資源能夠得以回復的程序</li>
-	<li>系統，人員與業務程序能夠在時間恢復</li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>營運持續 (Business Continuity)</span><ul>
-	<li>著重搶時效，強調掌握度！</li>
-	<li>規劃因應事故或營運中斷的策略</li>
-	<li>使業務能在預先規劃的服務等級上持續運行</li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>完整的營運持續管理流程: PDCA</span><ul>
-	<li>瞭解組織：評估關鍵產品服務與活動</li>
-	<li>營運衝擊評鑑 (BIA)</li>
-	<li>最低營運持續目標 (MBCD)，最大可容忍中斷時間 (MTPD)，復原目標時間 (TDO)，復原目標點 (RPO)</li>
-	<li>風險評鑑 (RA)</li>
-	<li>決定營運持續策略</li>
-	<li>決定適當的控制措施面對營運持續的風險</li>
-	<li>降低事故發生的可能性</li>
-	<li>降低事故發生的衝擊</li>
-	<li>包含：場地，技術，資訊，供應，人員，利害關係人</li>
-	<li>發展與實施營運持續回應</li>
-	<li>事故處理計畫 (IMP) 或 緊急應變計畫 (IRP)</li>
-	<li>營運持續計畫 (BCP)</li>
-	<li>演練，維護與審查</li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>最低營運持續目標</span><ul>
-	<li>最低營運持續目標 (MBCO) / 最小可接受服務水準</li>
-	<li>找出讓服務得以持續提供並考量滿足利害關係者，法規及合約的營運目標之最小要求</li>
-</ul></li>
-<li class='fold'><span class='h3' data-h='fold'>三大時間量測指標</span><ul>
-	<li>最大可容忍中斷時間 (MTPD: Maximum Tolerable Period of Disruption)</li>
-	<li>會造成負面影響達到無法接受的時間，不論是財務或組織聲譽，也有可能是組織最大的中斷時間要求</li>
-	<li>復原目標時間 (RTO: Recovery Time Objective)</li>
-	<li>遭遇事故後恢復運轉到MBCO以上的時間目標</li>
-	<li>RTO絕對不會比 MTPD 長</li>
-	<li>復原時間點 (RPO: Recovery Point Objective)</li>
-	<li>恢復活動使用的資訊/資料，以使活動能夠在恢復時運作的點</li>
-</ul></li>
-</ul></section><!--}}}-->
+<section><h2>備援與營運持續</h2>
+<ul>
+	<li class='fold'><h3 data-h='fold'>營運持續管理 (Business Continuity Management)</h3><ul>
+		<li>一個全面的管理過程</li>
+		<li>識別對組織產生威脅的可能衝擊</li>
+		<li>建立彈性的框架</li>
+		<li>保護關鍵的利害關係人，聲望，品牌與價值創造流程</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>策略與作業框架</h3><ul>
+		<li>以營運為出發點，與目的相契合</li>
+		<li>災害復原 (Disaster Recovery)</li>
+		<li>確保業務流程所需要的資源能夠得以回復的程序</li>
+		<li>系統，人員與業務程序能夠在時間恢復</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>營運持續 (Business Continuity)</h3><ul>
+		<li>著重搶時效，強調掌握度！</li>
+		<li>規劃因應事故或營運中斷的策略</li>
+		<li>使業務能在預先規劃的服務等級上持續運行</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>完整的營運持續管理流程: PDCA</h3><ul>
+		<li>瞭解組織：評估關鍵產品服務與活動</li>
+		<li>營運衝擊評鑑 (BIA)</li>
+		<li>最低營運持續目標 (MBCD)，最大可容忍中斷時間 (MTPD)，復原目標時間 (TDO)，復原目標點 (RPO)</li>
+		<li>風險評鑑 (RA)</li>
+		<li>決定營運持續策略</li>
+		<li>決定適當的控制措施面對營運持續的風險</li>
+		<li>降低事故發生的可能性</li>
+		<li>降低事故發生的衝擊</li>
+		<li>包含：場地，技術，資訊，供應，人員，利害關係人</li>
+		<li>發展與實施營運持續回應</li>
+		<li>事故處理計畫 (IMP) 或 緊急應變計畫 (IRP)</li>
+		<li>營運持續計畫 (BCP)</li>
+		<li>演練，維護與審查</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>最低營運持續目標</h3><ul>
+		<li>最低營運持續目標 (MBCO) / 最小可接受服務水準</li>
+		<li>找出讓服務得以持續提供並考量滿足利害關係者，法規及合約的營運目標之最小要求</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>三大時間量測指標</h3><ul>
+		<li>最大可容忍中斷時間 (MTPD: Maximum Tolerable Period of Disruption)</li>
+		<li>會造成負面影響達到無法接受的時間，不論是財務或組織聲譽，也有可能是組織最大的中斷時間要求</li>
+		<li>復原目標時間 (RTO: Recovery Time Objective)</li>
+		<li>遭遇事故後恢復運轉到MBCO以上的時間目標</li>
+		<li>RTO絕對不會比 MTPD 長</li>
+		<li>復原時間點 (RPO: Recovery Point Objective)</li>
+		<li>恢復活動使用的資訊/資料，以使活動能夠在恢復時運作的點</li>
+	</ul></li>
+</ul>
+</section>
 
 </body>
 </html>
