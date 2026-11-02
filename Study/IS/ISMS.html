@@ -498,18 +498,18 @@ A &lt;--&gt; D
 	</ul></li>
 
 	<li class='fold'><h3 data-h='fold'>職權/權限管理原則</h3><ul>
-		<li>存取權限設定需遵守最小權限原則</li>
-		<li>Principle of Least Privilege (POLP)</li>
-		<li>開放給用戶帳號的權限，宜核發給足以完成該項工作所需即可，不必給予多餘的權限</li>
-	</ul></li>
-
-	<li class='fold'><h3 data-h='fold'>職務區隔</h3><ul>
-		<li>Segregation of Duties (SoD)<ul>
+		<li><h3>存取權限設定需遵守最小權限原則</h3><ul>
+			<li>Principle of Least Privilege (POLP)</li>
+			<li>開放給用戶帳號的權限，宜核發給足以完成該項工作所需即可，不必給予多餘的權限</li>
+		</ul></li>
+		<li><h3>職務區隔</h3><ul>
+			<li>職責分工（Segregation of Duties，簡稱 SoD）是內部控制與資訊安全領域的核心原則，其核心理念是：「一項關鍵任務的完整流程，絕不能由單一個人獨立完成。」</li>
+			<li>透過將授權、執行、記錄和審查等職能拆分給不同的人員或系統角色，可以有效防範詐欺（Fraud）、舞弊以及無心造成的重大錯誤（Error）。</li>
 			<li>將管理工作分成多人分層負責之管理體系，以避免擁有不同權限的個人進行非授權工作</li>
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><h3 data-h='fold'>控制的類型</h3><ul>
+	<li class='fold'><h3 data-h='fold'>控制的方法分類</h3><ul>
 		<li>管理型 (Administrative)<ul>從管理層面執行存取控制，使各項作業遵循組織的安全政策，安全流程等相關程序</ul></li>
 		<li>技術型 (Technical)<ul>使用邏輯性技術管理系統資源，防止非法存取資源</ul></li>
 		<li>實體型 (Physical)<ul>
@@ -520,7 +520,7 @@ A &lt;--&gt; D
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><h3 data-h='fold'>功能控制類型</h3><ul>
+	<li class='fold'><h3 data-h='fold'>控制的功能目標分類</h3><ul>
 		<li>預防型 (Preventive)<ul>抑制沒有授權的行為發生</ul></li>
 		<li>威嚇型 (Deterrent)<ul>使用威嚇手段嚇止違反資安原則之行為</ul></li>
 		<li>偵查型 (Detective)<ul>發現非授權者入侵的證據</ul></li>
@@ -532,7 +532,7 @@ A &lt;--&gt; D
 		</ul></li>
 	</ul></li>
 
-	<li class='fold'><h3 data-h='fold'>控制的技術</h3><ul>
+	<li class='fold'><h3 data-h='fold'>控制的技術分類</h3><ul>
 		<li>任意型存取控制 (DAC: Discretionary Access Control)<ul>依照擁有者的設定控制存取權限</ul></li>
 		<li>強制型存取控制 (MAC: Mandatory Access Control)<ul>
 			<li>依照主體與客體之分類標籤給予權限。</li>
@@ -544,43 +544,73 @@ A &lt;--&gt; D
 		</ul></li>
 	</ul></li>
 
+</ul>
+</section>
+
+<section><h2>密碼方法</h2>
+<ul>
 	<li class='fold'><h3 data-h='fold'>身份認證技術</h3><ul>
-		<li>所知道的事物 (Something you know)<ul>例：密碼，通行語，喜歡的顏色等</ul></li>
-		<li>所擁有的事物 (Something you have)<ul>
+		<li><h4>所知道的事物 (Something you know)</h4><ul>
+			<li>例：密碼，通行語，喜歡的顏色等</li>
+		</ul></li>
+		<li><h4>所擁有的事物 (Something you have)</h4><ul>
 			<li>事先發放給使用者的實體設備或裝置</li>
 			<li>設備不易偽造，但有遺失的風險</li>
 		</ul></li>
-		<li>所具有的特徵 (Something you are)<ul>
+		<li><h4>所具有的特徵 (Something you are)</h4><ul>
 			<li>個人的生理或物理特徵</li>
 			<li>例：指紋，聲音，虹膜，視網膜，臉型，手型等</li>
 		</ul></li>
 	</ul></li>
-
 	<li class='fold'><h3 data-h='fold'>加解密與金鑰</h3><ul>
-		<li>對稱金鑰演算法<ul>加解密使用相同金鑰</ul></li>
-		<li>單一金鑰演算法 (Single-key algorithm)<ul>例：DES，AES</ul></li>
-		<li>公開金鑰演算法<ul>加解密使用不同的金鑰</ul></li>
-		<li>非對稱金鑰演算法 或 雙金鑰演算法 (Two-key algorithm)<ul>
-			<li>產生兩組特殊自串作為公開金鑰 (Public Key) 語私密金鑰 (Private Key)</li>
-			<li>用公開金鑰加密祕文，用私密金鑰解密祕文</li>
+		<li><h4>對稱金鑰演算法</h4><ul>
+			<li>單一金鑰演算法 (Single-key algorithm)<ul>例：DES，AES</ul></li>
+			<li>加密與解密使用同一把秘密金鑰（Secret Key）。</li>
+			<li>發送方與接收方在進行安全通訊前，必須先透過某種管道共享這把金鑰。</li>
+			<li><em><b>明文</b> &rarr;(加密)&rarr; <b>密文</b> &rarr;(解密)&rarr; <b>明文</b></em></li>
+		</ul></li>
+		<li><h4>非對稱金鑰演算法 或 雙金鑰演算法 (Two-key algorithm)</h4><ul>
+			<li>公開金鑰演算法<ul>加解密使用不同的金鑰</ul></li>
+			<li>使用一對成對且數學相關的金鑰：<ul>
+				<li><b>公開金鑰（Public Key）：</b> 完全公開，任何人皆可取得。</li>
+				<li><b>私密金鑰（Private Key）：</b> 僅由擁有者嚴密保存，絕不外流。</li>
+			</ul></li>
+			<li>兩大核心應用模式<ul>
+				<li>機密傳輸（公鑰加密，私鑰解密）<ul>
+					<li>任何人都可以用接收者的公鑰加密資料。</li>
+					<li>只有持有對應私鑰的接收者能夠解開。</li>
+				</ul></li>
+				<li>數位簽章與身份認證（私鑰簽署，公鑰驗證）<ul>
+					<li>發送者用自己的私鑰對資料摘要進行簽署。</li>
+					<li>任何人都能用發送者的公鑰驗證簽章，確保資料來自該發送者且未遭竄改（具備不可否認性，Non-repudiation）。</li>
+				</ul></li>
+			</ul></li>
 			<li>例：RSA，ElGamal 或橢圓曲線密碼 (ECC) 等</li>
 		</ul></li>
 	</ul></li>
 
 	<li class='fold'><h3 data-h='fold'>單向雜湊函數與訊息摘要</h3><ul>
-		<li>密碼雜湊函數 (Cryptographic hash function)</li>
-		<li>單向雜湊函數 (One-way hash function)<ul>
-			<li>根據任意長度資料，計算出一固定長度的特徵值 (訊息摘要: Message digest)</li>
+		<li><h4>單向雜湊函數 (One-way hash function)</h4><ul>
+			<li>單向雜湊函數是一種數學演算法，能將任意長度的輸入資料轉換成固定長度的輸出字串（稱為摘要 Message digest 或雜湊值，Hash Value）。</li>
 			<li>可做為原資料的標籤，用來驗證資料的完整性。</li>
+			<li>美國國家標準安全局認證之雜湊函數包括:<ul>
+				<li>SHA-1，SHA-2 (SHA-224, SHA-256, SHA-384, SHA-512, …)</li>
+			</ul></li>
+			<li>安全的理由:<ul>
+				<li>由訊息摘要反推原訊息非常困難</li>
+				<li>要找到兩組不同訊息對應到相同摘要非常困難</li>
+			</ul></li>
 		</ul></li>
-		<li>美國國家標準安全局認證之雜湊函數包括:<ul>
-			<li>SHA-1，SHA-2 (SHA-224, SHA-256, SHA-384, SHA-512, …)</li>
+		<li><h4>密碼雜湊函數 (Cryptographic hash function)</h4><ul>
+			<li>密碼雜湊函數是專為儲存密碼設計的單向雜湊演算法。一般單向雜湊（如 SHA-256）由於運算太快，攻擊者利用高效能 GPU 或 ASIC 晶片一秒鐘能計算數十億次雜湊，輕易暴力窮舉常見密碼。</li>
+			<li>密碼雜湊函數的核心策略是刻意變慢</li>
+			<li>例如: rgon2（Argon2id）, bcrypt, scrypt, PBKDF2</li>
 		</ul></li>
-		<li>安全的理由:<ul>
-			<li>由訊息摘要反推原訊息非常困難</li>
-			<li>要找到兩組不同訊息對應到相同摘要非常困難</li>
+		<li><h4>加鹽雜湊演算法 (Salted hash method)</h4><ul>
+			<li>如果使用者設定了相同或常見的弱密碼（例如 password123），直接進行雜湊會產生相同的摘要。黑客便能透過預先計算好的彩虹表（Rainbow Table）以極短時間查表逆推密碼。</li>
+			<li>加鹽（Salting）就是為每位使用者的密碼混入一段獨一無二的隨機資料。</li>
+			<li><em>Hash = H(Password + Salt)</em></li>
 		</ul></li>
-		<li>加鹽雜湊演算法 (Salted hash method)</li>
 	</ul></li>
 </ul>
 </section>
@@ -629,50 +659,58 @@ A &lt;--&gt; D
 
 <section><h2>備援與營運持續</h2>
 <ul>
-	<li class='fold'><h3 data-h='fold'>營運持續管理 (Business Continuity Management)</h3><ul>
-		<li>一個全面的管理過程</li>
+	<li class='fold'><h3 data-h='fold'>營運持續管理 (Business Continuity Management)</h3>
+	<ul><li>一個全面的管理過程</li>
 		<li>識別對組織產生威脅的可能衝擊</li>
 		<li>建立彈性的框架</li>
 		<li>保護關鍵的利害關係人，聲望，品牌與價值創造流程</li>
 	</ul></li>
-	<li class='fold'><h3 data-h='fold'>策略與作業框架</h3><ul>
-		<li>以營運為出發點，與目的相契合</li>
+	<li class='fold'><h3 data-h='fold'>策略與作業框架</h3>
+	<ul><li>以營運為出發點，與目的相契合</li>
 		<li>災害復原 (Disaster Recovery)</li>
 		<li>確保業務流程所需要的資源能夠得以回復的程序</li>
 		<li>系統，人員與業務程序能夠在時間恢復</li>
 	</ul></li>
-	<li class='fold'><h3 data-h='fold'>營運持續 (Business Continuity)</h3><ul>
-		<li>著重搶時效，強調掌握度！</li>
+	<li class='fold'><h3 data-h='fold'>營運持續 (Business Continuity)</h3>
+	<ul><li>著重搶時效，強調掌握度！</li>
 		<li>規劃因應事故或營運中斷的策略</li>
 		<li>使業務能在預先規劃的服務等級上持續運行</li>
 	</ul></li>
 	<li class='fold'><h3 data-h='fold'>完整的營運持續管理流程: PDCA</h3><ul>
-		<li>瞭解組織：評估關鍵產品服務與活動</li>
-		<li>營運衝擊評鑑 (BIA)</li>
-		<li>最低營運持續目標 (MBCD)，最大可容忍中斷時間 (MTPD)，復原目標時間 (TDO)，復原目標點 (RPO)</li>
-		<li>風險評鑑 (RA)</li>
-		<li>決定營運持續策略</li>
-		<li>決定適當的控制措施面對營運持續的風險</li>
-		<li>降低事故發生的可能性</li>
-		<li>降低事故發生的衝擊</li>
-		<li>包含：場地，技術，資訊，供應，人員，利害關係人</li>
-		<li>發展與實施營運持續回應</li>
-		<li>事故處理計畫 (IMP) 或 緊急應變計畫 (IRP)</li>
-		<li>營運持續計畫 (BCP)</li>
-		<li>演練，維護與審查</li>
+		<li><h4>瞭解組織：評估關鍵產品服務與活動</h4><ul>
+			<li>營運衝擊評鑑 (BIA)<ul>
+				<li>最低營運持續目標 (MBCD)，最大可容忍中斷時間 (MTPD)，復原目標時間 (TDO)，復原目標點 (RPO)</li>
+			</ul></li>
+			<li>風險評鑑 (RA)</li>
+		</ul></li>
+		<li><h4>決定營運持續策略</h4><ul>
+			<li>決定適當的控制措施面對營運持續的風險<ul>
+				<li>降低事故發生的可能性</li>
+				<li>降低事故發生的衝擊</li>
+			</ul></li>
+			<li>包含：場地，技術，資訊，供應，人員，利害關係人</li>
+		</ul></li>
+		<li><h4>發展與實施營運持續回應</h4><ul>
+			<li>事故處理計畫 (IMP) 或 緊急應變計畫 (IRP)</li>
+			<li>營運持續計畫 (BCP)</li>
+		</ul></li>
+		<li><h4>演練，維護與審查</h4></li>
 	</ul></li>
 	<li class='fold'><h3 data-h='fold'>最低營運持續目標</h3><ul>
 		<li>最低營運持續目標 (MBCO) / 最小可接受服務水準</li>
 		<li>找出讓服務得以持續提供並考量滿足利害關係者，法規及合約的營運目標之最小要求</li>
 	</ul></li>
 	<li class='fold'><h3 data-h='fold'>三大時間量測指標</h3><ul>
-		<li>最大可容忍中斷時間 (MTPD: Maximum Tolerable Period of Disruption)</li>
-		<li>會造成負面影響達到無法接受的時間，不論是財務或組織聲譽，也有可能是組織最大的中斷時間要求</li>
-		<li>復原目標時間 (RTO: Recovery Time Objective)</li>
-		<li>遭遇事故後恢復運轉到MBCO以上的時間目標</li>
-		<li>RTO絕對不會比 MTPD 長</li>
-		<li>復原時間點 (RPO: Recovery Point Objective)</li>
-		<li>恢復活動使用的資訊/資料，以使活動能夠在恢復時運作的點</li>
+		<li><h4>最大可容忍中斷時間 (MTPD: Maximum Tolerable Period of Disruption)</h4><ul>
+			<li>會造成負面影響達到無法接受的時間，不論是財務或組織聲譽，也有可能是組織最大的中斷時間要求</li>
+		</ul></li>
+		<li><h4>復原目標時間 (RTO: Recovery Time Objective)</h4><ul>
+			<li>遭遇事故後恢復運轉到MBCO以上的時間目標</li>
+			<li>RTO絕對不會比 MTPD 長</li>
+		</ul></li>
+		<li><h4>復原時間點 (RPO: Recovery Point Objective)</h4><ul>
+			<li>恢復活動使用的資訊/資料，以使活動能夠在恢復時運作的點</li>
+		</ul></li>
 	</ul></li>
 </ul>
 </section>
