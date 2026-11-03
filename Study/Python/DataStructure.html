@@ -68,13 +68,13 @@ a='Lai'
 # 索引表 "a":0
 b=a
 # 記憶體 'L', 'a', 'i', 'L', 'a', 'i'
-# 索引表 "a":0, "b":3
-a='賴柏伸'
-# 記憶體 '賴', '柏', '伸', 'L', 'a', 'i'
-# 索引表 "a":0, "b":3
-print(f"&rarr; a:{a},b:{b}")
+# 索引表 "a":0, "b":0
+a+='!'
+# 記憶體 'L', 'a', 'i', 'L', 'a', 'i','!'
+# 索引表 "a":3, "b":0
+print(f"&rarr; a:{a}, b:{b}")
 		</div></li>
-		<li>&rarr; a:賴柏伸,b:Lai</li>
+		<li>&rarr; a:Lai!, b:Lai</li>
 	</ul></li>
 	<li><b class='h4'>可變: </b><ul>
 		<li><div data-x='code'>
@@ -84,12 +84,12 @@ a=['L','a','i']
 b=a
 # 記憶體 'L','a','i'
 # 索引表 "a":0,"b":0
-a[1]='賴'
-# 記憶體 'L', '賴', 'i'
+a+=['!']
+# 記憶體 'L', 'a', 'i', '!'
 # 索引表 {"a":0,"b":0}
-print(f"&rarr; a:{a},b:{b}")
+print(f"&rarr; a:{a}, b:{b}")
 		</div></li>
-		<li>&rarr; a:['L', '賴', 'i'],b:['L', '賴', 'i']</li>
+		<li>&rarr; a:['L', 'a', 'i', '!'], b:['L', 'a', 'i', '!']</li>
 	</ul></li>
 </ul></section>
 
