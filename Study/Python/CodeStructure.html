@@ -53,6 +53,16 @@ table small { color:#666; }
 .QMix { display:flex;overflow:auto;align-items:center; }
 </style>
 
+<section class='page col'>
+	<div class='h1 ac' style='margin-bottom:1em'>程式架構<br/>Code Structure</div>
+	<div class="frame">
+		<div>😊 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div>🎓 Department of Finance,</div>
+		<div>🏫 Chihlee University of Technology</div>
+		<div>🕑 2026, Winter</div>
+	</div>
+</section>
+
 <section><h2>🛠️ 程式註解</h2>
 <ul>
 	<li>程式註解是一種在原始碼中插入的<b>非執行性文字</b>。</li>
@@ -308,6 +318,8 @@ def full_example(
 	*args, kwd_only1, kwd_only2=20, **kwargs
 ):
 	pass
+	</li>
+</ul>
 </section>
 
 <section data-ks='Q_ITS'>
@@ -465,7 +477,7 @@ def grosspay(hours=40,rate=25,pieces=0,piecerate=0,salary=0):
 		return pieces * piecerate
 	if salary &gt; 0:
 		pass
-	if hours &gt; 40:<
+	if hours &gt; 40:
 		overtime = (hours-40) * (1.5 * rate)
 		return overtime + (40 * rate)
 	else:
@@ -544,440 +556,353 @@ def cube(n):
 </div>
 </section>
 
-<section data-ks='P_CS'><h2>💻 模組: random</h2><!--{{{-->
-	<table class='ltable'><thead><tr>
-		<th>函式<div>參數</div></th>
-		<th>功能<div>範例</div></th>
-	</tr></thead><tbody><tr>
-		<th>randint<div>(n1, n2)</div></th>
-		<td>由 <b>n1</b> 到 <b>n2</b> 之間隨機取得一個整數
-			<div>7 ← r.randint(1, 10)</div>
-		</td>
-	</tr><tr>
-		<th>randrange<div>(n1, n2, n3)</div></th>
-		<td>由 <b>n1</b> 到 <b>n2</b> 之間每隔 <b>n3</b> 的隨機數取得一個整數
-			<div>8 ← r.randrange(0, 11, 2)</div>
-		</td>
-	</tr><tr>
-		<th>uniform<div>(f1, f2)</div></th>
-		<td>由 <b>f1</b> 到 <b>f2</b> 之間隨機取得一個浮點數
-			<div>6.351865... ← r.uniform(1, 10)</div>
-		</td>
-	</tr><tr>
-		<th>random<div>()</div></th>
-		<td>由 <b>0</b> 到 <b>1</b> 之間隨機取得一個浮點數
-			<div>0.893398... ← r.random()</div>
-		</td>
-	</tr><tr>
-		<th>choice<div>( 字串 )</div></th>
-		<td>由字串中隨機取得一個字元
-			<div>'b' ← r.choice('abcdef')</td>
-		</td>
-	</tr><tr>
-		<th>sample<div>( 字串, n)</div></th>
-		<td>由字串中隨機取得 <b>n</b> 個字元
-			<div>['c', 'a', 'd'] ← r.sample(str1, 3)</div>
-		</td>
-	</tr><tr>
-		<th>shuffle<div>( 串列 )</div></th>
-		<td>為串列洗牌
-			<div>['ef', 'ab', 'cd'] ← r.shuffle(['ab','cd','ef'])</div>
-		</td>
-	</tr></tbody></table>
-</section><!--}}}-->
+<section data-ks='P_CS'><h2>💻 模組: random</h2>
+<ul>
+	<li class='fold'><h3 data-h='fold'>浮點數</h3><ul>
+		<li><h4>random() &rarr; [0, 1)</h4><ul>
+			<li>由 <b>0</b> 到 <b>1</b> 之間隨機取得一個浮點數</li>
+		</ul></li>
+		<li><h4>uniform(最小浮點數, 最大浮點數) &rarr; [最小浮點數,最大浮點數) 或 [最小浮點數,最大浮點數]</h4><ul>
+			<li>在<b>最小浮點數</b>與<b>最大浮點數</b>間隨機取一個浮點數</li>
+			<li data-x='code'>
+# [a,b) 因浮點數計算後四捨五入的關係變成 [a,b]
+def my_uniform (a, b):
+	return a + random() * (b - a)
+			</li>
+		</ul></li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>整數</h3><ul>
+		<li><h4>randrange(整數開始, 整數結束, 整數變動量) &rarr; [整數開始,整數結束)</h4><ul>
+			<li>由 range(<b>整數開始</b>,<b>整數結束</b>,<b>整數變動量</b>) 中隨機取一個</li>
+			<li data-x='code'>
+def my_randrange (start, stop):
+	return int(start + random() * (stop - start))
+			</li>
+		</ul></li>
+		<li><h4>randint(整數最小, 整數最大) &rarr; [整數最小,整數最大]</h4><ul>
+			<li>隨機取得一個最小為<b>整數最小</b>，最大為<b>整數最大</b>的整數</li>
+			<li data-x='code'>
+def my_randint (a, b):
+	return int(a + random() * (b - a + 1))
+			</li>
+		</ul></li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>串列</h3><ul>
+		<li><h4>choice(串列)</h4><ul>
+			<li>由<b>字串</b>中隨機取得一個字元</li>
+			<li data-x='code'>
+def my_choice (s) :
+	return s[randrange(len(s))]
+			</li>
+		</ul></li>
+		<li><h4>sample(串列,個數)</h4><ul>
+			<li>由<b>串列</b>中隨機取得<b>個數</b>個字元</li>
+		</ul></li>
+		<li><h4>shuffle(串列) &rarr; 洗牌後的串列</h4><ul>
+			<li>為<b>串列</b>洗牌</li>
+		</ul></li>
+	</ul></li>
+</ul>
+</section>
 
-<section data-ks='Q_ITS'><!--{{{ Random -->
-	<div data-x='quiz:m'>
-		您正在撰寫程式碼來產生一個最小值5與最大值11的隨機整數。<br/>
-		請問您應該使用哪兩個函式?
-		<div data-o="X">random.randint(5, 12)</div>
-		<div data-o="O">random.randrange(5, 12, 1)</div>
-		<div data-o="O">random.randint(5, 11)</div>
-		<div data-o="X">random.randrange(5, 11, 1)</div>
-	</div>
-</section><!--}}}-->
+<section data-ks='Q_ITS'>
+<div data-x='quiz:m'>
+	您正在撰寫程式碼來產生一個最小值5與最大值11的隨機整數。<br/>
+	請問您應該使用哪兩個函式?
+	<div data-o="X">random.randint(5, 12)</div>
+	<div data-o="O">random.randrange(5, 12, 1)</div>
+	<div data-o="O">random.randint(5, 11)</div>
+	<div data-o="X">random.randrange(5, 11, 1)</div>
+</div>
+</section>
 
-<section data-ks='Q_ITS'><!--{{{ Random -->
-	<div data-x='quiz:c'>
-		<div>您正在撰寫一個程式來隨機指派房間(room_number)和團隊建立組別(group)以進行公司培訓活動。</div>
-		<div class="frame cb">
-			<div>import random</div>
-			<div>roomsAssigned=[1]</div>
-			<div>room_number=1</div>
-			<div>groupList=["Ropes","Rafting","Obstacle","Wellness"]</div>
-			<div>count=0</div>
-			<div>print("Welcome to CompanyPro's Team-Building Weekend!")</div>
-			<div>name=input("Please enter your name (q to quit)? ")</div>
-			<div>while name != 'q' and count &lt; 50:</div>
-			<div class='cb'>
-				<div>while room_number in roomsAssigned:</div>
-				<div class='cb'>
-					<div data-x='quiz:s' class='QR_'>
-						<span class='HT'>點擊展開</span>
-						<div data-o='X'>room_number=random(1,50)</div>
-						<div data-o='O'>room_number=random.randint(1,50)</div>
-						<div data-o='X'>room_number=random.shuffle(1,50)</div>
-						<div data-o='X'>room_number=random.random(1,50)</div>
-					</div>
-				</div>
-				<div>print(f"{name}, your room number is {room_number}")</div>
-				<div>roomsAssigned.append(room_number)</div>
-				<div data-x='quiz:s' class='QR_'>
-					<span class='HT'>點擊展開</span>
-					<div data-o='O'>group = random.choice(groupList)</div>
-					<div data-o='X'>group = random.randange(groupList)</div>
-					<div data-o='X'>group = random.shuffle(groupList)</div>
-					<div data-o='X'>group = random.sample(groupList)</div>
-				</div>
-				<div>print(f"You will meet with the {group} Group this afternoon. ")</div>
-				<div>count+=1</div>
-				<div>name=input("Please enter your name (Q to quit)? ")</div>
-			</div>
-		</div>
-	</div>
-</section><!--}}}-->
-
-<section data-ks='Q_ITS'><!--{{{-->
-	<div data-x='quiz:m'>
-		<div>您任職於某個遊戲開發團隊。</div>
-		<div>您需要撰寫程式碼來產生符合下列需求的隨機數字:</div>
-		<ul>
-			<li>此數字是5的倍數。</li>
-			<li>最低數字是5。</li>
-			<li>最高數字是100。</li>
-		</ul>
-		<div>請問哪兩個程式碼片段將符合需求? 每個正確答案都是一個完整的解決方案。</div>
- 
-		<div data-o='X'>
-			<div>from random import randrange</div>
-			<div>print(randrange(0, 100, 5))</div>
-		</div>
-		<div data-o='O'>
-			<div>from random import randint</div>
-			<div>print(randint(1, 20) * 5)</div>
-		</div>
-		<div data-o='O'>
-			<div>from random import randrange</div>
-			<div>print(randrange(5, 105, 5))</div>
-		</div>
-		<div data-o='X'>
-			<div>from random import randint</div>
-			<div>print(randint(0, 20) * 5)</div>
-		</div>
-	</div>
-</section><!--}}}-->
-
-<section data-ks='P_CS'><h2>📅 Python datetime 模組常用方法</h2><!--{{{-->
-	<div>Python 的 datetime 模組主要包含了 date、time、datetime、timedelta 和 tzinfo 幾個核心類別。</div>
-	<div>以下表格著重於在程式設計中最常用到的 datetime 類別方法。</div>
-
-	<table border='1' cellspacing='0' cellpadding='8' width='100%' align='center' style='font-size:70%'><thead><tr>
-		<th><b>類別/方法</b><div class='sub'><b>參數</b><div></th>
-		<th><b>說明</b></th>
-		<th><b>範例</b><div class='sub'><b>輸出結果</b></div></th>
-	</tr></thead><tbody><tr>
-		<td><b>datetime.now()</b><div class='sub'>無</div></td>
-		<td>取得<b>當前</b>的本地日期和時間。</td>
-		<td>dt = datetime.now()<div class='sub'>2025-12-09 14:10:56.123456</div></td>
-	</tr><tr>
-		<td><b>datetime.strptime()</b><div class='sub'>string, format</div></td>
-		<td>將<b>字串</b>依指定格式解析成 datetime 物件。</td>
-		<td>dt = datetime.strptime("2025/12/09 14:10", "%Y/%m/%d %H:%M")<div class='sub'>2025-12-09 14:10:00</div></td>
-	</tr><tr>
-		<td><b>.strftime()</b><div class='sub'>format</div></td>
-		<td>將 datetime 物件格式化為<b>字串</b>輸出。</td>
-		<td>dt = datetime(2025, 12, 9, 14, 10)<br/>dt.strftime("%Y年%m月%d日")<div class='sub'>2025年12月09日</div></td>
-	</tr><tr>
-		<td><b>.date()</b><div class='sub'>無</div></td>
-		<td>從 datetime 物件中取出<b>日期</b>部分 (回傳 date 物件)。</td>
-		<td>dt = datetime.now()<br/>dt.date()<div class='sub'>2025-12-09</div></td>
-	</tr><tr>
-		<td><b>.time()</b><div class='sub'>無</div></td>
-		<td>從 datetime 物件中取出<b>時間</b>部分 (回傳 time 物件)。</td>
-		<td>dt = datetime.now()<br/>dt.time()<div class='sub'>14:10:56.123456</div></td>
-	</tr><tr>
-		<td><b>.weekday()</b><div class='sub'>無</div></td>
-		<td>回傳星期幾，<b>週一為 0，週日為 6</b>。</td>
-		<td>dt = datetime(2025, 12, 9) (週二)<br/>dt.weekday()<div class='sub'>1</div></td>
-	</tr><tr>
-		<td><b>.isoweekday()</b><div class='sub'>無</div></td>
-		<td>回傳星期幾，<b>週一為 1，週日為 7</b>。</td>
-		<td>dt = datetime(2025, 12, 9) (週二)<br/>dt.isoweekday()<div class='sub'>2</div></td>
-	</tr><tr>
-		<td><b>timedelta</b><div class='sub'>days, hours, etc.</div></td>
-		<td><b>時間差</b>計算。用於加減日期時間。</td>
-		<td>dt1 = datetime(2025, 12, 9)<br/>td = timedelta(days=7)<br/>dt2 = dt1 + td<div class='sub'>2025-12-16 00:00:00</div></td>
-	</tr></tbody></table>
-</section><!--}}}-->
-
-<section data-ks='P_CS'><h2>📅 DateTime Format Codes</h2><!--{{{-->
-	<table border='1' cellspacing='1' cellpadding='8' align='center' style='font-size:70%'><thead><tr>
-		<th><b>類別</b></th>
-		<th><b>代碼</b></th>
-		<th><b>意義</b></th>
-		<th><b>範例輸出</b></th>
-	</tr></thead><tbody><tr>
-		<td><b>年份</b></td>
-		<td>%Y</td>
-		<td>帶世紀的年份</td>
-		<td>2025</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%y</td>
-		<td>不帶世紀的年份 (00-99)</td>
-		<td>25</td>
-	</tr><tr>
-		<td><b>月份</b></td>
-		<td>%m</td>
-		<td>月份，帶零填充的數字 (01-12)</td>
-		<td>12</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%B</td>
-		<td>月份的全稱 (依地區設定而定)</td>
-		<td>December</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%b</td>
-		<td>月份的縮寫名稱 (依地區設定而定)</td>
-		<td>Dec</td>
-	</tr><tr>
-		<td><b>日</b></td>
-		<td>%d</td>
-		<td>月份中的日期，帶零填充的數字 (01-31)</td>
-		<td>03</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%j</td>
-		<td>年份中的第幾天，帶零填充的數字 (001-366)</td>
-		<td>337</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%A</td>
-		<td>星期幾的全稱 (依地區設定而定)</td>
-		<td>Wednesday</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%a</td>
-		<td>星期幾的縮寫名稱 (依地區設定而定)</td>
-		<td>Wed</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%w</td>
-		<td>星期幾的數字 (0=星期日 到 6=星期六)</td>
-		<td>3</td>
-	</tr><tr>
-		<td><b>小時</b></td>
-		<td>%H</td>
-		<td>小時 (24 小時制)，帶零填充的數字 (00-23)</td>
-		<td>17</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%I</td>
-		<td>小時 (12 小時制)，帶零填充的數字 (01-12)</td>
-		<td>05</td>
-	</tr><tr>
-		<td><b>分鐘</b></td>
-		<td>%M</td>
-		<td>分鐘，帶零填充的數字 (00-59)</td>
-		<td>52</td>
-	</tr><tr>
-		<td><b>秒數</b></td>
-		<td>%S</td>
-		<td>秒數，帶零填充的數字 (00-61，包括閏秒)</td>
-		<td>17</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%f</td>
-		<td>微秒，作為小數點數字 (000000-999999)</td>
-		<td>000000 (如果未提供)</td>
-	</tr><tr>
-		<td><b>上午/下午</b></td>
-		<td>%p</td>
-		<td>地區設定中上午或下午的表示</td>
-		<td>PM</td>
-	</tr><tr>
-		<td><b>時區</b></td>
-		<td>%z</td>
-		<td>時區偏移量 (例如，-0500, +0800)</td>
-		<td>-0600 (對於 CST)</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%Z</td>
-		<td>時區名稱 (依地區設定而定)</td>
-		<td>CST (對於 Central Standard Time)</td>
-	</tr><tr>
-		<td><b>組合</b></td>
-		<td>%c</td>
-		<td>地區設定中合適的日期和時間表示</td>
-		<td>Wed Dec 3 17:52:17 2025</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%x</td>
-		<td>地區設定中合適的日期表示</td>
-		<td>12/03/25</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%X</td>
-		<td>地區設定中合適的時間表示</td>
-		<td>17:52:17</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%r</td>
-		<td>12 小時制時間 (等同於 %I:%M:%S %p)</td>
-		<td>05:52:17 PM</td>
-	</tr><tr>
-		<td>&nbsp;</td>
-		<td>%T</td>
-		<td>24 小時制時間 (等同於 %H:%M:%S)</td>
-		<td>17:52:17</td>
-	</tr><tr>
-		<td><b>特殊</b></td>
-		<td>%%</td>
-		<td>字面上的百分比符號</td>
-		<td>%</td>
-	</tr></tbody></table>
-</section><!--}}}-->
-
-<section data-ks='Q_ITS'><!--{{{ DateTime -->
-	<div data-x='quiz:s'>
-		<div>請問下列程式執行後將輸出什麼 ?</div>
-		<div class="cb frame">
-			<div>import datetime</div>
-			<div>d = datetime.datetime(2017, 4, 7)</div>
-			<div>print( '{:%B-%d-%y}'.format(d) )</div>
-		</div>
-		<div data-o="X">04-07-17</div>
-		<div data-o="X">2017-APRIL-07</div>
-		<div data-o="O">APRIL-07-17</div>
-		<div data-o="X">04-07-2017</div>
-	</div>
-</section><!--}}}-->
-
-<section data-ks='Q_ITS'><!--{{{ DateTime-->
-	<div data-x='quiz:c'>
-		<div>您正在撰寫一個程式來顯示 My Healthy Delivery 的特價優惠。</div>
-		<div class="frame cb">
-			<div>import datetime</div>
-			<div>dailySpecials= ( "Spaghetti", "Macaroni &amp; Cheese", "Meatloaf",  "Fried Chicken" )</div>
-			<div>weekendSpecials=( "Lobster", "Prime Rib", "Parmesan-Crusted Cod" )</div>
-			<div># 擷取目前的日期。</div>
-			<div data-x='quiz:s' class='QR_'>
-				<span class='HT'>點擊展開</span>
-				<div data-o='X'>now=datetime()</div>
-				<div data-o='X'>now=datetime.date()</div>
-				<div data-o='O'>now=datetime.datetime.now()</div>
-				<div data-o='X'>now=new date()</div>
-			</div>
-			<div># 擷取工作日(即星期幾)的完整名稱。</div>
-			<div data-x='quiz:s' class='QR_'>
-				<span class='HT'>點擊展開</span>
-				<div data-o="O">today=now.strftime("%A")</div>
-				<div data-o="X">today=now.strftime("%B")</div>
-				<div data-o="X">today=now.strftime("%W")</div>
-				<div data-o="X">today=now.strftime("%Y")</div>
-			</div>
-			<div>print("My Healthy Eats Delivery")</div>
-			<div>if today == "Friday" or today=="Saturday" or today =="Sunday":</div>
-			<div class='cb'>
-				<div>print("The weekend specials include:")</div>
-				<div>for item in weekendSpecials:</div>
-				<div class='cb'>print(item)</div>
-			</div>
-			<div>else:</div>
-			<div class='cb'>
-				<div>print("The weekday specials include: ")</div>
-				<div>for item in dailySpecials:</div>
-				<div class='cb'>print(item)</div>
-			</div>
-			<div># 計算當週剩餘天數。</div>
-			<div data-x='quiz:s' class='QR_'>
-				<span class='HT'>點擊展開</span>
-				<div data-o='X'>dayleft=now-now.weekday()</div>
-				<div data-o='X'>dayleft=today-today.weekday()</div>
-				<div data-o='O'>dayleft=6-now.weekday()</div>
-				<div data-o='X'>dayleft=6-datetime.datetime.weekday()</div>
-			</div>
-			<div>print(f"Pricing specials change in {daysLeft} days")</div>
-		</div>
-	</div>
-</section><!--}}}-->
-
-<section data-ks='P_CS'><h2>類別 Class</h2><!--{{{-->
-<div class='frame'><div class='cb green'>
-	<div>import datetime</div>
-	<div>class TradeLogger:</div>
-	<div class='cb blue'>
-		<div>def __init__(self, symbol: str, strategy_name: str):</div>
-		<div class='cb black'>
-			<div>self.symbol = symbol</div>
-			<div>self.strategy_name = strategy_name</div>
-			<div>self.filename = f"{symbol}_{datetime.date.today()}.log"</div>
-			<div>self.file = None</div>
-		</div>
-		<br/>
-		<div class='red'>## Context Manager Protocol ##</div>
-		<div>def __enter__(self):</div>
-		<div class='cb black'>
-			<div class='red'>"""進入 with 區塊時觸發：執行開檔動作"""</div>
-			<div>print(f"[系統訊號] 正在開啟日誌檔: {self.filename}")</div>
-			<div>self.file = open(self.filename, "a", encoding="utf-8")</div>
-			<div>return self  <span class='red'># 回傳物件本身給 'as' 後面的變數</span></div>
-		</div>
-		<br/>
-		<div>def __exit__(self, exc_type, exc_val, exc_tb):</div>
-		<div class='cb black'>
-			<div class='red'>"""離開 with 區塊時觸發：執行關檔動作"""</div>
-			<div>if self.file:</div>
-			<div class='cb brown'>
-				<div>self.file.close()</div>
-				<div>print(f"[系統訊號] 檔案 {self.filename} 已安全關閉。")</div>
-			</div>
-			<div class='red'># 如果有異常發生，可以在這裡處理 (exc_type 為異常類型)</div>
-		</div>
-		<br/>
-		<div class='red'>## String Representation (字串表示法) ##</div>
-		<div>def __repr__(self):</div>
-		<div class='cb black'>
-			<div class='red'>"""<br/>
-			供開發者偵錯使用。<br/>
-			慣例上回傳一個「能用來重新建立該物件」的字串。</br>
-			"""</div>
-			<div>return f"TradeLogger(symbol='{self.symbol}', strategy_name='{self.strategy_name}')"</div>
-		</div>
-		<br/>
-		<div>def log_trade(self, side: str, price: float, volume: int):</div>
-		<div class='cb black'>
-			<div ='red'>"""模擬寫入交易紀錄"""</div>
-			<div>timestamp = datetime.datetime.now().strftime("%H:%M:%S")</div>
-			<div>record = f"[{timestamp}] {side} | {price} | {volume} units\n"</div>
-			<div>self.file.write(record)</div>
-			<div>print(f"紀錄已寫入: {record.strip()}")</div>
-		</div>
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	您正在撰寫一個程式來隨機指派房間(room_number)和團隊建立組別(group)以進行公司培訓活動。<br/>
+	<div data-x='code'>
+import random
+roomsAssigned=[1]
+room_number=1
+groupList=["Ropes","Rafting","Obstacle","Wellness"]
+count=0
+print("Welcome to CompanyPro's Team-Building Weekend!")
+name=input("Please enter your name (q to quit)? ")
+while name != 'q' and count &lt; 50:
+	while room_number in roomsAssigned:
+		<div data-x='quiz:s'><div data-o='X'>room_number=random(1,50)</div><div data-o='O'>room_number=random.randint(1,50)</div><div data-o='X'>room_number=random.shuffle(1,50)</div><div data-o='X'>room_number=random.random(1,50)</div></div>
+	print(f"{name}, your room number is {room_number}")
+	roomsAssigned.append(room_number)
+	<div data-x='quiz:s'><div data-o='O'>group = random.choice(groupList)</div><div data-o='X'>group = random.randange(groupList)</div><div data-o='X'>group = random.shuffle(groupList)</div><div data-o='X'>group = random.sample(groupList)</div></div>
+	print(f"You will meet with the {group} Group this afternoon. ")
+	count += 1
+	name = input("Please enter your name (Q to quit)? ")
 	</div>
 </div>
-</section><!--}}}-->
+</section>
 
-<section data-ks='P_CS'><!--{{{-->
-<div class='frame'><div class='cb'>
-	<div class='red'># --- 實際應用範例 ---</div>
-	<div>if __name__ == "__main__":</div>
-	<div class='cb'>
-		<div class='red'># 使用 with 關鍵字自動管理資源</div>
-		<div class='blue'>with TradeLogger("TSMC", "MA_Cross") as logger:</div>
-		<div class='cb'>
-			<div class='red'># 進行交易寫入</div>
-			<div class='blue'>logger.log_trade("BUY", 605.0, 1000)</div>
-			<br/>
-			<div class='red'># 示範使用 format 與 !r (呼叫 __repr__)</div>
-			<div class='red'># 在金融報表或 Debug Log 中非常實用</div>
-			<div>print("\n--- 格式化輸出展示 ---")</div>
-			<div class='blue'>print("當前 logger 狀態: {!r}".format(logger))</div>
-			<div>print(f"Debug 資訊 (f-string): {logger!r}")</div>
-		</div>
+<section data-ks='Q_ITS'>
+<div data-x='quiz:m'>
+	您任職於某個遊戲開發團隊。<br/>
+	您需要撰寫程式碼來產生符合下列需求的隨機數字:
+	<ul>
+		<li>此數字是5的倍數。</li>
+		<li>最低數字是5。</li>
+		<li>最高數字是100。</li>
+	</ul>
+	請問哪兩個程式碼片段將符合需求? 每個正確答案都是一個完整的解決方案。
+	<div data-o='X' data-x='code'>
+from random import randrange
+print(randrange(0, 100, 5))
 	</div>
-</div></div>
-</section><!--}}}-->
+	<div data-o='O' data-x='code'>
+from random import randint
+print(randint(1, 20) * 5)
+	</div>
+	<div data-o='O' data-x='code'>
+from random import randrange
+print(randrange(5, 105, 5))
+	</div>
+	<div data-o='X' data-x='code'>
+from random import randint
+print(randint(0, 20) * 5)
+	</div>
+</div>
+</section>
+
+<section data-ks='P_CS'><h2>📅 模組: datetime</h2>
+<ul>
+	<li class='fold'><h3 data-h='fold'>datetime</h3><ul>
+		<li><h4>datetime.now()</h4> &rarr; datetime 物件<ul>
+			<li>取得<b>當前</b>的本地日期和時間。</li>
+			<li data-x='code'>
+dt = datetime.now()
+# &rArr; 2025-12-09 14:10:56.123456
+			</li>
+		</ul></li>
+		<li><h4>datetime.strptime(日期字串, 格式字串)</h4> &rarr; datetime 物件<ul>
+			<li>將<b>字串</b>依指定格式解析成 datetime 物件。</li>
+			<li data-x='code'>
+dt = datetime.strptime("2025/12/09 14:10", "%Y/%m/%d %H:%M")
+# &rArr; 2025-12-09 14:10:00
+			</li>
+		</ul></li>
+		<li><h4>(datatime 物件).strftime(格式字串)</h4> &rarr; 日期字串<ul>
+			<li>將 datetime 物件格式化為<b>字串</b>輸出。</li>
+			<li data-x='code'>
+dt = datetime(2025, 12, 9, 14, 10)
+dt.strftime("%Y年%m月%d日")
+# &rArr; 2025年12月09日
+			</li>
+		</ul></li>
+		<li><h4>(datetime 物件).date()</h4> &rarr; date 物件<ul>
+			<li>從 datetime 物件中取出<b>日期</b>部分 (回傳 date 物件)。</li>
+			<li data-x='code'>
+dt = datetime.now()
+dt.date()
+# &rArr; 2025-12-09
+			</li>
+		</ul></li>
+		<li><h4>(datetime 物件).time()</h4> &rarr; time 物件<ul>
+			<li>從 datetime 物件中取出<b>時間</b>部分 (回傳 time 物件)。</li>
+			<li data-x='code'>
+dt = datetime.now()
+dt.time()
+# &rArr; 14:10:56.123456
+			</li>
+		</ul></li>
+		<li><h4>(datetime 物件).weekday()</h4> &rarr; [星期一:0,1,2,3,4,5,星期日:6]<ul>
+			<li>回傳星期幾，<b>週一為 0，週日為 6</b>。</li>
+			<li data-x='code'>
+dt = datetime(2025, 12, 9) (週二)
+dt.weekday()
+# &rArr; 1
+			</li>
+		</ul></li>
+		<li><h4>(datetime 物件).isoweekday()</h4> &rarr; [星期一:1,2,3,4,5,6,星期日:7]<ul>
+			<li>回傳星期幾，<b>週一為 1，週日為 7</b>。</li>
+			<li data-x='code'>
+dt = datetime(2025, 12, 9) (週二)
+dt.isoweekday()
+# &rArr; 2
+			</li>
+		</ul></li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>date</h3><ul>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>time</h3><ul>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>timedelta</h3><ul>
+		<li><h4>timedelta(days, hours, ...)</h4> &rarr; timedelta 物件<ul>
+			<li><b>時間差</b>計算。用於加減日期時間。</li>
+			<li data-x='code'>
+dt1 = datetime(2025, 12, 9)
+td = timedelta(days=7)
+dt2 = dt1 + td
+# &rArr; 2025-12-16 00:00:00
+			</li>
+		</ul></li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>tzinfo</h3><ul>
+	</ul></li>
+</ul>
+</section>
+
+<section data-ks='P_CS'><h2>📅 DateTime Format Codes</h2>
+<ul class='zcs2'>
+	<li><h3>2026年1月1日</h3><table class='nv'><tr>
+		<th>%Y</th><td>帶世紀的<b>年份</b> &rArr; <b class='red'>2026</b></td>
+	</tr><tr>
+		<th>%y</th><td>不帶世紀的<b>年份</b> (00-99) &rArr; <b class='red'>26</b></td>
+	</tr><tr>
+		<th>%m</th><td><b>月份</b>的數字 (填零: 01-12) &rArr; <b class='red'>01</b></td>
+	</tr><tr>
+		<th>%b</th><td><b>月份</b>的縮寫 (Locale) &rArr; <b class='red'>Jan</b></td>
+	</tr><tr>
+		<th>%B</th><td><b>月份</b>的全稱 (Locale) &rArr; <b class='red'>January</b></td>
+	</tr><tr>
+		<th>%w</th><td><b>星期</b>的數字 (0/日 到 6/六) &rArr; <b class='red'>4</b></td>
+	</tr><tr>
+		<th>%a</th><td><b>星期</b>的縮寫 (Locale) &rArr; <b class='red'>Wed</b></td>
+	</tr><tr>
+		<th>%A</th><td><b>星期</b>的全稱 (Locale) &rArr; <b class='red'>Wednesday</b></td>
+	</tr><tr>
+		<th>%d</th><td>該月<b>日期</b> (填零: 01-31) &rArr; <b class='red'>01</b></td>
+	</tr><tr>
+		<th>%j</th><td>該年<b>日期</b> (填零: 001-366) &rArr; <b class='red'>001</b></td>
+	</tr></table></li>
+	<li><h3>13:20:03.250000</h3><table class='nv'><tr>
+		<th>%p</th><td>上午或下午 &rArr; <b class='red'>PM</b></td>
+	</tr><tr>
+		<th>%I</th><td>12小時制/<b>小時</b> (填零: 01-12) &rArr; <b class='red'>1</b></td>
+	</tr><tr>
+		<th>%H</th><td>24小時制/<b>小時</b> (填零: 00-23) &rArr; <b class='red'>13</b></td>
+	</tr><tr>
+		<th>%M</th><td><b>分鐘</b> (填零: 00-59) &rArr; <b class='red'>20</b></td>
+	</tr><tr>
+		<th>%S</th><td><b>秒數</b> (填零: 00-59) &rArr; <b class='red'>03</td>
+	</tr><tr>
+		<th>%f</th><td><b>微秒</b> (填零:000000-999999) &rArr; <b class='red'>250000</b></td>
+	</tr></table></li>
+</ul><ul>
+	<li><h3>2026年1月1日 13:20:03</h3><table class='nv'><tr>
+		<th>%z</th><td>時區偏移量 (例如，-0500, +0800) &rArr; <b class='red'>+0800</b></td>
+	</tr><tr>
+		<th>%Z</th><td>時區名稱 (Locale) &rArr; <b class='red'>CST</b></td>
+	</tr><tr>
+		<th>%c</th><td>日期時間 (Locale) &rArr; <b class='red'>Thu Jan 1 13:20:03 2026</b></td>
+	</tr><tr>
+		<th>%x</th><td>日期 (Locale) &rArr; <b class='red'>01/01/26</b></td>
+	</tr><tr>
+		<th>%X</th><td>時間 (Locale) &rArr; <b class='red'>13:20:03</b></td>
+	</tr><tr>
+		<th>%r</th><td>時間/12小時制 (%I:%M:%S %p) &rArr; <b class='red'>01:20:03 PM</b></td>
+	</tr><tr>
+		<th>%T</th><td>時間/24小時制 (%H:%M:%S) &rArr; <b class='red'>17:52:17</b></td>
+	</tr><tr>
+		<th>%%</th><td>字面上的百分比符號</td>
+	</tr></table></li>
+</ul>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:s'>
+	請問下列程式執行後將輸出什麼 ?
+	<div data-x='code'>
+import datetime
+d = datetime.datetime(2017, 4, 7)
+print( '{:%B-%d-%y}'.format(d) )
+	</div>
+	<div data-o="X">04-07-17</div>
+	<div data-o="X">2017-APRIL-07</div>
+	<div data-o="O">APRIL-07-17</div>
+	<div data-o="X">04-07-2017</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	您正在撰寫一個程式來顯示 My Healthy Delivery 的特價優惠。
+	<div data-x='code'>
+import datetime
+dailySpecials = ( "Spaghetti", "Macaroni &amp; Cheese", "Meatloaf",  "Fried Chicken" )
+weekendSpecials=( "Lobster", "Prime Rib", "Parmesan-Crusted Cod" )
+# 擷取目前的日期。
+<div data-x='quiz:s'><div data-o='X'>now=datetime()</div><div data-o='X'>now=datetime.date()</div><div data-o='O'>now=datetime.datetime.now()</div><div data-o='X'>now=new date()</div></div>
+# 擷取工作日(即星期幾)的完整名稱。
+<div data-x='quiz:s'><div data-o="O">today=now.strftime("%A")</div><div data-o="X">today=now.strftime("%B")</div><div data-o="X">today=now.strftime("%W")</div><div data-o="X">today=now.strftime("%Y")</div></div>
+print("My Healthy Eats Delivery")
+if today == "Friday" or today=="Saturday" or today =="Sunday":
+	print("The weekend specials include:")
+	for item in weekendSpecials:
+		print(item)
+else:
+	print("The weekday specials include: ")
+	for item in dailySpecials:
+		print(item)
+
+# 計算當週剩餘天數。
+<div data-x='quiz:s'><div data-o='X'>dayleft=now-now.weekday()</div><div data-o='X'>dayleft=today-today.weekday()</div><div data-o='O'>dayleft=6-now.weekday()</div><div data-o='X'>dayleft=6-datetime.datetime.weekday()</div></div>
+print(f"Pricing specials change in {daysLeft} days")
+	</div>
+</div>
+</section>
+
+<section data-ks='P_CS'><h2>類別 Class</h2>
+<ul>
+	<li data-x='code'>
+import datetime
+class TradeLogger:
+	def __init__(self, symbol: str, strategy_name: str):
+		self.symbol = symbol
+		self.strategy_name = strategy_name
+		self.filename = f"{symbol}_{datetime.date.today()}.log"
+		self.file = None
+
+	## Context Manager Protocol ##
+	def __enter__(self):
+		"""進入 with 區塊時觸發：執行開檔動作"""
+		print(f"[系統訊號] 正在開啟日誌檔: {self.filename}")
+		self.file = open(self.filename, "a", encoding="utf-8")
+		return self # 回傳物件本身給 'as' 後面的變數
+
+	def __exit__(self, exc_type, exc_val, exc_tb):
+		"""離開 with 區塊時觸發：執行關檔動作"""
+		if self.file:
+			self.file.close()
+			print(f"[系統訊號] 檔案 {self.filename} 已安全關閉。")
+
+	## String Representation (字串表示法) ##
+	def __repr__(self):
+		"""供開發者偵錯使用。慣例上回傳一個「能用來重新建立該物件」的字串。"""
+		return f"TradeLogger(symbol='{self.symbol}', strategy_name='{self.strategy_name}')"
+
+	def log_trade(self, side: str, price: float, volume: int):
+		"""模擬寫入交易紀錄"""
+		timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+		record = f"[{timestamp}] {side} | {price} | {volume} units\n"
+		self.file.write(record)
+		print(f"紀錄已寫入: {record.strip()}")
+	</li>
+</div>
+</section>
+
+<section data-ks='P_CS'>
+<ul>
+	<li data-x='code'>
+# --- 實際應用範例 ---
+if __name__ == "__main__":
+	# 使用 with 關鍵字自動管理資源
+	with TradeLogger("TSMC", "MA_Cross") as logger:
+		# 進行交易寫入
+		logger.log_trade("BUY", 605.0, 1000)
+		# 示範使用 format 與 !r (呼叫 __repr__)
+		# 在金融報表或 Debug Log 中非常實用
+		print("\n--- 格式化輸出展示 ---")
+		print("當前 logger 狀態: {!r}".format(logger))
+		print(f"Debug 資訊 (f-string): {logger!r}")
+	</li>
+</ul>
+</section>
 
 </body>
 </html>
