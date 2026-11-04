@@ -10,37 +10,6 @@
 <body style='opacity:0'>
 
 <style>
-.sub { font-weight:bold; background:silver; }
-.explain { font-size:70%; }
-
-.hl-kw { color:#c792ea; }
-.hl-fn { color:#82aaff; }
-.hl-str { color:#ecc48d; }
-.hl-nb	{ color:#f78c6c; }
-.hl-cm	{ color:#5c6773; font-style:italic;} 
-table small { color:#666; }
-
-.C3Tbl { display:flex;flex-flow:row wrap;gap:1vw 2%; }
-.C3Tbl [data-x^="card"] { width:32%;padding-top:32%; }
-.origin { display:flex;flex-flow:column nowrap;justify-content:center;align-items:center; }
-
-.syntax th { background:#eee; }
-.syntax .K { color:red; }
-.syntax .V { color:green; }
-
-[xlang="markdown"] table { width:80%; margin-left:auto; margin-right:auto; }
-[xlang="markdown"] table td { border:2px solid silver; padding:0px 16px; }
-
-.frame { font-size:2vw; padding-left:4px; }
-
-.rtable { border-collapse: separate; border-spacing: 8px 2px; margin:auto; }
-.rtable td { text-align:right; border-bottom:2px outset silver; padding:2px 8px; }
-.rtable th { border:2px outset silver; padding:2px 8px; }
-
-.ltable { border-collapse: separate; border-spacing: 8px 2px; margin:auto; }
-.ltable td { border-bottom:2px outset silver; padding:2px 8px; }
-.ltable th { border:2px outset silver; padding:2px 8px; }
-.ltable td>div, .ltable th>div, .rtable td>div, .rtable th>div { font-size:80%; color:green;font-weight:bold; }
 .QMix { display:flex;overflow:auto;align-items:center; }
 </style>
 
@@ -54,36 +23,80 @@ table small { color:#666; }
 	</div>
 </section>
 
-<section data-ks='P_IO'><h2>周邊裝置架構</h2>
-<div data-h='install:mermaid' class='button'>
-	點擊繪製
-	<textarea data-v='value:raw'>flowchart TB
-subgraph CPU ["CPU/中央處理器"]
-	LU &lt;--&gt; MC["記憶體<br/>控制器"]
-	LU &lt;--&gt; PCIE["PCIe<br/>控制器"]
-	LU["Logic Units<br/>運算邏輯"] &lt;--&gt; REG["Register<br/>暫存器"]
-end
-G["顯示卡"] &lt;--&gt; PCIE &lt;--&gt;|DMA| MC
-M["Memory<br/>記憶體"] &lt;--&gt; MC
-S["Storage<br/>儲存裝置"] &lt;--&gt; PCH["PCH"] &lt;--&gt; PCIE
-USB["USB<br>裝置"] &lt;--&gt; PCH
-	</textarea>
-</div>
+<section><h2>周邊裝置架構</h2>
+<style>
+	table tr.CPU { color:red; }
+</style>
+<table class='chart' align='center'>
+<tr class='CPU'>
+	<td colspan='6' style='background:red;color:white;'>CPU/中央處理器</td>
+	<td rowspan='10' class='frame' style='vertical-align:top;text-align:left;color:black;'><ul>
+		<li><b>PCH:</b> 主機板控制晶片</li>
+		<li><b>DMA:</b> Direct Memory Access</li>
+		<li><b>USB:</b> Universal Serial Bus</li>
+	</ul></td>
+</tr>
+<tr class='CPU'>
+	<th rowspan='4'>記憶體<br/>控制器</th>
+	<td colspan='3'>&larr;(DMA)&rarr;</td>
+	<th rowspan='4' colspan='2'>PCIe<br/>控制器</th>
+</tr>
+<tr class='CPU'>
+	<td>↔</td>
+	<th>Logic Units<br/>運算邏輯</th>
+	<td>↔</td>
+</tr>
+<tr class='CPU'>
+	<td></td><td>↕</td><td></td>
+</tr>
+<tr class='CPU'>
+	<td></td><th>Registers<br/>暫存器</th><td></td>
+</tr>
+<tr>
+	<td>↕</td>
+	<td colspan='3'></td>
+	<td>↕</td>
+	<td>↕</td>
+</tr>
+<tr>
+	<th rowspan='2'>Memory<br/>記憶體</th>
+	<td rowspan='2'></td>
+	<th>儲存裝置</th>
+	<td>↔</td>
+	<th rowspan='2'>PCH</th>
+	<th rowspan='2'>顯示卡</th>
+</tr>
+<tr>
+	<th>USB 裝置</th>
+	<td>↔</td>
+</tr>
+<tr>
+	<td colspan='6' style='background:black;color:white;'>主機板</td>
+</tr>
+</table>
 </section>
 
-<section data-ks='P_IO'><h2>存取流程</h2>
-<div class='button' data-h='install:mermaid'>
-	點擊繪製
-	<textarea data-v='value:raw'>
-flowchart LR
-O["open<br/>配置資源"] --&gt; RWX{繼續} --&gt;|N| F["flush"] --&gt; C["close<br/>釋放資源"]
-RWX --&gt;|Y| W["write"] --&gt; F --&gt; RWX
-RWX --&gt;|Y| R["read"] --&gt; RWX
-	</textarea>
-</div>
-<ul>
-	<li>open close 必須成對出現，否則會產生占用系統資源的垃圾。</li>
-</ul>
+<section><h2>存取流程</h2>
+<table class='chart' align='center'><tr>
+	<th rowspan='3'>open<br/>資源<br/>配置</th>
+	<td rowspan='3'>&rarr;</td><th rowspan='3'>繼<br/>續</th>
+	<td>↔</td><th>read</th>
+	<td></td><th rowspan='3'>flush</th>
+	<td rowspan='3'>&rarr;</td><th rowspan='3'>close</th>
+</tr><tr>
+	<td>&rarr;</td><th>write</th><td>&rarr;</td>
+</tr><tr>
+	<td colspan='3'>&larr;━━━&rarr;</td>
+</tr><tr><td colspan='9' class='frame' style='vertical-align:top;text-align:left;'>
+	<ul>
+		<li><b>open</b>: 配置檔案ID，準備系統資源</li>
+		<li><b>close</b>: 釋放檔案資源</li>
+		<li><b>read</b>: 讀取資料</li>
+		<li><b>write</b>: 寫入資料</li>
+		<li><b>flush</b>: 等待積存的資料傳送</li>
+		<li>open close 必須成對出現，否則會產生占用系統資源的垃圾。</li>
+	</ul>
+</td></tr></table>
 </section>
 
 <section data-ks='P_IO'><h2>例外處理</h2>
@@ -139,7 +152,7 @@ except Exception as 例外 :
 </tr></tbody></table>
 </section>
 
-<section data-ks='P_IO'><h2>讀檔</h2>
+<section><h2>讀檔</h2>
 <div data-xl='code'>
 try :
 	檔案 = open("/tmp/test.txt","r")
