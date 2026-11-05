@@ -1522,5 +1522,241 @@ print(f"Pricing specials change in {daysLeft} days")
 </div>
 </section>
 
+<section><h2>輸出 / 輸入</h2></section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	對於下列每一項有關 try 陳述式的敘述，請選取 [正確] 或 [錯誤]。
+	<div data-x='quiz:s'>
+		try 陳述式可以包含一個或多個 except 子句。
+		<div class='bar'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
+	</div>
+	<div data-x='quiz:s'>
+		try 陳述式可以包含 finally 子句，但不含 except 子句。
+		<div class='bar'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
+	</div>
+	<div data-x='quiz:s'>
+		try 陳述式可以包含 finally 子句以及 except 子句。
+		<div class='bar'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
+	</div>
+	<div data-x='quiz:s'>
+		try 陳述式可以包含一個或多個 finally 子句。
+		<div class='bar'><div data-o="X">正確</div><div data-o="O">錯誤</div></div>
+	</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	您需要撰寫執行下列工作的程式碼:
+	<ul>
+		<li>呼叫process()函式。</li>
+		<li>如果process()函式擲回錯誤,則呼叫logError()函式。</li>
+		<li>呼叫process()函式之後一律呼叫displayResult()函式。</li>
+	</ul>
+	<div data-x='code'>
+<div class='fxl'><div data-x='quiz:s'><span data-o="X">assert</span><span data-o="X">except</span><span data-o="X">finally</span><span data-o="X">raise</span><span data-o="O">try</span></div> :</div>
+	process()
+<div class='fxl'><div data-x='quiz:s'><span data-o="X">assert</span><span data-o="O">except</span><span data-o="X">finally</span><span data-o="X">raise</span><span data-o="X">try</span></div> :</div>
+	logError()
+<div class='fxl'><div data-x='quiz:s'><span data-o="X">assert</span><span data-o="X">except</span><span data-o="O">finally</span><span data-o="X">raise</span><span data-o="X">try</span></div> :</div>
+	displayResult()
+	</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	您正在建立一個接受使用者輸入的程式。此程式必須將輸入轉型為整數，並且在無法轉型時正確處理錯誤。
+	<div data-x='code'>
+while True:
+<div class='fxl'><div data-x='quiz:s'><span data-o="O">try</span><span data-o="X">else</span><span data-o="X">except</span><span data-o="X">raise</span><span data-o="X">finally</span></div> :</div>
+	x = int(input(“Please enter a number: “))
+	break
+<div class='fxl'><div data-x='quiz:s'><span data-o="X">try</span><span data-o="X">else</span><span data-o="O">except</span><span data-o="X">raise</span><span data-o="X">finally</span></div> ValueError :</div>
+	print("Not a valid number. Try again...")
+	</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	您為了要測試某個物件是否為特定類別的執行個體。撰寫了下列程式
+	<div data-x='code'>
+<span data-x='quiz:s'><span data-o="X">define</span><span data-o="O">import</span><span data-o="X">include</span><span data-o="X">using</span></span> unittest
+<div class='fxl'>class TestIsInstance(<div data-x='quiz:s'><div data-o="O">unittest.TestCase</div><div data-o="X">test.TestCase</div><div data-o="X">TestCase.unittest</div><div data-o="X">TestCase.test</div></div>) :</div>
+	<div class='fxl'>def <div data-x='quiz:s'><div data-o="X">assert_isInstance(self)</div><div data-o="X">eval_isInstance(self)</div><div data-o="O">test_isInstance(self)</div><div data-o="X">try_isInstance(self)</div></div> :</div>
+		<div data-x='quiz:s'><div data-o="O">self.assertIsInstance(obj, cls, msg=None)</div><div data-o="X">test.assertIsInstance(obj, cls, msg=None)</div><div data-o="X">this.assertIsInstance(obj, cls, msg=None)</div></div>
+
+if __name__ == '__main__' :
+	unittest.main()
+	</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	請從每個下拉式清單中選取正確的選項以完成有關assert方法的敘述。
+	<div data-x='quiz:s'>
+		若要測試變數a與b的值是否相同,請使用:
+		<div data-o="O">assertEqual(a,b)</div>
+		<div data-o="X">assertTrue(x)</div>
+		<div data-o="X">assertIs(a,b)</div>
+		<div data-o="X">assertIn(a,b)</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		若要測試物件a與b是否相同,請使用:
+		<div data-o="X">assertEqual(a,b)</div>
+		<div data-o="X">assertTrue(x)</div>
+		<div data-o="O">assertIs(a,b)</div>
+		<div data-o="X">assertIn(a,b)</div>
+	</div>
+	<br/>
+	<div data-x='quiz:s'>
+		若要測試清單中是否存在某個值,請使用:
+		<div data-o="X">assertEqual(a,b)</div>
+		<div data-o="X">assertTrue(x)</div>
+		<div data-o="X">assertIs(a,b)</div>
+		<div data-o="O">assertIn(a,b)</div>
+	</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:s'>
+	執行下列程式，卻收到第03行的錯誤。請問造成此錯誤的原因是什麼?
+	<div data-x='code'>
+def read_file(file) :
+	line = None
+	if os.path.isfile(file) :
+		data = open(file,  r)
+		for line in data :
+			print(line)
+	</div>
+	<div data-o="X">path 方法不存在 os 物件中。</div>
+	<div data-o="X">isfile 方法不接受單一參數。</div>
+	<div data-o="X">isfile 方法不存在 path 物件中。</div>
+	<div data-o="O">您需要匯入 os 程式庫。</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:s'>
+	您正在為學校開發一個 Python 應用程式。<br/>
+	此應用程式必須讀取並寫入資料至文字檔案。<br/>
+	如果檔案不存在,此應用程式就必須建立檔案。<br/>
+	如果檔案含有內容,此應用程式就必須刪除內容。<br/>
+	請問您應該使用哪個程式碼片段?
+	<div data-o="O">open('local_data', 'w+')</div>
+	<div data-o="X">open('local_data', 'r')</div>
+	<div data-o="X">open('local_data', 'r+')</div>
+	<div data-o="X">open('local_data', 'w')</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	某間公司需要有人協助更新他們的檔案系統。<br/>
+	您必須建立一個執行下列動作的簡易檔案操作程式：
+	<ul>
+		<li>使用指定的名稱建立檔案。</li>
+		<li>將'End of listing'這段片語附加至檔案。</li>
+	</ul>
+	<div data-x='code'>
+import os
+<div class='fxl'>file = <div data-x='quiz:s'><div data-o='X'>open('myFile.txt','w')</div><div data-o='O'>open('myFile.txt','a')</div></div>
+<div class='fxl'><div data-x='quiz:s'><div data-o="O">file.write</div><div data-o="X">file.add</div></div>("End of listing")</div>
+file.close()
+	</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:sort'>
+	您正在撰寫一個處理檔案的函式函式。<br/>
+	您需要確保此函式會在檔案不存在時傳回None。<br/>
+	如果檔案存在,此函式必須傳回第一行。<br/>
+	您撰寫了以下這段程式碼:
+	<div data-x="code">
+import os
+def get_first_line(filename, mode):
+<div data-level='1' data-o="0">if os.path.isfile(filename):</div>
+<div data-level='2' data-o="1">with open(filename, 'r') as file:</div>
+<div data-level='3' data-o="2">return file.readline()</div>
+<div data-level='1' data-o="3">else:</div>
+<div data-level='2' data-o="4">return None</div>
+	</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:s'>
+	您撰寫了以下這段程式碼:<br/>
+	out.txt檔案不存在。<br/>
+	您執行程式碼。
+	<div data-x='code'>
+import sys
+try:
+	file_in = open('in.txt', 'r')
+	file_out = open('out.txt', 'w+')
+	i = 1
+	for line in file_in:
+		print(line.rstrip())
+		file_out.write('line ' + str(i) + ': ' + line)
+		i = i + 1
+	file_in.close()
+	file_out.close()
+except IOError:
+	print('cannot open', file_name)
+	</div>
+	請問以下哪一項敘述是正確的?
+	<div data-o="O">此程式碼將正確執行,不會發生錯誤。</div>
+	<div data-o="X">此程式碼將執行,但會產生邏輯錯誤。</div>
+	<div data-o="X">此程式碼將產生執行階段錯誤。</div>
+	<div data-o="X">此程式碼將產生語法錯誤。</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	某間公司需要有人協助更新他們的檔案系統。您必須建立一個執行下列動作的簡易檔案操作程式:
+	<ul>
+		<li>查看檔案是否存在</li>
+		<li>如果檔案存在,則顯示其內容。</li>
+	</ul>
+	<div data-x='code'>
+import os
+<div class='fxl'>if <div data-x='quiz:s'><div data-o="X">isfile('myFile.txt'):</div><div data-o="X">os.exist('myFile.txt'):</div><div data-o="X">os.find('myFile.txt):</div><div data-o="O">os.path.isfile('myFile.txt'):</div></div></div>
+	file = open('myFile.txt)
+	<div data-x='quiz:s'><div data-o="X">output('myFile.txt')</div><div data-o="X">print(file.get('myFile.txt'))</div><div data-o="O">print(file.read())</div><div data-o="X">print('myFile.txt')</div></div>
+	file.close()
+	</div>
+</div>
+</section>
+
+<section data-ks='Q_ITS'>
+<div data-x='quiz:c'>
+	請檢閱下列程式碼片段：
+	<div data-x='code'>
+f = open('python.txt', 'a')
+f.write('This is a line of text.')
+f.close()
+	</div>
+	<div data-x='quiz:s'>
+		如果名稱為 python.txt 的檔案不存在，就會建立此檔案。
+		<div class='bar'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
+	</div>
+	<div data-x='quiz:s'>
+		此檔案中的資料會被覆寫。
+		<div class='bar'><div data-o="X">正確</div><div data-o="O">錯誤</div></div>
+	</div>
+	<div data-x='quiz:s'>
+		其他程式碼可以在這段程式碼執行完畢之後，開啟此檔案。
+		<div class='bar'><div data-o="O">正確</div><div data-o="X">錯誤</div></div>
+	</div>
+</div>
+</section>
+
 </body>
 </html>
