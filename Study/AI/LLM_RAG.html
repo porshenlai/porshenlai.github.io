@@ -11,60 +11,59 @@
 <body style='opacity:0'>
 
 <section class='page col'>
-	<div class='h1 ac' style='margin-bottom:1em'>LLM 檢索增強學習</div>
-	<em class='frame'>
-		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
-		<div><em>Department of Finance</em></div>
-		<div><em>Chihlee University of Technology</em></div>
-	</em>
+	<div class='h1 ac' style='margin-bottom:1em'>檢索增強學習<br/>of Large Language Model</div>
+	<div class="frame">
+		<div>😊 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div>🎓 Department of Finance,</div>
+		<div>🏫 Chihlee University of Technology</div>
+		<div>🕑 2026, Winter</div>
+	</div>
 </section>
 
-<section><h2>RAG vs. LLM</h2><ul>
-	<li><table border='1' cellspacing='0' cellpadding='8' width='95%' align='center'>
-		<thead><tr>
-			<th width='10%'></th>
-			<th width='45%'>RAG Embedding 空間</th>
-			<th width='45%'>LLM Hidden States 向量空間</th>
-		</tr></thead>
-		<tbody><tr>
-			<th>主要<br/>功能</th>
-			<td valign='top'>檢索（Retrieval）</td>
-			<td valign='top'>推理與生成（Reasoning &amp; Generation）</td>
-		</tr><tr>
-			<th>幾何<br/>特性</th>
-			<td>依賴靜態語意相似度（距離近 = 意思像）。</td>
-			<td>依賴動態上下文與文法流向（座標會隨上文隨時跳轉）。</td>
-		</tr><tr>
-			<th>優化<br/>目標</th>
-			<td>把同義詞的距離拉近，異義詞推遠（Contrastive Loss）。</td>
-			<td>讓下一個正確 Token 的機率最大化（Cross-Entropy Loss）。</td>
-		</tr><tr>
-			<th>直觀<br/>比喻</th>
-			<td>靜態的百科全書分類索引（相同的放在一起）。</td>
-			<td>思考中的大腦神經元聯想網（從主詞推導到動詞，再推導到賓詞）。</td>
-		</tr></tbody>
-	</table></li>
-	<div class='frame'>「RAG 用的 Embedding 模型，像是在高維空間裡幫資料打卡劃分區域，目的是為了快速搜尋；而 LLM 模型學習後的權重與高維空間，像是在高維空間裡畫出出一條條流暢的思考路線圖。LLM 輸出向量的目的是為了指引下一個字該走向字典裡的哪一個 Token，因此它包含的不只是『意思相近』，更包含『邏輯與文法的必然性』。」</div>
-</ul></section>
-
-<section><h2>資料空間</h2><ul>
-	<li>LLM 內部（如 Transformer 隱藏層）與輸出層的確都在高維度空間中運作，但它們的高維空間<em>「幾何特性」與純 Embedding 模型截然不同</em>：它不僅僅代表「靜態語意相近」，更包含了<em>「動態語意轉譯」、「上下文邏輯推理」與「語法流暢度（下一個字出現的機率）」</em>。</li>
-	<li><b>靜態語意空間 vs. 動態上下文空間</b><ul>
-		<li><b>純 Embedding 模型（靜態語意空間）：</b><ul>
-			<li>無上下文（或僅有局部上下文）的靜態語意距離。</li>
-			<li>在這個空間裡，蘋果（水果）和 香蕉 的距離永遠很近；蘋果 和 台積電 距離很遠。</li>
+<section><h2>RAG vs. Transformer</h2>
+<div style='padding:0 32px;'>
+	<div><ul class='zcs2'>
+		<li><h4>RAG Embedding 空間</h4><ul>
+			<li><b>功能：</b>檢索 (Retrieval)</li>
+			<li><b>特性：</b>依賴靜態語意相似度（距離近 = 意思像）。</li>
+			<li><b>目標：</b>把同義詞的距離拉近，異義詞推遠 (Contrastive Loss)。</li>
+			<li><b>比喻：</b>靜態的百科全書分類索引（相同的放一起）。</li>
 		</ul></li>
-		<li><b>LLM 隱藏層（動態上下文空間）：</b><ul>
+		<li><h4>Transformer Hidden States 空間</h4><ul>
+			<li><b>功能：</b>推理 (Reason) 與生成 (Generate)</li>
+			<li><b>特性：</b>依賴動態上下文與文法流向（座標隨上文隨時跳轉）。</li>
+			<li><b>目標：</b>讓下一個正確 Token 的機率最大化 (Cross-Entropy Loss)。</li>
+			<li><b>比喻：</b>思考中的大腦神經元聯想網（從主詞推導到動詞，再推導到賓詞）。</li>
+		</ul></li>
+	</ul></div>
+	<div><h4>總結來說</h4><ul>
+		<li>RAG 用的 Embedding 模型，像是在高維空間裡幫資料打卡劃分區域，目的是為了快速搜尋。</li>
+		<li>LLM 模型學習後的權重與高維空間，像是在高維空間裡畫出出一條條流暢的思考路線圖。</li>
+		<li>LLM 輸出向量的目的是為了指引下一個字該走向字典裡的哪一個 Token，因此它包含的不只是『意思相近』，更包含『邏輯與文法的必然性』。」</li>
+	</ul></div>
+</div>
+</section>
+
+<section><h2>資料空間</h2>
+<ul>
+	<li>Transformer(隱藏層與輸出層) 與 Embedding 模型的運行的高維空間截然不同<ul>
+		<li>Embedding 模型的高維空間僅包含「靜態語意相近」的資訊</li>
+		<li>Transformer 高維空間包含「動態語意轉譯」、「上下文邏輯推理」與「語法流暢度（下一個字出現的機率）」</li>
+	</ul></li>
+	<li><ul class='zcs2'>
+		<li><h4>靜態語意空間</h4><ul>
+			<li>無上下文（或僅有局部上下文）的靜態語意距離。</li>
+			<li><b>例如：</b>在這個空間裡，蘋果（水果）和 香蕉 的距離永遠很近；蘋果 和 台積電 距離很遠。</li>
+		</ul></li>
+		<li><h4>動態上下文空間</h4><ul>
 			<li>LLM 每經過一層 Transformer 區塊（Self-Attention），這個 Token 在高維空間的座標就會被重新修正與轉移。</li>
-			<li><b>例如：</b> 輸入「蘋果發表了全新的 M4 晶片」，經過 Self-Attention 後，蘋果 這個 Token 的向量座標會被拉離「水果空間」，瞬間移動到「科技/半導體/上市公司」的高維空間，並且與 台積電、晶圓代工 的距離大幅縮短。</li>
-			<li><b>結論：</b> LLM 的高維空間不是不具備語意相近性，而是它的語意是<em>動態且高度依賴上下文（Context-aware）</em>的。</li>
+			<li><b>例如：</b>輸入「蘋果發表了全新的 M4 晶片」，經過 Self-Attention 後，蘋果 這個 Token 的向量座標會被拉離「水果空間」，瞬間移動到「科技/半導體/上市公司」的高維空間，並且與 台積電、晶圓代工 的距離大幅縮短。</li>
+			<li><b>結論：</b>LLM 的高維空間不是不具備語意相近性，而是它的語意是<em>動態且高度依賴上下文（Context-aware）</em>的。</li>
 		</ul></li>
 	</ul></li>
-	<li><b>LLM 的輸出層（Unembedding / LM Head）：</b>從高維座標轉為機率<ul>
-		<li>當資料經過 LLM 所有隱藏層後，最後會來到輸出層（LM Head）。</li>
-		<li><b>最後的高維向量：</b><ul>
-			<li>模型的最後一層會產出一個代表「目前為止所有上下文總結」的高維向量（例如 4096 維）。</li>
-		</ul></li>
+	<li><b>LLM 的輸出層 (Unembedding/LM Head)：</b>從高維座標轉為機率<ul>
+		<li>當資料經過 LLM 所有隱藏層後，最後會來到輸出層 (LM Head)。</li>
+		<li>模型的最後一層會產出一個代表「目前為止所有上下文總結」的高維向量（例如 4096 維）。</li>
 		<li><b>與字典求內積（Dot Product）：</b><ul>
 			<li>輸出層有一個巨大的矩陣（稱為 Unembedding Matrix），裡面記錄了字典裡每一個 Token（例如 32,000 個 Token）的高維特徵向量。</li>
 		</ul></li>
@@ -78,29 +77,29 @@
 	<li><b>為什麼「語意不相近」的字機率可能更高？</b><ul>
 		<li>因為 LLM 學習權重的目標是<em>「預測合理的下一個 Token（Next Token Prediction）」，這包含了語法規則與對話邏輯</em></li>
 	</ul></li>
-	<li><b>例如：「這家銀行的放款審查非常_____」</b><ul>
+	<li><b>例如：</b>「這家銀行的放款審查非常_____」<ul>
 		<li>在高維空間中，嚴格（形容詞）和 放款（動詞/名詞）在靜態語意上完全不相近。</li>
 		<li>但因為文法結構（主詞+副詞+形容詞）以及金融語意邏輯，LLM 內部高維向量在最後預測時，會將幾何位置推向「描述審查品質的形容詞」區域，使得 嚴格 或 謹慎 的出現機率最高，而不是語意最相關但文法不對的 貸款。</li>
 	</ul></li>
-</ul></section>
+</ul>
+</section>
 
-<section><h2>地端 RAG 檢索增強生成</h2><ul>
-	<li>建置期（建立知識庫）<ul>
-		<li>[原始文件 (PDF/Doc)]</li>
-		<li>1. 文件讀取與文本切分 (Text Chunking)</li>
-		<li>2. 向量化 (Embedding) 與 向量庫儲存 (Vector DB)</li>
-	</ul></li>
-	<li>推論期（回答問題）<ul>
-		<li>[使用者提問 (Query)]</li>
-	</ul></li>
-	<li>回答問題<ul>
-		<li>3. 語意檢索 (Similarity Search / Top-K)</li>
+<section><h2>地端 RAG 檢索增強生成</h2>
+<ul>
+	<li><h4>建置期（建立知識庫）</h4></li>
+	<li>[原始文件 (PDF/Doc)]</li>
+	<li>1. 文件讀取與文本切分 (Text Chunking)</li>
+	<li>2. 向量化 (Embedding) 與 向量庫儲存 (Vector DB)</li>
+	<li><h4>推論期（問與答）</h4></li>
+	<li>[使用者提問 (Query)]</li>
+	<li>3. 語意檢索 (Similarity Search / Top-K)</li>
     <li>4. 組合提示詞 (Prompt Engineering)</li>
     <li>5. 地端 LLM 生成回答 (Ollama Gemma)</li>
 	</ul></li>
 </ul></section>
 
-<section><h2>建立地端知識庫（離線/初始化作業）</h2><ul>
+<section><h2>建立地端知識庫（離線/初始化作業）</h2>
+<ul>
 	<li>1. 文件讀取與文本切分（Document Loading &amp; Chunking）<ul>
 		<li><b>目的：</b> 消除 LLM 上下文長度限制，並提升搜尋精準度。</li>
 		<li><b>做法：</b> 使用 PyPDFLoader 讀取金融文件/條款，並用 RecursiveCharacterTextSplitter 切分成小塊（Chunks）。</li>
@@ -115,9 +114,11 @@
 		<li><b>做法：</b> 使用地端 Embedding 模型（如 BAAI/bge-small-zh-v1.5），將每一個 Chunk 轉為向量後存入地端向量資料庫（如 ChromaDB 或 FAISS）。</li>
 		<li><b>優點：</b> 完全在地端 CPU/GPU 運作，敏感的金融文件不會外流到公有雲。</li>
 	</ul></li>
-</ul></section>
+</ul>
+</section>
 
-<section><h2>檢索與生成（線上/即時對話）</h2><ul>
+<section><h2>檢索與生成（線上/即時對話）</h2>
+<ul>
 	<li>3. 語意檢索（Similarity Search）<ul>
 		<li><b>目的：</b> 從資料庫中快速精準地撈出與問題最相關的資料。</li>
 		<li><b>做法：</b> 當審查員輸入問題（例如：「本案的負債比率是多少？」）時：<ul>
@@ -147,7 +148,8 @@
 			<li>top_p 設為 0.9。</li>
 		</ul></li>
 	</ul></li>
-</ul></section>
+</ul>
+</section>
 
 <!--{{{
 5 步驟落地實作架構
@@ -379,6 +381,81 @@ if __name__ == "__main__":
 極限測試（Prompt Injection / 幻覺測試）： 讓學生故意問「這家公司的創辦人是誰？」，觀察 Gemma 是否能遵守 Prompt 規範回答「資料未提及」，而不是開始胡言亂語。
 擴充結構化輸出： 修改 Prompt 讓 Gemma 輸出 JSON 格式（例如：{"risk_level": "High", "reasons": [...]}），體會自動化串接銀行後台系統的實務流程。
 }}} -->
+
+<section><h2>💡 練習題</h2>
+<div data-x='quiz:c'>
+	<div data-x='quiz:s'>
+		在 RAG 系統的 Embedding 空間中，模型優化與學習的主要目標是什麼？
+		<div data-o='O'>將同義詞距離拉近，異義詞推遠（Contrastive Loss）</div>
+		<div data-o='X'>讓下一個正確 Token 的機率最大化（Cross-Entropy Loss）</div>
+		<div data-o='X'>動態調整語意座標以符合語法流向</div>
+		<div data-o='X'>根據對話歷史進行邏輯推理與文字生成</div>
+	</div>
+	<div data-x='quiz:s'>
+		Transformer 隱藏層中的 Token 向量座標具有何種特性？
+		<div data-o='O'>每經過一層 Self-Attention，座標會隨上下文動態修正與轉移</div>
+		<div data-o='X'>屬於無上下文的靜態語意距離，座標固定不變</div>
+		<div data-o='X'>僅包含詞性與語法標籤，不具備語意特徵</div>
+		<div data-o='X'>主要用於離線建置索引以加速全文檢索</div>
+	</div>
+	<div data-x='quiz:s'>
+		在 LLM 的輸出層（LM Head）中，是透過計算高維向量與字典中各 Token 向量的哪種運算來求得相似度（Logits）？
+		<div data-o='O'>內積（Dot Product）</div>
+		<div data-o='X'>歐氏距離（Euclidean Distance）</div>
+		<div data-o='X'>曼哈頓距離（Manhattan Distance）</div>
+		<div data-o='X'>漢明距離（Hamming Distance）</div>
+	</div>
+	<div data-x='quiz:s'>
+		在文本切分（Text Chunking）處理金融文件時，保留 Metadata（如 page 頁碼）的主要目的為何？
+		<div data-o='O'>作為後續 RAG 回答時標註引用出處與註腳的依據</div>
+		<div data-o='X'>縮小 Embedding 模型所需的高維向量維度</div>
+		<div data-o='X'>取代向量資料庫的相似度計算功能</div>
+		<div data-o='X'>提高文字切分時的執行速度</div>
+	</div>
+	<div data-x='quiz:s'>
+		在處理包含財務表格的文件切分時，建議將 chunk_size 設定在多少區間以避免表格斷裂？
+		<div data-o='O'>500 ~ 800 字</div>
+		<div data-o='X'>50 ~ 100 字</div>
+		<div data-o='X'>1500 ~ 2000 字</div>
+		<div data-o='X'>3000 字以上</div>
+	</div>
+	<div data-x='quiz:s'>
+		地端 RAG 架構在向量化與儲存階段，常採用下列哪種工具作為向量資料庫？
+		<div data-o='O'>ChromaDB</div>
+		<div data-o='X'>MySQL</div>
+		<div data-o='X'>MongoDB</div>
+		<div data-o='X'>Redis Cache</div>
+	</div>
+	<div data-x='quiz:s'>
+		線上推論進行語意檢索（Similarity Search）時，向量資料庫主要是透過何種度量方式撈出最相關的文本區塊？
+		<div data-o='O'>餘弦相似度（Cosine Similarity）</div>
+		<div data-o='X'>交叉熵（Cross-Entropy）</div>
+		<div data-o='X'>皮爾森相關係數（Pearson Correlation）</div>
+		<div data-o='X'>卡方檢定（Chi-Square Test）</div>
+	</div>
+	<div data-x='quiz:s'>
+		在金融審查等強調精確度的 RAG 生成情境中，將 temperature 參數設為 0.1 的主要作用為何？
+		<div data-o='O'>抑制模型隨機發揮以降低幻覺產生</div>
+		<div data-o='X'>提高檢索階段 Top-K 的命中數量</div>
+		<div data-o='X'>加快 Embedding 模型轉換向量的速度</div>
+		<div data-o='X'>擴大模型回覆時的詞彙多樣性與創意</div>
+	</div>
+	<div data-x='quiz:s'>
+		為什麼在句子「這家銀行的放款審查非常_____」中，LLM 預測「嚴格」的機率會高於靜態語意更相近的「貸款」？
+		<div data-o='O'>LLM 權重優化目標包含語法結構與上下文邏輯預測</div>
+		<div data-o='X'>Embedding 空間中「嚴格」與「放款」的幾何距離最近</div>
+		<div data-o='X'>向量資料庫預設優先檢索形容詞</div>
+		<div data-o='X'>Softmax 函數會主動過濾名詞類型的 Token</div>
+	</div>
+	<div data-x='quiz:s'>
+		在切分文本時設置重疊字數（chunk_overlap，如 100 字）的核心效益是什麼？
+		<div data-o='O'>保證前後相鄰區塊的上下文語意連貫不中斷</div>
+		<div data-o='X'>大幅減少切分後產生的區塊總數量</div>
+		<div data-o='X'>降低向量資料庫儲存所需的記憶體空間</div>
+		<div data-o='X'>自動校正文本中的錯別字與排版錯誤</div>
+	</div>
+</div>
+</section>
 
 </body>
 </html>

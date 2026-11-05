@@ -5,62 +5,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="/App/page.js"></script>
+<title>GPT-Hugging Face-Ollama</title>
 <base target='_blank'/>
-<title>GPT to Hugging Face to Ollama</title>
 </head>
 <body style='opacity:0'>
 
 <section class='page col'>
-	<div class='h1 ac' style='margin-bottom:1em'>雲端私有 &rarr; 雲端開源 &rarr; 地端自有</div>
-	<em class='frame'>
-		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
-		<div><em>Department of Finance</em></div>
-		<div><em>Chihlee University of Technology</em></div>
-	</em>
+	<div class='h1 ac' style='margin-bottom:1em'>雲端私營 &rArr; 霧端開源 &rArr; 地端自有</div>
+	<div class="frame">
+		<div>😊 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div>🎓 Department of Finance,</div>
+		<div>🏫 Chihlee University of Technology</div>
+		<div>🕑 2026, Winter</div>
+	</div>
 </section>
 
-<section><h2>雲端私有大語言模型服務</h2><ul>
-	<li>Open AI &rArr; <a href='https://chatgpt.com/'>Chat-GPT</a></li>
-	<li>Anthropic &rArr; <a href='https://claude.ai/'>Claude</a></li>
-	<li>Google &rArr; <a href='https://gemini.google.com/'>Gemini</a></li>
-</ul></section>
+<section><h2>雲端私有大語言模型服務</h2>
+<ul>
+	<li>大型全球生成服務供應商，在全世界租用或自建資料中來服務全球的使用者，收取服務費用 (Token計價)。</li>
+	<li>Anthropic &rArr; <a href='https://claude.ai/'>Claude</a><ul>
+		<li>最適合長文寫作、細膩邏輯推理以及程式開發。Claude 的文筆最接近真人，沒有生硬的「AI 味」，且非常擅長處理大型程式庫和複雜的長篇文件。</li>
+	</ul></li>
+	<li>Open AI &rArr; <a href='https://chatgpt.com/'>Chat-GPT</a><ul>
+		<li>最適合做為全能型創意與多功能助理。它擁有最豐富的生態系統（GPTs 商店）、強大的語音模式，以及頂級的圖像生成（DALL-E 3）能力，泛用性最高。</li>
+	</ul></li>
+	<li>Google &rArr; <a href='https://gemini.google.com/'>Gemini</a><ul>
+		<li>最適合即時網頁搜尋、超大文本處理與 Google 生態系整合。它能直接讀取您的 Gmail、Docs、Drive 等雲端檔案，且網頁資料更新速度極快，能生成附帶來源標籤的深度研究報告。</li>
+	</ul></li>
+</ul>
+</section>
 
-<section><h2>雲端開源大語言模型</h2><ul>
+<section><h2>開源大語言模型</h2>
+<ul>
 	<li><b>平台:</b> <a href='https://huggingface.co/'>Hugging Face</a></li>
-	<li><b>模型:</b> <a href='https://huggingface.co/models'>Hugging Face/Models</a></li>
-	<li>雲端平台 &amp; 生態系統</li>
-	<li>Central Hub / Repository</li>
-	<li>雲端推論應用程式界面 &amp; 服務端點</li>
+	<li><b>模型庫:</b> <a href='https://huggingface.co/models'>Hugging Face/Models</a></li>
+	<li>人工智慧<b>雲端平台</b>與<b>生態系統</b></li>
+	<li>提供 Repository 寄存服務，扮演模型集散中心(Central Hub)的角色</li>
+	<li>做為服務端點，提供雲端推論應用程式界面</li>
 	<li>可以將 Hugging Face 想成是  <b>the GitHub + AWS for AI</b>:<ul>
 		<li><b>雲端空間 (Hub):</b> 它存放了 Google，Meta，Microsoft，以及社群研究者提供的數百萬個模型檔案，資料集，以及程式庫.</li>
 		<li><b>雲端服務 (推論 APIs):</b> 如果不想要在本地主機執行模型，Hugging Face 讓你可以透過 HTTP API 請求來使用在他們的雲端 CPU (依據 token 使用量或時間計費).</li>
 	</ul></li>
-</ul></section>
+</ul>
+</section>
 
-<section><h2>地端私有開源模型服務</h2><ul>
+<section><h2>地端私有開源模型服務</h2>
+<ul>
 	<li><b>軟體工具</b><ul class='zcs2'>
 		<li><a href='https://ollama.com/'>Ollama</a><ul>
 			<li><b>模型格式:</b> <a href='https://pypi.org/project/gguf-converter/'>GGUF</a></li>
-			<li><b>模型:</b> <a href='https://ollama.com/library'>Ollama/Library</a></li>
-			<li><b>平台:</b> PC (Microsoft Windows, Linux, ...)</li>
+			<li><b>模型庫:</b> <a href='https://ollama.com/library'>Ollama/Library</a></li>
+			<li><b>工作平台:</b> PC (Microsoft Windows, Linux, ...)</li>
 		</ul></li>
 		<li><a href='https://developers.google.com/edge/gallery'>Google Edge Gallery</a><ul>
 			<li><b>模型格式:</b> <a href='https://pypi.org/project/litert-converter/'>LiteRT</a></li>
-			<li><b>模型:</b> <a href='https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm'>Hugging Face/LiteRT Community</a></li>
-			<li><b>平台:</b> Mobile (Android, iOS)</li>
+			<li><b>模型庫:</b> <a href='https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm'>Hugging Face/LiteRT Community</a></li>
+			<li><b>工作平台:</b> Mobile (Android, iOS)</li>
 		</ul></li>
 	</ul></li>
 	<li>本地應用程式</li>
-	<li>本地引擎或執行裝置<ul>
+	<li>本地引擎或執行裝置 (以 Ollama為例 )<ul>
 		<li><b>桌面應用:</b> 安裝於本地電腦並管理本機 GPU/CPU 的硬體.</li>
 		<li><b>離線運行:</b> 下載源自 Hugging Face 的模型檔案到電腦的硬碟，所以可以 100% 離線運行.</li>
 		<li><b>本地應用程式界面:</b> Ollama 提供本機的網頁伺服器 (http://localhost:11434). 因此本地的 Python 腳本或 LangChain 的應用程式可以不必透過網際網路與模型溝通.</li>
 	</ul></li>
-	<li>自 HuggingFace 下載模型檔案 (.gguf)</li>
-</ul></section>
+	<li>自 HuggingFace 下載模型檔案 (.gguf) 供 Ollama 執行使用</li>
+</ul>
+</section>
   
-<section><h2>主機與模型</h2><ul>
-	<li>主機與模型<ul class='zcs2'>
+<section><h2>主機與模型</h2>
+<ul>
+	<li><ul class='zcs2'>
 		<li><h3>主機（例如:Ollama）</h3><ul>
 			<li>遊戲主機</li>
 			<li>軟體程式/引擎</li>
@@ -75,33 +90,51 @@
 			<li>遊戲碟片/ROM 資料</li>
 			<li>訓練學得的權重資料</li>
 			<li>包含數億個學習產生的數值（參數）</li>
-			<li>屬於被動資料，不能自己執行</li>
+			<li>被動資料，不能自己執行。</li>
+	 		<li>純靜態資料。無程式，邏輯，與運行程序。</li>
 			<li>包含<b>浮點數值矩陣（權重參數）</b>的二位元檔案</li>
 	 		<li>兩億參數模型（:2b）包含約兩億個代表知識與語言式樣的數值</li>
-	 		<li>沒有程式，邏輯，運行的程序。純粹的靜態資料。</li>
 			<li>是腦與知識</li>
 		</ul></li>
 	</ul></li>
-	<li>輸入 ollama run gemma2:2b 時，Ollama 執行下列步驟:<ol>
+	<li><h3>協同運行</h3>輸入 ollama run gemma2:2b 時，Ollama 執行下列步驟:<ol>
  		<li><b>載入模型檔案:</b> 自硬碟讀取 gemma2:2b 權重檔案並將其載入至電腦記憶體或 GPU 的顯卡記憶體。</li>
 		<li><b>進行數學計算:</b> 運行 C++/CUDA 程式碼來與這些權重進行矩陣乘法。</li>
 		<li><b>提供使用界面:</b> 提供終端機界面 (CLI) 與 本地 RESTful API (http://localhost:11434) 供外部程式(例如 LangChain) 或網頁與模型交談。</li>
 	</ol></li>
-</ul></section>
+</ul>
+</section>
   
-<section><h2>LangChain: 工作原理</h2><ul>
-	<li>關係圖<div data-h='install:mermaid' class='button' style='font-weight:normal !important'>繪製示意圖<textarea data-v='value:raw'>
-flowchart LR
-C["<div data-h='sw:LangChain'>Python 程式<br/>LangChain</div>"]
-O["<div data-h='sw:Ollama'>Ollama 本地伺服器<br/>RESTful API(:11434)</div>"]
-C -->|"HTTP 請求"| O
-O -->|"HTTP 回應"| C
-M["<div data-h='sw:Model'>LLM 模型檔案<br/>神經網路原始權重</div>"]
-M -->|"權重載入記憶體<br/>執行推論"| O
-</textarea></div></li>
+<section><h2>LangChain: 工作原理</h2>
+<ul>
+	<li><table class='chart'>
+		<tr>
+			<th rowspan='2'>
+				<div data-h='sw:LangChain'>LangChain</div>
+				<div data-h='sw:Python'>Python 程式</div>
+			</th>
+			<td>&rarr;(請求)&rarr;</td>
+			<th rowspan='3'>
+				<div class='frame'>本地 Restful 伺服器<br/>:11434</div>
+				↕ <b data-h='sw:Ollama'>Ollama</b> <div class='frame'>大語言模型<br/>推論引擎</div>
+			</th>
+		</tr>
+		<tr>
+			<td>&larr;(回應)&larr;</td>
+		</tr>
+		<tr>
+			<th rowspan='1'>
+				<div data-h='sw:Model'>LLM 模型檔案</div>
+				<div>神經網路原始權重</div>
+			</th>
+			<td>&rarr;(載入)&rarr;</td>
+		</tr>
+	</table></li>
 	<li data-case='Model' class='hide'><h4>Model</h4><ul>
 		<li><b>模型檔案(.gguf)</b> 是一個包含神經網路權重的被動檔案。</li>
 		<li><b>模型</b> 不具有自我執行或回應網路請求的能力。</li>
+		<li><a href='https://huggingface.co/models?apps=ollama&sort=trending'>模型庫: hugging face</a></li>
+		<li><a href='https://ollama.com/library'>模型庫: ollama</a></li>
 	</ul></li>
 	<li data-case='Ollama' class='hide'><h4>Ollama</h4><ul>
 		<li><b>Ollama</b> 扮演<em>引擎以及網頁伺服器</em>的腳色。</li>
@@ -110,10 +143,8 @@ M -->|"權重載入記憶體<br/>執行推論"| O
 	<li data-case='LangChain' class='hide'><h4>LangChain</h4><ul>
 		<li><b>LangChain</b> 使用 Python 與 Ollama 的 Restful API 服務通訊。</li>
 	</ul></li>
-</ul></section>
-
-<section><h2>LangChain 程式範例</h2><ul>
-	<li><div data-xl='code'>
+	<li data-case='Python' class='hide'><h4>LangChain 程式範例</h4><ul>
+		<li><div data-xl='code'>
 # Install required modules:
 # !pip install langchain-ollama langchain-core
 
@@ -128,11 +159,18 @@ prompt = "Please explain what an LLM is in 2 simple sentences in Traditional Chi
 response = llm.invoke(prompt)
 
 print(response)
-	</div></li>
+		</div></li>
+	</ul></li>
 </ul></section>
-  
-<section><h2>💻 Ollama + Gemma 快速安裝與體驗</h2><ul>
-	<li class='fold'><h3 data-h='fold'>下載並安裝 Ollama</h3><ul>
+
+<section><h2>💻 Ollama + Gemma 快速安裝與體驗</h2>
+<ul>
+	<li class='fold'><h3 data-h='fold'>使用 Powershell 命令下載並安裝</h3><ul>
+		<li data-x='code'>irm https://ollama.com/install.ps1 | iex</li>
+		<li><b>irm (Invoke-RestMethod): </b>自遠端伺服器網址抓取內容，資料或檔案。</li>
+		<li><b>iex (Invoke-Expression): </b>接受文字字串並立即在妳的電腦執行。</li>
+	</ul></li>
+	<li class='fold'><h3 data-h='fold'>下載並安裝 Ollama (Alternative)</h3><ul>
 		<li>前往 Ollama 官方網站：<a href='https://ollama.com' target='_blank'>https://ollama.com</a></li>
 		<li>點擊 Download，選擇對應電腦的作業系統（Windows）並下載安裝包。</li>
 		<li>執行安裝檔，一路點擊 Next / Install 完成安裝。</li>
@@ -157,43 +195,118 @@ print(response)
 		<li>Hint: Windows: C:\Users\<使用者名稱>\.ollama\models</li>
 		<li>可在終端機輸入 ollama list，如果能列出已安裝的模型列表，代表服務運作正常。</li>
 	</ul></li>
-</ul></section>
+</ul>
+</section>
 
-<section><h2>💻 Ollama 大量安裝</h2><ul>
-	<li>📦 Phase 1: Preparation on Teacher's PC (Do Once)<ol>
-		<li>Download the Ollama Installer:<ul>
-			<li>Download OllamaSetup.exe (Windows) or Ollama-darwin.zip (Mac) from ollama.com.</li>
-		</ul></li>
-		<li>Download the Gemma Model:<ul>
-			<li>Run the installer on the teacher's PC, then open Command Prompt / Terminal and run: ollama run gemma2:2b</li>
-			<li>Wait for the download to finish. Test a quick message to ensure it works, then exit with /bye.</li>
-		</ul></li>
-		<li>Copy the downloaded model files:<ul>
-   			<li>[Windows] C:\Users\&lt;Your-Username&gt;\.ollama\models</li>
-		</ul></li>
-	</ol></li>
-	<li>💻 Phase 2: Student PC Installation (Takes ~1 Minute per PC)<ol>
-		<li>Install Ollama<ul>
-			<li>Double-click OllamaSetup.exe from the shared network drive to install the software.</li>
-		</ul></li>
-		<li>Copy the Model Folder<ul>
-			<li>Copy the pre-downloaded .ollama folder from the network drive and paste it into their own User folder: C:\Users\Users\.ollama\</li>
-			<li>(Make sure the folder structure ends up as .../.ollama/models/manifests/... and .../.ollama/models/blobs/...)</li>
-		</ul></li>
-	</ol></li>
-	<li>Step 3: Run Without Internet!<ul>
-		<li>Open Command Prompt / Terminal and type: ollama run gemma2:2b</li>
-		<li>Because the model files are already in the .ollama folder, <em>Ollama will launch INSTANTLY without downloading anything from the internet.</em></li>
-		<li>You can tell Ollama to load models from a secondary drive (e.g., D:\OllamaModels) using an Environment Variable:<ol>
-			<li>Copy the models folder to D:\OllamaModels.</li>
-			<li>Set the Environment Variable in Windows:<ul>
-				<li>Key: OLLAMA_MODELS</li>
-				<li>Value: D:\OllamaModels</li>
-			</ul></li>
-			<li>Now Ollama will read models directly from drive D:\ every time without needing re-downloads!</li>
-		</ol></li>
-	</ul></li>
-</ul></section>
+<section><h2>💡 練習題</h2>
+<div data-x='quiz:c'>
+	<div data-x='quiz:s'>
+		在雲端私有大型語言模型中，哪一家供應商的服務被形容為最適合長文寫作、細膩邏輯推理以及程式開發，且文筆最接近真人？
+		<div data-o='O'>Anthropic (Claude)</div>
+		<div data-o='X'>OpenAI (ChatGPT)</div>
+		<div data-o='X'>Google (Gemini)</div>
+		<div data-o='X'>Meta (Llama)</div>
+	</div>
+	<div data-x='quiz:s'>
+		下列哪一個大語言模型服務以擁有豐富的生態系統（如 GPTs 商店）與強大的 DALL-E 3 圖像生成能力著稱？
+		<div data-o='O'>ChatGPT</div>
+		<div data-o='X'>Claude</div>
+		<div data-o='X'>Gemini</div>
+		<div data-o='X'>Ollama</div>
+	</div>
+	<div data-x='quiz:s'>
+		根據投影片內容，最適合即時網頁搜尋、超大文本處理，並能直接整合 Gmail、Docs 與 Drive 的雲端模型是哪一個？
+		<div data-o='O'>Gemini</div>
+		<div data-o='X'>Claude</div>
+		<div data-o='X'>ChatGPT</div>
+		<div data-o='X'>LiteRT</div>
+	</div>
+	<div data-x='quiz:s'>
+		在開源 AI 生態系中，常被比喻為「AI 界的 GitHub + AWS」的平台是哪一個？
+		<div data-o='O'>Hugging Face</div>
+		<div data-o='X'>Ollama</div>
+		<div data-o='X'>Google Edge Gallery</div>
+		<div data-o='X'>LangChain</div>
+	</div>
+	<div data-x='quiz:s'>
+		Ollama 在地端執行語言模型時，主要支援的開源模型檔案格式為何？
+		<div data-o='O'>GGUF</div>
+		<div data-o='X'>LiteRT</div>
+		<div data-o='X'>ONNX</div>
+		<div data-o='X'>TensorRT</div>
+	</div>
+	<div data-x='quiz:s'>
+		在行動裝置（Android、iOS）平台上，Google Edge Gallery 主要採用的模型格式為何？
+		<div data-o='O'>LiteRT</div>
+		<div data-o='X'>GGUF</div>
+		<div data-o='X'>CUDA</div>
+		<div data-o='X'>PyTorch (.pt)</div>
+	</div>
+	<div data-x='quiz:s'>
+		Ollama 在本機運作時，預設提供 RESTful API 服務的通訊埠（Port）是哪一個？
+		<div data-o='O'>11434</div>
+		<div data-o='X'>8080</div>
+		<div data-o='X'>3000</div>
+		<div data-o='X'>5000</div>
+	</div>
+	<div data-x='quiz:s'>
+		在「主機與模型」的比喻中，投影片將「Ollama 主機」比喻為什麼？
+		<div data-o='O'>遊戲主機與身體（引擎/程式）</div>
+		<div data-o='X'>遊戲卡匣或碟片資料</div>
+		<div data-o='X'>大腦中的靜態記憶</div>
+		<div data-o='X'>外部網路線路</div>
+	</div>
+	<div data-x='quiz:s'>
+		關於大語言模型的「權重與模型檔案（例如 Gemma）」，下列敘述何者正確？
+		<div data-o='O'>屬於被動的靜態資料，不包含程式邏輯且無法自我執行</div>
+		<div data-o='X'>是以 Go 或 C++ 開發的執行檔，具備獨立網路伺服器功能</div>
+		<div data-o='X'>自身即可主動監聽本地連接埠並接收 HTTP 請求</div>
+		<div data-o='X'>不同模型間的核心演算法差異極大，但權重數據完全相同</div>
+	</div>
+	<div data-x='quiz:s'>
+		執行指令 `ollama run gemma2:2b` 時，下列哪一項是 Ollama 在背景執行的第一步工作？
+		<div data-o='O'>自硬碟讀取模型檔案並載入至電腦記憶體或顯卡記憶體</div>
+		<div data-o='X'>透過 LangChain 向遠端 API 發送 HTTP 請求</div>
+		<div data-o='X'>在雲端主機進行矩陣乘法運算</div>
+		<div data-o='X'>自動開啟網頁瀏覽器並登入 Hugging Face 帳號</div>
+	</div>
+	<div data-x='quiz:s'>
+		模型名稱中的標籤「:2b」（如 gemma2:2b）通常代表什麼意義？
+		<div data-o='O'>約擁有二十億個學習產生的參數（數值）</div>
+		<div data-o='X'>需要消耗 2GB 的硬碟安裝空間</div>
+		<div data-o='X'>支援最大 200 萬字的輸入長度</div>
+		<div data-o='X'>採用雙通道處理的第二代架構</div>
+	</div>
+	<div data-x='quiz:s'>
+		在 LangChain 與本地 Ollama 整合的架構中，LangChain 主要扮演什麼角色？
+		<div data-o='O'>使用 Python 透過 RESTful API 與 Ollama 推論引擎通訊的應用程式框架</div>
+		<div data-o='X'>負責執行 C++/CUDA 底層矩陣乘法的硬體驅動程式</div>
+		<div data-o='X'>用來儲存神經網絡權重數值的 GGUF 二進位檔案</div>
+		<div data-o='X'>提供模型權重下載託管的中央倉庫</div>
+	</div>
+	<div data-x='quiz:s'>
+		在 Windows PowerShell 中使用 `irm https://ollama.com/install.ps1 | iex` 指令時，`irm`（Invoke-RestMethod）的主要功用為何？
+		<div data-o='O'>自遠端伺服器網址抓取內容、資料或安裝腳本</div>
+		<div data-o='X'>在終端機中即時執行傳入的文字指令</div>
+		<div data-o='X'>重啟電腦並載入 CUDA 驅動</div>
+		<div data-o='X'>自動刪除暫存區的模型權重檔案</div>
+	</div>
+	<div data-x='quiz:s'>
+		在終端機中透過 Ollama 與模型交談時，若想退出對話交談模式，應輸入下列哪一個指令？
+		<div data-o='O'>/bye</div>
+		<div data-o='X'>:quit</div>
+		<div data-o='X'>exit()</div>
+		<div data-o='X'>!stop</div>
+	</div>
+	<div data-x='quiz:s'>
+		若要在命令列確認 Ollama 目前已經安裝了哪些本機模型，可以使用下列哪一個指令？
+		<div data-o='O'>ollama list</div>
+		<div data-o='X'>ollama check</div>
+		<div data-o='X'>ollama status</div>
+		<div data-o='X'>ollama show</div>
+	</div>
+</div>
+</section>
 
 </body>
 </html>

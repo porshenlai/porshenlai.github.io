@@ -13,16 +13,14 @@
 <textarea style='width:100%' rows='20'>請 OCR 附件附件的考題，並產生如下格式的 HTML 題目文件。
 題目前方不需要題號與答案資訊。
 選項前方不需要標籤(選項順序會隨機調換)。
-答案說明的元素，不需要使用請直接刪除。
 
-<div class='QuizGroup'>
+<div data-x='quiz:c'>
 	<div data-x='quiz:s'>
 		單選題題目顯示在這邊
 		<div data-o='O'>這是正確答案 1</div>
 		<div data-o='X'>這是錯誤答案 1</div>
 		<div data-o='X'>這是錯誤答案 2</div>
 		<div data-o='X'>這是錯誤答案 3</div>
-		<div class='hint'>答案說明</div>
 	</div>
 	<div data-x='quiz:s'>
 		是非題題目顯示在這邊
@@ -30,7 +28,6 @@
 			<div data-o='O'>錯誤</div>
 			<div data-o='X'>正確</div>
 		</div>
-		<div class='hint'>答案說明</div>
 	</div>
 	<div data-x='quiz:m'>
 		多選題題目顯示在這邊
@@ -38,7 +35,6 @@
 		<div data-o='O'>這是正確答案 2</div>
 		<div data-o='X'>這是錯誤答案 1</div>
 		<div data-o='X'>這是錯誤答案 2</div>
-		<div class='hint'>答案說明</div>
 	</div>
 </div></textarea></div></li #='}}}'>
 	<li class='fold' #='{{{'><span data-h='fold'>試題掃描</span><div>
