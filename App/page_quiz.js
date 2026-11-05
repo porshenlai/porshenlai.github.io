@@ -32,22 +32,36 @@ function download (body=document.body)
 	console.log(qs.join('\n'));
 }
 
+function verify (e, a, k)
+{
+	if (k) {
+
+	}
+	return e.dataset.h.endsWith(':'+a);
+}
+
 function check_answer (qe)
 {
+	const key = undefined;
+	//const key = '-';
 	let ans='QR-';
 	switch (qe.dataset.qtype) {
-	case 's': case 'm':
-		ans = Array.from(qe.querySelectorAll('.mod_quiz_answer')).reduce((r,oe)=>{
-			r&&=(oe.dataset.h.endsWith(':O') === oe.classList.contains('QS'));
-			return r;
-		},true) ? 'QRO' : 'QRX';
+	case 's':
+		ans=qe.querySelector('.mod_quiz_answer.QS') ? 'QR' : 'QR-';
+	case 'm':
+		if (!key)
+			ans = Array.from(qe.querySelectorAll('.mod_quiz_answer')).reduce((r,oe)=>{
+				r&&=verify(oe, oe.classList.contains('QS') ? 'O' : 'X', key);
+				return r;
+			},true) ? 'QRO' : 'QRX';
 		break;
 	case 'sort':
-		ans = Array.from(qe.querySelectorAll('.mod_quiz_answer')).reduce((r,oe,ix)=>{
-			if (oe.dataset.h.endsWith(':-')) return r;
-			r&&=oe.dataset.h.endsWith(`:${ix+1}`);
-			return r;
-		},true) ? 'QRO' : 'QRX';
+		if (!key)
+			ans = Array.from(qe.querySelectorAll('.mod_quiz_answer')).reduce((r,oe,ix)=>{
+				if (verify(oe, '-', key)) return r;
+				r&&=verify(oe, `${ix+1}`, key) 
+				return r;
+			},true) ? 'QRO' : 'QRX';
 		break;
 	}
 	const p=/QR?/;
