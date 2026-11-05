@@ -1,11 +1,113 @@
 (function(SCRIPT){
 
+function collect (body)
+{
+	return Array.from(body.querySelectorAll('.mod_quiz')).reduce((r,e)=>{
+		if (e.dataset.qtype==='c' || e.dataset.qtype==='sort') return r;
+		const de = e.cloneNode(true);
+		const opts = Array.from(de.querySelectorAll('.mod_quiz_answer')).reduce((r,o,x)=>{
+			r.ot.push(o.textContent);
+			if (o.dataset.h.endsWith(':O')) r.ans.push(x+1);
+			o.parentNode.removeChild(o);
+			return r;
+		},{ot:[],ans:[]});
+		r.push({
+			"Q":de.innerHTML.trim(),
+			"O":opts.ot,
+			"A":opts.ans
+		});
+		return r;
+	},[]);
+}
+
+function download (body=document.body)
+{
+	console.log("download quiz");
+	const qs=collect(body).map((q)=>{
+		if(q.A.length>1) // 3:多選
+			return `"3","${q.A.join(' || ')}","${q.Q}","${q.O.join(' || ')}","","2026-0-3-0-0","3"`;
+		else // 2:單選
+			return `"2","${q.A[0]}","${q.Q}","${q.O.join(' || ')}","","2026-0-3-0-0","3"`;
+	});
+	console.log(qs.join('\n'));
+}
+
+function check_answer (qe)
+{
+	let ans='QR-';
+	switch (qe.dataset.qtype) {
+	case 's': case 'm':
+		ans = Array.from(qe.querySelectorAll('.mod_quiz_answer')).reduce((r,oe)=>{
+			r&&=(oe.dataset.h.endsWith(':O') === oe.classList.contains('QS'));
+			return r;
+		},true) ? 'QRO' : 'QRX';
+		break;
+	case 'sort':
+		ans = Array.from(qe.querySelectorAll('.mod_quiz_answer')).reduce((r,oe,ix)=>{
+			if (oe.dataset.h.endsWith(':-')) return r;
+			r&&=oe.dataset.h.endsWith(`:${ix+1}`);
+			return r;
+		},true) ? 'QRO' : 'QRX';
+		break;
+	}
+	const p=/QR?/;
+	Array.from(qe.classList)
+		.filter((s)=>p.exec(s))
+		.forEach((s)=>qe.classList.remove(s));
+	qe.classList.add(ans);
+	return ans;
+}
+
+function answer (e, v, p)
+{
+	if (!p) p=Apps.E(e).trace('.mod_quiz');
+	switch (p.dataset.qtype) {
+	case 's':
+		return ((set)=>{
+			Array.from(p.querySelectorAll('.QS'))
+				.forEach((e)=>e.classList.remove('QS'));
+			if (set) e.classList.add('QS');
+			return check_answer(p);
+		})(!e.classList.contains('QS'));
+	case 'm':
+		return (()=>{
+			e.classList.toggle('QS');
+			return check_answer(p);
+		})();
+		break;
+	case 'sort':
+		(()=>{
+			let c=e.parentNode;
+			e.classList.toggle('QS'); // toggle the flag of this answer
+			if (e.classList.contains('QS'))
+				c.insertBefore(e,c.querySelector('[data-h]:not(.QS)'));
+			else c.appendChild(e);
+			return check_answer(p);
+		})();
+		break;
+	}
+}
+
+function install (xe)
+{
+	let args=(xe.dataset.xl||xe.dataset.x).split(':');
+	if (args[1]==='c') return;
+
+	// shuffle opotions
+	let te=[],pe=[];
+	Apps.E(xe).forEach('[data-o]',(oe)=>{
+		oe.dataset.h=`call:quiz:answer:${oe.dataset.o}`;
+		oe.classList.add('mod_quiz_answer');
+		delete oe.dataset.o;
+		te.push([Math.random(),oe.outerHTML]);
+		pe.push(oe);
+	});
+	te=te.sort((a,b)=>a[0]-b[0]);
+	pe.forEach((oe,ix)=>(oe.outerHTML=te[ix][1]));
+}
+
 class Quiz
 {	// Quiz Plugin
-	constructor (app)
-	{
-		this.QEs={};
-	}
 	saveCSV (aa)
 	{
 		const rst=aa.map((row)=>('"'+row.map((v)=>v.replaceAll('"','""')).join('","')+'"')).join('\n');
@@ -71,83 +173,6 @@ class Quiz
     	return arr.map(b => b.toString(16).padStart(2, '0')).join('')
 	}
 
-	__setStatus__ (qe, v)
-	{
-		const p=/QR?/;
-		Array.from(qe.classList)
-			.filter((s)=>p.exec(s))
-			.forEach((s)=>qe.classList.remove(s));
-		qe.classList.add(`QR${v}`);
-	}
-
-	install (xe)
-	{
-		if (undefined===xe._K_) xe._K_=`${new Date().getTime().toString(36)}${Object.keys(this.QEs).length}`;
-		if (xe._K_ in this.QEs) return this;
-
-		let args=(xe.dataset.xl||xe.dataset.x).split(':');
-		if (args[1]==='c') return this;
-
-		this.QEs[xe._K_]=xe;
-
-		// shuffle opotions
-		let te=[],pe=[];
-		Apps.E(xe).forEach('[data-o]',(oe)=>{
-			oe.dataset.h=`call:quiz:answer:${oe.dataset.o}`;
-			oe.classList.add('mod_quiz_answer');
-			delete oe.dataset.d;
-			te.push([Math.random(),oe.outerHTML]);
-			pe.push(oe);
-		});
-		te=te.sort((a,b)=>a[0]-b[0]);
-		pe.forEach((oe,ix)=>(oe.outerHTML=te[ix][1]));
-		return this;
-	}
-	answer (e, v, p)
-	{
-		// locate the quiz block
-		if (!p) p=Apps.E(e).trace('.mod_quiz');
-		switch (p.dataset.qtype) {
-		case 's':
-			if (e.classList.contains('QS')) {
-				// click selected one, clear all
-				Array.from(p.querySelectorAll('.QS'))
-					.forEach((e)=>e.classList.remove('QS'));
-				this.__setStatus__(p, '-');
-			} else {
-				// click new answer, clear all, then select this one
-				Array.from(p.querySelectorAll('.QS'))
-					.forEach((e)=>e.classList.remove('QS'));
-				e.classList.add('QS');
-				this.__setStatus__(p, e.dataset.o.substring(0,1));
-			}
-			break;
-		case 'm':
-			(()=>{
-				e.classList.toggle('QS'); // toggle the flag of this answer
-				const re1 = Array.from(e.parentNode.querySelectorAll('.mod_quiz_answer.QS'))
-					.reduce((r,e) => r&&/:answer:O/.test(e.dataset.h),true);
-				const re2 = Array.from(e.parentNode.querySelectorAll('.mod_quiz_answer:not(.QS)'))
-					.reduce((r,e) => r&&/:answer:X/.test(e.dataset.h),true);
-				this.__setStatus__(p, re1 && re2 ? 'O' : 'X');
-			})();
-			break;
-		case 'sort':
-		  (()=>{
-				let c=e.parentNode;
-				e.classList.toggle('QS'); // toggle the flag of this answer
-				if (e.classList.contains('QS'))
-					c.insertBefore(e,c.querySelector('[data-h]:not(.QS)'));
-				else c.appendChild(e);
-				const re1 = Array.from(p.querySelectorAll('.mod_quiz_answer.QS'))
-					.reduce((r,e,i) => r&&(new RegExp(`:answer:${i}`)).test(e.dataset.h), true)
-				const re2 = Array.from(c.querySelectorAll('.mod_quiz_answer:not(.QS)'))
-					.reduce((r,e) => r&&/:answer:-/.test(e.dataset.h), true);
-				this.__setStatus__(p, re1 ? re2 ? 'O' : '-' : 'X');
-			})();
-			break;
-		}
-	}
 	mark ()
 	{
 		// submit all the replied answers
@@ -161,15 +186,21 @@ class Quiz
 let H=undefined;
 SCRIPT.value=async function (slide, elem, ...args)
 {
-	if (!H) H=new Quiz(slide);
 	if (!args) return;
 	const func = args.shift();
-	if (func  === 'answer') {
-		H.answer(elem, args[0]);
-	} else if (!elem.classList.contains('mod_quiz')) {
-		elem.classList.add('mod_quiz');
-		elem.dataset.qtype=func;
-		H.install(elem);
+	switch (func) {
+	case 'answer':
+		answer(elem, args[0]);
+		break;
+	case 'download':
+		download();
+		break;
+	default:
+		if (!elem.classList.contains('mod_quiz')) {
+			elem.classList.add('mod_quiz');
+			elem.dataset.qtype=func;
+			install(elem);
+		}
 	}
 };
 

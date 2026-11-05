@@ -6,34 +6,34 @@
 <link rel="icon" type="image/png" href="/res/icon.jpg">
 <script src="page.js"></script>
 </head>
-<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+<body style='opacity:0'>
 
 <section>
 <h2>問答 - 單選題</h2>
 <div data-x='quiz:s'>
-	請問這是哪種類型問答的範例 ?
-	<div data-o='O'>單選題<div class='hide'>正確答案</div></div>
-	<div data-o='X'>複選題<div class='hide'>只有一個選項</div></div>
-	<div data-o='X'>排序題<div class='hide'>不是在排序</div></div>
-	<div data-o='X'>問答題<div class='hide'>不是在問答</div></div>
+	1. 請問這是哪種類型問答的範例 ?
+	<div data-o='O'>單選題</div>
+	<div data-o='X'>複選題</div>
+	<div data-o='X'>排序題</div>
+	<div data-o='X'>問答題</div>
 </div>
 </section>
 
 <section>
 <h2>問答 - 複選題</h2>
 <div data-x='quiz:m'>
-	請問這是哪種類型問答的範例 ?
-	<div data-o='O'>多選題<div class='hide'>多選題也是複選題</div></div>
-	<div data-o='X'>躲選題<div class='hide'>躲字不對</div></div>
-	<div data-o='O'>複選題<div class='hide'>複選題也是多選題</div></div>
-	<div data-o='X'>負選題<div class='hide'>負字不對</div></div>
+	2. 請問這是哪種類型問答的範例 ?
+	<div data-o='O'>多選題</div>
+	<div data-o='X'>躲選題</div>
+	<div data-o='O'>複選題</div>
+	<div data-o='X'>負選題</div>
 </div>
 </section>
 
 <section>
 <h2>問答 - 排序題</h2>
 <div data-x='quiz:sort'>
-	請排列下列選項回答這是哪種類型問答的範例 ?
+	3. 請排列下列選項回答這是哪種類型問答的範例 ?
 	<div>
 	<span data-o='-'>不</span>
 	<span data-o='2'>是</span>
@@ -46,5 +46,9 @@
 </div>
 </section>
 
-</div></main></body>
+<section>
+	<button data-h='call:quiz:download'>TEST</button>
+</section>
+
+</body>
 </html>
