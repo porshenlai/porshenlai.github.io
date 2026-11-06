@@ -22,14 +22,21 @@ function collect (body)
 
 function download (body=document.body)
 {
+/* <DLC Example>
+"1","1","YES or NO","","","0-0-0-0-0","3"
+"2","1","Pick One","A || B || C || D","","0-0-0-0-0","3"
+"3","1,2","Pick more than ONE","A || B || C || D","","1-0-0-0-0","3"
+*/
 	console.log("download quiz");
 	const qs=collect(body).map((q)=>{
 		if(q.A.length>1) // 3:多選
-			return `"3","${q.A.join(' || ')}","${q.Q}","${q.O.join(' || ')}","","2026-0-3-0-0","3"`;
+			return `"3","${q.A.join(',')}","${q.Q}","${q.O.join(' || ')}","","0-0-3-0-0","3"`;
 		else // 2:單選
-			return `"2","${q.A[0]}","${q.Q}","${q.O.join(' || ')}","","2026-0-3-0-0","3"`;
+			return `"2","${q.A[0]}","${q.Q}","${q.O.join(' || ')}","","0-0-3-0-0","3"`;
 	});
-	console.log(qs.join('\n'));
+	Apps.B(qs.join('\n')).download(
+		window.prompt("請輸入檔名",(new Date()).toISOString()+".csv")
+	);
 }
 
 function verify (e, a, k)
