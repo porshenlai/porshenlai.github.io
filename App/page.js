@@ -9,6 +9,17 @@ const ASSERT_THROW = (ta, msg) => (Array.isArray(ta) ? ta : [ta]).filter((t)=>{
 
 const Apps = {
 
+mod_template: class {
+	constructor (slide) { this.Slide=slide; }
+	async __init__ (elem) { }
+	async init (elem) { }
+	async invoke (elem, fn, ...args) {
+		console.assert(fn in this, `no such function (${fn})`);
+		await this.__init__(elem);
+		return await this[fn](elem, ...args);
+	}
+},	// mod_template
+
 JSPrefix: (/(.*\/)([^\/]+)(\?.*)?/.exec(currentScript.src)||['',''])[1],
 Args: (location.search||'?').substr(1).split('&').reduce((r,a) => {
 	const pa = /^([^=]+)=(.*)$/.exec(a);
@@ -17,17 +28,17 @@ Args: (location.search||'?').substr(1).split('&').reduce((r,a) => {
 }, {}),
 
 loadScript: async function (src,attrs={})
-{	// 載入 JS {{{
+{	// 載入 JS
 	const se=document.createElement("script"),
     	  rv=new Promise((or,oe)=>se.addEventListener("load",()=>or(se.value)));
 	for(let key in attrs) se.setAttribute(key,attrs[key]);
 	se.src=src;
 	document.head.appendChild(se);
 	return (await rv)||se;
-},	// loadScript }}}
+},	// loadScript
 
 splitArgs: function (s, d=':')
-{	// {{{
+{
 	let m=undefined, bf=[];
 	return s.split(d).reduce((r,v)=>{
 		if (m) {
@@ -42,11 +53,11 @@ splitArgs: function (s, d=':')
 		} else r.push(v);
 		return r;
 	},[]);
-},	// }}}
+},	// splitArgs
 handleArgs: (s, h) => s.split(';').filter((a)=>a).forEach((a)=>h(...Apps.splitArgs(a))),
 
 changeRoot: function (doc, url)
-{	// {{{
+{
 	url = (url.indexOf('://')<0) ? ((r)=>{
 		r.pathname = url.startsWith('/') ? url : (r.pathname.replace(/[^\/]*$/,'')+url.replace(/[^\/]*$/,''));
 		return r;
@@ -68,7 +79,7 @@ changeRoot: function (doc, url)
 	Array.from(doc.querySelectorAll('section')).forEach(
 		(e)=>(e.dataset.rbase=url.href)
 	);
-},// change root }}}
+},	// change root
 
 switchElement: function (elem)
 {
@@ -79,7 +90,7 @@ switchElement: function (elem)
 		elem = elem.querySelector(se) || elem;
 	}
 	return elem;
-}
+}	// switchElement
 };
 
 Apps.Ready = (() => {
@@ -101,68 +112,67 @@ class KeyFilter
 }	// }}}
 
 class Content
-{	// 顯示頁面s
+{	// 顯示頁面
 	constructor (e)
-	{	// e: 顯示區塊 {{{
+	{	// e: 顯示區塊
 		this.E=e;
 		this.Keywords = {};
 		this.PageIndex = [];
 
 		this.Xs={
-			template: async function (slide, elem, temp, data)
-			{
-				if (elem.classList.contains('resolved')) return;
-				elem.classList.add('resolved');
-				// 檢索參數
-				const I={'template':temp||elem,'data':data||elem};
-				for (let k in I) {
-					if (!I[k] || I[k] === '&this') I[k] = elem;
-					I[k] = 'string' === typeof(I[k]) ? Apps.Ns.resolve(I[k])
-						 : I[k] instanceof Element ? Apps.Ns.resolve(k,I[k]) : I[k] ;
+			template: new (class extends Apps.mod_template {
+				async init (elem, ...args) {
+					const [temp,data] = args;
+					// async function init (slide, elem, temp, data)
+					const I={'template':temp||elem,'data':data||elem};
+					for (let k in I) {
+						if (!I[k] || I[k] === '&this') I[k] = elem;
+							I[k] = 'string' === typeof(I[k]) ? Apps.Ns.resolve(I[k])
+					 		: I[k] instanceof Element ? Apps.Ns.resolve(k,I[k]) : I[k] ;
+					}
+					[temp,data] = [I.template, I.data];
+					// 取得資料
+					data = await data.get();
+					// 樣板資料填入
+					await temp.put(elem, data);
+					// 擴充模組驅動
+					while (true) {
+						const xe = elem.querySelector('[data-xl]');
+						await this.Slide.call_module(xe);
+						delete xe.dataset.xl;
+					}
 				}
-				[temp,data] = [I.template, I.data];
-				// 取得資料
-				data = await data.get();
-				// 樣板資料填入
-				await temp.put(elem, data);
-
-				// 擴充模組驅動
-				while (true) {
-					const xe = elem.querySelector('[data-xl]');
-					await slide.__prepare__(xe);
-					delete xe.dataset.xl;
-				}
-			}
+			})()
 		};
-
 		Apps.E('<link rel="stylesheet" href="/App/page.css"></link>').join(document.head);
-	}	// }}}
+	}	// constructor
 
-	async __prepare__ (e, mn, args) // prepare x-module < data-xl >,< data-x > or <> module_name,args
-	{	// 準備 頁面延伸模組 {{{
-		if (!mn) {
-			args = (e.dataset.xl || e.dataset.x).split(':');
+	async call_module (elem, mn, ...args)
+	{
+		if (!mn) { // read module name from element
+			args = (elem.dataset.xl || elem.dataset.x).split(':');
 			mn = args.shift();
+			if (args[0]!=='init') args.unshift('init');
 		}
-		if (!mn) throw Exception('Module name missing');
-		if (!this.Xs[mn])
-			this.Xs[mn] = Apps.loadScript(
+	 	if (!(mn in this.Xs)) // load module for the first time
+			this.Xs[mn] ||= new (await Apps.loadScript(
 				currentScript.getAttribute("src").replace(/\.js/,`_${mn}.js`)
-			);
-		return (await (this.Xs[mn]))(this, e, ...args);
-	}	// }}}
+			))(this);
+		const xs = this.Xs[mn];
+		return await xs.invoke(elem, ...args);
+	}	// call module
 
 	find (id) // rv: Section Element
 	{	return this.E.querySelector(`section:not(.disabled)#${id}`); }
 
 	indexOf (id) // rv: PageNumber-1
-	{ return this.PageIndex.indexOf(id instanceof Element ? id.id : id); }
+	{	return this.PageIndex.indexOf(id instanceof Element ? id.id : id); }
 
 	get Sections () // rv: [enabled sections]
 	{	return Array.from(this.E.querySelectorAll('section:not(.disabled)')); }
 
 	convertPageNumber (k) // k in [number>1, id_string, Element]
-	{	// rv: number>1 {{{
+	{	// rv: number>1
 		if (k instanceof Element) return this.indexOf(k.id)+1;
 		if ('string' === typeof(k)) {
 			if (/^\d+$/.exec(k))
@@ -173,10 +183,10 @@ class Content
 			}
 		}
 		return k;
-	}	// }}}
+	}	// convert page number
 
 	set PageNumber (v) // v in [number>1, id_string, Element]
-	{	// 跳頁 {{{
+	{
 		let pn=undefined,force=false;
 		switch (v) {
 		case 'next':
@@ -244,15 +254,10 @@ class Content
 
 			// Trigger module extend of section loading
 			let ms=em.dataset.xl ? [em] : Array.from(em.querySelectorAll('[data-xl]'));
-			if(ms.length>0) Promise.all(ms.map((xe)=>this.__prepare__(xe))).then(()=>{
-				if (em.classList.contains('current')) {
-					if (Apps.Timer) clearInterval(Apps.Timer);
-					if (em && em.tick) em.tick(true);
-					Apps.Timer = setInterval((cpage)=>{
-						if (cpage && cpage.tick) cpage.tick(true);
-					}, 500, em);
-				}
-			},()=>0);
+			if(ms.length>0)
+				Promise.all(ms.map(
+					(xe)=>this.call_module(xe)
+				)).then(()=>0,()=>0);
 
 			setTimeout(()=>{ // SCROLL INTO VIEW
 				em.scrollIntoView({
@@ -262,7 +267,7 @@ class Content
 				em.scrollTop = 0;
 			}, 100);
 		}
-	}	// }}}
+	}	// set page number
 
 	get CurPage ()
 	{	return this.E.querySelector(`section:not(.disabled).current`); }
@@ -271,17 +276,17 @@ class Content
 	{	return this.convertPageNumber(this.CurPage) || 1; }
 
 	set PlayMode (v) // v in [0:連續,1:滿框,2:分頁]
-	{	// 模式切換 {{{
+	{
 		const cl = this.E.classList;
 		cl.remove(... Array.from(cl).filter((n)=>n.startsWith('PlayMode_')));
 		cl.add(`PlayMode_${v}`);
-	}	// }}}
+	}	// set play mode
 
 	get PlayMode () // ret in [0:連續,1:滿框,2:分頁]
-	{	// {{{
+	{
 		let rv = Array.from(this.E.classList).find((n)=>n.startsWith('PlayMode_')) || "PlayMode_";
 		return rv.substring(9);
-	}	// }}}
+	}	// get play mode
 }	// class Content
 
 class Player
@@ -350,7 +355,7 @@ class Player
 				while (true) {
 					const xe=this.E.querySelector('[data-x]:not(.resolved)');
 					if (xe) {
-						await this.__prepare__(xe);
+						await this.call_module(xe);
 						delete xe.dataset.x;
 					} else break;
 				}
@@ -574,16 +579,13 @@ class Player
 	{	return this[name]=value; }
 
 	call (fn, ...args)
-	{	// {{{
+	{
 		try {
 			if (fn in Apps) return Apps[fn](...args);
 			let caller = Apps.E(event.target).trace('[data-h^="call"]');
-			if (fn in this.Content.Xs)
-				this.Content.Xs[fn].then(
-					(f)=>f(this.Content, Apps.switchElement(caller), ...args)
-				);
+			this.Content.call_module(Apps.switchElement(caller), fn,...args);
 		} catch(x) { console.log(x); }
-	}	// }}}
+	}	// call module or App functions
 
 	link (target, ...args)
 	{
@@ -617,7 +619,8 @@ class Player
 	{	// {{{
 		const elem=Apps.E(event.target).trace('[data-h]');
 		ASSERT_THROW(elem, "container not exist");
-		await this.Content.__prepare__(elem, mn, args);
+		if (args[0]!=='init') args.unshift('init');
+		await this.Content.call_module(elem, mn, args);
 	}	// }}}
 
 	play (caption, mn, ...args)
@@ -629,7 +632,7 @@ class Player
 		if (args[args.length-1] instanceof Element)
 			VE.innerHTML=args.pop().innerHTML;
 		VE.dataset.xl = args.join(":");
-		this.Content.__prepare__(VE);
+		this.Content.call_module(VE);
 		this.Overlay='dialog';
 		((DLG)=>{
 			DLG.querySelector('div').textContent=caption||'Dialog';
@@ -764,6 +767,11 @@ class Player
 			this.CDB = {
 				template: class {
 					constructor (e) { this.Temp = e.innerHTML; }
+					clone () {
+						const e = document.createElement("div");
+						e.innerHTML = this.Temp;
+						return e;
+					}
 					async put (e,d) {
 						e.innerHTML = this.Temp;
 						await Apps.E(e).put(d);

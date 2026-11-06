@@ -72,9 +72,9 @@ function check_answer (qe)
 	return ans;
 }
 
-function answer (e, v, p)
+function answer (e, v)
 {
-	if (!p) p=Apps.E(e).trace('.mod_quiz');
+	const p=Apps.E(e).trace('.mod_quiz');
 	switch (p.dataset.qtype) {
 	case 's':
 		return ((set)=>{
@@ -197,26 +197,20 @@ class Quiz
 	}
 }
 
-let H=undefined;
-SCRIPT.value=async function (slide, elem, ...args)
-{
-	if (!args) return;
-	const func = args.shift();
-	switch (func) {
-	case 'answer':
-		answer(elem, args[0]);
-		break;
-	case 'download':
-		download();
-		break;
-	default:
+SCRIPT.value = class extends Apps.mod_template {
+	async init (elem, qtype) {
 		if (!elem.classList.contains('mod_quiz')) {
 			elem.classList.add('mod_quiz');
-			elem.dataset.qtype=func;
+			elem.dataset.qtype=qtype;
 			install(elem);
 		}
 	}
+	async answer (elem, ...args) {
+		return answer(elem, args[0]);
+	}
+	async download (elme, ...args) {
+		return download();
+	}
 };
-
 
 })(document.currentScript);

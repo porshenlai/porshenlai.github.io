@@ -1,19 +1,34 @@
 (function(SCRIPT){
 
-class ICode
-{
-	constructor (elem)
-	{
-		if (!elem.classList.contains('mod_code')) {
-			elem.classList.add('mod_code');
-			this.prepare(elem);
-		}
-		elem.classList.add('frame');
+function syntax_LC (t) {
+	return t.startsWith("#") ? 'darkgreen'
+	:	t.startsWith("import") ? 'brown'
+	:	t.startsWith("from") ? 'brown'
+	:	t.startsWith("if") ? 'blue'
+	:	t.startsWith("else") ? 'blue'
+	:	t.startsWith("elif") ? 'blue'
+	:	t.startsWith("for") ? 'blue'
+	:	t.startsWith("while") ? 'blue'
+	:	t.startsWith("with") ? 'blue'
+	:	t.startsWith("try") ? 'blue'
+	:	t.startsWith("except") ? 'blue'
+	:	t.startsWith("finally") ? 'blue'
+	:	t.startsWith("def") ? 'red'
+	:	t.startsWith("class") ? 'red'
+	:	t.startsWith("!") ? 'red'
+	:	t.startsWith("print") ? 'darkblue'
+	:	t.startsWith("input") ? 'darkblue'
+	:	undefined;
+}
+
+SCRIPT.value = class extends Apps.mod_template {
+	async __init__ (elem)
+	{	// initialize element
+		if (elem.classList.contains('mod_code')) return;
+
+		elem.classList.add('mod_code','frame');
 		elem.style.padding='4px 32px';
-		this.E = elem;
-	}
-	prepare (elem)
-	{
+
 		let s = elem.innerHTML.trim();
 		elem.innerHTML = '';
 		for (let le of s.split('\n').map((l)=>[(()=>{
@@ -30,37 +45,22 @@ class ICode
 				return e;
 			})(document.createElement('div')));
 		}
-	}
-	syntax (on=true)
-	{
-		Array.from(this.E.childNodes).forEach((e)=>{
-			let v = this.syntax_LC(e.textContent.trim());
+	}	// __init__
+	async syntax (elem, scf=()=>'black')
+	{	// apply syntax high-light
+		Array.from(elem.childNodes).forEach((e)=>{
+			let v = scf(e.textContent.trim());
 			if (v) e.style.color = v;
 		});
-	}
-	syntax_LC (t) {
-		return t.startsWith("#") ? 'darkgreen'
-		:	t.startsWith("import") ? 'brown'
-		:	t.startsWith("from") ? 'brown'
-		:	t.startsWith("if") ? 'blue'
-		:	t.startsWith("else") ? 'blue'
-		:	t.startsWith("elif") ? 'blue'
-		:	t.startsWith("for") ? 'blue'
-		:	t.startsWith("while") ? 'blue'
-		:	t.startsWith("with") ? 'blue'
-		:	t.startsWith("try") ? 'blue'
-		:	t.startsWith("except") ? 'blue'
-		:	t.startsWith("finally") ? 'blue'
-		:	t.startsWith("def") ? 'red'
-		:	t.startsWith("class") ? 'red'
-		:	t.startsWith("!") ? 'red'
-		:	t.startsWith("print") ? 'darkblue'
-		:	t.startsWith("input") ? 'darkblue'
-		:	undefined;
-	}
-	copy () {
+	}	// syntax
+	async init (elem, ...args)
+	{	// init page
+		await this.syntax(elem, syntax_LC);
+	}	// init
+	async copy (elem)
+	{	// copy data to clipboard
 		let buf = '';
-		for (let e=this.E.firstChild; e; e=e.nextSibling) if (e.nodeType===1)
+		for (let e=elem.firstChild; e; e=e.nextSibling) if (e.nodeType===1)
 			buf+='\t'.repeat(e.dataset.level)+e.textContent+'\n';
 		const tarea = document.createElement("pre");
 		tarea.textContent=buf;
@@ -80,17 +80,7 @@ class ICode
 		} finally {
 			document.body.removeChild(tarea);
 		}
-	}
-}
-
-SCRIPT.value=async function (slide, elem, args)
-{
-	const IC = new ICode(elem);
-	if (args) {
-		if (args in IC)
-			IC[args].call(IC);
-	} else IC.syntax();
+	}	// copy
 };
-
 
 })(document.currentScript);
