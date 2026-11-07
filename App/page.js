@@ -13,6 +13,7 @@ mod_template: class {
 	constructor (slide) { this.Slide=slide; }
 	async __init__ (elem) { }
 	async init (elem) { }
+	async configure () { return '<div>Nothing HERE !!!</div>'; }
 	async invoke (elem, fn, ...args) {
 		console.assert(fn in this, `no such function (${fn})`);
 		await this.__init__(elem);
@@ -155,7 +156,7 @@ class Content
 			if (args[0]!=='init') args.unshift('init');
 		}
 	 	if (!(mn in this.Xs)) // load module for the first time
-			this.Xs[mn] ||= new (await Apps.loadScript(
+			this.Xs[mn] = new (await Apps.loadScript(
 				currentScript.getAttribute("src").replace(/\.js/,`_${mn}.js`)
 			))(this);
 		const xs = this.Xs[mn];
@@ -445,7 +446,7 @@ class Player
 				if ('aside' in flags) { // 準備 目錄與設定控制列
 					const aside = await Apps.R({url:'/App/page_aside.html',cs:'aside'}).fetch();
 					ol.appendChild(aside);
-					// ## 側板內容綁定 {{{
+					// ## 側板內容綁定
 					this.bindS('PageNumber', aside.querySelector('[data-uid="Aside:Pager"] input'));
 					this.bindS('PageNumber', aside.querySelector('[data-uid="Aside:Pager"] output'));
 					this.bindS('PageCount', aside.querySelector('[data-uid="Aside:Pager"] span'));
@@ -485,20 +486,20 @@ class Player
 							).reduce((r,v) => r.push(v.textContent.split('&'))&&r, []);
 						}
 					})(aside.querySelector('[data-uid="Settings:Filters"]')));
-					/*this.bindS('PlayMode', new (class {
-						constructor (e) {
-							this.EOs = Array.from(e.querySelectorAll('[data-h^="set:PlayMode:"]'));
-						}
-						set value (v)	{
-							this.EOs.forEach((e)=>
-								e.classList[e.dataset.h==="set:PlayMode:"+v ? 'add' : 'remove']('current'));
-						}
-						get value ()	{
-							return this.EOs.find((e)=>e.classList.contains('current'))
-							       .dataset.h.replace(/.*:/,'');
-						}
-					})(aside.querySelector('[data-uid="Settings:PlayMode"] [data-uid="Switch"]')));*/
-					// }}}
+					await (async (root)=>{ // include module configuration
+						const [se,te] = [root.querySelector('[name="picker"]'), root.querySelector('.frame')];
+						se.addEventListener('click',async (evt)=>{
+							let h='';
+							for (let k in this.Content.Xs)
+								h+=`<option value="${k}">${k}</option>`
+							if (h.trim()!==se.innerHTML.trim()) se.innerHTML=h;
+							evt.stopPropagation();
+						});
+						se.addEventListener('change',async (evt)=>{
+							te.innerHTML=await this.Content.call_module(te, se.value, 'configure');
+							evt.stopPropagation();
+						});
+					})(aside.querySelector('[data-uid="Settings:Modules"]'))
 				}
 				e.appendChild(ol);
 			})( this.Controls.reduce((r,v)=>{ r[v]=true; return r; },{}), "" );
