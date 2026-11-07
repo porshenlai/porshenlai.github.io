@@ -10,7 +10,7 @@ function to_hex (arr)
  	return arr.map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
-function sha256 (str)
+async function sha256 (str)
 {
  	const hashBuffer = await crypto.subtle.digest(
 		'SHA-256',
@@ -32,12 +32,12 @@ SCRIPT.value = class extends Apps.mod_template {
 		elem.classList.add('mod_quiz');
 		elem.dataset.qtype=qtype;
 
-		const args=(elem.dataset.xl||xe.dataset.x).split(':');
+		const args=(elem.dataset.xl||elem.dataset.x).split(':');
 		if (args[1]==='c') return;
 
 		// shuffle opotions
 		let te=[],pe=[];
-		Apps.E(xe).forEach('[data-o]',(oe)=>{
+		Apps.E(elem).forEach('[data-o]',(oe)=>{
 			oe.dataset.h=`call:quiz:answer:${oe.dataset.o}`;
 			oe.classList.add('mod_quiz_answer');
 			delete oe.dataset.o;
@@ -93,23 +93,23 @@ SCRIPT.value = class extends Apps.mod_template {
 		case 's':
 			return ((set)=>{
 				Array.from(p.querySelectorAll('.QS'))
-					.forEach((e)=>e.classList.remove('QS'));
-				if (set) e.classList.add('QS');
+					.forEach((e)=>elem.classList.remove('QS'));
+				if (set) elem.classList.add('QS');
 				return this.check_answer(p);
-			})(!e.classList.contains('QS'));
+			})(!elem.classList.contains('QS'));
 		case 'm':
 			return (()=>{
-				e.classList.toggle('QS');
+				elem.classList.toggle('QS');
 				return this.check_answer(p);
 			})();
 			break;
 		case 'sort':
 			(()=>{
-				let c=e.parentNode;
-				e.classList.toggle('QS'); // toggle the flag of this answer
-				if (e.classList.contains('QS'))
-					c.insertBefore(e,c.querySelector('[data-h]:not(.QS)'));
-				else c.appendChild(e);
+				let c=elem.parentNode;
+				elem.classList.toggle('QS'); // toggle the flag of this answer
+				if (elem.classList.contains('QS'))
+					c.insertBefore(elem,c.querySelector('[data-h]:not(.QS)'));
+				else c.appendChild(elem);
 				return this.check_answer(p);
 			})();
 			break;
