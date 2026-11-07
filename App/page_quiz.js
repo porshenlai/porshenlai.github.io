@@ -126,6 +126,7 @@ SCRIPT.value = class extends Apps.mod_template
 			qs += '<section>'+page.outerHTML+'</section>\n';
 		return `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="/App/page.js"></script></head><body style='opacity:0'>\n${qs}</body></html>`;
 	}	// getHTML 轉換題目為 HTML 字串
+
 	async getDLC (qes) {	
 		// <DLC Example>
 		//	"1","1","YES or NO","","","0-0-0-0-0","3"
@@ -156,16 +157,28 @@ SCRIPT.value = class extends Apps.mod_template
 		}).join('\n');
 	}	// getDLC 轉換題目為 致理數位學院 CSV 字串
 
+	async getQuizArray (te=document.body) {
+		if ('string' === typeof(te))
+			try {
+				te = {
+					"slide" : ()=>Apps.E(elem).trace('section'),
+					"doc" : ()=>document.body
+				}[target]();
+			} catch (x) { target = document.body.querySelector(target); }
+		return Array.from(te.querySelectorAll('.mod_quiz'));
+	}	// getQuizArray 取得問題集陣列
+
+	async applyJSON(ajs, target=document.body) {
+		//js=[];
+		const qs = await this.getQuizArray(target);
+		for (let i=0; i<qs.length; i++)
+			for (let a of ajs) qs[i].querySelector(`[data-kh="${a}"]`).click();
+	}
+
 	async download (elme, target, format='DLC') {
 		try {
-			target = {
-				"slide" : ()=>Apps.E(elem).trace('section'),
-				"doc" : ()=>document.body
-			}[target]();
-		} catch (x) { target = target ? document.body.querySelector(target) : document.body; }
-		try {
 			Apps.B(
-				await this[`get${format}`](Array.from(te.querySelectorAll('.mod_quiz')));
+				await this[`get${format}`](await this.getQuizArray(target));
 			).download(
 				window.prompt("請輸入檔名",(new Date()).toISOString()+"."+{
 					"DLC":"csv",
