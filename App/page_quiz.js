@@ -50,6 +50,7 @@ SCRIPT.value = class extends Apps.mod_template
 		+ "<li><button data-h='call:quiz:download:doc:DLC'>下載 DLC</button></li>"
 		+ "<li><button data-h='call:quiz:download:doc:HTML'>下載 HTML</button></li>"
 		+ "<li><button data-h='call:quiz:download:doc:JSON'>下載 JSON</button></li>"
+		+ "<li><button data-h='call:quiz:commit:doc:JSON:/commit'>下載 JSON</button></li>"
 		+ "</ul>";
 	}	// configure 繪製設定面板
 
