@@ -180,13 +180,13 @@ SCRIPT.value = class extends Apps.mod_template
 	async download (elme, target, format='DLC') {
 		try {
 			Apps.B(
-				await this[`get${format}`](await this.getQuizArray(target));
+				await this[`get${format}`](await this.getQuizArray(target))
 			).download(
 				window.prompt("請輸入檔名",(new Date()).toISOString()+"."+{
 					"DLC":"csv",
 					"HTML":"html",
 					"JSON":"json"
-				}[format]);
+				}[format])
 			);
 		} catch (x) { console.log("Error", x); }
 	}	// download 下載題目
