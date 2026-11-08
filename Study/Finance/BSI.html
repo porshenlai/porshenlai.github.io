@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script src="/App/page.js"></script>
+<title>銀行、證券與保險：商業模式、客戶屬性與未來展望</title>
+<base target='_blank'/>
+<style>
+table.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.8em;
+  font-size: 0.88em;
+}
+table.compare-table th, table.compare-table td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+table.compare-table th {
+  background-color: #f2f5f8;
+  font-weight: bold;
+}
+.highlight-box {
+  background: #f8fafc;
+  border-left: 4px solid #0284c7;
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 0 4px 4px 0;
+}
+.grid-3 {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+.grid-3 > div {
+  flex: 1;
+  background: #f9f9fb;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px;
+}
+.grid-3 h3 {
+  margin-top: 0;
+  color: #1e3a8a;
+  border-bottom: 2px solid #cbd5e1;
+  padding-bottom: 4px;
+  font-size: 1.05em;
+}
+ul, ol {
+  margin-top: 0.4em;
+  padding-left: 1.4em;
+}
+li {
+  margin-bottom: 0.35em;
+}
+</style>
+</head>
+<body style='opacity:0'>
+
+<section class='page col'>
+	<div class='h1 ac' style='margin-bottom:1em'>銀行證卷與保險</div>
+	<div class="frame">
+		<div>😊 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div>🎓 Department of Finance,</div>
+		<div>🏫 Chihlee University of Technology</div>
+		<div>🕑 2026, Winter</div>
+	</div>
+</section>
+
+<!-- 第一部分：三大金融業的核心本質與獲利架構 -->
+
+<section class='page col'>
+	<h2>核心本質：三種金融業都在「中介」</h2>
+	<div class="highlight-box">
+		<b>核心觀念：</b>金融業不是單純「賣商品」，而是處理<strong>資金、風險與資訊</strong>的專業機構。
+	</div>
+	<div class="grid-3">
+		<div>
+			<h3>🏦 銀行業 (Banking)</h3>
+			<ul>
+				<li><strong>本質：</strong>中介資金與信用</li>
+				<li><strong>核心機制：</strong>信用與期限轉換（吸收短天期低利存款，貸放長天期高利放款）</li>
+				<li><strong>傳統核心：</strong>存放款利差 (Net Interest Margin, NIM)</li>
+			</ul>
+		</div>
+		<div>
+			<h3>📈 證券業 (Securities)</h3>
+			<ul>
+				<li><strong>本質：</strong>中介企業、資本市場與投資人</li>
+				<li><strong>核心機制：</strong>流動性樞紐與造市收費站（搭建撮合平台）</li>
+				<li><strong>傳統核心：</strong>交易佣金手續費、承銷顧問費、融資融券利息</li>
+			</ul>
+		</div>
+		<div>
+			<h3>🛡️ 保險業 (Insurance)</h3>
+			<ul>
+				<li><strong>本質：</strong>中介風險與長期資金</li>
+				<li><strong>核心機制：</strong>大數法則聚合風險，匯聚「浮存金 (Float)」資金池</li>
+				<li><strong>傳統核心：</strong>承保利潤（死差/費差）+ 浮存金長期投資收益（利差）</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>銀行業：現行收入結構與未來轉型</h2>
+	<div class="highlight-box">
+		<b>銀行最大的優勢：</b>掌握客戶的「生活金融入口」與高頻金流交易帳戶。
+	</div>
+	<ul>
+		<li><strong>現行多元收入來源：</strong>
+			<ul>
+				<li><b>淨利息收入 (NII)：</b>存放款利差，為傳統銀行最主要的獲利底層燃料。</li>
+				<li><b>手續費與佣金收入 (Fee Income)：</b>財富管理代銷（基金、保險、海外債）、信用卡收單與刷卡費、跨行提款轉帳、外匯兌換價差。</li>
+				<li><b>企業金融與聯貸：</b>聯貸主辦費、保函與信用狀 (L/C)、貿易融資手續費。</li>
+				<li><b>金融市場操作 (Treasury)：</b>自有資金投資國債、金融衍生性商品及外匯撮合收益。</li>
+			</ul>
+		</li>
+		<li><strong>未來利潤轉型趨勢：</strong>
+			<ul>
+				<li><b>從「重存貸」走向「輕資產 (Capital-Light)」：</b>因應 Basel 資本監管，擺脫單純放款利差，全力衝刺不消耗資本的財富管理手續費。</li>
+				<li><b>嵌入式金融 (Embedded Finance & BaaS)：</b>透過 Open API 將金融服務無縫嵌入電商、旅遊平台與先買後付 (BNPL)，獲取場景化分潤。</li>
+				<li><b>AI 降本增效：</b>智能審貸與風控模型降低壞帳率，生成式 AI 提升客戶服務效率。</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class='page col'>
+	<h2>證券業：現行業務組合與手續費保衛戰</h2>
+	<div class="highlight-box">
+		<b>關鍵轉變：</b>一次性的大幅波動「交易佣金」→ 可持續的經常性「客戶資產管理收入 (Recurring Revenue)」。
+	</div>
+	<ul>
+		<li><strong>現行多元收入來源：</strong>
+			<ul>
+				<li><b>經紀業務 (Brokerage)：</b>協助法人與散戶買賣股票、ETF、期貨，收取手續費。</li>
+				<li><b>承銷與投資銀行 (IBD)：</b>輔導企業 IPO、增資 (SPO)、發行公司債與 M&A 併購財務顧問費。</li>
+				<li><b>自營業務與造市 (Proprietary Trading & Market Making)：</b>自有資金操作股票、債券；發行權證與結構化商品，賺取報價價差 (Bid-Ask Spread)。</li>
+				<li><b>信用交易：</b>融資利息收入、融券借券服務費。</li>
+			</ul>
+		</li>
+		<li><strong>未來利潤轉型趨勢：</strong>
+			<ul>
+				<li><b>應對「零佣金 (Zero-Commission)」浪潮：</b>散戶下單手續費率持續探底，單純依靠交易量的收費模式難以持久。</li>
+				<li><b>資產管理化 (AUM-based)：</b>轉向「全方位財富管理」，推動定期定額、複委託與全權委託（代操），改依託管資產規模收取固定管理費。</li>
+				<li><b>量化造市與數位資產：</b>依賴高頻交易與計量模型避險，並探索實體資產代幣化 (RWA) 與數位資產承銷。</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class='page col'>
+	<h2>保險業：獲利核心「三差」與新制轉型</h2>
+	<div class="highlight-box">
+		<b>保險業的終極秘密：</b>「先收保費、後承諾理賠」，理賠前沉澱出巨額無息的「浮存金 (Float)」，形成資本套利的投資水庫。
+	</div>
+	<div class="grid-3">
+		<div>
+			<h3>1. 利差 (Spread Margin)</h3>
+			<p><b>機制：</b>將龐大浮存金配置於債券、股票或不動產，實際投資報酬率（如 4.5%）高於向保戶承諾的預定利率（如 2.5%），差額即為「利差益」。若投報率不足則形成「利差損」。</p>
+		</div>
+		<div>
+			<h3>2. 死差 (Mortality Margin)</h3>
+			<p><b>機制：</b>精算定價時預估的發生率高於年度實際出險給付額（理賠控制得當、出險率低於精算生命表），所留存的利潤盈餘。</p>
+		</div>
+		<div>
+			<h3>3. 費差 (Expense Margin)</h3>
+			<p><b>機制：</b>保單預先收取的營業附加費用（管理成本/通路線佣），高於公司年度實際營運支出時所產生的節流盈餘。</p>
+		</div>
+	</div>
+	<ul>
+		<li style="margin-top:0.8em"><strong>接軌 IFRS 17 與 ICS 新制轉變：</strong>不再依賴賣高利率儲蓄險吸金拼利差，回歸「CSM (合約服務邊際)」與純保障型商品（死差、費差）。</li>
+		<li><strong>從「事後補償」到「事前預防」：</strong>推出穿戴式裝置外溢保單，保戶健康則保費減免，降低出險理賠率，跨界打造健康與長照生態圈。</li>
+	</ul>
+</section>
+
+<section class='page col'>
+	<h2>三大金融支柱綜合診斷矩陣</h2>
+	<table class="compare-table">
+		<thead>
+			<tr>
+				<th>比較維度</th>
+				<th>銀行業 (Banking)</th>
+				<th>證券業 (Securities)</th>
+				<th>保險業 (Insurance)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>核心商業本質</strong></td>
+				<td>信用中介與流動性創造</td>
+				<td>資本市場對接與定價撮合</td>
+				<td>風險聚合與浮存金運作</td>
+			</tr>
+			<tr>
+				<td><strong>主要資產形態</strong></td>
+				<td>放款債權 (Loans)</td>
+				<td>交易網路、自營與客戶部位</td>
+				<td>巨額浮存金資金池 (The Float)</td>
+			</tr>
+			<tr>
+				<td><strong>傳統收入引擎</strong></td>
+				<td>存放款利差 (NIM)、過路手續費</td>
+				<td>經紀佣金、承銷費、融資利息</td>
+				<td>投資利差益（輔以死差、費差）</td>
+			</tr>
+			<tr>
+				<td><strong>最大風險因子</strong></td>
+				<td>信用風險（借款人倒閉違約）</td>
+				<td>市場風險（股市大跌、交易量萎縮）</td>
+				<td>資產負債錯配風險、精算長壽風險</td>
+			</tr>
+			<tr>
+				<td><strong>景氣循環敏感度</strong></td>
+				<td>中度（受利率與景氣循環影響）</td>
+				<td>高度（極度依賴牛市交易量與 IPO 熱度）</td>
+				<td>低至中度（長天期合約，受利率重置影響）</td>
+			</tr>
+			<tr>
+				<td><strong>未來新獲利引擎</strong></td>
+				<td>財富管理、嵌入式金融 API、AI 風控</td>
+				<td>AUM 資產管理費、量化造市、RWA</td>
+				<td>保障型 CSM 釋出、健康外溢、養老照護</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<!-- 第二部分：客戶屬性、心理圖像與市場交會 -->
+
+<section class='page col'>
+	<h2>客戶屬性與心理畫像差異</h2>
+	<div class="grid-3">
+		<div>
+			<h3>🏦 銀行客戶：日常剛需型</h3>
+			<ul>
+				<li><b>核心訴求：</b>安全、流動性與極致便利</li>
+				<li><b>資金屬性：</b>生活預備金、營運週轉金（本金絕不能少）</li>
+				<li><b>風險偏好：</b>保守型至極低風險（追求保本）</li>
+				<li><b>互動節奏：</b>極高頻率（天天轉帳、刷卡、領薪）</li>
+				<li><b>心理特徵：</b>追求安全避風港；忠誠度建立在 App 好不好用、網點/ATM 與免手續費優惠。</li>
+			</ul>
+		</div>
+		<div>
+			<h3>📈 證券客戶：追求資本利得型</h3>
+			<ul>
+				<li><b>核心訴求：</b>資產翻倍、擊敗通膨與高報酬</li>
+				<li><b>資金屬性：</b>閒置資金、風險資本、投資部位</li>
+				<li><b>風險偏好：</b>積極衝刺型（深知有賺有賠，抗波動）</li>
+				<li><b>互動節奏：</b>中高頻（盤中看盤、市場熱度波動、毫秒必爭）</li>
+				<li><b>心理特徵：</b>掌控欲強、對投資回報與手續費折讓極度敏感；哪裡好賺、下單順暢就往哪裡跑。</li>
+			</ul>
+		</div>
+		<div>
+			<h3>🛡️ 保險客戶：未來防禦型</h3>
+			<ul>
+				<li><b>核心訴求：</b>風險轉移、家庭責任與資產傳承</li>
+				<li><b>資金屬性：</b>長期防禦資金、養老與醫療預備金</li>
+				<li><b>風險偏好：</b>風險趨避型（討厭不可預期的重大損失）</li>
+				<li><b>互動節奏：</b>極低頻（年繳保費，理賠或契約變更才聯繫）</li>
+				<li><b>心理特徵：</b>被動喚醒（買的是看不見的合約）；排斥思考死亡意外，極度仰賴業務員人際信任。</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>客戶面臨維度深度對比</h2>
+	<table class="compare-table">
+		<thead>
+			<tr>
+				<th>比較項目</th>
+				<th>銀行 (Banking)</th>
+				<th>證券 (Securities)</th>
+				<th>保險 (Insurance)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>客戶群體廣度</strong></td>
+				<td>全民型 (幾乎 100% 成年人，覆蓋全年齡層)</td>
+				<td>具可支配儲蓄的青壯年、投資族與機構法人</td>
+				<td>家庭梁柱、中高齡、高淨值資產傳承族群</td>
+			</tr>
+			<tr>
+				<td><strong>資金停留期間</strong></td>
+				<td>極短（隨時動用活存）至中短期（1~3年定存）</td>
+				<td>隨機（極短線當沖、中短期波段至長期 ETF）</td>
+				<td>超長天期（10 年、20 年期至終身契約）</td>
+			</tr>
+			<tr>
+				<td><strong>決策模式</strong></td>
+				<td><b>自主主動：</b>生活剛性需求，自行申辦</td>
+				<td><b>自主/資訊導向：</b>看盤研報、跟隨趨勢行情</td>
+				<td><b>顧問引導/被動：</b>需專業業務員喚醒危機意識</td>
+			</tr>
+			<tr>
+				<td><strong>客戶關係型態</strong></td>
+				<td>廣而淺（生活必需型，生活入口黏性）</td>
+				<td>機會型/市場導向（依賴軟體速度與手續費優惠）</td>
+				<td>深而長遠（契約承諾型，高度信任與人情連結）</td>
+			</tr>
+			<tr>
+				<td><strong>企業端客戶側重</strong></td>
+				<td>營運融資 (Loan)、現金管理、聯貸案</td>
+				<td>資本市場籌資 (IPO/SPO、發債)、併購顧問</td>
+				<td>企業員工團險、董監責任險、廠房產險防護</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<!-- 第三部分：合縱連橫、交叉行銷與生態圈競爭 -->
+
+<section class='page col'>
+	<h2>亦分亦合：爭奪同一個「客戶資產池」</h2>
+	<div class="highlight-box">
+		<b>產業邊界正在模糊：</b>三者共同目標皆是爭奪客戶的<strong>「終身價值 (Customer Lifetime Value, LTV)」</strong>與總資產 (AUM)。
+	</div>
+	<ul>
+		<li><strong>業務邊界的相互滲透：</strong>
+			<ul>
+				<li><b>銀行跨足證券與保險：</b>透過財富管理部門代銷基金、ETF，並以「銀行保險 (Bancassurance)」搶下巨額保費市場。</li>
+				<li><b>證券跨足銀行與資產管理：</b>推動客戶將股票作為擔保品辦理不限用途款項借貸（資產質押貸款），並透過分戶帳經營資金池。</li>
+				<li><b>保險跨足投資與退休金管理：</b>狂推投資型保單、利變年金險，直接與銀行的定存及券商的穩健基金競爭儲蓄部位。</li>
+			</ul>
+		</li>
+		<li><strong>金控體系 (FHC) 的交叉行銷綜效 (Cross-Selling)：</strong>
+			<ul>
+				<li><b>金流入口：</b>以銀行的數位帳戶、薪轉戶與信用卡作為「獲客第一道入口」。</li>
+				<li><b>一站式導流：</b>開立銀行戶時，同步引導開立證券交割戶；辦理房貸時順勢配置房貸壽險；刷卡買機票即時提示旅平險。</li>
+				<li><b>跨業數據畫像疊加：</b>整合銀行的日常流水、證券的風險投資偏好、保險的家庭成員結構，實現精準 AI 產品推播。</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class='page col'>
+	<h2>未來展望：金融業的終極轉型三部曲</h2>
+	<div class="highlight-box">
+		<b>一句話總結未來：</b>金融業正從<strong>「靠資產負債表承擔利差賺錢」</strong>走向<strong>「靠平台、生態圈、數據與資產管理費賺錢」</strong>。
+	</div>
+	<div class="grid-3">
+		<div>
+			<h3>01 獲利模式趨同</h3>
+			<ul>
+				<li>三大金融業全面向<b>「財富管理」</b>板塊靠攏。</li>
+				<li>擺脫景氣波動的利差與一次性佣金，全力提高<b>按資產管理規模 (AUM) 計費</b>的經常性穩健手續費收入。</li>
+			</ul>
+		</div>
+		<div>
+			<h3>02 平台與生態圈化</h3>
+			<ul>
+				<li><b>場景金融隱形化：</b>金融不是天天發生的事，唯有結合點數生活圈、電商與日常交通，讓金融「消失於場景之中」。</li>
+				<li><b>開放銀行 (Open Banking)：</b>將核心金融功能以 API 對外輸出，打造 BaaS 平台。</li>
+			</ul>
+		</div>
+		<div>
+			<h3>03 科技重構但風險本質不變</h3>
+			<ul>
+				<li>AI 與大數據徹底改寫<b>精準核保、演算法造市與智能審貸</b>的營運成本。</li>
+				<li>無論科技或跨界包裝如何演變，金融機構的核心仍是<strong>「風險定價」與「信用與流動性中介」</strong>。</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<!-- 第四部分：課程十題自我測驗 (符合 quiz:s 與 data-o 標籤規範) -->
+
+<section class='page col'>
+	<h2>自我測驗 (1/10)：金融業核心功能</h2>
+	<div data-x='quiz:s'>
+		關於銀行、證券與保險三大金融機構的核心本質，下列敘述何者最為正確？
+		<div data-o='O'>三者本質都在處理「中介」，分別中介信用與資金、資本市場撮合，以及分散風險與長期資金</div>
+		<div data-o='X'>銀行核心是賣基金，證券核心是放款給大企業，保險核心是提供儲蓄利息</div>
+		<div data-o='X'>保險公司主要獲利來源是向借款人收取利息，與投資市場無關</div>
+		<div data-o='X'>證券公司本質是吸收存款，承擔存戶提領的流動性風險</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (2/10)：銀行獲利轉變趨勢</h2>
+	<div data-x='quiz:s'>
+		面對利率波動與資本適足率（Basel III/IV）趨嚴，現代銀行業未來利潤的主要轉變方向為何？
+		<div data-o='O'>降低對純放款利差的依賴，積極提升財富管理、信用卡與嵌入式金融等手續費（輕資本收入）占比</div>
+		<div data-o='X'>全面停止信用卡與外匯業務，僅保留傳統存放款利差</div>
+		<div data-o='X'>將所有存款拿去投資高風險未上市股票以求最高回報</div>
+		<div data-o='X'>完全放棄數位金融與 API 串接，全力拓展實體分行臨櫃開戶業務</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (3/10)：證券業手續費競爭</h2>
+	<div data-x='quiz:s'>
+		全球證券業面臨「零手續費（Zero-Commission）」競爭與佣金率下滑衝擊時，最主要的獲利轉型策略為何？
+		<div data-o='O'>轉向「全方位財富管理」，改按管理資產規模（AUM）收取固定顧問費，並加強量化造市</div>
+		<div data-o='X'>強制向所有看盤散戶收取高額按次登入費</div>
+		<div data-o='X'>停止一切複委託與 ETF 申購業務，只專注於實體股票交割</div>
+		<div data-o='X'>直接轉型為壽險公司，放棄資本市場承銷與交易業務</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (4/10)：保險業「三差」觀念</h2>
+	<div data-x='quiz:s'>
+		在保險公司的三大獲利來源（俗稱三差）中，何謂「死差益（Mortality Gain）」？
+		<div data-o='O'>當年度實際發生的身故或疾病理賠率低於當初精算生命表預期時所產生的盈餘</div>
+		<div data-o='X'>保險公司實際收取的營業行政成本高於預期時所產生的差額</div>
+		<div data-o='X'>保單資金投資在股票市場的實際報酬率高於承諾預定利率的收益</div>
+		<div data-o='X'>保戶提前解約時保險公司向保戶收取的解約違約金</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (5/10)：保險業新制轉型</h2>
+	<div data-x='quiz:s'>
+		隨著國際會計準則 IFRS 17 與新一代清償能力制度（ICS）上路，保險公司的產品與利潤結構產生了什麼重大改變？
+		<div data-o='O'>降低高利率儲蓄型保單與利差依賴，轉向重視 CSM（合約服務邊際）與死差/費差為主的純保障型商品</div>
+		<div data-o='X'>大幅狂發高利定存保單，透過借高利貸去投資房地產來賺取利差</div>
+		<div data-o='X'>不再需要精算師與大數法則，改由業務員自由定價保費</div>
+		<div data-o='X'>法規要求保險公司全面退出醫療與健康生態圈，僅保留儲蓄功能</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (6/10)：金融業客戶風險偏好</h2>
+	<div data-x='quiz:s'>
+		針對銀行、證券與保險三者的客戶風險承受度與心理屬性，下列何者描述最為貼切？
+		<div data-o='O'>銀行客戶極度重視本金安全與便利；證券客戶願意承擔市場波動追求報酬；保險客戶尋求防禦與長遠確定性</div>
+		<div data-o='X'>銀行客戶風險偏好最高，喜歡透過定存承擔大幅虧損</div>
+		<div data-o='X'>證券客戶最討厭數字波動，只追求保本不求獲利</div>
+		<div data-o='X'>保險客戶通常具備高度主動性，每天早晨都會主動前往分行購買保單</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (7/10)：互動頻率與決策心理</h2>
+	<div data-x='quiz:s'>
+		關於三大金融業與客戶的「互動頻率」及「購買決策主導模式」，下列敘述何者正確？
+		<div data-o='O'>銀行互動頻率最高（高頻日常支付）；保險互動頻率極低，且通常需要專業業務員喚醒客戶潛在需求</div>
+		<div data-o='X'>保險客戶每週頻繁向保險公司核保，決策完全不需任何顧問解說</div>
+		<div data-o='X'>證券客戶平均十年才看一次盤，互動頻率比保險還低</div>
+		<div data-o='X'>銀行客戶辦理轉帳通常需要業務員每天登門進行心理輔導與促銷</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (8/10)：浮存金 (The Float) 機制</h2>
+	<div data-x='quiz:s'>
+		保險業經營的關鍵底層邏輯之一是「浮存金（The Float）」，下列關於浮存金的說明何者正確？
+		<div data-o='O'>保單先收保費、後承諾理賠，在支付理賠前的長天期沉澱資金可用於股債等長期投資以獲取報酬</div>
+		<div data-o='X'>指的是銀行存戶隨時提領的活期存款呆帳</div>
+		<div data-o='X'>指的是證券交易所每天當沖交易未結算的借貸手續費</div>
+		<div data-o='X'>指的是金控公司每年發放給股東的現金股利資金總額</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (9/10)：金控交叉銷售 (Cross-Selling)</h2>
+	<div data-x='quiz:s'>
+		金控體系積極推動「交叉銷售（Cross-Selling）」與「生態圈競合」的終極商業目標是什麼？
+		<div data-o='O'>提高客戶黏著度與終身價值（LTV），透過一站式服務讓資金留在金控生態系內多重循環變現</div>
+		<div data-o='X'>徹底消滅銀行實體通路，讓所有客戶只能在證券端進行投機交易</div>
+		<div data-o='X'>避免各子公司共享數據，防止客戶同時接觸兩種以上的金融商品</div>
+		<div data-o='X'>降低手續費收入，轉為全面依賴政府補貼營運</div>
+	</div>
+</section>
+
+<section class='page col'>
+	<h2>自我測驗 (10/10)：嵌入式金融 (Embedded Finance)</h2>
+	<div data-x='quiz:s'>
+		現代金融業強調「場景金融」與「嵌入式金融（Embedded Finance）」，其具體實踐方式為何？
+		<div data-o='O'>透過 Open API 將信貸、支付或先買後付（BNPL）等金融功能無縫嵌入電商、叫車等高頻生活場景中</div>
+		<div data-o='X'>要求所有電商平台用戶必須親自前往銀行櫃檯辦理實體印鑑證明才能線上結帳</div>
+		<div data-o='X'>在所有手機 App 中彈出禁止網路交易的警告通知</div>
+		<div data-o='X'>強制保險業務員在夜市擺攤販售終身壽險實體紙本合約</div>
+	</div>
+</section>
+
+<!-- 總結回顧頁 -->
+<section class='page col'>
+	<h2>總結：金融三大支柱的動態平衡</h2>
+	<div class="highlight-box">
+		<b>跨界融合與不變本質：</b><br>
+		「獲利模式趨同（搶攻財富管理）」、「數位生態圈消融傳統行業邊界」，但金融業的底層永遠在於<strong>「風險的識別、度量與定價」</strong>。
+	</div>
+</section>
+
+</body>
+</html>

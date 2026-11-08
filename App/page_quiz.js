@@ -40,7 +40,7 @@ SCRIPT.value = class extends Apps.mod_template
 			case 'sort':
 				for (let oes=Array.from(qe.querySelectorAll('.mod_quiz_answer')), ix=0; ix<oes.length; ix++) {
 					if (await this.hash_control(oes[ix], '-')) continue;
-					r &&= (await this.hash_control(oes[ix], `${ix+1}`))
+					r &&= (oes[ix].classList.contains('QS') && (await this.hash_control(oes[ix], `${ix}`)));
 				}
 				break;
 			}
@@ -110,7 +110,9 @@ SCRIPT.value = class extends Apps.mod_template
 				if (elem.classList.contains('QS'))
 					c.insertBefore(elem,c.querySelector('[data-h]:not(.QS)'));
 				else c.appendChild(elem);
-				return await this.check_answer(p);
+				return await new Promise((or,oe)=>{
+					setTimeout(async ()=>or(await this.check_answer(p)),0);
+				});
 			})();
 		}
 	}

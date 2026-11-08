@@ -108,7 +108,7 @@ def print_table(file) :
 	data = open(file, "r")
 	for record in data :
 		fields = record.split(",")
-		<span data-o='0'>print("</span><span data-o="-">{10:0}</span><span data-o="-">{5:1f}</span><span data-o="-">{7:2f}</span><span data-o="3">{2:7.2f}</span><span data-o="2">{1:5.1f}</span><span data-o="1">{0:10}</span>".format(fields[0], eval(fields[1]), eval(fields[2])))
+		<span><span data-o='0'>print("</span><span data-o="-">{10:0}</span><span data-o="-">{5:1f}</span><span data-o="-">{7:2f}</span><span data-o="3">{2:7.2f}</span><span data-o="2">{1:5.1f}</span><span data-o="1">{0:10}</span></span>".format(fields[0], eval(fields[1]), eval(fields[2])))
 	</div>
 </div>
 </section>
@@ -155,7 +155,7 @@ sales = int(input('Enter the quantity: '))
 	<div data-o='X'>print('{0},{1}'.format(item, sales))</div>
 	<div data-o='X'>print(item + ',' + str(sales))</div>
 	<div data-o='O'>print('"{0}",{1}'.format(item, sales))</div>
-	<div data-o='O'>print('"' + item + '",' + sales)</div>
+	<div data-o='O'>print('"' + item + '",' + str(sales))</div>
 </div>
 </section>
 

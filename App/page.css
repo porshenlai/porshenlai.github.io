@@ -157,6 +157,7 @@ table.chart td { border:0; padding:0; text-align:center; vertical-align:middle; 
 { border-color:green; background-image: linear-gradient(to right,white 60%,lightgreen); }
 .mod_quiz.QRO .mod_quiz_answer:not(.QS), .mod_quiz.QR .mod_quiz_answer:not(.QS)
 { display:none; }
+.bar>.mod_quiz_answer {width:100%;}
 .mod_quiz .mod_quiz_answer
 { padding:.3vw; margin:.1vw; border:1px solid lightgrey; background-image:linear-gradient(white 60%,lightgrey); }
 .mod_quiz .mod_quiz_answer:hover
