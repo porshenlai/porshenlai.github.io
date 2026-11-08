@@ -112,7 +112,7 @@ SCRIPT.value = class extends Apps.mod_template
 	}	// answer 答題
 
 	async getJSON (qes) {
-			qs = qes.reduce((qr,qe)=>{
+			let qs = qes.reduce((qr,qe)=>{
 				qr.push(Array.from(qe.querySelectorAll('.mod_quiz_answer.QS')).reduce((r,e)=>{
 					r.push(e.dataset.kh);
 					return r;
@@ -123,7 +123,7 @@ SCRIPT.value = class extends Apps.mod_template
 	}	// getJSON 轉換題目為 JSON 字串
 
 	async getHTML (qes) {
-		qs = '';
+		let qs = '';
 		for (let page of qes)
 			qs += '<section>'+page.outerHTML+'</section>\n';
 		return `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="/App/page.js"></script></head><body style='opacity:0'>\n${qs}</body></html>`;
@@ -165,9 +165,12 @@ SCRIPT.value = class extends Apps.mod_template
 				te = {
 					"slide" : ()=>Apps.E(elem).trace('section'),
 					"doc" : ()=>document.body
-				}[target]();
-			} catch (x) { target = document.body.querySelector(target); }
-		return Array.from(te.querySelectorAll('.mod_quiz'));
+				}[te]();
+			} catch (x) { te = document.body.querySelector(te); }
+		let tmp=te.cloneNode(true),rst;
+		rst=Array.from(tmp.querySelectorAll('.mod_quiz[data-qtype="c"]'));
+		rst.forEach((e)=>e.parentNode.removeChild(e));
+		return [...rst, ...Array.from(tmp.querySelectorAll('.mod_quiz'))];
 	}	// getQuizArray 取得問題集陣列
 
 	async applyJSON(ajs, target=document.body) {
