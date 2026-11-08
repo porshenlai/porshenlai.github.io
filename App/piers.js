@@ -1,25 +1,25 @@
 ((SCRIPT) => {
 
 function enableDOMConsole () {
-  const originalLog = console.log;
-  console.log = function(...args) {
-    originalLog.apply(console, args);
-    // 可以在這裡把 args 寫入畫面上的 DOM 元素或 UI 視窗
-  };
-  // 1. 捕捉一般同步錯誤
-  window.onerror = function(message, source, lineno, colno, error) {
-    console.log(`[捕獲錯誤] ${message} at ${source}:${lineno}`);
-    // 可以在這裡將錯誤寫入畫面的日誌檢視器
-    return true; // 阻止預設的錯誤提示
-  };
-  // 2. 捕捉未處理的 Promise 非同步錯誤 (Async/Await 或 Fetch 失敗)
-  window.addEventListener('unhandledrejection', function(event) {
-    console.log(`[非同步未處理拒絕] ${event.reason}`);
-  });
+	const originalLog = console.log;
+	console.log = function(...args) {
+		originalLog.apply(console, args);
+		// 可以在這裡把 args 寫入畫面上的 DOM 元素或 UI 視窗
+	};
+	// 1. 捕捉一般同步錯誤
+	window.onerror = (message, source, lineno, colno, error)=>{
+		console.log(`[捕獲錯誤] ${message} at ${source}:${lineno}`);
+		// 可以在這裡將錯誤寫入畫面的日誌檢視器
+		return true; // 阻止預設的錯誤提示
+	};
+	// 2. 捕捉未處理的 Promise 非同步錯誤 (Async/Await 或 Fetch 失敗)
+	window.addEventListener('unhandledrejection', (event)=>{
+		console.log(`[非同步未處理拒絕] ${event.reason}`);
+	});
 }
 
 function dfs (e,h,x=false)
-{ // {{{
+{
 	let r=[],m;
 	if (x) {
 		m=h(e); if (m) r.push(e);
@@ -30,7 +30,7 @@ function dfs (e,h,x=false)
 		if ('boolean'===typeof(m)) r.push(...dfs(i,h));
 	}
 	return r;
-} // }}}
+}	// depth first search
 
 function copy (ta) {
 	if ('string' === typeof(ta))
@@ -55,11 +55,10 @@ function copy (ta) {
 		document.body.removeChild(ta);
 	}
 	return result;
-}
+}	// copy to clipboard
 
 class B {
-	static async upload (type,mul)
-	{ // {{{
+	static async upload (type,mul) {
 		return await new Promise(function (or, oe) {
 			const e=document.createElement("input");
 			e.multiple=mul;
@@ -80,20 +79,19 @@ class B {
 					e.parentNode.removeChild(e);
 			}, 3000);
 		});
-	}	// }}}
+	}	// upload
 
-	constructor (d, t='plain/text')
-	{ this.B = d instanceof Blob ? d : new Blob([d], {"type":t}); }
+	constructor (d, t='plain/text') {
+		this.B = d instanceof Blob ? d : new Blob([d], {"type":t});
+	}	// constructor
 
-	async get ()
-	{	// {{{
+	async get () {
 		if (this.B instanceof Promise)
 			this.B = await this.B;
 		return this.B;
-	}	// get }}}
+	}	// get
 
-	async getDataURL ()
-	{	// {{{
+	async getDataURL () {
 		let blob=await this.get();
 		return await new Promise((or,oe) => {
 			let r=new FileReader();
@@ -101,10 +99,9 @@ class B {
 			r.addEventListener("error",oe);
 			r.readAsDataURL(blob);
 		});
-	}	// getDataURL }}}
+	}	// getDataURL
 
-	async decode ()
-	{	// {{{
+	async decode () {
 		async function r (blob, parser, binary=false){
 			let r = new FileReader();
 			return new Promise((or,oe) => {
@@ -129,10 +126,26 @@ class B {
 				return await this.getDataURL();
 			return await r(blob, (d)=>d, !(""+blob.type).startsWith("text/"));
 		}
-	}	// decode }}}
+	}	// decode
 
-	async download (name)
-	{	// {{{
+	async commit (url) {
+  		try {
+			const response = await fetch(url, {
+				method: 'POST',
+    	  		headers: { 'Content-Type': this.B.type },
+				body: this.B
+    		});
+			if (!response.ok)
+				throw new Error(`HTTP error! Status: ${response.status}`);
+
+			const data = await response.json();
+			console.log('Success:', data);
+		} catch (error) {
+			console.error('Error uploading blob:', error);
+		}
+	}	// commit 
+
+	async download (name) {
 		const e = [
 			["href", await this.getDataURL()],
 			["target", "_blank"],
@@ -145,44 +158,50 @@ class B {
 		document.body.appendChild(e);
 		e.click();
 		setTimeout(()=>document.body.removeChild(e), 500);
-	}	// download }}}
-}
+	}	// download
+}	// Blob
 
 class E { 
 	// new E(<>); new E("<html>", "CSS_Selector");
-	constructor (e) { // {{{
+	constructor (e) {
 		if ('string' === typeof(e)) {
 			e = (new DOMParser()).parseFromString('<html><body>'+e+'</body></html>','text/html');
 			e = e.body.firstChild;
 		}
 		this.E = e;
-	}	// }}}
+	}	// constructor
 	// <祖先> = E.trace(..."CSS 選擇")
-	trace (...cs) { // {{{
+
+	trace (...cs) {
 		for (let e=this.E; e instanceof Element; e=e.parentNode)
 			for (let c of cs) if (e.matches(c)) return e;
-	}	// }}}
+	}	// trace
+
 	// <子孫> = E.query("CSS 選擇")
-	query (cs) { // {{{
+	query (cs) {
 		if (this.E.matches(cs)) return this.E;
 		return this.E.querySelector(cs);
-	}	// }}}
+	}	// query
+
 	// [<子孫>] = E.list("CSS 選擇")
-	list (cs) { // {{{
+	list (cs) {
 		let r=Array.from(this.E.querySelectorAll(cs));
 		if (this.E.matches(cs)) r.unshift(this.E);
 		return r;
-	}	// }}}
+	}	// list
+
 	// E.forEach("CSS 選擇", (<>)=>處理)
-	forEach (cs, h) { // {{{
+	forEach (cs, h) {
 		this.E.matches(cs) && h(this.E);
 		Array.from(this.E.querySelectorAll(cs)).forEach(h);
 		return this;
-	}	// }}}
+	}	// forEach
+
 	// E.dfs()
 	dfs (h,x=false) { return dfs(this.E,h,x); }
+
 	// E.replace(<用來取代目前元件的新元件>) 
-	replace (ce) { // {{{
+	replace (ce) {
 		const pe = this.E.parentNode;
 		if (pe) {
 			pe.insertBefore(ce, this.E);
@@ -190,9 +209,10 @@ class E {
 		}
 		this.E=ce;
 		return this;
-	}	// }}}
+	}	// replace
+
 	// "內容" = E.get("text | value | data:名稱 | style:名稱") 
-	get (cn) { // {{{
+	get (cn) {
 		const read = (e, n) => {
 			return {
 				text: ()=>e.textContent.trim(),
@@ -222,9 +242,10 @@ class E {
 		return cn ?
 			read(this.E, Array.isArray(cn) ? cn : cn.split(':')) :
 			readAll(this.E, new D({})) ;
-	}	// }}}
+	}	// get
+
 	// E.put("text | value | data:名稱 | style:名稱", "內容") 
-	put (val, cn) { // {{{
+	put (val, cn) {
 		const write = (e, v, n) => {
 			return {
 				text: (v)=>(e.textContent=v),
@@ -268,46 +289,51 @@ class E {
 		};
 		if (cn) return write(this.E, val, Array.isArray(cn) ? cn : cn.split(':'));
 		writeAll(this.E, new D(val));
-	}	// }}}
+	}	// put
+
 	// E.join(父元件, 弟元件=undefined)
-	join (pe, ne) { // {{{
+	join (pe, ne) {
 		pe.insertBefore(this.E, ne);
-	}	// }}}
-}	// class E
+	}	// join
+}	// Element
 
 class D {
 	// new D({"A":{"a":123},"B":456});
-	constructor (d) { // {{{
+	constructor (d) {
 		if (d instanceof Element) d = (new E(d)).get();
 		try {
 			if ('string'===typeof(d)) d=JSON.parse(d||'{}');
 		} catch(x) {};
 		this.D = d;
-	}	// }}}
+	}	// constructor
+
 	// d.get("A.a") => 123
-	get (p) { // {{{
+	get (p) {
 		if (!p) return this.D;
 		let nv = {},
 			rv = (Array.isArray(p) ? p : p.split('.'))
 				.filter((n)=>n)
 				.reduce((d,n)=>n in d ? d[n] : nv,this.D);
 		return rv!==nv ? rv : undefined;
-	}	// }}}
+	}	// get
+
 	// d.put("A.a",999)
-	put (p,v) { // {{{
+	put (p,v) {
 		if (p) {
 			p = (Array.isArray(p) ? p : p.split('.')).filter((n)=>n);
 			let n = p.pop(),
 				d = p.reduce((d,n)=> { if (!(n in d)) d[n] = {}; return d[n]; }, this.D);
 			d[n] = v;
 		} else this.D = v;
-	}	// }}}
+	}	// put
+
 	// toString() => JSON string
-	toString () { // {{{
+	toString () {
 		return JSON.stringify(this.D);
-	}	// }}}
+	}	// toString
+
 	// await (new D({"url":"網址","payload":{負載}})).request(R)
-	async request (base) { // {{{
+	async request (base) {
 		if (this.D.url) {
 			return await (base ?
 				base.resolve(this.D.url) :
@@ -317,8 +343,8 @@ class D {
 			this.D.doc ? JSON.parse(this.D.doc) :
 			this.D.raw ? this.D.raw : {}
 		);
-	}	// }}}
-}	// class D
+	}	// request
+}	// Doc
 
 class R {
 	//	目前頁面 = new R();
@@ -326,7 +352,7 @@ class R {
 	//	<定義> = new R(<... <data-v='url:網址'>...>);
 	//	"內容" = new R("文字資料")
 	//  使用者上傳 = new R({"type":"MIME-TYPE"});
-	constructor (a) { //  {{{
+	constructor (a) {
 		if (!a) a=URL.parse(location.href);
 		if (a instanceof URL)
 			a = { "url": a };
@@ -339,22 +365,25 @@ class R {
 		if ('string' === typeof(a))
 			a = { "raw": a };
 		this.A = a;
-	} //  }}}
+	}	// constructor
+
 	//	R = 基底R.resolve(位置)
-	resolve (src) { //  {{{
+	resolve (src) {
 		let u = URL.parse(this.A.url);
 		u.pathname = src.startsWith('/') ? src : (u.pathname.replace(/[^\/]*$/,'')+src);
 		return new R(u);
-	} //  }}}
+	}	// resolve
+
 	//  URL基底 = getUB()
-	getUB () { //  {{{
+	getUB () {
 		let u = this.A.url,p;
 		if ('string'===typeof(u)) u = URL.parse(u);
 		p = u.pathname.split('/'); p.pop(); p = p.join('/');
 		return u.origin+p+'/';
-	} //  }}}
+	}	// getUB
+
 	// {} | <> | "" = await 網址R.fetch(籌載)
-	async fetch (payload) { // {{{
+	async fetch (payload) {
 		if (this.A.raw||this.A.doc) return this.A.raw||this.A.doc;
 		if (this.A.upload) {
 			let f, fs = await upload(this.A.upload, this.A.multiple), rs=[];
@@ -381,7 +410,7 @@ class R {
 		}
 		return {'E':res.statusText};
 		// }}}
-	}
+	}	// fetch
 }
 
 (new E('<link rel="stylesheet" href="/App/piers.css"/>')).join(document.head);

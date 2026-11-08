@@ -193,6 +193,14 @@ SCRIPT.value = class extends Apps.mod_template
 			);
 		} catch (x) { console.log("Error", x); }
 	}	// download 下載題目
+
+	async commit (elem, target, url) {
+		try {
+			Apps.B(
+				await this[`get${format}`](await this.getQuizArray(target))
+			).commit(url);
+		} catch (x) { console.log("Error", x); }
+	}	// commit
 };
 
 })(document.currentScript);
