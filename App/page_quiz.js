@@ -1,6 +1,25 @@
 (function(SCRIPT){
 
-// quiz_secret=practice
+const ExamTitlePage=`
+<style>
+.quizBar {padding:8px;display:flex;flex-flow:row nowrap;align-items:center;justify-content:space-between;}
+.quizBar>div {white-space:nowrap;}
+.quizBar [data-h] {color:blue; text-decoration:underline;}
+</style>
+<section>
+	<div class='ac h1'>考試名稱</div><hr/>
+	<div class='ac'><button data-h='set:PageNumber:2'>開始考試</button></div>
+	<div data-x='quiz:exam' class='hide'>
+		<div class='quizBar'>
+			<div style='flex:1 1 auto'></div>
+			<div data-h='set:PageNumber:prev'>&lArr;</div>
+			<div class='section_bookmark'> (<span data-v='text:pn'>0</span>/<span data-v='text:pc'>-</span>) </div>
+			<div data-h='set:PageNumber:next'>&rArr;</div>
+			<div style='flex:1 1 auto'></div>
+			<div data-h='call:quiz:commit:doc:__API__/WKS/commit'>&uArr; Commit</div>
+		</div>
+	</div>
+</section>`;
 
 function csv_escape (s) { return s.replaceAll('"','""'); }
 
@@ -8,8 +27,7 @@ SCRIPT.value = class extends Apps.mod_template
 {
 	constructor (slide) {
 		super(slide);
-		this.Secret = Apps.Args.quiz_secret || 'practice';
-		if (this.Secret!=='practice') console.log('Enter exam mode');
+		this.Secret = Apps.Args.quiz_secret || 'practice'
 	}	// constructor
 
 	async hash_control (e, a) {	// security coding applied here
@@ -24,10 +42,25 @@ SCRIPT.value = class extends Apps.mod_template
 
 	async init (elem, qtype) {
 		if (elem.classList.contains('mod_quiz')) return;
-		elem.classList.add('mod_quiz');
-		elem.dataset.qtype = qtype;
 
 		const args=(elem.dataset.xl||elem.dataset.x).split(':');
+		if (qtype==='exam') {
+			console.log('Enter exam mode', this.Secret);
+			if (this.Secret==='practice') this.Secret=undefined;
+			const Qs=Array.from(this.Slide.E.querySelectorAll('section'))
+				.filter((se)=>!!se.querySelector('.mod_quiz_answer'));
+			for (let idx=0;idx<Qs.length;idx++) {
+				for(let te=elem.firstChild; te; te=te.nextSibling) if (te.nodeType===1) {
+					const be = te.cloneNode(true);
+					Apps.E(be).put({"pn":1+idx,"pc":Qs.length});
+					Qs[idx].appendChild(be);
+				}
+			}
+			return;
+		}
+
+		elem.classList.add('mod_quiz');
+		elem.dataset.qtype = qtype;
 		if (args[1]==='c') return;
 
 		// shuffle opotions
@@ -57,12 +90,10 @@ SCRIPT.value = class extends Apps.mod_template
 	async check_answer (qe) {
 		let ans='QR-';
 
-		if (true || this.Secret==='practice') {
+		if (this.Secret) {
 			let r = true;
 			switch (qe.dataset.qtype) {
-			case 's':
-				ans=qe.querySelector('.mod_quiz_answer.QS') ? 'QR' : 'QR-';
-			case 'm':
+			case 's': case 'm':
 				for (let oe of Array.from(qe.querySelectorAll('.mod_quiz_answer')))
 					r &&= (await this.hash_control(oe, oe.classList.contains('QS') ? 'O' : 'X'));
 				break;
@@ -74,6 +105,8 @@ SCRIPT.value = class extends Apps.mod_template
 				break;
 			}
 			ans = r ? 'QRO' : 'QRX';
+		} else if (qe.dataset.qtype==='s') {
+			ans=qe.querySelector('.mod_quiz_answer.QS') ? 'QR' : 'QR-';
 		}
 		const p=/QR?/;
 		Array.from(qe.classList)
@@ -113,21 +146,28 @@ SCRIPT.value = class extends Apps.mod_template
 	}	// answer 答題
 
 	async getJSON (qes) {
-			let qs = qes.reduce((qr,qe)=>{
-				qr.push(Array.from(qe.querySelectorAll('.mod_quiz_answer.QS')).reduce((r,e)=>{
-					r.push(e.dataset.kh);
-					return r;
-				},[]));
-				return qr;
-			},[]);
-			return JSON.stringify(qs);
+		const ra=async (Qs)=>{
+			let qr=[],qe;
+			for (qe of Qs) {
+				let Q2s = await this.getQuizArray(qe);
+				if (Q2s.length<=0)
+					qr.push(Array.from(qe.querySelectorAll('.mod_quiz_answer.QS')).reduce((r,e)=>{
+						r.push(e.dataset.kh);
+						return r;
+					},[]));
+				else qr.push(await ra(Q2s));
+			}
+			return qr;
+		};
+		return JSON.stringify(await ra(qes));
 	}	// getJSON 轉換題目為 JSON 字串
 
 	async getHTML (qes) {
 		let qs = '';
+		const hp = ``
 		for (let page of qes)
 			qs += '<section>'+page.outerHTML+'</section>\n';
-		return `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="/App/page.js"></script></head><body style='opacity:0'>\n${qs}</body></html>`;
+		return `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="/App/page.js"></script></head><body style='opacity:0'>\n<!--http:\/\/localhost:8080/QZTest.html?quiz_secret=${this.Secret}-->\n${ExamTitlePage}\n${qs}</body></html>`;
 	}	// getHTML 轉換題目為 HTML 字串
 
 	async getDLC (qes) {	
@@ -168,10 +208,14 @@ SCRIPT.value = class extends Apps.mod_template
 					"doc" : ()=>document.body
 				}[te]();
 			} catch (x) { te = document.body.querySelector(te); }
-		let tmp=te.cloneNode(true),rst;
-		rst=Array.from(tmp.querySelectorAll('.mod_quiz[data-qtype="c"]'));
-		rst.forEach((e)=>e.parentNode.removeChild(e));
-		return [...rst, ...Array.from(tmp.querySelectorAll('.mod_quiz'))];
+		let tmp=te.cloneNode(true),rst=[];
+		while (true) {
+			const q = tmp.querySelector('.mod_quiz');
+			if (!q) break;
+			rst.push(q);
+			q.parentNode.removeChild(q);
+		}
+		return rst;
 	}	// getQuizArray 取得問題集陣列
 
 	async applyJSON(ajs, target=document.body) {
@@ -196,9 +240,10 @@ SCRIPT.value = class extends Apps.mod_template
 	}	// download 下載題目
 
 	async commit (elem, target, url) {
+		console.log(elem, target, url);
 		try {
 			Apps.B(
-				await this[`get${format}`](await this.getQuizArray(target))
+				await this.getJSON(await this.getQuizArray(target))
 			).commit(url);
 		} catch (x) { console.log("Error", x); }
 	}	// commit
