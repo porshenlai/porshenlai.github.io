@@ -240,11 +240,12 @@ SCRIPT.value = class extends Apps.mod_template
 	}	// download 下載題目
 
 	async commit (elem, target, url) {
-		console.log(elem, target, url);
+		console.log('commit',url);
 		try {
-			Apps.B(
+			let rst = await Apps.B(
 				await this.getJSON(await this.getQuizArray(target))
 			).commit(url);
+			alert(rst.status+'\n'+rst.client_ip);
 		} catch (x) { console.log("Error", x); }
 	}	// commit
 };
