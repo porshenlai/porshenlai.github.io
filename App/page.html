@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+<script>
+	window.Apps = { // {{{
+		before_load: function (slide, doc) {
+			Array.from(doc.querySelectorAll('.sample')).forEach(
+				(sm)=>(sm.dataset.source=sm.innerHTML)
+			);
+		},
+		after_load: function (slide) { },
+		page_load: function (page) { },
+		viewsource: function (btn) {
+			try {
+				const page=Apps.E(btn).trace('section'), sample=page.querySelector('.sample');
+				if (sample) {
+					const output=page.querySelector('textarea');
+					output.value = sample.dataset.source || sample.innerHTML.trim();
+					output.setAttribute('rows',((n)=>n>15?15:n)(output.value.split('\n').length+3));
+				}
+				btn.parentNode.querySelector('textarea').classList.toggle('hide');
+			} catch(x) { console.log(x); }
+		}
+	};	// }}}
+</script>
+<script src="page.js"></script>
+</head>
+<body style='opacity:0'><main data-controls='aside,control'><div id='content'>
+
+<div data-def='template:原始碼' style="width:100%;text-align:right;border-bottom:2px solid blue;">
+	<button data-h='call:viewsource:&this'>原始碼</button><br/>
+	<textarea class='hide' style='width:100%;white-space:nowrap;overflow:auto;' rows='1'></textarea>
+</div>
+
+<section class='page col'>
+	<div style='text-align:center'>
+		<div class='h1'>pStyle Page</div>
+		<div class='h3'>the Tutorial</div>
+	</div>
+	<br/>
+	<div class='frame'>
+		<div><em><a href='mailto:porshenlai@gmail.com'>Lai, Porshen</a></em></div>
+		<div><em>Department of Finance</em></div>
+		<div><em>Chihlee University of Technology</em></div>
+	</div>
+</section>
+
+<section class='fs' data-style='bg::/res/cyberpiers.jpg'>
+	<table width='100%' height='100%' border='1'><tr>
+		<th style='color:yellow;'>Fullscreen Layout</th>
+	</tr></table>
+</section>
+
+<section class='page col'><h2>播放模式 (Play Mode)</h2><!--{{{-->
+	<table class='std'><thead>
+		<tr><th>號碼</th><th>名稱</th><th>描述</th><tr>
+	</thead><tbody>
+		<tr><th>0</th><th>連續</th><td>
+			<div>- 根據內容決定頁面高度</div>
+			<div>- 頁面連續顯示</div>
+			</td></tr>
+		<tr><th>1</th><th>滿框</th><td>
+			<div>- 頁面填滿螢幕高度</div>
+			<div>- 頁面連續顯示</div>
+			</td></tr>
+		<tr><th>2</th><th>分頁</th><td>
+			<div>- 頁面填滿螢幕高度</div>
+			<div>- 頁面單獨顯示</div>
+		</td></tr>
+	</tbody></table>
+</section><!--}}}-->
+
+<section class='page col'>
+	<h2>頁面切換</h2>
+	<div data-xl='template:原始碼'></div>
+	<div class='sample fill'>
+		<button data-h='go:prev'>往前</button>
+		<button data-h='go:next'>往後</button>
+		<button data-h='go:封面頁'>封面頁</button>
+		<button data-h='fullscreen:section'>Fullscreen</button>
+	</div>
+</section>
+
+<section class='page col'><h2>排版 - 頁面切版</h2><!--{{{-->
+	<div class='fill zcs'>
+		<div class='swd'><textarea style='margin:auto;width:95%;height:95%;'>
+&lt;div class='fill col'&gt;
+  &lt;h2&gt;頁首&lt;/h2&gt;
+  &lt;div class='fill zcs'&gt;
+    &lt;div class='swd'&gt;
+      第一區
+    &lt;/div&gt;
+    &lt;div class='swd'&gt;
+      第二區
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;頁尾&lt;/div&gt;
+&lt;/div&gt;
+</textarea></div>
+		<div class='swd'><ul>
+			<li>.fill to set a block maximized.</li>
+			<li>.col to enable the flex column, .col&gt;.fill to set a variable size block.</li>
+			<li>.row to enable the flex row.</li> 
+			<li>.row.zcs to set the block listed in a Z shaped path.</li>
+			<li>.row&gt;.swd to set the width of children blocks according to the screen layout.</li>
+		</ul></div>
+	</div>
+	<div>這裡是頁尾</div>
+</section><!--}}}-->
+
+<section><h2>Table</h2>
+<div><h4>table.std</h4>
+<table class=std>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Gender</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>1</th>
+			<td>George</td>
+			<td>M</td>
+		</tr>
+		<tr>
+			<th>2</th>
+			<td>Mary</td>
+			<td>F</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<div><h4>table.nv</h4>
+<table class='nv'>
+	<tr>
+		<th>Name</th>
+		<td>姓名</td>
+	</tr>
+	<tr>
+		<th>ID</th>
+		<td>身分證字號</td>
+	</tr>
+</table>
+</div>
+<div><h4>table.chart</h4>
+	<table class='chart'>
+		<tr><td></td><td></td><th>UP</th><td></td><td></td></tr>
+		<tr><td></td><td></td><td>&uarr;</td><td></td><td></td></tr>
+		<tr><th>LEFT</th><td>&larr;</td><th class='R'>CENTER</th><td>&rarr;</td><th>RIGHT</th></tr>
+		<tr><td></td><td></td><td>&darr;</td><td></td><td></td></tr>
+		<tr><td></td><td></td><th>DOWN</th><td></td><td></td></tr>
+	</table>
+</div>
+</section>
+
+<section><h2>互動 - 頁籤</h2><!--{{{-->
+<div class='tabBar'>
+	<button data-h='sw:選項A' class='current'>選項 A</button>
+	<button data-h='sw:選項B'>選項 B</button>
+</div>
+<div>
+	<div data-case='選項A'>點擊 <b>[data-h="sw:選項A"]</b> 的元件<br/>來顯示 <b>[data-case="選項A"]</b> 的區塊</div>
+	<div data-case='選項B' class='hide'>點擊 <b>[data-h="sw:選項B"]</b> 的元件<br/>來顯示 <b>[data-case="選項B"]</b> 的區塊</div>
+</div>
+</section><!--}}}-->
+
+<section><h2>Folding</h2>
+<div><ul>
+<li><span data-h='fold'>Label</span><ul>
+	<li>Data Comes Here 1</li>
+	<li>Data Comes Here 2</li>
+</ul></li>
+<li>TEST</li>
+</ul></div>
+</section>
+
+<section>
+	<h2>Import Calculator</h2>
+	<div data-xl='import:Tools/Calc.html'></div>
+</section>
+
+<section class='page col'><h2>管道</h2><!--{{{-->
+<style>
+	.ArchMap td { text-align:center; vertical-align:middle; }
+	.ArchMap td.FB { border:1px solid black; }
+	.ArchMap td:not(.FB) span { margin:0 32px; font-size:80%; color:darkblue; }
+	.ArchMap td.FB .sample { font-size:72%; color:darkgreen; text-align:left; background:#f0fff0; padding:2px 8px; }
+</style>
+<table class='ArchMap' align='center' width='90%'>
+	<tbody>
+		<tr><td class='FB'>伺服器</td></tr>
+		<tr><td>
+			<span>&uarr; HTTP POST Request (JSON)</span>
+			<span>&darr; HTTP Response (JSON)</span>
+		</td></tr>
+		<tr><td class='FB col'>Data<pre class='sample'>
+&lt;textarea data-def='data:名稱'&gt;
+{"A":1, "B":2}
+&lt;/textarea&gt;
+</pre></td></tr>
+		<tr><td>
+			<span>&darr; Template.<b>put</b>( Data.<b>get</b>() )</span>
+			<span>&uarr; Data.<b>put</b>( Template.<b>get</b>() )</span>
+		</td></tr>
+		<tr><td class='FB col'>Template<pre class='sample'>
+&lt;div data-def='template:名稱'&gt;
+	&lt;output data-v='value:A'&gt;&lt;/output&gt;
+	&lt;input data-v='value:B'&gt;&lt;/input&gt;
+&lt;/div&gt;
+</pre></td></tr>
+		<tr><td class='FB'>使用者介面</td></tr>
+	</tbody>
+</table>
+</section><!--}}}-->
+
+<div data-def='data:JSONGet'>
+	<input data-v='value:get' value='list_test.json'></input>
+</div>
+<div data-def='data:JSONPost'>
+	<input data-v='value:post' value='api.aspx'></input>
+	<textarea data-v='value:payload'>{"A":123,"B":456}</textarea>
+</div>
+<div data-def='data:UserInfo'>
+	<input data-v='value:get' value='porshenlai/userinfo.json'></input>
+	<div data-case='AuthFailed'>
+		<div>User:<input type='text'></input></div>
+		<div>Pass:<input type='password'></input></div>
+		<div><button data-h='data:submit'></button></div>
+	</div>
+<div>
+<div data-def='data:Login'>
+	<input type='text' data-v='value:U'></input>
+	<input type='password' data-v='value:S'></input>
+	<button data-h='submit'>
+		Submit
+		<input type='hidden' data-v='value:post' value='["login.aspx?U=","U"]'></input>
+		<textarea class='hidden' data-v='value:json'>['{"P":"','U','"}']</textarea>
+	</button>
+</div>
+<div data-def='data:Query'>
+	<select data-v='value:method'>
+		<option>get</option>
+		<option>post</option>
+	</select>
+	<input data-v='value:url' value='list_test.json'></input>
+	<button data-h='data:submit'>Submit</button>
+</div>
+
+</div></main></body>
+</html>

@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: 企業內部系統 API 規格書 (IIS + VB.NET)
+  description: 包含前端 RESTful API、內部模組化服務 API，以及共用資料庫模型定義。
+  version: 1.0.0
+
+# -----------------------------------------------------------------------------
+# 1. API 路由與操作定義 (Paths)
+# -----------------------------------------------------------------------------
+paths:
+
+  # ==========================================
+  # [類別 1] 前端呼叫的 RESTful API
+  # ==========================================
+  /api/v1/orders/{orderId}:
+    get:
+      tags:
+        - "前端 API - 訂單管理"
+      summary: 取得單筆訂單詳細資訊
+      description: 供網頁前端 (Web Client) 載入頁面時呼叫。
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: 訂單編號
+          schema:
+            type: string
+            example: "ORD-20260917-001"
+      responses:
+        '200':
+          description: 成功取得訂單資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderTable' # 直接引用共用的訂單資料模型
+
+  # ==========================================
+  # [類別 2] 內部呼叫的 VB Function API (共用模組)
+  # ==========================================
+  /api/internal/finance/calculate-tax:
+    post:
+      tags:
+        - "內部 API - 金融邏輯服務"
+      summary: 計算訂單稅額與折扣 (內部模組)
+      description: 封裝內部 VB.net Function 邏輯，供其他後端模組或批次作業重複呼叫。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+                - taxType
+              properties:
+                amount:
+                  type: number
+                  format: decimal
+                  description: 原始金額
+                  example: 1000.0
+                taxType:
+                  type: string
+                  enum: [INCLUDED, EXCLUDED, ZERO]
+                  description: 計稅類型 (含稅/未稅/零稅率)
+                  example: "EXCLUDED"
+      responses:
+        '200':
+          description: 計算完成
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  taxAmount:
+                    type: number
+                    format: decimal
+                    example: 50.0
+                  totalAmount:
+                    type: number
+                    format: decimal
+                    example: 1050.0
+
+# -----------------------------------------------------------------------------
+# 2. 資料結構與表格定義 (Components / Schemas)
+# -----------------------------------------------------------------------------
+components:
+  schemas:
+
+    # ---------------------------------------------------------
+    # [資料表] 訂單主檔 (Order Table Schema)
+    # ---------------------------------------------------------
+    OrderTable:
+      type: object
+      description: 對應資料庫 [Orders] 資料表與 VB.net Order Entity
+      required:
+        - orderId
+        - customerId
+        - totalAmount
+        - status
+      properties:
+        orderId:
+          type: string
+          description: "PK: 訂單編號"
+          example: "ORD-20260917-001"
+        customerId:
+          type: string
+          description: "FK: 客戶編號"
+          example: "CUST-888"
+        totalAmount:
+          type: number
+          format: decimal
+          description: 訂單總金額
+          example: 1050.0
+        status:
+          type: string
+          description: 訂單狀態 (P=Pending, C=Completed, X=Canceled)
+          enum: [P, C, X]
+          example: "P"
+        createdAt:
+          type: string
+          format: date-time
+          description: 建立時間
+          example: "2026-09-17T09:30:00Z"
+        items:
+          type: array
+          description: 訂單明細列表
+          items:
+            $ref: '#/components/schemas/OrderItemTable'
+
+    # ---------------------------------------------------------
+    # [資料表] 訂單明細檔 (OrderItem Table Schema)
+    # ---------------------------------------------------------
+    OrderItemTable:
+      type: object
+      description: 對應資料庫 [OrderItems] 資料表
+      required:
+        - itemId
+        - productId
+        - quantity
+        - unitPrice
+      properties:
+        itemId:
+          type: integer
+          format: int64
+          description: "PK: 明細識別碼"
+          example: 1001
+        productId:
+          type: string
+          description: 商品編號
+          example: "PROD-A01"
+        quantity:
+          type: integer
+          description: 數量
+          example: 2
+        unitPrice:
+          type: number
+          format: decimal
+          description: 單價
+          example: 500.0

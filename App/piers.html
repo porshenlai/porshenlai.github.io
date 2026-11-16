@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/res/icon.jpg">
+</head>
+<body>
+
+<div class='BOUND'>
+	<div id='TEST-1'>
+		<div data-v='text:title'></div>
+		<div data-c='forEach:s'>
+			<div data-v='text:A.A'>TARGET</div>
+			<div><input data-v='value:A.B' value='INPUT'></input></div>
+		</div>
+	</div>
+
+	<div>
+		<button id='UploadTest'>上傳測試</button>
+	</div>
+</div>
+
+<script>
+const ft={
+
+test_E: async function (Apps) {
+	const E = Apps.E(document.getElementById("TEST-1"));
+	let rv = [
+		()=>E.trace('.BOUND').getAttribute("class") === 'BOUND',
+		()=>E.query('[data-v]').dataset.v === 'text:title',
+		()=>{
+			let da = {
+				title:"Hello",
+				s:[
+					{A:{A:"Data-A",B:"Data-B"}},
+					{A:{A:"Data-C",B:"Data-D"}}
+				]
+			};
+			E.put(da);
+			db = E.get();
+			return JSON.stringify(da)===JSON.stringify(db);
+		}
+	].reduce((r,t)=>t()&&r,true);
+	console.log("test_E:",rv ? "Succeed" : "Failed");
+},
+
+test_R: async function(Apps) {
+	try {
+		let rv = false;
+		let base = Apps.R().resolve('/App/piers.html');
+		let doc = await Apps.D({"url":"piers.json"}).request(base);
+		console.log("test_R: Succeed");
+	} catch(x) {
+		console.log("test_R: Failed");
+	}
+},
+
+test_B: async function(Apps) {
+	let blob=Apps.B("Hello World","text/plain");
+	console.log(await blob.decode());
+	// blob.download("test.txt");
+
+	document.getElementById("UploadTest").addEventListener("click",async (evt)=>{
+		let blob=(await Apps.upload("text/plain"))[0];
+		console.log(await blob.decode());
+	});
+},
+
+run: async function(Apps) {
+	for (let k in ft) if (k.startsWith('test_')) {
+		await ft[k](Apps);
+	}
+}
+
+};
+</script>
+<script src="piers.js" onload='ft.run(this.value)'></script>
+
+</body>
+</html>

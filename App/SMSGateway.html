@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>API 文件預覽器</title>
+  <!-- 1. 引入 Swagger UI 的 CSS 樣式檔 -->
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+</head>
+<body>
+  <div><a href='https://swagger.io/docs/specification/v3_0/basic-structure/' target='_blank'>[Specification]</a></div>
+  <!-- 2. 定義 UI 渲染的容器區域 -->
+  <div id="swagger-ui"></div>
+
+  <!-- 3. 引入 Swagger UI 的 JavaScript 核心檔 -->
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+
+  <script>
+    window.onload = function() {
+      // 4. 初始化 Swagger UI
+      SwaggerUIBundle({
+        // 方案 A: 直接指定 YAML 或 JSON 的檔案 URL (如 static/openapi.yaml)
+        url: "SMSGateway.yaml",
+        
+        // 方案 B: 如果想把 YAML 轉成 JSON 物件直接嵌在程式碼裡，可改用 spec
+        /*
+        spec: {
+          openapi: "3.0.0",
+          info: { title: "內部 API", version: "1.0.0" },
+          paths: { ... }
+        },
+        */
+
+        dom_id: '#swagger-ui',
+        presets: [
+          SwaggerUIBundle.presets.apis
+        ],
+        layout: "BaseLayout"
+      });
+    };
+  </script>
+</body>
+</html>
