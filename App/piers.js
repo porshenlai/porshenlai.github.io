@@ -139,10 +139,11 @@ class B {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 
 			const data = await response.json();
-			console.log('Success:', data);
+			return data;
 		} catch (error) {
 			console.error('Error uploading blob:', error);
 		}
+		return {"status":"failed"};
 	}	// commit 
 
 	async download (name) {
