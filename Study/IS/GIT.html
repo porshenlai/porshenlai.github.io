@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target='_blank'></base>
+<script src="/App/page.js"></script>
+<title>Version Control: GIT</title>
+<base target='_blank'></base>
+</head>
+<body style='opacity:0'>
+
+<section class='page col'>
+	<div class='h1 ac' style='margin-bottom:1em'>Git 版本控制</div>
+	<div class="frame">
+		<div>😊 <a href="mailto:porshenlai@gm.chihlee.edu.tw">Porshen Lai</a></div>
+		<div>🎓 Department of Finance,</div>
+		<div>🏫 Chihlee University of Technology</div>
+		<div>🕑 2026, Winter</div>
+	</div>
+</section>
+
+<section><h2>CLONE</h2>
+<ul>
+	<li><h3>沒有子模組</h3>
+		<div data-x='code'>git clone (REPOSITORY)</div>
+	</li>
+	<li><h3>有子模組</h3>
+		<div data-x='code'>
+git clone --recurse-submodules (REPOSITORY)
+</div>
+		<div data-x='code'>
+git clone (REPOSITORY)
+git submodule update --init --recursive
+git submodule sync --recursive
+		</div>
+		<div data-x='code'>
+git clone (REPOSITORY)
+git submodule update --remote --merge
+		</div>
+	</li>
+</ul>
+</section>
+
+<section><h2>PUSH</h2>
+<ul>
+	<li><h3>有分支</h3>
+		<div data-x='code'>
+git submodule add -b (branch) (repository) (folder)
+git commit -m "Add submodule"
+git push
+		</div>
+	</li>
+	<li><h3>沒有分支</h3>
+		<div data-x='code'>
+git submodule add <repository> <folder>
+git commit -m "Add submodule"
+git push
+		</div>
+	</li>
+</ul>
+</section>
+
+<section><h2>PULL</h2>
+<ul>
+	<li>
+		<div data-x='code'>
+git config --global submodule.recurse true
+git pull
+		</div>
+		<div data-x='code'>
+git pull --recurse-submodules
+		</div>
+	</li>
+</ul>
+</section>
+
+</body>
+</html>
